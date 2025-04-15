@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { SsrLocalStorageService } from './ssr-local-storage.service';
+import { SsrLocalStorage } from './ssr-local-storage.service';
 import { PLATFORM_ID } from '@angular/core';
 
 //==============================//
 
-describe('SsrLocalStorageService (Browser)', () => {
-  let service: SsrLocalStorageService;
+describe('SsrLocalStorage (Browser)', () => {
+  let service: SsrLocalStorage;
   let localStorageMock: any;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('SsrLocalStorageService (Browser)', () => {
         { provide: PLATFORM_ID, useValue: 'browser' }
       ]
     });
-    service = TestBed.inject(SsrLocalStorageService);
+    service = TestBed.inject(SsrLocalStorage);
   });
 
   //- - - - - - - - - - - - - - - //
@@ -142,8 +142,8 @@ describe('SsrLocalStorageService (Browser)', () => {
 
 //==============================//
 
-describe('SsrLocalStorageService (Server)', () => {
-  let service: SsrLocalStorageService;
+describe('SsrLocalStorage (Server)', () => {
+  let service: SsrLocalStorage;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -151,7 +151,7 @@ describe('SsrLocalStorageService (Server)', () => {
         { provide: PLATFORM_ID, useValue: 'server' }
       ]
     });
-    service = TestBed.inject(SsrLocalStorageService);
+    service = TestBed.inject(SsrLocalStorage);
   });
 
   //- - - - - - - - - - - - - - - //

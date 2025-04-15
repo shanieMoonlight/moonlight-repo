@@ -113,8 +113,12 @@ export class ThemeService {
 
   //-----------------------------//
 
-  retrieveTheme = (): ThemeData | null =>
-    this._localStorage.getItemObject<ThemeData>(THEME_KEY)
+  retrieveTheme = (): ThemeData | null => {
+    const data = this._localStorage.getItemObject<ThemeData>(THEME_KEY)
+    console.log('ThemeData retrieved:', data);
+
+    return data ?? null
+  }
 
   //-----------------------------//
 
@@ -122,18 +126,24 @@ export class ThemeService {
 
     try {
       const themeData = this.retrieveTheme()
+      // console.log('Stored ThemeData:', themeData)
+      // console.log('this.isSystemDarkModeEnabled():', this.isSystemDarkModeEnabled());
+      // console.log('this._config.defaultMode :', this._config.defaultMode);
 
       // Determine dark mode with this priority:
       // 1. User's saved preference
       // 2. System preference
       // 3. Default setting
       const isDarkMode = themeData?.isDarkMode ??
-        this.detectSystemThemePreference() ??
+        this.isSystemDarkModeEnabled() ??
         this._config.defaultMode === 'dark'
+
+      // console.log('isDarkMode:', isDarkMode);
+
 
       // Validate theme ID exists in config
       const validThemeSfx = this._config.themeOptions
-        .map(opt => opt.classIdx)
+        .map(opt => opt.classSuffix)
         .find(idx => idx === themeData?.suffix);
 
       this.clear()
@@ -197,10 +207,16 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private detectSystemThemePreference = (): boolean =>
-    typeof window !== 'undefined'
+  private isSystemDarkModeEnabled = (): boolean | undefined => {
+    // console.log("typeof window !== 'undefined'", typeof window !== 'undefined');
+    // console.log("typeof window", typeof window);
+    // if (typeof window !== 'undefined')
+    //   console.log("window.matchMedia('(prefers-color-scheme: dark)').matches", window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    return typeof window !== 'undefined'
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : false
+      : undefined;
+  }
 
   //-----------------------------//
 
