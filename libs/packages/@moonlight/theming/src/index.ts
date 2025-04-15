@@ -1,1 +1,1 @@
-export * from './lib/theming.component';
+export const UseSecondaryEntryPoints = 'Use Secondary Entry Points!!';
