@@ -1,0 +1,54 @@
+:host {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.fade-in,
+.fade-out {
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.fade-in {
+  transition-delay: 0.95s;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(120%);
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  color: inherit;
+
+  svg {
+    fill: currentColor;
+  }
+
+  .dark {
+    position: absolute;
+  }
+}
+
+mat-slide-toggle {
+  cursor: pointer;
+  // Add a subtle hover effect for better UX
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+
+.svg-container {
+  display: flex;
+  align-items: center;
+  // Add focus styles for keyboard navigation
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    border-radius: 4px;
+  }
+}

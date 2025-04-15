@@ -62,9 +62,9 @@ export class ThemeService {
   isDarkMode$ = this._isDarkModeBs.asObservable()
   isDarkMode = toSignal(this.isDarkMode$)
 
-  private _themeIdxBs = new BehaviorSubject<ThemeSuffix>(1)
-  themeIdx$ = this._themeIdxBs.asObservable()
-  themeIdx = toSignal(this.themeIdx$)
+  private _themeSuffixBs = new BehaviorSubject<ThemeSuffix>(1)
+  themeSuffix$ = this._themeSuffixBs.asObservable()
+  themeSuffix = toSignal(this.themeSuffix$)
 
   //- - - - - - - - - - - - - - -//
 
@@ -108,17 +108,13 @@ export class ThemeService {
     this._renderer.removeClass(this._document.body, this.generateThemeClass(this._currentThemeSfx))
     this._currentThemeSfx = suffix
     this._renderer.addClass(this._document.body, this.generateThemeClass(this._currentThemeSfx))
-    this._themeIdxBs.next(this._currentThemeSfx)
+    this._themeSuffixBs.next(this._currentThemeSfx)
   }
 
   //-----------------------------//
 
-  retrieveTheme = (): ThemeData | null => {
-    const data = this._localStorage.getItemObject<ThemeData>(THEME_KEY)
-    console.log('ThemeData retrieved:', data);
-
-    return data ?? null
-  }
+  retrieveTheme = (): ThemeData | null => 
+    this._localStorage.getItemObject<ThemeData>(THEME_KEY) ?? null
 
   //-----------------------------//
 
@@ -126,9 +122,6 @@ export class ThemeService {
 
     try {
       const themeData = this.retrieveTheme()
-      // console.log('Stored ThemeData:', themeData)
-      // console.log('this.isSystemDarkModeEnabled():', this.isSystemDarkModeEnabled());
-      // console.log('this._config.defaultMode :', this._config.defaultMode);
 
       // Determine dark mode with this priority:
       // 1. User's saved preference
@@ -137,9 +130,6 @@ export class ThemeService {
       const isDarkMode = themeData?.isDarkMode ??
         this.isSystemDarkModeEnabled() ??
         this._config.defaultMode === 'dark'
-
-      // console.log('isDarkMode:', isDarkMode);
-
 
       // Validate theme ID exists in config
       const validThemeSfx = this._config.themeOptions
@@ -164,7 +154,7 @@ export class ThemeService {
 
   private initializePersistence(): void {
 
-    combineLatest([this._themeIdxBs, this._isDarkModeBs])
+    combineLatest([this._themeSuffixBs, this._isDarkModeBs])
       .pipe(
         takeUntilDestroyed(this._destroyor),
         debounceTime(100),
@@ -207,16 +197,10 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private isSystemDarkModeEnabled = (): boolean | undefined => {
-    // console.log("typeof window !== 'undefined'", typeof window !== 'undefined');
-    // console.log("typeof window", typeof window);
-    // if (typeof window !== 'undefined')
-    //   console.log("window.matchMedia('(prefers-color-scheme: dark)').matches", window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-    return typeof window !== 'undefined'
+  private isSystemDarkModeEnabled = (): boolean | undefined =>
+    typeof window !== 'undefined'
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : undefined;
-  }
+      : undefined
 
   //-----------------------------//
 

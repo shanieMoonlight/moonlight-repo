@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .colors-icon {
+    border: 1px solid #d3d3d3e0;
+  }
+  
+  .selected {
+    background-color: rgba(128, 128, 128, 0.25) !important;
+  }
+  
+  #butt-icon {
+    cursor: pointer;
+  }
+  

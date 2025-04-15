@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
-import { RendererFactory2, DestroyRef } from '@angular/core';
-import { ThemeService } from './theme.service';
-import { SsrLocalStorage } from '../../../../ssr/storage/src/lib/ssr-local-storage.service';
-import { ThemeConfig, ThemeConfigService, ThemeMode } from '../../../config/src/lib/theme-picker-menu-config';
-import { ThemeOption } from '../../../config/src/lib/theme-option.model';
-import { ThemeData, ThemeDataUtils } from './theme-data';
+import { DestroyRef, RendererFactory2 } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
+import { SsrLocalStorage } from '../../../../ssr/storage/src/lib/ssr-local-storage.service';
+import { ThemeOption } from '../../../config/src/lib/theme-option.model';
+import { ThemeConfig, ThemeConfigService } from '../../../config/src/lib/theme-picker-menu-config';
+import { ThemeData, ThemeDataUtils } from './theme-data';
+import { ThemeService } from './theme.service';
 
 //##################################################//
 
@@ -240,7 +240,7 @@ describe('ThemeService', () => {
     it('should update themeIdx observable', async () => {
       const themeSuffix = 2;
       service.setThemeSuffix(themeSuffix);
-      const currentThemeSuffix = await firstValueFrom(service.themeIdx$);
+      const currentThemeSuffix = await firstValueFrom(service.themeSuffix$);
       expect(currentThemeSuffix).toBe(themeSuffix);
     });
   });
