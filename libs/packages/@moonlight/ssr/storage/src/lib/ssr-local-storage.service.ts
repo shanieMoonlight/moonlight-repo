@@ -4,14 +4,14 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core'
 @Injectable({
   providedIn: 'root'
 })
-export class SsrLocalStorageService {
+export class SsrLocalStorage {
   private _platformId = inject(PLATFORM_ID)
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this._platformId)
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   get length(): number {
     return this.isBrowser()
@@ -19,14 +19,14 @@ export class SsrLocalStorageService {
       : 0
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   clear(): void {
     if (this.isBrowser())
       localStorage.clear()
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   getItem(key: string): string | null {
     return this.isBrowser()
@@ -34,7 +34,7 @@ export class SsrLocalStorageService {
       : null
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   getItemObject<T>(key: string): T | null {
     if (!this.isBrowser()) 
@@ -49,7 +49,7 @@ export class SsrLocalStorageService {
     }
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   key(index: number): string | null {
     return this.isBrowser()
@@ -57,14 +57,14 @@ export class SsrLocalStorageService {
       : null
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   removeItem(key: string): void {
     if (this.isBrowser())
       localStorage.removeItem(key)
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   setItem(key: string, value: string): void {
 
@@ -79,7 +79,7 @@ export class SsrLocalStorageService {
 
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
   setItemObject<T>(key: string, value: T): void {
 
@@ -94,6 +94,6 @@ export class SsrLocalStorageService {
 
   }
 
-  // -----------------------------//
+  //-----------------------------//
 
 }//Cls

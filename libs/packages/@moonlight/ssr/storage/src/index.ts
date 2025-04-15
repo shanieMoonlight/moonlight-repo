@@ -1,1 +1,1 @@
-export * from './lib/moonlight-ssr-local-storage/moonlight-ssr-local-storage.component';
+export * from './lib/ssr-local-storage.service';

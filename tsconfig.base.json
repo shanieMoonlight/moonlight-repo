@@ -15,6 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@moonlight/ng/theming": [
+        "libs/packages/@moonlight/theming/src/index.ts"
+      ],
+      "@moonlight/ng/theming/config": [
+        "libs/packages/@moonlight/theming/config/src/index.ts"
+      ],
+      "@moonlight/ng/theming/mat": [
+        "libs/packages/@moonlight/theming/mat/src/index.ts"
+      ],
+      "@moonlight/ng/theming/service": [
+        "libs/packages/@moonlight/theming/service/src/index.ts"
+      ],
       "@moonlight/ssr-storage": [
         "libs/packages/@moonlight/ssr/storage/src/index.ts"
       ]
