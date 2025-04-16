@@ -1,3 +1,15 @@
+//##################################################//
+
+/**
+ * will be appened to the the`me class name.
+ * Example class="theme-mysuffix0" 
+*/
+export type ThemeValue = string | number;
+
+export const defaultThemeValue: ThemeValue = 'default';
+
+//##################################################//
+
 export class ThemeOption {
 
   /**Used for styling the GUI component to refelect your theme */
@@ -7,16 +19,25 @@ export class ThemeOption {
   secondaryColor?: string
 
   /**Start with dark mode? */
-  isDarkMode?: boolean
-  
+  fallbackIsDarkMode: boolean = false
+
   /**Display Name of the theme */
   label?: string
-  
+
   /**Value associated with the theme */
-  value?: string
-
-  /**Suffix for the class name , that will appear on the body html element*/
-  classSuffix?: string | number = 0
-
+  value: ThemeValue = defaultThemeValue
 
 } //Cls
+
+//##################################################//
+
+export const defaultThemeOption: ThemeOption = {
+  primaryColor: '#4682B4',
+  secondaryColor: '#D2691E',
+  fallbackIsDarkMode: false,
+  label: 'Default',
+  value: 'default',
+  // classSuffix: defaultSuffix
+}
+
+//##################################################//

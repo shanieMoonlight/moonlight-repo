@@ -1,10 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { DestroyRef, Injectable, RendererFactory2, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ThemeConfig, ThemeConfigService } from '@moonlight/ng/theming/config';
+import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged } from 'rxjs';
-import { ThemeData, ThemeDataUtils, ThemeSuffix } from './theme-data';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { ThemeData, ThemeDataUtils } from './theme-data';
 
 //##################################################//
 
@@ -62,83 +62,81 @@ export class ThemeService {
   isDarkMode$ = this._isDarkModeBs.asObservable()
   isDarkMode = toSignal(this.isDarkMode$)
 
-  private _themeSuffixBs = new BehaviorSubject<ThemeSuffix>(1)
-  themeSuffix$ = this._themeSuffixBs.asObservable()
-  themeSuffix = toSignal(this.themeSuffix$)
+
+  private _currentThemeBs = new BehaviorSubject<ThemeOption | undefined>(this._config.themeOptions[0]) // Initialize with a default
+  currentTheme$ = this._currentThemeBs.asObservable();
+  currentTheme = toSignal(this.currentTheme$)
+
+  currentThemeValue$ = this.currentTheme$.pipe(map(theme => theme?.value));
+  currentThemeValue = toSignal(this.currentThemeValue$, { initialValue: defaultThemeValue })
 
   //- - - - - - - - - - - - - - -//
 
   private _renderer = this._rendererFactory.createRenderer(this._document.body, null)
 
-  private _currentShadeTheme = this._config.lightModeClass
-  private _currentThemeSfx: ThemeSuffix = 0
+  private _currentDarkModeClass = this._config.lightModeClass
 
   //- - - - - - - - - - - - - - -//
 
   constructor() {
-    this.initializeTheme()
+    this.initializeThemeAndMode()
   }
 
   //-----------------------------//
 
   /**
-   * Sets the application's light/dark mode
+   * Sets the application's light/dark mode 
    * 
    * @param isDarkMode When true, applies dark mode class; when false, applies light mode class
    */
   setDarkMode(isDarkMode: boolean) {
 
-    this._renderer.removeClass(this._document.body, this._currentShadeTheme)
-    this._currentShadeTheme = isDarkMode ? this._config.darkModeClass : this._config.lightModeClass
+    this._renderer.removeClass(this._document.body, this._currentDarkModeClass)
+    this._currentDarkModeClass = isDarkMode ? this._config.darkModeClass : this._config.lightModeClass
 
-    this._renderer.addClass(this._document.body, this._currentShadeTheme)
+    this._renderer.addClass(this._document.body, this._currentDarkModeClass)
+
+    //this must be called after remove and add class
+    //All updates must me complete before saving the new DarkMode Settings
     this._isDarkModeBs.next(isDarkMode)
   }
 
   //-----------------------------//
 
   /**
-   * Sets the current theme by applying the appropriate CSS class
-   * 
-   * @param suffix Theme identifier that will be appended to class name prefix
-   * @example setThemeSuffix('blue') applies class "theme-blue" to body
+   * Sets the current theme based on the provided ThemeOption.
+   * Applies the appropriate CSS class and updates dark mode if specified in the option.
+   * If the provided theme is null or undefined, it falls back to the default theme.
+   *
+   * @param theme The ThemeOption to apply, or null/undefined to apply the default.
    */
-  setThemeSuffix(suffix: ThemeSuffix = 1) {
+  setTheme(theme: ThemeOption | null | undefined): void {
+    let themeToApply: ThemeOption;
 
-    this._renderer.removeClass(this._document.body, this.generateThemeClass(this._currentThemeSfx))
-    this._currentThemeSfx = suffix
-    this._renderer.addClass(this._document.body, this.generateThemeClass(this._currentThemeSfx))
-    this._themeSuffixBs.next(this._currentThemeSfx)
+    if (!theme) {
+      // Fallback to the default theme (assuming the first option is the default)
+      themeToApply = this._config.themeOptions[0] ?? ThemeDataUtils.default(); // Provide a hardcoded fallback if options are empty
+      console.warn('setTheme called with invalid theme. Falling back to default:', themeToApply);
+    } else {
+      themeToApply = theme;
+    }
+    this.setThemeClassSuffix(themeToApply)
+
+    //this must be called after setThemeClassSuffix
+    //All updates must me complete before saving the new theme
+    this._currentThemeBs.next(themeToApply);
   }
 
   //-----------------------------//
 
-  retrieveTheme = (): ThemeData | null => 
-    this._localStorage.getItemObject<ThemeData>(THEME_KEY) ?? null
-
-  //-----------------------------//
-
-  private initializeTheme(): void {
+  private initializeThemeAndMode(): void {
 
     try {
       const themeData = this.retrieveTheme()
 
-      // Determine dark mode with this priority:
-      // 1. User's saved preference
-      // 2. System preference
-      // 3. Default setting
-      const isDarkMode = themeData?.isDarkMode ??
-        this.isSystemDarkModeEnabled() ??
-        this._config.defaultMode === 'dark'
+      this.initalizeDarkMode(themeData)
 
-      // Validate theme ID exists in config
-      const validThemeSfx = this._config.themeOptions
-        .map(opt => opt.classSuffix)
-        .find(idx => idx === themeData?.suffix);
-
-      this.clear()
-      this.setDarkMode(isDarkMode)
-      this.setThemeSuffix(validThemeSfx ?? 0)
+      this.initalizeTheme(themeData)
 
       this.initializePersistence()
 
@@ -152,30 +150,98 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
+  private initalizeTheme(themeData?: ThemeData | null): void {
+
+    // Determine initial theme suffix
+    const initialTheme = this._config.themeOptions
+      .find(opt => opt.value === themeData?.theme.value) // Find saved theme
+
+    this.setTheme(initialTheme)
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  /**
+   * Initializes dark mode based on the provided theme data or system preference.
+   * If no theme data is provided, it falls back to the system preference or default mode.
+   *
+   * @param themeData The ThemeData containing dark mode preference, or null/undefined.
+   */
+  private initalizeDarkMode(themeData?: ThemeData | null): void {
+    // Determine initial dark mode
+    const initialDarkMode = themeData?.isDarkMode ??
+      this.isSystemDarkModeEnabled() ??
+      this._config.defaultMode === 'dark'
+
+    this.clearAllDarkModeClasses()
+    this.setDarkMode(initialDarkMode)
+
+    console.log('initializeTheme, initialDarkMode:', initialDarkMode);
+  }
+
+  //- - - - - - - - - - - - - - -//
+
   private initializePersistence(): void {
 
-    combineLatest([this._themeSuffixBs, this._isDarkModeBs])
+    combineLatest([this.currentTheme$, this.isDarkMode$])
       .pipe(
+        tap((data) => console.log('initializePersistence data:', data)),
         takeUntilDestroyed(this._destroyor),
         debounceTime(100),
         distinctUntilChanged()
       )
       .subscribe(
-        ([themeIdx, isDark]) => this.storeTheme(themeIdx, isDark)
+        ([themeOption, isDark]) => {
+          if (!!themeOption)
+            this.storeTheme(themeOption, isDark)
+        }
       )
   }
 
   //- - - - - - - - - - - - - - -//
 
-  private storeTheme(themSfx: ThemeSuffix, isDark: boolean) {
+  /**
+   * Sets the current theme by applying the appropriate CSS class (Internal implementation)
+   *
+   * @param suffix Theme identifier that will be appended to class name prefix
+   */
+  private setThemeClassSuffix(theme: ThemeOption): void {
 
-    const themeData = ThemeDataUtils.create(themSfx, isDark)
+    if (!theme) {
+      // Using the first configured theme's suffix as a fallback:
+      theme = this._config.themeOptions[0] ?? defaultThemeOption;
+      console.warn('Attempted to set invalid theme suffix. Falling back to:', theme.label);
+    }
+
+    const newThemeClass = this.generateThemeClass(theme.value);
+    const oldThemeClass = this.generateThemeClass(this.currentThemeValue() ?? '');
+
+    // Avoid unnecessary DOM manipulation if the class isn't changing
+    if (newThemeClass !== oldThemeClass) {
+      this._renderer.removeClass(this._document.body, oldThemeClass);
+      this._renderer.addClass(this._document.body, newThemeClass);
+    }
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  private storeTheme(themeOption: ThemeOption, isDark?: boolean) {
+
+    const themeData = ThemeDataUtils.create(
+      themeOption,
+      isDark ?? themeOption.fallbackIsDarkMode)
+
     this._localStorage.setItemObject(THEME_KEY, themeData)
   }
 
   //- - - - - - - - - - - - - - -//
 
-  private clear() {
+  private retrieveTheme = (): ThemeData | null =>
+    this._localStorage.getItemObject<ThemeData>(THEME_KEY) ?? null
+
+  //- - - - - - - - - - - - - - -//
+
+  private clearAllDarkModeClasses() {
 
     this._renderer.removeClass(this._document.body, this._config.darkModeClass)
     this._renderer.removeClass(this._document.body, this._config.lightModeClass)
@@ -183,16 +249,35 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private generateThemeClass = (suffix: ThemeSuffix) =>
-    `${this._config.themeClassPrefix}-${suffix}`
+  private generateThemeClass(suffix: ThemeValue) {
+    // Convert suffix to string in case it's a number
+    const suffixString = String(suffix);
+
+    // Replace any character that is NOT a letter, digit, hyphen, or underscore with a hyphen
+    // Also, replace multiple consecutive hyphens with a single one
+    const sanitizedSuffix = suffixString
+      .replace(/[^a-zA-Z0-9_-]/g, '-') // Replace invalid chars with '-'
+      .replace(/-+/g, '-'); // Collapse multiple hyphens
+
+    // Optional: Handle cases where the suffix might start or end with a hyphen after sanitization
+    const finalSuffix = sanitizedSuffix.replace(/^-+|-+$/g, ''); // Trim leading/trailing hyphens
+
+    // Handle potential empty suffix after sanitization
+    if (!finalSuffix) {
+      console.warn(`Theme suffix "${suffixString}" resulted in an empty string after sanitization. Using 'default'.`);
+      return `${this._config.themeClassPrefix}-default`; // Fallback if suffix becomes empty
+    }
+
+    return `${this._config.themeClassPrefix}-${finalSuffix}`;
+  }
 
   //- - - - - - - - - - - - - - -//
 
   private setDefaultTheme() {
-    this.clear()
-    const theme = ThemeDataUtils.default()
-    this.setDarkMode(theme.isDarkMode)
-    this.setThemeSuffix(theme.suffix)
+    // No need to call clear() here
+    const defaultOption = this._config.themeOptions[0] ?? defaultThemeOption // Get first theme or a hardcoded default
+    this.setDarkMode(!!defaultOption.fallbackIsDarkMode)
+    this.setTheme(defaultOption)
   }
 
   //- - - - - - - - - - - - - - -//

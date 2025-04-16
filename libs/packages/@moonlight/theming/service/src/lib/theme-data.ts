@@ -1,14 +1,15 @@
-/**
- * will be appened to the theme class name.
- * Example class="theme-mysuffix0" 
- */
-export type ThemeSuffix = string | number;
+import { defaultThemeOption, ThemeOption } from "@moonlight/ng/theming/config";
+
 
 //##################################################//
 
+/**
+ * Data for persisting theme and dark mode settings.
+ * This data is used to store the current theme suffix, value, and dark mode status.
+ */
 export interface ThemeData {
 
-  suffix: ThemeSuffix
+  theme: ThemeOption
   isDarkMode: boolean
 
 }//int
@@ -19,12 +20,18 @@ export interface ThemeData {
 
 export const ThemeDataUtils = {
 
-  create(idx: string | number, isDark: boolean): ThemeData {
-    return { suffix: idx, isDarkMode: isDark };
+  create(option: ThemeOption, isDark: boolean): ThemeData {
+    return {
+      isDarkMode: isDark,
+      theme: option
+    };
   },
 
   default(): ThemeData {
-    return { suffix: 0, isDarkMode: false };
+    return {
+      isDarkMode: false,
+      theme: defaultThemeOption
+    };
   }
 
 }

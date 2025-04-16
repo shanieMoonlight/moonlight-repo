@@ -4,8 +4,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
-import { ThemeService, ThemeSuffix } from '@moonlight/ng/theming/service';
+import { ThemeConfig, ThemeConfigService, ThemeOption , ThemeValue} from '@moonlight/ng/theming/config';
+import { ThemeService } from '@moonlight/ng/theming/service';
 import { Subject, map, merge, tap } from 'rxjs';
 
 /**
@@ -55,14 +55,12 @@ export class ThemePicker_Mat_Component {
 
     protected _changeThemeClick$ = new Subject<ThemeOption>()
 
-    private _themeSfxChange$ = this._changeThemeClick$.pipe(
-        tap(newTheme => this._themeService.setThemeSuffix(newTheme?.classSuffix)),
-        tap(newTheme =>console.log('newTheme1', newTheme)),
-        map(newTheme => newTheme.classSuffix)
+    private _themeOptionChange$ = this._changeThemeClick$.pipe(
+        tap(newTheme => this._themeService.setTheme(newTheme)),
+        tap(newTheme =>console.log('themeOptionChange$', newTheme))
     )
 
-    private _selectedOption$ = merge(this._themeService.themeSuffix$, this._themeSfxChange$)
-        .pipe(map(suffix => this.findOptionBySuffix(suffix)))
+    private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$)
     protected _selectedOption = toSignal(this._selectedOption$)
 
     //- - - - - - - - - - - - - - -//
@@ -72,13 +70,6 @@ export class ThemePicker_Mat_Component {
         effect(() => {
             this._onThemeChange.emit(this._selectedOption())
         })
-    }
-
-    //- - - - - - - - - - - - - - -//
-
-    /** Finds a theme option based on its class suffix. */
-    private findOptionBySuffix(suffix?: ThemeSuffix) { 
-        return this._options.find((o) => o.classSuffix == suffix) 
     }
 
 } //Cls

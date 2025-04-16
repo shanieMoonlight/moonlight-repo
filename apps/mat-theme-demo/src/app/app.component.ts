@@ -22,7 +22,7 @@ import { THEME_CONFIG } from './config/app-theme.config';
     RouterModule
   ],
   providers: [
-    ThemeAndModeSetup.getThemeProviders(THEME_CONFIG)
+    
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',

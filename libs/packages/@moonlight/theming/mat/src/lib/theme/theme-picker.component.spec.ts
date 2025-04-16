@@ -4,18 +4,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThemeConfig, ThemeConfigService, ThemeOption } from '../../../../config/src/index'; // Adjusted path
-import { ThemeService, ThemeSuffix } from '../../../../service/src/index'; // Adjusted path
+import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeSuffix } from '../../../../config/src/index'; // Adjusted path
+import { ThemeService } from '../../../../service/src/index'; // Adjusted path
 import { BehaviorSubject } from 'rxjs';
-import { MatThemePickerComponent } from './theme-picker.component';
+import { ThemePicker_Mat_Component } from './theme-picker.component';
 
 //##################################################//
 
 // Mock Theme Options
 const mockThemeOptions: ThemeOption[] = [
-  { label: 'Default', classSuffix: 0, primaryColor: '#ffffff', secondaryColor: '#000000', isDarkMode: false },
-  { label: 'Blue', classSuffix: 1, primaryColor: '#0000ff', secondaryColor: '#ffffff', isDarkMode: false },
-  { label: 'Dark', classSuffix: 2, primaryColor: '#aaaaaa', secondaryColor: '#333333', isDarkMode: true },
+  { label: 'Default', value: 'default', classSuffix: 0, primaryColor: '#ffffff', secondaryColor: '#000000', fallbackIsDarkMode: false },
+  { label: 'Blue', value: 'blue', classSuffix: 1, primaryColor: '#0000ff', secondaryColor: '#ffffff', fallbackIsDarkMode: false },
+  { label: 'Dark', value: 'dark', classSuffix: 2, primaryColor: '#aaaaaa', secondaryColor: '#333333', fallbackIsDarkMode: true },
 ];
 
 // Mock ThemeService
@@ -33,9 +33,9 @@ class MockThemeConfigService implements Partial<ThemeConfig> {
 
 //##################################################//
 
-describe('MatThemePickerComponent', () => {
-  let component: MatThemePickerComponent;
-  let fixture: ComponentFixture<MatThemePickerComponent>;
+describe('ThemePicker_Mat_Component', () => {
+  let component: ThemePicker_Mat_Component;
+  let fixture: ComponentFixture<ThemePicker_Mat_Component>;
   let mockThemeService: MockThemeService;
   let mockThemeConfig: MockThemeConfigService;
 
@@ -51,7 +51,7 @@ describe('MatThemePickerComponent', () => {
         MatIconModule,
         MatMenuModule,
         MatTooltipModule,
-        MatThemePickerComponent,
+        ThemePicker_Mat_Component,
       ],
       providers: [
         { provide: ThemeService, useValue: mockThemeService },
@@ -59,7 +59,7 @@ describe('MatThemePickerComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MatThemePickerComponent);
+    fixture = TestBed.createComponent(ThemePicker_Mat_Component);
     component = fixture.componentInstance;
     fixture.detectChanges(); // Initial binding and effect run
   });
@@ -132,7 +132,7 @@ describe('MatThemePickerComponent', () => {
     (component as any)._changeThemeClick$.next(themeToSelect);
 
     // console.log('spy.mock.calls', (component as any)._selectedOption(), themeToSelect);
-    
+
 
     tick();
     fixture.detectChanges();
@@ -146,7 +146,7 @@ describe('MatThemePickerComponent', () => {
 
   it('should apply the "selected" class to the correct menu item after change', fakeAsync(() => {
     const themeToSelect = mockThemeOptions[1];
-    
+
     // 1. Find the menu trigger icon
     const triggerIcon = fixture.debugElement.query(By.css('#butt-icon'));
     expect(triggerIcon).toBeTruthy(); // Ensure trigger exists
@@ -155,7 +155,7 @@ describe('MatThemePickerComponent', () => {
     triggerIcon.nativeElement.click();
     fixture.detectChanges(); // Allow menu to open and render items
     tick(); // Allow any async operations related to menu opening
-    fixture.detectChanges(); 
+    fixture.detectChanges();
 
     // 3. Now query for the menu items
     const menuItems = fixture.debugElement.queryAll(By.css('button[mat-menu-item]'));
@@ -167,7 +167,7 @@ describe('MatThemePickerComponent', () => {
     // or find it by index if the order is guaranteed
     const buttonToClick = menuItems[1]; // Assuming the second button corresponds to mockThemeOptions[1]
     expect(buttonToClick).toBeTruthy();
-    
+
     // Get the component instance associated with the button if needed, or just click
     buttonToClick.nativeElement.click();
     tick(); // Allow click handler, RxJS pipe, and signal updates
@@ -177,7 +177,7 @@ describe('MatThemePickerComponent', () => {
     // Re-query items *if* the menu might have closed and re-opened, though likely not needed here
     const updatedMenuItems = fixture.debugElement.queryAll(By.css('button[mat-menu-item]'));
     const selectedItem = updatedMenuItems.find(item => item.nativeElement.classList.contains('selected'));
-    
+
     expect(selectedItem).not.toBeNull();
     // Check the text content of the selected item
     const selectedSpan = selectedItem!.query(By.css('span'));

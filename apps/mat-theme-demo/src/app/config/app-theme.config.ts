@@ -14,52 +14,50 @@ let idx = 1
 
 const _themeOptions: ThemeOption[] = [
   {
-    isDarkMode: false,
+    fallbackIsDarkMode: false,
     label: 'Default',
     value: 'default',
     primaryColor: '#4682B4',
     secondaryColor: '#D2691E',
-    classSuffix: 'default',
+    // classSuffix: 'default',
   },
   {
-    isDarkMode: false,
-    label: 'Violet and Lime', // Updated label
-    value: 'violet-lime',    // Updated value
-    primaryColor: '#8A2BE2',   // Blue Violet
-    secondaryColor: '#32CD32', // Lime Green
-    classSuffix: 2,
+    fallbackIsDarkMode: false,
+    label: 'Violet and Lime',  
+    value: 'violet-lime',      
+    primaryColor: '#8A2BE2',   
+    secondaryColor: '#32CD32', 
+    // classSuffix: 2,
   },
 ];
 
 export const XMAS_THEME: ThemeOption = {
-  isDarkMode: false,
+  fallbackIsDarkMode: false,
   label: 'Xmas',
   value: 'xmas',
   primaryColor: '#C8102E',
   secondaryColor: '#006747',
-  // primaryColor: '#0f8a5f',
-  // secondaryColor: '#f5624d',
-  classSuffix: 'xmas',
+  // classSuffix: 'xmas',
 };
 
 
 export const EASTER_THEME: ThemeOption = {
-  isDarkMode: false,
+  fallbackIsDarkMode: false,
   label: 'Easter',
   value: 'easter',
   primaryColor: '#FFB7C5', // Light pink
   secondaryColor: '#FFDA61', // Deeper pastel yellow
-  classSuffix: 'easter',
+  // classSuffix: 'easter',
 };
 
 
 export const HALLOWEEN_THEME: ThemeOption = {
-  isDarkMode: true,
+  fallbackIsDarkMode: true,
   label: 'Halloween',
   value: 'halloween-theme',
   primaryColor: '#FF7518',
   secondaryColor: '#31004a',
-  classSuffix: 'halloween',
+  // classSuffix: 'halloween',
 };
 
 if (IS_XMAS) _themeOptions.push(XMAS_THEME);

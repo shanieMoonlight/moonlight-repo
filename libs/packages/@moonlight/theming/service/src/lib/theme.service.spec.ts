@@ -40,9 +40,9 @@ describe('ThemeService', () => {
   let themeConfig: ThemeConfig;
 
   const defaultThemeOptions: ThemeOption[] = [
-    { label: 'Default', classSuffix: 0 },
-    { label: 'Blue', classSuffix: 1 },
-    { label: 'Green', classSuffix: 2 },
+    { label: 'Default', value: 0 , fallbackIsDarkMode: false},
+    { label: 'Blue', value: 1  , fallbackIsDarkMode: true},
+    { label: 'Green', value: 2  , fallbackIsDarkMode: false},
   ];
 
   const defaultLightClass = 'ml-mode-light';
