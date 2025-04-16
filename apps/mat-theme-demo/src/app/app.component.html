@@ -1,2 +1,17 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<ml-navbar
+    [rhsOutletTemplate]="rhsOutletTemplate"/>
+
+<router-outlet />
+
+
+
+<!-- ======================================= -->
+
+<ng-template #rhsOutletTemplate>
+    <div class="theming">        
+        <ml-theme-picker-mat/>
+        <ml-dark-mode-toggle-mat/>
+    </div>     
+</ng-template>
+
+<!-- ======================================= -->

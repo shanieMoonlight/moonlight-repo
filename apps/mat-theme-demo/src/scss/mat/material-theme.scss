@@ -1,0 +1,36 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@use "./typography" as typography;
+@use "./default-theme" as ptDefault;
+@use "./inn-theme" as ptInn;
+@use "./admin-theme" as ptAdmin;
+// @use "./admin-theme2" as ptAdmin2;
+// @use "./admin-theme3" as ptAdmin3;
+// @use "./mat/palettes/green-gold" as ptGreenAndGold;
+// @use "./mat/palettes/blood-orange" as ptBloodOrange;
+// @use "./mat/palettes/orange-grey" as ptOrangeAndGrey;
+// @use "./mat/palettes/xmas" as ptXmas;
+// @use "./mat/theme-helper" as themeHelper;
+
+
+// Theme switching can be done by adding the corresponding class to the body:
+// - Default theme: no class needed
+// - Inn theme: add class "theme-inn" to body
+// - Maintenance theme: add class "theme-mntc" to body
+// @include themeHelper.setupTheme(ptDefault.$primaryPalette, ptDefault.$accentPalette, ptDefault.$tertiaryPalette);
+// @include themeHelper.setupThemeAlternate(inn, ptInn.$primaryPalette, ptInn.$accentPalette, ptInn.$tertiaryPalette);
+// @include themeHelper.setupThemeAlternate(mntc, ptAdmin.$primaryPalette, ptAdmin.$accentPalette, ptAdmin.$tertiaryPalette);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+@include mat.all-component-typographies(typography.$fontConfig);
+@include mat.core();

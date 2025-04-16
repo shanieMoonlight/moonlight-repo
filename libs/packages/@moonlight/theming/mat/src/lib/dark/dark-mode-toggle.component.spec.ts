@@ -6,7 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 import { DarkModeToggle_Mat_Component } from './dark-mode-toggle.component';
 import { ThemeService } from '../../../../service/src/lib/theme.service';
 
-
 // Remove jest.mock completely and instead create a mock class
 class MockThemeService {
   isDarkMode$ = new BehaviorSubject<boolean>(false);

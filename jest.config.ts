@@ -11,7 +11,7 @@ export default async (): Promise<Config> => ({
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
+      stringifyContentPathRegex: '\\.(html|svg|scss)$',
       useESM: true,
     },
   },
@@ -23,7 +23,10 @@ export default async (): Promise<Config> => ({
     `<rootDir>/node_modules/(?!.*\\.mjs$|@angular|@ngrx|rxjs|@moonlight)`, 
   ],
   moduleNameMapper: {
+    '\\.(css|scss|sass)$': 'identity-obj-proxy',
     // Add specific mappings matching tsconfig.base.json
+  '^@angular/animations/browser$': '<rootDir>/node_modules/@angular/animations/fesm2022/browser.mjs',
+  
     '^@moonlight/ng/theming$': '<rootDir>/libs/packages/@moonlight/theming/src/index.ts',
     '^@moonlight/ng/theming/config$': '<rootDir>/libs/packages/@moonlight/theming/config/src/index.ts',
     '^@moonlight/ng/theming/mat$': '<rootDir>/libs/packages/@moonlight/theming/mat/src/index.ts',

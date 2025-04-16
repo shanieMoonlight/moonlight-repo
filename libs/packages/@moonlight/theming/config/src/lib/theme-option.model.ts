@@ -18,4 +18,5 @@ export class ThemeOption {
   /**Suffix for the class name , that will appear on the body html element*/
   classSuffix?: string | number = 0
 
+
 } //Cls

@@ -7,22 +7,23 @@
 </mat-icon>
 
 <mat-menu #menu="matMenu">
-  <button
-    *ngFor="let option of _options"
-    mat-menu-item
-    [class.selected]="option === _selectedOption()"
-    (click)="_changeThemeClick$.next(option)">
-    <mat-icon
-      role="img"
-      class="colors-icon"
-      svgicon="theme-example"
-      aria-hidden="true">
-      <ng-container 
-        [ngTemplateOutlet]="svgThemeDisplay" 
-        [ngTemplateOutletContext]="{option:option}"/>     
-    </mat-icon>
-    <span>{{ option.label }}</span>
-  </button>
+  @for (option of _options; track option) {
+    <button
+      mat-menu-item
+      [class.selected]="option === _selectedOption()"
+      (click)="_changeThemeClick$.next(option)">
+      <mat-icon
+        role="img"
+        class="colors-icon"
+        svgicon="theme-example"
+        aria-hidden="true">
+        <ng-container 
+          [ngTemplateOutlet]="svgThemeDisplay" 
+          [ngTemplateOutletContext]="{option:option}"/>     
+      </mat-icon>
+      <span>{{ option.label }}</span>
+    </button>
+  }
 </mat-menu>
 
 <!-- ---------------------------------------------------------------------- -->
@@ -56,3 +57,5 @@
 </svg>
 
 </ng-template>
+
+<!-- ---------------------------------------------------------------------- -->

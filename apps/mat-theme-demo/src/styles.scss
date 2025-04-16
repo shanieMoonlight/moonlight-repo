@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'scss/mat/material-theme.scss' as *;
+@use '@angular/material/prebuilt-themes/deeppurple-amber.css' as *;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.fancy-box{
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transform: perspective(1000px) rotateX(2deg);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+}
