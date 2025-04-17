@@ -1,8 +1,9 @@
 import { inject, Injectable, RendererFactory2 } from '@angular/core';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeColors } from '../../theme-colors';
-import { GeneratedPalettes } from '../../theme-palletes';
+import { ThemeColors } from '../../../theme-colors';
+import { GeneratedPalettes } from '../../../theme-palletes';
+import { ColorUtilsService } from '../color-utils/color-utils.service';
 
 //#########################################//
 
@@ -15,8 +16,10 @@ const TONES = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 
 })
 export class ThemeGeneratorService {
 
-  private rendererFactory = inject(RendererFactory2);
-  private renderer = this.rendererFactory.createRenderer(null, null);
+  private _rendererFactory = inject(RendererFactory2);
+  private _renderer = this._rendererFactory.createRenderer(null, null);
+  
+  private _colorUtils = inject(ColorUtilsService);
 
   //-----------------------------//
   
@@ -105,10 +108,7 @@ export class ThemeGeneratorService {
     this.currentTheme$.next(colors);
 
     const palettes = this.generatePalettes(colors)
-
-    // Add a class to the body element for theme identification
     
-    // targetElement = bodyElement
     // First, set the individual palette shade variables
     this.applyPaletteVariables(palettes, targetElement)
 
@@ -117,13 +117,13 @@ export class ThemeGeneratorService {
 
     // If we're setting an alternate theme, add the theme class
     if (themeClass) 
-      this.renderer.addClass(targetElement, `theme-${themeClass}`)
+      this._renderer.addClass(targetElement, `theme-${themeClass}`)
 
     // Add dark mode class if needed
     if (isDark)
-      this.renderer.addClass(targetElement, 'dark-mode')
+      this._renderer.addClass(targetElement, 'dark-mode')
     else
-      this.renderer.removeClass(targetElement, 'dark-mode')
+      this._renderer.removeClass(targetElement, 'dark-mode')
 
   }
 
@@ -171,9 +171,6 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-tertiary', p.tertiary[isDark ? 80 : 40]);
     this.setVariable(targetElement, '--mat-sys-on-tertiary', p.tertiary[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-tertiary-container', p.tertiary[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-tertiary', p.tertiary[isDark ? 80 : 40]);
-    this.setVariable(targetElement, '--mat-sys-on-tertiary', p.tertiary[isDark ? 20 : 100]);
-    this.setVariable(targetElement, '--mat-sys-tertiary-container', p.tertiary[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-tertiary-container', p.tertiary[isDark ? 90 : 10]);
 
     // M3 colors - Error
@@ -193,8 +190,50 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-surface-container-low', p.neutral[isDark ? 10 : 96]);
     this.setVariable(targetElement, '--mat-sys-surface-container-high', p.neutral[isDark ? 17 : 92]);
 
-    // Other variables match what your direct-palette-mapper.scss does
-    // (add as many as needed)
+    // Primary fixed variants
+    this.setVariable(targetElement, '--mat-sys-primary-fixed', p.primary[90]);
+    this.setVariable(targetElement, '--mat-sys-primary-fixed-dim', p.primary[80]);
+    this.setVariable(targetElement, '--mat-sys-on-primary-fixed', p.primary[10]);
+    this.setVariable(targetElement, '--mat-sys-on-primary-fixed-variant', p.primary[30]);
+
+    // Secondary fixed variants
+    this.setVariable(targetElement, '--mat-sys-secondary-fixed', p.secondary[90]);
+    this.setVariable(targetElement, '--mat-sys-secondary-fixed-dim', p.secondary[80]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed', p.secondary[10]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed-variant', p.secondary[30]);
+
+    // Tertiary fixed variants
+    this.setVariable(targetElement, '--mat-sys-tertiary-fixed', p.tertiary[90]);
+    this.setVariable(targetElement, '--mat-sys-tertiary-fixed-dim', p.tertiary[80]);
+
+    // Additional surface variants
+    this.setVariable(targetElement, '--mat-sys-surface-variant', p['neutral-variant'][isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-surface-variant', p['neutral-variant'][isDark ? 80 : 30]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-lowest', p.neutral[isDark ? 4 : 100]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-highest', p.neutral[isDark ? 22 : 90]);
+    this.setVariable(targetElement, '--mat-sys-surface-dim', p.neutral[isDark ? 6 : 87]);
+    this.setVariable(targetElement, '--mat-sys-surface-bright', p.neutral[isDark ? 24 : 98]);
+
+    // Outline colors
+    this.setVariable(targetElement, '--mat-sys-outline', p['neutral-variant'][isDark ? 60 : 50]);
+    this.setVariable(targetElement, '--mat-sys-outline-variant', p['neutral-variant'][isDark ? 30 : 80]);
+
+    // Inverse colors
+    this.setVariable(targetElement, '--mat-sys-inverse-primary', p.primary[isDark ? 40 : 80]);
+    this.setVariable(targetElement, '--mat-sys-inverse-surface', p.neutral[isDark ? 90 : 20]);
+    this.setVariable(targetElement, '--mat-sys-inverse-on-surface', p.neutral[isDark ? 20 : 95]);
+
+    // Miscellaneous
+    this.setVariable(targetElement, '--mat-sys-surface-tint', p.primary[80]);
+    this.setVariable(targetElement, '--mat-sys-scrim', p.neutral[0]);
+    this.setVariable(targetElement, '--mat-sys-shadow', p.neutral[0]);
+
+    // Additional useful values for Angular Material
+    this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
+    this.setVariable(targetElement, '--mat-sys-neutral-variant20', p['neutral-variant'][20]);
+
+    // Add RGB variables for transparency effects
+    this.addRGBVariables(p, targetElement, isDark);
   }
 
   //-----------------------------//
@@ -202,9 +241,32 @@ export class ThemeGeneratorService {
   /**
    * Helper to set a CSS variable
    */
-  private setVariable(element: HTMLElement, name: string, value: string) {
-    // this.renderer.setStyle(element, name, value);
-    element.style.setProperty(name, value);
+  private setVariable = (element: HTMLElement, name: string, value: string) => 
+    element.style.setProperty(name, value)
+
+  //-----------------------------//
+ /**
+   * Add RGB variables for transparency support
+   */
+  private addRGBVariables(p: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
+    // Primary colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-rgb', p.primary[isDark ? 80 : 40]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-primary-rgb', p.primary[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-container-rgb', p.primary[isDark ? 30 : 90]);
+    
+    // Secondary colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-secondary-rgb', p.secondary[isDark ? 80 : 40]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-secondary-rgb', p.secondary[isDark ? 20 : 100]);
+    
+    // Surface colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
+    
+    // Error colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
+    
+    // Background
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99]);
   }
 
   //-----------------------------//

@@ -5,7 +5,7 @@ import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.co
 import { MatEverythingModule } from '../../utils/mat-everything-modules';
 import { ThemeColors } from '../theme-colors';
 import { ThemeShowcaseMatComponent } from '../theme-showcase-mat/theme-showcase-mat.component';
-import { ThemeGeneratorService } from './services/theme-generator.service';
+import { ThemeGeneratorService } from './services/theme-generator/theme-generator.service';
 
 
 //#########################################//
@@ -95,11 +95,11 @@ export class ThemeSelectorComponent {
   private themeGenerator = inject(ThemeGeneratorService)
   private fb = inject(FormBuilder)
 
-  //--------------------------------------//
+  //- - - - - - - - - - - - - - -//
 
-  _presetThemes = input<ThemeDefinition[]>(presetThemes, {alias: 'presetThemes'});
+  _presetThemes = input<ThemeDefinition[]>(presetThemes, { alias: 'presetThemes' });
 
-  //--------------------------------------//
+  //- - - - - - - - - - - - - - -//
 
   exportedScss: string | null = null;
 
@@ -111,10 +111,12 @@ export class ThemeSelectorComponent {
     darkMode: this.fb.nonNullable.control(false)
   }) as IThemeForm;
 
-  //--------------------------------------//
+  //-----------------------------//
 
   applyTheme() {
+
     const values = this.themeForm.value;
+
     const colors: ThemeColors = {
       primary: values.primary!, //! validators
       secondary: values.secondary!,//! validators
@@ -125,12 +127,10 @@ export class ThemeSelectorComponent {
     this.themeGenerator.applyTheme(
       colors,
       document.documentElement,
-      values.darkMode
-
-    );
+      values.darkMode)
   }
 
-  //--------------------------------------//
+  //-----------------------------//
 
   applyPreset(presetName: string) {
     const preset = presetThemes.find(p => p.name === presetName)?.theme;
@@ -150,12 +150,9 @@ export class ThemeSelectorComponent {
     );
   }
 
-  //--------------------------------------//
+  //-----------------------------//
 
   exportTheme = () =>
     this.exportedScss = this.themeGenerator.exportThemeAsScss();
-
-
-  //--------------------------------------//
 
 }//Cls
