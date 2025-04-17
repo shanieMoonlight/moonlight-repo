@@ -24,18 +24,20 @@ const toFileName = (name: string) => name
   template: `
     <div class="color-input-wrapper">
       <div class="color-display" 
-        [style.background-color]="_colorValue()" 
+        [style.background-color]="_colorValue() || 'transparent'" 
+        [class.no-color]="!_colorValue()"
         (click)="openColorPicker()">
-        <span class="color-value">{{ _colorValue() }}</span>
+        <span class="color-value">{{ _colorValue() || 'No color' }}</span>
       </div>
       <input 
         #colorPicker
         type="color" 
-        [value]="_colorValue()"
+        [value]="_colorValue() || '#000000'"
         (input)="onColorChange($event)" 
         class="color-picker"
         [attr.disabled]="_disabled() ? true : null"
-        [attr.aria-labelledby]="_describedByIds()"      >
+        [attr.aria-labelledby]="_describedByIds()">
+        {{_colorValue()}}
     </div>
   `,
   styles: [`
@@ -83,6 +85,15 @@ const toFileName = (name: string) => name
       height: 0;
       opacity: 0;
     }
+
+     .color-display.no-color {
+      background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #ccc 75%),
+                        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    }
   `],
   providers: [
     {
@@ -101,7 +112,7 @@ const toFileName = (name: string) => name
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColorInputComponent implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy {
+export class ColorInputComponent implements MatFormFieldControl<string | undefined>, ControlValueAccessor, OnDestroy {
 
   //#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#//
   //#+#               BASIC PROPERTIES              #+#//
@@ -111,7 +122,7 @@ export class ColorInputComponent implements MatFormFieldControl<string>, Control
   _color = input<string | undefined>(undefined, { alias: 'color' });
 
   // State signals
-  protected _colorValue = signal('#000000');
+  protected _colorValue = signal<string | undefined>(undefined);
   protected _focused = signal(false);
   protected _disabled = signal(false);
   protected _required = signal(false);
@@ -205,13 +216,13 @@ export class ColorInputComponent implements MatFormFieldControl<string>, Control
   //#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#//
 
   // Getters and setters for MatFormFieldControl
-  get value(): string {
+  get value(): string | undefined {
     return this._colorValue();
   }
 
   @Input()
-  set value(color: string) {
-    this._colorValue.set(color || '#000000');
+  set value(color: string | undefined) {
+    this._colorValue.set(color);
     this.stateChanges.next();
   }
 

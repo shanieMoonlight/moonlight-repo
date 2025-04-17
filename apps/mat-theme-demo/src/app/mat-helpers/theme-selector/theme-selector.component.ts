@@ -1,11 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.component';
 import { MatEverythingModule } from '../../utils/mat-everything-modules';
 import { ThemeColors } from '../theme-colors';
-import { ThemeShowcaseMatComponent } from '../theme-showcase-mat/theme-showcase-mat.component';
-import { ThemeGeneratorService } from './services/theme-generator/theme-generator.service';
+import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY, ThemeGeneratorService } from './services/theme-generator/theme-generator.service';
 
 
 //#########################################//
@@ -30,9 +30,9 @@ const presetThemes: ThemeDefinition[] = [
   {
     name: 'default',
     theme: {
-      primary: '#6750A4',
-      secondary: '#958DA5',
-      tertiary: '#B58392'
+      primary: DEFAULT_PRIMARY,
+      secondary: DEFAULT_SECONDARY,
+      tertiary: DEFAULT_TERTIARY
     }
   },
   {
@@ -63,7 +63,6 @@ const presetThemes: ThemeDefinition[] = [
 
 //-----------------------------------------//
 
-
 interface IThemeForm
   extends FormGroup<{
     primary: FormControl<string>
@@ -72,8 +71,6 @@ interface IThemeForm
     error: FormControl<string | null>
     darkMode: FormControl<boolean>
   }> { }
-
-
 
 //#########################################//
 
@@ -85,6 +82,15 @@ interface IThemeForm
     TitleCasePipe,
     ColorInputComponent
   ],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'outline',
+        floatLabel: 'always',
+      }
+    }
+  ],
   templateUrl: './theme-selector.component.html',
   styleUrl: './theme-selector.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -92,8 +98,8 @@ interface IThemeForm
 export class ThemeSelectorComponent {
 
 
-  private themeGenerator = inject(ThemeGeneratorService)
-  private fb = inject(FormBuilder)
+  private _themeGenerator = inject(ThemeGeneratorService)
+  private _fb = inject(FormBuilder)
 
   //- - - - - - - - - - - - - - -//
 
@@ -101,21 +107,23 @@ export class ThemeSelectorComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  exportedScss: string | null = null;
+  protected _currentTheme = this._themeGenerator.currentTheme;
+  protected _exportedScss = signal<string | null>(null);
 
-  themeForm: IThemeForm = this.fb.group({
-    primary: this.fb.nonNullable.control('#6750A4', [Validators.required]),
-    secondary: this.fb.nonNullable.control('#958DA5', [Validators.required]),
-    tertiary: this.fb.control('#B58392'),
-    error: this.fb.control('#B3261E'),
-    darkMode: this.fb.nonNullable.control(false)
+  protected _themeForm: IThemeForm = this._fb.group({
+    primary: this._fb.nonNullable.control(DEFAULT_PRIMARY, [Validators.required]),
+    secondary: this._fb.nonNullable.control(DEFAULT_SECONDARY, [Validators.required]),
+    tertiary: this._fb.control(null),
+    error: this._fb.control(null),
+    darkMode: this._fb.nonNullable.control(false)
   }) as IThemeForm;
 
   //-----------------------------//
 
-  applyTheme() {
+  protected applyTheme() {
 
-    const values = this.themeForm.value;
+    const values = this._themeForm.value;
+    console.log('applyTheme()', values);
 
     const colors: ThemeColors = {
       primary: values.primary!, //! validators
@@ -124,7 +132,7 @@ export class ThemeSelectorComponent {
       error: values.error
     };
 
-    this.themeGenerator.applyTheme(
+    this._themeGenerator.applyTheme(
       colors,
       document.documentElement,
       values.darkMode)
@@ -132,27 +140,30 @@ export class ThemeSelectorComponent {
 
   //-----------------------------//
 
-  applyPreset(presetName: string) {
-    const preset = presetThemes.find(p => p.name === presetName)?.theme;
+  protected applyPreset(presetName: string) {
+
+    const preset = presetThemes
+      .find(p => p.name === presetName)?.theme;
+
     if (!preset) return;
 
-    this.themeForm.patchValue({
+    this._themeForm.patchValue({
       primary: preset.primary,
       secondary: preset.secondary,
       tertiary: preset.tertiary
     });
 
-    this.themeGenerator.applyTheme(
+    this._themeGenerator.applyTheme(
       preset,
       document.documentElement,
-      this.themeForm.value.darkMode,
+      this._themeForm.value.darkMode,
       presetName !== 'default' ? presetName : undefined
     );
   }
 
   //-----------------------------//
 
-  exportTheme = () =>
-    this.exportedScss = this.themeGenerator.exportThemeAsScss();
+  protected exportTheme = () =>
+    this._exportedScss.set(this._themeGenerator.exportThemeAsScss())
 
 }//Cls

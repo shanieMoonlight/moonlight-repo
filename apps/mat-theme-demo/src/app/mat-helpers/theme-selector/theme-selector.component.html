@@ -5,7 +5,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form [formGroup]="themeForm">
+    <form [formGroup]="_themeForm">
       <div class="form-container">
 
   <div class="color-inputs-grid">
@@ -27,7 +27,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Tertiary Color</mat-label>
           <app-color-input formControlName="tertiary"/>
-          <mat-hint>Choose a tertiary theme color</mat-hint>
+          <mat-hint>Choose a tertiary theme color (leave it blank to use defaults)</mat-hint>
         </mat-form-field>
 
         
@@ -35,7 +35,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Error Color</mat-label>
           <app-color-input formControlName="error"/>
-          <mat-hint>Choose an error theme color</mat-hint>
+          <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
         </mat-form-field>
         
       </div>
@@ -45,14 +45,15 @@
         
         <div class="button-row">
           <button mat-raised-button             
-            [disabled]="!themeForm.valid"
+            [disabled]="!_themeForm.valid"
             type="button" 
             (click)="applyTheme()">
             <mat-icon>palette</mat-icon>
             Apply Theme
           </button>
+          
           <button mat-button      
-            [disabled]="!themeForm.valid" 
+            [disabled]="!_currentTheme()" 
             color="accent" 
             type="button" 
             (click)="exportTheme()">
@@ -60,6 +61,7 @@
             Export SCSS
           </button>
         </div>
+
       </div>
     </form>
 
@@ -84,13 +86,15 @@
     }
 
 
-    @if (exportedScss) {
+    @if (_exportedScss(); as exportedScss) {
       <mat-divider/>
+
       <section class="scss-output">
         <h3 class="mat-h3">Generated SCSS</h3>
         <mat-card appearance="outlined">
           <pre>{{ exportedScss }}</pre>
         </mat-card>
+
       </section>
     }
 

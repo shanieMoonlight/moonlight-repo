@@ -17,7 +17,6 @@ const _themeOptions: ThemeOption[] = [
     value: 'default',
     primaryColor:   '#4682B4',
     secondaryColor: '#D2691E',
-    // classSuffix: 'default',
   },
   {
     fallbackIsDarkMode: false,
@@ -25,7 +24,6 @@ const _themeOptions: ThemeOption[] = [
     value: 'violet-lime',
     primaryColor:   '#8A2BE2',
     secondaryColor: '#32CD32',
-    // classSuffix: 2,
   }, 
   {
     fallbackIsDarkMode: false,
@@ -33,7 +31,6 @@ const _themeOptions: ThemeOption[] = [
     value: 'pastel',
     primaryColor:   '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
-    // classSuffix: 'easter',
   }
 ];
 
@@ -43,7 +40,6 @@ export const XMAS_THEME: ThemeOption = {
   value: 'xmas',
   primaryColor:   '#C8102E',
   secondaryColor: '#006747' ,
-  // classSuffix: 'xmas',
 };
 
 
@@ -53,7 +49,6 @@ export const HALLOWEEN_THEME: ThemeOption = {
   value: 'halloween-theme',
   primaryColor:  '#FF7518',
   secondaryColor: '#31004a' ,
-  // classSuffix: 'halloween',
 };
 
 if (IS_XMAS) _themeOptions.push(XMAS_THEME);

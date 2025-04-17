@@ -4,10 +4,21 @@ import { BehaviorSubject } from 'rxjs';
 import { ThemeColors } from '../../../theme-colors';
 import { GeneratedPalettes } from '../../../theme-palletes';
 import { ColorUtilsService } from '../color-utils/color-utils.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 //#########################################//
 
-const TONES = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
+export const TONES = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
+export const DEFAULT_PRIMARY = '#4682B4';
+export const DEFAULT_SECONDARY = '#D2691E';
+export const DEFAULT_TERTIARY = '#B58392';
+export const DEFAULT_ERROR = '#B3261E'; // Material Design's standard error color
+export const DEFAULT_NEUTRAL = '#F5F5F5'; // Light mode neutral color
+export const DARK_MODE_CLASS = 'dark-mode'
+export const LIGHT_MODE_CLASS = 'light-mode'
+export const THEME_CLASS_PREFIX = 'theme'
+export const COLOR_VAR_PREFIX = 'color'
+export const PALLETES_MAP_SCSS_VAR = '$palettes'
 
 //#########################################//
 
@@ -18,12 +29,13 @@ export class ThemeGeneratorService {
 
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
-  
+
   private _colorUtils = inject(ColorUtilsService);
 
   //-----------------------------//
-  
+
   private currentTheme$ = new BehaviorSubject<ThemeColors | null>(null);
+  currentTheme = toSignal(this.currentTheme$);
   private isDark = false;
 
   //-----------------------------//
@@ -32,13 +44,13 @@ export class ThemeGeneratorService {
    * Generate theme palettes from source colors
    */
   generatePalettes(colors: ThemeColors): GeneratedPalettes {
-    const { primary, secondary, tertiary, error = '#B3261E' } = colors;
+    const { primary, secondary, tertiary, error } = colors;
 
     // Convert hex colors to ARGB integers
     const primaryArgb = argbFromHex(primary);
     const secondaryArgb = argbFromHex(secondary);
-    const tertiaryArgb = argbFromHex(tertiary || '#6750A4');
-    const errorArgb = argbFromHex(error || '#B00020');  // Using Material Design's standard error color as fallback
+    const tertiaryArgb = argbFromHex(tertiary || DEFAULT_TERTIARY);
+    const errorArgb = argbFromHex(error || DEFAULT_ERROR);  // Using Material Design's standard error color as fallback
 
     // Create custom colors array for the additional colors
     const customColors: CustomColor[] = [
@@ -102,13 +114,13 @@ export class ThemeGeneratorService {
   applyTheme(
     colors: ThemeColors,
     targetElement = document.documentElement,
-    isDark = false, 
+    isDark = false,
     themeClass?: string) {
     this.isDark = isDark;
     this.currentTheme$.next(colors);
 
     const palettes = this.generatePalettes(colors)
-    
+
     // First, set the individual palette shade variables
     this.applyPaletteVariables(palettes, targetElement)
 
@@ -116,14 +128,14 @@ export class ThemeGeneratorService {
     this.applySystemVariables(palettes, targetElement, isDark)
 
     // If we're setting an alternate theme, add the theme class
-    if (themeClass) 
-      this._renderer.addClass(targetElement, `theme-${themeClass}`)
+    if (themeClass)
+      this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
 
     // Add dark mode class if needed
     if (isDark)
-      this._renderer.addClass(targetElement, 'dark-mode')
+      this._renderer.addClass(targetElement, DARK_MODE_CLASS)
     else
-      this._renderer.removeClass(targetElement, 'dark-mode')
+      this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
 
   }
 
@@ -138,7 +150,7 @@ export class ThemeGeneratorService {
       Object.entries(shades).forEach(([tone, colorValue]) => {
         // Use setProperty instead of setStyle for CSS custom properties
         targetElement.style.setProperty(
-          `--color-${paletteName}-${tone}`,
+          `--${COLOR_VAR_PREFIX}-${paletteName}-${tone}`,
           `${colorValue}`
         );
       });
@@ -151,7 +163,7 @@ export class ThemeGeneratorService {
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
   private applySystemVariables(palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
-    console.log('target', targetElement);
+    // console.log('target', targetElement);
 
     const p = palettes;
 
@@ -241,30 +253,30 @@ export class ThemeGeneratorService {
   /**
    * Helper to set a CSS variable
    */
-  private setVariable = (element: HTMLElement, name: string, value: string) => 
+  private setVariable = (element: HTMLElement, name: string, value: string) =>
     element.style.setProperty(name, value)
 
   //-----------------------------//
- /**
-   * Add RGB variables for transparency support
-   */
+  /**
+    * Add RGB variables for transparency support
+    */
   private addRGBVariables(p: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
     // Primary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-rgb', p.primary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-primary-rgb', p.primary[isDark ? 20 : 100]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-container-rgb', p.primary[isDark ? 30 : 90]);
-    
+
     // Secondary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-secondary-rgb', p.secondary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-secondary-rgb', p.secondary[isDark ? 20 : 100]);
-    
+
     // Surface colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
-    
+
     // Error colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
-    
+
     // Background
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99]);
   }
@@ -275,7 +287,7 @@ export class ThemeGeneratorService {
    * Toggle between light and dark mode
    */
   toggleDarkMode() {
-    const currentTheme = this.currentTheme$.value;
+    const currentTheme = this.currentTheme();
     if (currentTheme) {
       this.applyTheme(currentTheme, document.documentElement, !this.isDark);
     }
@@ -292,7 +304,7 @@ export class ThemeGeneratorService {
     if (!theme) return '';
 
     const palettes = this.generatePalettes(theme);
-    let scss = '$palettes: (\n';
+    let scss = PALLETES_MAP_SCSS_VAR + ': (\n';
 
     // Build SCSS representation of palettes
     Object.entries(palettes).forEach(([paletteName, shades]) => {

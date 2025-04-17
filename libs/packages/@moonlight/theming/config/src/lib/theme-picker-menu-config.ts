@@ -1,25 +1,27 @@
 
-// import { ThemeData, ThemeDataUtils, ThemeSuffix } from './theme-data';
-// import { SsrLocalStorage } from '../../../../ssr/storage/src/lib/ssr-local-storage.service';
-// import { ThemeConfig, ThemeConfigService } from '../../../config/src/lib/theme-picker-menu-config';
-
 import { InjectionToken } from '@angular/core';
 import { ThemeOption } from './theme-option.model';
 
-//===================================================================//
+//##################################################//
 
 export const ThemeConfigService = new InjectionToken<ThemeConfig>('ThemeConfig');
 export type ThemeMode = 'light' | 'dark';
 
-//===================================================================//
+//##################################################//
+
+export const DARK_MODE_CLASS = 'dark-mode'
+export const LIGHT_MODE_CLASS = 'light-mode'
+export const THEME_CLASS_PREFIX = 'theme'
+
+
+//##################################################//
 
 export class ThemeConfig {
 
-
   themeOptions: ThemeOption[] = []
-  darkModeClass = 'dark-mode'
-  lightModeClass = 'light-mode'
-  themeClassPrefix = 'theme'
+  darkModeClass = DARK_MODE_CLASS
+  lightModeClass = LIGHT_MODE_CLASS
+  themeClassPrefix = THEME_CLASS_PREFIX
   defaultMode: ThemeMode = 'light'
 
   //- - - - - - - - - - - - - - - //
@@ -45,7 +47,7 @@ export class ThemeConfig {
     darkModeClass?: string,
     lightModeClass?: string,
     themeClassPrefix?: string,
-    defaultMode?: ThemeMode): ThemeConfig{
+    defaultMode?: ThemeMode): ThemeConfig {
 
     const config = new ThemeConfig(themeOptions)
 
@@ -57,15 +59,13 @@ export class ThemeConfig {
 
     if (!!themeClassPrefix)
       config.themeClassPrefix = themeClassPrefix
-    
+
     if (!!defaultMode)
       config.defaultMode = defaultMode
-    
+
     return config
-    
+
   }
-
-
 
   //------------------------------//    
 
@@ -74,18 +74,20 @@ export class ThemeConfig {
     return this
   }
 
-  //------------------------------//     
+  //- - - - - - - - - - - - - - - //     
 
   setLightModeClass(className: string) {
     this.lightModeClass = className
     return this
   }
 
-  //------------------------------//   
+  //- - - - - - - - - - - - - - - //   
 
   setThemeClassPrefix(prefix: string) {
     this.themeClassPrefix = prefix
     return this
   }
+
+  //------------------------------//   
 
 } //Cls

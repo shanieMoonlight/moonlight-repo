@@ -1,31 +1,10 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.box{
-  width: 200px;
-  height: 200px;
-  background-color: var(--colorSecondary);
-  background-color: var(--colorPrimary);
-  border: 1px solid blue;;
+ml-theme-selector {
+  max-width: 1000px;
 }
-
-.example-card {
-  max-width: 400px;
-}
-
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-
-.example-button-row {
-  display: table-cell;
-  max-width: 600px;
-}
-
-
-.secondary-button {
-    background: var(--color-secondary-90);
-    // color: $on-primary;
-  }
