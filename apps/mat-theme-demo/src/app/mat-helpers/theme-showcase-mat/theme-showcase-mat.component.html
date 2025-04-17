@@ -10,30 +10,39 @@
       <h3>Buttons</h3>
       <div class="buttons-container">
         <div class="button-row">
-          <button mat-button color="primary">Basic</button>
-          <button mat-raised-button color="primary">Raised</button>
-          <button mat-stroked-button color="primary">Stroked</button>
-          <button mat-flat-button color="primary">Flat</button>
-          <button mat-fab color="primary"><mat-icon>add</mat-icon></button>
-          <button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          <button mat-button class="primary">Basic</button>
+          <button mat-raised-button class="primary">Raised</button>
+          <button mat-stroked-button class="primary">Stroked</button>
+          <button mat-flat-button class="primary">Flat</button>
+          <button mat-fab class="primary"><mat-icon>add</mat-icon></button>
+          <button mat-mini-fab class="primary"><mat-icon>add</mat-icon></button>
         </div>
         
         <div class="button-row">
-          <button mat-button color="accent">Basic</button>
-          <button mat-raised-button color="accent">Raised</button>
-          <button mat-stroked-button color="accent">Stroked</button>
-          <button mat-flat-button color="accent">Flat</button>
-          <button mat-fab color="accent"><mat-icon>edit</mat-icon></button>
-          <button mat-mini-fab color="accent"><mat-icon>edit</mat-icon></button>
+          <button mat-button class="secondary">Basic</button>
+          <button mat-raised-button class="secondary">Raised</button>
+          <button mat-stroked-button class="secondary">Stroked</button>
+          <button mat-flat-button class="secondary">Flat</button>
+          <button mat-fab class="secondary"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab class="secondary"><mat-icon>edit</mat-icon></button>
         </div>
         
         <div class="button-row">
-          <button mat-button color="warn">Basic</button>
-          <button mat-raised-button color="warn">Raised</button>
-          <button mat-stroked-button color="warn">Stroked</button>
-          <button mat-flat-button color="warn">Flat</button>
-          <button mat-fab color="warn"><mat-icon>delete</mat-icon></button>
-          <button mat-mini-fab color="warn"><mat-icon>delete</mat-icon></button>
+          <button mat-button class="tertiary">Basic</button>
+          <button mat-raised-button class="tertiary">Raised</button>
+          <button mat-stroked-button class="tertiary">Stroked</button>
+          <button mat-flat-button class="tertiary">Flat</button>
+          <button mat-fab class="tertiary"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab class="tertiary"><mat-icon>edit</mat-icon></button>
+        </div>
+        
+        <div class="button-row" >
+          <button mat-button class="error">Basic</button>
+          <button mat-raised-button class="error">Raised</button>
+          <button mat-stroked-button class="error">Stroked</button>
+          <button mat-flat-button class="error">Flat</button>
+          <button mat-fab class="error"><mat-icon>delete</mat-icon></button>
+          <button mat-mini-fab class="error"><mat-icon>delete</mat-icon></button>
         </div>
       </div>
     </section>
@@ -41,40 +50,96 @@
       <!-- <mat-divider/> -->
     
     <!-- Form Controls Section -->
+
     <section class="component-section">
-      <h3>Form Controls</h3>
+      <h3>Form Controls 1</h3>
       <div class="form-controls-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Outline Input</mat-label>
-          <input matInput placeholder="Type something...">
+        <mat-form-field appearance="outline" class="primary">
+          <mat-label>Outline Input (Primary)</mat-label>
+          <input matInput placeholder="Type something..." [value]="'Primary'">
           <mat-hint>This is a hint</mat-hint>
         </mat-form-field>
-        
-        <mat-form-field appearance="fill">
-          <mat-label>Select Option</mat-label>
+        <mat-form-field appearance="outline" class="secondary">
+          <mat-label>Outline Input (Secondary)</mat-label>
+          <input matInput placeholder="Type something..." [value]="'Secondary'">
+          <mat-hint>This is a hint</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="tertiary">
+          <mat-label>Outline Input (Tertiary)</mat-label>
+          <input matInput placeholder="Type something..." [value]="'Tertiary'"  >
+          <mat-hint>This is a hint</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="error">
+          <mat-label>Outline Input (Error)</mat-label>
+          <input matInput placeholder="Type something..." [value]="'Error'" >
+          <mat-hint>This is a hint</mat-hint>
+        </mat-form-field>        
+      </div>
+    </section>
+
+    
+    <section class="component-section">
+      <h3>Form Controls 2</h3>        
+      <div class="form-controls-container">
+        <mat-form-field appearance="fill" class="primary">
+          <mat-label>Select Option (Primary)</mat-label>
           <mat-select>
             <mat-option value="option1">Option 1</mat-option>
             <mat-option value="option2">Option 2</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill" class="secondary">
+          <mat-label>Select Option (Secondary)</mat-label>
+          <mat-select>
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="tertiary">
+          <mat-label>Select Option (Tertiary)</mat-label>
+          <mat-select>
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="error">
+          <mat-label>Select Option (Error)</mat-label>
+          <mat-select>
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </section>
+    
+
+    
+    <section class="component-section">
+      <h3>Form Controls 3</h3>        
+      <div class="form-controls-container">
         
         <div class="checkbox-radio-container">
           <div>
-            <mat-checkbox color="primary">Primary</mat-checkbox>
-            <mat-checkbox color="accent">Accent</mat-checkbox>
-            <mat-checkbox color="warn">Warn</mat-checkbox>
+            <mat-checkbox class="primary" [checked]="true">Primary</mat-checkbox>
+            <mat-checkbox class="secondary">Secondary</mat-checkbox>
+            <mat-checkbox class="tertiary" [checked]="true">Tertiary</mat-checkbox>
+            <mat-checkbox class="error">Error</mat-checkbox>
           </div>
           
           <mat-radio-group>
-            <mat-radio-button value="option1" color="primary">Option 1</mat-radio-button>
-            <mat-radio-button value="option2" color="accent">Option 2</mat-radio-button>
-            <mat-radio-button value="option3" color="warn">Option 3</mat-radio-button>
+            <mat-radio-button value="option1" class="primary" >Primary</mat-radio-button>
+            <mat-radio-button value="option2" class="secondary" [checked]="true">Secondary</mat-radio-button>
+            <mat-radio-button value="option2" class="tertiary">Tertiary</mat-radio-button>
+            <mat-radio-button value="option3" class="error">Error</mat-radio-button>
           </mat-radio-group>
           
+                    
           <div>
-            <mat-slide-toggle color="primary">Primary</mat-slide-toggle>
-            <mat-slide-toggle color="accent">Accent</mat-slide-toggle>
-            <mat-slide-toggle color="warn">Warn</mat-slide-toggle>
+            <mat-slide-toggle class="primary" [checked]="true">Primary</mat-slide-toggle>
+            <mat-slide-toggle class="secondary">Secondary</mat-slide-toggle>
+            <mat-slide-toggle class="tertiary" [checked]="true">Tertiary</mat-slide-toggle>
+            <mat-slide-toggle class="error">Error</mat-slide-toggle>
           </div>
         </div>
       </div>
@@ -83,15 +148,18 @@
       <!-- <mat-divider/> -->
     
     <!-- Progress Indicators -->
-    <section class="component-section">
+    <section class="component-section progress">
       <h3>Progress Indicators</h3>
       <div class="progress-container">
-        <mat-progress-bar mode="determinate" value="40" color="primary"></mat-progress-bar>
-        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="40" class="primary"/>
+        <mat-progress-bar mode="indeterminate" class="secondary"/>
+        <mat-progress-bar mode="indeterminate" class="tertiary"/>
+        <mat-progress-bar mode="indeterminate" class="error"/>
         <div class="spinner-container">
-          <mat-spinner diameter="40" color="primary"></mat-spinner>
-          <mat-spinner diameter="40" color="accent"></mat-spinner>
-          <mat-spinner diameter="40" color="warn"></mat-spinner>
+          <mat-spinner diameter="40" class="primary"/>
+          <mat-spinner diameter="40" class="secondary"/>
+          <mat-spinner diameter="40" class="tertiary"/>
+          <mat-spinner diameter="40" class="error"/>
         </div>
       </div>
     </section>
@@ -102,11 +170,38 @@
     <section class="component-section">
       <h3>Navigation & Layout</h3>
       
-      <mat-tab-group>
-        <mat-tab label="Tab 1">
+      <mat-tab-group class="primary">
+        <mat-tab label="Primary 1">
           <div class="tab-content">Tab 1 Content</div>
         </mat-tab>
-        <mat-tab label="Tab 2">
+        <mat-tab label="Primary 2">
+          <div class="tab-content">Tab 2 Content</div>
+        </mat-tab>
+      </mat-tab-group>
+
+      <mat-tab-group class="secondary">
+        <mat-tab label="Secondary 1">
+          <div class="tab-content">Tab 1 Content</div>
+        </mat-tab>
+        <mat-tab label="Secondary 2">
+          <div class="tab-content">Tab 2 Content</div>
+        </mat-tab>
+      </mat-tab-group>
+
+      <mat-tab-group class="tertiary">
+        <mat-tab label="Tertiary 1">
+          <div class="tab-content">Tab 1 Content</div>
+        </mat-tab>
+        <mat-tab label="Tertiary 2">
+          <div class="tab-content">Tab 2 Content</div>
+        </mat-tab>
+      </mat-tab-group>
+
+      <mat-tab-group class="error">
+        <mat-tab label="Error 1">
+          <div class="tab-content">Tab 1 Content</div>
+        </mat-tab>
+        <mat-tab label="Error 2">
           <div class="tab-content">Tab 2 Content</div>
         </mat-tab>
       </mat-tab-group>
@@ -128,20 +223,21 @@
       <h3>Indicators</h3>
       <div class="indicators-container">
         <div>
-          <button mat-raised-button matBadge="8" matBadgeColor="primary">Primary Badge</button>
-          <button mat-raised-button matBadge="8" matBadgeColor="accent">Accent Badge</button>
-          <button mat-raised-button matBadge="8" matBadgeColor="warn">Warn Badge</button>
+          <button mat-raised-button matBadge="8" class="primary">Primary </button>
+          <button mat-raised-button matBadge="-6" class="secondary">Secondary </button>
+          <button mat-raised-button matBadge="5" class="tertiary">Tertiary </button>
+          <button mat-raised-button matBadge="20" class="error">Warn </button>
         </div>
         
         <div>
-          <button mat-raised-button matTooltip="This is a tooltip!" color="primary">Hover for Tooltip</button>
+          <button mat-raised-button matTooltip="This is a tooltip!" class="primary">Hover for Tooltip</button>
         </div>
         
         <div>
           <mat-chip-set>
-            <mat-chip color="primary" selected>Primary</mat-chip>
-            <mat-chip color="accent" selected>Accent</mat-chip>
-            <mat-chip color="warn" selected>Warn</mat-chip>
+            <mat-chip class="primary" selected>Primary</mat-chip>
+            <mat-chip class="secondary" selected>Accent</mat-chip>
+            <mat-chip class="error" selected>Warn</mat-chip>
           </mat-chip-set>
         </div>
       </div>

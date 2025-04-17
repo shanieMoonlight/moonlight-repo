@@ -1,4 +1,3 @@
-// color-input.component.ts
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, HostBinding, inject, input, Input, isDevMode, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

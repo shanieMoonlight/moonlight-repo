@@ -1,10 +1,10 @@
 import { inject, Injectable, RendererFactory2 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeColors } from '../../../theme-colors';
 import { GeneratedPalettes } from '../../../theme-palletes';
 import { ColorUtilsService } from '../color-utils/color-utils.service';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 //#########################################//
 
@@ -32,7 +32,7 @@ export class ThemeGeneratorService {
 
   private _colorUtils = inject(ColorUtilsService);
 
-  //-----------------------------//
+  //- - - - - - - - - - - - - - -//
 
   private currentTheme$ = new BehaviorSubject<ThemeColors | null>(null);
   currentTheme = toSignal(this.currentTheme$);
