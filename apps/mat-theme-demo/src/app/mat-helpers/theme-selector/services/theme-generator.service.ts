@@ -1,25 +1,27 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { argbFromHex, themeFromSourceColor, hexFromArgb, TonalPalette, CustomColor } from '@material/material-color-utilities';
+import { inject, Injectable, RendererFactory2 } from '@angular/core';
+import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeColors } from '../../theme-colors';
 import { GeneratedPalettes } from '../../theme-palletes';
 
+//#########################################//
 
+const TONES = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
+
+//#########################################//
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeGeneratorService {
-  private renderer: Renderer2;
+
+  private rendererFactory = inject(RendererFactory2);
+  private renderer = this.rendererFactory.createRenderer(null, null);
+
+  //-----------------------------//
+  
   private currentTheme$ = new BehaviorSubject<ThemeColors | null>(null);
   private isDark = false;
-
-  // The tones we want to generate for each palette
-  private tones = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
-
-  constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
-  }
 
   //-----------------------------//
 
@@ -68,7 +70,7 @@ export class ThemeGeneratorService {
     };
 
     // Generate primary, neutral and neutral-variant palettes from the theme
-    for (const tone of this.tones) {
+    for (const tone of TONES) {
       palettes.primary[tone] = hexFromArgb(theme.palettes.primary.tone(tone));
       palettes.neutral[tone] = hexFromArgb(theme.palettes.neutral.tone(tone));
       palettes['neutral-variant'][tone] = hexFromArgb(theme.palettes.neutralVariant.tone(tone));
@@ -81,7 +83,7 @@ export class ThemeGeneratorService {
     const secondaryPalette = TonalPalette.fromInt(secondaryArgb);
     const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
 
-    for (const tone of this.tones) {
+    for (const tone of TONES) {
       palettes.secondary[tone] = hexFromArgb(secondaryPalette.tone(tone));
       palettes.tertiary[tone] = hexFromArgb(tertiaryPalette.tone(tone));
     }
@@ -97,39 +99,32 @@ export class ThemeGeneratorService {
   applyTheme(
     colors: ThemeColors,
     targetElement = document.documentElement,
-    isDark = false, themeClass?: string) {
+    isDark = false, 
+    themeClass?: string) {
     this.isDark = isDark;
     this.currentTheme$.next(colors);
 
-    const palettes = this.generatePalettes(colors);
-
-    console.log(palettes);
-
+    const palettes = this.generatePalettes(colors)
 
     // Add a class to the body element for theme identification
-    const rootElement = document.getRootNode();
-    if (targetElement) {
-      this.renderer.addClass(targetElement, 'my-test-class');
-    }
+    
     // targetElement = bodyElement
     // First, set the individual palette shade variables
-    this.applyPaletteVariables(palettes, targetElement);
+    this.applyPaletteVariables(palettes, targetElement)
 
     // Then apply the M3 system variables using the direct mapper approach
-    this.applySystemVariables(palettes, targetElement, isDark);
+    this.applySystemVariables(palettes, targetElement, isDark)
 
     // If we're setting an alternate theme, add the theme class
-    if (themeClass) {
-      console.log('themeClass', themeClass);
-      this.renderer.addClass(targetElement, `theme-${themeClass}`);
-    }
+    if (themeClass) 
+      this.renderer.addClass(targetElement, `theme-${themeClass}`)
 
     // Add dark mode class if needed
-    if (isDark) {
-      this.renderer.addClass(targetElement, 'dark-mode');
-    } else {
-      this.renderer.removeClass(targetElement, 'dark-mode');
-    }
+    if (isDark)
+      this.renderer.addClass(targetElement, 'dark-mode')
+    else
+      this.renderer.removeClass(targetElement, 'dark-mode')
+
   }
 
   //-----------------------------//
@@ -156,8 +151,8 @@ export class ThemeGeneratorService {
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
   private applySystemVariables(palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
-    console.log('targe', targetElement); 
-    
+    console.log('target', targetElement);
+
     const p = palettes;
 
     // M3 colors - Primary

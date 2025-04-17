@@ -83,8 +83,7 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent,
-    ThemeShowcaseMatComponent
+    ColorInputComponent
   ],
   templateUrl: './theme-selector.component.html',
   styleUrl: './theme-selector.component.scss',
