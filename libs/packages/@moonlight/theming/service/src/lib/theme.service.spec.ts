@@ -46,7 +46,7 @@ describe('ThemeService', () => {
   ];
 
   const defaultLightClass = 'ml-mode-light';
-  const defaultDarkClass = 'ml-mode-dark';
+  const defaultDarkClass = 'dark-mode';
   const defaultThemePrefix = 'theme';
 
   //-----------------------------//

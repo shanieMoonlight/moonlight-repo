@@ -9,19 +9,13 @@ $fontFamily: 'Barlow', sans-serif;
 $fontFamily: 'Poppins', sans-serif;
 $fontFamily: 'Roboto', sans-serif;
 
-$fontFamilyBnbLogo: 'darleston';
-$fontFamilyBnbLogo: 'Rouge Script', cursive;
 
-// $fontFamilyBnbLogo: 'Arizonia', cursive;
-$fontFamilyBnbLogo: 'Allura', cursive;
-$fontFamilyBnbLogo: 'Rouge Script', cursive;
-$fontFamilyBnbLogo: 'Alex Brush', cursive;
 
 :root {
   --fontFamilyMat: #{$fontFamily};
   --fontFamilyNav: #{$fontFamily};
   --fontFamilyNavHdr: #{$fontFamily};
-  --fontFamilyBnbLogo: #{$fontFamilyBnbLogo};
+  --fontFamilyLogo: #{$fontFamily};
 }
 
 body {

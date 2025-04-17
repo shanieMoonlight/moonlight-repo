@@ -1,0 +1,221 @@
+/**
+ * @file Angular Material Theme to CSS Variables Converter
+ * 
+ * This file provides utilities to bridge Angular Material theming with CSS custom properties,
+ * making it easier to use theme colors throughout the application using standard CSS.
+ * 
+ * ## Usage
+ * 
+ * 1. In your main styles file (typically styles.scss):
+ *    @include setupThemeColors($themeLight, $themeDark, $tertiaryPalette);
+ * 
+ * 2. In components, access colors via CSS variables:
+ *    .my-element {
+ *      background-color: var(--colorPrimary);
+ *      color: white;
+ *    }
+ * 
+ * 3. For transparency effects, use the RGB variant:
+ *    .my-overlay {
+ *      background-color: rgba(var(--colorPrimaryRgb), 0.7);
+ *    }
+ * 
+ * ## Available Variables
+ * Each color scheme (primary, secondary, warn, tertiary) generates:
+ * - --colorName: Base color (500)
+ * - --colorName-50 through --colorName-900: Material palette variants
+ * - --colorNameRgb: RGB values for use with rgba()
+ * 
+ * Additional utility variables:
+ * - --colorBg: Background color
+ * - --colorCardBg: Card background color
+ * - --colorText: Text color
+ * - --colorDivider: Divider color
+ * - --colorFeintLine: Subtle line color
+ * - --colorTextHint: Hint text color
+ * - --colorNavBg: Navigation background
+ * - --colorNavTxt: Navigation text
+ 
+ */
+
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as _mat;
+@use 'sass:map';
+
+// ===================================================================== //
+
+/**
+ * Extracts RGB components from a color as a comma-separated string.
+ * @param {Color} $color - The color to extract from 
+ * @return {String} RGB components as "R, G, B" format for use in rgba()
+ */
+@function extractRGB($color) {
+  @return "#{red($color)}, #{green($color)}, #{blue($color)}";
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+@function _generateMapFromPalette($palette, $colorName, $colorTextName) {
+
+  @if not $palette {
+    $palette: _mat.m2-define-palette(_mat.$m2-indigo-palette);
+  }
+
+  $baseColor: _mat.m2-get-color-from-palette($palette, 500);
+  $baseColorRgb: extractRGB($baseColor);
+
+  @return (
+    #{$colorName}-50: _mat.m2-get-color-from-palette($palette, 50),
+    #{$colorName}-100: _mat.m2-get-color-from-palette($palette, 100),
+    #{$colorName}-200: _mat.m2-get-color-from-palette($palette, 200),
+    #{$colorName}-300: _mat.m2-get-color-from-palette($palette, 300),
+    #{$colorName}-400: _mat.m2-get-color-from-palette($palette, 400),
+    #{$colorName}-500: _mat.m2-get-color-from-palette($palette, 500),
+    #{$colorName}-600: _mat.m2-get-color-from-palette($palette, 600),
+    #{$colorName}-700: _mat.m2-get-color-from-palette($palette, 700),
+    #{$colorName}-800: _mat.m2-get-color-from-palette($palette, 800),
+    #{$colorName}-900: _mat.m2-get-color-from-palette($palette, 900),
+    #{$colorName}: _mat.m2-get-color-from-palette($palette, 500),
+    #{$colorName}Rgb: $baseColorRgb
+  );
+} 
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+@function _generateColorMap(
+  $theme,
+  $tertiaryPalette: _mat.m2-define-palette(_mat.$indigo-palette)
+) {
+  $colorConfig: _mat.m2-get-color-config($theme);
+
+  $primaryPalette: map.get($colorConfig, 'primary');
+  $primaryPaletteContrast: map.get($primaryPalette, contrast);
+
+  $accentPalette: map.get($colorConfig, 'accent');
+  $accentPaletteContrast: map.get($accentPalette, contrast);
+
+  $warnPalette: map.get($colorConfig, 'warn');
+  $warnPaletteContrast: map.get($warnPalette, contrast);
+
+  $bgPalette: map.get($colorConfig, background);
+  $fgPalette: map.get($colorConfig, foreground);
+
+  $miscMap: (
+    colorBg: _mat.m2-get-color-from-palette($bgPalette, 'background'),
+    colorCardBg: _mat.m2-get-color-from-palette($bgPalette, 'card'),
+    colorText: _mat.m2-get-color-from-palette($fgPalette, 'text'),
+    colorDivider: _mat.m2-get-color-from-palette($fgPalette, 'divider'),
+    colorFeintLine: _mat.m2-get-color-from-palette($fgPalette, 'divider'),
+    colorTextHint: _mat.m2-get-color-from-palette($fgPalette, secondary-text, 0.6),
+    colorNavBg: _mat.m2-get-color-from-palette($primaryPalette, 500),
+    colorNavTxt: _mat.m2-get-contrast-color-from-palette($primaryPalette, 500),
+  );
+
+  $primaryMap: _generateMapFromPalette(
+    $primaryPalette,
+    colorPrimary,
+    colorTextPrimary
+  );
+
+  $secondaryMap: _generateMapFromPalette(
+    $accentPalette,
+    colorSecondary,
+    colorTextSecondary
+  );
+
+  $warnMap: _generateMapFromPalette($warnPalette, colorWarn, colorTextWarn);
+
+  $tertiaryMap: _generateMapFromPalette(
+    $tertiaryPalette,
+    colorTertiary,
+    colorTextTertiary
+  );
+
+  $map: $primaryMap;
+  $map: map.merge($primaryMap, $secondaryMap);
+  $map: map.merge($map, $warnMap);
+  $map: map.merge($map, $tertiaryMap);
+  $map: map.merge($map, $miscMap);
+
+  @return $map;
+} 
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+///Bg and Txt are different in DarkMode . Use this to override the CSS properties
+@function _generateColorMapDark($themeDark) {
+  $colorConfig: _mat.m2-get-color-config($themeDark);
+
+  $bgPalette: map.get($colorConfig, background);
+  $fgPalette: map.get($colorConfig, foreground);
+
+  $baseMap: (
+    //Misc
+    colorBg: _mat.m2-get-color-from-palette($bgPalette, background),
+    colorCardBg: _mat.m2-get-color-from-palette($bgPalette, 'card'),
+    colorText: _mat.m2-get-color-from-palette($fgPalette, text),
+    colorDivider: _mat.m2-get-color-from-palette($fgPalette, 'divider'),
+    colorFeintLine: _mat.m2-get-color-from-palette($fgPalette, 'divider'),
+    colorTextHint: _mat.m2-get-color-from-palette($fgPalette, secondary-text, 0.7)
+  );
+
+  @return $baseMap;
+} //generateDarkColorMap
+
+// ===================================================================== //
+
+@mixin _generateVariables($varsMap) {
+  @each $property, $value in $varsMap {
+    --#{$property}: #{$value};
+  }
+} 
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+///Does the Material Design setup and adds matching CSS Properties to :root
+///Leave $tertiaryPalette blank use default palette
+@mixin setupThemeColors(
+  $themeLight,
+  $themeDark,
+  $tertiaryPalette: null,
+  $darkModeClass: dark-mode
+) {
+  $colors: _generateColorMap($themeLight, $tertiaryPalette);
+  $colorsDark: _generateColorMapDark($themeDark);
+
+  :root {
+    @include _generateVariables($colors);
+  }
+
+  .#{$darkModeClass} {
+    @include _mat.all-component-colors($themeDark);
+    @include _generateVariables($colorsDark);
+  }
+} 
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+/// Sets up Material Design theme and adds matching CSS Properties to .theme[$themeClassSuffix]
+/// These settings will not be applied unless .theme[$themeClassSuffix] is set on the 'body'
+/// @param {number} $themeClassSuffix the index of this theme. Will be used to change themes
+@mixin setupThemeColorsAlternate(
+  $themeClassSuffix,
+  $themeLight,
+  $themeDark,
+  $tertiaryPalette: null,
+  $darkModeClass: dark-mode
+) {
+  $colors: _generateColorMap($themeLight, $tertiaryPalette);
+  $colorsDark: _generateColorMapDark($themeDark);
+
+  .theme-#{$themeClassSuffix} {
+    @include _mat.all-component-colors($themeLight);
+    @include _generateVariables($colors);
+    &.#{$darkModeClass} {
+      @include _mat.all-component-colors($themeDark);
+      @include _generateVariables($colorsDark);
+    }
+  }
+} 
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = //

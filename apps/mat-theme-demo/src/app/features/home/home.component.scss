@@ -1,3 +1,31 @@
 :host {
   display: block;
 }
+
+.box{
+  width: 200px;
+  height: 200px;
+  background-color: var(--colorSecondary);
+  background-color: var(--colorPrimary);
+  border: 1px solid blue;;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+
+.secondary-button {
+    background: var(--color-secondary-90);
+    // color: $on-primary;
+  }

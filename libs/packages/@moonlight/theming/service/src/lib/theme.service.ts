@@ -116,7 +116,7 @@ export class ThemeService {
     if (!theme) {
       // Fallback to the default theme (assuming the first option is the default)
       themeToApply = this._config.themeOptions[0] ?? ThemeDataUtils.default(); // Provide a hardcoded fallback if options are empty
-      console.warn('setTheme called with invalid theme. Falling back to default:', themeToApply);
+      // console.warn('setTheme called with invalid theme. Falling back to default:', themeToApply);
     } else {
       themeToApply = theme;
     }
@@ -176,7 +176,7 @@ export class ThemeService {
     this.clearAllDarkModeClasses()
     this.setDarkMode(initialDarkMode)
 
-    console.log('initializeTheme, initialDarkMode:', initialDarkMode);
+    // console.log('initializeTheme, initialDarkMode:', initialDarkMode);
   }
 
   //- - - - - - - - - - - - - - -//
@@ -185,7 +185,7 @@ export class ThemeService {
 
     combineLatest([this.currentTheme$, this.isDarkMode$])
       .pipe(
-        tap((data) => console.log('initializePersistence data:', data)),
+        // tap((data) => console.log('initializePersistence data:', data)),
         takeUntilDestroyed(this._destroyor),
         debounceTime(100),
         distinctUntilChanged()

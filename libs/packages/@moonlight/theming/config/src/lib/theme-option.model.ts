@@ -37,7 +37,6 @@ export const defaultThemeOption: ThemeOption = {
   fallbackIsDarkMode: false,
   label: 'Default',
   value: 'default',
-  // classSuffix: defaultSuffix
 }
 
 //##################################################//

@@ -17,8 +17,8 @@ export class ThemeConfig {
 
 
   themeOptions: ThemeOption[] = []
-  darkModeClass = 'ml-mode-dark'
-  lightModeClass = 'ml-mode-light'
+  darkModeClass = 'dark-mode'
+  lightModeClass = 'light-mode'
   themeClassPrefix = 'theme'
   defaultMode: ThemeMode = 'light'
 

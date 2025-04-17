@@ -2,25 +2,93 @@
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
 @use "./typography" as typography;
-@use "./default-theme" as ptDefault;
-@use "./inn-theme" as ptInn;
-@use "./admin-theme" as ptAdmin;
-// @use "./admin-theme2" as ptAdmin2;
-// @use "./admin-theme3" as ptAdmin3;
-// @use "./mat/palettes/green-gold" as ptGreenAndGold;
-// @use "./mat/palettes/blood-orange" as ptBloodOrange;
-// @use "./mat/palettes/orange-grey" as ptOrangeAndGrey;
-// @use "./mat/palettes/xmas" as ptXmas;
-// @use "./mat/theme-helper" as themeHelper;
+@use "./theme-colors-default" as ptDefault;
+@use "./theme-colors-violet-lime" as ptVl;
+@use "./theme-colors-xmas" as ptXmas;
+@use "./tests/ml-pallet-tester.scss" as ptTest;
+@use "./tests/mat.scss" as ptMATTest;
+@use "sass:map";
+
+@use "../theme-utils/theme-helper.scss" as themeHelper;
+@use "../theme-utils/direct-palette-mapper.scss" as mapper;
+
+@debug "####################################################";
+@debug "ptDefault.$palettes";
+@debug "";
+@debug "";
+
+@debug ptDefault.$palettes;
+
+@debug "";
+@debug "";
+@debug "####################################################";
+@debug "";
+@debug "";
+
+@debug mat.$yellow-palette;
+
+
+@debug "";
+@debug "";
+@debug "####################################################";
+@debug "";
+@debug "";
+
+// // Setup the default theme using the $palettes map from ptDefault
+// @include mapper.setup-direct-theme(
+//     ptDefault.$palettes // Pass the whole map
+// );
+
+// // Setup the alternate theme using the $palettes map from pt2
+// @include mapper.setup-direct-theme-alternate(
+//     "violet-lime",
+//     ptVl.$palettes // Pass the whole map
+// );
+
+// // Setup the alternate theme using the $palettes map from pt2
+// @include mapper.setup-direct-theme-alternate(
+//     "xmas",
+//     ptXmas.$palettes // Pass the whole map
+// );
+html {
+    @include mat.theme(
+        (
+            // color: mat.$yellow-palette
+            // color: mat.$orange-palette
+            // color: ptTest.$palettes
+            // color: ptMATTest.$palettes
+        )
+    );
+}
+
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // These will be set by the ThemeGeneratorService
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
 
 
 // Theme switching can be done by adding the corresponding class to the body:
 // - Default theme: no class needed
-// - Inn theme: add class "theme-inn" to body
-// - Maintenance theme: add class "theme-mntc" to body
-// @include themeHelper.setupTheme(ptDefault.$primaryPalette, ptDefault.$accentPalette, ptDefault.$tertiaryPalette);
-// @include themeHelper.setupThemeAlternate(inn, ptInn.$primaryPalette, ptInn.$accentPalette, ptInn.$tertiaryPalette);
-// @include themeHelper.setupThemeAlternate(mntc, ptAdmin.$primaryPalette, ptAdmin.$accentPalette, ptAdmin.$tertiaryPalette);
+// - Theme 2: add class "theme-2" to body (or adjust suffix as needed)
+
+// Setup the default theme using the $palettes map from ptDefault
+// @include themeHelper.setupTheme(
+//     ptDefault.$palettes // Pass the whole map
+//     // Optional: Add dark mode class if different
+// );
+
+// // Setup the alternate theme using the $palettes map from pt2
+// @include themeHelper.setupThemeAlternate(
+//     '2',
+//     pt2.$palettes // Pass the whole map
+//     // Optional: Add dark mode class if different
+// );
+
+// @include themeHelper.setupThemeAlternate(violet-lime, pt2.$primaryPalette, pt2.$accentPalette, pt2.$tertiaryPalette);
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.

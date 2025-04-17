@@ -1,25 +1,116 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
-@use 'scss/mat/material-theme.scss' as *;
-@use '@angular/material/prebuilt-themes/deeppurple-amber.css' as *;
+@use "@angular/material" as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// @use "./scss/mat/theme-colors-default" as ptDefault;
+// @use "./scss/mat/theme-colors-2" as pt2;
 
+@use "scss/mat/material-theme.scss" as *;
+// @use '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-.fancy-box{
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    margin: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    transform: perspective(1000px) rotateX(2deg);
-    transition: all 0.3s ease;
-
-    &:hover {
-        transform: perspective(1000px) rotateX(0deg) translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    }
+html,
+body {
+  height: 100%;
 }
+body {
+  margin: 0.1;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fancy-box {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  transform: perspective(1000px) rotateX(2deg);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// html {
+//   @include mat.theme(
+//     (
+//       color: mat.$azure-palette,
+//       typography: Roboto,
+//     )
+//   );
+// }
+
+// :root {
+//   // @include mat.theme(
+//   //   (
+//   //     color: (
+//   //       primary: mat.$orange-palette,
+//   //       tertiary: mat.$violet-palette,
+//   //       theme-type: light
+//   //     ),
+//   //     typography: Roboto,
+//   //     density: 0
+//   //   )
+//   // );
+//   // @include mat.theme(
+//   //   (
+//   //     color: mat.$azure-palette,
+//   //     // typography: Roboto
+//   //   )
+//   // );
+//   // .primary-button {
+//   //   @include mat.button-overrides(
+//   //     (
+//   //       filled-container-color: var(--mat-sys-primary),
+//   //       filled-label-text-color: var(--mat-sys-on-primary)
+//   //     )
+//   //   );
+//   // }
+//   // .secondary-button {
+//   //   @include mat.button-overrides(
+//   //     (
+//   //       // filled-container-color: orange,
+//   //       // filled-label-text-color: red,
+//   //       filled-container-color: var(--mat-sys-secondary),
+//   //       filled-label-text-color: var(--mat-sys-on-secondary)
+//   //     )
+//   //   );
+//   // }
+
+//   // .warn-button {
+//   //   @include mat.button-overrides(
+//   //     (
+//   //       filled-container-color: var(--mat-sys-error),
+//   //       filled-label-text-color: var(--mat-sys-on-error)
+//   //     )
+//   //   );
+//   // }
+
+//   // .tertiary-button {
+//   //   @include mat.button-overrides(
+//   //     (
+//   //       filled-container-color: var(--mat-sys-tertiary),
+//   //       filled-label-text-color: var(--mat-sys-on-tertiary)
+//   //     )
+//   //   );
+//   // }
+// }
+
+
+// :root{
+//     --colorPrimary-0: #000000,
+//     --colorPrimary-10: #410002,
+//     --colorPrimary-20: #690005,
+//     --colorPrimary-25: #7e0007,
+//     --colorPrimary-30: #93000a,
+//     --colorPrimary-35: #a80710,
+//     --colorPrimary-40: #ba1a1a,
+//     --colorPrimary-50: #de3730,
+//     --colorPrimary-60: #ff5449,
+//     --colorPrimary-70: #ff897d,
+//     --colorPrimary-80: #ffb4ab,
+//     --colorPrimary-90: #ffdad6,
+//     --colorPrimary-100: #ffffff,  
+// }
