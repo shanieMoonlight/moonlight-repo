@@ -1,12 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BlobDownloadService } from '@moonlight/utils/download';
 
 @Component({
-    selector: 'ml-scss-display',
-    standalone: true,
-    imports: [MatEverythingModule],
-    template: `
+  selector: 'ml-scss-display',
+  standalone: true,
+  imports: [MatEverythingModule],
+  template: `
     <div class="dialog-content">
       <h2 mat-dialog-title>Generated SCSS</h2>
       
@@ -24,8 +25,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
       </mat-dialog-actions>
     </div>
   `,
-    styles: [
-        `
+  styles: [
+    `
     .dialog-content {
       padding: 0;
       max-height: 80vh;
@@ -41,42 +42,37 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
       font-family: monospace;
     }
     `,
-    ],
+  ],
 })
 export class ScssDisplayComponent implements OnInit {
 
-    private _dialogRef = inject(MatDialogRef<ScssDisplayComponent>, { optional: true });
-    private _dialogData = inject(MAT_DIALOG_DATA, { optional: true });
+  private _dialogRef = inject(MatDialogRef<ScssDisplayComponent>, { optional: true });
+  private _dialogData = inject(MAT_DIALOG_DATA, { optional: true });
+  private _downloader = inject(BlobDownloadService);
 
-    //- - - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - - -//
 
-    @Input() scssContent = ''
+  @Input() scssContent = ''
 
-    //-------------------------------//
+  //-------------------------------//
 
-    ngOnInit() {
-        // If opened via dialog, use the data passed to the dialog
-        if (this._dialogData?.scssContent && !this.scssContent)
-            this.scssContent = this._dialogData.scssContent
-    }
+  ngOnInit() {
+    // If opened via dialog, use the data passed to the dialog
+    if (this._dialogData?.scssContent && !this.scssContent)
+      this.scssContent = this._dialogData.scssContent
+  }
 
-    //-------------------------------//
+  //-------------------------------//
 
-    downloadScss(): void {
-        const content = this.scssContent;
-        const blob = new Blob([content], { type: 'text/scss' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'theme.scss';
-        a.click();
-        window.URL.revokeObjectURL(url);
+  downloadScss(): void {
+    const content = this.scssContent;
+    this._downloader.downloadScss(content, 'theme')
 
-        // Close the dialog after download if in dialog mode
-        if (this._dialogRef)
-            this._dialogRef.close()
-    }
-    
-    //-------------------------------//
+    // Close the dialog after download if in dialog mode
+    if (this._dialogRef)
+      this._dialogRef.close()
+  }
+
+  //-------------------------------//
 
 }//Cls
