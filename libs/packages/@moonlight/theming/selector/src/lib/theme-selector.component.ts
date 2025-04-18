@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY } from '@moonlight/ng/theming/config';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { ColorInputComponent } from './ui/cva-color-input.component';
@@ -33,9 +33,9 @@ const presetThemes: ThemeDefinition[] = [
   {
     name: 'default',
     theme: {
-      primary: DEFAULT_PRIMARY,
-      secondary: DEFAULT_SECONDARY,
-      tertiary: DEFAULT_TERTIARY
+      primary: DEFAULT_COLOR_PRIMARY,
+      secondary: DEFAULT_COLOR_SECONDARY,
+      tertiary: DEFAULT_COLOR_TERTIARY
     }
   },
   {
@@ -115,8 +115,8 @@ export class ThemeSelectorComponent {
   protected _exportedScss = signal<string | null>(null);
 
   protected _themeForm: IThemeForm = this._fb.group({
-    primary: this._fb.nonNullable.control(DEFAULT_PRIMARY, [Validators.required]),
-    secondary: this._fb.nonNullable.control(DEFAULT_SECONDARY, [Validators.required]),
+    primary: this._fb.nonNullable.control(DEFAULT_COLOR_PRIMARY, [Validators.required]),
+    secondary: this._fb.nonNullable.control(DEFAULT_COLOR_SECONDARY, [Validators.required]),
     tertiary: this._fb.control(null),
     error: this._fb.control(null),
     darkMode: this._fb.nonNullable.control(false)

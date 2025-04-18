@@ -1,4 +1,4 @@
-import { DEFAULT_PRIMARY, DEFAULT_THEME_LABEL, DEFAULT_ERROR, DEFAULT_NEUTRAL, DEFAULT_SECONDARY, DEFAULT_TERTIARY, DEFAULT_THEME_VALUE } from "./constants";
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_THEME_LABEL, DEFAULT_COLOR_ERROR, DEFAULT_COLOR_NEUTRAL, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, DEFAULT_THEME_VALUE } from "./constants";
 
 //##################################################//
 
@@ -71,10 +71,10 @@ export class ThemeOption {
 //##################################################//
 
 export const defaultThemeOption: ThemeOption = {
-  primaryColor: DEFAULT_PRIMARY,
-  secondaryColor: DEFAULT_SECONDARY,
-  tertiaryColor: DEFAULT_TERTIARY,
-  errorColor: DEFAULT_ERROR,
+  primaryColor: DEFAULT_COLOR_PRIMARY,
+  secondaryColor: DEFAULT_COLOR_SECONDARY,
+  tertiaryColor: DEFAULT_COLOR_TERTIARY,
+  errorColor: DEFAULT_COLOR_ERROR,
   fallbackIsDarkMode: false,
   value: DEFAULT_THEME_VALUE,
   label: DEFAULT_THEME_LABEL,

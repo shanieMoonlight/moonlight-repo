@@ -54,7 +54,7 @@ export class ThemeService {
   private _document = inject(DOCUMENT)
   //We can't inject Render2 Directly here. So have to use factory
   private _rendererFactory = inject(RendererFactory2)
-  private _config: ThemeConfig = inject(ThemeConfigService, { optional: true }) ?? ThemeConfig.Create()
+  private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
 

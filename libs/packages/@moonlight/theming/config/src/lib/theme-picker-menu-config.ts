@@ -1,11 +1,17 @@
 
 import { InjectionToken } from '@angular/core';
+import { DARK_MODE_CLASS, DEFAULT_COLOR_TONES, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
 import { ThemeOption } from './theme-option.model';
-import { DARK_MODE_CLASS, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
 
 //##################################################//
 
-export const ThemeConfigService = new InjectionToken<ThemeConfig>('ThemeConfig');
+export const ThemeConfigService = new InjectionToken<ThemeConfig>(
+  'ThemeConfig',
+  {
+    factory: () => ThemeConfig.Create()
+  }
+)
+
 export type ThemeMode = 'light' | 'dark';
 
 //##################################################//
@@ -17,6 +23,7 @@ export class ThemeConfig {
   lightModeClass = LIGHT_MODE_CLASS
   themeClassPrefix = THEME_CLASS_PREFIX
   defaultMode: ThemeMode = 'light'
+  colorTones: number[] = DEFAULT_COLOR_TONES
 
   //- - - - - - - - - - - - - - - //
 
@@ -41,7 +48,8 @@ export class ThemeConfig {
     darkModeClass?: string,
     lightModeClass?: string,
     themeClassPrefix?: string,
-    defaultMode?: ThemeMode): ThemeConfig {
+    defaultMode?: ThemeMode,
+    customColorTones?: number[]): ThemeConfig {
 
     const config = new ThemeConfig(themeOptions)
 
@@ -56,6 +64,9 @@ export class ThemeConfig {
 
     if (!!defaultMode)
       config.defaultMode = defaultMode
+
+    if (customColorTones?.length)
+      config.colorTones = customColorTones;
 
     return config
 

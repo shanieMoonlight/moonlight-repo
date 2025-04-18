@@ -4,9 +4,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeConfig, ThemeConfigService, ThemeOption , ThemeValue} from '@moonlight/ng/theming/config';
+import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeService } from '@moonlight/ng/theming/service';
-import { Subject, map, merge, tap } from 'rxjs';
+import { Subject, merge, tap } from 'rxjs';
 
 /**
  * A component that renders a Material Design icon button which opens a menu
@@ -51,15 +51,12 @@ export class ThemePicker_Mat_Component {
     //- - - - - - - - - - - - - - -//
 
     protected _options: Array<ThemeOption> = this._config.themeOptions
-
-
     protected _changeThemeClick$ = new Subject<ThemeOption>()
 
     private _themeOptionChange$ = this._changeThemeClick$.pipe(
         tap(newTheme => this._themeService.setTheme(newTheme)),
         tap(newTheme =>console.log('themeOptionChange$', newTheme))
     )
-
     private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$)
     protected _selectedOption = toSignal(this._selectedOption$)
 

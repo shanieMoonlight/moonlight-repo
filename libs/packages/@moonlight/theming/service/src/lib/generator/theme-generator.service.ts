@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
 import { BehaviorSubject } from 'rxjs';
-import { DEFAULT_ERROR, DEFAULT_TERTIARY, DARK_MODE_CLASS, COLOR_VAR_PREFIX, THEME_CLASS_PREFIX, PALLETES_MAP_SCSS_VAR, COLOR_TONES } from "@moonlight/ng/theming/config";
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, DARK_MODE_CLASS, COLOR_VAR_PREFIX, THEME_CLASS_PREFIX, PALLETES_MAP_SCSS_VAR, DEFAULT_COLOR_TONES, ThemeConfigService, ThemeConfig } from "@moonlight/ng/theming/config";
 import { ThemeColors } from './models/theme-colors';
 import { GeneratedPalettes } from './models/theme-palletes';
 
@@ -18,6 +18,8 @@ export class ThemeGeneratorService {
   private _renderer = this._rendererFactory.createRenderer(null, null);
 
   private _colorUtils = inject(ColorUtilsService);
+
+  private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
 
@@ -35,8 +37,8 @@ export class ThemeGeneratorService {
     // Convert hex colors to ARGB integers
     const primaryArgb = argbFromHex(primary);
     const secondaryArgb = argbFromHex(secondary);
-    const tertiaryArgb = argbFromHex(tertiary || DEFAULT_TERTIARY);
-    const errorArgb = argbFromHex(error || DEFAULT_ERROR);  // Using Material Design's standard error color as fallback
+    const tertiaryArgb = argbFromHex(tertiary || DEFAULT_COLOR_TERTIARY);
+    const errorArgb = argbFromHex(error || DEFAULT_COLOR_ERROR);  // Using Material Design's standard error color as fallback
 
     // Create custom colors array for the additional colors
     const customColors: CustomColor[] = [
@@ -73,11 +75,15 @@ export class ThemeGeneratorService {
     // Create standalone palettes for secondary and tertiary
     const secondaryPalette = TonalPalette.fromInt(secondaryArgb);
     console.log('secondaryPalette', secondaryPalette);
-    
+
     const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
 
+    
+  // Use sanitized tones
+  const sanitizedTones = this.sanitizeColorTones(this._config.colorTones);
+
     // Generate all palettes in a single loop
-    for (const tone of COLOR_TONES) {
+    for (const tone of sanitizedTones) {
       palettes.primary[tone] = hexFromArgb(theme.palettes.primary.tone(tone));
       palettes.neutral[tone] = hexFromArgb(theme.palettes.neutral.tone(tone));
       palettes.neutralVariant[tone] = hexFromArgb(theme.palettes.neutralVariant.tone(tone));
@@ -273,7 +279,7 @@ export class ThemeGeneratorService {
    */
   toggleDarkMode(isDark: boolean) {
     const currentTheme = this.currentTheme();
-    if (currentTheme) 
+    if (currentTheme)
       this.applyTheme(currentTheme, document.documentElement, isDark)
   }
 
@@ -289,7 +295,7 @@ export class ThemeGeneratorService {
 
     // Generate comments about the source colors first
     const commentHeader = this.generateScssComments(theme);
-    
+
     const palettes = this.generatePalettes(theme);
     let scss = commentHeader + PALLETES_MAP_SCSS_VAR + ': (\n';
 
@@ -326,22 +332,33 @@ export class ThemeGeneratorService {
     comments += '// Source Colors:\n';
     comments += `// Primary: ${theme.primary}\n`;
     comments += `// Secondary: ${theme.secondary}\n`;
-    
+
     if (theme.tertiary)
       comments += `// Tertiary: ${theme.tertiary}\n`;
     else
-      comments += `// Tertiary: ${DEFAULT_TERTIARY} (default)\n`;
-      
+      comments += `// Tertiary: ${DEFAULT_COLOR_TERTIARY} (default)\n`;
+
     if (theme.error)
       comments += `// Error: ${theme.error}\n`;
     else
-      comments += `// Error: ${DEFAULT_ERROR} (default)\n`;
-    
+      comments += `// Error: ${DEFAULT_COLOR_ERROR} (default)\n`;
+
     comments += '\n';
-    
+
     return comments;
   }
 
   //-----------------------------//
+
+  /**
+ * Sanitizes color tones to ensure they're valid integers between 0 and 100
+ * @private
+ */
+  private sanitizeColorTones(tones: number[]): number[] {
+    return tones
+      .map(tone => Math.round(tone)) // Round to nearest integer
+      .filter(tone => tone >= 0 && tone <= 100) // Only keep values in valid range
+      .sort((a, b) => a - b); // Sort numerically
+  }
 
 }//Cls
