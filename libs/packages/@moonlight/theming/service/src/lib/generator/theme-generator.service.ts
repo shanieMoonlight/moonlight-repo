@@ -205,15 +205,15 @@ export class ThemeGeneratorService {
 
   //-----------------------------//
 
-  //TODO: remove this method
-  /**
-   * Toggle between light and dark mode
-   */
-  toggleDarkMode(isDark: boolean) {
-    const currentTheme = this.currentTheme();
-    if (currentTheme)
-      this.applyTheme(currentTheme, document.documentElement, isDark)
-  }
+  // //TODO: remove this method
+  // /**
+  //  * Toggle between light and dark mode
+  //  */
+  // toggleDarkMode(isDark: boolean) {
+  //   const currentTheme = this.currentTheme();
+  //   if (currentTheme)
+  //     this.applyTheme(currentTheme, document.documentElement, isDark)
+  // }
 
   //-----------------------------//
 

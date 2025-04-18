@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
 import { SsrLocalStorage } from '../../../../ssr/storage/src/lib/ssr-local-storage.service';
 import { ThemeOption } from '../../../config/src/lib/theme-option.model';
-import { ThemeConfig, ThemeConfigService } from '../../../config/src/lib/theme-picker-menu-config';
+import { ThemeConfig, ThemeConfigService } from '../../../config/src/lib/theming-config';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 import { ThemeService } from './theme.service';
 
