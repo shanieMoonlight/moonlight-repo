@@ -1,0 +1,193 @@
+@use '@angular/material' as mat;
+
+//======================== CHECKBOXES =========================//
+
+.secondary {
+  @include mat.checkbox-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-secondary),
+      selected-hover-icon-color: var(--mat-sys-secondary),
+      selected-focus-icon-color: var(--mat-sys-secondary),
+      selected-pressed-icon-color: var(--mat-sys-secondary),
+      
+      // Checkmark color
+      selected-checkmark-color: var(--mat-sys-on-secondary),
+      
+      // State layer colors
+      selected-hover-state-layer-color: var(--mat-sys-secondary),
+      selected-focus-state-layer-color: var(--mat-sys-secondary),
+      unselected-pressed-state-layer-color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+.tertiary {
+  @include mat.checkbox-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-tertiary),
+      selected-hover-icon-color: var(--mat-sys-tertiary),
+      selected-focus-icon-color: var(--mat-sys-tertiary),
+      selected-pressed-icon-color: var(--mat-sys-tertiary),
+      
+      // Checkmark color
+      selected-checkmark-color: var(--mat-sys-on-tertiary),
+      
+      // State layer colors
+      selected-hover-state-layer-color: var(--mat-sys-tertiary),
+      selected-focus-state-layer-color: var(--mat-sys-tertiary),
+      unselected-pressed-state-layer-color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+.error {
+  @include mat.checkbox-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-error),
+      selected-hover-icon-color: var(--mat-sys-error),
+      selected-focus-icon-color: var(--mat-sys-error),
+      selected-pressed-icon-color: var(--mat-sys-error),
+      
+      // Checkmark color
+      selected-checkmark-color: var(--mat-sys-on-error),
+      
+      // State layer colors
+      selected-hover-state-layer-color: var(--mat-sys-error),
+      selected-focus-state-layer-color: var(--mat-sys-error),
+      unselected-pressed-state-layer-color: var(--mat-sys-error)
+    )
+  );
+}
+
+
+
+//======================== RADIO BUTTONS =========================//
+
+.secondary {
+  @include mat.radio-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-secondary),
+      selected-hover-icon-color: var(--mat-sys-secondary),
+      selected-focus-icon-color: var(--mat-sys-secondary),
+      selected-pressed-icon-color: var(--mat-sys-secondary),
+      
+      // Ripple color
+      checked-ripple-color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+.tertiary {
+  @include mat.radio-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-tertiary),
+      selected-hover-icon-color: var(--mat-sys-tertiary),
+      selected-focus-icon-color: var(--mat-sys-tertiary),
+      selected-pressed-icon-color: var(--mat-sys-tertiary),
+      
+      // Ripple color
+      checked-ripple-color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+.error {
+  @include mat.radio-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-error),
+      selected-hover-icon-color: var(--mat-sys-error),
+      selected-focus-icon-color: var(--mat-sys-error),
+      selected-pressed-icon-color: var(--mat-sys-error),
+      
+      // Ripple color
+      checked-ripple-color: var(--mat-sys-error)
+    )
+  );
+}
+
+
+//======================== SLIDE TOGGLES =========================//
+
+.secondary {
+  @include mat.slide-toggle-overrides(
+    (
+      // Handle colors
+      selected-handle-color: var(--mat-sys-on-secondary),
+      selected-focus-handle-color: var(--mat-sys-secondary-container),
+      selected-hover-handle-color: var(--mat-sys-secondary-container),
+      selected-pressed-handle-color: var(--mat-sys-secondary-container),
+      
+      // Track colors
+      selected-track-color: var(--mat-sys-secondary),
+      selected-focus-track-color: var(--mat-sys-secondary),
+      selected-hover-track-color: var(--mat-sys-secondary),
+      selected-pressed-track-color: var(--mat-sys-secondary),
+      
+      // State layer colors
+      selected-focus-state-layer-color: var(--mat-sys-secondary),
+      selected-hover-state-layer-color: var(--mat-sys-secondary),
+      selected-pressed-state-layer-color: var(--mat-sys-secondary),
+      
+      // Icon color
+      selected-icon-color: var(--mat-sys-on-secondary-container)
+    )
+  );
+}
+
+.tertiary {
+  @include mat.slide-toggle-overrides(
+    (
+      // Handle colors
+      selected-handle-color: var(--mat-sys-on-tertiary),
+      selected-focus-handle-color: var(--mat-sys-tertiary-container),
+      selected-hover-handle-color: var(--mat-sys-tertiary-container),
+      selected-pressed-handle-color: var(--mat-sys-tertiary-container),
+      
+      // Track colors
+      selected-track-color: var(--mat-sys-tertiary),
+      selected-focus-track-color: var(--mat-sys-tertiary),
+      selected-hover-track-color: var(--mat-sys-tertiary),
+      selected-pressed-track-color: var(--mat-sys-tertiary),
+      
+      // State layer colors
+      selected-focus-state-layer-color: var(--mat-sys-tertiary),
+      selected-hover-state-layer-color: var(--mat-sys-tertiary),
+      selected-pressed-state-layer-color: var(--mat-sys-tertiary),
+      
+      // Icon color
+      selected-icon-color: var(--mat-sys-on-tertiary-container)
+    )
+  );
+}
+
+.error {
+  @include mat.slide-toggle-overrides(
+    (
+      // Handle colors
+      selected-handle-color: var(--mat-sys-on-error),
+      selected-focus-handle-color: var(--mat-sys-error-container),
+      selected-hover-handle-color: var(--mat-sys-error-container),
+      selected-pressed-handle-color: var(--mat-sys-error-container),
+      
+      // Track colors
+      selected-track-color: var(--mat-sys-error),
+      selected-focus-track-color: var(--mat-sys-error),
+      selected-hover-track-color: var(--mat-sys-error),
+      selected-pressed-track-color: var(--mat-sys-error),
+      
+      // State layer colors
+      selected-focus-state-layer-color: var(--mat-sys-error),
+      selected-hover-state-layer-color: var(--mat-sys-error),
+      selected-pressed-state-layer-color: var(--mat-sys-error),
+      
+      // Icon color
+      selected-icon-color: var(--mat-sys-on-error-container)
+    )
+  );
+}

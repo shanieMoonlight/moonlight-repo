@@ -1,0 +1,11 @@
+//Contains all the color overrides for the Material components 
+//So they can use primary, secondary, tertiary, error, and neutral colors
+
+@use "./button-overrides.scss" as *;
+@use "./progress-overrides.scss" as *;
+@use "./boolean-overrides.scss" as *;
+@use "./dropdown-overrides.scss" as *;
+@use "./badge-overrides.scss" as *;
+@use "./chip-overrides.scss" as *;
+@use "./tab-overrides.scss" as *;
+@use "./form-field-overrides.scss" as *;

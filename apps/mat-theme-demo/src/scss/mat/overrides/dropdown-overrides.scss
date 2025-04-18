@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+
+//======================= SPIN ========================//
+
+.secondary {
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+
+
+.tertiary {
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+
+
+.error {
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-error)
+    )
+  );
+}
+
+
+

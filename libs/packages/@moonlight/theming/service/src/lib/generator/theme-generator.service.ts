@@ -287,8 +287,11 @@ export class ThemeGeneratorService {
     const theme = this.currentTheme$.value;
     if (!theme) return '';
 
+    // Generate comments about the source colors first
+    const commentHeader = this.generateScssComments(theme);
+    
     const palettes = this.generatePalettes(theme);
-    let scss = PALLETES_MAP_SCSS_VAR + ': (\n';
+    let scss = commentHeader + PALLETES_MAP_SCSS_VAR + ': (\n';
 
     // Build SCSS representation of palettes
     Object.entries(palettes).forEach(([paletteName, shades]) => {
@@ -310,6 +313,33 @@ export class ThemeGeneratorService {
     scss += ');\n';
 
     return scss;
+  }
+
+  //-----------------------------//
+
+  /**
+   * Generates SCSS comments with theme source information
+   * @private
+   */
+  private generateScssComments(theme: ThemeColors): string {
+    let comments = '// Generated Material Theme SCSS\n';
+    comments += '// Source Colors:\n';
+    comments += `// Primary: ${theme.primary}\n`;
+    comments += `// Secondary: ${theme.secondary}\n`;
+    
+    if (theme.tertiary)
+      comments += `// Tertiary: ${theme.tertiary}\n`;
+    else
+      comments += `// Tertiary: ${DEFAULT_TERTIARY} (default)\n`;
+      
+    if (theme.error)
+      comments += `// Error: ${theme.error}\n`;
+    else
+      comments += `// Error: ${DEFAULT_ERROR} (default)\n`;
+    
+    comments += '\n';
+    
+    return comments;
   }
 
   //-----------------------------//

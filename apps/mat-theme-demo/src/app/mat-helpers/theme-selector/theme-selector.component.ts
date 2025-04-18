@@ -83,8 +83,7 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent,
-    ScssDisplayComponent
+    ColorInputComponent
   ],
   providers: [
     {

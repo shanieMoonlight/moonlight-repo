@@ -46,7 +46,11 @@
             Apply Theme
           </button>
 
-          <button mat-button [disabled]="!_currentTheme()" color="accent" type="button" (click)="openScssDialog()">
+          <button mat-button 
+            [disabled]="!_currentTheme()" 
+            class="secondary" 
+            type="button" 
+            (click)="openScssDialog()">
             <mat-icon>code</mat-icon>
             Export SCSS
           </button>
