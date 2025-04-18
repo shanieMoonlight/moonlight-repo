@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, TemplateRef } from '@angular/core';
-import { MatEverythingModule } from '../../utils/mat-everything-modules';
+import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 
 @Component({
   selector: 'ml-navbar',

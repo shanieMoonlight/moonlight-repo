@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatEverythingModule } from '../../utils/mat-everything-modules';
+import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 
 @Component({
   selector: 'ml-theme-showcase-mat',

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.component';
-import { MatEverythingModule } from '../../utils/mat-everything-modules';
+import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { ThemeColors } from '../theme-colors';
 import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY, ThemeGeneratorService } from './services/theme-generator/theme-generator.service';
 

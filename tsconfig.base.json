@@ -27,6 +27,12 @@
       "@moonlight/ng/theming/service": [
         "libs/packages/@moonlight/theming/service/src/index.ts"
       ],
+      "@moonlight/ng/theming/showcase": [
+        "libs/packages/@moonlight/theming/showcase/src/index.ts"
+      ],
+      "@moonlight/ng/theming/utils": [
+        "libs/packages/@moonlight/theming/utils/src/index.ts"
+      ],
       "@moonlight/ssr-storage": [
         "libs/packages/@moonlight/ssr/storage/src/index.ts"
       ]

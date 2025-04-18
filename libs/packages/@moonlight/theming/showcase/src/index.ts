@@ -1,0 +1,1 @@
+export * from './lib/theme-showcase-mat.component';
