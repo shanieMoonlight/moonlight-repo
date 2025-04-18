@@ -20,7 +20,7 @@ export default async (): Promise<Config> => ({
   },
   transformIgnorePatterns: [
     // Ensure @moonlight packages are transformed if needed
-    `<rootDir>/node_modules/(?!.*\\.mjs$|@angular|@ngrx|rxjs|@moonlight)`, 
+    'node_modules/(?!.*\\.mjs$|@angular|@ngrx|rxjs|@moonlight|@material/material-color-utilities)'
   ],
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',

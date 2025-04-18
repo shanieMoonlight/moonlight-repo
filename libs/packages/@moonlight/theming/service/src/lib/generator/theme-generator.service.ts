@@ -1,10 +1,11 @@
 import { inject, Injectable, RendererFactory2 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
-import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, PALLETES_MAP_SCSS_VAR, THEME_CLASS_PREFIX, ThemeConfig, ThemeConfigService, ThemeOption } from "@moonlight/ng/theming/config";
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
 import { BehaviorSubject } from 'rxjs';
 import { GeneratedPalettes } from './models/theme-palletes';
+import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
+import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 
 //#########################################//
 
@@ -17,89 +18,13 @@ export class ThemeGeneratorService {
   private _renderer = this._rendererFactory.createRenderer(null, null);
 
   private _colorUtils = inject(ColorUtilsService);
-
-  private _config: ThemeConfig = inject(ThemeConfigService)
+  private _paletteGenerator = inject(PaletteGeneratorService)
+  private _scssGenerator = inject(ScssPaletteGeneratorService)
 
   //- - - - - - - - - - - - - - -//
 
   private currentTheme$ = new BehaviorSubject<ThemeOption | null>(null);
   currentTheme = toSignal(this.currentTheme$)
-
-  //-----------------------------//
-
-  /**
-   * Generate theme palettes from source colors
-   */
-  generatePalettes(themeOption: ThemeOption): GeneratedPalettes {
-
-    const primary = themeOption.primaryColor ?? DEFAULT_COLOR_PRIMARY;
-    const secondary = themeOption.secondaryColor ?? DEFAULT_COLOR_SECONDARY;
-    const tertiary = themeOption.tertiaryColor ?? DEFAULT_COLOR_TERTIARY;
-    const error = themeOption.errorColor ?? DEFAULT_COLOR_ERROR;
-
-
-
-    // Convert hex colors to ARGB integers
-    const primaryArgb = argbFromHex(primary);
-    const secondaryArgb = argbFromHex(secondary);
-    const tertiaryArgb = argbFromHex(tertiary || DEFAULT_COLOR_TERTIARY);
-    const errorArgb = argbFromHex(error || DEFAULT_COLOR_ERROR);  // Using Material Design's standard error color as fallback
-
-    // Create custom colors array for the additional colors
-    const customColors: CustomColor[] = [
-      {
-        value: secondaryArgb,
-        name: 'secondary',
-        blend: true
-      },
-      {
-        value: tertiaryArgb,
-        name: 'tertiary',
-        blend: true
-      },
-      {
-        value: errorArgb,
-        name: 'error',
-        blend: true
-      }
-    ];
-
-    // Generate theme using Material Color Utilities
-    const theme = themeFromSourceColor(primaryArgb, customColors);
-
-    // Extract palettes
-    const palettes: GeneratedPalettes = {
-      primary: {},
-      secondary: {},
-      tertiary: {},
-      error: {},
-      neutral: {},
-      neutralVariant: {}
-    };
-
-    // Create standalone palettes for secondary and tertiary
-    const secondaryPalette = TonalPalette.fromInt(secondaryArgb);
-    console.log('secondaryPalette', secondaryPalette);
-
-    const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
-
-
-    // Use sanitized tones
-    const sanitizedTones = this.sanitizeColorTones(this._config.colorTones);
-
-    // Generate all palettes in a single loop
-    for (const tone of sanitizedTones) {
-      palettes.primary[tone] = hexFromArgb(theme.palettes.primary.tone(tone));
-      palettes.neutral[tone] = hexFromArgb(theme.palettes.neutral.tone(tone));
-      palettes.neutralVariant[tone] = hexFromArgb(theme.palettes.neutralVariant.tone(tone));
-      palettes.error[tone] = hexFromArgb(theme.palettes.error.tone(tone));
-      palettes.secondary[tone] = hexFromArgb(secondaryPalette.tone(tone));
-      palettes.tertiary[tone] = hexFromArgb(tertiaryPalette.tone(tone));
-    }
-
-    return palettes
-
-  }
 
   //-----------------------------//
 
@@ -114,7 +39,7 @@ export class ThemeGeneratorService {
 
     this.currentTheme$.next(colors);
 
-    const palettes = this.generatePalettes(colors)
+    const palettes = this._paletteGenerator.generatePalettes(colors)
 
     // First, set the individual palette shade variables
     this.applyPaletteVariables(palettes, targetElement)
@@ -147,9 +72,9 @@ export class ThemeGeneratorService {
         targetElement.style.setProperty(
           `--${COLOR_VAR_PREFIX}-${paletteName}-${tone}`,
           `${colorValue}`
-        );
-      });
-    });
+        )
+      })
+    })
   }
 
   //-----------------------------//
@@ -280,7 +205,6 @@ export class ThemeGeneratorService {
 
   //-----------------------------//
 
-
   //TODO: remove this method
   /**
    * Toggle between light and dark mode
@@ -297,74 +221,10 @@ export class ThemeGeneratorService {
    * Export current theme as SCSS
    * This can be useful for debugging or saving themes
    */
-  exportThemeAsScss(): string {
-    const theme = this.currentTheme$.value;
-    if (!theme) return '';
-
-    // Generate comments about the source colors first
-    const commentHeader = this.generateScssComments(theme);
-
-    const palettes = this.generatePalettes(theme);
-    let scss = commentHeader + PALLETES_MAP_SCSS_VAR + ': (\n';
-
-    // Build SCSS representation of palettes
-    Object.entries(palettes).forEach(([paletteName, shades]) => {
-      if (paletteName === 'primary') {
-        // Primary is at the root level
-        Object.entries(shades).forEach(([tone, color]) => {
-          scss += `  ${tone}: ${color},\n`;
-        });
-      } else {
-        // Other palettes are nested
-        scss += `  ${paletteName}: (\n`;
-        Object.entries(shades).forEach(([tone, color]) => {
-          scss += `    ${tone}: ${color},\n`;
-        });
-        scss += '  ),\n';
-      }
-    });
-
-    scss += ');\n';
-
-    return scss;
+  exportThemeAsScss = (): string => {
+    const theme = this.currentTheme();
+    return !!theme
+      ? this._scssGenerator.exportThemeAsScss(theme)
+      : ''
   }
-
-  //-----------------------------//
-
-  /**
-   * Generates SCSS comments with theme source information
-   * @private
-   */
-  private generateScssComments(theme: ThemeOption): string {
-    let comments = '// Generated Material Theme SCSS\n';
-    comments += '// Source Colors:\n';
-    comments += `// Primary: ${theme.primaryColor}\n`;
-    comments += `// Secondary: ${theme.secondaryColor}\n`;
-
-    if (theme.tertiaryColor)
-      comments += `// Tertiary: ${theme.tertiaryColor}\n`;
-    else
-      comments += `// Tertiary: ${DEFAULT_COLOR_TERTIARY} (default)\n`;
-
-    if (theme.errorColor)
-      comments += `// Error: ${theme.errorColor}\n`; // Updated to use errorColor
-    else
-      comments += `// Error: ${DEFAULT_COLOR_ERROR} (default)\n`;
-
-    comments += '\n';
-
-    return comments;
-  }
-
-  //-----------------------------//
-
-  /**
-   * Sanitizes color tones to ensure they're valid integers between 0 and 100
-   * @private
-   */
-  private sanitizeColorTones = (tones: number[]): number[] => tones
-    .map(tone => Math.round(tone)) // Round to nearest integer
-    .filter(tone => tone >= 0 && tone <= 100) // Only keep values in valid range
-    .sort((a, b) => a - b) /* Sort numerically*/
-
 }//Cls
