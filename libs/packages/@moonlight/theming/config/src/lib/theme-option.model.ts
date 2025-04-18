@@ -108,7 +108,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#006747',
     tertiaryColor: '#FFD700',
     errorColor: DEFAULT_COLOR_ERROR,
-    fallbackIsDarkMode: false
+    fallbackIsDarkMode: true
   },
   {
     label: 'Sugar',

@@ -1,10 +1,9 @@
 import { inject, Injectable, RendererFactory2 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, PALLETES_MAP_SCSS_VAR, THEME_CLASS_PREFIX, ThemeConfig, ThemeConfigService, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
 import { BehaviorSubject } from 'rxjs';
-import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, DARK_MODE_CLASS, COLOR_VAR_PREFIX, THEME_CLASS_PREFIX, PALLETES_MAP_SCSS_VAR, DEFAULT_COLOR_TONES, ThemeConfigService, ThemeConfig } from "@moonlight/ng/theming/config";
-import { ThemeColors } from './models/theme-colors';
 import { GeneratedPalettes } from './models/theme-palletes';
 
 //#########################################//
@@ -23,7 +22,7 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
-  private currentTheme$ = new BehaviorSubject<ThemeColors | null>(null);
+  private currentTheme$ = new BehaviorSubject<ThemeOption | null>(null);
   currentTheme = toSignal(this.currentTheme$)
 
   //-----------------------------//
@@ -31,8 +30,14 @@ export class ThemeGeneratorService {
   /**
    * Generate theme palettes from source colors
    */
-  generatePalettes(colors: ThemeColors): GeneratedPalettes {
-    const { primary, secondary, tertiary, error } = colors;
+  generatePalettes(themeOption: ThemeOption): GeneratedPalettes {
+
+    const primary = themeOption.primaryColor ?? DEFAULT_COLOR_PRIMARY;
+    const secondary = themeOption.secondaryColor ?? DEFAULT_COLOR_SECONDARY;
+    const tertiary = themeOption.tertiaryColor ?? DEFAULT_COLOR_TERTIARY;
+    const error = themeOption.errorColor ?? DEFAULT_COLOR_ERROR;
+
+
 
     // Convert hex colors to ARGB integers
     const primaryArgb = argbFromHex(primary);
@@ -78,9 +83,9 @@ export class ThemeGeneratorService {
 
     const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
 
-    
-  // Use sanitized tones
-  const sanitizedTones = this.sanitizeColorTones(this._config.colorTones);
+
+    // Use sanitized tones
+    const sanitizedTones = this.sanitizeColorTones(this._config.colorTones);
 
     // Generate all palettes in a single loop
     for (const tone of sanitizedTones) {
@@ -92,7 +97,8 @@ export class ThemeGeneratorService {
       palettes.tertiary[tone] = hexFromArgb(tertiaryPalette.tone(tone));
     }
 
-    return palettes;
+    return palettes
+
   }
 
   //-----------------------------//
@@ -101,7 +107,7 @@ export class ThemeGeneratorService {
    * Apply generated theme to the document using CSS variables
    */
   applyTheme(
-    colors: ThemeColors,
+    colors: ThemeOption,
     targetElement = document.documentElement,
     isDark = false,
     themeClass?: string) {
@@ -246,7 +252,7 @@ export class ThemeGeneratorService {
     element.style.setProperty(name, value)
 
   //-----------------------------//
-  
+
   /**
     * Add RGB variables for transparency support
     */
@@ -268,7 +274,8 @@ export class ThemeGeneratorService {
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
 
     // Background
-    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])
+
   }
 
   //-----------------------------//
@@ -328,19 +335,19 @@ export class ThemeGeneratorService {
    * Generates SCSS comments with theme source information
    * @private
    */
-  private generateScssComments(theme: ThemeColors): string {
+  private generateScssComments(theme: ThemeOption): string {
     let comments = '// Generated Material Theme SCSS\n';
     comments += '// Source Colors:\n';
-    comments += `// Primary: ${theme.primary}\n`;
-    comments += `// Secondary: ${theme.secondary}\n`;
+    comments += `// Primary: ${theme.primaryColor}\n`;
+    comments += `// Secondary: ${theme.secondaryColor}\n`;
 
-    if (theme.tertiary)
-      comments += `// Tertiary: ${theme.tertiary}\n`;
+    if (theme.tertiaryColor)
+      comments += `// Tertiary: ${theme.tertiaryColor}\n`;
     else
       comments += `// Tertiary: ${DEFAULT_COLOR_TERTIARY} (default)\n`;
 
-    if (theme.error)
-      comments += `// Error: ${theme.error}\n`;
+    if (theme.errorColor)
+      comments += `// Error: ${theme.errorColor}\n`; // Updated to use errorColor
     else
       comments += `// Error: ${DEFAULT_COLOR_ERROR} (default)\n`;
 
@@ -352,14 +359,12 @@ export class ThemeGeneratorService {
   //-----------------------------//
 
   /**
- * Sanitizes color tones to ensure they're valid integers between 0 and 100
- * @private
- */
-  private sanitizeColorTones(tones: number[]): number[] {
-    return tones
-      .map(tone => Math.round(tone)) // Round to nearest integer
-      .filter(tone => tone >= 0 && tone <= 100) // Only keep values in valid range
-      .sort((a, b) => a - b); // Sort numerically
-  }
+   * Sanitizes color tones to ensure they're valid integers between 0 and 100
+   * @private
+   */
+  private sanitizeColorTones = (tones: number[]): number[] => tones
+    .map(tone => Math.round(tone)) // Round to nearest integer
+    .filter(tone => tone >= 0 && tone <= 100) // Only keep values in valid range
+    .sort((a, b) => a - b) /* Sort numerically*/
 
 }//Cls

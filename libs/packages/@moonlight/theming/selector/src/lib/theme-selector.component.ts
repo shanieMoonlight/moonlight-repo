@@ -110,7 +110,7 @@ export class ThemeSelectorComponent {
     };
 
     this._themeGenerator.applyTheme(
-      convertThemeOptionToColors(themeToApply),
+      themeToApply,
       document.documentElement,
       values.darkMode // Pass dark mode state separately as applyTheme expects it
     );
@@ -121,27 +121,27 @@ export class ThemeSelectorComponent {
   protected applyPreset(presetValue: ThemeValue) {
 
     // Find the preset using the input signal
-    const preset = this._presetThemes().find(p => p.value === presetValue);
+    const presetTheme = this._presetThemes().find(p => p.value === presetValue);
 
-    console.log('applyPreset', presetValue, preset);
+    console.log('applyPreset', presetValue, presetTheme);
 
 
-    if (!preset) return;
+    if (!presetTheme) return;
 
     // Patch the form using ThemeOption property names
     this._themeForm.patchValue({
-      primary: preset.primaryColor,
-      secondary: preset.secondaryColor,
-      tertiary: preset.tertiaryColor,
-      error: preset.errorColor,
+      primary: presetTheme.primaryColor,
+      secondary: presetTheme.secondaryColor,
+      tertiary: presetTheme.tertiaryColor,
+      error: presetTheme.errorColor,
       // Don't patch darkMode here, let applyTheme handle it based on the preset's fallbackIsDarkMode
     });
 
     // Pass the full ThemeOption to applyTheme
     this._themeGenerator.applyTheme(
-      convertThemeOptionToColors(preset),
+      presetTheme,
       document.documentElement,
-      preset.fallbackIsDarkMode // Use the preset's dark mode preference
+      presetTheme.fallbackIsDarkMode // Use the preset's dark mode preference
       // themeClass is handled internally by applyTheme now based on ThemeOption.value
     );
   }
