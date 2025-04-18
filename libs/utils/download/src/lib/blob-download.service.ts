@@ -61,4 +61,63 @@ export class BlobDownloadService {
 
   //----------------------------------//
 
-}
+  // Convenience method for JSON downloads
+  downloadJson(content: object | string, filename = 'data.json'): boolean {
+    // Convert object to string if needed
+    const jsonContent = typeof content === 'string' ? content : JSON.stringify(content, null, 2);
+    
+    // Ensure filename has .json extension
+    if (!filename.toLowerCase().endsWith('.json')) 
+      filename += '.json'
+
+    return this.downloadBlob(jsonContent, {
+      filename,
+      mimeType: 'application/json'
+    });
+  }
+
+  //----------------------------------//
+
+  // Convenience method for CSV downloads
+  downloadCsv(content: string, filename = 'data.csv'): boolean {
+    // Ensure filename has .csv extension
+    if (!filename.toLowerCase().endsWith('.csv')) 
+      filename += '.csv'
+
+    return this.downloadBlob(content, {
+      filename,
+      mimeType: 'text/csv'
+    });
+  }
+
+  //----------------------------------//
+
+  // Convenience method for Text downloads
+  downloadText(content: string, filename = 'data.txt'): boolean {
+    // Ensure filename has .txt extension
+    if (!filename.toLowerCase().endsWith('.txt')) 
+      filename += '.txt'
+
+    return this.downloadBlob(content, {
+      filename,
+      mimeType: 'text/plain'
+    });
+  }
+
+  //----------------------------------//
+
+  // Convenience method for HTML downloads
+  downloadHtml(content: string, filename = 'page.html'): boolean {
+    // Ensure filename has .html extension
+    if (!filename.toLowerCase().endsWith('.html') && !filename.toLowerCase().endsWith('.htm')) 
+      filename += '.html'
+
+    return this.downloadBlob(content, {
+      filename,
+      mimeType: 'text/html'
+    });
+  }
+
+  //----------------------------------//
+
+}//Cls

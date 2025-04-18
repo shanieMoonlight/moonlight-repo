@@ -31,7 +31,7 @@ describe('BlobDownloadService', () => {
 
     // Reset mocks between tests
     jest.clearAllMocks();
-    
+
     // Setup spies on the now-available methods
     createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
     revokeObjectURLSpy = jest.spyOn(URL, 'revokeObjectURL');
@@ -185,6 +185,256 @@ describe('BlobDownloadService', () => {
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'theme.SCSS',
         mimeType: 'text/scss'
+      });
+    });
+  });
+
+  //----------------------------------//
+
+  describe('downloadJson', () => {
+    it('should call downloadBlob with correct JSON mime type', () => {
+      // Arrange
+      const obj = { name: 'test', value: 123 };
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      const result = service.downloadJson(obj);
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
+        filename: 'data.json',
+        mimeType: 'application/json'
+      });
+      expect(result).toBe(true);
+    });
+
+    //----------------------------------//
+
+    it('should handle string input', () => {
+      // Arrange
+      const content = '{"name":"test"}';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadJson(content);
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'data.json',
+        mimeType: 'application/json'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should add .json extension if missing', () => {
+      // Arrange
+      const obj = { test: true };
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadJson(obj, 'data-file');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
+        filename: 'data-file.json',
+        mimeType: 'application/json'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should not modify filename if it already has .json extension', () => {
+      // Arrange
+      const obj = { test: true };
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadJson(obj, 'data.json');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
+        filename: 'data.json',
+        mimeType: 'application/json'
+      });
+    });
+  });
+
+  //- - - - - - - - - - - - - - - - - //
+
+  describe('downloadCsv', () => {
+    it('should call downloadBlob with correct CSV mime type', () => {
+      // Arrange
+      const content = 'name,age\nJohn,30\nJane,25';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      const result = service.downloadCsv(content);
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'data.csv',
+        mimeType: 'text/csv'
+      });
+      expect(result).toBe(true);
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should add .csv extension if missing', () => {
+      // Arrange
+      const content = 'name,age\nJohn,30';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadCsv(content, 'export');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'export.csv',
+        mimeType: 'text/csv'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should not modify filename if it already has .csv extension', () => {
+      // Arrange
+      const content = 'name,age\nJohn,30';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadCsv(content, 'export.csv');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'export.csv',
+        mimeType: 'text/csv'
+      });
+    });
+  });
+
+  //----------------------------------//
+
+  describe('downloadText', () => {
+    it('should call downloadBlob with correct text mime type', () => {
+      // Arrange
+      const content = 'This is a plain text file';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      const result = service.downloadText(content);
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'data.txt',
+        mimeType: 'text/plain'
+      });
+      expect(result).toBe(true);
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should add .txt extension if missing', () => {
+      // Arrange
+      const content = 'Simple text content';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadText(content, 'notes');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'notes.txt',
+        mimeType: 'text/plain'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should not modify filename if it already has .txt extension', () => {
+      // Arrange
+      const content = 'Simple text content';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadText(content, 'notes.txt');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'notes.txt',
+        mimeType: 'text/plain'
+      });
+    });
+  });
+
+  //----------------------------------//
+
+  describe('downloadHtml', () => {
+    it('should call downloadBlob with correct HTML mime type', () => {
+      // Arrange
+      const content = '<html><body><h1>Hello</h1></body></html>';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      const result = service.downloadHtml(content);
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'page.html',
+        mimeType: 'text/html'
+      });
+      expect(result).toBe(true);
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should add .html extension if missing', () => {
+      // Arrange
+      const content = '<div>Simple HTML</div>';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadHtml(content, 'document');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'document.html',
+        mimeType: 'text/html'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should not modify filename if it already has .html extension', () => {
+      // Arrange
+      const content = '<div>Simple HTML</div>';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadHtml(content, 'document.html');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'document.html',
+        mimeType: 'text/html'
+      });
+    });
+
+    //- - - - - - - - - - - - - - - - - //
+
+    it('should not modify filename if it already has .htm extension', () => {
+      // Arrange
+      const content = '<div>Simple HTML</div>';
+      const spy = jest.spyOn(service, 'downloadBlob').mockReturnValue(true);
+
+      // Act
+      service.downloadHtml(content, 'document.htm');
+
+      // Assert
+      expect(spy).toHaveBeenCalledWith(content, {
+        filename: 'document.htm',
+        mimeType: 'text/html'
       });
     });
   });
