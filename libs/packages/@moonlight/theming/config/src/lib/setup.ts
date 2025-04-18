@@ -1,5 +1,5 @@
 import { EnvironmentProviders, Provider } from "@angular/core"
-import { ThemeConfig, ThemeConfigService } from "./theme-picker-menu-config"
+import { ThemeConfig, ThemeConfigService } from "./theming-config"
 
 
 export class ThemeAndModeSetup {

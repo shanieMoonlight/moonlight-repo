@@ -246,6 +246,7 @@ export class ThemeGeneratorService {
     element.style.setProperty(name, value)
 
   //-----------------------------//
+  
   /**
     * Add RGB variables for transparency support
     */

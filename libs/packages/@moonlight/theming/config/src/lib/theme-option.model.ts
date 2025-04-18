@@ -81,3 +81,109 @@ export const defaultThemeOption: ThemeOption = {
 }
 
 //##################################################//
+
+
+export const defaultPresetSelectorThemes: ThemeOption[] = [
+  defaultThemeOption,
+  {
+    label: 'Halloween',
+    value: 'halloween',
+    primaryColor: '#FF7518',
+    secondaryColor: '#31004a',
+    tertiaryColor: '#556B2F',
+    errorColor: DEFAULT_COLOR_ERROR, // Add error color
+    fallbackIsDarkMode: true // Add fallback mode
+  },
+  {
+    label: 'Ocean',
+    value: 'ocean',
+    primaryColor: '#006C7F',
+    secondaryColor: '#526773',
+    tertiaryColor: '#6C939B',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: false
+  },
+  {
+    label: 'Xmas',
+    value: 'xmas',
+    primaryColor: '#C8102E',
+    secondaryColor: '#006747',
+    tertiaryColor: '#FFD700',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: false
+  },
+  {
+    label: 'Sugar',
+    value: 'sugar',
+    primaryColor: '#1be7ff',
+    secondaryColor: '#f61067',
+    tertiaryColor: '#e4ff1a',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: false
+  },
+  {
+    label: 'Sunset',
+    value: 'sunset',
+    primaryColor: '#FF4500',
+    secondaryColor: '#FFD700',
+    tertiaryColor: '#FF69B4',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: false
+  },
+  {
+    label: 'Starry Night',
+    value: 'starry-night',
+    primaryColor: '#1E3A8A', // Deep blue
+    secondaryColor: '#F0C420', // Bright yellow star
+    tertiaryColor: '#8496B0', // Misty blue
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  },
+  {
+    label: 'Dark Raspberry',
+    value: 'dark-raspberry',
+    primaryColor: '#46000D',
+    secondaryColor: '#5E0009',
+    tertiaryColor: '#720137',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  },
+  {
+    label: 'Coffee Beans',
+    value: 'coffee-beans',
+    primaryColor: '#48312B',
+    secondaryColor: '#603A28',
+    tertiaryColor: '#522D17',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  },
+  {
+    label: 'Dark Forrest',
+    value: 'dark-forrest',
+    primaryColor: '#0D3A32',
+    secondaryColor: '#245B47',
+    tertiaryColor: '#223546',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  },
+  {
+    label: 'Walnut',
+    value: 'walnut',
+    primaryColor: '#615545',
+    secondaryColor: '#9B773D',
+    tertiaryColor: '#646263',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  },
+  {
+    label: 'Deep Purple',
+    value: 'deep-purple',
+    primaryColor: '#161638',
+    secondaryColor: '#493F3D',
+    tertiaryColor: '#563457',
+    errorColor: DEFAULT_COLOR_ERROR,
+    fallbackIsDarkMode: true
+  }
+];
+
+//##################################################//

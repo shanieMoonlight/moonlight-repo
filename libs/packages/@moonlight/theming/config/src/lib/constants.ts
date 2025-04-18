@@ -25,3 +25,6 @@ export const LIGHT_MODE_CLASS = 'light-mode'
 export const THEME_CLASS_PREFIX = 'theme'
 export const COLOR_VAR_PREFIX = 'color'
 export const PALLETES_MAP_SCSS_VAR = '$palettes'
+
+
+

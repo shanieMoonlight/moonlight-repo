@@ -3,66 +3,28 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY } from '@moonlight/ng/theming/config';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, ThemeConfig, ThemeConfigService, ThemeValue } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { ColorInputComponent } from './ui/cva-color-input.component';
 import { ThemeColors } from './models/theme-colors';
 import { ScssDisplayComponent } from './ui/scss-display.component';
-
+import { ThemeOption, defaultThemeOption, DEFAULT_COLOR_ERROR } from '@moonlight/ng/theming/config';
 
 //#########################################//
 
-interface Theme {
-  primary: string,
-  secondary: string,
-  tertiary: string
+/**
+ * Converts a ThemeOption object to a ThemeColors object.
+ * Provides default fallbacks if colors are missing.
+ */
+function convertThemeOptionToColors(option: ThemeOption): ThemeColors {
+  return {
+    primary: option.primaryColor ?? DEFAULT_COLOR_PRIMARY,
+    secondary: option.secondaryColor ?? DEFAULT_COLOR_SECONDARY,
+    tertiary: option.tertiaryColor ?? DEFAULT_COLOR_TERTIARY, // Use default if null/undefined
+    error: option.errorColor ?? DEFAULT_COLOR_ERROR,       // Use default if null/undefined
+  };
 }
-
-//-----------------------------------------//
-
-interface ThemeDefinition {
-  name: string
-  theme: Theme
-}
-
-//-----------------------------------------//
-
-// Available themes
-const presetThemes: ThemeDefinition[] = [
-  {
-    name: 'default',
-    theme: {
-      primary: DEFAULT_COLOR_PRIMARY,
-      secondary: DEFAULT_COLOR_SECONDARY,
-      tertiary: DEFAULT_COLOR_TERTIARY
-    }
-  },
-  {
-    name: 'halloween',
-    theme: {
-      primary: '#FF7518',
-      secondary: '#31004a',
-      tertiary: '#556B2F'
-    }
-  },
-  {
-    name: 'ocean',
-    theme: {
-      primary: '#006C7F',
-      secondary: '#526773',
-      tertiary: '#6C939B'
-    }
-  },
-  {
-    name: 'xmas',
-    theme: {
-      primary: '#C8102E',
-      secondary: '#006747',
-      tertiary: '#FFD700'
-    }
-  }
-];
 
 //-----------------------------------------//
 
@@ -104,10 +66,11 @@ export class ThemeSelectorComponent {
   private _themeGenerator = inject(ThemeGeneratorService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
+  private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
 
-  _presetThemes = input<ThemeDefinition[]>(presetThemes, { alias: 'presetThemes' });
+  _presetThemes = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
 
   //- - - - - - - - - - - - - - -//
 
@@ -126,42 +89,60 @@ export class ThemeSelectorComponent {
 
   protected applyTheme() {
 
-    const values = this._themeForm.value;
-    console.log('applyTheme()', values);
+    if (this._themeForm.invalid) {
+      console.warn('Theme form is invalid. Cannot apply theme.');
+      return; // Don't apply if form is invalid
+    }
 
-    const colors: ThemeColors = {
-      primary: values.primary!, //! validators
-      secondary: values.secondary!,//! validators
-      tertiary: values.tertiary,
-      error: values.error
+    const values = this._themeForm.getRawValue(); // Use getRawValue for potentially disabled controls
+
+    // Construct ThemeOption using spread operator and defaults
+    const themeToApply: ThemeOption = {
+      ...defaultThemeOption, // Start with defaults
+      primaryColor: values.primary, // Override with form values (already validated as non-null)
+      secondaryColor: values.secondary, // Override with form values (already validated as non-null)
+      tertiaryColor: values.tertiary ?? defaultThemeOption.tertiaryColor, // Use form value or default
+      errorColor: values.error ?? defaultThemeOption.errorColor, // Use form value or default
+      // Generate a dynamic label/value or use a specific one if needed
+      label: 'Custom', // Or generate based on colors
+      value: `custom-${Date.now()}`, // Example dynamic value
+      fallbackIsDarkMode: values.darkMode // Use the form's dark mode value
     };
 
     this._themeGenerator.applyTheme(
-      colors,
+      convertThemeOptionToColors(themeToApply),
       document.documentElement,
-      values.darkMode)
+      values.darkMode // Pass dark mode state separately as applyTheme expects it
+    );
   }
 
   //-----------------------------//
 
-  protected applyPreset(presetName: string) {
+  protected applyPreset(presetValue: ThemeValue) {
 
-    const preset = presetThemes
-      .find(p => p.name === presetName)?.theme;
+    // Find the preset using the input signal
+    const preset = this._presetThemes().find(p => p.value === presetValue);
+
+    console.log('applyPreset', presetValue, preset);
+
 
     if (!preset) return;
 
+    // Patch the form using ThemeOption property names
     this._themeForm.patchValue({
-      primary: preset.primary,
-      secondary: preset.secondary,
-      tertiary: preset.tertiary
+      primary: preset.primaryColor,
+      secondary: preset.secondaryColor,
+      tertiary: preset.tertiaryColor,
+      error: preset.errorColor,
+      // Don't patch darkMode here, let applyTheme handle it based on the preset's fallbackIsDarkMode
     });
 
+    // Pass the full ThemeOption to applyTheme
     this._themeGenerator.applyTheme(
-      preset,
+      convertThemeOptionToColors(preset),
       document.documentElement,
-      this._themeForm.value.darkMode,
-      presetName !== 'default' ? presetName : undefined
+      preset.fallbackIsDarkMode // Use the preset's dark mode preference
+      // themeClass is handled internally by applyTheme now based on ThemeOption.value
     );
   }
 
@@ -171,7 +152,7 @@ export class ThemeSelectorComponent {
   openScssDialog(): void {
     const scssContent = this._themeGenerator.exportThemeAsScss();
     if (!scssContent) return;
-   
+
     this._exportedScss.set(scssContent);
 
     this._dialog.open(ScssDisplayComponent, {

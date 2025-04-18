@@ -1,7 +1,7 @@
 
 import { InjectionToken } from '@angular/core';
 import { DARK_MODE_CLASS, DEFAULT_COLOR_TONES, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
-import { ThemeOption } from './theme-option.model';
+import { defaultPresetSelectorThemes, ThemeOption } from './theme-option.model';
 
 //##################################################//
 
@@ -24,6 +24,8 @@ export class ThemeConfig {
   themeClassPrefix = THEME_CLASS_PREFIX
   defaultMode: ThemeMode = 'light'
   colorTones: number[] = DEFAULT_COLOR_TONES
+  /**Used in theme-selector */
+  presetSelectorThemes: ThemeOption[] = defaultPresetSelectorThemes
 
   //- - - - - - - - - - - - - - - //
 

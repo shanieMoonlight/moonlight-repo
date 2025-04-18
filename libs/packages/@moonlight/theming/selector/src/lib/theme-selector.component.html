@@ -63,14 +63,14 @@
       <section class="preset-section">
         <h3 class="mat-h3">Preset Themes</h3>
         <div class="preset-grid">
-          @for (item of _presetThemes(); track item.name) {
+          @for (item of _presetThemes(); track item.value) {
             <button
               mat-raised-button
-              (click)="applyPreset(item.name)"
-              [style.background-color]="item.theme.primary"
+              (click)="applyPreset(item.value)"
+              [style.background-color]="item.primaryColor"
               [style.color]="'white'"
               class="preset-button">
-              {{ item.name | titlecase }}
+              {{ item.label | titlecase }}
             </button>
           }
         </div>
