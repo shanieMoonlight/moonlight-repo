@@ -45,10 +45,9 @@
             <mat-icon>palette</mat-icon>
             Apply Theme
           </button>
-
-          <button mat-button 
-            [disabled]="!_currentTheme()" 
-            class="secondary" 
+          
+          <button mat-button class="secondary btn-export-scss"
+            [class.show]="!!_currentTheme()" 
             type="button" 
             (click)="openScssDialog()">
             <mat-icon>code</mat-icon>

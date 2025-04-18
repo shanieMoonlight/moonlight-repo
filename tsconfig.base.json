@@ -24,6 +24,9 @@
       "@moonlight/ng/theming/mat": [
         "libs/packages/@moonlight/theming/mat/src/index.ts"
       ],
+      "@moonlight/ng/theming/selector": [
+        "libs/packages/@moonlight/theming/selector/src/index.ts"
+      ],
       "@moonlight/ng/theming/service": [
         "libs/packages/@moonlight/theming/service/src/index.ts"
       ],

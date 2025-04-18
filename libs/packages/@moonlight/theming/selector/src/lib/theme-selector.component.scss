@@ -118,3 +118,39 @@ pre {
   text-align: center;
   // background-color: aqua;
 }
+
+
+.btn-export-scss {
+  opacity: 0;
+  transform: scale(0.9) translateY(5px);
+  transition:
+    opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none; // Prevent interaction when invisible
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-export-scss.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto; // Re-enable interaction
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(var(--mat-sys-secondary-rgb), 0.1);
+    transform: translateX(-100%);
+    animation: btn-shine 1s forwards;
+  }
+}
+
+@keyframes btn-shine {
+  to {
+    transform: translateX(100%);
+  }
+}

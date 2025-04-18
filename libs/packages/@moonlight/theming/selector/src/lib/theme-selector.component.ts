@@ -6,9 +6,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.component';
-import { ThemeColors } from '../theme-colors';
-import { ScssDisplayComponent } from './scss-display/scss-display.component';
+import { ColorInputComponent } from './ui/cva-color-input.component';
+import { ThemeColors } from './models/theme-colors';
+import { ScssDisplayComponent } from './ui/scss-display.component';
 
 
 //#########################################//
