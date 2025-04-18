@@ -71,7 +71,6 @@ export class ThemeConfig {
       config.colorTones = customColorTones;
 
     return config
-
   }
 
   //------------------------------//    
@@ -92,6 +91,13 @@ export class ThemeConfig {
 
   setThemeClassPrefix(prefix: string) {
     this.themeClassPrefix = prefix
+    return this
+  }
+
+  //- - - - - - - - - - - - - - - //   
+
+  setSelectorPresetThemes(presetThemes: ThemeOption[]) {
+    this.presetSelectorThemes = presetThemes
     return this
   }
 

@@ -9,8 +9,6 @@ import { DEFAULT_COLOR_PRIMARY, DEFAULT_THEME_LABEL, DEFAULT_COLOR_ERROR, DEFAUL
 */
 export type ThemeValue = string | number;
 
-// export const defaultThemeValue: ThemeValue = 'default';
-
 //##################################################//
 
 /**

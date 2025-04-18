@@ -99,10 +99,10 @@ export class ThemeSelectorComponent {
     // Construct ThemeOption using spread operator and defaults
     const themeToApply: ThemeOption = {
       ...defaultThemeOption, // Start with defaults
-      primaryColor: values.primary, // Override with form values (already validated as non-null)
-      secondaryColor: values.secondary, // Override with form values (already validated as non-null)
-      tertiaryColor: values.tertiary ?? defaultThemeOption.tertiaryColor, // Use form value or default
-      errorColor: values.error ?? defaultThemeOption.errorColor, // Use form value or default
+      primaryColor: values.primary, 
+      secondaryColor: values.secondary, 
+      tertiaryColor: values.tertiary ?? defaultThemeOption.tertiaryColor, 
+      errorColor: values.error ?? defaultThemeOption.errorColor, 
       // Generate a dynamic label/value or use a specific one if needed
       label: 'Custom', // Or generate based on colors
       value: `custom-${Date.now()}`, // Example dynamic value
