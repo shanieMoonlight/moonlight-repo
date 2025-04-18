@@ -1,24 +1,11 @@
 import { inject, Injectable, RendererFactory2 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
+import { ColorUtilsService } from '@moonlight/ng/theming/utils';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeColors } from '../../../theme-colors';
-import { GeneratedPalettes } from '../../../theme-palletes';
-import { ColorUtilsService } from '../color-utils/color-utils.service';
-
-//#########################################//
-
-export const TONES = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
-export const DEFAULT_PRIMARY = '#4682B4';
-export const DEFAULT_SECONDARY = '#D2691E';
-export const DEFAULT_TERTIARY = '#B58392';
-export const DEFAULT_ERROR = '#B3261E'; // Material Design's standard error color
-export const DEFAULT_NEUTRAL = '#F5F5F5'; // Light mode neutral color
-export const DARK_MODE_CLASS = 'dark-mode'
-export const LIGHT_MODE_CLASS = 'light-mode'
-export const THEME_CLASS_PREFIX = 'theme'
-export const COLOR_VAR_PREFIX = 'color'
-export const PALLETES_MAP_SCSS_VAR = '$palettes'
+import { DEFAULT_ERROR, DEFAULT_TERTIARY, DARK_MODE_CLASS, COLOR_VAR_PREFIX, THEME_CLASS_PREFIX, PALLETES_MAP_SCSS_VAR, COLOR_TONES } from "@moonlight/ng/theming/config";
+import { ThemeColors } from './models/theme-colors';
+import { GeneratedPalettes } from './models/theme-palletes';
 
 //#########################################//
 
@@ -35,8 +22,7 @@ export class ThemeGeneratorService {
   //- - - - - - - - - - - - - - -//
 
   private currentTheme$ = new BehaviorSubject<ThemeColors | null>(null);
-  currentTheme = toSignal(this.currentTheme$);
-  private isDark = false;
+  currentTheme = toSignal(this.currentTheme$)
 
   //-----------------------------//
 
@@ -81,24 +67,21 @@ export class ThemeGeneratorService {
       tertiary: {},
       error: {},
       neutral: {},
-      'neutral-variant': {}
+      neutralVariant: {}
     };
 
-    // Generate primary, neutral and neutral-variant palettes from the theme
-    for (const tone of TONES) {
-      palettes.primary[tone] = hexFromArgb(theme.palettes.primary.tone(tone));
-      palettes.neutral[tone] = hexFromArgb(theme.palettes.neutral.tone(tone));
-      palettes['neutral-variant'][tone] = hexFromArgb(theme.palettes.neutralVariant.tone(tone));
-      palettes.error[tone] = hexFromArgb(theme.palettes.error.tone(tone));
-    }
-
     // Create standalone palettes for secondary and tertiary
-    // The library doesn't directly generate these palettes in the theme,
-    // but we can create TonalPalettes from the corresponding colors
     const secondaryPalette = TonalPalette.fromInt(secondaryArgb);
+    console.log('secondaryPalette', secondaryPalette);
+    
     const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
 
-    for (const tone of TONES) {
+    // Generate all palettes in a single loop
+    for (const tone of COLOR_TONES) {
+      palettes.primary[tone] = hexFromArgb(theme.palettes.primary.tone(tone));
+      palettes.neutral[tone] = hexFromArgb(theme.palettes.neutral.tone(tone));
+      palettes.neutralVariant[tone] = hexFromArgb(theme.palettes.neutralVariant.tone(tone));
+      palettes.error[tone] = hexFromArgb(theme.palettes.error.tone(tone));
       palettes.secondary[tone] = hexFromArgb(secondaryPalette.tone(tone));
       palettes.tertiary[tone] = hexFromArgb(tertiaryPalette.tone(tone));
     }
@@ -116,7 +99,7 @@ export class ThemeGeneratorService {
     targetElement = document.documentElement,
     isDark = false,
     themeClass?: string) {
-    this.isDark = isDark;
+
     this.currentTheme$.next(colors);
 
     const palettes = this.generatePalettes(colors)
@@ -219,16 +202,16 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-tertiary-fixed-dim', p.tertiary[80]);
 
     // Additional surface variants
-    this.setVariable(targetElement, '--mat-sys-surface-variant', p['neutral-variant'][isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-surface-variant', p['neutral-variant'][isDark ? 80 : 30]);
+    this.setVariable(targetElement, '--mat-sys-surface-variant', p.neutralVariant[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-surface-variant', p.neutralVariant[isDark ? 80 : 30]);
     this.setVariable(targetElement, '--mat-sys-surface-container-lowest', p.neutral[isDark ? 4 : 100]);
     this.setVariable(targetElement, '--mat-sys-surface-container-highest', p.neutral[isDark ? 22 : 90]);
     this.setVariable(targetElement, '--mat-sys-surface-dim', p.neutral[isDark ? 6 : 87]);
     this.setVariable(targetElement, '--mat-sys-surface-bright', p.neutral[isDark ? 24 : 98]);
 
     // Outline colors
-    this.setVariable(targetElement, '--mat-sys-outline', p['neutral-variant'][isDark ? 60 : 50]);
-    this.setVariable(targetElement, '--mat-sys-outline-variant', p['neutral-variant'][isDark ? 30 : 80]);
+    this.setVariable(targetElement, '--mat-sys-outline', p.neutralVariant[isDark ? 60 : 50]);
+    this.setVariable(targetElement, '--mat-sys-outline-variant', p.neutralVariant[isDark ? 30 : 80]);
 
     // Inverse colors
     this.setVariable(targetElement, '--mat-sys-inverse-primary', p.primary[isDark ? 40 : 80]);
@@ -242,7 +225,7 @@ export class ThemeGeneratorService {
 
     // Additional useful values for Angular Material
     this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
-    this.setVariable(targetElement, '--mat-sys-neutral-variant20', p['neutral-variant'][20]);
+    this.setVariable(targetElement, '--mat-sys-neutral-variant20', p.neutralVariant[20]);
 
     // Add RGB variables for transparency effects
     this.addRGBVariables(p, targetElement, isDark);
@@ -283,14 +266,15 @@ export class ThemeGeneratorService {
 
   //-----------------------------//
 
+
+  //TODO: remove this method
   /**
    * Toggle between light and dark mode
    */
-  toggleDarkMode() {
+  toggleDarkMode(isDark: boolean) {
     const currentTheme = this.currentTheme();
-    if (currentTheme) {
-      this.applyTheme(currentTheme, document.documentElement, !this.isDark);
-    }
+    if (currentTheme) 
+      this.applyTheme(currentTheme, document.documentElement, isDark)
   }
 
   //-----------------------------//
@@ -324,6 +308,7 @@ export class ThemeGeneratorService {
     });
 
     scss += ');\n';
+
     return scss;
   }
 

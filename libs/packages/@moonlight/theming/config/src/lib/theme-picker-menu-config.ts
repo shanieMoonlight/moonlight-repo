@@ -1,18 +1,12 @@
 
 import { InjectionToken } from '@angular/core';
 import { ThemeOption } from './theme-option.model';
+import { DARK_MODE_CLASS, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
 
 //##################################################//
 
 export const ThemeConfigService = new InjectionToken<ThemeConfig>('ThemeConfig');
 export type ThemeMode = 'light' | 'dark';
-
-//##################################################//
-
-export const DARK_MODE_CLASS = 'dark-mode'
-export const LIGHT_MODE_CLASS = 'light-mode'
-export const THEME_CLASS_PREFIX = 'theme'
-
 
 //##################################################//
 

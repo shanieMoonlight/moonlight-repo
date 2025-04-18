@@ -1,11 +1,14 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.component';
+import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY } from '@moonlight/ng/theming/config';
+import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
+import { ColorInputComponent } from '../../ui/cva-color-input/cva-color-input.component';
 import { ThemeColors } from '../theme-colors';
-import { DEFAULT_PRIMARY, DEFAULT_SECONDARY, DEFAULT_TERTIARY, ThemeGeneratorService } from './services/theme-generator/theme-generator.service';
+import { ScssDisplayComponent } from './scss-display/scss-display.component';
 
 
 //#########################################//
@@ -80,7 +83,8 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent
+    ColorInputComponent,
+    ScssDisplayComponent
   ],
   providers: [
     {
@@ -100,6 +104,7 @@ export class ThemeSelectorComponent {
 
   private _themeGenerator = inject(ThemeGeneratorService)
   private _fb = inject(FormBuilder)
+  private _dialog = inject(MatDialog)
 
   //- - - - - - - - - - - - - - -//
 
@@ -163,7 +168,18 @@ export class ThemeSelectorComponent {
 
   //-----------------------------//
 
-  protected exportTheme = () =>
-    this._exportedScss.set(this._themeGenerator.exportThemeAsScss())
+
+  openScssDialog(): void {
+    const scssContent = this._themeGenerator.exportThemeAsScss();
+    if (!scssContent) return;
+   
+    this._exportedScss.set(scssContent);
+
+    this._dialog.open(ScssDisplayComponent, {
+      width: '600px',
+      data: { scssContent: this._exportedScss() },
+      autoFocus: false
+    });
+  }
 
 }//Cls

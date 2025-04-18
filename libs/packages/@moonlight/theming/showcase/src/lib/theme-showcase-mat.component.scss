@@ -1,13 +1,13 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-@use './button-overrides.scss' as *;
-@use './progress-overrides.scss' as *;
-@use './boolean-overrides.scss' as *;
-@use './dropdown-overrides.scss' as *;
-@use './badge-overrides.scss' as *;
-@use './chip-overrides.scss' as *;
-@use './tab-overrides.scss' as *;
-@use './form-field-overrides.scss' as *;
+@use "./button-overrides.scss" as *;
+@use "./progress-overrides.scss" as *;
+@use "./boolean-overrides.scss" as *;
+@use "./dropdown-overrides.scss" as *;
+@use "./badge-overrides.scss" as *;
+@use "./chip-overrides.scss" as *;
+@use "./tab-overrides.scss" as *;
+@use "./form-field-overrides.scss" as *;
 
 :host {
   display: block;
@@ -17,8 +17,20 @@
   margin: 16px;
 }
 
+.header {
+  text-align: center;
+  padding: 32px 16px;
+  margin-bottom: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 
-mat-card-content {
+  .title {
+    margin-bottom: 12px;
+  }
+}
+
+.content {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -41,9 +53,7 @@ mat-card-content {
     background-color 1.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-
-.component-section .progress-container{
+.component-section .progress-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -69,12 +79,6 @@ h3 {
   gap: 0.75rem;
   align-items: center;
 }
-// .button-row {
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 8px;
-//   margin-bottom: 16px;
-// }
 
 .form-controls-container {
   display: flex;
@@ -122,5 +126,3 @@ h3 {
 mat-expansion-panel {
   margin-top: 1rem;
 }
-
-

@@ -1,12 +1,29 @@
-<ml-theme-selector />
+<mat-expansion-panel [expanded]="true">
 
-<!-- ==============Applied Theme Display================== -->
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>palette</mat-icon>
+      <span class="icon-spacing">Theme Configuration</span>
+    </mat-panel-title>
+    <mat-panel-description>
+      Customize the application theme
+    </mat-panel-description>    
+  </mat-expansion-panel-header>
+  
+ <div class="centered-content">
+    <ml-theme-selector />
+  </div>
+
+</mat-expansion-panel>
+
+
+
+
+<mat-divider />
 
 <div class="applied-theme-display">
-  <mat-divider />
-  <h3 class="mat-h2">Current Theme</h3>
   <ml-theme-showcase-mat />
-  <mat-divider />
 </div>
 
-<!-- ==================================================== -->
+<mat-divider />
+

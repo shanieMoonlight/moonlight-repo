@@ -1,83 +1,72 @@
-<mat-card class="theme-selector">
-  
-  <mat-card-header>
-    <mat-card-title>Theme Generator</mat-card-title>
-  </mat-card-header>
+<div class="theme-selector">
+  <div class="theme-header">
+    <h2>Theme Generator</h2>
+  </div>
 
-  <mat-card-content>
+  <div class="theme-content">
     <form [formGroup]="_themeForm">
       <div class="form-container">
 
-  <div class="color-inputs-grid">
-        <!-- Primary color -->
-        <mat-form-field appearance="outline">
-          <mat-label>Primary Color</mat-label>
-          <app-color-input formControlName="primary"/>
-          <mat-hint>Choose a primary theme color</mat-hint>
-        </mat-form-field>
+        <div class="color-inputs-grid">
+          <!-- Primary color -->
+          <mat-form-field appearance="outline">
+            <mat-label>Primary Color</mat-label>
+            <app-color-input formControlName="primary" />
+            <mat-hint>Choose a primary theme color</mat-hint>
+          </mat-form-field>
 
-        <!-- Secondary color -->
-        <mat-form-field appearance="outline">
-          <mat-label>Secondary Color</mat-label>
-          <app-color-input formControlName="secondary"/>
-          <mat-hint>Choose a secondary theme color</mat-hint>
-        </mat-form-field>
+          <!-- Secondary color -->
+          <mat-form-field appearance="outline">
+            <mat-label>Secondary Color</mat-label>
+            <app-color-input formControlName="secondary" />
+            <mat-hint>Choose a secondary theme color</mat-hint>
+          </mat-form-field>
 
-        <!-- Tertiary color -->
-        <mat-form-field appearance="outline">
-          <mat-label>Tertiary Color</mat-label>
-          <app-color-input formControlName="tertiary"/>
-          <mat-hint>Choose a tertiary theme color (leave it blank to use defaults)</mat-hint>
-        </mat-form-field>
+          <!-- Tertiary color -->
+          <mat-form-field appearance="outline">
+            <mat-label>Tertiary Color</mat-label>
+            <app-color-input formControlName="tertiary" />
+            <mat-hint>Choose a tertiary theme color (leave it blank to use defaults)</mat-hint>
+          </mat-form-field>
 
-        
-        <!-- Error color -->
-        <mat-form-field appearance="outline">
-          <mat-label>Error Color</mat-label>
-          <app-color-input formControlName="error"/>
-          <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
-        </mat-form-field>
-        
-      </div>
+          <!-- Error color -->
+          <mat-form-field appearance="outline">
+            <mat-label>Error Color</mat-label>
+            <app-color-input formControlName="error" />
+            <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
+          </mat-form-field>
+        </div>
 
         <!-- Dark mode toggle -->
         <mat-slide-toggle formControlName="darkMode">Dark Mode</mat-slide-toggle>
-        
+
         <div class="button-row">
-          <button mat-raised-button             
-            [disabled]="!_themeForm.valid"
-            type="button" 
-            (click)="applyTheme()">
+          <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="applyTheme()">
             <mat-icon>palette</mat-icon>
             Apply Theme
           </button>
-          
-          <button mat-button      
-            [disabled]="!_currentTheme()" 
-            color="accent" 
-            type="button" 
-            (click)="exportTheme()">
+
+          <button mat-button [disabled]="!_currentTheme()" color="accent" type="button" (click)="openScssDialog()">
             <mat-icon>code</mat-icon>
             Export SCSS
           </button>
         </div>
-
       </div>
     </form>
 
-    
     <!-- Preset themes -->
-     @if(_presetThemes().length > 0) {
-      <mat-divider/>
+    @if (_presetThemes().length > 0) {
+      <mat-divider />
       <section class="preset-section">
         <h3 class="mat-h3">Preset Themes</h3>
         <div class="preset-grid">
           @for (item of _presetThemes(); track item.name) {
-            <button mat-raised-button 
-                    (click)="applyPreset(item.name)"
-                    [style.background-color]="item.theme.primary"
-                    [style.color]="'white'"
-                    class="preset-button">
+            <button
+              mat-raised-button
+              (click)="applyPreset(item.name)"
+              [style.background-color]="item.theme.primary"
+              [style.color]="'white'"
+              class="preset-button">
               {{ item.name | titlecase }}
             </button>
           }
@@ -85,21 +74,12 @@
       </section>
     }
 
-
-    @if (_exportedScss(); as exportedScss) {
-      <mat-divider/>
-
-      <section class="scss-output">
-        <h3 class="mat-h3">Generated SCSS</h3>
-        <mat-card appearance="outlined">
-          <pre>{{ exportedScss }}</pre>
-        </mat-card>
-
-      </section>
-    }
-
-  </mat-card-content>
-</mat-card>
+    <!-- @if (_exportedScss(); as exportedScss) {
+      <ml-scss-display [scssContent]="exportedScss" />
+    } -->
+  </div>
+</div>
 
 
-    
+
+

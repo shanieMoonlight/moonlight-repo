@@ -1,9 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { DestroyRef, Injectable, RendererFactory2, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
+import { DEFAULT_THEME_VALUE, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 
 //##################################################//
@@ -68,7 +68,7 @@ export class ThemeService {
   currentTheme = toSignal(this.currentTheme$)
 
   currentThemeValue$ = this.currentTheme$.pipe(map(theme => theme?.value));
-  currentThemeValue = toSignal(this.currentThemeValue$, { initialValue: defaultThemeValue })
+  currentThemeValue = toSignal(this.currentThemeValue$, { initialValue: DEFAULT_THEME_VALUE })
 
   //- - - - - - - - - - - - - - -//
 
