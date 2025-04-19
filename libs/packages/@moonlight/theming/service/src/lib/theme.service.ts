@@ -133,18 +133,32 @@ export class ThemeService {
    * @returns The updated list of custom themes
    */
   addCustomTheme(theme: ThemeOption): ThemeOption[] {
-    const current = this.customThemes();
-    // Prevent duplicates by value
-    const filtered = current.filter(t => t.value !== theme.value);
+    const currentThemes = this.customThemes();
+    const sanitizedValue = this.sanitizeValue(theme.value);
 
     const safeTheme = {
       ...theme,
-      value: this.sanitizeValue(theme.value)
+      value: sanitizedValue
+    };
+
+    const existingIndex = currentThemes.findIndex(t => t.value === sanitizedValue);
+
+    let updatedThemes: ThemeOption[];
+
+    if (existingIndex > -1) {
+      // Update existing theme
+      updatedThemes = [
+        ...currentThemes.slice(0, existingIndex), // Themes before the updated one
+        safeTheme,                                // The updated theme
+        ...currentThemes.slice(existingIndex + 1) // Themes after the updated one
+      ];
+    } else {
+      // Add new theme
+      updatedThemes = [...currentThemes, safeTheme];
     }
 
-    const updated = [...filtered, safeTheme];
-    this._customThemesBs.next(updated);
-    return updated;
+    this._customThemesBs.next(updatedThemes);
+    return updatedThemes;
   }
 
   //-----------------------------//
@@ -259,8 +273,12 @@ export class ThemeService {
   //- - - - - - - - - - - - - - -//
 
   sanitizeValue(value: ThemeValue): ThemeValue {
-    const lwrValue = `${value}`.toLowerCase();
-    return lwrValue.replace(/\s+/g, '-');
+    // Ensure value is a string before calling methods
+    const stringValue = String(value ?? '');
+    const lwrValue = stringValue.toLowerCase();
+    // Replace whitespace with hyphens and remove any characters
+    // that are not alphanumeric or hyphens to create a safe value.
+    return lwrValue.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   }
   //-----------------------------//
 

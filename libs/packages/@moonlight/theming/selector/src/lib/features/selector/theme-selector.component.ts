@@ -1,4 +1,4 @@
-import { isPlatformBrowser, TitleCasePipe } from '@angular/common';
+import { CommonModule, isPlatformBrowser, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,14 +6,17 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService, ThemeService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { ColorInputComponent } from './ui/cva-color-input.component';
-import { ScssDisplayComponent } from './ui/scss-display.component';
+import { ColorInputComponent } from '../../ui/cva-color-input.component';
+import { ScssDisplayComponent } from '../../ui/scss-display.component';
+import { CustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 //#########################################//
 
 interface IThemeForm
   extends FormGroup<{
-    themeName: FormControl<string>; 
+    themeName: FormControl<string>;
     primaryColor: FormControl<string>
     secondaryColor: FormControl<string>
     tertiaryColor: FormControl<string | null>
@@ -30,6 +33,7 @@ interface IThemeForm
     MatEverythingModule,
     TitleCasePipe,
     ColorInputComponent,
+    CommonModule
   ],
   providers: [
     {
@@ -55,10 +59,6 @@ export class ThemeSelectorComponent implements OnDestroy {
 
   //- - - - - - - - - - - - - - -//
 
-  private isBrowser = (): boolean =>
-    isPlatformBrowser(this._platformId)
-
-
   _presetInput = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
   // Computed signal handles the fallback. We need this to test the default value. Otherwise, it will be undefined.
   protected _presetThemes = computed(() => {
@@ -70,9 +70,12 @@ export class ThemeSelectorComponent implements OnDestroy {
 
   protected _generatorPreviewTheme = signal<ThemeOption | null>(null)
   protected _exportedScss = signal<string | null>(null)
+  private _anyCustomThemes$ = this._themeService.customThemes$
+    .pipe(map(customThemes => customThemes.length > 0))
+  protected _anyCustomThemes = toSignal(this._anyCustomThemes$)
 
   protected _themeForm: IThemeForm = this._fb.group({
-    themeName: this._fb.nonNullable.control('My Custom Theme', [Validators.required]), 
+    themeName: this._fb.nonNullable.control('My Custom Theme', [Validators.required]),
     primaryColor: this._fb.nonNullable.control(DEFAULT_COLOR_PRIMARY, [Validators.required]),
     secondaryColor: this._fb.nonNullable.control(DEFAULT_COLOR_SECONDARY, [Validators.required]),
     tertiaryColor: this._fb.control(null),
@@ -105,21 +108,20 @@ export class ThemeSelectorComponent implements OnDestroy {
 
     const values = form.getRawValue(); // Use getRawValue for potentially disabled controls
 
-    
-    // Generate a unique value, perhaps combining name and timestamp or just timestamp
-    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
+    // Generate a safe value. If it
+    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}}`;
 
     // Construct ThemeOption using spread operator and defaults
     const themeToApply: ThemeOption = {
-      ...defaultThemeOption, // Start with defaults
-      label: values.themeName, // <-- Use form value for label
-      value: themeValue,       // <-- Use generated unique value
+      ...defaultThemeOption,
+      label: values.themeName, 
+      value: themeValue,       
       primaryColor: values.primaryColor,
       secondaryColor: values.secondaryColor,
       tertiaryColor: values.tertiaryColor ?? defaultThemeOption.tertiaryColor,
       errorColor: values.errorColor ?? defaultThemeOption.errorColor,
       darkMode: values.darkMode // Use the form's dark mode value
-    };
+    }    
 
     this.previewTheme(themeToApply)
   }
@@ -135,6 +137,7 @@ export class ThemeSelectorComponent implements OnDestroy {
       tertiaryColor: theme.tertiaryColor,
       errorColor: theme.errorColor,
       darkMode: theme.darkMode,
+      themeName: `${theme.value}`,    
     })
 
     this.previewTheme(theme)
@@ -164,10 +167,8 @@ export class ThemeSelectorComponent implements OnDestroy {
   }
 
   //-----------------------------//
-  // PUBLIC API METHODS
-  //-----------------------------//
 
-  openScssDialog(theme: ThemeOption): void {
+  protected openScssDialog(theme: ThemeOption): void {
 
     if (!this.isBrowser())
       return;
@@ -184,5 +185,24 @@ export class ThemeSelectorComponent implements OnDestroy {
       autoFocus: false
     });
   }
+
+  //-----------------------------//
+
+  protected manageCustomThemes(): void {    
+
+    if (!this.isBrowser())
+      return;
+
+    this._dialog.open(CustomThemeMgrComponent, {
+      width: '600px',
+      autoFocus: false
+    });
+  }
+
+  //-----------------------------//
+
+  private isBrowser = (): boolean =>
+    isPlatformBrowser(this._platformId)
+
 
 }//Cls

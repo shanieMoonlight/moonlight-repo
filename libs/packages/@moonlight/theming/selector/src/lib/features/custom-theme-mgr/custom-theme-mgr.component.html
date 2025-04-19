@@ -1,0 +1,42 @@
+<div class="custom-theme-manager-container">
+
+    @if (customThemes().length > 0) {
+        <mat-list>
+            <div mat-subheader>Custom Themes</div>
+            @for (theme of customThemes(); track theme.value) {
+              <mat-list-item class="theme-list-item">
+                  
+                <!-- Existing Title and Line -->
+                <span matListItemTitle>{{ theme.label }}</span>
+                <span matListItemLine class="theme-value-display">({{ theme.value }})</span>
+
+                <!-- Color Swatches Container -->
+                <div class="theme-swatches" matListItemAvatar> <!-- Use matListItemAvatar for alignment -->
+                    <div class="swatch secondary-swatch" [style.background-color]="theme.secondaryColor"></div>
+                    <div class="swatch primary-swatch" [style.background-color]="theme.primaryColor"></div>
+                    <div class="swatch tertiary-swatch" [style.background-color]="theme.tertiaryColor ?? theme.secondaryColor"></div>
+                </div>
+      
+                <!-- Existing Delete Button -->
+                <button mat-icon-button class="btn-delete"
+                        matListItemMeta
+                        type="button"
+                        attr.aria-label="Delete theme {{ theme.label }}"
+                        (click)="deleteTheme(theme.value)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-list-item>
+            }
+          </mat-list>
+    } @else {
+      <h3 class="no-themes-message">No custom themes saved yet.</h3>
+    }
+  
+    @if (isDialog()) {
+        <mat-divider/>
+        <mat-dialog-actions align="end">
+            <button mat-button type="button" (click)="closeDialog()">Close</button>
+        </mat-dialog-actions>
+    }
+  
+  </div>

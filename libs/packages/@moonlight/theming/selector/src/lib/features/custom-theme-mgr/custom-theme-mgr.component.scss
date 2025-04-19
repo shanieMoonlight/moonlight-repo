@@ -1,0 +1,66 @@
+
+:host {
+  display: block;
+}
+
+
+mat-divider {
+  margin: 1rem 1rem;
+}
+
+.theme-swatches {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: auto;
+
+  overflow: hidden;
+}
+
+.swatch {
+  // border: 1px solid rgba(0, 0, 0, 0.1); // Subtle border
+  height: 100%;
+}
+
+.swatch {
+  &.primary-swatch {
+    flex: 3;
+  }
+
+  &.secondary-swatch {
+    flex: 1;
+  }
+
+  &.tertiary-swatch {
+    flex: 1;
+  }
+}
+
+
+.no-themes-message {
+  font-size: 24px;
+  margin-top: 16px;
+  padding: 16px;
+  text-align: center;
+  color: grey;
+}
+
+.theme-value-display {
+  font-size: 0.8em;
+  color: grey;
+}
+
+// Styles for dialog actions if needed (usually handled by Material)
+.mat-dialog-actions {
+  padding: 8px 16px; // Adjust as needed
+}
+
+.btn-delete {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-icon {
+  color: var(--color-error-50);
+}

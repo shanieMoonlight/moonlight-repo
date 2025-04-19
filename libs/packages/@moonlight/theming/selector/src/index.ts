@@ -1,2 +1,4 @@
 export * from './lib/models/theme-colors';
-export * from './lib/theme-selector.component';
+export * from './lib/features/selector/theme-selector.component';
+
+export * from './lib/features/custom-theme-mgr/custom-theme-mgr.component';

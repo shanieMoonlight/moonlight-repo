@@ -7,12 +7,12 @@ import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 // --- Your Component & Dependencies ---
-import { ThemeSelectorComponent } from './theme-selector.component';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '../../../config/src/index';
-import { ThemeGeneratorService } from '../../../service/src/index';
+import { ThemeSelectorComponent } from '../../theme-selector.component';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '../../../../../config/src/index';
+import { ThemeGeneratorService } from '../../../../../service/src/index';
 import { Component, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ScssDisplayComponent } from './ui/scss-display.component';
+import { ScssDisplayComponent } from '../../ui/scss-display.component';
 // import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 // import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 // NOTE: No need to import MatDialogModule or MatEverythingModule here

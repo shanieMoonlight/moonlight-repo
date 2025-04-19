@@ -8,7 +8,7 @@
       <div class="form-container">
 
         <div class="inputs-grid colors">
-          
+
           <!-- Primary color -->
           <mat-form-field appearance="outline">
             <mat-label>Primary Color</mat-label>
@@ -36,7 +36,7 @@
             <app-color-input formControlName="errorColor" />
             <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
           </mat-form-field>
-          
+
           <!-- Dark mode toggle -->
           <div class="theme-mode-selector input">
             <label class="theme-mode-label" for="theme-mode-group">Theme Mode:</label>
@@ -46,39 +46,41 @@
               <mat-radio-button value="system">System</mat-radio-button>
             </mat-radio-group>
           </div>
-        
+
           <mat-form-field class="theme-name-input input">
             <mat-label>Theme Name</mat-label>
             <input matInput formControlName="themeName" required>
             @if (_themeForm.get('themeName')?.hasError('required')) {
-              <mat-error>Theme name is required.</mat-error>
+            <mat-error>Theme name is required.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <div class="button-row">
-          <button mat-raised-button 
-            [disabled]="!_themeForm.valid" type="button" 
-            (click)="previewFormTheme(_themeForm)">
+          <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="previewFormTheme(_themeForm)">
             <mat-icon>palette</mat-icon>
-            Apply Theme
+            Preview Theme
           </button>
-          
-          @if(_generatorPreviewTheme(); as theme) {
-            <button mat-button class="secondary btn-export-scss"
-              [class.show]="theme" 
-              type="button" 
-              (click)="openScssDialog(theme)">
-              <mat-icon>code</mat-icon>
-              Export SCSS
-            </button>
 
-            <button mat-button class="secondary btn-export-scss"
-              [class.show]="theme" 
+          @if(_generatorPreviewTheme(); as theme) {
+          <button mat-button class="secondary btn-export-scss" [class.show]="theme" type="button" (click)="openScssDialog(theme)">
+            <mat-icon>code</mat-icon>
+            Export SCSS
+          </button>
+
+          <button mat-button class="secondary btn-export-scss" [class.show]="theme" type="button" (click)="storeTheme(theme)">
+            <mat-icon>save</mat-icon>
+            Store Theme
+          </button>
+          }
+
+          @if(_anyCustomThemes(); as hasCustomThemes) {
+            <button mat-button class="primary btn-mng-custom-themes" 
+              [class.show]="hasCustomThemes" 
               type="button" 
-              (click)="storeTheme(theme)">
-              <mat-icon>save</mat-icon>
-              Store Theme
+              (click)="manageCustomThemes()">
+              <mat-icon>manage_accounts</mat-icon>
+              Manage Themes
             </button>
           }
 
@@ -88,27 +90,19 @@
 
     <!-- Preset themes -->
     @if (_presetThemes(); as presetThemes) {
-      <mat-divider />
-      <section class="preset-section">
-        <h3 class="mat-h3">Preset Themes</h3>
-        <div class="preset-grid">
-          @for (item of presetThemes; track item.value) {
-            <button
-              mat-raised-button
-              (click)="previewPresetTheme(item)"
-              [style.background-color]="item.primaryColor"
-              [style.color]="'white'"
-              class="preset-button">
-              {{ item.label | titlecase }}
-            </button>
-          }
-        </div>
-      </section>
+    <mat-divider />
+    <section class="preset-section">
+      <h3 class="mat-h3">Preset Themes (click to preview)</h3>
+      <div class="preset-grid">
+        @for (item of presetThemes; track item.value) {
+        <button mat-raised-button (click)="previewPresetTheme(item)" [style.background-color]="item.primaryColor" [style.color]="'white'"
+          class="preset-button">
+          {{ item.label | titlecase }}
+        </button>
+        }
+      </div>
+    </section>
     }
-    
+
   </div>
 </div>
-
-
-
-

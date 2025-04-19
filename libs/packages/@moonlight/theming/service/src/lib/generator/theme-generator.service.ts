@@ -14,6 +14,7 @@ import { SytemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 })
 export class ThemeGeneratorService {
 
+  //TODO Colors are upside down
   private _platformId = inject(PLATFORM_ID)
 
   private _systemPrefs = inject(SytemPrefsService)
