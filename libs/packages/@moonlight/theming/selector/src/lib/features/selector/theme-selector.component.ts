@@ -11,6 +11,7 @@ import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { CustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //#########################################//
 
@@ -55,6 +56,7 @@ export class ThemeSelectorComponent implements OnDestroy {
   private _themeService = inject(ThemeService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
+  private _snackBar = inject(MatSnackBar)
   private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
@@ -114,14 +116,14 @@ export class ThemeSelectorComponent implements OnDestroy {
     // Construct ThemeOption using spread operator and defaults
     const themeToApply: ThemeOption = {
       ...defaultThemeOption,
-      label: values.themeName, 
-      value: themeValue,       
+      label: values.themeName,
+      value: themeValue,
       primaryColor: values.primaryColor,
       secondaryColor: values.secondaryColor,
       tertiaryColor: values.tertiaryColor ?? defaultThemeOption.tertiaryColor,
       errorColor: values.errorColor ?? defaultThemeOption.errorColor,
       darkMode: values.darkMode // Use the form's dark mode value
-    }    
+    }
 
     this.previewTheme(themeToApply)
   }
@@ -137,7 +139,7 @@ export class ThemeSelectorComponent implements OnDestroy {
       tertiaryColor: theme.tertiaryColor,
       errorColor: theme.errorColor,
       darkMode: theme.darkMode,
-      themeName: `${theme.value}`,    
+      themeName: `${theme.value}`,
     })
 
     this.previewTheme(theme)
@@ -145,8 +147,19 @@ export class ThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
-  protected storeTheme = (theme: ThemeOption) =>
-    this._themeService.addCustomTheme(theme)
+  protected storeTheme(theme: ThemeOption) {
+     this._themeService.addCustomTheme(theme);
+     this._snackBar.open(
+      'Theme saved successfully! \r\n Select in the Theme Manager',
+      'Close',
+      {
+        duration: 10000,
+        panelClass: 'snackbar-success',
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      }
+     );
+  }
 
 
   //-----------------------------//
@@ -188,7 +201,7 @@ export class ThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
-  protected manageCustomThemes(): void {    
+  protected manageCustomThemes(): void {
 
     if (!this.isBrowser())
       return;

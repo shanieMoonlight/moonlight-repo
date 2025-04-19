@@ -2,6 +2,14 @@
 
 //======================= SPIN ========================//
 
+.primary {
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-primary)
+    )
+  );
+}
+
 .secondary {
   @include mat.select-overrides(
     (
@@ -9,7 +17,6 @@
     )
   );
 }
-
 
 
 .tertiary {

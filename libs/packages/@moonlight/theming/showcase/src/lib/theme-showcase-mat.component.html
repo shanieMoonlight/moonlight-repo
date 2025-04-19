@@ -12,8 +12,20 @@
     <section class="component-section">
       <h3>Buttons</h3>
       <div class="buttons-container">
+
+        <!-- <div class="button-row">
+          <button mat-button >Basic</button>
+          <button mat-raised-button >Raised</button>
+          <button mat-stroked-button >Stroked</button>
+          <button mat-flat-button >Flat</button>
+          <button mat-fab ><mat-icon>add</mat-icon></button>
+          <button mat-mini-fab ><mat-icon>add</mat-icon></button>
+        </div> -->
+
         <div class="button-row">
-          <button mat-button class="primary">Basic</button>
+          <div class="label">
+            <button mat-button class="primary">Primary</button>
+          </div>
           <button mat-raised-button class="primary">Raised</button>
           <button mat-stroked-button class="primary">Stroked</button>
           <button mat-flat-button class="primary">Flat</button>
@@ -21,8 +33,11 @@
           <button mat-mini-fab class="primary"><mat-icon>add</mat-icon></button>
         </div>
 
+
         <div class="button-row">
-          <button mat-button class="secondary">Basic</button>
+          <div class="label">
+            <button mat-button class="secondary">Secondary</button>
+          </div>
           <button mat-raised-button class="secondary">Raised</button>
           <button mat-stroked-button class="secondary">Stroked</button>
           <button mat-flat-button class="secondary">Flat</button>
@@ -31,7 +46,9 @@
         </div>
 
         <div class="button-row">
-          <button mat-button class="tertiary">Basic</button>
+          <div class="label">
+            <button mat-button class="tertiary">Tertiary</button>
+          </div>
           <button mat-raised-button class="tertiary">Raised</button>
           <button mat-stroked-button class="tertiary">Stroked</button>
           <button mat-flat-button class="tertiary">Flat</button>
@@ -40,7 +57,9 @@
         </div>
 
         <div class="button-row">
-          <button mat-button class="error">Basic</button>
+          <div class="label">
+            <button mat-button class="error">Error</button>
+          </div>
           <button mat-raised-button class="error">Raised</button>
           <button mat-stroked-button class="error">Stroked</button>
           <button mat-flat-button class="error">Flat</button>
@@ -124,6 +143,7 @@
 
         <div class="checkbox-radio-container">
           <div>
+            <mat-checkbox [checked]="true">Primary</mat-checkbox>
             <mat-checkbox class="primary" [checked]="true">Primary</mat-checkbox>
             <mat-checkbox class="secondary">Secondary</mat-checkbox>
             <mat-checkbox class="tertiary" [checked]="true">Tertiary</mat-checkbox>

@@ -2,6 +2,16 @@
 
 //======================= SPIN ========================//
 
+.primary {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+
+
 .secondary {
   @include mat.progress-spinner-overrides(
     (

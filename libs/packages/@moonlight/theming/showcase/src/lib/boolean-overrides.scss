@@ -2,6 +2,26 @@
 
 //======================== CHECKBOXES =========================//
 
+.primary {
+  @include mat.checkbox-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-primary),
+      selected-hover-icon-color: var(--mat-sys-primary),
+      selected-focus-icon-color: var(--mat-sys-primary),
+      selected-pressed-icon-color: var(--mat-sys-primary),
+      
+      // Checkmark color
+      selected-checkmark-color: var(--mat-sys-on-primary),
+      
+      // State layer colors
+      selected-hover-state-layer-color: var(--mat-sys-primary),
+      selected-focus-state-layer-color: var(--mat-sys-primary),
+      unselected-pressed-state-layer-color: var(--mat-sys-primary)
+    )
+  );
+}
+
 .secondary {
   @include mat.checkbox-overrides(
     (

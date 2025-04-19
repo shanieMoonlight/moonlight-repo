@@ -2,6 +2,35 @@
 
 //======================= REGULAR =======================//
 
+.primary {
+  @include mat.button-overrides(
+    (
+      // Filled button (standard)
+      filled-container-color: var(--mat-sys-primary),
+      filled-label-text-color: var(--mat-sys-on-primary),
+      filled-state-layer-color: var(--mat-sys-on-primary),
+      filled-ripple-color: var(--mat-sys-on-primary),
+      
+      // Outlined button
+      outlined-outline-color: var(--mat-sys-primary),
+      outlined-label-text-color: var(--mat-sys-primary),
+      outlined-state-layer-color: var(--mat-sys-primary),
+      outlined-ripple-color: var(--mat-sys-primary),
+      
+      // Text button
+      text-label-text-color: var(--mat-sys-primary),
+      text-state-layer-color: var(--mat-sys-primary),
+      text-ripple-color: var(--mat-sys-primary),
+      
+      // Protected button (equivalent to "elevated" in Material 3)
+      protected-container-color: var(--mat-sys-primary-container),
+      protected-label-text-color: var(--mat-sys-on-primary-container),
+      protected-state-layer-color: var(--mat-sys-on-primary-container),
+      protected-ripple-color: var(--mat-sys-on-primary-container)
+    )
+  );
+}
+
 .secondary {
   @include mat.button-overrides(
     (

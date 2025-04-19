@@ -2,6 +2,25 @@
 
 //======================= FORM FIELDS ========================//
 
+.primary {
+  @include mat.form-field-overrides(
+    (
+      // Filled style
+      filled-caret-color: var(--mat-sys-primary),
+      filled-focus-active-indicator-color: var(--mat-sys-primary),
+      filled-focus-label-text-color: var(--mat-sys-primary),
+      
+      // Outlined style
+      outlined-caret-color: var(--mat-sys-primary),
+      outlined-focus-outline-color: var(--mat-sys-primary),
+      outlined-focus-label-text-color: var(--mat-sys-primary),
+      
+      // Select arrow
+      focus-select-arrow-color: var(--mat-sys-primary)
+    )
+  );
+}
+
 .secondary {
   @include mat.form-field-overrides(
     (

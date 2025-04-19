@@ -2,6 +2,16 @@
 
 //======================= TABS ========================//
 
+.primary {
+  @include mat.tabs-overrides(
+    (
+      active-indicator-color: var(--mat-sys-primary),
+      active-focus-indicator-color: var(--mat-sys-primary),
+      active-hover-indicator-color: var(--mat-sys-primary)
+    )
+  );
+}
+
 .secondary {
   @include mat.tabs-overrides(
     (
