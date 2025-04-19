@@ -7,7 +7,8 @@
     <form [formGroup]="_themeForm">
       <div class="form-container">
 
-        <div class="color-inputs-grid">
+        <div class="inputs-grid colors">
+          
           <!-- Primary color -->
           <mat-form-field appearance="outline">
             <mat-label>Primary Color</mat-label>
@@ -35,31 +36,52 @@
             <app-color-input formControlName="errorColor" />
             <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
           </mat-form-field>
-        </div>
-
-        <!-- Dark mode toggle -->
-        <div class="theme-mode-selector">
-          <label class="theme-mode-label" for="theme-mode-group">Theme Mode:</label>
-          <mat-radio-group formControlName="darkMode" class="mode-radio-group" id="theme-mode-group">
-            <mat-radio-button [value]="false">Light</mat-radio-button>
-            <mat-radio-button [value]="true">Dark</mat-radio-button>
-            <mat-radio-button value="system">System</mat-radio-button>
-          </mat-radio-group>
+          
+          <!-- Dark mode toggle -->
+          <div class="theme-mode-selector input">
+            <label class="theme-mode-label" for="theme-mode-group">Theme Mode:</label>
+            <mat-radio-group formControlName="darkMode" class="mode-radio-group" id="theme-mode-group">
+              <mat-radio-button [value]="false">Light</mat-radio-button>
+              <mat-radio-button [value]="true">Dark</mat-radio-button>
+              <mat-radio-button value="system">System</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        
+          <mat-form-field class="theme-name-input input">
+            <mat-label>Theme Name</mat-label>
+            <input matInput formControlName="themeName" required>
+            @if (_themeForm.get('themeName')?.hasError('required')) {
+              <mat-error>Theme name is required.</mat-error>
+            }
+          </mat-form-field>
         </div>
 
         <div class="button-row">
-          <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="applyFormTheme(_themeForm)">
+          <button mat-raised-button 
+            [disabled]="!_themeForm.valid" type="button" 
+            (click)="previewFormTheme(_themeForm)">
             <mat-icon>palette</mat-icon>
             Apply Theme
           </button>
           
-          <button mat-button class="secondary btn-export-scss"
-            [class.show]="!!_generatorPreviewTheme()" 
-            type="button" 
-            (click)="openScssDialog()">
-            <mat-icon>code</mat-icon>
-            Export SCSS
-          </button>
+          @if(_generatorPreviewTheme(); as theme) {
+            <button mat-button class="secondary btn-export-scss"
+              [class.show]="theme" 
+              type="button" 
+              (click)="openScssDialog(theme)">
+              <mat-icon>code</mat-icon>
+              Export SCSS
+            </button>
+
+            <button mat-button class="secondary btn-export-scss"
+              [class.show]="theme" 
+              type="button" 
+              (click)="storeTheme(theme)">
+              <mat-icon>save</mat-icon>
+              Store Theme
+            </button>
+          }
+
         </div>
       </div>
     </form>
@@ -73,7 +95,7 @@
           @for (item of presetThemes; track item.value) {
             <button
               mat-raised-button
-              (click)="applyPresetTheme(item)"
+              (click)="previewPresetTheme(item)"
               [style.background-color]="item.primaryColor"
               [style.color]="'white'"
               class="preset-button">

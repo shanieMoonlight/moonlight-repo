@@ -26,9 +26,11 @@ mat-form-field {
 }
 
 // Color inputs grid
-.color-inputs-grid {
+.inputs-grid {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  align-items: flex-end;
   gap: 1.25rem;
   width: 100%;
 
@@ -37,28 +39,23 @@ mat-form-field {
     flex-wrap: wrap;
     justify-content: space-between;
 
-    mat-form-field {
+    mat-form-field,
+    .input {
       width: 48%; // Slightly less than 50% to ensure proper spacing
       margin-right: 0; // No need for margin-right with space-between
     }
   }
 }
 
-// Dark mode toggle with proper spacing
-// mat-slide-toggle {
-//   margin: 1rem 0;
-//   display: block;
-// }
-
 .theme-mode-selector {
   margin: 16px 0;
-  
+
   .theme-mode-label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
   }
-  
+
   .mode-radio-group {
     display: flex;
     flex-direction: row;
@@ -151,7 +148,7 @@ pre {
   opacity: 1;
   transform: scale(1) translateY(0);
   pointer-events: auto; // Re-enable interaction
-  
+
   &::after {
     content: '';
     position: absolute;

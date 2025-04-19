@@ -77,7 +77,7 @@ export class ThemeService {
         const themeWithCurrentDarkMode = {
           ...themeOption,
           darkMode: darkMode
-        }        
+        }
         return ThemeDataUtils.create(themeWithCurrentDarkMode, customThemes);
       })
     )
@@ -136,7 +136,13 @@ export class ThemeService {
     const current = this.customThemes();
     // Prevent duplicates by value
     const filtered = current.filter(t => t.value !== theme.value);
-    const updated = [...filtered, theme];
+
+    const safeTheme = {
+      ...theme,
+      value: this.sanitizeValue(theme.value)
+    }
+
+    const updated = [...filtered, safeTheme];
     this._customThemesBs.next(updated);
     return updated;
   }
@@ -250,6 +256,12 @@ export class ThemeService {
     this.setTheme(defaultOption)
   }
 
+  //- - - - - - - - - - - - - - -//
+
+  sanitizeValue(value: ThemeValue): ThemeValue {
+    const lwrValue = `${value}`.toLowerCase();
+    return lwrValue.replace(/\s+/g, '-');
+  }
   //-----------------------------//
 
 }//Cls

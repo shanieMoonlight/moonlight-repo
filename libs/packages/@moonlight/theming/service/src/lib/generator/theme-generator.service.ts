@@ -1,9 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
-import { BehaviorSubject } from 'rxjs';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
@@ -32,10 +30,6 @@ export class ThemeGeneratorService {
   private isBrowser = (): boolean =>
     isPlatformBrowser(this._platformId)
 
-
-  private _currentThemeBs = new BehaviorSubject<ThemeOption | null>(null);
-  currentTheme = toSignal(this._currentThemeBs, { initialValue: null })
-
   //-----------------------------//
   // PUBLIC API METHODS
   //-----------------------------//
@@ -49,12 +43,11 @@ export class ThemeGeneratorService {
     targetElement?: HTMLElement) {
 
     const isDark = this.shouldUseDarkMode(theme)
-    this._currentThemeBs.next(theme);
+    // this._currentThemeBs.next(theme);
 
     const palettes = this._paletteGenerator.generatePalettes(theme)
 
     this._applyTheme(palettes, isDark, themeClass, targetElement)
-
   }
 
   //-----------------------------//
@@ -63,12 +56,8 @@ export class ThemeGeneratorService {
    * Export current theme as SCSS
    * This can be useful for debugging or saving themes
    */
-  exportThemeAsScss = (): string => {
-    const theme = this.currentTheme();
-    return theme
-      ? this._scssGenerator.exportThemeAsScss(theme)
-      : ''
-  }
+  exportThemeAsScss = (theme: ThemeOption): string =>
+    theme ? this._scssGenerator.exportThemeAsScss(theme) : ''
 
   //-----------------------------//
   // PRIVATE METHODS
@@ -82,7 +71,7 @@ export class ThemeGeneratorService {
 
     if (!this.isBrowser())
       return
-   
+
     targetElement ??= document.documentElement
 
     // Batch DOM updates using requestAnimationFrame
@@ -254,7 +243,7 @@ export class ThemeGeneratorService {
   //- - - - - - - - - - - - - - -//
 
   private shouldUseDarkMode = (theme: ThemeOption): boolean => theme.darkMode === 'system'
-    ? this._systemPrefs.prefersDarkMode() 
+    ? this._systemPrefs.prefersDarkMode()
     : !!theme.darkMode;
 
 
