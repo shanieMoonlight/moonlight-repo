@@ -22,7 +22,7 @@ export class ThemeConfig {
   darkModeClass = DARK_MODE_CLASS
   lightModeClass = LIGHT_MODE_CLASS
   themeClassPrefix = THEME_CLASS_PREFIX
-  defaultMode: ThemeMode = 'light'
+  defaultDarkMode: ThemeMode = 'light'
   colorTones: number[] = DEFAULT_COLOR_TONES
   /**Used in theme-selector */
   presetSelectorThemes: ThemeOption[] = defaultPresetSelectorThemes
@@ -65,7 +65,7 @@ export class ThemeConfig {
       config.themeClassPrefix = themeClassPrefix
 
     if (!!defaultMode)
-      config.defaultMode = defaultMode
+      config.defaultDarkMode = defaultMode
 
     if (customColorTones?.length)
       config.colorTones = customColorTones;

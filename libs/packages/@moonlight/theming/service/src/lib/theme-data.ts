@@ -10,14 +10,12 @@ import { defaultThemeOption, ThemeOption } from "@moonlight/ng/theming/config";
  */
 export interface ThemeData {
 
-  /** Hardcoded system themes */
-  themes: ThemeOption[]
   /** User defined themes */
   customThemes: ThemeOption[]
   /** The most recent dark moded setting */
   currentDarkMode: boolean
   /** The most recent theme option selected */
-  currentTheme: ThemeOption | null
+  currentTheme: ThemeOption
 
 }//int
 
@@ -27,19 +25,17 @@ export interface ThemeData {
 
 export const ThemeDataUtils = {
 
-  create(option: ThemeOption, isDark: boolean): ThemeData {
+  create(option: ThemeOption, isDark: boolean, customThemes: ThemeOption[] = []): ThemeData {
     return {
       currentDarkMode: isDark,
-      themes: [option],
       currentTheme: option, 
-      customThemes: [],      
+      customThemes: customThemes,      
     };
   },
 
   default(): ThemeData {
     return {
       currentDarkMode: false,
-      themes: [defaultThemeOption],
       currentTheme: defaultThemeOption,
       customThemes: [], 
     };

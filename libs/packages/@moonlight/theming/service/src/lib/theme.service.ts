@@ -1,9 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { DestroyRef, Injectable, RendererFactory2, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject, isDevMode } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { DEFAULT_THEME_VALUE, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
+import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 
 //##################################################//
@@ -13,36 +13,7 @@ const THEME_KEY = 'moonlight_theme_key'
 //##################################################//
 
 /**
- * Angular service for managing themes and dark/light mode with SSR support.
- * 
- * Features:
- * - Toggle between dark and light modes
- * - Switch between multiple themes
- * - Persists user preferences
- * - Respects system theme preference
- * - Server-side rendering compatible
- * 
- * Usage:
- * ```typescript
- * // In component
- * constructor(private themeService: ThemeService) {
- *   // Check current mode
- *   const isDark = this.themeService.isDarkMode();
- *   
- *   // Toggle dark mode
- *   this.themeService.setDarkMode(!isDark);
- *   
- *   // Change theme
- *   this.themeService.setThemeIndex('blue');
- * }
- * ```
- * 
- * Configure by providing ThemeConfig:
- * ```typescript
- * providers: [
- *   ThemeAndModeSetup.getThemeProviders(myThemeConfig)
- * ]
- * ```
+
  */
 @Injectable({
   providedIn: 'root'
@@ -51,37 +22,57 @@ export class ThemeService {
 
   private _localStorage = inject(SsrLocalStorage)
   private _destroyor = inject(DestroyRef)
-  private _document = inject(DOCUMENT)
-  //We can't inject Render2 Directly here. So have to use factory
-  private _rendererFactory = inject(RendererFactory2)
   private _config: ThemeConfig = inject(ThemeConfigService)
-  
+  private _themeGenerator = inject(ThemeGeneratorService)
 
   //- - - - - - - - - - - - - - -//
 
   private _isDarkModeBs = new BehaviorSubject<boolean>(false)
+  /** Current dark mode status (Observable)*/
   isDarkMode$ = this._isDarkModeBs.asObservable()
-  isDarkMode = toSignal(this.isDarkMode$)
+  /** Current dark mode status (Signal)*/
+  isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
 
 
-
-  private _currentThemeBs = new BehaviorSubject<ThemeOption | undefined>(this._config.themeOptions[0]) // Initialize with a default
+  private _currentThemeBs = new BehaviorSubject<ThemeOption>(this._config.themeOptions[0] ?? defaultThemeOption) // Initialize with a default
+  /** Current theme  (Observable)*/
   currentTheme$ = this._currentThemeBs.asObservable();
-  currentTheme = toSignal(this.currentTheme$)
+  /** Current theme Signal)*/
+  currentTheme = toSignal(this.currentTheme$, { initialValue: this._config.themeOptions[0] ?? defaultThemeOption })
 
-  currentThemeValue$ = this.currentTheme$.pipe(map(theme => theme?.value));
-  currentThemeValue = toSignal(this.currentThemeValue$, { initialValue: DEFAULT_THEME_VALUE })
 
-  //- - - - - - - - - - - - - - -//
+  private _customThemesBs = new BehaviorSubject<ThemeOption[]>([])
+  /** User defined themes  (Observable)*/
+  customThemes$ = this._customThemesBs.asObservable();
+  /** User defined themes  (Signal)*/
+  customThemes = toSignal(this.customThemes$, { initialValue: [] })
 
-  private _renderer = this._rendererFactory.createRenderer(this._document.body, null)
 
-  private _currentDarkModeClass = this._config.lightModeClass
+  private _systemThemesBs = new BehaviorSubject<ThemeOption[]>(this._config.themeOptions)
+  /** Developer defined themes (Observable)*/
+  systemThemes$ = this._systemThemesBs.asObservable();
+  /** Developer defined themes (Signal)*/
+  systemThemes = toSignal(this.systemThemes$)
+
+  private _currentDataBs = combineLatest([this.currentTheme$, this.isDarkMode$, this.customThemes$])
+    .pipe(
+      tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
+      takeUntilDestroyed(this._destroyor),
+      debounceTime(100),
+      distinctUntilChanged(),
+      map(([themeOption, isDark, customThemes]) =>
+        ThemeDataUtils.create(
+          themeOption,
+          isDark ?? themeOption.fallbackIsDarkMode,
+          customThemes
+        ))
+    )
+
 
   //- - - - - - - - - - - - - - -//
 
   constructor() {
-    this.initializeThemeAndMode()
+    this.initialize()
   }
 
   //-----------------------------//
@@ -91,18 +82,9 @@ export class ThemeService {
    * 
    * @param isDarkMode When true, applies dark mode class; when false, applies light mode class
    */
-  setDarkMode(isDarkMode: boolean) {
-
-    this._renderer.removeClass(this._document.body, this._currentDarkModeClass)
-    this._currentDarkModeClass = isDarkMode ? this._config.darkModeClass : this._config.lightModeClass
-
-    this._renderer.addClass(this._document.body, this._currentDarkModeClass)
-
-    //this must be called after remove and add class
-    //All updates must me complete before saving the new DarkMode Settings
+  setDarkMode = (isDarkMode: boolean) =>
     this._isDarkModeBs.next(isDarkMode)
-  }
-
+ 
   //-----------------------------//
 
   /**
@@ -112,39 +94,111 @@ export class ThemeService {
    *
    * @param theme The ThemeOption to apply, or null/undefined to apply the default.
    */
-  setTheme(theme: ThemeOption | null | undefined): void {
-    let themeToApply: ThemeOption;
+  setTheme = (theme: ThemeOption | null | undefined) =>
+    this._currentThemeBs.next(theme ?? this._config.themeOptions[0] ?? defaultThemeOption)
 
-    if (!theme) {
-      // Fallback to the default theme (assuming the first option is the default)
-      themeToApply = this._config.themeOptions[0] //?? ThemeDataUtils.default(); // Provide a hardcoded fallback if options are empty
-      // console.warn('setTheme called with invalid theme. Falling back to default:', themeToApply);
-    } else {
-      themeToApply = theme;
-    }
-    this.setThemeClassSuffix(themeToApply)
+  //-----------------------------//
 
-    //this must be called after setThemeClassSuffix
-    //All updates must me complete before saving the new theme
-    this._currentThemeBs.next(themeToApply);
+  /**
+ * Exports the current theme settings as a serializable object
+ * that can be shared or imported later
+ */
+  exportThemeSettings = (): { theme: ThemeOption, isDark: boolean } => ({
+    theme: this.currentTheme(),
+    isDark: this.isDarkMode()
+  })
+
+  //-----------------------------//
+
+  /**
+   * Adds a custom theme to the list of available themes
+   * 
+   * @param theme The custom theme to add
+   * @returns The updated list of custom themes
+   */
+  addCustomTheme(theme: ThemeOption): ThemeOption[] {
+    const current = this.customThemes();
+    // Prevent duplicates by value
+    const filtered = current.filter(t => t.value !== theme.value);
+    const updated = [...filtered, theme];
+    this._customThemesBs.next(updated);
+    return updated;
   }
 
   //-----------------------------//
 
-  private initializeThemeAndMode(): void {
+  /**
+   * Removes a custom theme by value
+   * 
+   * @param value The value of the custom theme to remove
+   * @returns The updated list of custom themes
+   */
+  removeCustomTheme(value: ThemeValue): ThemeOption[] {
+    const current = this._customThemesBs.value;
+    const updated = current.filter(t => t.value !== value)
+    this._customThemesBs.next(updated);
+    return updated;
+  }
+
+  //-----------------------------//
+
+  /**
+   * Resets all theme settings to system defaults
+   * - Clears all custom themes
+   * - Sets current theme to first system theme
+   * - Sets dark mode based on theme's default
+   */
+  resetToDefaults = (): void => {
+    // Clear custom themes
+    this._customThemesBs.next([]);
+
+    // Get default system theme
+    const defaultTheme = this._config.themeOptions[0] ?? defaultThemeOption;
+
+    // Reset dark mode using system preference if applicable
+    const prefersDark = defaultTheme.fallbackIsDarkMode;
+    
+    this._isDarkModeBs.next(prefersDark);
+    this._currentThemeBs.next(defaultTheme);
+
+    // Clear stored preferences
+    this._localStorage.removeItem(THEME_KEY);
+  }
+
+  //-----------------------------//
+
+  private initialize(): void {
 
     try {
       const themeData = this.retrieveTheme()
 
-      this.initalizeDarkMode(themeData)
+      const darkMode = themeData?.currentDarkMode ?? this._config.defaultDarkMode === 'dark'
+      this._isDarkModeBs.next(darkMode)
 
-      this.initalizeTheme(themeData)
+      const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
+      this._currentThemeBs.next(currentTheme)
 
-      this.initializePersistence()
+      this._customThemesBs.next(themeData?.customThemes ?? [])
+
+      this._currentDataBs
+        .pipe(takeUntilDestroyed(this._destroyor))
+        .subscribe(data => {
+          this.applyCurrentTheme(data)
+          this.storeTheme(data)
+        })
 
     } catch (error) {
 
-      console.error('Error initializing theme:', error);
+      // More specific error handling
+      if (error instanceof SyntaxError)
+        console.error('Error parsing stored theme data:', error);
+      else if (error instanceof TypeError)
+        console.error('Theme structure error - possible version mismatch:', error);
+      else if (error instanceof Error)
+        console.error(`Theme initialization error (${error.name}): ${error.message}`);
+      else
+        console.error('Unknown error initializing theme:', error)
+
       // Apply fallback theme
       this.setDefaultTheme()
     }
@@ -152,126 +206,22 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private initalizeTheme(themeData?: ThemeData | null): void {
-
-    // Determine initial theme suffix
-    const initialTheme = this._config.themeOptions
-      .find(opt => opt.value === themeData?.themes.value) // Find saved theme
-
-    this.setTheme(initialTheme)
-  }
+  private applyCurrentTheme = (themeData: ThemeData, element?: HTMLElement) =>
+    this._themeGenerator.applyTheme(
+      themeData.currentTheme,
+      themeData.currentDarkMode,
+      undefined,
+      element)
 
   //- - - - - - - - - - - - - - -//
 
-  /**
-   * Initializes dark mode based on the provided theme data or system preference.
-   * If no theme data is provided, it falls back to the system preference or default mode.
-   *
-   * @param themeData The ThemeData containing dark mode preference, or null/undefined.
-   */
-  private initalizeDarkMode(themeData?: ThemeData | null): void {
-    // Determine initial dark mode
-    const initialDarkMode = themeData?.currentDarkMode ??
-      this.isSystemDarkModeEnabled() ??
-      this._config.defaultMode === 'dark'
-
-    this.clearAllDarkModeClasses()
-    this.setDarkMode(initialDarkMode)
-
-    // console.log('initializeTheme, initialDarkMode:', initialDarkMode);
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  private initializePersistence(): void {
-
-    combineLatest([this.currentTheme$, this.isDarkMode$])
-      .pipe(
-        // tap((data) => console.log('initializePersistence data:', data)),
-        takeUntilDestroyed(this._destroyor),
-        debounceTime(100),
-        distinctUntilChanged()
-      )
-      .subscribe(
-        ([themeOption, isDark]) => {
-          if (!!themeOption)
-            this.storeTheme(themeOption, isDark)
-        }
-      )
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  /**
-   * Sets the current theme by applying the appropriate CSS class (Internal implementation)
-   *
-   * @param suffix Theme identifier that will be appended to class name prefix
-   */
-  private setThemeClassSuffix(theme: ThemeOption): void {
-
-    if (!theme) {
-      // Using the first configured theme's suffix as a fallback:
-      theme = this._config.themeOptions[0] ?? defaultThemeOption;
-      console.warn('Attempted to set invalid theme suffix. Falling back to:', theme.label);
-    }
-
-    const newThemeClass = this.generateThemeClass(theme.value);
-    const oldThemeClass = this.generateThemeClass(this.currentThemeValue() ?? '');
-
-    // Avoid unnecessary DOM manipulation if the class isn't changing
-    if (newThemeClass !== oldThemeClass) {
-      this._renderer.removeClass(this._document.body, oldThemeClass);
-      this._renderer.addClass(this._document.body, newThemeClass);
-    }
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  private storeTheme(themeOption: ThemeOption, isDark?: boolean) {
-
-    const themeData = ThemeDataUtils.create(
-      themeOption,
-      isDark ?? themeOption.fallbackIsDarkMode)
-
+  private storeTheme = (themeData: ThemeData) =>
     this._localStorage.setItemObject(THEME_KEY, themeData)
-  }
 
   //- - - - - - - - - - - - - - -//
 
   private retrieveTheme = (): ThemeData | null =>
     this._localStorage.getItemObject<ThemeData>(THEME_KEY) ?? null
-
-  //- - - - - - - - - - - - - - -//
-
-  private clearAllDarkModeClasses() {
-
-    this._renderer.removeClass(this._document.body, this._config.darkModeClass)
-    this._renderer.removeClass(this._document.body, this._config.lightModeClass)
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  private generateThemeClass(suffix: ThemeValue) {
-    // Convert suffix to string in case it's a number
-    const suffixString = String(suffix);
-
-    // Replace any character that is NOT a letter, digit, hyphen, or underscore with a hyphen
-    // Also, replace multiple consecutive hyphens with a single one
-    const sanitizedSuffix = suffixString
-      .replace(/[^a-zA-Z0-9_-]/g, '-') // Replace invalid chars with '-'
-      .replace(/-+/g, '-'); // Collapse multiple hyphens
-
-    // Optional: Handle cases where the suffix might start or end with a hyphen after sanitization
-    const finalSuffix = sanitizedSuffix.replace(/^-+|-+$/g, ''); // Trim leading/trailing hyphens
-
-    // Handle potential empty suffix after sanitization
-    if (!finalSuffix) {
-      console.warn(`Theme suffix "${suffixString}" resulted in an empty string after sanitization. Using 'default'.`);
-      return `${this._config.themeClassPrefix}-default`; // Fallback if suffix becomes empty
-    }
-
-    return `${this._config.themeClassPrefix}-${finalSuffix}`;
-  }
 
   //- - - - - - - - - - - - - - -//
 

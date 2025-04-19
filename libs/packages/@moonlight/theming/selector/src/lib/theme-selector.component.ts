@@ -99,8 +99,9 @@ export class ThemeSelectorComponent {
 
     this._themeGenerator.applyTheme(
       themeToApply,
+      values.darkMode, // Pass dark mode state separately as applyTheme expects it
+      undefined,
       document.documentElement,
-      values.darkMode // Pass dark mode state separately as applyTheme expects it
     );
   }
 
@@ -129,8 +130,9 @@ export class ThemeSelectorComponent {
     // Pass the full ThemeOption to applyTheme
     this._themeGenerator.applyTheme(
       presetTheme,
+      presetTheme.fallbackIsDarkMode, // Use the preset's dark mode preference
+      undefined,
       document.documentElement,
-      presetTheme.fallbackIsDarkMode // Use the preset's dark mode preference
       // themeClass is handled internally by applyTheme now based on ThemeOption.value
     );
   }

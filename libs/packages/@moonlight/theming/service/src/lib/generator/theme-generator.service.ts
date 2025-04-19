@@ -33,9 +33,10 @@ export class ThemeGeneratorService {
    */
   applyTheme(
     colors: ThemeOption,
-    targetElement = document.documentElement,
     isDark = false,
-    themeClass?: string) {
+    themeClass?: string,
+    targetElement = document.documentElement,
+  ) {
 
     this.currentTheme$.next(colors);
 
@@ -202,18 +203,6 @@ export class ThemeGeneratorService {
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])
 
   }
-
-  //-----------------------------//
-
-  // //TODO: remove this method
-  // /**
-  //  * Toggle between light and dark mode
-  //  */
-  // toggleDarkMode(isDark: boolean) {
-  //   const currentTheme = this.currentTheme();
-  //   if (currentTheme)
-  //     this.applyTheme(currentTheme, document.documentElement, isDark)
-  // }
 
   //-----------------------------//
 
