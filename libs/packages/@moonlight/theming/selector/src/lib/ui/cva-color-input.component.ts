@@ -36,7 +36,7 @@ const toFileName = (name: string) => name
         class="color-picker"
         [attr.disabled]="_disabled() ? true : null"
         [attr.aria-labelledby]="_describedByIds()">
-        {{_colorValue()}}
+        <!-- {{_colorValue()}} -->
     </div>
   `,
   styles: [`

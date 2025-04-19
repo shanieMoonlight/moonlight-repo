@@ -1,32 +1,15 @@
 import { TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, ThemeConfig, ThemeConfigService, ThemeValue } from '@moonlight/ng/theming/config';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { ColorInputComponent } from './ui/cva-color-input.component';
-import { ThemeColors } from './models/theme-colors';
 import { ScssDisplayComponent } from './ui/scss-display.component';
-import { ThemeOption, defaultThemeOption, DEFAULT_COLOR_ERROR } from '@moonlight/ng/theming/config';
 
 //#########################################//
-
-/**
- * Converts a ThemeOption object to a ThemeColors object.
- * Provides default fallbacks if colors are missing.
- */
-function convertThemeOptionToColors(option: ThemeOption): ThemeColors {
-  return {
-    primary: option.primaryColor ?? DEFAULT_COLOR_PRIMARY,
-    secondary: option.secondaryColor ?? DEFAULT_COLOR_SECONDARY,
-    tertiary: option.tertiaryColor ?? DEFAULT_COLOR_TERTIARY, // Use default if null/undefined
-    error: option.errorColor ?? DEFAULT_COLOR_ERROR,       // Use default if null/undefined
-  };
-}
-
-//-----------------------------------------//
 
 interface IThemeForm
   extends FormGroup<{
@@ -70,7 +53,12 @@ export class ThemeSelectorComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  _presetThemes = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
+  _presetInput = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
+  // Computed signal handles the fallback. We need this to test the default value. Otherwise, it will be undefined.
+  protected _presetThemes = computed(() => {
+    const provided = this._presetInput();
+    return provided === undefined ? this._config.presetSelectorThemes : provided;
+  });
 
   //- - - - - - - - - - - - - - -//
 
@@ -99,10 +87,10 @@ export class ThemeSelectorComponent {
     // Construct ThemeOption using spread operator and defaults
     const themeToApply: ThemeOption = {
       ...defaultThemeOption, // Start with defaults
-      primaryColor: values.primary, 
-      secondaryColor: values.secondary, 
-      tertiaryColor: values.tertiary ?? defaultThemeOption.tertiaryColor, 
-      errorColor: values.error ?? defaultThemeOption.errorColor, 
+      primaryColor: values.primary,
+      secondaryColor: values.secondary,
+      tertiaryColor: values.tertiary ?? defaultThemeOption.tertiaryColor,
+      errorColor: values.error ?? defaultThemeOption.errorColor,
       // Generate a dynamic label/value or use a specific one if needed
       label: 'Custom', // Or generate based on colors
       value: `custom-${Date.now()}`, // Example dynamic value
@@ -121,7 +109,8 @@ export class ThemeSelectorComponent {
   protected applyPreset(presetValue: ThemeValue) {
 
     // Find the preset using the input signal
-    const presetTheme = this._presetThemes().find(p => p.value === presetValue);
+    const presetTheme = this._presetThemes()
+      .find(p => p.value === presetValue);
 
     console.log('applyPreset', presetValue, presetTheme);
 
@@ -151,13 +140,16 @@ export class ThemeSelectorComponent {
 
   openScssDialog(): void {
     const scssContent = this._themeGenerator.exportThemeAsScss();
-    if (!scssContent) return;
+    
+    if (!scssContent) 
+      return
+    
 
     this._exportedScss.set(scssContent);
 
     this._dialog.open(ScssDisplayComponent, {
       width: '600px',
-      data: { scssContent: this._exportedScss() },
+      data: { scssContent: scssContent},
       autoFocus: false
     });
   }

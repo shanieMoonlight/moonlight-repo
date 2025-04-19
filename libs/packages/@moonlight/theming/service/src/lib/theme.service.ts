@@ -55,12 +55,14 @@ export class ThemeService {
   //We can't inject Render2 Directly here. So have to use factory
   private _rendererFactory = inject(RendererFactory2)
   private _config: ThemeConfig = inject(ThemeConfigService)
+  
 
   //- - - - - - - - - - - - - - -//
 
   private _isDarkModeBs = new BehaviorSubject<boolean>(false)
   isDarkMode$ = this._isDarkModeBs.asObservable()
   isDarkMode = toSignal(this.isDarkMode$)
+
 
 
   private _currentThemeBs = new BehaviorSubject<ThemeOption | undefined>(this._config.themeOptions[0]) // Initialize with a default
@@ -115,7 +117,7 @@ export class ThemeService {
 
     if (!theme) {
       // Fallback to the default theme (assuming the first option is the default)
-      themeToApply = this._config.themeOptions[0] ?? ThemeDataUtils.default(); // Provide a hardcoded fallback if options are empty
+      themeToApply = this._config.themeOptions[0] //?? ThemeDataUtils.default(); // Provide a hardcoded fallback if options are empty
       // console.warn('setTheme called with invalid theme. Falling back to default:', themeToApply);
     } else {
       themeToApply = theme;
@@ -154,7 +156,7 @@ export class ThemeService {
 
     // Determine initial theme suffix
     const initialTheme = this._config.themeOptions
-      .find(opt => opt.value === themeData?.theme.value) // Find saved theme
+      .find(opt => opt.value === themeData?.themes.value) // Find saved theme
 
     this.setTheme(initialTheme)
   }
@@ -169,7 +171,7 @@ export class ThemeService {
    */
   private initalizeDarkMode(themeData?: ThemeData | null): void {
     // Determine initial dark mode
-    const initialDarkMode = themeData?.isDarkMode ??
+    const initialDarkMode = themeData?.currentDarkMode ??
       this.isSystemDarkModeEnabled() ??
       this._config.defaultMode === 'dark'
 

@@ -58,12 +58,12 @@
     </form>
 
     <!-- Preset themes -->
-    @if (_presetThemes().length > 0) {
+    @if (_presetThemes(); as presetThemes) {
       <mat-divider />
       <section class="preset-section">
         <h3 class="mat-h3">Preset Themes</h3>
         <div class="preset-grid">
-          @for (item of _presetThemes(); track item.value) {
+          @for (item of presetThemes; track item.value) {
             <button
               mat-raised-button
               (click)="applyPreset(item.value)"

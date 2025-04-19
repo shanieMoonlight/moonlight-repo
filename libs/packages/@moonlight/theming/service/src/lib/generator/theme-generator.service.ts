@@ -47,7 +47,7 @@ export class ThemeGeneratorService {
     // Then apply the M3 system variables using the direct mapper approach
     this.applySystemVariables(palettes, targetElement, isDark)
 
-    // If we're setting an alternate theme, add the theme class
+    // If we're setting an alternate theme, add the theme class.  This is not necessary for the mat stuff 
     if (themeClass)
       this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
 
