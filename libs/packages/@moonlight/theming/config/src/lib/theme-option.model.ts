@@ -1,4 +1,4 @@
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_THEME_LABEL, DEFAULT_COLOR_ERROR, DEFAULT_COLOR_NEUTRAL, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, DEFAULT_THEME_VALUE } from "./constants";
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, DEFAULT_THEME_LABEL, DEFAULT_THEME_VALUE } from "./constants";
 
 //##################################################//
 
@@ -8,6 +8,8 @@ import { DEFAULT_COLOR_PRIMARY, DEFAULT_THEME_LABEL, DEFAULT_COLOR_ERROR, DEFAUL
  * And to find the theme in the theme map or dropdowns
 */
 export type ThemeValue = string | number;
+
+export type DarkModeType = true | false | 'system';
 
 //##################################################//
 
@@ -49,7 +51,7 @@ export class ThemeOption {
    * User may manually change dark mode later.
    * @default false
    */
-  fallbackIsDarkMode: boolean = false
+  fallbackIsDarkMode = false
 
   /**
    * The human-readable name of the theme displayed in the UI.

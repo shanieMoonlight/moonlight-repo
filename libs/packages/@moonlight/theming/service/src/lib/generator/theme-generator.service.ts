@@ -1,4 +1,5 @@
-import { inject, Injectable, RendererFactory2 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
@@ -14,6 +15,8 @@ import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator
 })
 export class ThemeGeneratorService {
 
+  private _platformId = inject(PLATFORM_ID)
+
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
 
@@ -23,44 +26,85 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this._platformId)
+  }
+
   private currentTheme$ = new BehaviorSubject<ThemeOption | null>(null);
   currentTheme = toSignal(this.currentTheme$)
 
+  //-----------------------------//
+  // PUBLIC API METHODS
   //-----------------------------//
 
   /**
    * Apply generated theme to the document using CSS variables
    */
   applyTheme(
-    colors: ThemeOption,
-    isDark = false,
+    theme: ThemeOption,
     themeClass?: string,
-    targetElement = document.documentElement,
-  ) {
+    targetElement?: HTMLElement) {
 
-    this.currentTheme$.next(colors);
+    targetElement ??= document.documentElement
 
-    const palettes = this._paletteGenerator.generatePalettes(colors)
+    const isDark = theme.fallbackIsDarkMode
+    this.currentTheme$.next(theme);
 
-    // First, set the individual palette shade variables
-    this.applyPaletteVariables(palettes, targetElement)
+    const palettes = this._paletteGenerator.generatePalettes(theme)
 
-    // Then apply the M3 system variables using the direct mapper approach
-    this.applySystemVariables(palettes, targetElement, isDark)
-
-    // If we're setting an alternate theme, add the theme class.  This is not necessary for the mat stuff 
-    if (themeClass)
-      this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
-
-    // Add dark mode class if needed
-    if (isDark)
-      this._renderer.addClass(targetElement, DARK_MODE_CLASS)
-    else
-      this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+    this._applyTheme(palettes, isDark, themeClass, targetElement)
 
   }
 
   //-----------------------------//
+
+  /**
+   * Export current theme as SCSS
+   * This can be useful for debugging or saving themes
+   */
+  exportThemeAsScss = (): string => {
+    const theme = this.currentTheme();
+    return theme
+      ? this._scssGenerator.exportThemeAsScss(theme)
+      : ''
+  }
+
+  //-----------------------------//
+  // PRIVATE METHODS
+  //-----------------------------//
+
+  private _applyTheme(
+    palettes: GeneratedPalettes, 
+    isDark: boolean, 
+    themeClass: string | undefined, 
+    targetElement: HTMLElement) {
+
+    if (!this.isBrowser())
+      return
+
+    // Batch DOM updates using requestAnimationFrame
+    requestAnimationFrame(() => {
+
+      // First, set the individual palette shade variables
+      this.applyPaletteVariables(palettes, targetElement)
+
+      // Then apply the M3 system variables using the direct mapper approach
+      this.applySystemVariables(palettes, targetElement, isDark)
+
+      // If we're setting an alternate theme, add the theme class
+      if (themeClass)
+        this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
+
+      // Add dark mode class if needed
+      if (isDark)
+        this._renderer.addClass(targetElement, DARK_MODE_CLASS)
+      else
+        this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+    })
+
+  }
+
+  //- - - - - - - - - - - - - - -//
 
   /**
    * Apply palette shade variables to the target element
@@ -78,13 +122,12 @@ export class ThemeGeneratorService {
     })
   }
 
-  //-----------------------------//
+  //- - - - - - - - - - - - - - -//
 
   /**
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
   private applySystemVariables(palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
-    // console.log('target', targetElement);
 
     const p = palettes;
 
@@ -169,7 +212,7 @@ export class ThemeGeneratorService {
     this.addRGBVariables(p, targetElement, isDark);
   }
 
-  //-----------------------------//
+  //- - - - - - - - - - - - - - -//
 
   /**
    * Helper to set a CSS variable
@@ -177,7 +220,7 @@ export class ThemeGeneratorService {
   private setVariable = (element: HTMLElement, name: string, value: string) =>
     element.style.setProperty(name, value)
 
-  //-----------------------------//
+  //- - - - - - - - - - - - - - -//
 
   /**
     * Add RGB variables for transparency support
@@ -204,16 +247,4 @@ export class ThemeGeneratorService {
 
   }
 
-  //-----------------------------//
-
-  /**
-   * Export current theme as SCSS
-   * This can be useful for debugging or saving themes
-   */
-  exportThemeAsScss = (): string => {
-    const theme = this.currentTheme();
-    return !!theme
-      ? this._scssGenerator.exportThemeAsScss(theme)
-      : ''
-  }
 }//Cls

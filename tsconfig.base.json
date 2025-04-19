@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moonlight/utils/download": ["libs/utils/download/src/index.ts"],
       "@moonlight/ng/theming": [
         "libs/packages/@moonlight/theming/src/index.ts"
       ],
@@ -39,7 +38,9 @@
       ],
       "@moonlight/ssr-storage": [
         "libs/packages/@moonlight/ssr/storage/src/index.ts"
-      ]
+      ],
+      "@moonlight/utils/download": ["libs/utils/download/src/index.ts"],
+      "@moonlight/utils/memoization": ["libs/utils/memoization/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

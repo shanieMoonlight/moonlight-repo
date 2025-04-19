@@ -12,8 +12,13 @@ const THEME_KEY = 'moonlight_theme_key'
 
 //##################################################//
 
+// filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@moonlight\theming\service\src\lib\theme.service.ts
 /**
-
+ * Service responsible for managing application theming including:
+ * - Light/dark mode management
+ * - Theme switching and persistence
+ * - Custom theme management
+ * - System and user preference handling
  */
 @Injectable({
   providedIn: 'root'
@@ -57,15 +62,12 @@ export class ThemeService {
   private _currentDataBs = combineLatest([this.currentTheme$, this.isDarkMode$, this.customThemes$])
     .pipe(
       tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
-      takeUntilDestroyed(this._destroyor),
       debounceTime(100),
       distinctUntilChanged(),
-      map(([themeOption, isDark, customThemes]) =>
-        ThemeDataUtils.create(
-          themeOption,
-          isDark ?? themeOption.fallbackIsDarkMode,
-          customThemes
-        ))
+      map(([themeOption, isDark, customThemes]) => {
+        themeOption.fallbackIsDarkMode = isDark //override the current so we save it
+        return ThemeDataUtils.create(themeOption, customThemes);
+      })
     )
 
 
@@ -76,6 +78,8 @@ export class ThemeService {
   }
 
   //-----------------------------//
+  // PUBLIC API METHODS
+  //-----------------------------//
 
   /**
    * Sets the application's light/dark mode 
@@ -84,7 +88,7 @@ export class ThemeService {
    */
   setDarkMode = (isDarkMode: boolean) =>
     this._isDarkModeBs.next(isDarkMode)
- 
+
   //-----------------------------//
 
   /**
@@ -157,7 +161,7 @@ export class ThemeService {
 
     // Reset dark mode using system preference if applicable
     const prefersDark = defaultTheme.fallbackIsDarkMode;
-    
+
     this._isDarkModeBs.next(prefersDark);
     this._currentThemeBs.next(defaultTheme);
 
@@ -166,17 +170,19 @@ export class ThemeService {
   }
 
   //-----------------------------//
+  // PRIVATE METHODS
+  //-----------------------------//
 
   private initialize(): void {
 
     try {
       const themeData = this.retrieveTheme()
 
-      const darkMode = themeData?.currentDarkMode ?? this._config.defaultDarkMode === 'dark'
-      this._isDarkModeBs.next(darkMode)
-
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
+
+      const darkMode = currentTheme?.fallbackIsDarkMode ?? this._config.defaultDarkMode === 'dark'
+      this._isDarkModeBs.next(darkMode)
 
       this._customThemesBs.next(themeData?.customThemes ?? [])
 
@@ -209,7 +215,6 @@ export class ThemeService {
   private applyCurrentTheme = (themeData: ThemeData, element?: HTMLElement) =>
     this._themeGenerator.applyTheme(
       themeData.currentTheme,
-      themeData.currentDarkMode,
       undefined,
       element)
 

@@ -11,28 +11,28 @@
           <!-- Primary color -->
           <mat-form-field appearance="outline">
             <mat-label>Primary Color</mat-label>
-            <app-color-input formControlName="primary" />
+            <app-color-input formControlName="primaryColor" />
             <mat-hint>Choose a primary theme color</mat-hint>
           </mat-form-field>
 
           <!-- Secondary color -->
           <mat-form-field appearance="outline">
             <mat-label>Secondary Color</mat-label>
-            <app-color-input formControlName="secondary" />
+            <app-color-input formControlName="secondaryColor" />
             <mat-hint>Choose a secondary theme color</mat-hint>
           </mat-form-field>
 
           <!-- Tertiary color -->
           <mat-form-field appearance="outline">
             <mat-label>Tertiary Color</mat-label>
-            <app-color-input formControlName="tertiary" />
+            <app-color-input formControlName="tertiaryColor" />
             <mat-hint>Choose a tertiary theme color (leave it blank to use defaults)</mat-hint>
           </mat-form-field>
 
           <!-- Error color -->
           <mat-form-field appearance="outline">
             <mat-label>Error Color</mat-label>
-            <app-color-input formControlName="error" />
+            <app-color-input formControlName="errorColor" />
             <mat-hint>Choose an error theme color (leave it blank to use defaults)</mat-hint>
           </mat-form-field>
         </div>
@@ -41,7 +41,7 @@
         <mat-slide-toggle formControlName="darkMode">Dark Mode</mat-slide-toggle>
 
         <div class="button-row">
-          <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="applyTheme()">
+          <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="applyFormTheme(_themeForm)">
             <mat-icon>palette</mat-icon>
             Apply Theme
           </button>
@@ -66,7 +66,7 @@
           @for (item of presetThemes; track item.value) {
             <button
               mat-raised-button
-              (click)="applyPreset(item.value)"
+              (click)="applyPresetTheme(item)"
               [style.background-color]="item.primaryColor"
               [style.color]="'white'"
               class="preset-button">
@@ -76,10 +76,7 @@
         </div>
       </section>
     }
-
-    <!-- @if (_exportedScss(); as exportedScss) {
-      <ml-scss-display [scssContent]="exportedScss" />
-    } -->
+    
   </div>
 </div>
 

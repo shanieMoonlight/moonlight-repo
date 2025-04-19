@@ -12,8 +12,6 @@ export interface ThemeData {
 
   /** User defined themes */
   customThemes: ThemeOption[]
-  /** The most recent dark moded setting */
-  currentDarkMode: boolean
   /** The most recent theme option selected */
   currentTheme: ThemeOption
 
@@ -25,9 +23,8 @@ export interface ThemeData {
 
 export const ThemeDataUtils = {
 
-  create(option: ThemeOption, isDark: boolean, customThemes: ThemeOption[] = []): ThemeData {
+  create(option: ThemeOption, customThemes: ThemeOption[] = []): ThemeData {
     return {
-      currentDarkMode: isDark,
       currentTheme: option, 
       customThemes: customThemes,      
     };
@@ -35,7 +32,6 @@ export const ThemeDataUtils = {
 
   default(): ThemeData {
     return {
-      currentDarkMode: false,
       currentTheme: defaultThemeOption,
       customThemes: [], 
     };

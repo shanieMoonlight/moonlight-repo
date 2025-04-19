@@ -10,6 +10,8 @@ export default [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
+      '@angular-eslint/no-input-rename': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
       '@nx/enforce-module-boundaries': [
         'error',
         {
