@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_I
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
-import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
+import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
+import { ThemeGeneratorService, ThemeService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { ColorInputComponent } from './ui/cva-color-input.component';
 import { ScssDisplayComponent } from './ui/scss-display.component';
@@ -17,7 +17,7 @@ interface IThemeForm
     secondaryColor: FormControl<string>
     tertiaryColor: FormControl<string | null>
     errorColor: FormControl<string | null>
-    darkMode: FormControl<boolean>
+    darkMode: FormControl<DarkModeType>
   }> { }
 
 //#########################################//
@@ -28,7 +28,7 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent
+    ColorInputComponent,
   ],
   providers: [
     {
@@ -47,6 +47,7 @@ export class ThemeSelectorComponent {
 
   private _platformId = inject(PLATFORM_ID)
   private _themeGenerator = inject(ThemeGeneratorService)
+  private _themeService = inject(ThemeService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
   private _config: ThemeConfig = inject(ThemeConfigService)
@@ -66,15 +67,15 @@ export class ThemeSelectorComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  protected _currentTheme = this._themeGenerator.currentTheme;
-  protected _exportedScss = signal<string | null>(null);
+  protected _generatorPreviewTheme = this._themeGenerator.currentTheme;
+  protected _exportedScss = signal<string | null>(null)
 
   protected _themeForm: IThemeForm = this._fb.group({
     primaryColor: this._fb.nonNullable.control(DEFAULT_COLOR_PRIMARY, [Validators.required]),
     secondaryColor: this._fb.nonNullable.control(DEFAULT_COLOR_SECONDARY, [Validators.required]),
     tertiaryColor: this._fb.control(null),
     errorColor: this._fb.control(null),
-    darkMode: this._fb.nonNullable.control(false)
+    darkMode: this._fb.nonNullable.control('system')
   }) as IThemeForm;
 
   //-----------------------------//
@@ -100,7 +101,7 @@ export class ThemeSelectorComponent {
       // Generate a dynamic label/value or use a specific one if needed
       label: 'Custom', // Or generate based on colors
       value: `custom-${Date.now()}`, // Example dynamic value
-      fallbackIsDarkMode: values.darkMode // Use the form's dark mode value
+      darkMode: values.darkMode // Use the form's dark mode value
     };
 
     this.applyTheme(themeToApply)
@@ -117,7 +118,7 @@ export class ThemeSelectorComponent {
       secondaryColor: theme.secondaryColor,
       tertiaryColor: theme.tertiaryColor,
       errorColor: theme.errorColor,
-      darkMode: theme.fallbackIsDarkMode,
+      darkMode: theme.darkMode,
     })
     
     this.applyTheme(theme)

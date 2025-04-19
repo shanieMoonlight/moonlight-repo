@@ -45,9 +45,25 @@ mat-form-field {
 }
 
 // Dark mode toggle with proper spacing
-mat-slide-toggle {
-  margin: 1rem 0;
-  display: block;
+// mat-slide-toggle {
+//   margin: 1rem 0;
+//   display: block;
+// }
+
+.theme-mode-selector {
+  margin: 16px 0;
+  
+  .theme-mode-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  
+  .mode-radio-group {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
 }
 
 // Button row styling

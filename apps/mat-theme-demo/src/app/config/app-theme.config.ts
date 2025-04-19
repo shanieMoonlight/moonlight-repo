@@ -12,21 +12,21 @@ export const IS_HALLOWEEN = true;
 
 const _themeOptions: ThemeOption[] = [
   {
-    fallbackIsDarkMode: false,
+    darkMode: 'system',
     label: 'Default',
     value: 'default',
     primaryColor:   '#4682B4',
     secondaryColor: '#D2691E',
   },
   {
-    fallbackIsDarkMode: false,
+    darkMode: false,
     label: 'Violet and Lime',
     value: 'violet-lime',
     primaryColor:   '#8A2BE2',
     secondaryColor: '#32CD32',
   }, 
   {
-    fallbackIsDarkMode: false,
+    darkMode: false,
     label: 'Pastel',
     value: 'pastel',
     primaryColor:   '#FFB7C5', // Light pink
@@ -35,7 +35,7 @@ const _themeOptions: ThemeOption[] = [
 ];
 
 export const XMAS_THEME: ThemeOption = {
-  fallbackIsDarkMode: false,
+  darkMode: false,
   label: 'Xmas',
   value: 'xmas',
   primaryColor:   '#C8102E',
@@ -44,7 +44,7 @@ export const XMAS_THEME: ThemeOption = {
 
 
 export const HALLOWEEN_THEME: ThemeOption = {
-  fallbackIsDarkMode: true,
+  darkMode: true,
   label: 'Halloween',
   value: 'halloween-theme',
   primaryColor:  '#FF7518',

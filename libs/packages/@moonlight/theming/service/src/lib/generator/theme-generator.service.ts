@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
+import { SytemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 
 //#########################################//
 
@@ -17,6 +18,8 @@ export class ThemeGeneratorService {
 
   private _platformId = inject(PLATFORM_ID)
 
+  private _systemPrefs = inject(SytemPrefsService)
+
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
 
@@ -26,12 +29,12 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
-  private isBrowser(): boolean {
-    return isPlatformBrowser(this._platformId)
-  }
+  private isBrowser = (): boolean =>
+    isPlatformBrowser(this._platformId)
 
-  private currentTheme$ = new BehaviorSubject<ThemeOption | null>(null);
-  currentTheme = toSignal(this.currentTheme$)
+
+  private _currentThemeBs = new BehaviorSubject<ThemeOption | null>(null);
+  currentTheme = toSignal(this._currentThemeBs, { initialValue: null })
 
   //-----------------------------//
   // PUBLIC API METHODS
@@ -45,10 +48,8 @@ export class ThemeGeneratorService {
     themeClass?: string,
     targetElement?: HTMLElement) {
 
-    targetElement ??= document.documentElement
-
-    const isDark = theme.fallbackIsDarkMode
-    this.currentTheme$.next(theme);
+    const isDark = this.shouldUseDarkMode(theme)
+    this._currentThemeBs.next(theme);
 
     const palettes = this._paletteGenerator.generatePalettes(theme)
 
@@ -74,13 +75,15 @@ export class ThemeGeneratorService {
   //-----------------------------//
 
   private _applyTheme(
-    palettes: GeneratedPalettes, 
-    isDark: boolean, 
-    themeClass: string | undefined, 
-    targetElement: HTMLElement) {
+    palettes: GeneratedPalettes,
+    isDark: boolean,
+    themeClass: string | undefined,
+    targetElement?: HTMLElement) {
 
     if (!this.isBrowser())
       return
+   
+    targetElement ??= document.documentElement
 
     // Batch DOM updates using requestAnimationFrame
     requestAnimationFrame(() => {
@@ -246,5 +249,15 @@ export class ThemeGeneratorService {
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])
 
   }
+
+
+  //- - - - - - - - - - - - - - -//
+
+  private shouldUseDarkMode = (theme: ThemeOption): boolean => theme.darkMode === 'system'
+    ? this._systemPrefs.prefersDarkMode() 
+    : !!theme.darkMode;
+
+
+  //- - - - - - - - - - - - - - -//
 
 }//Cls

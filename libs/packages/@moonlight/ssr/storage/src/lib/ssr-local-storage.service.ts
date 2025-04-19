@@ -7,9 +7,8 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core'
 export class SsrLocalStorage {
   private _platformId = inject(PLATFORM_ID)
 
-  private isBrowser(): boolean {
-    return isPlatformBrowser(this._platformId)
-  }
+  private isBrowser = (): boolean =>
+    isPlatformBrowser(this._platformId)
 
   //-----------------------------//
 
@@ -37,9 +36,9 @@ export class SsrLocalStorage {
   //-----------------------------//
 
   getItemObject<T>(key: string): T | null {
-    if (!this.isBrowser()) 
+    if (!this.isBrowser())
       return null
-    
+
     try {
       const item = localStorage.getItem(key)
       return !item ? null : JSON.parse(item) as T

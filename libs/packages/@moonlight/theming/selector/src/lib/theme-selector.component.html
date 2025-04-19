@@ -38,7 +38,14 @@
         </div>
 
         <!-- Dark mode toggle -->
-        <mat-slide-toggle formControlName="darkMode">Dark Mode</mat-slide-toggle>
+        <div class="theme-mode-selector">
+          <label class="theme-mode-label" for="theme-mode-group">Theme Mode:</label>
+          <mat-radio-group formControlName="darkMode" class="mode-radio-group" id="theme-mode-group">
+            <mat-radio-button [value]="false">Light</mat-radio-button>
+            <mat-radio-button [value]="true">Dark</mat-radio-button>
+            <mat-radio-button value="system">System</mat-radio-button>
+          </mat-radio-group>
+        </div>
 
         <div class="button-row">
           <button mat-raised-button [disabled]="!_themeForm.valid" type="button" (click)="applyFormTheme(_themeForm)">
@@ -47,7 +54,7 @@
           </button>
           
           <button mat-button class="secondary btn-export-scss"
-            [class.show]="!!_currentTheme()" 
+            [class.show]="!!_generatorPreviewTheme()" 
             type="button" 
             (click)="openScssDialog()">
             <mat-icon>code</mat-icon>

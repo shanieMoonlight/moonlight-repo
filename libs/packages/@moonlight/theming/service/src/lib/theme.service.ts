@@ -1,9 +1,10 @@
 import { DestroyRef, Injectable, inject, isDevMode } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
+import { DarkModeType, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/ng/theming/config';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, Observable, of, switchMap, tap } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
+import { SytemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 
 //##################################################//
@@ -26,15 +27,22 @@ const THEME_KEY = 'moonlight_theme_key'
 export class ThemeService {
 
   private _localStorage = inject(SsrLocalStorage)
+  private _systemPrefs = inject(SytemPrefsService)
   private _destroyor = inject(DestroyRef)
   private _config: ThemeConfig = inject(ThemeConfigService)
   private _themeGenerator = inject(ThemeGeneratorService)
 
   //- - - - - - - - - - - - - - -//
 
-  private _isDarkModeBs = new BehaviorSubject<boolean>(false)
+  private _systemDarkMode$ = this._systemPrefs.prefersDarkMode$
+
+  private _isDarkModeBs = new BehaviorSubject<DarkModeType>(false)
   /** Current dark mode status (Observable)*/
-  isDarkMode$ = this._isDarkModeBs.asObservable()
+  isDarkMode$: Observable<boolean> = this._isDarkModeBs.pipe(
+    switchMap(mode => mode === 'system'
+      ? this._systemDarkMode$
+      : of(mode))
+  )
   /** Current dark mode status (Signal)*/
   isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
 
@@ -59,14 +67,18 @@ export class ThemeService {
   /** Developer defined themes (Signal)*/
   systemThemes = toSignal(this.systemThemes$)
 
-  private _currentDataBs = combineLatest([this.currentTheme$, this.isDarkMode$, this.customThemes$])
+
+  private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
       tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
       debounceTime(100),
       distinctUntilChanged(),
-      map(([themeOption, isDark, customThemes]) => {
-        themeOption.fallbackIsDarkMode = isDark //override the current so we save it
-        return ThemeDataUtils.create(themeOption, customThemes);
+      map(([themeOption, darkMode, customThemes]) => {
+        const themeWithCurrentDarkMode = {
+          ...themeOption,
+          darkMode: darkMode
+        }        
+        return ThemeDataUtils.create(themeWithCurrentDarkMode, customThemes);
       })
     )
 
@@ -84,10 +96,10 @@ export class ThemeService {
   /**
    * Sets the application's light/dark mode 
    * 
-   * @param isDarkMode When true, applies dark mode class; when false, applies light mode class
+   * @param darkMode When true, applies dark mode class; when false, applies light mode class
    */
-  setDarkMode = (isDarkMode: boolean) =>
-    this._isDarkModeBs.next(isDarkMode)
+  setDarkMode = (darkMode: DarkModeType) =>
+    this._isDarkModeBs.next(darkMode)
 
   //-----------------------------//
 
@@ -160,7 +172,7 @@ export class ThemeService {
     const defaultTheme = this._config.themeOptions[0] ?? defaultThemeOption;
 
     // Reset dark mode using system preference if applicable
-    const prefersDark = defaultTheme.fallbackIsDarkMode;
+    const prefersDark = defaultTheme.darkMode;
 
     this._isDarkModeBs.next(prefersDark);
     this._currentThemeBs.next(defaultTheme);
@@ -181,7 +193,7 @@ export class ThemeService {
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
-      const darkMode = currentTheme?.fallbackIsDarkMode ?? this._config.defaultDarkMode === 'dark'
+      const darkMode = currentTheme?.darkMode ?? this._config.defaultDarkMode === 'dark'
       this._isDarkModeBs.next(darkMode)
 
       this._customThemesBs.next(themeData?.customThemes ?? [])
@@ -208,6 +220,7 @@ export class ThemeService {
       // Apply fallback theme
       this.setDefaultTheme()
     }
+
   }
 
   //- - - - - - - - - - - - - - -//
@@ -233,16 +246,9 @@ export class ThemeService {
   private setDefaultTheme() {
     // No need to call clear() here
     const defaultOption = this._config.themeOptions[0] ?? defaultThemeOption // Get first theme or a hardcoded default
-    this.setDarkMode(!!defaultOption.fallbackIsDarkMode)
+    this.setDarkMode(!!defaultOption.darkMode)
     this.setTheme(defaultOption)
   }
-
-  //- - - - - - - - - - - - - - -//
-
-  private isSystemDarkModeEnabled = (): boolean | undefined =>
-    typeof window !== 'undefined'
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : undefined
 
   //-----------------------------//
 

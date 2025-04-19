@@ -55,16 +55,16 @@ export class ThemeConfig {
 
     const config = new ThemeConfig(themeOptions)
 
-    if (!!darkModeClass)
+    if (darkModeClass)
       config.darkModeClass = darkModeClass
 
-    if (!!lightModeClass)
+    if (lightModeClass)
       config.lightModeClass = lightModeClass
 
-    if (!!themeClassPrefix)
+    if (themeClassPrefix)
       config.themeClassPrefix = themeClassPrefix
 
-    if (!!defaultMode)
+    if (defaultMode)
       config.defaultDarkMode = defaultMode
 
     if (customColorTones?.length)
