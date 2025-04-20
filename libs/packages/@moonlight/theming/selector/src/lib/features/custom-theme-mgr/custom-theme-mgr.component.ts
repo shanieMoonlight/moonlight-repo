@@ -13,11 +13,11 @@ import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
   styleUrl: './custom-theme-mgr.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomThemeMgrComponent {
+export class MlCustomThemeMgrComponent {
 
   protected _themeService = inject(ThemeService);
   // OPtional in case this component is used outside of a dialog
-  private _dialogRef? = inject(MatDialogRef<CustomThemeMgrComponent>, { optional: true });
+  private _dialogRef? = inject(MatDialogRef<MlCustomThemeMgrComponent>, { optional: true });
 
   protected _isDialog = signal(!!this._dialogRef);
 

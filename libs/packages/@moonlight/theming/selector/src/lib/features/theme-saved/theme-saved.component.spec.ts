@@ -3,12 +3,12 @@ import { TestBed } from '@angular/core/testing'; // Import TestBed
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import { ThemeOption } from '../../../../../config/src/index';
-import { CustomThemeSavedComponent, CustomThemeSavedDialogData } from './theme-saved.component';
+import { MlCustomThemeSavedComponent, CustomThemeSavedDialogData } from './theme-saved.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import '@testing-library/jest-dom';
-import { ThemeAvatarComponent } from '../../../../../ui/src/index'; // Import Real Component
+import { MlThemeAvatarComponent } from '../../../../../ui/src/index'; // Import Real Component
 
 // --- Mock Child Component ---
 @Component({
@@ -17,7 +17,7 @@ import { ThemeAvatarComponent } from '../../../../../ui/src/index'; // Import Re
   standalone: true,
   inputs: ['theme'],
 })
-class MockThemeAvatarComponent {}
+class MockMlThemeAvatarComponent {}
 
 // --- Helper to create mock theme ---
 const createMockTheme = (label = 'Test Theme', value = 'test-theme'): ThemeOption => ({
@@ -34,21 +34,21 @@ describe('CustomThemeSavedComponent', () => {
   const mockTheme = createMockTheme('Dialog Theme', 'dialog-val');
 
   // --- Common Setup Function with Override ---
-  async function setup(config: import('@testing-library/angular').RenderComponentOptions<CustomThemeSavedComponent>) {
+  async function setup(config: import('@testing-library/angular').RenderComponentOptions<MlCustomThemeSavedComponent>) {
     // Override the standalone component import
-    TestBed.overrideComponent(CustomThemeSavedComponent, {
-      remove: { imports: [ThemeAvatarComponent] }, // Remove the real one
-      add: { imports: [MockThemeAvatarComponent] }  // Add the mock one
+    TestBed.overrideComponent(MlCustomThemeSavedComponent, {
+      remove: { imports: [MlThemeAvatarComponent] }, // Remove the real one
+      add: { imports: [MockMlThemeAvatarComponent] }  // Add the mock one
     });
 
-    return await render<CustomThemeSavedComponent>(CustomThemeSavedComponent, {
+    return await render<MlCustomThemeSavedComponent>(MlCustomThemeSavedComponent, {
       ...config, // Apply specific scenario config (providers, inputs)
       imports: [
         ...(config.imports || []), // Keep any specific imports
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        MockThemeAvatarComponent // Ensure mock is imported for the test setup itself
+        MockMlThemeAvatarComponent // Ensure mock is imported for the test setup itself
       ],
       // declarations is not needed when overriding imports
     });

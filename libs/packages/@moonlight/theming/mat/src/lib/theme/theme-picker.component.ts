@@ -28,7 +28,7 @@ import { Subject, merge, tap } from 'rxjs';
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemePicker_Mat_Component {
+export class MlThemePicker_Mat_Component {
 
     private _themeService = inject(ThemeService)
 
@@ -58,8 +58,7 @@ export class ThemePicker_Mat_Component {
     protected _changeThemeClick$ = new Subject<ThemeOption>()
 
     private _themeOptionChange$ = this._changeThemeClick$.pipe(
-        tap(newTheme => this._themeService.setTheme(newTheme)),
-        tap(newTheme => console.log('themeOptionChange$', newTheme))
+        tap(newTheme => this._themeService.setTheme(newTheme))
     )
     private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$)
     protected _selectedOption = toSignal(this._selectedOption$)
@@ -70,11 +69,6 @@ export class ThemePicker_Mat_Component {
         // Effect to emit the theme change output whenever the selected option signal changes.
         effect(() => {
             this._onThemeChange.emit(this._selectedOption())
-        })
-
-        this._themeService.currentTheme$.subscribe((theme) => {
-            console.log('currentTheme$', theme)
-
         })
     }
 

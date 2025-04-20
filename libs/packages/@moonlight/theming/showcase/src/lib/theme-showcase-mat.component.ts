@@ -11,7 +11,7 @@ import { MatEverythingModule } from '@moonlight/ng/theming/utils';
   styleUrl: './theme-showcase-mat.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThemeShowcaseMatComponent {
+export class MlThemeShowcaseMatComponent {
 
   private _service = inject(ThemeService)
 

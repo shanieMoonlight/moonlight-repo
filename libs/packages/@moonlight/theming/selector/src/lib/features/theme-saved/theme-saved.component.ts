@@ -23,11 +23,11 @@ export interface CustomThemeSavedDialogData {
   styleUrl: './theme-saved.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomThemeSavedComponent {
+export class MlCustomThemeSavedComponent {
 
   // Inject dialog data
   private _dialogData: CustomThemeSavedDialogData = inject(MAT_DIALOG_DATA, { optional: true });
-  private _dialogRef = inject(MatDialogRef<CustomThemeSavedComponent>, { optional: true });
+  private _dialogRef = inject(MatDialogRef<MlCustomThemeSavedComponent>, { optional: true });
 
   //- - - - - - - - - - - - - - -//
 

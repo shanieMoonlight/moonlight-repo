@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { DarkModeToggle_Mat_Component, ThemePicker_Mat_Component } from '@moonlight/ng/theming/mat';
+import { DarkModeToggle_Mat_Component, MlThemePicker_Mat_Component } from '@moonlight/ng/theming/mat';
 import { NavbarComponent } from './ui/navbar/navbar.component';
 
 
@@ -16,7 +16,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
     MatSidenavModule,
     NavbarComponent,
     DarkModeToggle_Mat_Component,
-    ThemePicker_Mat_Component,
+    MlThemePicker_Mat_Component,
     RouterModule
   ],
   providers: [

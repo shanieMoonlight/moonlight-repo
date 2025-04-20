@@ -10,8 +10,8 @@ import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { CustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { CustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; 
+import { MlCustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; 
 
 //#########################################//
 
@@ -48,7 +48,7 @@ interface IThemeForm
   styleUrl: './theme-selector.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemeSelectorComponent implements OnDestroy {
+export class MlThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
   private _document = inject(DOCUMENT);
@@ -149,7 +149,7 @@ export class ThemeSelectorComponent implements OnDestroy {
   protected storeTheme(theme: ThemeOption) {
     this._themeService.addCustomTheme(theme);
 
-    this._dialog.open(CustomThemeSavedComponent, {
+    this._dialog.open(MlCustomThemeSavedComponent, {
       width: '400px', // Adjust width as needed
       data: { theme: theme }, // Pass the theme data
       autoFocus: 'dialog' // Focus the dialog itself initially
@@ -201,7 +201,7 @@ export class ThemeSelectorComponent implements OnDestroy {
     if (!this.isBrowser())
       return;
 
-    this._dialog.open(CustomThemeMgrComponent, {
+    this._dialog.open(MlCustomThemeMgrComponent, {
       width: '600px',
       autoFocus: false
     });

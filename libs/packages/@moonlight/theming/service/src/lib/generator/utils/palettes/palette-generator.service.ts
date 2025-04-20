@@ -63,8 +63,7 @@ export class PaletteGeneratorService {
     };
 
     // Create standalone palettes for secondary and tertiary
-    const secondaryPalette = TonalPalette.fromInt(secondaryArgb);
-    console.log('secondaryPalette', secondaryPalette);
+    const secondaryPalette = TonalPalette.fromInt(secondaryArgb)
 
     const tertiaryPalette = TonalPalette.fromInt(tertiaryArgb);
 

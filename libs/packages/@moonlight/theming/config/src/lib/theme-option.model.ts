@@ -55,10 +55,10 @@ export class ThemeOption {
     public readonly tertiaryColor: string | null,
     public readonly errorColor: string,
     public readonly darkMode: DarkModeType
-  ) {}
+  ) { }
 
   //------------------------------//
-  
+
   /**
    * Creates a new ThemeOption with validation and default values.
    * This is the recommended way to instantiate theme options.
@@ -70,22 +70,22 @@ export class ThemeOption {
   static create(options: {
     /** The human-readable name of the theme displayed in the UI */
     label: string;
-    
+
     /** The unique identifier for this theme */
     value: ThemeValue;
-    
+
     /** The primary color of the theme */
     primaryColor: string;
-    
+
     /** The secondary color of the theme */
     secondaryColor: string;
-    
+
     /** Optional tertiary color for additional accent elements */
     tertiaryColor?: string;
-    
+
     /** Optional color for error states and destructive actions */
     errorColor?: string;
-    
+
     /** Optional dark mode setting (true, false, or 'system') */
     darkMode?: DarkModeType;
   }): ThemeOption {
@@ -94,7 +94,7 @@ export class ThemeOption {
     if (options.value === undefined) throw new Error('Theme value is required');
     if (!options.primaryColor) throw new Error('Primary color is required');
     if (!options.secondaryColor) throw new Error('Secondary color is required');
-    
+
     // Apply defaults and sanitization
     return new ThemeOption(
       options.label,
@@ -104,7 +104,7 @@ export class ThemeOption {
       options.tertiaryColor || DEFAULT_COLOR_TERTIARY,
       options.errorColor || DEFAULT_COLOR_ERROR,
       options.darkMode ?? 'system'
-    );
+    )
   }
 }
 

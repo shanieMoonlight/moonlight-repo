@@ -70,7 +70,7 @@ export class ThemeService {
 
   private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
-      tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
+      // tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode, customThemes]) => {
@@ -209,12 +209,6 @@ export class ThemeService {
 
     try {
       const themeData = this.retrieveTheme()
-
-      console.log('initializePersistence themeData:', themeData);
-
-
-      console.log('initializePersistence this._config.themeOptions[0]:', this._config.themeOptions[0]);
-      console.log('initializePersistence defaultThemeOption:', defaultThemeOption)
       
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
