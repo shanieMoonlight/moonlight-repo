@@ -63,6 +63,7 @@
           </button>
 
           @if(_generatorPreviewTheme(); as theme) {
+
           <button mat-button class="secondary btn-export-scss" [class.show]="theme" type="button" (click)="openScssDialog(theme)">
             <mat-icon>code</mat-icon>
             Export SCSS

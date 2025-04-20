@@ -70,7 +70,7 @@ export class ThemeService {
 
   private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
-      tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
+      // tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode, customThemes]) => {

@@ -33,8 +33,7 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent,
-    CommonModule
+    ColorInputComponent
   ],
   providers: [
     {

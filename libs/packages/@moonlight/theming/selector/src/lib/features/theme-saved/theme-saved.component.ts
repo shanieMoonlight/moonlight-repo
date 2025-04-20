@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ThemeOption } from '@moonlight/ng/theming/config';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
@@ -17,7 +17,8 @@ export interface CustomThemeSavedDialogData {
   selector: 'ml-custom-theme-saved',
   imports: [
     MatEverythingModule,
-    ThemeAvatarComponent],
+    ThemeAvatarComponent
+  ],
   templateUrl: './theme-saved.component.html',
   styleUrl: './theme-saved.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,18 +26,23 @@ export interface CustomThemeSavedDialogData {
 export class CustomThemeSavedComponent {
 
   // Inject dialog data
-  private _dialogData: CustomThemeSavedDialogData = inject(MAT_DIALOG_DATA);
-  private _dialogRef = inject(MatDialogRef<CustomThemeSavedComponent>);
+  private _dialogData: CustomThemeSavedDialogData = inject(MAT_DIALOG_DATA, { optional: true });
+  private _dialogRef = inject(MatDialogRef<CustomThemeSavedComponent>, { optional: true });
 
   //- - - - - - - - - - - - - - -//
 
-  // Use the injected data to set the signal input
-  protected _theme = signal<ThemeOption>(this._dialogData.theme);
+  //Do not use in html - use the _themeSignal (Which will try dialog data first)
+  _theme = input.required<ThemeOption>({ alias: 'theme' })
+
+  //- - - - - - - - - - - - - - -//
+
+  protected _isDialog = signal(!!this._dialogRef);
+  protected _themeSignal = computed(() => this._dialogData?.theme ?? this._theme());
 
   //-----------------------------//
 
   // Method to close the dialog
   closeDialog = () =>
-    this._dialogRef.close()
+    this._dialogRef?.close()
 
-}
+}//Cls

@@ -19,7 +19,7 @@ export class CustomThemeMgrComponent {
   // OPtional in case this component is used outside of a dialog
   private _dialogRef? = inject(MatDialogRef<CustomThemeMgrComponent>, { optional: true });
 
-  isDialog = signal(!!this._dialogRef);
+  protected _isDialog = signal(!!this._dialogRef);
 
   //- - - - - - - - - - - - - - -//
 
