@@ -6,11 +6,30 @@
   palette
 </mat-icon>
 
+
 <mat-menu #menu="matMenu">
-  @for (option of _options; track option) {
+  @for (option of _systemOptions(); track option) {
     <button
       mat-menu-item
-      [class.selected]="option === _selectedOption()"
+      [class.selected]="option.value === _selectedOption()?.value"
+      (click)="_changeThemeClick$.next(option)">
+      <mat-icon
+        role="img"
+        class="colors-icon"
+        svgicon="theme-example"
+        aria-hidden="true">
+        <ml-theme-avatar [theme]="option"/>
+      </mat-icon>
+      <span>{{ option.label }}</span>
+    </button>
+  }
+
+  <mat-divider/>
+  
+  @for (option of _customOptions(); track option) {
+    <button
+      mat-menu-item
+      [class.selected]="option.value === _selectedOption()?.value"
       (click)="_changeThemeClick$.next(option)">
       <mat-icon
         role="img"

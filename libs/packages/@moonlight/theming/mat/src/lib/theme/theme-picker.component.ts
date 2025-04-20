@@ -1,7 +1,6 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
+import { ThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeService } from '@moonlight/ng/theming/service';
 import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
@@ -22,7 +21,6 @@ import { Subject, merge, tap } from 'rxjs';
     selector: 'ml-theme-picker-mat',
     standalone: true,
     imports: [
-        NgTemplateOutlet,
         MatEverythingModule,
         MlThemeAvatarComponent
     ],
@@ -32,7 +30,6 @@ import { Subject, merge, tap } from 'rxjs';
 })
 export class ThemePicker_Mat_Component {
 
-    private _config: ThemeConfig = inject(ThemeConfigService, { optional: true }) ?? ThemeConfig.Create()
     private _themeService = inject(ThemeService)
 
     //- - - - - - - - - - - - - - -//
@@ -53,7 +50,11 @@ export class ThemePicker_Mat_Component {
 
     //- - - - - - - - - - - - - - -//
 
-    protected _options: Array<ThemeOption> = this._config.themeOptions
+    // protected _options: Array<ThemeOption> = this._config.themeOptions
+    protected _systemOptions = this._themeService.systemThemes
+    protected _customOptions = this._themeService.customThemes
+    protected _allOptions = computed(() => [...this._systemOptions(), ...this._customOptions()])
+
     protected _changeThemeClick$ = new Subject<ThemeOption>()
 
     private _themeOptionChange$ = this._changeThemeClick$.pipe(
@@ -69,6 +70,11 @@ export class ThemePicker_Mat_Component {
         // Effect to emit the theme change output whenever the selected option signal changes.
         effect(() => {
             this._onThemeChange.emit(this._selectedOption())
+        })
+
+        this._themeService.currentTheme$.subscribe((theme) => {
+            console.log('currentTheme$', theme)
+
         })
     }
 

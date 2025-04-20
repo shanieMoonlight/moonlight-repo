@@ -50,7 +50,7 @@ export class ThemeService {
   private _currentThemeBs = new BehaviorSubject<ThemeOption>(this._config.themeOptions[0] ?? defaultThemeOption) // Initialize with a default
   /** Current theme  (Observable)*/
   currentTheme$ = this._currentThemeBs.asObservable();
-  /** Current theme Signal)*/
+  /** Current theme (Signal)*/
   currentTheme = toSignal(this.currentTheme$, { initialValue: this._config.themeOptions[0] ?? defaultThemeOption })
 
 
@@ -65,12 +65,12 @@ export class ThemeService {
   /** Developer defined themes (Observable)*/
   systemThemes$ = this._systemThemesBs.asObservable();
   /** Developer defined themes (Signal)*/
-  systemThemes = toSignal(this.systemThemes$)
+  systemThemes = toSignal(this.systemThemes$, { initialValue: this._config.themeOptions })
 
 
   private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
-      // tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
+      tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode, customThemes]) => {
@@ -210,6 +210,9 @@ export class ThemeService {
     try {
       const themeData = this.retrieveTheme()
 
+      console.log('initializePersistence themeData:', themeData);
+
+
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
@@ -272,14 +275,21 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  sanitizeValue(value: ThemeValue): ThemeValue {
+  private sanitizeValue(value: ThemeValue): ThemeValue {
     // Ensure value is a string before calling methods
     const stringValue = String(value ?? '');
     const lwrValue = stringValue.toLowerCase();
     // Replace whitespace with hyphens and remove any characters
     // that are not alphanumeric or hyphens to create a safe value.
-    return lwrValue.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    let sanitized = lwrValue.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+    // Add 'custom-' prefix if not already present
+    if (!sanitized.startsWith('custom-')) 
+      sanitized = `custom-${sanitized}`
+
+    return sanitized;
   }
+
   //-----------------------------//
 
 }//Cls

@@ -41,7 +41,7 @@ export class ThemeGeneratorService {
    */
   applyTheme(
     theme: ThemeOption,
-    themeClass?: string,
+    themeClassOverride?: string,
     targetElement?: HTMLElement) {
 
     const isDark = this.shouldUseDarkMode(theme)
@@ -49,7 +49,9 @@ export class ThemeGeneratorService {
 
     const palettes = this._paletteGenerator.generatePalettes(theme)
 
-    this._applyTheme(palettes, isDark, themeClass, targetElement)
+    
+    const themeClass = themeClassOverride ?? theme.value 
+    this._applyTheme(palettes, isDark, `${themeClass}`, targetElement)
   }
 
   //-----------------------------//
@@ -68,7 +70,7 @@ export class ThemeGeneratorService {
   private _applyTheme(
     palettes: GeneratedPalettes,
     isDark: boolean,
-    themeClass: string | undefined,
+    themeClass?: string | null,
     targetElement?: HTMLElement) {
 
     if (!this.isBrowser())
