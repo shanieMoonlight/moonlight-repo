@@ -4,11 +4,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ThemeValue } from '@moonlight/ng/theming/config';
 import { ThemeService } from '@moonlight/ng/theming/service'; // Adjust path
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { ThemeAvatarComponent } from '../../ui/avatar/theme-avatar.component';
+import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
 
 @Component({
   selector: 'ml-custom-theme-mgr',
-  imports: [MatEverythingModule, ThemeAvatarComponent],
+  imports: [MatEverythingModule, MlThemeAvatarComponent],
   templateUrl: './custom-theme-mgr.component.html',
   styleUrl: './custom-theme-mgr.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -40,6 +40,7 @@ export default [
       ],
       // Add this line to disable the input rename rule
       '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/no-output-rename': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
     },
   },

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnI
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ThemeOption } from '@moonlight/ng/theming/config';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { ThemeAvatarComponent } from '../../ui/avatar/theme-avatar.component';
+import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
 
 //##########################################//
 
@@ -17,7 +17,7 @@ export interface CustomThemeSavedDialogData {
   selector: 'ml-custom-theme-saved',
   imports: [
     MatEverythingModule,
-    ThemeAvatarComponent
+    MlThemeAvatarComponent
   ],
   templateUrl: './theme-saved.component.html',
   styleUrl: './theme-saved.component.scss',

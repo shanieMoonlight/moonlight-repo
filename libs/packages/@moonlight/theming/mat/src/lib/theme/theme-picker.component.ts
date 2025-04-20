@@ -1,11 +1,10 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeService } from '@moonlight/ng/theming/service';
+import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
+import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { Subject, merge, tap } from 'rxjs';
 
 /**
@@ -22,7 +21,11 @@ import { Subject, merge, tap } from 'rxjs';
 @Component({
     selector: 'ml-theme-picker-mat',
     standalone: true,
-    imports: [NgTemplateOutlet, MatMenuModule, MatIconModule, MatTooltipModule],
+    imports: [
+        NgTemplateOutlet,
+        MatEverythingModule,
+        MlThemeAvatarComponent
+    ],
     templateUrl: './theme-picker.component.html',
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,7 +58,7 @@ export class ThemePicker_Mat_Component {
 
     private _themeOptionChange$ = this._changeThemeClick$.pipe(
         tap(newTheme => this._themeService.setTheme(newTheme)),
-        tap(newTheme =>console.log('themeOptionChange$', newTheme))
+        tap(newTheme => console.log('themeOptionChange$', newTheme))
     )
     private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$)
     protected _selectedOption = toSignal(this._selectedOption$)

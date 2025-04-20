@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
@@ -16,6 +16,7 @@ export class ThemeGeneratorService {
 
   //TODO Colors are upside down
   private _platformId = inject(PLATFORM_ID)
+  private _document = inject(DOCUMENT);
 
   private _systemPrefs = inject(SytemPrefsService)
 
@@ -73,7 +74,7 @@ export class ThemeGeneratorService {
     if (!this.isBrowser())
       return
 
-    targetElement ??= document.documentElement
+    targetElement ??= this._document.documentElement
 
     // Batch DOM updates using requestAnimationFrame
     requestAnimationFrame(() => {

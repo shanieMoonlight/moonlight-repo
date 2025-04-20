@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import '@testing-library/jest-dom';
-import { ThemeAvatarComponent } from '../../ui/avatar/theme-avatar.component'; // Import Real Component
+import { ThemeAvatarComponent } from '../../../../../ui/src/index'; // Import Real Component
 
 // --- Mock Child Component ---
 @Component({

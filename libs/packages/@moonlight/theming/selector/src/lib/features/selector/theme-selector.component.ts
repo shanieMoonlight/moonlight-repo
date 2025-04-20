@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser, TitleCasePipe } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { CustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { CustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; // Import the new component
+import { CustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; 
 
 //#########################################//
 
@@ -51,6 +51,7 @@ interface IThemeForm
 export class ThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
+  private _document = inject(DOCUMENT);
   private _themeGenerator = inject(ThemeGeneratorService)
   private _themeService = inject(ThemeService)
   private _fb = inject(FormBuilder)
@@ -167,7 +168,7 @@ export class ThemeSelectorComponent implements OnDestroy {
     this._themeGenerator.applyTheme(
       theme,
       undefined,
-      document.documentElement
+      this._document.documentElement
     )
 
     this._generatorPreviewTheme.set(theme)

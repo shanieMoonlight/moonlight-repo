@@ -33,6 +33,9 @@
       "@moonlight/ng/theming/showcase": [
         "libs/packages/@moonlight/theming/showcase/src/index.ts"
       ],
+      "@moonlight/ng/theming/ui": [
+        "libs/packages/@moonlight/theming/ui/src/index.ts"
+      ],
       "@moonlight/ng/theming/utils": [
         "libs/packages/@moonlight/theming/utils/src/index.ts"
       ],
