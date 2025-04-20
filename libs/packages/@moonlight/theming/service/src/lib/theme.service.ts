@@ -208,8 +208,18 @@ export class ThemeService {
   private initialize(): void {
 
     try {
-      const themeData = this.retrieveTheme()
-      
+      //Get this running first sin case something goes wrong below
+      this._currentDataBs
+        .pipe(takeUntilDestroyed(this._destroyor))
+        .subscribe(data => {
+          if (isDevMode())
+            console.log('ThemeService', data)
+          this.applyCurrentTheme(data)
+          this._localStorage.setItemObject(THEME_KEY, data)
+        })
+
+
+      const themeData = this._localStorage.getItemObject<ThemeData>(THEME_KEY)
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
@@ -217,17 +227,12 @@ export class ThemeService {
       this._isDarkModeBs.next(darkMode)
 
       this._customThemesBs.next(themeData?.customThemes ?? [])
-
-      this._currentDataBs
-        .pipe(takeUntilDestroyed(this._destroyor))
-        .subscribe(data => {
-          console.log('THemeService', data);
-          
-          this.applyCurrentTheme(data)
-          this.storeTheme(data)
-        })
+      
+      console.log('ThemeService initialize Complete')
 
     } catch (error) {
+
+      console.log('THemeServiceerror', error);
 
       // More specific error handling
       if (error instanceof SyntaxError)
@@ -255,20 +260,13 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private storeTheme = (themeData: ThemeData) =>
-    this._localStorage.setItemObject(THEME_KEY, themeData)
-
-  //- - - - - - - - - - - - - - -//
-
-  private retrieveTheme = (): ThemeData | null =>
-    this._localStorage.getItemObject<ThemeData>(THEME_KEY) ?? null
-
-  //- - - - - - - - - - - - - - -//
-
   private setDefaultTheme() {
     // No need to call clear() here
     const defaultOption = this._config.themeOptions[0] ?? defaultThemeOption // Get first theme or a hardcoded default
-    this.setDarkMode(!!defaultOption.darkMode)
+    console.log('Setting default theme:this._config.themeOptions[0]', this._config.themeOptions[0]);
+    console.log('Setting default theme:', defaultOption);
+
+    this.setDarkMode(defaultOption.darkMode)
     this.setTheme(defaultOption)
   }
 
@@ -283,7 +281,7 @@ export class ThemeService {
     let sanitized = lwrValue.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
     // Add 'custom-' prefix if not already present
-    if (!sanitized.startsWith('custom-')) 
+    if (!sanitized.startsWith('custom-'))
       sanitized = `custom-${sanitized}`
 
     return sanitized;

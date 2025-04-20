@@ -1,18 +1,17 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { signal } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipHarness } from '@angular/material/tooltip/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeOption } from '../../../../config/src/index';
 import { ThemeService } from '../../../../service/src/index';
-import { MlThemePicker_Mat_Component } from './theme-picker.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { MatTooltipHarness } from '@angular/material/tooltip/testing';
-import { MatIconHarness } from '@angular/material/icon/testing';
-import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
 import { MatEverythingModule } from '../../../../utils/src';
+import { MlThemePicker_Mat_Component } from './theme-picker.component';
 
 const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light', darkMode: false, primaryColor: '#ffffff', secondaryColor: '#000000' });
 const mockSystemTheme2: ThemeOption = ThemeOption.create({ label: 'System Dark', value: 'system-dark', darkMode: true, primaryColor: '#000000', secondaryColor: '#ffffff' });
@@ -20,7 +19,11 @@ const mockCustomTheme1: ThemeOption = ThemeOption.create({ label: 'Custom Blue',
 
 const mockSystemThemes = signal([mockSystemTheme1, mockSystemTheme2]);
 const mockCustomThemes = signal([mockCustomTheme1]);
-const mockCurrentTheme$ = new BehaviorSubject<ThemeOption | undefined>(mockSystemTheme1);
+// const mockCurrentTheme$ = new BehaviorSubject<ThemeOption | undefined>(mockSystemTheme1);
+// Define the initial state value
+const initialThemeState = mockSystemTheme1;
+// Keep the BehaviorSubject definition outside
+const mockCurrentTheme$ = new BehaviorSubject<ThemeOption | undefined>(initialThemeState);
 
 class MockThemeService {
     systemThemes = mockSystemThemes.asReadonly();
@@ -38,6 +41,10 @@ describe('MlThemePicker_Mat_Component', () => {
     let loader: HarnessLoader;
 
     beforeEach(async () => {
+      
+      // Reset the BehaviorSubject's value before each test runs
+      mockCurrentTheme$.next(initialThemeState);
+
         await TestBed.configureTestingModule({
             imports: [
                 MlThemePicker_Mat_Component,
@@ -57,6 +64,10 @@ describe('MlThemePicker_Mat_Component', () => {
         component = fixture.componentInstance;
         mockThemeService = TestBed.inject(ThemeService) as unknown as MockThemeService;
         loader = TestbedHarnessEnvironment.loader(fixture);
+
+        // Reset mock calls after the service instance is available
+        mockThemeService.setTheme.mockClear();
+        
         fixture.detectChanges();
     });
 
@@ -67,24 +78,38 @@ describe('MlThemePicker_Mat_Component', () => {
     it('should display the default tooltip', async () => {
         expect(component._toolTip()).toBe('Change app theme');
 
-        const iconHarness = await loader.getHarness(MatIconHarness.with({ selector: '[matTooltip]' }));
-        await (await iconHarness.host()).hover();
+        // Get the tooltip harness directly
         const tooltipHarness = await loader.getHarness(MatTooltipHarness);
+        const hostElement = await tooltipHarness.host();
+
+        // Hover over the host element (the mat-icon)
+        await hostElement.hover();
+
+        // Check the tooltip text
         expect(await tooltipHarness.getTooltipText()).toBe('Change app theme');
-        await (await iconHarness.host()).mouseAway();
+
+        // Mouse away to hide tooltip
+        await hostElement.mouseAway();
     });
 
     it('should display a custom tooltip when provided', async () => {
         const customTooltip = 'Select Theme';
         fixture.componentRef.setInput('pickerTooltip', customTooltip);
-        fixture.detectChanges();
+        fixture.detectChanges(); // Ensure changes are detected
         expect(component._toolTip()).toBe(customTooltip);
 
-        const iconHarness = await loader.getHarness(MatIconHarness.with({ selector: '[matTooltip]' }));
-        await (await iconHarness.host()).hover();
+        // Get the tooltip harness directly
         const tooltipHarness = await loader.getHarness(MatTooltipHarness);
+        const hostElement = await tooltipHarness.host();
+
+        // Hover over the host element (the mat-icon)
+        await hostElement.hover();
+
+        // Check the tooltip text
         expect(await tooltipHarness.getTooltipText()).toBe(customTooltip);
-        await (await iconHarness.host()).mouseAway();
+
+        // Mouse away to hide tooltip
+        await hostElement.mouseAway();
     });
 
     it('should combine system and custom themes', () => {
@@ -108,19 +133,39 @@ describe('MlThemePicker_Mat_Component', () => {
     }));
 
     it('should update selectedOption and emit theme change when a theme is clicked', fakeAsync(() => {
-        const themeToSelect = mockCustomTheme1;
-        let emittedTheme: ThemeOption | undefined;
-        const subscription = component._onThemeChange.subscribe(theme => emittedTheme = theme);
+      const themeToSelect = mockCustomTheme1;
+      let emittedTheme: ThemeOption | undefined;
+      const subscription = component._onThemeChange.subscribe(theme => {
+          console.log('[_onThemeChange emitted]:', theme); // Add logging
+          emittedTheme = theme;
+      });
 
-        component['_changeThemeClick$'].next(themeToSelect);
-        tick();
-        fixture.detectChanges();
+      component['_changeThemeClick$'].next(themeToSelect);
+      tick(); // Process async operations
+      fixture.detectChanges(); // Update fixture if needed
 
-        expect(component['_selectedOption']()).toEqual(themeToSelect);
-        expect(emittedTheme).toEqual(themeToSelect);
+      expect(component['_selectedOption']()).toEqual(themeToSelect);
+      console.log('[Test check] emittedTheme:', emittedTheme); // Add logging
+      expect(emittedTheme).toEqual(themeToSelect); // Check if emission was captured
 
-        subscription.unsubscribe();
-    }));
+      subscription.unsubscribe();
+  }));
+
+
+    // it('should update selectedOption and emit theme change when a theme is clicked0', fakeAsync(() => {
+    //     const themeToSelect = mockCustomTheme1;
+    //     let emittedTheme: ThemeOption | undefined;
+    //     const subscription = component._onThemeChange.subscribe(theme => emittedTheme = theme);
+
+    //     component['_changeThemeClick$'].next(themeToSelect);
+    //     tick();
+    //     fixture.detectChanges();
+
+    //     expect(component['_selectedOption']()).toEqual(themeToSelect);
+    //     expect(emittedTheme).toEqual(themeToSelect);
+
+    //     subscription.unsubscribe();
+    // }));
 
     it('should update selectedOption and emit theme change when currentTheme$ emits', fakeAsync(() => {
         const newThemeFromServer = mockSystemTheme2;

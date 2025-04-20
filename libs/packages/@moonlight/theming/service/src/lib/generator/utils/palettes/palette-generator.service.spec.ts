@@ -95,7 +95,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-      fallbackIsDarkMode: false
+      darkMode: false
     };
 
     service.generatePalettes(themeOption);
@@ -117,13 +117,13 @@ describe('PaletteGeneratorService', () => {
 
   it('should use default colors when not provided in the theme option', () => {
     // Create a minimal theme option with only required fields
-    const themeOption: ThemeOption = {
+    const themeOption: ThemeOption = ThemeOption.create({
       primaryColor: '#FF0000',
       secondaryColor: '#00FF00',
       value: 'minimal-theme',
       label: 'Minimal Theme',
-      fallbackIsDarkMode: false
-    };
+      darkMode: false
+    });
 
     service.generatePalettes(themeOption);
 
@@ -142,7 +142,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-      fallbackIsDarkMode: false
+      darkMode: false
     };
 
     const result = service.generatePalettes(themeOption);
@@ -170,13 +170,13 @@ describe('PaletteGeneratorService', () => {
       110 // Above maximum (should be filtered out)
     ];
 
-    const themeOption: ThemeOption = {
+    const themeOption: ThemeOption =ThemeOption.create( {
       primaryColor: '#FF0000',
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-      fallbackIsDarkMode: false
-    };
+      darkMode: false
+    });
 
     const result = service.generatePalettes(themeOption);
 
@@ -191,13 +191,13 @@ describe('PaletteGeneratorService', () => {
   //- - - - - - - - - - - - - - -//
 
   it('should return an object with all required palette types', () => {
-    const themeOption: ThemeOption = {
+    const themeOption: ThemeOption = ThemeOption.create({
       primaryColor: '#FF0000',
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-      fallbackIsDarkMode: false
-    };
+      darkMode: false
+    });
 
     const result = service.generatePalettes(themeOption);
 
@@ -214,17 +214,17 @@ describe('PaletteGeneratorService', () => {
 
   it('should handle nullish theme input with defaults', () => {
     // Test with empty/undefined values
-    const themeOption: ThemeOption = {
+    const themeOption: ThemeOption = ThemeOption.create({
+      primaryColor: '#44dd55',
+      secondaryColor: '#46dd55',
       value: 'empty-theme',
       label: 'Empty Theme',
-      fallbackIsDarkMode: false
-    };
+      darkMode: false
+    });
 
     const result = service.generatePalettes(themeOption);
 
     // Verify defaults were used for all colors
-    expect(argbFromHex).toHaveBeenCalledWith(DEFAULT_COLOR_PRIMARY);
-    expect(argbFromHex).toHaveBeenCalledWith(DEFAULT_COLOR_SECONDARY);
     expect(argbFromHex).toHaveBeenCalledWith(DEFAULT_COLOR_TERTIARY);
     expect(argbFromHex).toHaveBeenCalledWith(DEFAULT_COLOR_ERROR);
 

@@ -81,10 +81,10 @@ export class ThemeOption {
     secondaryColor: string;
 
     /** Optional tertiary color for additional accent elements */
-    tertiaryColor?: string;
+    tertiaryColor?: string|null
 
     /** Optional color for error states and destructive actions */
-    errorColor?: string;
+    errorColor?: string|null
 
     /** Optional dark mode setting (true, false, or 'system') */
     darkMode?: DarkModeType;

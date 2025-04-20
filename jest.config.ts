@@ -38,7 +38,9 @@ export default async (): Promise<Config> => ({
     // '^@moonlight/(.*)$': '<rootDir>/libs/packages/@moonlight/$1', // This might still be too generic
   },
   modulePathIgnorePatterns: [
+    '<rootDir>/node_modules/',
     '<rootDir>/.nx/cache',
-    '<rootDir>/dist'
+    '<rootDir>/dist',
+    '<rootDir>/_examples/' // Add this line to ignore the _examples directory
   ],
 });

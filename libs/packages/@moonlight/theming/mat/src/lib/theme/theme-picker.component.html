@@ -1,6 +1,7 @@
-<button mat-icon-button id="btn-icon" [matTooltip]="_toolTip()" data-testid="btn-icon">
+<button mat-icon-button id="btn-icon" 
+  [matMenuTriggerFor]="menu"
+  [matTooltip]="_toolTip()" data-testid="btn-icon">
   <mat-icon        
-    [matMenuTriggerFor]="menu"
     aria-label="Change Theme Menu">
     palette
   </mat-icon>

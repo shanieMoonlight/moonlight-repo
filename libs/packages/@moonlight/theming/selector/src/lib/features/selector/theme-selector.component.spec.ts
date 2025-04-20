@@ -9,18 +9,26 @@ import { MockBuilder, MockRender } from 'ng-mocks'; // Import ng-mocks tools
 // --- Your Component & Dependencies ---
 import { Component, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, ThemeConfig, ThemeConfigService, ThemeOption } from '../../../../../config/src/index';
-import { ThemeGeneratorService } from '../../../../../service/src/index';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY } from '../../../../../config/src/index';
+import {  } from '../../../../../service/src/index';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { ThemeSelectorComponent } from './theme-selector.component';
+import {  fakeAsync, tick } from '@angular/core/testing';
+import { BehaviorSubject, of } from 'rxjs';
+import { DestroyRef } from '@angular/core';
+import { ThemeService } from '../ ../../../../../../service/src/index';
+import { SsrLocalStorage } from '../../../../../../ssr/storage/src/index';
+import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption, DarkModeType } from '@moonlight/ng/theming/config';
+import { ThemeGeneratorService } from './generator/theme-generator.service';
+import { ThemeData, ThemeDataUtils } from './theme-data';
+import { take } from 'rxjs/operators'; // Import take operator
 // import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 // import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 // NOTE: No need to import MatDialogModule or MatEverythingModule here
 
 // --- Mock Data & Shared Variables (Keep as before) ---
 const mockPresets: ThemeOption[] = [
-  { value: 'preset1', label: 'Preset 1', primaryColor: '#111111', secondaryColor: '#aaaaaa', darkMode: false },
-  { value: 'preset2', label: 'Preset 2', primaryColor: '#222222', secondaryColor: '#bbbbbb', darkMode: true },
+  ThemeOption.create( { value: 'preset1', label: 'Preset 1', primaryColor: '#111111', secondaryColor: '#aaaaaa', darkMode: false }),
+  ThemeOption.create({ value: 'preset2', label: 'Preset 2', primaryColor: '#222222', secondaryColor: '#bbbbbb', darkMode: true }),
 ];
 
 // --- Test Host Component for Input Testing ---
@@ -58,47 +66,512 @@ describe('ThemeSelectorComponent', () => {
     mockThemeConfig.presetSelectorThemes = mockPresets;
 
     // Mock documentElement for applyTheme calls
-    Object.defineProperty(global.document, 'documentElement', {
-        value: document.createElement('html'),
-        writable: true,
+    // Mocks
+    const mockDefaultTheme: ThemeOption = { ...defaultThemeOption, value: 'default-light', label: 'Default Light', darkMode: false };
+    const mockDarkTheme: ThemeOption = { value: 'system-dark', label: 'System Dark', darkMode: true, primaryColor: '#000000', secondaryColor: '#ffffff' };
+    const mockLightTheme: ThemeOption = { value: 'system-light', label: 'System Light', darkMode: false, primaryColor: '#ffffff', secondaryColor: '#000000' };
+    const mockCustomTheme1: ThemeOption = { value: 'custom-blue', label: 'Custom Blue', darkMode: false, primaryColor: '#0000ff', secondaryColor: '#ffffff' };
+    const mockCustomTheme2: ThemeOption = { value: 'custom-red', label: 'Custom Red', darkMode: true, primaryColor: '#ff0000', secondaryColor: '#000000' };
+
+
+    class MockSsrLocalStorage {
+      getItemObject = jest.fn();
+      setItemObject = jest.fn();
+      removeItem = jest.fn();
+    }
+
+    class MockSytemPrefsService {
+      prefersDarkMode$ = new BehaviorSubject<boolean>(false); // Default to light
+    }
+
+    // Use a factory for the InjectionToken mock
+    const createMockThemeConfigService = (overrides?: Partial<ThemeConfig>): ThemeConfig => {
+        const config = ThemeConfig.Create(); // Use the static Create method
+        config.themeOptions = [mockLightTheme, mockDarkTheme];
+        config.defaultDarkMode = false;
+        // Apply overrides
+        if (overrides) {
+            Object.assign(config, overrides);
+        }
+        return config;
+    };
+
+
+    class MockThemeGeneratorService {
+      applyTheme = jest.fn();
+      exportThemeAsScss = jest.fn(); // Add if needed for other tests
+    }
+
+    class MockDestroyRef extends DestroyRef {
+      onDestroy = jest.fn();
+      constructor() { super(); }
+    }
+
+    describe('ThemeService', () => {
+      let service: ThemeService;
+      let localStorageMock: MockSsrLocalStorage;
+      let themeConfigMock: ThemeConfig; // Now holds the actual config object
+      let themeGeneratorMock: MockThemeGeneratorService;
+      let systemPrefsMock: MockSytemPrefsService;
+      let destroyRefMock: MockDestroyRef;
+
+      const setupTestBed = (configOverrides?: Partial<ThemeConfig>, storageData?: ThemeData | null | 'error') => {
+        // Create the mock config object using the factory
+        themeConfigMock = createMockThemeConfigService(configOverrides);
+
+        TestBed.configureTestingModule({
+          providers: [
+            ThemeService,
+            { provide: SsrLocalStorage, useClass: MockSsrLocalStorage },
+            { provide: SytemPrefsService, useClass: MockSytemPrefsService },
+            // Provide the mock config object for the InjectionToken
+            { provide: ThemeConfigService, useValue: themeConfigMock },
+            { provide: ThemeGeneratorService, useClass: MockThemeGeneratorService },
+            { provide: DestroyRef, useClass: MockDestroyRef },
+          ],
+        });
+
+        localStorageMock = TestBed.inject(SsrLocalStorage) as MockSsrLocalStorage;
+        // themeConfigMock is already assigned
+        themeGeneratorMock = TestBed.inject(ThemeGeneratorService) as MockThemeGeneratorService;
+        systemPrefsMock = TestBed.inject(SytemPrefsService) as MockSytemPrefsService;
+        destroyRefMock = TestBed.inject(DestroyRef) as MockDestroyRef;
+
+        // Mock localStorage retrieval
+        if (storageData === 'error') {
+          localStorageMock.getItemObject.mockImplementation(() => {
+            throw new SyntaxError("Invalid JSON");
+          });
+        } else {
+          localStorageMock.getItemObject.mockReturnValue(storageData === undefined ? null : storageData);
+        }
+
+        // Spy on internal methods *before* service creation if they are called in constructor/initialize
+        jest.spyOn(ThemeService.prototype as any, 'applyCurrentTheme');
+        jest.spyOn(ThemeService.prototype as any, 'storeTheme');
+        jest.spyOn(ThemeService.prototype as any, 'setDefaultTheme');
+        jest.spyOn(ThemeService.prototype as any, 'retrieveTheme').mockImplementation(() => localStorageMock.getItemObject(expect.any(String)));
+        jest.spyOn(console, 'error').mockImplementation(() => { }); // Suppress console.error during tests
+
+        service = TestBed.inject(ThemeService);
+      };
+
+      afterEach(() => {
+        jest.restoreAllMocks(); // Restore original implementations and clear spies
+      });
+
+      // --- Initialization Tests (Keep existing ones) ---
+      describe('Initialization', () => {
+        it('should initialize with default theme when localStorage is empty', fakeAsync(() => {
+            setupTestBed(); // No storage data provided
+
+            tick(100); // Advance time for debounceTime
+
+            expect(service.currentTheme()).toEqual(themeConfigMock.themeOptions[0]);
+            expect(service.isDarkMode()).toEqual(!!themeConfigMock.themeOptions[0].darkMode); // Based on first theme's dark mode
+            expect(service.customThemes()).toEqual([]);
+            expect(localStorageMock.getItemObject).toHaveBeenCalledWith('moonlight_theme_key');
+            expect((service as any).applyCurrentTheme).toHaveBeenCalled();
+            expect((service as any).storeTheme).toHaveBeenCalled();
+            expect((service as any).setDefaultTheme).not.toHaveBeenCalled(); // Should not call setDefaultTheme if initialization succeeds
+        }));
+
+        it('should initialize with stored theme data from localStorage', fakeAsync(() => {
+            const storedData: ThemeData = {
+            currentTheme: mockDarkTheme,
+            customThemes: [mockCustomTheme1],
+            version: '1.0' // Assuming ThemeData has a version or similar structure
+            };
+            // Ensure the stored theme's darkMode is used for the initial _isDarkModeBs state
+            storedData.currentTheme = { ...mockDarkTheme, darkMode: true };
+            setupTestBed(undefined, storedData);
+
+            tick(100); // Advance time for debounceTime
+
+            expect(service.currentTheme()).toEqual(storedData.currentTheme);
+            // Check the BehaviorSubject directly as isDarkMode() signal might depend on async system prefs
+            expect((service as any)._isDarkModeBs.value).toEqual(storedData.currentTheme.darkMode);
+            expect(service.customThemes()).toEqual(storedData.customThemes);
+            expect(localStorageMock.getItemObject).toHaveBeenCalledWith('moonlight_theme_key');
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: storedData.currentTheme, customThemes: storedData.customThemes }));
+            expect((service as any).storeTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: storedData.currentTheme, customThemes: storedData.customThemes }));
+            expect((service as any).setDefaultTheme).not.toHaveBeenCalled();
+        }));
+
+        it('should initialize dark mode based on stored theme data darkMode property', fakeAsync(() => {
+            const storedData: ThemeData = {
+            currentTheme: { ...mockLightTheme, darkMode: 'system' }, // Explicitly set darkMode
+            customThemes: [],
+            version: '1.0'
+            };
+            setupTestBed(undefined, storedData);
+
+            tick(100);
+
+            expect((service as any)._isDarkModeBs.value).toEqual('system');
+            // isDarkMode() signal will resolve based on system preference
+            systemPrefsMock.prefersDarkMode$.next(true);
+            tick(); // Allow signal to update
+            expect(service.isDarkMode()).toBe(true);
+
+            systemPrefsMock.prefersDarkMode$.next(false);
+            tick(); // Allow signal to update
+            expect(service.isDarkMode()).toBe(false);
+        }));
+
+        it('should initialize dark mode based on config default if stored theme lacks darkMode property', fakeAsync(() => {
+            const storedData: ThemeData = {
+            // Simulate older data structure or missing property
+            currentTheme: { value: 'some-theme', label: 'Some Theme' } as any,
+            customThemes: [],
+            version: '0.9'
+            };
+            setupTestBed({ defaultDarkMode: true }, storedData); // Config defaults to dark
+
+            tick(100);
+
+            // Should fall back to config default
+            expect((service as any)._isDarkModeBs.value).toBe(true);
+            expect(service.isDarkMode()).toBe(true); // Signal reflects the initial value
+        }));
+
+
+        it('should handle SyntaxError during theme retrieval and set defaults', fakeAsync(() => {
+            setupTestBed(undefined, 'error'); // Trigger error in mock
+
+            // Initialization happens in constructor, error handling should call setDefaultTheme
+            expect(console.error).toHaveBeenCalledWith('Error parsing stored theme data:', expect.any(SyntaxError));
+            expect((service as any).setDefaultTheme).toHaveBeenCalledTimes(1);
+
+            // Verify state after setDefaultTheme is called
+            const defaultTheme = themeConfigMock.themeOptions[0] ?? defaultThemeOption;
+            expect(service.currentTheme()).toEqual(defaultTheme);
+            expect((service as any)._isDarkModeBs.value).toEqual(!!defaultTheme.darkMode);
+            expect(service.customThemes()).toEqual([]); // Should be reset by resetToDefaults called within setDefaultTheme path
+
+            // Ensure subscription still runs after error handling sets defaults
+            tick(100);
+            expect((service as any).applyCurrentTheme).toHaveBeenCalled();
+            expect((service as any).storeTheme).toHaveBeenCalled();
+        }));
+
+        // Simplified TypeError test focusing on the outcome
+        it('should handle generic Error during theme processing and set defaults', fakeAsync(() => {
+            // Simulate an error during the processing phase after retrieval
+            jest.spyOn(ThemeDataUtils, 'create').mockImplementation(() => {
+                throw new Error("Simulated processing error");
+            });
+
+            setupTestBed(); // Initialize with potentially valid retrieval but failing processing
+
+            // Error should be caught, logged, and defaults set
+            expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Theme initialization error'), expect.any(Error));
+            expect((service as any).setDefaultTheme).toHaveBeenCalled();
+
+            // Verify state after setDefaultTheme
+            const defaultTheme = themeConfigMock.themeOptions[0] ?? defaultThemeOption;
+            expect(service.currentTheme()).toEqual(defaultTheme);
+            expect((service as any)._isDarkModeBs.value).toEqual(!!defaultTheme.darkMode);
+
+            tick(100); // Allow async operations
+        }));
+
+
+        it('should subscribe to _currentDataBs and call apply/store theme on change', fakeAsync(() => {
+            const initialData: ThemeData = { currentTheme: mockLightTheme, customThemes: [], version: '1.0' };
+            setupTestBed(undefined, initialData);
+
+            tick(100); // Initial debounce
+
+            // Verify initial calls
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+            expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: mockLightTheme }));
+            expect((service as any).storeTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: mockLightTheme }));
+
+            // Change theme
+            service.setTheme(mockDarkTheme);
+            tick(100); // Debounce after theme change
+
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(2);
+            expect((service as any).storeTheme).toHaveBeenCalledTimes(2);
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: mockDarkTheme }));
+            expect((service as any).storeTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: mockDarkTheme }));
+
+            // Change dark mode
+            service.setDarkMode(true);
+            tick(100); // Debounce after dark mode change
+
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(3);
+            expect((service as any).storeTheme).toHaveBeenCalledTimes(3);
+            // apply/store should be called with the current theme but reflecting the new dark mode state
+            expect((service as any).applyCurrentTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: { ...mockDarkTheme, darkMode: true } }));
+            expect((service as any).storeTheme).toHaveBeenCalledWith(expect.objectContaining({ currentTheme: { ...mockDarkTheme, darkMode: true } }));
+        }));
+      });
+
+      // --- Public API Method Tests ---
+      describe('Public API Methods', () => {
+
+        beforeEach(() => {
+            // Setup with default config and no stored data for a clean slate
+            setupTestBed();
+            tick(100); // Initial debounce/setup
+            // Clear mocks called during initialization
+            jest.clearAllMocks();
+            // Reset spies specifically
+            (service as any).applyCurrentTheme.mockClear();
+            (service as any).storeTheme.mockClear();
+            localStorageMock.setItemObject.mockClear();
+            localStorageMock.removeItem.mockClear();
+        });
+
+        describe('setDarkMode', () => {
+            it('should update _isDarkModeBs and trigger store/apply', fakeAsync(() => {
+                service.setDarkMode(true);
+                expect((service as any)._isDarkModeBs.value).toBe(true);
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1);
+
+                service.setDarkMode(false);
+                expect((service as any)._isDarkModeBs.value).toBe(false);
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(2);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(2);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(2);
+            }));
+
+            it('should update _isDarkModeBs for "system" and trigger store/apply', fakeAsync(() => {
+                service.setDarkMode('system');
+                expect((service as any)._isDarkModeBs.value).toBe('system');
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should reflect system preference when mode is "system"', fakeAsync(() => {
+                service.setDarkMode('system');
+                tick(100); // debounceTime
+
+                systemPrefsMock.prefersDarkMode$.next(true);
+                tick(); // Allow signal update
+                expect(service.isDarkMode()).toBe(true);
+
+                systemPrefsMock.prefersDarkMode$.next(false);
+                tick(); // Allow signal update
+                expect(service.isDarkMode()).toBe(false);
+            }));
+        });
+
+        describe('setTheme', () => {
+            it('should update _currentThemeBs with the provided theme and trigger store/apply', fakeAsync(() => {
+                service.setTheme(mockDarkTheme);
+                expect((service as any)._currentThemeBs.value).toBe(mockDarkTheme);
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should fall back to the first system theme if null is provided', fakeAsync(() => {
+                const firstSystemTheme = themeConfigMock.themeOptions[0];
+                service.setTheme(null);
+                expect((service as any)._currentThemeBs.value).toBe(firstSystemTheme);
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should fall back to the first system theme if undefined is provided', fakeAsync(() => {
+                const firstSystemTheme = themeConfigMock.themeOptions[0];
+                service.setTheme(undefined);
+                expect((service as any)._currentThemeBs.value).toBe(firstSystemTheme);
+                tick(100); // debounceTime
+                expect((service as any).applyCurrentTheme).toHaveBeenCalledTimes(1);
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+            }));
+        });
+
+        describe('exportThemeSettings', () => {
+            it('should return the current theme and dark mode status', fakeAsync(() => {
+                // Set specific state
+                service.setTheme(mockDarkTheme);
+                service.setDarkMode(true);
+                tick(100); // Ensure state updates are processed
+
+                const settings = service.exportThemeSettings();
+
+                expect(settings).toEqual({
+                    theme: mockDarkTheme,
+                    isDark: true
+                });
+            }));
+
+            it('should return correct dark mode status when set to "system"', fakeAsync(() => {
+                service.setTheme(mockLightTheme); // A theme that defaults to light
+                service.setDarkMode('system');
+                systemPrefsMock.prefersDarkMode$.next(true); // System prefers dark
+                tick(100); // Process state updates
+                tick(); // Process signal update
+
+                const settings = service.exportThemeSettings();
+
+                expect(settings).toEqual({
+                    theme: mockLightTheme,
+                    isDark: true // Reflects the system preference
+                });
+            }));
+        });
+
+        describe('addCustomTheme', () => {
+            it('should add a new custom theme and sanitize its value', fakeAsync(() => {
+                const newTheme: ThemeOption = { value: ' My New Theme ', label: 'My New Theme', primaryColor: '#123456', secondaryColor: '#abcdef', darkMode: false };
+                const expectedSanitizedValue = 'custom-my-new-theme-'; // Note: trailing hyphen due to regex
+                const expectedTheme = { ...newTheme, value: expectedSanitizedValue };
+
+                const updatedThemes = service.addCustomTheme(newTheme);
+
+                expect(service.customThemes()).toContainEqual(expectedTheme);
+                expect(updatedThemes).toContainEqual(expectedTheme);
+                expect(updatedThemes.length).toBe(1);
+
+                tick(100); // debounceTime for store/apply
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1);
+                // Check if stored data includes the new theme
+                const storeCallArgs = (service as any).storeTheme.mock.calls[0][0];
+                expect(storeCallArgs.customThemes).toContainEqual(expectedTheme);
+            }));
+
+            it('should update an existing custom theme if value matches after sanitization', fakeAsync(() => {
+                // Add initial theme
+                const initialTheme: ThemeOption = { value: 'custom-blue', label: 'Old Blue', primaryColor: '#0000ff', secondaryColor: '#ffffff', darkMode: false };
+                service.addCustomTheme(initialTheme);
+                tick(100); // Process initial add
+
+                // Add theme with same sanitized value but different properties
+                const updatedThemeData: ThemeOption = { value: 'custom-blue', label: 'New Blue', primaryColor: '#abcdef', secondaryColor: '#123456', darkMode: true };
+                const updatedThemes = service.addCustomTheme(updatedThemeData);
+
+                expect(service.customThemes().length).toBe(1); // Should still be only one theme
+                expect(service.customThemes()[0]).toEqual(updatedThemeData); // The updated theme should be present
+                expect(updatedThemes).toEqual([updatedThemeData]);
+
+                tick(100); // debounceTime for store/apply
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(2); // Called for initial add and update
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(2);
+                const storeCallArgs = (service as any).storeTheme.mock.calls[1][0]; // Check the second call
+                expect(storeCallArgs.customThemes).toEqual([updatedThemeData]);
+            }));
+
+            it('should correctly sanitize values with spaces and mixed case', () => {
+                const theme: ThemeOption = { value: ' Theme With Spaces ', label: 'Test', primaryColor: '#fff', secondaryColor: '#000', darkMode: false };
+                const sanitizedValue = (service as any).sanitizeValue(theme.value);
+                expect(sanitizedValue).toBe('custom-theme-with-spaces-');
+            });
+
+            it('should add "custom-" prefix if not present', () => {
+                const theme: ThemeOption = { value: 'mytheme', label: 'Test', primaryColor: '#fff', secondaryColor: '#000', darkMode: false };
+                const sanitizedValue = (service as any).sanitizeValue(theme.value);
+                expect(sanitizedValue).toBe('custom-mytheme');
+            });
+
+            it('should not add "custom-" prefix if already present', () => {
+                const theme: ThemeOption = { value: 'custom-existing', label: 'Test', primaryColor: '#fff', secondaryColor: '#000', darkMode: false };
+                const sanitizedValue = (service as any).sanitizeValue(theme.value);
+                expect(sanitizedValue).toBe('custom-existing');
+            });
+        });
+
+        describe('removeCustomTheme', () => {
+            beforeEach(fakeAsync(() => {
+                // Add some themes to remove
+                service.addCustomTheme(mockCustomTheme1);
+                service.addCustomTheme(mockCustomTheme2);
+                tick(100); // Process adds
+                (service as any).storeTheme.mockClear(); // Clear mocks after setup
+                localStorageMock.setItemObject.mockClear();
+            }));
+
+            it('should remove an existing custom theme by value', fakeAsync(() => {
+                const valueToRemove = mockCustomTheme1.value; // 'custom-blue'
+                const updatedThemes = service.removeCustomTheme(valueToRemove);
+
+                expect(service.customThemes()).not.toContainEqual(mockCustomTheme1);
+                expect(service.customThemes()).toContainEqual(mockCustomTheme2);
+                expect(service.customThemes().length).toBe(1);
+                expect(updatedThemes).toEqual([mockCustomTheme2]);
+
+                tick(100); // debounceTime for store/apply
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1);
+                const storeCallArgs = (service as any).storeTheme.mock.calls[0][0];
+                expect(storeCallArgs.customThemes).toEqual([mockCustomTheme2]);
+            }));
+
+            it('should do nothing if the theme value does not exist', fakeAsync(() => {
+                const initialThemes = [...service.customThemes()];
+                const valueToRemove = 'non-existent-theme';
+                const updatedThemes = service.removeCustomTheme(valueToRemove);
+
+                expect(service.customThemes()).toEqual(initialThemes); // Should be unchanged
+                expect(service.customThemes().length).toBe(2);
+                expect(updatedThemes).toEqual(initialThemes);
+
+                tick(100); // debounceTime for store/apply
+                // Store might still be called due to BehaviorSubject update, even if value is same
+                // Let's verify the *content* stored hasn't changed meaningfully
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1);
+                const storeCallArgs = (service as any).storeTheme.mock.calls[0][0];
+                expect(storeCallArgs.customThemes).toEqual(initialThemes);
+            }));
+        });
+
+        describe('resetToDefaults', () => {
+            beforeEach(fakeAsync(() => {
+                // Set some non-default state
+                service.addCustomTheme(mockCustomTheme1);
+                service.setTheme(mockDarkTheme);
+                service.setDarkMode(true);
+                tick(100); // Process updates
+                (service as any).storeTheme.mockClear(); // Clear mocks after setup
+                localStorageMock.setItemObject.mockClear();
+                localStorageMock.removeItem.mockClear();
+            }));
+
+            it('should clear custom themes, reset current theme and dark mode, and clear storage', fakeAsync(() => {
+                const defaultSystemTheme = themeConfigMock.themeOptions[0];
+                const expectedDarkMode = defaultSystemTheme.darkMode;
+
+                service.resetToDefaults();
+
+                // Check state immediately
+                expect(service.customThemes()).toEqual([]);
+                expect((service as any)._currentThemeBs.value).toEqual(defaultSystemTheme);
+                expect((service as any)._isDarkModeBs.value).toEqual(expectedDarkMode);
+
+                // Check signals after potential async updates
+                tick();
+                expect(service.currentTheme()).toEqual(defaultSystemTheme);
+                expect(service.isDarkMode()).toEqual(!!expectedDarkMode); // Coerce 'system' if needed
+
+                // Check side effects
+                expect(localStorageMock.removeItem).toHaveBeenCalledWith('moonlight_theme_key');
+
+                // Check async store/apply calls triggered by state resets
+                tick(100); // debounceTime
+                expect((service as any).storeTheme).toHaveBeenCalledTimes(1); // Should be called once due to state changes
+                expect(localStorageMock.setItemObject).toHaveBeenCalledTimes(1); // storeTheme calls setItemObject
+                const storeCallArgs = (service as any).storeTheme.mock.calls[0][0];
+                expect(storeCallArgs.customThemes).toEqual([]);
+                expect(storeCallArgs.currentTheme).toEqual({ ...defaultSystemTheme, darkMode: expectedDarkMode });
+            }));
+        });
+      });
     });
-  });
-
-  // --- Group 1: Direct Component Logic Tests ---
-  describe('Direct Logic', () => {
-    // Keep component/fixture variables
-    let component: ThemeSelectorComponent;
-    let fixture: ComponentFixture<ThemeSelectorComponent>;
-    // Keep the mock instance variable
-    let directDialogMock: { open: jest.Mock }; 
-
-    // Use MockBuilder for TestBed configuration
-    beforeEach(() => {
-      // Reset the mock before each test run with MockBuilder
-      directDialogMock = { open: jest.fn() }; 
-
-      // Configure TestBed using MockBuilder
-      return MockBuilder(ThemeSelectorComponent) // Start with the component under test
-        // Provide mocks for its direct dependencies that you want mocked
-        .mock(ThemeGeneratorService, themeGeneratorMock) // Use the mock from outer scope
-        .mock(ThemeConfigService, mockThemeConfig)     // Use the mock from outer scope
-        .mock(MatDialog, directDialogMock)             // Explicitly mock MatDialog with our instance
-        
-        // Keep modules required by the component's TEMPLATE or internal logic
-        .keep(ReactiveFormsModule) 
-        .keep(NoopAnimationsModule); 
-        // DO NOT .keep() MatEverythingModule or MatDialogModule
-        // MockBuilder will automatically handle basic standalone component setup
-    });
-
-    // Use MockRender to create the component instance
-    beforeEach(() => {
-      fixture = MockRender(ThemeSelectorComponent);
-      component = fixture.componentInstance;
-      // fixture.detectChanges(); // Often not needed immediately with MockRender, call within tests if required
-    });
-
-    it('should create', () => {
        expect(component).toBeTruthy();
     });
 

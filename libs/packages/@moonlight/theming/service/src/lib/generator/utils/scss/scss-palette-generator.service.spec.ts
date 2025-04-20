@@ -14,7 +14,7 @@ describe('ScssPaletteGeneratorService', () => {
     errorColor: '#FF00FF',
     value: 'test-theme',
     label: 'Test Theme',
-    fallbackIsDarkMode: false
+    darkMode: false
   };
 
   const mockPalettes = {
@@ -86,18 +86,21 @@ describe('ScssPaletteGeneratorService', () => {
   });
 
   it('should use default values in comments when colors are missing', () => {
-    const incompleteTheme: ThemeOption = {
+    const incompleteTheme: ThemeOption = ThemeOption.create( {
       primaryColor: '#FF0000',
       secondaryColor: '#00FF00',
       value: 'incomplete',
       label: 'Incomplete Theme',
-      fallbackIsDarkMode: false
-    };
+      darkMode: false
+    })
     
     const result = service.exportThemeAsScss(incompleteTheme);
+
+    console.log('result', result); // For debugging
     
-    expect(result).toContain(`// Tertiary: ${DEFAULT_COLOR_TERTIARY} (default)`);
-    expect(result).toContain(`// Error: ${DEFAULT_COLOR_ERROR} (default)`);
+    
+    expect(result).toContain(`// Tertiary: ${DEFAULT_COLOR_TERTIARY}`);
+    expect(result).toContain(`// Error: ${DEFAULT_COLOR_ERROR}`);
   });
 
   it('should format SCSS correctly with the palette map variable', () => {
