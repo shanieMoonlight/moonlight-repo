@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+}
+
+form {
+  width: 100%;
+  color: var(--colorText);
+  display: flex;
+  flex-direction: column;
+}
+
+.time-screen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+}
+
+h5 {
+  color: var(--colorPrimary);
+  color: var(--colorSecondary);
+}
+
+mat-form-field {
+  margin-bottom: 5px;
+  color: var(--colorTextPrimaryLighter);
+}
+
+:host(.customColor) {
+  input,
+  mat-label,
+  mat-checkbox {
+    color: var(--customColor);
+  }
+  mtx-datetimepicker-toggle {
+    color: var(--customColor);
+  }
+
+  @include mat.checkbox-overrides((disabled-label-color: orange,
+      label-text-color: var(--customColor),
+      selected-icon-color: var(--customColor),
+      unselected-focus-icon-color: var(--customColor),
+      unselected-hover-icon-color: var(--customColor),
+      unselected-icon-color: var(--customColor),
+
+    ));
+}

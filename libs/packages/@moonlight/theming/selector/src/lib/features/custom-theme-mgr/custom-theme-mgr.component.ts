@@ -4,10 +4,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ThemeValue } from '@moonlight/ng/theming/config';
 import { ThemeService } from '@moonlight/ng/theming/service'; // Adjust path
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
+import { ThemeAvatarComponent } from '../../ui/avatar/theme-avatar.component';
 
 @Component({
   selector: 'ml-custom-theme-mgr',
-  imports: [MatEverythingModule],
+  imports: [MatEverythingModule, ThemeAvatarComponent],
   templateUrl: './custom-theme-mgr.component.html',
   styleUrl: './custom-theme-mgr.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +19,7 @@ export class CustomThemeMgrComponent {
   // OPtional in case this component is used outside of a dialog
   private _dialogRef? = inject(MatDialogRef<CustomThemeMgrComponent>, { optional: true });
 
-isDialog= signal(!!this._dialogRef);
+  isDialog = signal(!!this._dialogRef);
 
   //- - - - - - - - - - - - - - -//
 
@@ -35,7 +36,7 @@ isDialog= signal(!!this._dialogRef);
 
   //-----------------------------//
 
-  protected closeDialog = () => 
+  protected closeDialog = () =>
     this._dialogRef?.close()
 
   //-----------------------------//

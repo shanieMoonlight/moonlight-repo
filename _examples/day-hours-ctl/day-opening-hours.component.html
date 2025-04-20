@@ -1,0 +1,50 @@
+<form  [formGroup]="_form" >
+
+    <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
+        <mat-label>Open Time</mat-label>
+        <mtx-datetimepicker #datetimePickerOpen                            
+            [type]="'time'"
+            [mode]="'auto'"
+            [startAt]="_openInitial"
+            [startView]="'clock'"                                        
+            [twelvehour]="false"
+            [timeInterval]="1"
+            [touchUi]="false">
+            [timeInput]="true">
+        </mtx-datetimepicker>
+        <input formControlName="openTime" 
+            matInput 
+            (focus)="datetimePickerOpen.open()"
+            [mtxDatetimepicker]="datetimePickerOpen">
+        <mtx-datetimepicker-toggle [for]="datetimePickerOpen" matSuffix/>
+        <div class="time-screen" (click)="datetimePickerOpen.open()"></div>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="outline" [color]="'primary'" [subscriptSizing]="'dynamic'">
+        <mat-label>Close Time</mat-label>
+        <mtx-datetimepicker #datetimePickerClose    
+            [type]="'time'"
+            [mode]="'auto'"
+            [startAt]="_closeInitial"
+            [startView]="'clock'"                                        
+            [twelvehour]="false"
+            [timeInterval]="1"
+            [touchUi]="false">
+            [timeInput]="true">
+        </mtx-datetimepicker>
+        <input formControlName="closeTime" 
+            matInput 
+            [mtxDatetimepicker]="datetimePickerClose" 
+            (focus)="datetimePickerClose.open()">
+        <mtx-datetimepicker-toggle [for]="datetimePickerClose" matSuffix/>
+        <div class="time-screen" (click)="datetimePickerClose.open()"></div>
+        @if(_form.controls.closeTime.errors?.['firstError']; as err){
+          <mat-error>{{err}}</mat-error>
+        }
+    </mat-form-field>
+    
+    <mat-checkbox formControlName="closed">Closed</mat-checkbox>
+    
+  
+ </form>

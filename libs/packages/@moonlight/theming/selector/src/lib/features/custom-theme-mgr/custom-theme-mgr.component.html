@@ -11,11 +11,7 @@
                 <span matListItemLine class="theme-value-display">({{ theme.value }})</span>
 
                 <!-- Color Swatches Container -->
-                <div class="theme-swatches" matListItemAvatar> <!-- Use matListItemAvatar for alignment -->
-                    <div class="swatch secondary-swatch" [style.background-color]="theme.secondaryColor"></div>
-                    <div class="swatch primary-swatch" [style.background-color]="theme.primaryColor"></div>
-                    <div class="swatch tertiary-swatch" [style.background-color]="theme.tertiaryColor ?? theme.secondaryColor"></div>
-                </div>
+                 <ml-theme-avatar [theme]="theme" matListItemAvatar/>
       
                 <!-- Existing Delete Button -->
                 <button mat-icon-button class="btn-delete"

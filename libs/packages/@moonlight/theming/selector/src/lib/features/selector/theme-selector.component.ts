@@ -1,17 +1,17 @@
 import { CommonModule, isPlatformBrowser, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 import { ThemeGeneratorService, ThemeService } from '@moonlight/ng/theming/service';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
+import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { CustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { map } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; // Import the new component
 
 //#########################################//
 
@@ -56,7 +56,6 @@ export class ThemeSelectorComponent implements OnDestroy {
   private _themeService = inject(ThemeService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
-  private _snackBar = inject(MatSnackBar)
   private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
@@ -148,17 +147,13 @@ export class ThemeSelectorComponent implements OnDestroy {
   //-----------------------------//
 
   protected storeTheme(theme: ThemeOption) {
-     this._themeService.addCustomTheme(theme);
-     this._snackBar.open(
-      'Theme saved successfully! \r\n Select in the Theme Manager',
-      'Close',
-      {
-        duration: 10000,
-        panelClass: 'snackbar-success',
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-      }
-     );
+    this._themeService.addCustomTheme(theme);
+
+    this._dialog.open(CustomThemeSavedComponent, {
+      width: '400px', // Adjust width as needed
+      data: { theme: theme }, // Pass the theme data
+      autoFocus: 'dialog' // Focus the dialog itself initially
+    });
   }
 
 

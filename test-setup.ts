@@ -1,4 +1,5 @@
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+import '@testing-library/jest-dom';
 // import 'jest-preset-angular/setup-jest';
 
 console.log('>>> test-setup.ts: Running setup...'); // Check if file runs

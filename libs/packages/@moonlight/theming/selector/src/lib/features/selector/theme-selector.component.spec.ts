@@ -1,26 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'; // Keep standard imports
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MockBuilder, MockRender, ngMocks } from 'ng-mocks'; // Import ng-mocks tools
-import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { ComponentFixture, TestBed } from '@angular/core/testing'; // Keep standard imports
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogHarness } from '@angular/material/dialog/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockBuilder, MockRender } from 'ng-mocks'; // Import ng-mocks tools
 // --- Your Component & Dependencies ---
-import { ThemeSelectorComponent } from '../../theme-selector.component';
-import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '../../../../../config/src/index';
-import { ThemeGeneratorService } from '../../../../../service/src/index';
 import { Component, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, ThemeConfig, ThemeConfigService, ThemeOption } from '../../../../../config/src/index';
+import { ThemeGeneratorService } from '../../../../../service/src/index';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
+import { ThemeSelectorComponent } from './theme-selector.component';
 // import { ThemeGeneratorService } from '@moonlight/ng/theming/service';
 // import { ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/ng/theming/config';
 // NOTE: No need to import MatDialogModule or MatEverythingModule here
 
 // --- Mock Data & Shared Variables (Keep as before) ---
 const mockPresets: ThemeOption[] = [
-  { value: 'preset1', label: 'Preset 1', primaryColor: '#111111', secondaryColor: '#aaaaaa', fallbackIsDarkMode: false },
-  { value: 'preset2', label: 'Preset 2', primaryColor: '#222222', secondaryColor: '#bbbbbb', fallbackIsDarkMode: true },
+  { value: 'preset1', label: 'Preset 1', primaryColor: '#111111', secondaryColor: '#aaaaaa', darkMode: false },
+  { value: 'preset2', label: 'Preset 2', primaryColor: '#222222', secondaryColor: '#bbbbbb', darkMode: true },
 ];
 
 // --- Test Host Component for Input Testing ---
@@ -114,7 +114,7 @@ describe('ThemeSelectorComponent', () => {
 
     describe('applyTheme', () => {
       it('should NOT call generator if form is invalid', () => {
-        component['_themeForm'].controls.primary.setValue(''); // Make form invalid
+        component['_themeForm'].controls.primaryColor.setValue(''); // Make form invalid
         component['applyTheme'](); // <--- Use bracket notation
         expect(themeGeneratorMock.applyTheme).not.toHaveBeenCalled();
       });
@@ -152,7 +152,7 @@ describe('ThemeSelectorComponent', () => {
     describe('applyPreset', () => {
        it('should do nothing if preset value not found', () => {
          component['applyPreset']('nonexistent-preset'); // <--- Use bracket notation
-         expect(component['_themeForm'].value.primary).toBe(DEFAULT_COLOR_PRIMARY); // Form shouldn't change
+         expect(component['_themeForm'].value.primaryColor).toBe(DEFAULT_COLOR_PRIMARY); // Form shouldn't change
          expect(themeGeneratorMock.applyTheme).not.toHaveBeenCalled();
        });
 
@@ -172,7 +172,7 @@ describe('ThemeSelectorComponent', () => {
          expect(themeGeneratorMock.applyTheme).toHaveBeenCalledWith(
            presetToApply,
            document.documentElement,
-           presetToApply.fallbackIsDarkMode
+           presetToApply.darkMode
          );
        });
     });
@@ -299,7 +299,7 @@ describe('ThemeSelectorComponent', () => {
       themeGeneratorMock.exportThemeAsScss.mockReturnValue('// Harness SCSS content');
 
       // Act: Call the method that opens the dialog
-      fixture.componentInstance.openScssDialog();
+      fixture.componentInstance['openScssDialog']();
       // fixture.detectChanges(); // Might not be needed if openScssDialog doesn't rely on template changes
 
       // Assert: Check if a dialog is open

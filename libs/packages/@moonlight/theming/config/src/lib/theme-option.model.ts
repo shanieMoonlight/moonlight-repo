@@ -25,19 +25,19 @@ export class ThemeOption {
    * The primary color of the theme.
    * Used for styling prominent UI elements and establishing the main color identity.
    */
-  primaryColor?: string
+  primaryColor: string = ''
 
   /**
    * The secondary color of the theme.
    * Used for styling supporting UI elements and providing contrast to the primary color.
    */
-  secondaryColor?: string
+  secondaryColor: string = ''
 
   /**
    * The tertiary color of the theme.
    * Used for additional accent elements and further visual hierarchy in the UI.
    */
-  tertiaryColor?: string
+  tertiaryColor?: string | null
 
   /**
    * The color used to indicate errors or destructive actions.

@@ -17,24 +17,24 @@ mat-divider {
   overflow: hidden;
 }
 
-.swatch {
-  // border: 1px solid rgba(0, 0, 0, 0.1); // Subtle border
-  height: 100%;
-}
+// .swatch {
+//   // border: 1px solid rgba(0, 0, 0, 0.1); // Subtle border
+//   height: 100%;
+// }
 
-.swatch {
-  &.primary-swatch {
-    flex: 3;
-  }
+// .swatch {
+//   &.primary-swatch {
+//     flex: 3;
+//   }
 
-  &.secondary-swatch {
-    flex: 1;
-  }
+//   &.secondary-swatch {
+//     flex: 1;
+//   }
 
-  &.tertiary-swatch {
-    flex: 1;
-  }
-}
+//   &.tertiary-swatch {
+//     flex: 1;
+//   }
+// }
 
 
 .no-themes-message {

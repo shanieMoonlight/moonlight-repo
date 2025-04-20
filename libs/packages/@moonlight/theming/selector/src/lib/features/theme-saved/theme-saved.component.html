@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-header>
+    <ml-theme-avatar [theme]="_theme()" mat-card-avatar />
+    <mat-card-title>Theme Saved</mat-card-title>
+    <mat-card-subtitle>{{ _theme().label }}</mat-card-subtitle>
+  </mat-card-header>
+  <ml-theme-avatar class="img" [theme]="_theme()" mat-card-image/>
+  <mat-card-content>
+    <p>
+      The theme "{{ _theme().label }}" has been saved successfully!
+      <br />
+      You can now select it from the Theme Picker in your app.
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button (click)="closeDialog()">OK</button>
+  </mat-card-actions>
+</mat-card>

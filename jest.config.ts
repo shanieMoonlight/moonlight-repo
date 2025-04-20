@@ -4,6 +4,7 @@ import { getJestProjectsAsync } from '@nx/jest';
 export default async (): Promise<Config> => ({
   displayName: 'moonlight',
   preset: './jest.preset.js',
+  testEnvironment: 'jsdom', 
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   extensionsToTreatAsEsm: ['.ts'],
   resolver: '@nx/jest/plugins/resolver',

@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+ml-theme-avatar.img{
+  height: 200px;
+  border-radius: 0;
+}
+
+mat-card-header ml-theme-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+mat-card-content{
+  padding-top: 1rem;
+}
