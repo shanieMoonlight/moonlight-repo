@@ -10,8 +10,11 @@
         [matTooltip]="'Git repo'">
         <mat-icon svgIcon="git" />
     </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
+    <button mat-icon-button 
+        aria-label="Share current page"
+        (click)="share()"
+        matTooltip="Share this page">
+    <mat-icon>share</mat-icon>
     </button>
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){

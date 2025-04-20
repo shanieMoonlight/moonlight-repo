@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 import { AppConstants } from '../../config/constants';
 import { NavigateNewWindowDirective } from '@moonlight/utils/open-in-new-window';
+import { ShareService } from '@moonlight/utils/share';
 
 //##################################################//
 
@@ -37,10 +38,14 @@ const GIT_ICON = `
 })
 export class NavbarComponent {
 
+  private _shareService = inject(ShareService)
+
+  //- - - - - - - - - - - - - - -//
+
   _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
 
   //- - - - - - - - - - - - - - -//
-  
+
   protected _gitRepoUrl = AppConstants.GIT_REPO;
 
   //-----------------------------//
@@ -51,5 +56,9 @@ export class NavbarComponent {
     iconRegistry.addSvgIconLiteral('git', sanitizer.bypassSecurityTrustHtml(GIT_ICON));
   }
 
+  //-----------------------------//
+
+  protected share = () => 
+    this._shareService.shareCurrentPage()
 
 }//Cls
