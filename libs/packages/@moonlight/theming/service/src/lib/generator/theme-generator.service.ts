@@ -44,14 +44,35 @@ export class ThemeGeneratorService {
     themeClassOverride?: string,
     targetElement?: HTMLElement) {
 
+
+    if (!this.isBrowser())
+      return
+
     const isDark = this.shouldUseDarkMode(theme)
-    // this._currentThemeBs.next(theme);
-
     const palettes = this._paletteGenerator.generatePalettes(theme)
+    const themeClass = themeClassOverride ?? theme.value
 
-    
-    const themeClass = themeClassOverride ?? theme.value 
-    this._applyTheme(palettes, isDark, `${themeClass}`, targetElement)
+    targetElement ??= this._document.documentElement
+
+    // Batch DOM updates using requestAnimationFrame
+    requestAnimationFrame(() => {
+
+      // First, set the individual palette shade variables
+      this.applyPaletteVariables(palettes, targetElement)
+
+      // Then apply the M3 system variables using the direct mapper approach
+      this.applySystemVariables(theme, palettes, targetElement, isDark)
+
+      // If we're setting an alternate theme, add the theme class
+      if (themeClass)
+        this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
+
+      // Add dark mode class if needed
+      if (isDark)
+        this._renderer.addClass(targetElement, DARK_MODE_CLASS)
+      else
+        this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+    })
   }
 
   //-----------------------------//
@@ -66,41 +87,6 @@ export class ThemeGeneratorService {
   //-----------------------------//
   // PRIVATE METHODS
   //-----------------------------//
-
-  private _applyTheme(
-    palettes: GeneratedPalettes,
-    isDark: boolean,
-    themeClass?: string | null,
-    targetElement?: HTMLElement) {
-
-    if (!this.isBrowser())
-      return
-
-    targetElement ??= this._document.documentElement
-
-    // Batch DOM updates using requestAnimationFrame
-    requestAnimationFrame(() => {
-
-      // First, set the individual palette shade variables
-      this.applyPaletteVariables(palettes, targetElement)
-
-      // Then apply the M3 system variables using the direct mapper approach
-      this.applySystemVariables(palettes, targetElement, isDark)
-
-      // If we're setting an alternate theme, add the theme class
-      if (themeClass)
-        this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
-
-      // Add dark mode class if needed
-      if (isDark)
-        this._renderer.addClass(targetElement, DARK_MODE_CLASS)
-      else
-        this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
-    })
-
-  }
-
-  //- - - - - - - - - - - - - - -//
 
   /**
    * Apply palette shade variables to the target element
@@ -123,7 +109,7 @@ export class ThemeGeneratorService {
   /**
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
-  private applySystemVariables(palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
+  private applySystemVariables(theme: ThemeOption, palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
 
     const p = palettes;
 
@@ -203,6 +189,12 @@ export class ThemeGeneratorService {
     // Additional useful values for Angular Material
     this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
     this.setVariable(targetElement, '--mat-sys-neutral-variant20', p.neutralVariant[20]);
+
+    // Add original seed colors for direct access
+    this.setVariable(targetElement, '--mat-seed-primary', theme.primaryColor);
+    this.setVariable(targetElement, '--mat-seed-secondary', theme.secondaryColor);
+    this.setVariable(targetElement, '--mat-seed-tertiary', theme.tertiaryColor || theme.secondaryColor);
+    this.setVariable(targetElement, '--mat-seed-error', theme.errorColor || '#B3261E');
 
     // Add RGB variables for transparency effects
     this.addRGBVariables(p, targetElement, isDark);

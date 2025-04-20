@@ -24,7 +24,9 @@
     </button>
   }
 
-  <mat-divider/>
+  @if(_customOptions().length > 0) {
+    <mat-divider/>
+  }
   
   @for (option of _customOptions(); track option) {
     <button
