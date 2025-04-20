@@ -111,6 +111,11 @@ export class ThemeGeneratorService {
    */
   private applySystemVariables(theme: ThemeOption, palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
 
+    // console.log('Generated Palettes:', palettes)
+    console.log('Generated Theme:', theme);
+    console.log('Generated Theme tertiaryColor:', theme.tertiaryColor);
+    console.log('Generated Theme secondaryColor:', theme.secondaryColor);
+
     const p = palettes;
 
     // M3 colors - Primary
@@ -190,6 +195,7 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
     this.setVariable(targetElement, '--mat-sys-neutral-variant20', p.neutralVariant[20]);
 
+    
     // Add original seed colors for direct access
     this.setVariable(targetElement, '--mat-seed-primary', theme.primaryColor);
     this.setVariable(targetElement, '--mat-seed-secondary', theme.secondaryColor);

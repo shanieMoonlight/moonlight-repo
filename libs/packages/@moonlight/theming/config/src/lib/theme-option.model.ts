@@ -13,6 +13,7 @@ export type DarkModeType = true | false | 'system';
 
 //##################################################//
 
+
 /**
  * Represents the configuration options for a theme.
  * 
@@ -20,51 +21,91 @@ export type DarkModeType = true | false | 'system';
  * and behavior within the application.
  */
 export class ThemeOption {
-
   /**
-   * The primary color of the theme.
-   * Used for styling prominent UI elements and establishing the main color identity.
-   */
-  primaryColor: string = ''
-
-  /**
-   * The secondary color of the theme.
-   * Used for styling supporting UI elements and providing contrast to the primary color.
-   */
-  secondaryColor: string = ''
-
-  /**
-   * The tertiary color of the theme.
-   * Used for additional accent elements and further visual hierarchy in the UI.
-   */
-  tertiaryColor?: string | null
-
-  /**
-   * The color used to indicate errors or destructive actions.
-   * Provides consistent error state visualization across the theme.
-   */
-  errorColor?: string
-
-  /**
-   * Determines if dark mode should be used by default.
-   * When true, the theme initializes in dark mode; when false, it initializes in light mode, when system will default to pc settings.
-   * @default system
-   */
-  darkMode: DarkModeType = 'system'
-
-  /**
-   * The human-readable name of the theme displayed in the UI.
+   * Private constructor to prevent direct instantiation.
+   * Use ThemeOption.create() factory method instead.
+   * 
+   * @param label The human-readable name of the theme displayed in the UI.
    * Used in theme selection components and settings panels.
-   */
-  label?: string = DEFAULT_THEME_LABEL
-
-  /**
-   * The unique identifier or value associated with this theme.
+   * 
+   * @param value The unique identifier or value associated with this theme.
    * Used internally to reference and apply the theme.
-   * @default DEFAULT_THEME_VALUE
+   * 
+   * @param primaryColor The primary color of the theme.
+   * Used for styling prominent UI elements and establishing the main color identity.
+   * 
+   * @param secondaryColor The secondary color of the theme.
+   * Used for styling supporting UI elements and providing contrast to the primary color.
+   * 
+   * @param tertiaryColor The tertiary color of the theme.
+   * Used for additional accent elements and further visual hierarchy in the UI.
+   * 
+   * @param errorColor The color used to indicate errors or destructive actions.
+   * Provides consistent error state visualization across the theme.
+   * 
+   * @param darkMode Determines if dark mode should be used by default.
+   * When true, the theme initializes in dark mode; when false, it initializes in light mode, 
+   * when 'system' will default to system preferences.
    */
-  value: ThemeValue = DEFAULT_THEME_VALUE
+  private constructor(
+    public readonly label: string,
+    public readonly value: ThemeValue,
+    public readonly primaryColor: string,
+    public readonly secondaryColor: string,
+    public readonly tertiaryColor: string | null,
+    public readonly errorColor: string,
+    public readonly darkMode: DarkModeType
+  ) {}
 
+  //------------------------------//
+  
+  /**
+   * Creates a new ThemeOption with validation and default values.
+   * This is the recommended way to instantiate theme options.
+   *
+   * @param options Configuration object for creating a theme
+   * @returns A new validated ThemeOption instance
+   * @throws Error if required fields are missing
+   */
+  static create(options: {
+    /** The human-readable name of the theme displayed in the UI */
+    label: string;
+    
+    /** The unique identifier for this theme */
+    value: ThemeValue;
+    
+    /** The primary color of the theme */
+    primaryColor: string;
+    
+    /** The secondary color of the theme */
+    secondaryColor: string;
+    
+    /** Optional tertiary color for additional accent elements */
+    tertiaryColor?: string;
+    
+    /** Optional color for error states and destructive actions */
+    errorColor?: string;
+    
+    /** Optional dark mode setting (true, false, or 'system') */
+    darkMode?: DarkModeType;
+  }): ThemeOption {
+    // Validate required fields
+    if (!options.label) throw new Error('Theme label is required');
+    if (options.value === undefined) throw new Error('Theme value is required');
+    if (!options.primaryColor) throw new Error('Primary color is required');
+    if (!options.secondaryColor) throw new Error('Secondary color is required');
+    
+    // Apply defaults and sanitization
+    return new ThemeOption(
+      options.label,
+      options.value,
+      options.primaryColor,
+      options.secondaryColor,
+      options.tertiaryColor || DEFAULT_COLOR_TERTIARY,
+      options.errorColor || DEFAULT_COLOR_ERROR,
+      options.darkMode ?? 'system'
+    );
+  }
 }
 
 //##################################################//

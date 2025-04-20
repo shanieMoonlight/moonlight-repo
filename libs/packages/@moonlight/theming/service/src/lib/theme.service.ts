@@ -213,6 +213,9 @@ export class ThemeService {
       console.log('initializePersistence themeData:', themeData);
 
 
+      console.log('initializePersistence this._config.themeOptions[0]:', this._config.themeOptions[0]);
+      console.log('initializePersistence defaultThemeOption:', defaultThemeOption)
+      
       const currentTheme = themeData?.currentTheme ?? this._config.themeOptions[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
@@ -224,6 +227,8 @@ export class ThemeService {
       this._currentDataBs
         .pipe(takeUntilDestroyed(this._destroyor))
         .subscribe(data => {
+          console.log('THemeService', data);
+          
           this.applyCurrentTheme(data)
           this.storeTheme(data)
         })

@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
 import { ThemeService } from '@moonlight/ng/theming/service';
+import { MatEverythingModule } from '@moonlight/ng/theming/utils';
 
 @Component({
   selector: 'ml-theme-showcase-mat',
   imports: [
-    MatEverythingModule,
-    MlThemeAvatarComponent
+    MatEverythingModule
   ],
   templateUrl: './theme-showcase-mat.component.html',
   styleUrl: './theme-showcase-mat.component.scss',

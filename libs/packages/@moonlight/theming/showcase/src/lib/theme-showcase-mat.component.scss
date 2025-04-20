@@ -18,15 +18,15 @@
   display: flex;
     .left { 
       flex: 1;
-      background-color: var(--mat-sys-primary)
+      background-color: var(--mat-seed-secondary)
     }
     .middle { 
       flex: 2;
-      background-color:var(--mat-sys-secondary);
+      background-color:var(--mat-seed-primary);
     }
     .right { 
       flex: 1;
-      background-color:var(--mat-sys-tertiary);
+      background-color:var(--mat-seed-tertiary, var(--mat-seed-secondary));
     }
 }
 
