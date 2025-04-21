@@ -7,19 +7,25 @@
 <div class="icon">
   <div class="dark svg-container"
     (click)="toggleDarkTheme(false)"
+    (keydown.enter)="toggleDarkTheme(false)"
+    (keydown.space)="toggleDarkTheme(false)"
     [matTooltip]="'Toggle to Light Mode'"
     [class.hide-switch]="_hideSwitch()"
     [class.fade-in]="_isDark()"
-    [class.fade-out]="!_isDark()" >
+    [class.fade-out]="!_isDark()" 
+    tabindex="0">
   <ng-container [ngTemplateOutlet]="svgDarkMode"/>
 </div>
 
 <div class="light svg-container"
   (click)="toggleDarkTheme(true)"
+  (keydown.enter)="toggleDarkTheme(true)"
+  (keydown.space)="toggleDarkTheme(true)"
   [matTooltip]="'Toggle to Dark Mode'"
   [class.hide-switch]="_hideSwitch()"
   [class.fade-in]="!_isDark()"
-  [class.fade-out]="_isDark()">
+  [class.fade-out]="_isDark()"
+  tabindex="1" >
   <ng-container [ngTemplateOutlet]="svgLightMode"/>
 </div>
 

@@ -30,7 +30,7 @@ export default async (): Promise<Config> => ({
   
     '^@moonlight/material/theming$': '<rootDir>/libs/packages/@moonlight/theming/src/index.ts',
     '^@moonlight/material/theming/config$': '<rootDir>/libs/packages/@moonlight/theming/config/src/index.ts',
-    '^@moonlight/material/theming/mat$': '<rootDir>/libs/packages/@moonlight/theming/mat/src/index.ts',
+    '^@moonlight/material/theming/components$': '<rootDir>/libs/packages/@moonlight/theming/mat/src/index.ts',
     '^@moonlight/material/theming/service$': '<rootDir>/libs/packages/@moonlight/theming/service/src/index.ts',
     '^@moonlight/ssr-storage$': '<rootDir>/libs/packages/@moonlight/ssr/storage/src/index.ts',
 
