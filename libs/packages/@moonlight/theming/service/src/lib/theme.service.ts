@@ -43,6 +43,7 @@ export class ThemeService {
       ? this._systemDarkMode$
       : of(mode))
   )
+  
   /** Current dark mode status (Signal)*/
   isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
 
