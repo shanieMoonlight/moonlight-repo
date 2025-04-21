@@ -10,8 +10,8 @@ import { consoleDev, MatEverythingModule } from '@moonlight/material/theming/uti
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeManagerComponent  } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; 
+import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 
 //#########################################//
 
@@ -27,6 +27,25 @@ interface IThemeForm
 
 //#########################################//
 
+/**
+ * A comprehensive theme selector component for customizing and creating themes.
+ * 
+ * This component provides a UI for:
+ * - Browsing preset themes
+ * - Creating custom themes with color pickers
+ * - Previewing themes before applying
+ * - Generating SCSS variables for theme integration
+ * - Managing saved custom themes
+ * 
+ * @example
+ * ```html
+ * <!-- Basic usage with default preset themes -->
+ * <ml-theme-selector></ml-theme-selector>
+ * 
+ * <!-- With custom preset themes -->
+ * <ml-theme-selector [presetThemes]="myPresetThemes"></ml-theme-selector>
+ * ```
+ */
 @Component({
   selector: 'ml-theme-selector',
   imports: [
@@ -59,11 +78,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
   private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
-  
-/**
- * Input to customize the preset themes available in the selector.
- * If not provided, the default preset themes from ThemeConfig will be used.
- */
+
+  /**
+   * Input to customize the preset themes available in the selector.
+   * If not provided, the default preset themes from ThemeConfig will be used.
+   */
   _presetInput = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
   // Computed signal handles the fallback. We need this to test the default value. Otherwise, it will be undefined.
   protected _presetThemes = computed(() => {
@@ -104,10 +123,16 @@ export class MlThemeSelectorComponent implements OnDestroy {
   // INTERNAL METHODS
   //-----------------------------//
 
+  /**
+ * Previews a theme based on the current form values.
+ * Applies the theme to the document but doesn't save it.
+ * 
+ * @param form The theme form containing color and name values
+ */
   protected previewFormTheme(form: IThemeForm) {
 
     consoleDev.log('Previewing theme with form values:', form.value);
-    
+
 
     if (form.invalid) {
       console.warn('Theme form is invalid. Cannot apply theme.');
@@ -136,6 +161,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
+  /**
+   * Previews a preset theme and updates the form values to match.
+   * 
+   * @param theme The preset theme to preview
+   */
   protected previewPresetTheme(theme: ThemeOption) {
 
     // Patch the form using ThemeOption property names
@@ -153,6 +183,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
+  /**
+   * Saves a custom theme to local storage and shows a confirmation dialog.
+   * 
+   * @param theme The theme to save
+   */
   protected storeTheme(theme: ThemeOption) {
     this._themeService.addCustomTheme(theme);
 
@@ -166,6 +201,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
+  /**
+   * Applies a theme to the document for preview purposes.
+   * 
+   * @param theme The theme to preview
+   */
   protected previewTheme(theme: ThemeOption) {
 
     if (!theme || !this.isBrowser())
@@ -183,6 +223,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
+  /**
+   * Opens a dialog displaying the SCSS variables for the selected theme.
+   * 
+   * @param theme The theme to export as SCSS
+   */
   protected openScssDialog(theme: ThemeOption): void {
 
     if (!this.isBrowser())
@@ -203,12 +248,15 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   //-----------------------------//
 
+  /**
+   * Opens the custom theme manager dialog.
+   */
   protected manageCustomThemes(): void {
 
     if (!this.isBrowser())
       return;
 
-    this._dialog.open(MlCustomThemeManagerComponent , {
+    this._dialog.open(MlCustomThemeManagerComponent, {
       width: '600px',
       autoFocus: false
     });

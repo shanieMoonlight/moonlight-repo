@@ -11,6 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideAnimationsAsync(), // Add animation providers
-    ThemeAndModeSetup.getThemeProviders(THEME_CONFIG)
+    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
   ],
 };

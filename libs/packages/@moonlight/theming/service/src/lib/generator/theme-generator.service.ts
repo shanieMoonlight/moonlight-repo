@@ -9,8 +9,29 @@ import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 import { MemoizationService } from '@moonlight/utils/memoization';
 
-//#########################################//
 
+/**
+ * Service responsible for generating and applying Material Design 3 compliant themes.
+ * 
+ * This service handles:
+ * - Generating color palettes from theme base colors
+ * - Creating consistent light/dark theme variants
+ * - Applying themes to the DOM through CSS variables
+ * - Converting themes to SCSS for build-time integration
+ * 
+ * It uses memoization to optimize performance by caching generated palettes.
+ * 
+ * @example
+ * ```typescript
+ * // Apply a theme to the entire document
+ * const theme = { 
+ *   value: 'my-theme', 
+ *   primaryColor: '#6200ee', 
+ *   secondaryColor: '#03dac6' 
+ * };
+ * themeGeneratorService.applyTheme(theme);
+ * ```
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -274,6 +295,12 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
+  /**
+   * Determines if the theme should use dark mode based on user preference and theme settings.
+   * 
+   * @param theme The theme configuration to evaluate
+   * @returns True if dark mode should be applied, false otherwise
+   */
   private shouldUseDarkMode = (theme: ThemeOption): boolean => theme.darkMode === 'system'
     ? this._systemPrefs.prefersDarkMode()
     : !!theme.darkMode;

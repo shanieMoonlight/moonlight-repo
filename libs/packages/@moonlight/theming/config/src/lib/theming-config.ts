@@ -12,6 +12,12 @@ export const ThemeConfigService = new InjectionToken<ThemeConfig>(
   }
 )
 
+/**
+ * Utility service for color manipulation and transformation.
+ * 
+ * Provides methods to work with hex colors, convert between formats,
+ * and set color-related CSS variables.
+ */
 export type ThemeMode = 'light' | 'dark';
 
 //##################################################//

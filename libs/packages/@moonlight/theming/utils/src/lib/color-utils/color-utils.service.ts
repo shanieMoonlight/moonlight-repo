@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Utility service for color manipulation and transformation.
+ * 
+ * Provides methods to work with hex colors, convert between formats,
+ * and set color-related CSS variables.
+ */
 @Injectable({
     providedIn: 'root'
 })

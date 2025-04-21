@@ -9,5 +9,8 @@
     "styleIncludePaths": [
       "src/lib/styles"
     ]
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@material/material-color-utilities"
+  ]
 }

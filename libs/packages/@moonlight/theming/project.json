@@ -45,6 +45,12 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "analyze": {
+      "executor": "@ngx-builders/analyze:analyze",
+      "options": {
+        "outputPath": "dist/libs/packages/@moonlight/theming"
+      }
     }
   }
 }
