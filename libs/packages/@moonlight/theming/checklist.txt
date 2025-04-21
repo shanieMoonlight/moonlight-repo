@@ -96,3 +96,35 @@ Remove or fix any remaining TODOs
 <input disabled="" type="checkbox"> Review changelogs and versioning
 <input disabled="" type="checkbox"> Check license files are present
 <input disabled="" type="checkbox"> Validate package.json configuration
+
+
+
+import { Component, inject } from '@angular/core';
+import { ThemeService } from '@moonlight/material/theming/service';
+
+@Component({/*...*/})
+export class MyComponent {
+  private themeService = inject(ThemeService);
+  
+  // Access current theme
+  currentTheme = this.themeService.currentTheme;
+  
+  // Toggle dark mode
+  toggleDarkMode() {
+    this.themeService.toggleDarkMode();
+  }
+  
+  // Set a specific theme
+
+  Make this a ThemeService method
+  setTheme(themeValue: string) {
+    const themes = this.themeService.systemThemes();
+    const theme = themes.find(t => t.value === themeValue);
+    if (theme) {
+      this.themeService.setTheme(theme);
+    }
+  }
+}
+
+Build a page that shows this off :
+    Apply Theme to Specific Element

@@ -138,7 +138,7 @@ $custom-typography: (
   regular-weight: 300,
 );
 
-// Angular Material v19 theme setup This is still required for shapes, border-radius etc.
+// Angular Material v19 theme setup. This is still required for shapes, border-radius etc.
 html {
   // Leave the color palette empty as we're handling colors via CSS variables using our theming system
   @include mat.theme((
