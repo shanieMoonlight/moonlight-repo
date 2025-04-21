@@ -1,73 +1,126 @@
 # @moonlight/material/theming/service
 
-Secondary entry point of `@moonlight/material/theming`. It can be used by importing from `@moonlight/material/theming/service`.
+The core entry point for managing and applying themes in the browser. This library provides the foundational services for storing, generating, and applying themes dynamically. While most users of the library won't need to interact with this directly, developers may find it useful to understand how it works under the hood.
 
-This entry point provides the `ThemeService`, the core service responsible for managing theme and dark/light mode settings within an Angular application.
+---
+
+## Overview
+
+The `/service` entry point includes two primary services:
+
+1. **`ThemeService`**: Manages theme state, including light/dark mode, custom themes, and persistence.
+2. **`ThemeGeneratorService`**: Handles the actual application of themes by generating CSS variables and classes and attaching them to the target element (usually `<html>`).
+
+---
 
 ## Features
 
--   **`ThemeService`**:
-    -   Manages the current theme suffix (`themeSuffix`, `setThemeSuffix`).
-    -   Manages the current dark/light mode (`isDarkMode`, `setDarkMode`).
-    -   Provides reactive state through RxJS Observables (`isDarkMode$`, `themeSuffix$`) and Angular Signals (`isDarkMode`, `themeSuffix`).
-    -   Persists the user's theme and mode preferences using `SsrLocalStorage`.
-    -   Initializes the theme based on stored preferences, system settings (`prefers-color-scheme`), or configured defaults.
-    -   Applies appropriate CSS classes to the document body for styling.
-    -   Requires configuration via `ThemeConfig` provided through the main entry point (`@moonlight/material/theming/config`).
--   **`ThemeData`**: Interface defining the structure for storing theme preferences (`suffix` and `isDarkMode`).
--   **`ThemeSuffix`**: Type alias for the theme identifier (string or number).
+- **Dynamic Theme Application**: Apply themes dynamically by generating CSS variables and classes.
+- **Dark Mode Support**: Toggle between light, dark, or system-preferred modes.
+- **Custom Themes**: Add, remove, and manage user-defined themes.
+- **Theme Persistence**: Save and restore themes using local storage.
+- **Material Design Integration**: Generate Material Design 3 (M3) system variables.
+- **Memoization**: Optimize performance by caching generated palettes.
 
-## Basic Usage
+---
+
+## Installation
+
+This entry point is included with the main package:
+
+```bash
+npm install @moonlight/ng/theming
+```
+
+---
+
+## Usage
+
+### 1. Inject the Services
+
+You can inject the `ThemeService` or `ThemeGeneratorService` into your components or services:
 
 ```typescript
-import { Component, inject } from '@angular/core';
 import { ThemeService } from '@moonlight/material/theming/service';
-import { AsyncPipe, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-theme-controls',
-  standalone: true,
-  imports: [AsyncPipe, NgFor], // Import necessary pipes/directives
-  template: `
-    <div>
-      <p>Current Mode: {{ themeService.isDarkMode() ? 'Dark' : 'Light' }}</p>
-      <button (click)="toggleMode()">
-        Toggle {{ themeService.isDarkMode() ? 'Light' : 'Dark' }} Mode
-      </button>
-    </div>
-    <div>
-      <p>Current Theme Suffix: {{ themeService.themeSuffix() }}</p>
-      <label>Select Theme Suffix:
-        <select (change)="changeTheme($event)">
-          <!-- Populate options based on your ThemeConfig -->
-          <option value="0">Default (0)</option>
-          <option value="ocean">Ocean</option>
-          <option value="desert">Desert</option>
-        </select>
-      </label>
-    </div>
-  `
+  selector: 'app-theme-demo',
+  template: `<button (click)="toggleDarkMode()">Toggle Dark Mode</button>`
 })
-export class ThemeControlsComponent {
-  themeService = inject(ThemeService);
+export class ThemeDemoComponent {
+  constructor(private themeService: ThemeService) {}
 
-  toggleMode(): void {
+  toggleDarkMode() {
     this.themeService.setDarkMode(!this.themeService.isDarkMode());
-  }
-
-  changeTheme(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const newSuffix = selectElement.value;
-    // Potentially convert to number if your suffixes are numeric
-    this.themeService.setThemeSuffix(newSuffix);
   }
 }
 ```
-## Important Note
 
-Ensure `ThemeConfig` is properly provided in your application through one of these methods:
-- In your root module providers
-- In standalone component providers
-- In your application's providers array
+### 2. Apply Themes Dynamically
 
-For detailed configuration instructions, refer to the main `@moonlight/theming` README.
+Use the `ThemeGeneratorService` to apply themes programmatically:
+
+```typescript
+import { ThemeGeneratorService } from '@moonlight/material/theming/service';
+import { ThemeOption } from '@moonlight/material/theming/config';
+
+const theme: ThemeOption = {
+  value: 'custom-theme',
+  primaryColor: '#6200EE',
+  secondaryColor: '#03DAC6',
+  darkMode: true
+};
+
+this.themeGeneratorService.applyTheme(theme);
+```
+
+---
+
+## API Reference
+
+### `ThemeService`
+
+#### Methods
+
+- **`setDarkMode(darkMode: DarkModeType): void`**: Sets the application's light/dark mode.
+- **`setTheme(theme: ThemeOption): void`**: Applies the specified theme.
+- **`addCustomTheme(theme: ThemeOption): ThemeOption[]`**: Adds a custom theme to the list of available themes.
+- **`removeCustomTheme(value: ThemeValue): ThemeOption[]`**: Removes a custom theme by its value.
+- **`resetToDefaults(): void`**: Resets all theme settings to system defaults.
+- **`exportThemeSettings(): { theme: ThemeOption, isDark: boolean }`**: Exports the current theme settings.
+
+#### Observables and Signals
+
+- **`isDarkMode$`**: Observable of the current dark mode status.
+- **`currentTheme$`**: Observable of the current theme.
+- **`customThemes$`**: Observable of user-defined themes.
+- **`systemThemes$`**: Observable of developer-defined themes.
+
+### `ThemeGeneratorService`
+
+#### Methods
+
+- **`applyTheme(theme: ThemeOption, themeClassOverride?: string, targetElement?: HTMLElement): void`**: Applies the specified theme to the target element.
+- **`exportThemeAsScss(theme: ThemeOption): string`**: Exports the current theme as SCSS variables.
+
+---
+
+## Best Practices
+
+- Use `ThemeService` for managing theme state and user preferences.
+- Use `ThemeGeneratorService` for applying themes dynamically in custom scenarios.
+- Combine with `@moonlight/material/theming/config` for a complete theming solution.
+
+---
+
+## Related Entry Points
+
+- `@moonlight/material/theming/config` – Theme configuration utilities
+- `@moonlight/material/theming/selector` – Theme selection UI component
+- `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
+
+---
+
+## License
+
+MIT
