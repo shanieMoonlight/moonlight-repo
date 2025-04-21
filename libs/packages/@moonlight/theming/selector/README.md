@@ -80,6 +80,14 @@ Make sure you have set up your theme configuration using `@moonlight/material/th
 
 ---
 
+## Screenshot
+
+![Theme Showcase Example](selector-screenshot.png)
+
+---
+
+
+
 ## API
 
 ### `<ml-theme-selector>`
