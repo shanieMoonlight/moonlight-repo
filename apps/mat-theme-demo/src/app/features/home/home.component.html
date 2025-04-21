@@ -1,0 +1,290 @@
+<div class="container">
+    <header class="header">
+        <h1>Moonlight Material Theming</h1>
+        <p class="tagline">A powerful, flexible theming system for Angular Material</p>
+    </header>
+
+    <section class="features">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Dark Mode Toggle</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Easily add a dark mode toggle to your application with smooth transitions.</p>
+                <div class="component-demo">
+                    <div class="toggle-option">
+                        <span class="option-label">Icon only:</span>
+                        <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
+                    </div>
+                    <div class="toggle-option">
+                        <span class="option-label">With switch:</span>
+                        <ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button routerLink="/components/dark-mode-toggle">Learn More</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Theme Picker</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Let users choose from predefined themes, including your seasonal options.</p>
+                <div class="component-demo">
+                    <ml-theme-picker-mat></ml-theme-picker-mat>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button routerLink="/components/theme-picker">Learn More</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Theme Customization</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Allow users to create and save their own custom themes.</p>
+                <div class="component-demo centered">
+                    <button mat-raised-button color="primary" routerLink="/custom-theming">
+                        <mat-icon>palette</mat-icon>
+                        Open Theme Customizer
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </section>
+
+
+    <ml-theme-banner/>
+    <mat-divider />
+    
+      <section> 
+        <h2 class="numbered-heading">
+            <span class="section-number">01</span>
+            Performance Advantages
+          </h2>
+          <mat-card>
+              <mat-card-header>
+                  <mat-card-title>Optimized Performance & Bundle Size</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>The library is designed for optimal performance and reduced bundle size:</p>
+                    <ul class="feature-list">
+                        <li>
+                            <mat-icon color="primary">speed</mat-icon>
+                            <span><strong>Smaller bundle sizes</strong> - Color palettes are generated at runtime instead of shipping pre-compiled CSS for each theme</span>
+                        </li>
+                        <li>
+                            <mat-icon color="primary">compress</mat-icon>
+                            <span><strong>Tree-shakable architecture</strong> - Secondary entry points allow you to import only what you need</span>
+                        </li>
+                        <li>
+                            <mat-icon color="primary">cached</mat-icon>
+                            <span><strong>Memoized color generation</strong> - Palette calculations are cached to prevent redundant work</span>
+                        </li>
+                        <li>
+                            <mat-icon color="primary">sync</mat-icon>
+                            <span><strong>Batched updates</strong> - DOM changes use requestAnimationFrame for optimal rendering performance</span>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card>
+        </section>
+
+    <mat-divider />
+
+    <section class="getting-started">        
+        <h2 class="numbered-heading">
+            <span class="section-number">02</span>
+            Getting Started
+          </h2>
+        <h3>Installation</h3>
+        <pre><code>{{ _npmInstallCmd() }}</code></pre>
+        
+        <h3>Custom Theme Configuration</h3>
+        <pre><code>{{ _customConfigCode() }}</code></pre>
+
+        <h3>Register provider</h3>
+        <pre><code>{{ _basicSetupCode() }}</code></pre>
+
+        <h3>Style Setup</h3>
+        <pre><code>{{ _scssCode() }}</code></pre>
+
+        <h3>Component Usage</h3>
+        <pre><code>{{ _componentUsageCode() }}</code></pre>
+    </section>
+
+    <mat-divider />
+
+    <section class="technical-features">
+        <h2 class="numbered-heading">
+            <span class="section-number">03</span>
+            Accessing Material Colors in Css
+          </h2>
+        <div class="tech-cards">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>CSS Variables-Based Theming</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        Unlike traditional Angular Material theming, this library uses CSS variables to apply themes at runtime:
+                    </p>
+                    <!-- <pre><code>html {{        // Empty theme - variables set by ThemeGeneratorService        @include mat.theme(());      }}</code></pre> -->
+                    <p>Theme colors are exposed via both Material Design and custom CSS variables:</p>
+                    <ul>
+                        <ul class="color-variables-list">
+                            <li>
+                              <span class="color-swatch" style="background-color: var(--mat-sys-primary)"></span>
+                              <code>--mat-sys-primary</code> - Material design system colors
+                            </li>
+                            <li>
+                              <span class="color-swatch" style="background-color: var(--mat-sys-secondary)"></span>
+                              <code>--mat-sys-secondary</code> - Material design system colors
+                            </li>
+                            <li>
+                              <span class="color-swatch" style="background-color: var(--mat-sys-tertiary)"></span>
+                              <code>--mat-sys-tertiary</code> - Material design system colors
+                            </li>
+                            <mat-divider/>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-seed-primary)"></span>
+                                <code>--mat-seed-primary</code> - Original theme seed colors
+                            </li>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-seed-secondary)"></span>
+                                <code>--mat-seed-secondary</code> - Original theme seed colors
+                            </li>
+                            <li>
+                              <span class="color-swatch" style="background-color: var(--mat-seed-tertiary)"></span>
+                              <code>--mat-seed-tertiary</code> - Original theme seed colors
+                            </li>
+                            <mat-divider/>
+                            <li>
+                              <span class="color-swatch" style="background-color: var(--color-primary-40)"></span>
+                              <code>--color-primary-40</code> - 
+                            </li>
+                          </ul>
+                    </ul>
+
+                    <div class="tone-showcase">
+                        <h4>Primary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-primary-[tone])</code></p>
+                        
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Secondary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-secondary-[tone])</code></p>
+                        
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Tertiary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-tertiary-[tone])</code></p>
+                        
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Error Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-error-[tone])</code></p>
+                        
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" [style.background-color]="'var(--color-error-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Neutral Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-neutral-[tone])</code></p>
+                        
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <p>These variables are set by the <code>ThemeGeneratorService</code> and can be used in your CSS stylesheets.</p>
+                        <p>Try switching themes to see these colors change dynamically!</p>
+                    </div>
+                </mat-card-content>
+                <mat-card-footer>
+                </mat-card-footer>
+            </mat-card>
+
+            <mat-divider />
+
+            <section class="persistence">
+                <h2 class="numbered-heading">
+                    <span class="section-number">05</span>
+                    Persistent Preferences
+                  </h2>
+            <mat-card>
+                <mat-card-content>
+                  <p>User preferences are automatically saved between sessions:</p>
+                  <ul class="feature-list">
+                    <li>
+                      <mat-icon color="primary">save</mat-icon>
+                      <span><strong>Theme selection</strong> - Users' chosen theme is remembered</span>
+                    </li>
+                    <li>
+                      <mat-icon color="primary">brightness_4</mat-icon>
+                      <span><strong>Dark mode preference</strong> - Light/dark mode setting persists</span>
+                    </li>
+                    <li>
+                      <mat-icon color="primary">brush</mat-icon>
+                      <span><strong>Custom themes</strong> - User-created themes are stored</span>
+                    </li>
+                    <li>
+                      <mat-icon color="primary">settings</mat-icon>
+                      <span><strong>Configurable storage</strong> - Uses localStorage by default with options for custom storage strategies</span>
+                    </li>
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+            </section> 
+
+            <mat-divider />
+
+            <section class="showcase">
+                <h2 class="numbered-heading">
+                    <span class="section-number">06</span>
+                    Theme Preview
+                  </h2>
+                <p>See how Material components look with the currently selected theme:</p>
+                <ml-theme-showcase-mat />
+            </section>
+        </div>

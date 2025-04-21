@@ -6,6 +6,7 @@ import { MatEverythingModule } from '@moonlight/material/theming/utils';
 import { AppConstants } from '../../config/constants';
 import { NavigateNewWindowDirective } from '@moonlight/utils/open-in-new-window';
 import { ShareService } from '@moonlight/utils/share';
+import { RouterModule } from '@angular/router';
 
 //##################################################//
 
@@ -30,7 +31,8 @@ const GIT_ICON = `
   imports: [
     MatEverythingModule,
     NavigateNewWindowDirective,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    RouterModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

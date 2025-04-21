@@ -1,0 +1,35 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+@Component({
+  selector: 'ml-theme-banner',
+  imports: [MatTooltipModule],
+  template: `
+    <div class="left" [matTooltip]="_withTooltips() ? 'Secondary Color (--mat-seed-secondary)' : ''"></div>
+    <div class="middle" [matTooltip]="_withTooltips() ? 'Primary Color (--mat-seed-primary)' : ''"></div>
+    <div class="right" [matTooltip]="_withTooltips() ? 'Tertiary Color (--mat-seed-tertiary)' : ''"></div>
+  `,
+  styles: `
+    :host {
+      width:  100%;
+      height: 30px;
+      display: flex;
+        .left { 
+          flex: 1;
+          background-color: var(--mat-seed-secondary)
+        }
+        .middle { 
+          flex: 2;
+          background-color:var(--mat-seed-primary);
+        }
+        .right { 
+          flex: 1;
+          background-color:var(--mat-seed-tertiary, var(--mat-seed-secondary));
+        }
+    }
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ThemeBannerComponent {
+  _withTooltips = input(false, {alias: 'withTooltips'}); // Default to false
+}

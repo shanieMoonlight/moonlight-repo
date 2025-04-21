@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
 import { NavbarComponent } from './ui/navbar/navbar.component';
@@ -13,6 +14,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatSidenavModule,
     NavbarComponent,
     DarkModeToggleMatComponent,
@@ -26,6 +28,6 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'mat-theme-demo';
+  title = 'material-theming-demo';
 
 }

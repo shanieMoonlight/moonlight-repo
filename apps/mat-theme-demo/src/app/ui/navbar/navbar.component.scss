@@ -10,5 +10,17 @@
 }
 
 .spacer{
-  width: 20px;
+  width: 24px;
+}
+
+.navlink{
+  cursor: pointer ;
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .spacer {
+    width: 12px;
+  }
 }

@@ -87,6 +87,7 @@ export class ThemeGeneratorService {
 
     if (!this.isBrowser())
       return
+    
 
     const isDark = this.shouldUseDarkMode(theme)
     // const palettes = this._paletteGenerator.generatePalettes(theme)
@@ -98,6 +99,9 @@ export class ThemeGeneratorService {
 
     // Batch DOM updates using requestAnimationFrame
     this._requestFrame.request(() => {
+      
+      // Apply basic styling to body element for convenience
+      this.applyBaseBodyStyles()
 
       // First, set the individual palette shade variables
       this.applyPaletteVariables(palettes, targetElement)
@@ -114,6 +118,8 @@ export class ThemeGeneratorService {
         this._renderer.addClass(targetElement, DARK_MODE_CLASS)
       else
         this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+
+
     })
   }
 
@@ -291,6 +297,21 @@ export class ThemeGeneratorService {
     // Background
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])
 
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  /**
+   * Applies basic background and text color styles to the body element.
+   * Users can override these with their own CSS if desired.
+   */
+  private applyBaseBodyStyles(): void {
+    const bodyElement = this._document.body;
+    if (bodyElement) {
+      // Set background and text color based on theme surface variables
+      this.setVariable(bodyElement, 'background', 'var(--mat-sys-surface)');
+      this.setVariable(bodyElement, 'color', 'var(--mat-sys-on-surface)');
+    }
   }
 
   //- - - - - - - - - - - - - - -//

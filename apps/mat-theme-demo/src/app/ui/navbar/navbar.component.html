@@ -1,5 +1,5 @@
 <mat-toolbar >
-    <span>Mat Theming</span>
+    <span class="navlink" [routerLink]="'home'" >Mat Theming</span>
     <span class="spacer"></span>    
     <button mat-icon-button 
         aria-label="Git repo for project"
@@ -11,11 +11,16 @@
         aria-label="Share current page"
         (click)="share()"
         matTooltip="Share this page">
-    <mat-icon>share</mat-icon>
+        <mat-icon>share</mat-icon>
     </button>
+
+    <span class="spacer"></span>    
+    <span class="navlink" [routerLink]="'custom-theming'" >Customize</span>
+  
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){
         <ng-container [ngTemplateOutlet]="template" />
         }
     </div>
+
 </mat-toolbar>
