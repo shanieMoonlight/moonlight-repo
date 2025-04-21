@@ -4,7 +4,7 @@ import { DarkModeType, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue,
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
 import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, Observable, of, switchMap, tap } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
-import { SytemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
+import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 
 //##################################################//
@@ -27,7 +27,7 @@ const THEME_KEY = 'moonlight_theme_key'
 export class ThemeService {
 
   private _localStorage = inject(SsrLocalStorage)
-  private _systemPrefs = inject(SytemPrefsService)
+  private _systemPrefs = inject(SystemPrefsService)
   private _destroyor = inject(DestroyRef)
   private _config: ThemeConfig = inject(ThemeConfigService)
   private _themeGenerator = inject(ThemeGeneratorService)

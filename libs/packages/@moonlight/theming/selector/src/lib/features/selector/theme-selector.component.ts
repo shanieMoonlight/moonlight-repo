@@ -10,7 +10,7 @@ import { MatEverythingModule } from '@moonlight/material/theming/utils';
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeMgrComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { MlCustomThemeManagerComponent  } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component'; 
 
 //#########################################//
@@ -204,7 +204,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
     if (!this.isBrowser())
       return;
 
-    this._dialog.open(MlCustomThemeMgrComponent, {
+    this._dialog.open(MlCustomThemeManagerComponent , {
       width: '600px',
       autoFocus: false
     });

@@ -6,7 +6,7 @@ import { AnimationFrameService } from '@moonlight/utils/testing';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
-import { SytemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
+import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 import { MemoizationService } from '@moonlight/utils/memoization';
 
 //#########################################//
@@ -16,7 +16,7 @@ import { MemoizationService } from '@moonlight/utils/memoization';
 })
 export class ThemeGeneratorService {
 
-  //TODO Colors are upside down
+
   private _platformId = inject(PLATFORM_ID)
   private _document = inject(DOCUMENT);
 
@@ -24,7 +24,7 @@ export class ThemeGeneratorService {
 
   private _memoizer = inject(MemoizationService);
 
-  private _systemPrefs = inject(SytemPrefsService)
+  private _systemPrefs = inject(SystemPrefsService)
 
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
@@ -37,7 +37,7 @@ export class ThemeGeneratorService {
 
 
   // Additional class fields for memoized functions...
-  private _memoizedGeneratePalettes!: (...args: any[]) => GeneratedPalettes;
+  private _memoizedGeneratePalettes!: (theme: ThemeOption) => GeneratedPalettes;
 
 
   //-----------------------------//
@@ -51,7 +51,12 @@ export class ThemeGeneratorService {
   //-----------------------------//
 
   /**
-   * Apply generated theme to the document using CSS variables
+   * Applies the specified theme to the target element by generating and setting CSS variables.
+   * 
+   * @param theme The theme configuration to apply
+   * @param themeClassOverride Optional CSS class name to use instead of theme.value
+   * @param targetElement Optional target DOM element (defaults to document.documentElement)
+   * @returns void
    */
   applyTheme(
     theme: ThemeOption,
@@ -94,8 +99,21 @@ export class ThemeGeneratorService {
   //-----------------------------//
 
   /**
-   * Export current theme as SCSS
-   * This can be useful for debugging or saving themes
+   * Exports the current theme configuration as SCSS variables and mixins.
+   * 
+   * This method generates SCSS code that can be used in custom stylesheets
+   * to access theme colors and create consistent styling. It's useful for:
+   * - Debugging theme configurations
+   * - Saving themes for later use
+   * - Integrating theme colors with custom SCSS workflows
+   * 
+   * @param theme The theme configuration to export as SCSS
+   * @returns A string containing SCSS variables and mixins representing the theme
+   * @example
+   * ```typescript
+   * const scssCode = themeGenerator.exportThemeAsScss(myTheme);
+   * // Save to file or display in UI
+   * ```
    */
   exportThemeAsScss = (theme: ThemeOption): string =>
     theme ? this._scssGenerator.exportThemeAsScss(theme) : ''
@@ -273,7 +291,7 @@ export class ThemeGeneratorService {
     // Step 2: Create a memoize factory for generating palettes
     const palettesMemoFactory = this._memoizer.memoize<[ThemeOption], GeneratedPalettes>(
       'theme-palettes',
-       cacheOptions)
+      cacheOptions)
 
     // Step 3: Define the original function to be memoized
     const generatePalettesFunc = (theme: ThemeOption): GeneratedPalettes => {

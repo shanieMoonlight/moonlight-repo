@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MlCustomThemeMgrComponent } from './custom-theme-mgr.component';
+import { MlCustomThemeManagerComponent  } from './custom-theme-mgr.component';
 
 describe('CustomThemeMgrComponent', () => {
-  let component: MlCustomThemeMgrComponent;
-  let fixture: ComponentFixture<MlCustomThemeMgrComponent>;
+  let component: MlCustomThemeManagerComponent ;
+  let fixture: ComponentFixture<MlCustomThemeManagerComponent >;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MlCustomThemeMgrComponent],
+      imports: [MlCustomThemeManagerComponent ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MlCustomThemeMgrComponent);
+    fixture = TestBed.createComponent(MlCustomThemeManagerComponent );
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

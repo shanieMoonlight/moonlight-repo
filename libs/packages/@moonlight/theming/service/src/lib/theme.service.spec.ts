@@ -3,7 +3,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { DestroyRef } from '@angular/core';
 import { ThemeService } from './theme.service';
 import { SsrLocalStorage } from '../../../../ssr/storage/src/index';
-import { SytemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
+import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption, DarkModeType } from '../../../config/src/index';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
@@ -20,7 +20,7 @@ class MockSsrLocalStorage {
   removeItem = jest.fn();
 }
 
-class MockSytemPrefsService {
+class MockSystemPrefsService {
   prefersDarkMode$ = new BehaviorSubject<boolean>(false); // Default to light
 }
 
@@ -38,7 +38,7 @@ describe('ThemeService Initialization and Core Logic', () => {
   let localStorageMock: MockSsrLocalStorage;
   let themeConfigMock: ThemeConfig;
   let themeGeneratorMock: MockThemeGeneratorService;
-  let systemPrefsMock: MockSytemPrefsService;
+  let systemPrefsMock: MockSystemPrefsService;
   let destroyRefMock: MockDestroyRef;
 
   const createMockThemeConfig = (overrides?: Partial<ThemeConfig>): ThemeConfig => {
@@ -58,7 +58,7 @@ describe('ThemeService Initialization and Core Logic', () => {
       providers: [
         ThemeService,
         { provide: SsrLocalStorage, useClass: MockSsrLocalStorage },
-        { provide: SytemPrefsService, useClass: MockSytemPrefsService },
+        { provide: SystemPrefsService, useClass: MockSystemPrefsService },
         { provide: ThemeConfigService, useValue: themeConfigMock },
         { provide: ThemeGeneratorService, useClass: MockThemeGeneratorService },
         { provide: DestroyRef, useClass: MockDestroyRef },
@@ -68,7 +68,7 @@ describe('ThemeService Initialization and Core Logic', () => {
     localStorageMock = TestBed.inject(SsrLocalStorage) as unknown as MockSsrLocalStorage;
     themeConfigMock = TestBed.inject(ThemeConfigService);
     themeGeneratorMock = TestBed.inject(ThemeGeneratorService) as unknown as MockThemeGeneratorService;
-    systemPrefsMock = TestBed.inject(SytemPrefsService) as unknown as MockSytemPrefsService;
+    systemPrefsMock = TestBed.inject(SystemPrefsService) as unknown as MockSystemPrefsService;
     destroyRefMock = TestBed.inject(DestroyRef) as unknown as MockDestroyRef;
 
     // Mock localStorage retrieval
@@ -183,7 +183,7 @@ describe('ThemeService Initialization and Core Logic', () => {
       providers: [
         ThemeService,
         { provide: SsrLocalStorage, useValue: localStorageMock },
-        { provide: SytemPrefsService, useClass: MockSytemPrefsService },
+        { provide: SystemPrefsService, useClass: MockSystemPrefsService },
         { provide: ThemeConfigService, useValue: themeConfigMock },
         { provide: ThemeGeneratorService, useClass: MockThemeGeneratorService },
         { provide: DestroyRef, useClass: MockDestroyRef },

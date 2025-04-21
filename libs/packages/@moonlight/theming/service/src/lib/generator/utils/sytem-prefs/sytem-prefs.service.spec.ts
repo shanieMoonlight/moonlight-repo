@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SytemPrefsService } from './sytem-prefs.service';
+import { SystemPrefsService } from './sytem-prefs.service';
 
-describe('SytemPrefsService', () => {
-  let service: SytemPrefsService;
+describe('SystemPrefsService', () => {
+  let service: SystemPrefsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SytemPrefsService);
+    service = TestBed.inject(SystemPrefsService);
   });
 
   it('should be created', () => {

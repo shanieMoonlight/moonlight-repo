@@ -28,7 +28,7 @@ import { Subject, merge, tap } from 'rxjs';
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlThemePicker_Mat_Component {
+export class MlThemePickerMatComponent {
 
     private _themeService = inject(ThemeService)
 

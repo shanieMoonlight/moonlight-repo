@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SytemPrefsService {
+export class SystemPrefsService {
 
   private _platformId = inject(PLATFORM_ID);
   private _destroyRef = inject(DestroyRef);

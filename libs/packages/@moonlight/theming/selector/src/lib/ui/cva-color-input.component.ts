@@ -17,17 +17,22 @@ const toFileName = (name: string) => name
 //#########################################//
 
 @Component({
-  selector: 'app-color-input',
+  selector: 'ml-color-input',
   standalone: true,
   imports: [MatIconModule],
   template: `
     <div class="color-input-wrapper">
-      <div class="color-display" 
-        [style.background-color]="_colorValue() || 'transparent'" 
-        [class.no-color]="!_colorValue()"
-        (click)="openColorPicker()">
-        <span class="color-value">{{ _colorValue() || 'No color' }}</span>
-      </div>
+    <div class="color-display" 
+      [style.background-color]="_colorValue() || 'transparent'" 
+      [class.no-color]="!_colorValue()"
+      (click)="openColorPicker()"
+      (keydown.enter)="openColorPicker()"
+      (keydown.space)="openColorPicker(); $event.preventDefault()"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="'Select color' + (_colorValue() ? ': ' + _colorValue() : '')">
+    <span class="color-value">{{ _colorValue() || 'No color' }}</span>
+  </div>
       <input 
         #colorPicker
         type="color" 
@@ -296,18 +301,18 @@ export class ColorInputComponent implements MatFormFieldControl<string | undefin
   //#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#//
 
   // ControlValueAccessor implementation
-  onChange = (_: any) => { };
-  onTouched = () => { };
+  onChange = (_: string | undefined) => { console.log('onChange NOT implemented yet', _) };
+  onTouched = () => {console.log('onTouched NOT implemented yet')  };
 
-  writeValue(color: string): void {
+  writeValue(color: string | undefined): void {
     this.value = color;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string | undefined) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 

@@ -18,7 +18,7 @@ import { ThemeService } from '@moonlight/material/theming/service';
   styleUrls: ['./dark-mode-toggle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DarkModeToggle_Mat_Component {
+export class DarkModeToggleMatComponent {
 
   private _themeService = inject(ThemeService)
 

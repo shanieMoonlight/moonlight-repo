@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { ThemeConfig, ThemeConfigService, ThemeOption } from '../../../.././../config/src/index';
 import { ThemeGeneratorService, ThemeService } from '../../../.././../service/src/index';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeMgrComponent } from '../custom-theme-mgr/custom-theme-mgr.component';
+import { MlCustomThemeManagerComponent  } from '../custom-theme-mgr/custom-theme-mgr.component';
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { MlThemeSelectorComponent } from './theme-selector.component';
 
@@ -199,7 +199,7 @@ describe('MlThemeSelectorComponent', () => {
 
     // Assert
     expect(dialogMock.open).toHaveBeenCalledWith(
-      MlCustomThemeMgrComponent,
+      MlCustomThemeManagerComponent ,
       expect.anything()
     );
   });

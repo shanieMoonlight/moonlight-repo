@@ -6,7 +6,7 @@ import { ColorUtilsService } from '../../../../utils/src/index';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 import { GeneratedPalettes } from './models/theme-palletes';
-import { SytemPrefsService } from './utils/sytem-prefs/sytem-prefs.service'; // Import SytemPrefsService
+import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service'; // Import SystemPrefsService
 import { DOCUMENT } from '@angular/common';
 import { AnimationFrameService } from '../../../../../../../utils/testing/src/index';
 
@@ -17,7 +17,7 @@ describe('ThemeGeneratorService', () => {
   let colorUtilsMock: { setRGBVariable: jest.Mock };
   let paletteGeneratorMock: { generatePalettes: jest.Mock };
   let scssGeneratorMock: { exportThemeAsScss: jest.Mock };
-  let systemPrefsMock: { prefersDarkMode: jest.Mock }; // Mock for SytemPrefsService
+  let systemPrefsMock: { prefersDarkMode: jest.Mock }; // Mock for SystemPrefsService
   let mockDocument: Document; // Mock for Document
 
   let mockElement: HTMLElement;
@@ -92,7 +92,7 @@ describe('ThemeGeneratorService', () => {
     scssGeneratorMock = {
       exportThemeAsScss: jest.fn().mockReturnValue('// SCSS mock content')
     };
-    systemPrefsMock = { // Mock for SytemPrefsService
+    systemPrefsMock = { // Mock for SystemPrefsService
       prefersDarkMode: jest.fn().mockReturnValue(false) // Default to light mode
     };
 
@@ -103,7 +103,7 @@ describe('ThemeGeneratorService', () => {
         { provide: ColorUtilsService, useValue: colorUtilsMock },
         { provide: PaletteGeneratorService, useValue: paletteGeneratorMock },
         { provide: ScssPaletteGeneratorService, useValue: scssGeneratorMock },
-        { provide: SytemPrefsService, useValue: systemPrefsMock }, // Provide mock
+        { provide: SystemPrefsService, useValue: systemPrefsMock }, // Provide mock
         { provide: DOCUMENT, useValue: mockDocument }, // Provide mock Document
         { provide: AnimationFrameService, useValue: animationFrameMock },
         { provide: PLATFORM_ID, useValue: 'browser' } // Ensure browser platform
