@@ -7,6 +7,7 @@ import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 import { SytemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
+import { MemoizationService } from '@moonlight/utils/memoization';
 
 //#########################################//
 
@@ -21,6 +22,8 @@ export class ThemeGeneratorService {
 
   private _requestFrame = inject(AnimationFrameService);
 
+  private _memoizer = inject(MemoizationService);
+
   private _systemPrefs = inject(SytemPrefsService)
 
   private _rendererFactory = inject(RendererFactory2);
@@ -32,8 +35,16 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
-  private isBrowser = (): boolean =>
-    isPlatformBrowser(this._platformId)
+
+  // Additional class fields for memoized functions...
+  private _memoizedGeneratePalettes!: (...args: any[]) => GeneratedPalettes;
+
+
+  //-----------------------------//
+
+  constructor() {
+    this.initializeMemoizedFunctions()
+  }
 
   //-----------------------------//
   // PUBLIC API METHODS
@@ -52,7 +63,9 @@ export class ThemeGeneratorService {
       return
 
     const isDark = this.shouldUseDarkMode(theme)
-    const palettes = this._paletteGenerator.generatePalettes(theme)
+    // const palettes = this._paletteGenerator.generatePalettes(theme)
+    // Use memoized function instead of direct call
+    const palettes = this._memoizedGeneratePalettes(theme);
     const themeClass = themeClassOverride ?? theme.value
 
     targetElement ??= this._document.documentElement
@@ -94,13 +107,13 @@ export class ThemeGeneratorService {
   /**
    * Apply palette shade variables to the target element
    */
-  private applyPaletteVariables(palettes: GeneratedPalettes, targetElement: HTMLElement) {    
+  private applyPaletteVariables(palettes: GeneratedPalettes, targetElement: HTMLElement) {
 
     // Set variables for each palette type
     Object.entries(palettes).forEach(([paletteName, shades]) => {
       Object.entries(shades).forEach(([tone, colorValue]) => {
         // Use setProperty instead of setStyle for CSS custom properties       
-         
+
         targetElement.style.setProperty(
           `--${COLOR_VAR_PREFIX}-${paletteName}-${tone}`,
           `${colorValue}`
@@ -115,11 +128,6 @@ export class ThemeGeneratorService {
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
   private applySystemVariables(theme: ThemeOption, palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
-
-    // console.log('Generated Palettes:', palettes)
-    console.log('Generated Theme:', theme);
-    console.log('Generated Theme tertiaryColor:', theme.tertiaryColor);
-    console.log('Generated Theme secondaryColor:', theme.secondaryColor);
 
     const p = palettes;
 
@@ -246,13 +254,49 @@ export class ThemeGeneratorService {
 
   }
 
-
   //- - - - - - - - - - - - - - -//
 
   private shouldUseDarkMode = (theme: ThemeOption): boolean => theme.darkMode === 'system'
     ? this._systemPrefs.prefersDarkMode()
     : !!theme.darkMode;
 
+
+  //- - - - - - - - - - - - - - -//
+
+  private initializeMemoizedFunctions(): void {
+
+    // Step 1: Configure the memoization options
+    const cacheOptions = {
+      maxSize: 5  // Store up to 5 generated palettes
+    };
+
+    // Step 2: Create a memoize factory for generating palettes
+    const palettesMemoFactory = this._memoizer.memoize<[ThemeOption], GeneratedPalettes>(
+      'theme-palettes',
+       cacheOptions)
+
+    // Step 3: Define the original function to be memoized
+    const generatePalettesFunc = (theme: ThemeOption): GeneratedPalettes => {
+      return this._paletteGenerator.generatePalettes(theme);
+    };
+
+
+    // Step 4: Define the cache key generator function
+    const keyGenerator = (theme: ThemeOption): string => {
+      return `${theme.primaryColor}-${theme.secondaryColor}-${theme.tertiaryColor || ''}-${theme.errorColor || ''}-${theme.darkMode}`;
+    };
+
+    // Step 5: Create the memoized function by combining all parts
+    this._memoizedGeneratePalettes = palettesMemoFactory(
+      generatePalettesFunc,
+      keyGenerator
+    );
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  private isBrowser = (): boolean =>
+    isPlatformBrowser(this._platformId)
 
   //- - - - - - - - - - - - - - -//
 

@@ -583,4 +583,90 @@ describe('ThemeGeneratorService', () => {
     });
   });
 
+  //-----------------------------//
+
+  describe('Memoization', () => {
+    it('should use cached palettes for identical themes', fakeAsync(() => {
+      // Call the first time - should generate new palettes
+      service.applyTheme(mockThemeOption);
+      flush();
+      
+      // Reset call count
+      paletteGeneratorMock.generatePalettes.mockClear();
+      
+      // Call again with same theme - should use cache
+      service.applyTheme(mockThemeOption);
+      flush();
+      
+      // Verify the palette generator wasn't called again
+      expect(paletteGeneratorMock.generatePalettes).not.toHaveBeenCalled();
+    }));
+    
+    it('should generate new palettes for different themes', fakeAsync(() => {
+      // First call with original theme
+      service.applyTheme(mockThemeOption);
+      flush();
+      
+      // Reset call count
+      paletteGeneratorMock.generatePalettes.mockClear();
+      
+      // Call with different theme
+      const differentTheme = ThemeOption.create({
+        primaryColor: '#0000FF', // Different from mockThemeOption
+        secondaryColor: '#00FF00',
+        value: 'different-theme',
+        label: 'Different Theme'
+      });
+      
+      service.applyTheme(differentTheme);
+      flush();
+      
+      // Should have generated new palettes
+      expect(paletteGeneratorMock.generatePalettes).toHaveBeenCalledWith(differentTheme);
+    }));
+    
+    it('should use cache based on color values, not theme names', fakeAsync(() => {
+      // First call with original theme
+      service.applyTheme(mockThemeOption);
+      flush();
+      
+      // Reset call count
+      paletteGeneratorMock.generatePalettes.mockClear();
+      
+      // Same colors but different name
+      const sameColorsTheme = ThemeOption.create({
+        ...mockThemeOption,
+        value: 'different-name',
+        label: 'Different Name than value'
+      });
+      
+      service.applyTheme(sameColorsTheme);
+      flush();
+      
+      // Should use cache since colors are the same
+      expect(paletteGeneratorMock.generatePalettes).not.toHaveBeenCalled();
+    }));
+    
+    it('should generate new palettes when color values change', fakeAsync(() => {
+      // First call with original theme
+      service.applyTheme(mockThemeOption);
+      flush();
+      
+      // Reset call count
+      paletteGeneratorMock.generatePalettes.mockClear();
+      
+      // Same name but different colors
+      const differentColorsTheme = ThemeOption.create({
+        ...mockThemeOption,
+        primaryColor: '#0000FF' // Different primary color
+      });
+      
+      service.applyTheme(differentColorsTheme);
+      flush();
+      
+      // Should generate new palettes due to color change
+      expect(paletteGeneratorMock.generatePalettes).toHaveBeenCalledWith(differentColorsTheme);
+    }));
+  });
+
 });

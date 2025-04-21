@@ -12,6 +12,7 @@ export interface MemoizationOptions {
 
 /**
  * Cache for storing results of a specific function
+ * Memoizer will run the supplied OriginalFunction on a key miss and store the result in the cache
  * @template T Type of values stored in the cache
  */
 export type FunctionCache<T = unknown> = Map<string, T>;
@@ -25,11 +26,13 @@ export type CacheRegistry = Map<string, FunctionCache>;
 
 /**
  * Function that generates a cache key from function arguments
+ * How we find the results of prefix function calls in the cache
  */
 export type KeyGenerator<Args extends unknown[]> = (...args: Args) => string;
 
 /**
  * Original function that will be memoized
+ * THis is where we generate the Payload that is stored in the cache
  */
 export type OriginalFunction<Args extends unknown[], R> = (...args: Args) => R;
 
@@ -77,6 +80,10 @@ export class MemoizationService {
         // Get cache key - either using provided key function or JSON stringify
         const cacheKey = keyFn ? keyFn(...args) : JSON.stringify(args);
 
+        console.log(`Cache key: ${cacheKey}`);
+        console.log(`Cache keys: `, cache.keys());
+        
+
         // Check for cache hit
         if (cache.has(cacheKey)) {
           if (this.debug)
@@ -95,7 +102,7 @@ export class MemoizationService {
 
         // Manage cache size
         if (cache.size > maxSize)
-          this.removeOldestentry(cache, namespace);
+          this.removeOldestEntry(cache, namespace);
 
         return result;
       };
@@ -151,7 +158,7 @@ export class MemoizationService {
 
   //- - - - - - - - - - - - - - -//
 
-  private removeOldestentry(cache: FunctionCache, namespace: string): void {
+  private removeOldestEntry(cache: FunctionCache, namespace: string): void {
 
     const oldestKey = cache.keys().next().value
     if (this.debug)
