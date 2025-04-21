@@ -41,6 +41,7 @@ export default async (): Promise<Config> => ({
     '<rootDir>/node_modules/',
     '<rootDir>/.nx/cache',
     '<rootDir>/dist',
-    '<rootDir>/_examples/' // Add this line to ignore the _examples directory
+    '<rootDir>/_examples/',
+    '_examples/' // Add this line to ignore the _examples directory
   ],
 });

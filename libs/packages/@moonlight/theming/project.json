@@ -1,5 +1,5 @@
 {
-  "name": "ng-theming",
+  "name": "ml-material-theming",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/packages/@moonlight/theming/src",
   "prefix": "ml",
