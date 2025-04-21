@@ -8,7 +8,7 @@ import { defaultPresetSelectorThemes, ThemeOption } from './theme-option.model';
 export const ThemeConfigService = new InjectionToken<ThemeConfig>(
   'ThemeConfig',
   {
-    factory: () => ThemeConfig.Create()
+    factory: () => ThemeConfig.create()
   }
 )
 
@@ -45,7 +45,7 @@ export class ThemeConfig {
    * @param colorLhs Color for Left Hand Side of background - default colorPrimary
    * @param colorRhs Color for Right Hand Side of background - default colorPrimaryLight
    */
-  static Create(
+  static create(
     themeOptions?: ThemeOption[],
     darkModeClass?: string,
     lightModeClass?: string,

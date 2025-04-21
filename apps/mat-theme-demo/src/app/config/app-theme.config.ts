@@ -51,4 +51,4 @@ export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
 if (IS_XMAS) _themeOptions.push(XMAS_THEME);
 if (IS_HALLOWEEN) _themeOptions.push(HALLOWEEN_THEME);
 
-export const THEME_CONFIG = ThemeConfig.Create(_themeOptions);
+export const THEME_CONFIG = ThemeConfig.create(_themeOptions);

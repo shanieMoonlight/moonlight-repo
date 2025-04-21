@@ -42,7 +42,7 @@ describe('ThemeService Initialization and Core Logic', () => {
   let destroyRefMock: MockDestroyRef;
 
   const createMockThemeConfig = (overrides?: Partial<ThemeConfig>): ThemeConfig => {
-    const config = ThemeConfig.Create();
+    const config = ThemeConfig.create();
     config.themeOptions = [mockLightTheme, mockDarkTheme];
     config.defaultDarkMode = 'light';
     if (overrides) {

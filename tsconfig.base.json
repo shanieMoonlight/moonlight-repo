@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@moonlight/utils/testing": ["libs/utils/testing/src/index.ts"],
       "@moonlight/ng/theming": [
         "libs/packages/@moonlight/theming/src/index.ts"
       ],

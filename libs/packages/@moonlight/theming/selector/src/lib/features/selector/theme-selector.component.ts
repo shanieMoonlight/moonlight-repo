@@ -102,6 +102,9 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   protected previewFormTheme(form: IThemeForm) {
 
+    console.log('Previewing theme with form values:', form.value);
+    
+
     if (form.invalid) {
       console.warn('Theme form is invalid. Cannot apply theme.');
       return // Don't apply if form is invalid

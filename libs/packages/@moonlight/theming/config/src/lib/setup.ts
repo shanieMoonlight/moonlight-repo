@@ -4,7 +4,7 @@ import { ThemeConfig, ThemeConfigService } from "./theming-config"
 
 export class ThemeAndModeSetup {
 
-    static getThemeProviders = (config: ThemeConfig = ThemeConfig.Create())
+    static getThemeProviders = (config: ThemeConfig = ThemeConfig.create())
         : (Provider | EnvironmentProviders)[] =>
         [
             {

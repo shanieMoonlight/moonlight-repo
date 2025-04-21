@@ -2,6 +2,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/ng/theming/config";
 import { ColorUtilsService } from '@moonlight/ng/theming/utils';
+import { AnimationFrameService } from '@moonlight/utils/testing';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
@@ -17,6 +18,8 @@ export class ThemeGeneratorService {
   //TODO Colors are upside down
   private _platformId = inject(PLATFORM_ID)
   private _document = inject(DOCUMENT);
+
+  private _requestFrame = inject(AnimationFrameService);
 
   private _systemPrefs = inject(SytemPrefsService)
 
@@ -55,7 +58,7 @@ export class ThemeGeneratorService {
     targetElement ??= this._document.documentElement
 
     // Batch DOM updates using requestAnimationFrame
-    requestAnimationFrame(() => {
+    this._requestFrame.request(() => {
 
       // First, set the individual palette shade variables
       this.applyPaletteVariables(palettes, targetElement)
@@ -63,7 +66,7 @@ export class ThemeGeneratorService {
       // Then apply the M3 system variables using the direct mapper approach
       this.applySystemVariables(theme, palettes, targetElement, isDark)
 
-      // If we're setting an alternate theme, add the theme class
+      // Set the theme class users might want to react to different classes outside of material situations.  (theme-xmas, theme-halloween, etc.)
       if (themeClass)
         this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
 
@@ -91,11 +94,13 @@ export class ThemeGeneratorService {
   /**
    * Apply palette shade variables to the target element
    */
-  private applyPaletteVariables(palettes: GeneratedPalettes, targetElement: HTMLElement) {
+  private applyPaletteVariables(palettes: GeneratedPalettes, targetElement: HTMLElement) {    
+
     // Set variables for each palette type
     Object.entries(palettes).forEach(([paletteName, shades]) => {
       Object.entries(shades).forEach(([tone, colorValue]) => {
-        // Use setProperty instead of setStyle for CSS custom properties
+        // Use setProperty instead of setStyle for CSS custom properties       
+         
         targetElement.style.setProperty(
           `--${COLOR_VAR_PREFIX}-${paletteName}-${tone}`,
           `${colorValue}`
@@ -195,7 +200,7 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
     this.setVariable(targetElement, '--mat-sys-neutral-variant20', p.neutralVariant[20]);
 
-    
+
     // Add original seed colors for direct access
     this.setVariable(targetElement, '--mat-seed-primary', theme.primaryColor);
     this.setVariable(targetElement, '--mat-seed-secondary', theme.secondaryColor);
