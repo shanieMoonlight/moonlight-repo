@@ -66,7 +66,7 @@ This setup allows users to select or customize a theme and immediately see how i
 
 ## Screenshot
 
-![Theme Showcase Example](screenshot.png)
+![Theme Showcase Example](showcase-screenshot.png)
 
 ---
 
