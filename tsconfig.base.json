@@ -23,7 +23,7 @@
         "libs/packages/@moonlight/theming/config/src/index.ts"
       ],
       "@moonlight/material/theming/components": [
-        "libs/packages/@moonlight/theming/mat/src/index.ts"
+        "libs/packages/@moonlight/theming/components/src/index.ts"
       ],
       "@moonlight/material/theming/selector": [
         "libs/packages/@moonlight/theming/selector/src/index.ts"
