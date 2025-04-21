@@ -65,7 +65,10 @@ export const THEME_CONFIG = ThemeConfig.create([
   }),
   // Add more themes as needed
 ]);
+
 ```
+
+
 ### 2b. Configure your themes (Dynamic)
 
 ```typescript
