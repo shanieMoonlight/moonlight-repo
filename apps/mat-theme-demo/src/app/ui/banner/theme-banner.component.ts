@@ -26,6 +26,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
           flex: 1;
           background-color:var(--mat-seed-tertiary, var(--mat-seed-secondary));
         }
+        * {
+          transition:
+            color 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+            background-color 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
