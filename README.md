@@ -1,82 +1,307 @@
-# MoonlightRepo
+# Moonlight Material Theming
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A powerful, flexible theming system for Angular Material applications that enables dynamic theme switching without page reloads.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+[![npm version](https://img.shields.io/npm/v/@moonlight/material/theming.svg)](https://www.npmjs.com/package/@moonlight/material/theming)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Features
 
-## Finish your CI setup
+- **🎨 Dynamic theming** - Change themes at runtime without compilation steps
+- **🌙 Dark mode support** - Effortless dark/light mode switching with system preference detection
+- **📱 Customizable themes** - Create and save custom themes with persistence
+- **✨ Material Design 3** - Full implementation of M3 color system
+- **📊 Performance optimized** - Memoized color calculations and efficient DOM updates
+- **🏗️ Modular architecture** - Tree-shakable with multiple entry points
+- **💾 Persistent preferences** - User theme choices and settings are saved between sessions
+- **🔄 CSS Variables** - Modern implementation using CSS custom properties
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/czWnTZmFkK)
+## Installation
 
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve mat-theme-demo
+```bash
+npm install @moonlight/material/theming
 ```
 
-To create a production bundle:
+## Quick Start
 
-```sh
-npx nx build mat-theme-demo
+### 1. Set up your Angular Material configuration
+
+```scss
+// styles.scss
+@use '@angular/material' as mat;
+
+// Import color overrides to enable theming support
+@use '@moonlight/material/theming/styles/mat-color-overrides';
+
+// Configure Angular Material with an empty theme (variables set by ThemeGeneratorService)
+html {
+  @include mat.theme(());
+}
+
+// Include core styles
+@include mat.core();
 ```
 
-To see all available targets to run for a project, run:
+### 2. Configure your themes
 
-```sh
-npx nx show project mat-theme-demo
+```typescript
+// theme.config.ts
+import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
+
+export const THEME_CONFIG = ThemeConfig.create([
+  ThemeOption.create({
+    value: 'indigo',
+    label: 'Indigo',
+    primaryColor: '#3F51B5',
+    secondaryColor: '#FF4081',
+    darkMode: 'system'
+  }),
+  ThemeOption.create({
+    value: 'deeppurple',
+    label: 'Deep Purple',
+    primaryColor: '#673AB7',
+    secondaryColor: '#00BCD4',
+    darkMode: 'system'
+  }),
+  // Add more themes as needed
+]);
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### 3. Set up the theme providers
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```typescript
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
+import { THEME_CONFIG } from './theme.config';
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideAnimations(),
+    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
+  ]
+};
 ```
 
-To generate a new library, use:
+### 4. Add the theme controls to your app
 
-```sh
-npx nx g @nx/angular:lib mylib
+```html
+<!-- app.component.html -->
+<div class="app-container">
+  <header>
+    <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
+    <ml-theme-picker-mat></ml-theme-picker-mat>
+  </header>
+  
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Components
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Dark Mode Toggle
 
+```html
+<!-- Icon only -->
+<ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+<!-- With switch -->
+<ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+```
 
-## Install Nx Console
+### Theme Picker
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+```html
+<ml-theme-picker-mat></ml-theme-picker-mat>
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Theme Customizer
 
-## Useful links
+```html
+<ml-theme-selector></ml-theme-selector>
+```
 
-Learn more:
+### Theme Showcase
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```html
+<ml-theme-showcase-mat></ml-theme-showcase-mat>
+```
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Using CSS Variables
+
+The library exposes theme colors through CSS variables following these patterns:
+
+### Material Design System Colors
+
+```css
+.my-element {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  border-color: var(--mat-sys-outline);
+}
+```
+
+### Original Seed Colors
+
+```css
+.my-element {
+  background-color: var(--mat-seed-primary);
+}
+```
+
+### Full Color Palette with Tones
+
+```css
+.my-element {
+  /* Access any tone from 0-100 */
+  background-color: var(--color-primary-40);
+  border-color: var(--color-primary-80);
+  
+  /* Different palette types */
+  color: var(--color-secondary-50);
+  box-shadow: 0 2px 4px var(--color-neutral-0);
+}
+```
+
+Available tones: 0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100
+
+## Working with the API
+
+### Using ThemeService
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ThemeService } from '@moonlight/material/theming/service';
+
+@Component({/*...*/})
+export class MyComponent {
+  private themeService = inject(ThemeService);
+  
+  // Access current theme
+  currentTheme = this.themeService.currentTheme;
+  
+  // Toggle dark mode
+  toggleDarkMode() {
+    this.themeService.toggleDarkMode();
+  }
+  
+  // Set a specific theme
+  setTheme(themeValue: string) {
+    const themes = this.themeService.systemThemes();
+    const theme = themes.find(t => t.value === themeValue);
+    if (theme) {
+      this.themeService.setTheme(theme);
+    }
+  }
+}
+```
+
+### Apply Theme to Specific Element
+
+```typescript
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { ThemeGeneratorService } from '@moonlight/material/theming/service';
+import { ThemeOption } from '@moonlight/material/theming/config';
+
+@Component({/*...*/})
+export class ThemePreviewComponent {
+  @ViewChild('previewContainer') container!: ElementRef;
+  
+  private generator = inject(ThemeGeneratorService);
+  
+  previewTheme(theme: ThemeOption) {
+    this.generator.applyTheme(theme, undefined, this.container.nativeElement);
+  }
+}
+```
+
+## Performance Benefits
+
+This library offers several performance advantages over traditional Angular Material theming:
+
+1. **Smaller bundle sizes** - Color palettes are generated at runtime instead of shipping pre-compiled CSS
+2. **Tree-shakable architecture** - Import only what you need
+3. **Memoized color generation** - Palette calculations are cached for improved performance
+4. **Batched DOM updates** - Changes use requestAnimationFrame for efficient rendering
+
+## Entry Points
+
+The library is organized into multiple entry points:
+
+- `@moonlight/material/theming/service` - Core theming services
+- `@moonlight/material/theming/components` - Ready-to-use UI components
+- `@moonlight/material/theming/config` - Theme configuration utilities
+- `@moonlight/material/theming/selector` - Theme selection & customization UI
+- `@moonlight/material/theming/ui` - UI elements for theme visualization
+- `@moonlight/material/theming/utils` - Utility functions and helpers
+- `@moonlight/material/theming/showcase` - Components for theme showcases
+
+Import from specific entry points instead of the main entry point to take advantage of tree-shaking:
+
+```typescript
+// Good - specific imports
+import { ThemeService } from '@moonlight/material/theming/service';
+import { ThemeOption } from '@moonlight/material/theming/config';
+
+// Bad - don't import from the main entry point
+import { UseSecondaryEntryPoints } from '@moonlight/material/theming';
+```
+
+## Persistence
+
+User preferences are automatically saved between sessions:
+
+- **Theme selection** - Users' chosen theme is remembered
+- **Dark mode preference** - Light/dark mode setting persists
+- **Custom themes** - User-created themes are stored
+- **Configurable storage** - Uses localStorage by default with options for custom storage strategies
+
+## Seasonal Themes
+
+The library supports seasonal themes that can be automatically enabled based on the date:
+
+```typescript
+// Seasonal theme examples
+const XMAS_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Christmas',
+  value: 'xmas',
+  primaryColor: '#C8102E', // Red
+  secondaryColor: '#006747', // Green
+});
+
+const HALLOWEEN_THEME = ThemeOption.create({
+  darkMode: true,
+  label: 'Halloween',
+  value: 'halloween',
+  primaryColor: '#FF7518', // Orange
+  secondaryColor: '#31004a', // Purple
+});
+
+// Check date to conditionally include seasonal themes
+const today = new Date();
+const isChristmasTime = today.getMonth() === 11; // December
+const isHalloweenTime = today.getMonth() === 9; // October
+
+const themeOptions = [
+  // Base themes...
+];
+
+if (isChristmasTime) themeOptions.push(XMAS_THEME);
+if (isHalloweenTime) themeOptions.push(HALLOWEEN_THEME);
+
+export const THEME_CONFIG = ThemeConfig.create(themeOptions);
+```
+
+## Browser Support
+
+Works in all modern browsers that support:
+- CSS Custom Properties (Variables)
+- ES2020+ features
+
+## License
+
+MIT

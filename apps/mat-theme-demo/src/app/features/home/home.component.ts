@@ -5,10 +5,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
+import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
 import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
 import { ThemeBannerComponent } from '../../ui/banner/theme-banner.component';
-import { signalSetFn } from '@angular/core/weak_ref.d-DWHPG08n';
-import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
 @Component({
   selector: 'ml-home',
   imports: [
