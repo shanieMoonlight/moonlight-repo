@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
 import { ThemeGeneratorService, ThemeService } from '@moonlight/material/theming/service';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { consoleDev, MatEverythingModule } from '@moonlight/material/theming/utils';
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
@@ -106,7 +106,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   protected previewFormTheme(form: IThemeForm) {
 
-    console.log('Previewing theme with form values:', form.value);
+    consoleDev.log('Previewing theme with form values:', form.value);
     
 
     if (form.invalid) {

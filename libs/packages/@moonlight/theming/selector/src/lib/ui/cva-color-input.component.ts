@@ -6,6 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BehaviorSubject, take } from 'rxjs';
+import { consoleDev } from '@moonlight/material/theming/utils';
 
 //#########################################//
 
@@ -218,15 +219,14 @@ export class ColorInputComponent implements MatFormFieldControl<string | undefin
       .subscribe(focused => {
         this.focused = !!focused;
         this.stateChanges.next();
-        if (isDevMode()) {
-          console.log(`${this.id}_focused:`, this.focused);
-        }
+        consoleDev.log(`${this.id}_focused:`, this.focused);
+        
       });
 
     focMon
       .monitor(this._elRef.nativeElement, true)
       .pipe(take(1))
-      .subscribe(focused => this.onTouched());
+      .subscribe(() => this.onTouched());
   }
 
   //#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#//
@@ -315,8 +315,8 @@ export class ColorInputComponent implements MatFormFieldControl<string | undefin
   //#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#//
 
   // ControlValueAccessor implementation
-  onChange = (_: string | undefined) => { console.log('onChange NOT implemented yet', _) };
-  onTouched = () => {console.log('onTouched NOT implemented yet')  };
+  onChange = (_: string | undefined) => { consoleDev.log('onChange NOT implemented yet', _) };
+  onTouched = () => {consoleDev.log('onTouched NOT implemented yet')  };
 
   writeValue(color: string | undefined): void {
     this.value = color;

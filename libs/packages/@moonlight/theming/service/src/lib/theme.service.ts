@@ -1,8 +1,10 @@
-import { DestroyRef, Injectable, inject, isDevMode } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { DarkModeType, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/material/theming/config';
+import { consoleDev } from '@moonlight/material/theming/utils';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, Observable, of, switchMap, tap } from 'rxjs';
+import { devLog } from '@moonlight/utils/rxjs';
+import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
@@ -55,7 +57,7 @@ export class ThemeService {
       ? this._systemDarkMode$
       : of(mode))
   )
-  
+
   /** Current dark mode status (Signal)*/
   isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
 
@@ -83,7 +85,7 @@ export class ThemeService {
 
   private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
-      // tap((data) => isDevMode() && console.log('initializePersistence data:', data)),
+      // devLog((data) => 'ThemeService:currentData' +  data.length),
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode, customThemes]) => {
@@ -223,10 +225,11 @@ export class ThemeService {
     try {
       //Get this running first sin case something goes wrong below
       this._currentDataBs
-        .pipe(takeUntilDestroyed(this._destroyor))
+        .pipe(
+          takeUntilDestroyed(this._destroyor),
+          devLog('ThemeService:currentData')
+        )
         .subscribe(data => {
-          if (isDevMode())
-            console.log('ThemeService', data)
           this.applyCurrentTheme(data)
           this._localStorage.setItemObject(THEME_KEY, data)
         })
@@ -240,12 +243,8 @@ export class ThemeService {
       this._isDarkModeBs.next(darkMode)
 
       this._customThemesBs.next(themeData?.customThemes ?? [])
-      
-      console.log('ThemeService initialize Complete')
 
     } catch (error) {
-
-      console.log('THemeServiceerror', error);
 
       // More specific error handling
       if (error instanceof SyntaxError)
@@ -276,8 +275,8 @@ export class ThemeService {
   private setDefaultTheme() {
     // No need to call clear() here
     const defaultOption = this._config.themeOptions[0] ?? defaultThemeOption // Get first theme or a hardcoded default
-    console.log('Setting default theme:this._config.themeOptions[0]', this._config.themeOptions[0]);
-    console.log('Setting default theme:', defaultOption);
+    
+    consoleDev.log('Setting default theme:', defaultOption);
 
     this.setDarkMode(defaultOption.darkMode)
     this.setTheme(defaultOption)

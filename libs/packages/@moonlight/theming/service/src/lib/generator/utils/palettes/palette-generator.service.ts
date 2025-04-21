@@ -2,6 +2,7 @@ import { inject, Injectable, isDevMode } from '@angular/core';
 import { GeneratedPalettes } from '../../models/theme-palletes';
 import { argbFromHex, CustomColor, themeFromSourceColor, TonalPalette, hexFromArgb } from '@material/material-color-utilities';
 import { ThemeOption, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, DEFAULT_COLOR_ERROR, ThemeConfig, ThemeConfigService } from '@moonlight/material/theming/config';
+import { consoleDev } from '@moonlight/material/theming/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,7 @@ export class PaletteGeneratorService {
    * @returns An object containing the primary color and all its tonal variations
    */
   generatePalettes(themeOption: ThemeOption): GeneratedPalettes {
-    if (isDevMode())
-      console.log('Generating palettes...', themeOption.label, themeOption)
+    consoleDev.log('Generating palettes...', themeOption.label, themeOption)
 
     const primary = themeOption.primaryColor ?? DEFAULT_COLOR_PRIMARY;
     const secondary = themeOption.secondaryColor ?? DEFAULT_COLOR_SECONDARY;

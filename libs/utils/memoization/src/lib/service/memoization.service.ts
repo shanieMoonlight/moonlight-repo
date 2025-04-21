@@ -80,8 +80,6 @@ export class MemoizationService {
         // Get cache key - either using provided key function or JSON stringify
         const cacheKey = keyFn ? keyFn(...args) : JSON.stringify(args);
 
-        console.log(`Cache key: ${cacheKey}`);
-        console.log(`Cache keys: `, cache.keys());
         
 
         // Check for cache hit

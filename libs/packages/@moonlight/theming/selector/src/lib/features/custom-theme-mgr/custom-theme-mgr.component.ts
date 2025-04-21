@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { MatDialogRef } from '@angular/material/dialog';
 import { ThemeValue } from '@moonlight/material/theming/config';
 import { ThemeService } from '@moonlight/material/theming/service'; // Adjust path
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { consoleDev, MatEverythingModule } from '@moonlight/material/theming/utils';
 import { MlThemeAvatarComponent } from '@moonlight/material/theming/ui';
 
 @Component({
@@ -30,7 +30,7 @@ export class MlCustomThemeManagerComponent  {
 
   protected deleteTheme(themeValue: ThemeValue): void {
     // Optional: Add confirmation dialog
-    console.log(`Attempting to delete theme: ${themeValue}`);
+    consoleDev.log(`Attempting to delete theme: ${themeValue}`);
     this._themeService.removeCustomTheme(themeValue);
   }
 
