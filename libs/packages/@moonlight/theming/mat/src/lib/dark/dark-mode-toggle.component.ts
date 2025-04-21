@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeService } from '@moonlight/ng/theming/service';
+import { ThemeService } from '@moonlight/material/theming/service';
 
 
 @Component({

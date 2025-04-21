@@ -1,4 +1,4 @@
-import { ThemeConfig, ThemeOption } from "@moonlight/ng/theming/config";
+import { ThemeConfig, ThemeOption } from "@moonlight/material/theming/config";
 
 const today = new Date();
 const thisYear = today.getFullYear();

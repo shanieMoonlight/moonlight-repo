@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MlThemeSelectorComponent } from "@moonlight/ng/theming/selector";
-import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { MlThemeShowcaseMatComponent } from '@moonlight/ng/theming/showcase';
+import { MlThemeSelectorComponent } from "@moonlight/material/theming/selector";
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
 
 @Component({
   selector: 'ml-theming',

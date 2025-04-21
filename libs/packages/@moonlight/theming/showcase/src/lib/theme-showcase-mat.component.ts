@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ThemeService } from '@moonlight/ng/theming/service';
-import { MatEverythingModule } from '@moonlight/ng/theming/utils';
+import { ThemeService } from '@moonlight/material/theming/service';
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
 
 @Component({
   selector: 'ml-theme-showcase-mat',

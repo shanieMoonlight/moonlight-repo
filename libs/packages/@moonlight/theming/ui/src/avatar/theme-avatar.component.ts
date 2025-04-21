@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { ThemeOption } from '@moonlight/ng/theming/config';
+import { ThemeOption } from '@moonlight/material/theming/config';
 
 @Component({
   selector: 'ml-theme-avatar',

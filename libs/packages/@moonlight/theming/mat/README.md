@@ -1,3 +1,3 @@
-# @moonlight/ng/theming/mat
+# @moonlight/material/theming/mat
 
-Secondary entry point of `@moonlight/ng/theming`. It can be used by importing from `@moonlight/ng/theming/mat`.
+Secondary entry point of `@moonlight/material/theming`. It can be used by importing from `@moonlight/material/theming/mat`.

@@ -1,10 +1,10 @@
 // filepath: libs/packages/@moonlight/theming/selector/src/lib/custom-theme-manager/custom-theme-manager.component.ts
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ThemeValue } from '@moonlight/ng/theming/config';
-import { ThemeService } from '@moonlight/ng/theming/service'; // Adjust path
-import { MatEverythingModule } from '@moonlight/ng/theming/utils';
-import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
+import { ThemeValue } from '@moonlight/material/theming/config';
+import { ThemeService } from '@moonlight/material/theming/service'; // Adjust path
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { MlThemeAvatarComponent } from '@moonlight/material/theming/ui';
 
 @Component({
   selector: 'ml-custom-theme-mgr',

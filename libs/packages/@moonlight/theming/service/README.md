@@ -1,6 +1,6 @@
-# @moonlight/ng/theming/service
+# @moonlight/material/theming/service
 
-Secondary entry point of `@moonlight/ng/theming`. It can be used by importing from `@moonlight/ng/theming/service`.
+Secondary entry point of `@moonlight/material/theming`. It can be used by importing from `@moonlight/material/theming/service`.
 
 This entry point provides the `ThemeService`, the core service responsible for managing theme and dark/light mode settings within an Angular application.
 
@@ -13,7 +13,7 @@ This entry point provides the `ThemeService`, the core service responsible for m
     -   Persists the user's theme and mode preferences using `SsrLocalStorage`.
     -   Initializes the theme based on stored preferences, system settings (`prefers-color-scheme`), or configured defaults.
     -   Applies appropriate CSS classes to the document body for styling.
-    -   Requires configuration via `ThemeConfig` provided through the main entry point (`@moonlight/ng/theming/config`).
+    -   Requires configuration via `ThemeConfig` provided through the main entry point (`@moonlight/material/theming/config`).
 -   **`ThemeData`**: Interface defining the structure for storing theme preferences (`suffix` and `isDarkMode`).
 -   **`ThemeSuffix`**: Type alias for the theme identifier (string or number).
 
@@ -21,7 +21,7 @@ This entry point provides the `ThemeService`, the core service responsible for m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ThemeService } from '@moonlight/ng/theming/service';
+import { ThemeService } from '@moonlight/material/theming/service';
 import { AsyncPipe, NgFor } from '@angular/common';
 
 @Component({

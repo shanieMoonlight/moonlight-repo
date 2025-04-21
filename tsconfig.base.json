@@ -16,28 +16,28 @@
     "baseUrl": ".",
     "paths": {
       "@moonlight/utils/testing": ["libs/utils/testing/src/index.ts"],
-      "@moonlight/ng/theming": [
+      "@moonlight/material/theming": [
         "libs/packages/@moonlight/theming/src/index.ts"
       ],
-      "@moonlight/ng/theming/config": [
+      "@moonlight/material/theming/config": [
         "libs/packages/@moonlight/theming/config/src/index.ts"
       ],
-      "@moonlight/ng/theming/mat": [
+      "@moonlight/material/theming/mat": [
         "libs/packages/@moonlight/theming/mat/src/index.ts"
       ],
-      "@moonlight/ng/theming/selector": [
+      "@moonlight/material/theming/selector": [
         "libs/packages/@moonlight/theming/selector/src/index.ts"
       ],
-      "@moonlight/ng/theming/service": [
+      "@moonlight/material/theming/service": [
         "libs/packages/@moonlight/theming/service/src/index.ts"
       ],
-      "@moonlight/ng/theming/showcase": [
+      "@moonlight/material/theming/showcase": [
         "libs/packages/@moonlight/theming/showcase/src/index.ts"
       ],
-      "@moonlight/ng/theming/ui": [
+      "@moonlight/material/theming/ui": [
         "libs/packages/@moonlight/theming/ui/src/index.ts"
       ],
-      "@moonlight/ng/theming/utils": [
+      "@moonlight/material/theming/utils": [
         "libs/packages/@moonlight/theming/utils/src/index.ts"
       ],
       "@moonlight/ssr-storage": [

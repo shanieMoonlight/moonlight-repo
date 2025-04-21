@@ -1,0 +1,98 @@
+Theming Package Review for NPM Publishing
+I'll provide a comprehensive review of the @moonlight/theming library structure to prepare it for NPM publishing. Here's what to check across all projects:
+
+1. Package Structure & Organization
+Entry Points: Ensure each secondary entry point (like /selector) has:
+
+Proper barrel files (index.ts)
+Clear README.md files
+Proper package.json configuration
+Naming Conventions:
+
+Check for consistency (ThemeGeneratorService vs other services)
+Ensure folder/file naming follows Angular guidelines
+Public API Surface:
+
+Mark internal APIs with /** @internal */ comments
+Remove direct imports from implementation files (use barrel exports)
+2. Documentation
+Top-Level README:
+
+Add installation instructions
+Include basic usage examples
+Document all entry points
+Component/Service Documentation:
+
+Check JSDoc comments for exported classes
+Include examples for key functionality
+Demo Application:
+
+Consider creating a demo app showing theme capabilities
+3. Code Quality
+Type Safety:
+
+Replace any with proper types (like in _memoizedGeneratePalettes!: (...args: any[]) => GeneratedPalettes;)
+Add proper interfaces for all public methods
+Error Handling:
+
+Add proper error handling for operations that might fail
+Validate inputs in public methods
+Optimizations:
+
+Look for other expensive operations to memoize
+Check for redundant DOM operations
+4. Testing
+Test Coverage:
+
+Ensure all exported APIs have tests
+Fix the failing memoization test we found
+Add integration tests across services
+Edge Cases:
+
+Test with various theme configurations
+Test with server-side rendering (SSR)
+5. Build Configuration
+Package.json:
+
+Verify peer dependencies (Angular, etc.)
+Set proper version ranges
+Include proper metadata
+Bundling:
+
+Configure proper tree-shaking
+Set up proper secondary entry points
+Angular Package Format:
+
+Ensure compliance with APF
+Check compatibility with Ivy
+6. SSR Compatibility
+Platform Detection:
+Check all browser-specific code uses proper guards
+Verify DOM operations are protected by isPlatformBrowser
+7. Specific Issues Found
+Based on our previous exploration of the ThemeGeneratorService:
+
+Memoization Key Issue:
+
+Update key generation to be consistent across all services
+Document expected cache behavior
+Documentation Gaps:
+
+Add more detailed explanations of theming concepts
+Document customization options
+Debug Code:
+
+Remove any console.log statements from production code
+Consider a debug mode toggle
+TODO Comments:
+
+Address the "Colors are upside down" TODO comment
+Remove or fix any remaining TODOs
+8. Final Pre-Publishing Checklist
+<input disabled="" type="checkbox"> Run all tests (nx test theming)
+<input disabled="" type="checkbox"> Build the package (nx build theming)
+<input disabled="" type="checkbox"> Check bundle size
+<input disabled="" type="checkbox"> Verify exports with a test application
+<input disabled="" type="checkbox"> Review changelogs and versioning
+<input disabled="" type="checkbox"> Check license files are present
+<input disabled="" type="checkbox"> Validate package.json configuration

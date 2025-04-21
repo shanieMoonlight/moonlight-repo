@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ThemeOption } from '@moonlight/ng/theming/config';
-import { ThemeService } from '@moonlight/ng/theming/service';
-import { MlThemeAvatarComponent } from '@moonlight/ng/theming/ui';
-import { MatEverythingModule } from '@moonlight/ng/theming/utils';
+import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeService } from '@moonlight/material/theming/service';
+import { MlThemeAvatarComponent } from '@moonlight/material/theming/ui';
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
 import { Subject, merge, tap } from 'rxjs';
 
 /**
