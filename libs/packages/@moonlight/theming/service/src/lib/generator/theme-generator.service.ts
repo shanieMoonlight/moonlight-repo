@@ -54,7 +54,7 @@ export class ThemeGeneratorService {
    * Applies the specified theme to the target element by generating and setting CSS variables.
    * 
    * @param theme The theme configuration to apply
-   * @param themeClassOverride Optional CSS class name to use instead of theme.value
+   * @param themeClassOverride Optional custom CSS class name to use instead of theme.value
    * @param targetElement Optional target DOM element (defaults to document.documentElement)
    * @returns void
    */

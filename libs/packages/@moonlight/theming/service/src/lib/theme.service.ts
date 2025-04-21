@@ -15,11 +15,23 @@ const THEME_KEY = 'moonlight_theme_key'
 
 // filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@moonlight\theming\service\src\lib\theme.service.ts
 /**
- * Service responsible for managing application theming including:
- * - Light/dark mode management
- * - Theme switching and persistence
- * - Custom theme management
- * - System and user preference handling
+ * Core service for managing theme application and persistence in the application.
+ * 
+ * ThemeService provides methods for getting, setting, and toggling themes and dark mode.
+ * It handles persistence of user preferences and synchronizes with system preferences
+ * when appropriate.
+ * 
+ * @example
+ * ```typescript
+ * // Toggle dark mode
+ * themeService.toggleDarkMode();
+ * 
+ * // Apply a specific theme
+ * themeService.setTheme('ocean-blue');
+ * 
+ * // Get reactive access to the current theme
+ * const currentTheme = themeService.currentTheme;
+ * ```
  */
 @Injectable({
   providedIn: 'root'

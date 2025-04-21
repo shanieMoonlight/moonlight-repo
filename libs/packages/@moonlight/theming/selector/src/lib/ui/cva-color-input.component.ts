@@ -16,6 +16,20 @@ const toFileName = (name: string) => name
 
 //#########################################//
 
+/**
+ * A form control component that allows users to select colors.
+ * 
+ * This component implements both MatFormFieldControl and ControlValueAccessor,
+ * making it compatible with both Angular Forms and Material Form Field. It provides
+ * a clickable color swatch that opens a native color picker on interaction.
+ * 
+ * @example
+ * ```html
+ * <mat-form-field>
+ *   <ml-color-input formControlName="primaryColor" placeholder="Choose primary color"></ml-color-input>
+ * </mat-form-field>
+ * ```
+ */
 @Component({
   selector: 'ml-color-input',
   standalone: true,

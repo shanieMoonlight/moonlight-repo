@@ -15,10 +15,21 @@ export type DarkModeType = true | false | 'system';
 
 
 /**
- * Represents the configuration options for a theme.
+ * Represents a theme configuration with color settings and dark mode preference.
  * 
- * This class defines the properties that can be set to customize a theme's appearance
- * and behavior within the application.
+ * ThemeOption objects define the colors and appearance of a theme and can be
+ * used with ThemeService to apply consistent styling across the application.
+ * 
+ * @example
+ * ```typescript
+ * const myCustomTheme = ThemeOption.create({
+ *   label: 'Ocean Blue',
+ *   value: 'ocean-blue',
+ *   primaryColor: '#0277bd',
+ *   secondaryColor: '#00b0ff',
+ *   darkMode: 'system'
+ * });
+ * ```
  */
 export class ThemeOption {
   /**

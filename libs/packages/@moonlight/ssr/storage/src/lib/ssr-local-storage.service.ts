@@ -1,6 +1,21 @@
 import { isPlatformBrowser } from '@angular/common'
 import { Injectable, PLATFORM_ID, inject } from '@angular/core'
 
+/**
+ * SSR-compatible wrapper for localStorage access.
+ * 
+ * This service safely accesses localStorage only in browser environments and provides
+ * no-op implementations for server-side rendering to prevent errors.
+ * 
+ * @example
+ * ```typescript
+ * // Store value
+ * ssrLocalStorage.setItem('my-key', 'my-value');
+ * 
+ * // Retrieve value
+ * const value = ssrLocalStorage.getItem('my-key');
+ * ```
+ */
 @Injectable({
   providedIn: 'root'
 })

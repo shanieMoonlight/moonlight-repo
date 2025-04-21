@@ -5,7 +5,18 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '@moonlight/material/theming/service';
 
-
+/**
+ * A Material Design toggle component for switching between light and dark modes.
+ * 
+ * This component provides a visually appealing button that toggles between light and dark mode,
+ * automatically updating its appearance based on the current mode. It integrates with
+ * ThemeService to persist user preferences.
+ * 
+ * @example
+ * ```html
+ * <ml-dark-mode-toggle-mat [showTooltip]="true"></ml-dark-mode-toggle-mat>
+ * ```
+ */
 @Component({
   selector: 'ml-dark-mode-toggle-mat',
   standalone: true,

@@ -16,6 +16,24 @@ export type ThemeMode = 'light' | 'dark';
 
 //##################################################//
 
+/**
+ * Configuration settings for the theming system.
+ * 
+ * ThemeConfig provides centralized configuration for theme options, default values,
+ * CSS class names, and other theme-related settings. It's typically provided at the
+ * application level and consumed by various theming services.
+ * 
+ * @example
+ * ```typescript
+ * // Basic configuration with default themes
+ * const config = ThemeConfig.create();
+ * 
+ * // Custom configuration with specific themes
+ * const customConfig = ThemeConfig.create([
+ *   ThemeOption.create({ value: 'custom-theme', label: 'Custom', primaryColor: '#ff0000' })
+ * ]);
+ * ```
+ */
 export class ThemeConfig {
 
   themeOptions: ThemeOption[] = []

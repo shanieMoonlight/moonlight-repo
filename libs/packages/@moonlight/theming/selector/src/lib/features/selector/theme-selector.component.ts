@@ -59,7 +59,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
   private _config: ThemeConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
-
+  
+/**
+ * Input to customize the preset themes available in the selector.
+ * If not provided, the default preset themes from ThemeConfig will be used.
+ */
   _presetInput = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
   // Computed signal handles the fallback. We need this to test the default value. Otherwise, it will be undefined.
   protected _presetThemes = computed(() => {

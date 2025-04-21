@@ -13,7 +13,14 @@ export class PaletteGeneratorService {
   //-----------------------------//
 
   /**
-   * Generate theme palettes from source colors
+   * Generates a complete color palette from a base color.
+   * 
+   * This method creates a set of color variations (lighter and darker shades)
+   * that can be used throughout the application for consistent styling.
+   * 
+   * @param baseColor The hex color code to generate a palette from (e.g., '#3f51b5')
+   * @param tones Optional array of tonal values to generate (defaults to [50, 100, 200, ...])
+   * @returns An object containing the primary color and all its tonal variations
    */
   generatePalettes(themeOption: ThemeOption): GeneratedPalettes {
     if (isDevMode())
