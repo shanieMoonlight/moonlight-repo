@@ -1,5 +1,4 @@
-import { _ } from "@angular/cdk/number-property.d-1067cb21";
-import { ThemingConfig, ThemeOption, TransitionStyle } from "@moonlight/material/theming/config";
+import { ThemingConfig, ThemeOption } from "@moonlight/material/theming/config";
 
 const today = new Date();
 const thisYear = today.getFullYear();
@@ -96,15 +95,8 @@ export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
 if (IS_XMAS) _themeOptions.push(XMAS_THEME);
 if (IS_HALLOWEEN) _themeOptions.push(HALLOWEEN_THEME);
 
-export const THEME_CONFIG = ThemingConfig.create({
-  themeOptions: _themeOptions,
-  defaultMode: 'dark',
-  themeClassPrefix: 'my-app-theme',
-  transitionOptions:{
-    style: 'morph',
-    duration: 500,
-    showTransitions: true,  }
-})
+export const THEME_CONFIG = ThemingConfig.create(_themeOptions)
+  .showTransitions()
 
 
 

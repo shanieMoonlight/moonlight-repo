@@ -83,11 +83,6 @@ export class ThemeGeneratorService {
     themeClassOverride?: string,
     targetElement?: HTMLElement) {
  //TODO How to handle the old class????
-    // console.log('applyTheme darkMode', theme.darkMode);
-    // console.log('applyTheme themeClassOverride', themeClassOverride);
-    // console.log('applyTheme theme', theme);
-    // console.log('applyTheme targetElement?.classList', targetElement?.classList);
-
     if (!this.isBrowser())
       return
 

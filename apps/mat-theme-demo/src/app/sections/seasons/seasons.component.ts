@@ -5,7 +5,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
+import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
+import { ThemeTransitionIndicatorComponent } from '../../shared/utils/theme-transition/theme-transition-indicator.component';
 import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
 
 
@@ -17,9 +18,10 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
     MatTooltipModule,
     MatSidenavModule,
     SeasonalNavbarComponent,
-    DarkModeToggleMatComponent,
+    MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
-    RouterModule
+    RouterModule,
+    ThemeTransitionIndicatorComponent
   ],
   providers: [
   ],

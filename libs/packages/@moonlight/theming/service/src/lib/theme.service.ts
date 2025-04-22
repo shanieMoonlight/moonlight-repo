@@ -1,6 +1,6 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { DarkModeType, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/material/theming/config';
+import { DarkModeType, ThemingConfig, ThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/material/theming/config';
 import { consoleDev } from '@moonlight/material/theming/utils';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
 import { devLog } from '@moonlight/utils/rxjs';
@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntil
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
+import { ThemeTransitionService } from './transitions/transitions.service';
 
 //##################################################//
 
@@ -43,10 +44,13 @@ export class ThemeService {
   private _localStorage = inject(SsrLocalStorage)
   private _systemPrefs = inject(SystemPrefsService)
   private _destroyor = inject(DestroyRef)
-  private _config: ThemeConfig = inject(ThemeConfigService)
+  private _config: ThemingConfig = inject(ThemeConfigService)
   private _themeGenerator = inject(ThemeGeneratorService)
+  private _themeTransition = inject(ThemeTransitionService)
 
   //- - - - - - - - - - - - - - -//
+
+  private _previousTheme: ThemeOption | null = null;
 
   private _systemDarkMode$ = this._systemPrefs.prefersDarkMode$
 
@@ -81,6 +85,7 @@ export class ThemeService {
   systemThemes$ = this._systemThemesBs.asObservable();
   /** Developer defined themes (Signal)*/
   systemThemes = toSignal(this.systemThemes$, { initialValue: this._config.themeOptions })
+  
 
   availableThemes$ = combineLatest([this.systemThemes$, this.customThemes$]).pipe(
     map(([systemThemes, customThemes]) => [...systemThemes, ...customThemes]),
@@ -280,11 +285,29 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private applyCurrentTheme = (themeData: ThemeData, element?: HTMLElement) =>
-    this._themeGenerator.applyTheme(
+  private applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
+    
+    // Direct application to specific element - no transition needed
+    if (element || !this._config.transitionOptions.showTransitions) 
+      return this._themeGenerator.applyTheme(
+        themeData.currentTheme,
+        undefined,
+        element
+      );
+    // Get previous theme for transition
+    const previousTheme = this._previousTheme;
+
+    // Store current theme for next transition
+    this._previousTheme = themeData.currentTheme;
+
+    consoleDev.log('Applying theme with trasition:', themeData.currentTheme);
+    // Use transition service for document-level theme changes
+    this._themeTransition.transitionThemes(
+      previousTheme,
       themeData.currentTheme,
-      undefined,
-      element)
+      themeData.currentTheme.darkMode
+    );
+  }
 
   //- - - - - - - - - - - - - - -//
 

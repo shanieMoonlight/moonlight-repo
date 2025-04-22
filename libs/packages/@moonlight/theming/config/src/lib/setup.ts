@@ -1,5 +1,5 @@
 import { EnvironmentProviders, Provider } from "@angular/core"
-import { ThemeConfig, ThemeConfigService } from "./theming-config"
+import { ThemingConfig, ThemeConfigService } from "./theming-config"
 
 /**
  * Utility class for configuring theme providers in Angular applications.
@@ -33,7 +33,7 @@ export class ThemeAndModeSetup {
      *               configuration with standard themes if not provided.
      * @returns An array of providers to include in an application's provider array.
      */
-    static provideThemingModule = (config: ThemeConfig = ThemeConfig.create())
+    static provideThemingModule = (config: ThemingConfig = ThemingConfig.create())
         : (Provider | EnvironmentProviders)[] =>
         [
             {

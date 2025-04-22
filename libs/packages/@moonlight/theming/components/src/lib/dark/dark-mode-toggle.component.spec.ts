@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BehaviorSubject } from 'rxjs';
-import { DarkModeToggleMatComponent } from './dark-mode-toggle.component';
+import { MlDarkModeToggleMatComponent } from './dark-mode-toggle.component';
 import { ThemeService } from '../../../../service/src/lib/theme.service';
 
 // Remove jest.mock completely and instead create a mock class
@@ -14,9 +14,9 @@ class MockThemeService {
   });
 }
 
-describe('DarkModeToggleMatComponent', () => {
-  let component: DarkModeToggleMatComponent;
-  let fixture: ComponentFixture<DarkModeToggleMatComponent>;
+describe('MlDarkModeToggleMatComponent', () => {
+  let component: MlDarkModeToggleMatComponent;
+  let fixture: ComponentFixture<MlDarkModeToggleMatComponent>;
   let mockThemeService: MockThemeService;
   
   //-----------------------------//
@@ -29,7 +29,7 @@ describe('DarkModeToggleMatComponent', () => {
         NgTemplateOutlet,
         MatTooltipModule,
         MatSlideToggleModule,
-        DarkModeToggleMatComponent
+        MlDarkModeToggleMatComponent
       ],
       providers: [
         // This is the key line - provide the mock directly through DI
@@ -37,7 +37,7 @@ describe('DarkModeToggleMatComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DarkModeToggleMatComponent);
+    fixture = TestBed.createComponent(MlDarkModeToggleMatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

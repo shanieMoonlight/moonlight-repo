@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfig, ThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemingConfig, ThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
 import { ThemeGeneratorService, ThemeService } from '@moonlight/material/theming/service';
 import { consoleDev, MatEverythingModule } from '@moonlight/material/theming/utils';
 import { map } from 'rxjs';
@@ -75,7 +75,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
   private _themeService = inject(ThemeService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
-  private _config: ThemeConfig = inject(ThemeConfigService)
+  private _config: ThemingConfig = inject(ThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
 

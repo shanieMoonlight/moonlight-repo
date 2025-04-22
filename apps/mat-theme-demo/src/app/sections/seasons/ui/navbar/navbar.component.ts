@@ -14,7 +14,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 //##################################################//
 // 
 @Component({
-  selector: 'ml-navbar',
+  selector: 'ml-seasonal-navbar',
   imports: [
     MatEverythingModule,
     NgTemplateOutlet,

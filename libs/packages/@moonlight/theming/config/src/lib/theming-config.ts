@@ -1,14 +1,14 @@
-
 import { InjectionToken } from '@angular/core';
 import { DARK_MODE_CLASS, DEFAULT_COLOR_TONES, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
-import { defaultPresetSelectorThemes, ThemeOption } from './theme-option.model';
+import { defaultPresetSelectorThemes, ThemeOption } from './theme-options';
+import { DEFAULT_TRANSITION_OPTIONS, ThemeTransitionOptions, TransitionStyle } from './theme-transition-options';
 
 //##################################################//
 
-export const ThemeConfigService = new InjectionToken<ThemeConfig>(
+export const ThemeConfigService = new InjectionToken<ThemingConfig>(
   'ThemeConfig',
   {
-    factory: () => ThemeConfig.create()
+    factory: () => ThemingConfig.create()
   }
 )
 
@@ -22,6 +22,26 @@ export type ThemeMode = 'light' | 'dark';
 
 //##################################################//
 
+/** Interface for ThemeConfig creation options */
+export interface ThemingConfigOptions {
+  /** List of available theme options */
+  themeOptions?: ThemeOption[];
+  /** CSS class for dark mode */
+  darkModeClass?: string;
+  /** CSS class for light mode */
+  lightModeClass?: string;
+  /** Prefix for theme-specific CSS classes */
+  themeClassPrefix?: string;
+  /** Default theme mode ('light' or 'dark') */
+  defaultMode?: ThemeMode;
+  /** Custom color tones for palette generation */
+  customColorTones?: number[];
+  /** Preset themes for selectors */
+  presetSelectorThemes?: ThemeOption[];
+  /** Options specific to theme transitions */
+  transitionOptions?: ThemeTransitionOptions; 
+}
+
 /**
  * Configuration settings for the theming system.
  * 
@@ -34,13 +54,17 @@ export type ThemeMode = 'light' | 'dark';
  * // Basic configuration with default themes
  * const config = ThemeConfig.create();
  * 
- * // Custom configuration with specific themes
- * const customConfig = ThemeConfig.create([
- *   ThemeOption.create({ value: 'custom-theme', label: 'Custom', primaryColor: '#ff0000' })
- * ]);
+ * // Custom configuration using options object
+ * const customConfig = ThemeConfig.create({
+ *   themeOptions: [
+ *     ThemeOption.create({ value: 'custom-theme', label: 'Custom', primaryColor: '#ff0000' })
+ *   ],
+ *   defaultMode: 'dark',
+ *   showTransitions: true
+ * });
  * ```
  */
-export class ThemeConfig {
+export class ThemingConfig {
 
   themeOptions: ThemeOption[] = []
   darkModeClass = DARK_MODE_CLASS
@@ -51,54 +75,46 @@ export class ThemeConfig {
   /**Used in theme-selector */
   presetSelectorThemes: ThemeOption[] = defaultPresetSelectorThemes
 
+  // Replace showThemeTrasitions with the new options object
+  transitionOptions: ThemeTransitionOptions = DEFAULT_TRANSITION_OPTIONS
+
   //- - - - - - - - - - - - - - - //
 
   /**
-   * Set paramater to null to use default values.
-   * Enter no paramaters to use default values on everything
-   * @param themeOptions Different themes to choose from - Default = all themes
+   * Private constructor to prevent direct instantiation.
+   * Use ThemeConfig.create() factory method instead.
    */
-  private constructor(themeOptions?: ThemeOption[]) {
-    this.themeOptions = themeOptions ?? []
+  private constructor(options: ThemingConfigOptions = {}) {
+    this.themeOptions = options.themeOptions ?? [];
+    this.darkModeClass = options.darkModeClass ?? DARK_MODE_CLASS;
+    this.lightModeClass = options.lightModeClass ?? LIGHT_MODE_CLASS;
+    this.themeClassPrefix = options.themeClassPrefix ?? THEME_CLASS_PREFIX;
+    this.defaultDarkMode = options.defaultMode ?? 'light';
+    this.colorTones = options.customColorTones ?? DEFAULT_COLOR_TONES;
+    this.presetSelectorThemes = options.presetSelectorThemes ?? defaultPresetSelectorThemes;
+ // Merge provided transition options with defaults
+ this.transitionOptions = {
+  ...this.transitionOptions, // Start with defaults
+  ...(options.transitionOptions ?? {}) // Override with provided options
+};
   }
 
   //------------------------------//
 
   /**
-   * Create new instance of BgAngledSplitConfig
-   * @param colorLhs Color for Left Hand Side of background - default colorPrimary
-   * @param colorRhs Color for Right Hand Side of background - default colorPrimaryLight
+   * Creates a new ThemeConfig instance using an options object.
+   * This is the recommended way to instantiate theme configurations.
+   *
+   * @param options Configuration object for creating the theme config
+   * @returns A new validated ThemeConfig instance
    */
-  static create(
-    themeOptions?: ThemeOption[],
-    darkModeClass?: string,
-    lightModeClass?: string,
-    themeClassPrefix?: string,
-    defaultMode?: ThemeMode,
-    customColorTones?: number[]): ThemeConfig {
-
-    const config = new ThemeConfig(themeOptions)
-
-    if (darkModeClass)
-      config.darkModeClass = darkModeClass
-
-    if (lightModeClass)
-      config.lightModeClass = lightModeClass
-
-    if (themeClassPrefix)
-      config.themeClassPrefix = themeClassPrefix
-
-    if (defaultMode)
-      config.defaultDarkMode = defaultMode
-
-    if (customColorTones?.length)
-      config.colorTones = customColorTones;
-
-    return config
+  static create(options: ThemingConfigOptions = {}): ThemingConfig {
+    // The constructor now handles applying defaults
+    return new ThemingConfig(options);
   }
 
   //------------------------------//    
-
+  // Fluent API methods remain the same
   setDarkModeClass(className: string) {
     this.darkModeClass = className
     return this
@@ -122,6 +138,13 @@ export class ThemeConfig {
 
   setSelectorPresetThemes(presetThemes: ThemeOption[]) {
     this.presetSelectorThemes = presetThemes
+    return this
+  }
+  
+  //- - - - - - - - - - - - - - - //   
+
+  setTransitionOptions(opts: ThemeTransitionOptions) {
+    this.transitionOptions = opts
     return this
   }
 

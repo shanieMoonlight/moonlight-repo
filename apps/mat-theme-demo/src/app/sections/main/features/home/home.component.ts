@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
+import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
 import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
 import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
 import { ThemeBannerComponent } from '../../../../shared/ui/banner/theme-banner.component';
@@ -16,7 +16,7 @@ import { ThemeBannerComponent } from '../../../../shared/ui/banner/theme-banner.
     MatDividerModule,
     MatIconModule,
     RouterModule,
-    DarkModeToggleMatComponent,
+    MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     MlThemeShowcaseMatComponent,
     ThemeBannerComponent
