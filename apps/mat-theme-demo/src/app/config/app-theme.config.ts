@@ -3,10 +3,10 @@ import { ThemeConfig, ThemeOption } from "@moonlight/material/theming/config";
 const today = new Date();
 const thisYear = today.getFullYear();
 const xmasTime = new Date(thisYear, 11, 1);
-// const xmasTime = new Date(`${thisYear}-October-01`)
-// export const IS_XMAS = true;
+const halloweenTimeStart = new Date(thisYear, 10, 1);
+const halloweenTimeEnd = new Date(thisYear, 11, 1);
 export const IS_XMAS = today >= xmasTime;
-export const IS_HALLOWEEN = true;
+export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTimeEnd;
 
 const _themeOptions: ThemeOption[] = [
   ThemeOption.create({
@@ -29,7 +29,40 @@ const _themeOptions: ThemeOption[] = [
     value: 'pastel',
     primaryColor: '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
-  })
+  }),
+  ThemeOption.create({
+    darkMode: false,
+    label: 'Autumn',
+    value: 'autumn',
+    primaryColor: '#FF5722', // Sunset orange
+    secondaryColor: '#FFC107', // Golden yellow
+    tertiaryColor: '#191102', // Lime green
+  }),
+  ThemeOption.create({
+    darkMode: false,
+    label: 'Winter',
+    value: 'winter',
+    primaryColor: '#1E88E5', // Ice blue
+    secondaryColor: '#E0E0E0', // Silver/snow
+    tertiaryColor: '#263238', // Dark blue-gray
+  }),
+  ThemeOption.create({
+    darkMode: false,
+    label: 'Spring',
+    value: 'spring',
+    primaryColor: '#8BC34A', // Fresh green
+    secondaryColor: '#FFEB3B', // Bright yellow
+    tertiaryColor: '#FF4081', // Pink blossom
+  }),
+  ThemeOption.create({
+    darkMode: false,
+    label: 'Summer',
+    value: 'summer',
+    primaryColor: '#03A9F4', // Sky blue
+    secondaryColor: '#FF9800', // Warm orange
+    tertiaryColor: '#4CAF50', // Vibrant green
+  }),
+  
 ];
 
 export const XMAS_THEME: ThemeOption = ThemeOption.create({

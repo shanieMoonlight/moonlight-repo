@@ -4,7 +4,7 @@ import { DarkModeType, ThemeConfig, ThemeConfigService, ThemeOption, ThemeValue,
 import { consoleDev } from '@moonlight/material/theming/utils';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
 import { devLog } from '@moonlight/utils/rxjs';
-import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
@@ -82,8 +82,12 @@ export class ThemeService {
   /** Developer defined themes (Signal)*/
   systemThemes = toSignal(this.systemThemes$, { initialValue: this._config.themeOptions })
 
+  availableThemes$ = combineLatest([this.systemThemes$, this.customThemes$]).pipe(
+    map(([systemThemes, customThemes]) => [...systemThemes, ...customThemes]),
+    startWith([]))
+  availableThemes = toSignal(this.availableThemes$, { initialValue: [] })
 
-  private _currentDataBs = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
+  private _currentData$ = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
     .pipe(
       // devLog((data) => 'ThemeService:currentData' +  data.length),
       debounceTime(100),
@@ -117,6 +121,18 @@ export class ThemeService {
     this._isDarkModeBs.next(darkMode)
 
   //-----------------------------//
+
+
+  setThemeByValue(themeValue: ThemeValue): boolean {
+    const theme = this.availableThemes().find(t => t.value === themeValue);
+    if (theme)
+      this.setTheme(theme)
+
+    return !!theme
+  }
+
+  //-----------------------------//
+
 
   /**
    * Sets the current theme based on the provided ThemeOption.
@@ -224,7 +240,7 @@ export class ThemeService {
 
     try {
       //Get this running first sin case something goes wrong below
-      this._currentDataBs
+      this._currentData$
         .pipe(
           takeUntilDestroyed(this._destroyor),
           devLog('ThemeService:currentData')
@@ -275,7 +291,7 @@ export class ThemeService {
   private setDefaultTheme() {
     // No need to call clear() here
     const defaultOption = this._config.themeOptions[0] ?? defaultThemeOption // Get first theme or a hardcoded default
-    
+
     consoleDev.log('Setting default theme:', defaultOption);
 
     this.setDarkMode(defaultOption.darkMode)

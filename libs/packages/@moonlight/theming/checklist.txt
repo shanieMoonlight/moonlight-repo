@@ -128,3 +128,6 @@ export class MyComponent {
 
 Build a page that shows this off :
     Apply Theme to Specific Element
+
+
+Redo : devLog

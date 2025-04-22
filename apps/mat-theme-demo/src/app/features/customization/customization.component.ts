@@ -4,17 +4,17 @@ import { MatEverythingModule } from '@moonlight/material/theming/utils';
 import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
 
 @Component({
-  selector: 'ml-theming',
+  selector: 'ml-customization',
   imports: [
     MatEverythingModule,
     MlThemeSelectorComponent,
     MlThemeShowcaseMatComponent
   ],
-  templateUrl: './theming.component.html',
-  styleUrl: './theming.component.scss',
+  templateUrl: './customization.component.html',
+  styleUrl: './customization.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemingComponent {
+export class CustomizationComponent {
 
 
 

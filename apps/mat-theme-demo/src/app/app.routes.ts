@@ -7,7 +7,11 @@ export const appRoutes: Route[] = [
     },
     {
         path: 'custom-theming',
-        loadComponent: () => import('./features/theming/theming.component').then(m => m.ThemingComponent),
+        loadComponent: () => import('./features/customization/customization.component').then(m => m.CustomizationComponent),
+    },
+    {
+        path: 'multi-demo',
+        loadComponent: () => import('./features/multi-theme-demo/multi-theme-demo.component').then(m => m.MultiThemeApiDemoComponent),
     },
     {
         path: '',

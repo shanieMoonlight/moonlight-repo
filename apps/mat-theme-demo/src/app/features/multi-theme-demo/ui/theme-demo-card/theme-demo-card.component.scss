@@ -1,0 +1,113 @@
+:host{
+  background:var(--mat-sys-surface);
+  color:var(--mat-sys-on-surface);
+  border: 1px solid var(--mat-sys-primary);
+  border-radius: 5px;
+  // border-radius: var(--mat-sys-primary);
+}
+
+.card-container {
+  position: relative;
+  border-radius: 4px;
+  padding: 8px;
+  
+  // Important to add this to create our CSS scoping context
+  contain: style;
+}
+
+.demo-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+mat-card-content {
+  flex: 1;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.code-example {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 16px;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.theme-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.theme-property {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-box {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+
+// Add these styles to your existing styles
+
+.config {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.theme-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// Add to your SCSS
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+mat-card-content{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}

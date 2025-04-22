@@ -22,7 +22,8 @@ html {
   // Leave the color palette empty as we're handling colors via CSS variables.
   // Using our theming system
   @include mat.theme((
-    // typography: $demo-typography // Uncomment this line to use custom typography
+    typography: Roboto,
+    density: 0
   ));
 }
 

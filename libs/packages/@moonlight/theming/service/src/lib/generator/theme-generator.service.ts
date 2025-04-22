@@ -56,7 +56,6 @@ export class ThemeGeneratorService {
 
   //- - - - - - - - - - - - - - -//
 
-
   // Additional class fields for memoized functions...
   private _memoizedGeneratePalettes!: (theme: ThemeOption) => GeneratedPalettes;
 
@@ -83,11 +82,15 @@ export class ThemeGeneratorService {
     theme: ThemeOption,
     themeClassOverride?: string,
     targetElement?: HTMLElement) {
-
+ //TODO How to handle the old class????
+    // console.log('applyTheme darkMode', theme.darkMode);
+    // console.log('applyTheme themeClassOverride', themeClassOverride);
+    // console.log('applyTheme theme', theme);
+    // console.log('applyTheme targetElement?.classList', targetElement?.classList);
 
     if (!this.isBrowser())
       return
-    
+
 
     const isDark = this.shouldUseDarkMode(theme)
     // const palettes = this._paletteGenerator.generatePalettes(theme)
@@ -99,7 +102,7 @@ export class ThemeGeneratorService {
 
     // Batch DOM updates using requestAnimationFrame
     this._requestFrame.request(() => {
-      
+
       // Apply basic styling to body element for convenience
       this.applyBaseBodyStyles()
 

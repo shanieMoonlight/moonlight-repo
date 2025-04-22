@@ -35,7 +35,9 @@ npm install @moonlight/material/theming
 
 // Configure Angular Material with an empty theme (variables set by ThemeGeneratorService)
 html {
-  @include mat.theme(());
+  @include mat.theme((
+    typography: Roboto
+  ));
 }
 
 // Include core styles
