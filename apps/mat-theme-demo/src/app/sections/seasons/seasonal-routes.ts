@@ -6,6 +6,11 @@ export const seasonalRoutes: Route[] = [{
   component: SeasonsComponent,
   children: [
     {
+      path: 'home',
+      loadComponent: () => import('./features/home/home.component').then(m => m.SeasonalHomeComponent),
+      title: 'Seasonal Themes Home'
+    },
+    {
       path: 'spring',
       loadComponent: () => import('./features/spring/spring.component').then(m => m.SpringComponent),
       title: 'Spring Theme'
@@ -27,8 +32,13 @@ export const seasonalRoutes: Route[] = [{
     },
     {
       path: '',
-      loadComponent: () => import('./features/spring/spring.component').then(m => m.SpringComponent),
-      title: 'Spring Theme'
+      loadComponent: () => import('./features/home/home.component').then(m => m.SeasonalHomeComponent),
+      title: 'Seasonal Themes Home'
+    },
+    {
+      path: '**',
+      loadComponent: () => import('../../shared/features/not-found.component').then((m) => m.NotFoundComponent),
+      pathMatch: 'full',
     },
   ]
 }]

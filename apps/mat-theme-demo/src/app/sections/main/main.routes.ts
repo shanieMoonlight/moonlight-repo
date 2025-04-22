@@ -20,6 +20,11 @@ export const mainRoutes: Route[] = [
         {
             path: '',
             loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
-        }], //Children
+        },
+        {
+          path: '**',
+          loadComponent: () => import('../../shared/features/not-found.component').then((m) => m.NotFoundComponent),
+          pathMatch: 'full',
+        },], //Children
     },
 ];

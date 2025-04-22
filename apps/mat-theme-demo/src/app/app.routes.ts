@@ -16,11 +16,11 @@ export const appRoutes: Route[] = [
       redirectTo: 'main',
       pathMatch: 'full',
     },
-    // {
-    //   path: '**',
-    //   loadChildren: () => import('./sections/main/main.routes').then((m) => m.mainRoutes),
-    //   pathMatch: 'full',
-    // },
+    {
+      path: '**',
+      loadComponent: () => import('./shared/features/not-found.component').then((m) => m.NotFoundComponent),
+      pathMatch: 'full',
+    },
     // {
     //   path: '**',
     //   loadComponent: () => import('@inigo/not-found/with-footer').then((m) => NotFoundWithFooterComponent),

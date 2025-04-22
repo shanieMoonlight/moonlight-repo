@@ -1,0 +1,19 @@
+<div class="page-container">
+    <h1>Seasonal Themes</h1>
+    <p>
+      Explore different themes inspired by the seasons. Each card below uses the
+      <code>ThemeGeneratorService</code> to apply its specific theme locally,
+      without affecting the rest of the application or the other cards.
+    </p>
+    <p>
+      Clicking "Go to [Season]" will navigate to a dedicated page for that season
+      and apply the theme globally using the <code>ThemeService</code>, demonstrating
+      full-page theme transitions.
+    </p>
+
+    <div class="seasons-grid">
+      @for (season of seasonData; track season.title) {
+        <ml-season-info-card [data]="season" />
+      }
+    </div>
+  </div>

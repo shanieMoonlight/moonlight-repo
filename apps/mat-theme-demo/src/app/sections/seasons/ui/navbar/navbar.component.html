@@ -3,6 +3,18 @@
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
             routerLink: '/', 
+            tooltip: 'MainPage', 
+            iconName: 'palette', 
+            text: 'MainPage'
+        }">
+    </ng-container>
+
+    <span class="spacer"></span>    
+
+    <ng-container 
+        [ngTemplateOutlet]="navItem" 
+        [ngTemplateOutletContext]="{
+            routerLink: 'home', 
             tooltip: 'Home', 
             iconName: 'home', 
             text: 'Home'
