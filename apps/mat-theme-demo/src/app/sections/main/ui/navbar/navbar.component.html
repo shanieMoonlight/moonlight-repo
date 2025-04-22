@@ -2,7 +2,7 @@
     <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
-            routerLink: '/', 
+            routerLink: 'home', 
             tooltip: 'Home', 
             iconName: 'home', 
             text: 'Home'
@@ -10,13 +10,36 @@
     </ng-container>
     
     <span class="spacer"></span>    
+    
+    <button mat-icon-button 
+        aria-label="Git repo for project"
+        [mlNavigateNewWindow]="_gitRepoUrl()" 
+        [matTooltip]="'Git repo'">
+        <mat-icon svgIcon="git" />
+    </button>    
+    
+    <button mat-icon-button 
+        aria-label="Npm Package"
+        [mlNavigateNewWindow]="_npmPkgUrl()" 
+        [matTooltip]="'Npm Package'">
+        <mat-icon svgIcon="npm" />
+    </button>
+
+    <button mat-icon-button 
+        aria-label="Share current page"
+        (click)="share()"
+        matTooltip="Share this page">
+        <mat-icon>share</mat-icon>
+    </button>
+
+    <span class="spacer"></span>    
     <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
-            routerLink: 'spring', 
-            tooltip: 'Spring Theme', 
-            iconName: 'spa', 
-            text: 'Spring'
+            routerLink: 'custom-theming', 
+            tooltip: 'Custom Themes', 
+            iconName: 'tune', 
+            text: 'Customize'
         }">
     </ng-container>
 
@@ -24,35 +47,22 @@
     <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
-            routerLink: 'summer', 
-            tooltip: 'Summer Theme', 
-            iconName: 'sunny', 
-            text: 'Summer'
+            routerLink: 'multi-demo', 
+            tooltip: 'Multiple Themes', 
+            iconName: 'workspaces', 
+            text: 'Multi-Theming'
         }">
-    </ng-container>    
-
+    </ng-container>
     
     <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
-            routerLink: 'autumn', 
-            tooltip: 'Autumn Theme', 
-            iconName: 'eco', 
-            text: 'Autumn'
+            routerLink: '/seasons', 
+            tooltip: 'Seasonal Themes', 
+            iconName: 'local_florist', 
+            text: 'Seasons'
         }">
     </ng-container>
-
-    
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'winter', 
-            tooltip: 'Winter Theme', 
-            iconName: 'ac_unit', 
-            text: 'Winter'
-        }">
-    </ng-container>
-
   
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){

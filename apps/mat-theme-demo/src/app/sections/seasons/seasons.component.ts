@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
-import { NavbarComponent } from './ui/navbar/navbar.component';
+import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
     MatToolbarModule,
     MatTooltipModule,
     MatSidenavModule,
-    NavbarComponent,
+    SeasonalNavbarComponent,
     DarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     RouterModule
@@ -26,8 +26,9 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
   selector: 'ml-seasons-root',
   templateUrl: './seasons.component.html',
   styleUrl: './seasons.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class SeasonsComponent {
   title = 'material-theming-demo';
 
 }

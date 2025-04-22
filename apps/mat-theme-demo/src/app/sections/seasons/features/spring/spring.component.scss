@@ -1,0 +1,61 @@
+:host {
+  display: block;
+//   padding: 16px;
+//   background-color: var(--background-color);
+//   color: var(--text-color);
+}
+
+.season-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  h2 {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+  }
+  
+  mat-divider {
+    margin: 32px 0;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin: 24px 0;
+  }
+  
+  .progress-container {
+    margin: 24px 0;
+  }
+  
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .progress-text {
+    margin-top: 8px;
+    font-style: italic;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  }
+  
+  .weather-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .weather-section h2 {
+    align-self: flex-start;
+  }

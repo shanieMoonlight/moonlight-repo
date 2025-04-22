@@ -1,0 +1,74 @@
+
+<div class="season-page">
+    <ml-seasonal-banner 
+      title="Spring" 
+      subtitle="A time of renewal and growth"
+      [seasonalIcons]="['eco', 'local_florist', 'water_drop']"/>
+    
+    <div class="content-area">
+      <section class="weather-section">
+        <h2>Spring Weather</h2>
+        <ml-weather-widget
+          weatherIcon="wb_sunny"
+          [temperature]="68"
+          location="Bloom Gardens"
+          [humidity]="72"
+          [windSpeed]="12"/>
+      </section>
+      
+      <mat-divider/>
+      
+      <section class="activities-section">
+        <h2>Spring Activities</h2>
+        <div class="card-grid">
+          <ml-seasonal-card
+            title="Garden Planting"
+            subtitle="Start your garden"
+            content="Spring is the perfect time to begin planting flowers, vegetables, and herbs. The warming soil and increased daylight hours create ideal conditions for new growth."
+            icon="yard"/>
+          
+          <ml-seasonal-card
+            title="Bird Watching"
+            subtitle="Migratory returns"
+            content="Many bird species return from their winter migrations during spring. Take advantage of this season to observe various birds in their natural habitats."
+            icon="flight"/>
+          
+          <ml-seasonal-card
+            title="Spring Cleaning"
+            subtitle="Refresh your space"
+            content="Spring is traditionally associated with cleaning and organizing. Clear out the winter clutter and prepare your home for the warmer months ahead."
+            icon="cleaning_services"/>
+        </div>
+      </section>
+      
+      <mat-divider/>
+      
+      <section class="seasonal-progress">
+        <h2>Season Progress</h2>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>March</span>
+            <span>April</span>
+            <span>May</span>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="50" color="primary"></mat-progress-bar>
+        </div>
+        <p class="progress-text">Spring is in full bloom! Flowers are opening and trees are leafing out.</p>
+      </section>
+      
+      <section class="navigation-section">
+        <h2>Explore Other Seasons</h2>
+        <div class="nav-buttons">
+          <button mat-raised-button color="primary" (click)="goToSeason('winter')">
+            <mat-icon>ac_unit</mat-icon> Winter
+          </button>
+          <button mat-raised-button color="primary" (click)="goToSeason('summer')">
+            <mat-icon>wb_sunny</mat-icon> Summer
+          </button>
+          <button mat-raised-button color="primary" (click)="goToSeason('autumn')">
+            <mat-icon>eco</mat-icon> Autumn
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>

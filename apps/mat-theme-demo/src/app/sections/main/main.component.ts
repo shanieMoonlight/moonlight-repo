@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
-// import { NavbarComponent } from './shared/ui/navbar/navbar.component';
+import { NavbarComponent } from './ui/navbar/navbar.component';
 
 
 @Component({
@@ -16,18 +16,18 @@ import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonligh
     MatToolbarModule,
     MatTooltipModule,
     MatSidenavModule,
-    // NavbarComponent,
+    NavbarComponent,
     DarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     RouterModule
   ],
   providers: [
   ],
-  selector: 'ml-app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  selector: 'ml-main-root',
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.scss',
 })
-export class AppComponent {
+export class MainComponent {
   title = 'material-theming-demo';
 
 }

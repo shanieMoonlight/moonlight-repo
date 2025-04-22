@@ -45,7 +45,7 @@ import { MatButtonModule } from '@angular/material/button';
       font-size: 48px;
       width: 48px;
       height: 48px;
-      color: var(--primary-color);
+      color: var(---mat-sys-primary);
     }
   `
 })

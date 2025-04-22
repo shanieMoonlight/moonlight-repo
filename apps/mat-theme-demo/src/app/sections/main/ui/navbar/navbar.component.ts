@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef 
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatEverythingModule } from '@moonlight/material/theming/utils';
-import { AppConstants } from '../../config/constants';
+import { AppConstants } from '../../../../config/constants';
 import { NavigateNewWindowDirective } from '@moonlight/utils/open-in-new-window';
 import { ShareService } from '@moonlight/utils/share';
 import { RouterModule } from '@angular/router';

@@ -11,12 +11,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { defaultThemeOption, ThemeOption } from '@moonlight/material/theming/config';
 import { ThemeGeneratorService } from '@moonlight/material/theming/service';
-import { consoleDev } from '@moonlight/material/theming/utils';
 import { devLog } from '@moonlight/utils/rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
-import { ThemeBannerComponent } from '../../../../ui/banner/theme-banner.component';
-import { LightDarkToggleComponent } from '../../../../ui/light-dark-toggle/light-dark-toggle.component';
-import { ThemePickerComponent } from '../../../../ui/theme-picker/theme-picker.component';
+import { ThemeBannerComponent } from '../../../../../../shared/ui/banner/theme-banner.component';
+import { LightDarkToggleComponent } from '../../../../../../shared/ui/light-dark-toggle/light-dark-toggle.component';
+import { ThemePickerComponent } from '../../../../../../shared/ui/theme-picker/theme-picker.component';
 
 
 //##########################################################//

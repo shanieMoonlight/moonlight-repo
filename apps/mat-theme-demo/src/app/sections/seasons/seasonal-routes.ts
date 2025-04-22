@@ -1,32 +1,34 @@
 import { Route } from '@angular/router';
+import { SeasonsComponent } from './seasons.component';
 
-export const appRoutes: Route[] = [{
-  path: 'features/seasons',
+export const seasonalRoutes: Route[] = [{
+  path: '',
+  component: SeasonsComponent,
   children: [
     {
-      path: '',
-      redirectTo: 'spring',
-      pathMatch: 'full'
-    },
-    {
       path: 'spring',
-      loadComponent: () => import('./features/spring.component').then(m => m.SpringComponent),
+      loadComponent: () => import('./features/spring/spring.component').then(m => m.SpringComponent),
       title: 'Spring Theme'
     },
     {
       path: 'summer',
-      loadComponent: () => import('./features/spring.component').then(m => m.SpringComponent),
+      loadComponent: () => import('./features/summer/summer.component').then(m => m.SummerComponent),
       title: 'Summer Theme'
     },
     {
       path: 'autumn',
-      loadComponent: () => import('./features/spring.component').then(m => m.SpringComponent),
+      loadComponent: () => import('./features/autumn/autumn.component').then(m => m.AutumnComponent),
       title: 'Autumn Theme'
     },
     {
       path: 'winter',
-      loadComponent: () => import('./features/spring.component').then(m => m.SpringComponent),
+      loadComponent: () => import('./features/winter/winter.component').then(m => m.WinterComponent),
       title: 'Winter Theme'
-    }
+    },
+    {
+      path: '',
+      loadComponent: () => import('./features/spring/spring.component').then(m => m.SpringComponent),
+      title: 'Spring Theme'
+    },
   ]
 }]

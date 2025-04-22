@@ -27,7 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
       border-radius: 8px;
       overflow: hidden;
       margin-bottom: 24px;
-      background: linear-gradient(120deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+      background: linear-gradient(120deg, var(--mat-sys-primary) 0%, var(--mat-sys-secondary) 100%);
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
     

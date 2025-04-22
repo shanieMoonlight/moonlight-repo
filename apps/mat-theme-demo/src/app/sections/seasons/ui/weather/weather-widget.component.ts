@@ -52,7 +52,7 @@ import { MatDividerModule } from '@angular/material/divider';
       align-items: center;
       justify-content: space-between;
       padding: 16px;
-      background-color: var(--primary-color);
+      background-color: var(--mat-sys-primary);
       color: white;
     }
     
@@ -79,7 +79,7 @@ import { MatDividerModule } from '@angular/material/divider';
     
     .detail-item mat-icon {
       margin-right: 8px;
-      color: var(--secondary-color);
+      color: var(--mat-sys-secondary);
     }
   `
 })

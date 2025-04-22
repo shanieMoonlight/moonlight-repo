@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { SeasonsComponent } from './seasons.component';
+import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
 
-describe('SeasonsComponent', () => {
+describe('MainComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SeasonsComponent, RouterModule.forRoot([])],
+      imports: [MainComponent, RouterModule.forRoot([])],
     }).compileComponents();
   });
 
 
 
   it(`should have as title 'mat-theme-demo'`, () => {
-    const fixture = TestBed.createComponent(SeasonsComponent);
+    const fixture = TestBed.createComponent(MainComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('mat-theme-demo');
   });

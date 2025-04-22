@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { ThemeService } from '@moonlight/material/theming/service';
 import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/theme-demo-card.component';
-import { MatCard, MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'ml-multi-theme-demo',

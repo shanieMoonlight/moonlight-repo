@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { DarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
 import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
 import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
-import { ThemeBannerComponent } from '../../ui/banner/theme-banner.component';
+import { ThemeBannerComponent } from '../../../../shared/ui/banner/theme-banner.component';
 @Component({
   selector: 'ml-home',
   imports: [
