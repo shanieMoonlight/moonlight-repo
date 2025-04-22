@@ -43,7 +43,7 @@
         }">
     </ng-container>
 
-    
+    <!-- Usage for Custom Theming -->
     <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
@@ -51,16 +51,6 @@
             tooltip: 'Multiple Themes', 
             iconName: 'workspaces', 
             text: 'Multi-Theming'
-        }">
-    </ng-container>
-    
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'multi-demo', 
-            tooltip: 'Seasonal Themes', 
-            iconName: 'local_florist', 
-            text: 'Seasons'
         }">
     </ng-container>
   

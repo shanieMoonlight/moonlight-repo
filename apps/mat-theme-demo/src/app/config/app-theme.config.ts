@@ -8,6 +8,46 @@ const halloweenTimeEnd = new Date(thisYear, 11, 1);
 export const IS_XMAS = today >= xmasTime;
 export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTimeEnd;
 
+
+
+
+
+const SPRING_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Spring',
+  value: 'spring',
+  primaryColor: '#8BC34A', // Fresh green
+  secondaryColor: '#FFEB3B', // Bright yellow
+  tertiaryColor: '#FF4081', // Pink blossom
+})
+const SUMMER_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Summer',
+  value: 'summer',
+  primaryColor: '#03A9F4', // Sky blue
+  secondaryColor: '#FF9800', // Warm orange
+  tertiaryColor: '#4CAF50', // Vibrant green
+})
+const AUTUMN_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Autumn',
+  value: 'autumn',
+  primaryColor: '#FF5722', // Sunset orange
+  secondaryColor: '#FFC107', // Golden yellow
+  tertiaryColor: '#191102', // Lime green
+})
+const WINTER_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Winter',
+  value: 'winter',
+  primaryColor: '#1E88E5', // Ice blue
+  secondaryColor: '#E0E0E0', // Silver/snow
+  tertiaryColor: '#263238', // Dark blue-gray
+})
+
+
+
+
 const _themeOptions: ThemeOption[] = [
   ThemeOption.create({
     darkMode: 'system',
@@ -30,39 +70,10 @@ const _themeOptions: ThemeOption[] = [
     primaryColor: '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
   }),
-  ThemeOption.create({
-    darkMode: false,
-    label: 'Autumn',
-    value: 'autumn',
-    primaryColor: '#FF5722', // Sunset orange
-    secondaryColor: '#FFC107', // Golden yellow
-    tertiaryColor: '#191102', // Lime green
-  }),
-  ThemeOption.create({
-    darkMode: false,
-    label: 'Winter',
-    value: 'winter',
-    primaryColor: '#1E88E5', // Ice blue
-    secondaryColor: '#E0E0E0', // Silver/snow
-    tertiaryColor: '#263238', // Dark blue-gray
-  }),
-  ThemeOption.create({
-    darkMode: false,
-    label: 'Spring',
-    value: 'spring',
-    primaryColor: '#8BC34A', // Fresh green
-    secondaryColor: '#FFEB3B', // Bright yellow
-    tertiaryColor: '#FF4081', // Pink blossom
-  }),
-  ThemeOption.create({
-    darkMode: false,
-    label: 'Summer',
-    value: 'summer',
-    primaryColor: '#03A9F4', // Sky blue
-    secondaryColor: '#FF9800', // Warm orange
-    tertiaryColor: '#4CAF50', // Vibrant green
-  }),
-  
+  SPRING_THEME,
+  SUMMER_THEME,
+  AUTUMN_THEME,
+  WINTER_THEME,
 ];
 
 export const XMAS_THEME: ThemeOption = ThemeOption.create({
@@ -102,10 +113,10 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
 
 // const _themeOptions: ThemeOption[] = [
 //   ThemeOption.create({
-//     value: 'ocean-blue', 
-//     label: 'Ocean Blue', 
-//     primaryColor: '#0277BD', 
-//     secondaryColor: '#26A69A' 
+//     value: 'ocean-blue',
+//     label: 'Ocean Blue',
+//     primaryColor: '#0277BD',
+//     secondaryColor: '#26A69A'
 //   }),
 //   ThemeOption.create({
 //     darkMode: false,
@@ -115,10 +126,10 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
 //     secondaryColor: '#32CD32',
 //   }),
 //   ThemeOption.create({
-//     value: 'sunset-orange', 
-//     label: 'Sunset Orange', 
-//     primaryColor: '#FF5722', 
-//     secondaryColor: '#FFC107' 
+//     value: 'sunset-orange',
+//     label: 'Sunset Orange',
+//     primaryColor: '#FF5722',
+//     secondaryColor: '#FFC107'
 //   })
 // ];
 
