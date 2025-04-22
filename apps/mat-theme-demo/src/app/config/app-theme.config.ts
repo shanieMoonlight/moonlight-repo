@@ -13,7 +13,7 @@ export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTime
 
 
 
-export const  SPRING_THEME = ThemeOption.create({
+export const SPRING_THEME = ThemeOption.create({
   darkMode: false,
   label: 'Spring',
   value: 'spring',
@@ -21,7 +21,7 @@ export const  SPRING_THEME = ThemeOption.create({
   secondaryColor: '#FFEB3B', // Bright yellow
   tertiaryColor: '#FF4081', // Pink blossom
 })
-export const  SUMMER_THEME = ThemeOption.create({
+export const SUMMER_THEME = ThemeOption.create({
   darkMode: false,
   label: 'Summer',
   value: 'summer',
@@ -29,7 +29,7 @@ export const  SUMMER_THEME = ThemeOption.create({
   secondaryColor: '#FF9800', // Warm orange
   tertiaryColor: '#4CAF50', // Vibrant green
 })
-export const  AUTUMN_THEME = ThemeOption.create({
+export const AUTUMN_THEME = ThemeOption.create({
   darkMode: false,
   label: 'Autumn',
   value: 'autumn',
@@ -37,7 +37,7 @@ export const  AUTUMN_THEME = ThemeOption.create({
   secondaryColor: '#FFC107', // Golden yellow
   tertiaryColor: '#191102', // Lime green
 })
-export const  WINTER_THEME = ThemeOption.create({
+export const WINTER_THEME = ThemeOption.create({
   darkMode: false,
   label: 'Winter',
   value: 'winter',
@@ -100,10 +100,11 @@ export const THEME_CONFIG = ThemingConfig.create({
   themeOptions: _themeOptions,
   defaultMode: 'dark',
   themeClassPrefix: 'my-app-theme',
-  transitionOptions:{
+  transitionOptions: {
     style: 'morph',
     duration: 500,
-    showTransitions: true,  }
+    showTransitions: false,
+  }
 })
 
 

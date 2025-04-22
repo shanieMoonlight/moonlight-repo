@@ -1,27 +1,70 @@
+@use '@angular/material' as mat;
+
 :host {
   display: block;
   width: 100%;
 }
 
+mat-toolbar {
+  // Ensure items are vertically centered if needed (usually default)
+  align-items: center; 
+  // Optional: Set a background color using theme variables if you don't want the default surface
+  // background-color: var(--mat-sys-surface-container); 
+}
 
 .rhs-outlet {
   margin-left: auto; /* Aligns the element to the right */
-  // border: 1px solid red; /* Adds a 1px solid red border */
+  display: flex; /* Ensure content inside aligns well */
+  align-items: center;
 }
 
-.spacer{
-  width: 24px;
+.spacer {
+  // Use flex-grow instead of fixed width for better flexibility
+  flex: 1 1 auto; 
+  // Or keep width if preferred, maybe adjust slightly
+  // width: 24px; 
 }
 
-.navlink{
-  cursor: pointer ;
-  margin: 0 8px;
+.navlink {
+  cursor: pointer;
+  margin: 0 12px; /* Adjust horizontal spacing */
+  padding: 8px 4px; /* Add some vertical padding for easier clicking */
+  font-size: 0.9rem; /* Reduce font size */
+  font-weight: 500; /* Medium weight, adjust as needed (400=normal, 500=medium) */
+  text-decoration: none;
+  color: var(--mat-sys-on-surface); /* Use theme text color */
+  border-bottom: 2px solid transparent; /* Prepare for active state underline */
+  transition: color 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
 
+  &:hover {
+    color: var(--mat-sys-primary); /* Change color on hover */
+  }
+
+  // Style for the active route link
+  &.active {
+    color: var(--mat-sys-primary); /* Active link color */
+    border-bottom-color: var(--mat-sys-primary); /* Add underline for active */
+  }
+}
+
+// Ensure icon buttons have consistent spacing and color
+button[mat-icon-button] {
+    color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
+    margin: 0 4px; // Add small horizontal margin
+
+    &:hover {
+        color: var(--mat-sys-primary); // Highlight on hover
+    }
 }
 
 
-@media screen and (max-width: 600px) {
+// Responsive adjustments
+@media screen and (max-width: 650px) { // Match breakpoint in TS
   .spacer {
-    width: 12px;
+    // Adjust spacer if needed for small screens, flex-grow might be enough
+    // width: 12px; 
+  }
+  button[mat-icon-button] {
+      margin: 0 2px; // Slightly reduce margin on small screens
   }
 }

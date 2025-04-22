@@ -6,7 +6,7 @@ export const seasonalRoutes: Route[] = [{
   component: SeasonsComponent,
   children: [
     {
-      path: 'home',
+      path: 'season-home',
       loadComponent: () => import('./features/home/home.component').then(m => m.SeasonalHomeComponent),
       title: 'Seasonal Themes Home'
     },

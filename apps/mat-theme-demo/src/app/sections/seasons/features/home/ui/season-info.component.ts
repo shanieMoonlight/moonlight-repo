@@ -29,7 +29,7 @@ export interface SeasonCardData {
     <mat-card class="season-card">
       <mat-card-header>
         <!-- Icon removed from avatar -->
-        <mat-card-title>{{ _data().title }}</mat-card-title>
+        <mat-card-title  id="title">{{ _data().title }}</mat-card-title>
         <mat-card-subtitle>{{ _data().description }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="season-card-content">
@@ -82,6 +82,11 @@ export interface SeasonCardData {
     }
     mat-card-actions {
         margin-top: auto; /* Push actions to the bottom */
+    }
+    
+  mat-card-title{
+    color: var(--mat-sys-primary);
+      color: var(--mat-seed-primary);
     }
   `]
 })

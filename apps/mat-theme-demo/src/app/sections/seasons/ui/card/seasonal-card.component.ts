@@ -47,6 +47,7 @@ import { MatButtonModule } from '@angular/material/button';
       height: 48px;
       color: var(---mat-sys-primary);
     }
+
   `
 })
 export class SeasonalCardComponent {
