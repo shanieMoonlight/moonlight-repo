@@ -11,31 +11,34 @@ mat-toolbar {
   // Optional: Set a background color using theme variables if you don't want the default surface
   background-color: var(--mat-sys-surface-container);
   background-color: var(--mat-sys-primary);
+  background-color: var(--mat-seed-primary);
   color: var(--mat-sys-on-primary);
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
   // background-color: var(--mat-sys-surface-container); 
 }
 
-:host-context(.dark-mode) {
-  mat-toolbar {
-    background-color: var(--mat-sys-surface-container);
-    color: var(--mat-sys-on-surface);
-    /* Use theme text color */
+// :host-context(.dark-mode) {
+//   mat-toolbar {
+//     background-color: var(--mat-sys-surface-container);
+//     color: var(--mat-sys-on-surface);
+//     /* Use theme text color */
 
 
-    &:hover {
-      color: var(--mat-sys-tertiary);
-      /* Change color on hover */
-    }
+//     &:hover {
+//       color: var(--mat-sys-secondary);
+//       /* Change color on hover */
+//     }
 
-    // Style for the active route link
-    &.active {
-      color: var(--mat-sys-tertiary);
-      /* Active link color */
-      border-bottom-color: var(--mat-sys-tertiary);
-      /* Add underline for active */
-    }
-  }
-}
+//     // Style for the active route link
+//     &.active {
+//       color: var(--mat-sys-secondary);
+//       /* Active link color */
+//       border-bottom-color: var(--mat-sys-secondary);
+//       /* Add underline for active */
+//     }
+//   }
+// }
 
 .rhs-outlet {
   margin-left: auto;
@@ -70,26 +73,26 @@ mat-toolbar {
   /* Smooth transitions */
 
   &:hover {
-    color: var(--mat-sys-tertiary);
+    color: var(--mat-sys-secondary);
     /* Change color on hover */
   }
 
   // Style for the active route link
   &.active {
-    color: var(--mat-sys-tertiary);
+    color: var(--mat-sys-secondary);
     /* Active link color */
-    border-bottom-color: var(--mat-sys-tertiary);
+    border-bottom-color: var(--mat-sys-secondary);
     /* Add underline for active */
   }
 }
 
 // Ensure icon buttons have consistent spacing and color
 button[mat-icon-button] {
-  color: var(--mat-sys-on-surface-variant); // Use a tertiary color for icons
+  color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
   margin: 0 4px; // Add small horizontal margin
 
   &:hover {
-    color: var(--mat-sys-tertiary); // Highlight on hover
+    color: var(--mat-sys-secondary); // Highlight on hover
   }
 }
 

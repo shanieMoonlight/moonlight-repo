@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
+import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
 
 @Component({
   selector: 'ml-autumn',
@@ -210,6 +211,7 @@ export class AutumnComponent implements OnInit {
   ngOnInit() {
     // Apply the Autumn theme when this component initializes
     this.themeService.setThemeByValue('autumn');
+    this.themeService.setTheme(AUTUMN_THEME);
   }
   
   goToSeason(season: string) {

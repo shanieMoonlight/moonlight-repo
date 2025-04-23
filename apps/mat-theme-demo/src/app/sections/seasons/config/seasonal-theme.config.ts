@@ -47,7 +47,7 @@ const _themeOptions: ThemeOption[] = [
 ];
 
 
-export const THEME_CONFIG = ThemingConfig.create({
+export const SEASON_THEME_CONFIG = ThemingConfig.create({
   themeOptions: _themeOptions,
   defaultMode: 'dark',
   themeClassPrefix: 'my-app-theme',

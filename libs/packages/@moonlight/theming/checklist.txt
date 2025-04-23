@@ -144,3 +144,5 @@ transitionService.isTransitioning$ make a signal
 Theme transition animations when switching seasons
 A split-screen view that shows multiple themes side-by-side
 Interactive theme customization within each season
+
+More on colors

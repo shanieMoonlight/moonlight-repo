@@ -5,6 +5,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { THEME_CONFIG } from './config/app-theme.config';
+import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
 // import { NavbarComponent } from './shared/ui/navbar/navbar.component';
 
 
@@ -18,7 +20,8 @@ import { RouterModule } from '@angular/router';
     // NavbarComponent,
     RouterModule
   ],
-  providers: [
+  providers: [    
+    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
   ],
   selector: 'ml-app-root',
   templateUrl: './app.component.html',

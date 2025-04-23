@@ -50,6 +50,17 @@ p code {
   margin-right: auto;
 }
 
+pre {
+  // ... other styles ...
+  max-width: 800px; /* Match paragraph width */
+  margin: 16px auto; /* Center the block */ // <-- THIS LINE DOES IT
+  background-color: var(--mat-sys-surface-container);
+  padding: 0.5rem;
+}
+
+
+
+
 /* Apply 2-column layout on screens wider than 600px */
 @media (min-width: 600px) {
   .seasons-grid {

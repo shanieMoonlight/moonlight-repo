@@ -1,19 +1,43 @@
 <div class="page-container">
-    <h1>Seasonal Themes</h1>
-    <p>
-      Explore different themes inspired by the seasons. Each card below uses the
-      <code>ThemeGeneratorService</code> to apply its specific theme locally,
-      without affecting the rest of the application or the other cards.
-    </p>
-    <p>
-      Clicking "Go to [Season]" will navigate to a dedicated page for that season
-      and apply the theme globally using the <code>ThemeService</code>, demonstrating
-      full-page theme transitions.
-    </p>
+  <h1>Seasonal Themes</h1>
+  <p>
+    Explore different themes inspired by the seasons. Each card below uses the
+    <code>ThemeGeneratorService</code> to apply its specific theme locally,
+    without affecting the rest of the application or the other cards. This is done using:
+  </p>
 
-    <div class="seasons-grid">
-      @for (season of seasonData; track season.title) {
-        <ml-season-info-card [data]="season" />
-      }
-    </div>
+  <!-- Use pre/code for multi-line code block -->
+  <pre>
+    <code class="language-typescript">
+this.themeGenerator.applyTheme(
+  this._data().theme,
+  `season-card-$&rbrace;this._data().theme.value&lbrace;`, // Optional unique class
+  this.elementRef.nativeElement // Apply theme just to this component only
+);
+</code>
+</pre>
+
+  <p>
+    Clicking "Go to [Season]" will navigate to a dedicated page for that season
+    and apply the theme globally using the <code>ThemeService</code>. This affects
+    elements like the main navbar and demonstrates full-page theme transitions.
+    You can set the global theme like this:
+  </p>
+
+  <!-- Use pre/code for examples -->
+  <pre>
+    <code class="language-typescript">
+// Using the theme value:
+this.themeService.setThemeByValue('autumn');
+
+// Or using the theme object:
+this.themeService.setTheme(AUTUMN_THEME); 
+    </code>
+  </pre>
+
+  <div class="seasons-grid">
+    @for (season of seasonData; track season.title) {
+    <ml-season-info-card [data]="season" />
+    }
   </div>
+</div>

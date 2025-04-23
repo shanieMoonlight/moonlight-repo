@@ -85,7 +85,7 @@ export class ThemeService {
   systemThemes$ = this._systemThemesBs.asObservable();
   /** Developer defined themes (Signal)*/
   systemThemes = toSignal(this.systemThemes$, { initialValue: this._config.themeOptions })
-  
+
 
   availableThemes$ = combineLatest([this.systemThemes$, this.customThemes$]).pipe(
     map(([systemThemes, customThemes]) => [...systemThemes, ...customThemes]),
@@ -135,6 +135,7 @@ export class ThemeService {
 
     return !!theme
   }
+
 
   //-----------------------------//
 
@@ -219,7 +220,7 @@ export class ThemeService {
    * - Clears all custom themes
    * - Sets current theme to first system theme
    * - Sets dark mode based on theme's default
-   */
+  */
   resetToDefaults = (): void => {
     // Clear custom themes
     this._customThemesBs.next([]);
@@ -238,12 +239,18 @@ export class ThemeService {
   }
 
   //-----------------------------//
+
+  refreshTheme = (): void => this.initialize()
+
+  //-----------------------------//
   // PRIVATE METHODS
   //-----------------------------//
 
   private initialize(): void {
 
     try {
+
+      consoleDev.log('Initializing theme service...', this._config);
       //Get this running first sin case something goes wrong below
       this._currentData$
         .pipe(
@@ -286,9 +293,9 @@ export class ThemeService {
   //- - - - - - - - - - - - - - -//
 
   private applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
-    
+
     // Direct application to specific element - no transition needed
-    if (element || !this._config.transitionOptions.showTransitions) 
+    if (element || !this._config.transitionOptions.showTransitions)
       return this._themeGenerator.applyTheme(
         themeData.currentTheme,
         undefined,

@@ -1,5 +1,4 @@
-import { _ } from "@angular/cdk/number-property.d-1067cb21";
-import { ThemingConfig, ThemeOption, TransitionStyle } from "@moonlight/material/theming/config";
+import { ThemeOption, ThemingConfig } from "@moonlight/material/theming/config";
 
 const today = new Date();
 const thisYear = today.getFullYear();
