@@ -59,6 +59,110 @@ pre {
 }
 
 
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--mat-sys-on-surface-variant);
+  margin-top: 0.5rem;
+}
+
+.explanation-card {
+  margin-bottom: 2rem;
+}
+
+.theme-pills {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.theme-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 24px;
+  font-weight: 500;
+}
+
+.theme-pill.spring {
+  background-color: #e1f5c4;
+  color: #2e7d32;
+}
+
+.theme-pill.summer {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+.theme-pill.autumn {
+  background-color: #ffccbc;
+  color: #bf360c;
+}
+
+.theme-pill.winter {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.usage-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .usage-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.theme-picker-container {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--mat-sys-surface-container-low);
+  border-radius: 8px;
+}
+
+pre {
+  background-color: var(--mat-sys-surface-container-high);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow: auto;
+}
+
+code {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.seasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Apply 2-column layout on screens wider than 600px */

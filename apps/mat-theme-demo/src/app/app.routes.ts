@@ -5,7 +5,7 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
     {
       path: 'seasons',
-      loadChildren: () => import('./sections/seasons/seasonal-routes').then((m) => m.seasonalRoutes)
+      loadChildren: () => import('./sections/seasons/seasons.routes').then((m) => m.seasonalRoutes)
     }, 
     {
       path: 'main',

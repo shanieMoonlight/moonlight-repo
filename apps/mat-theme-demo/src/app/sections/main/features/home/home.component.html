@@ -276,7 +276,7 @@
 
             <section class="persistence">
                 <h2 class="numbered-heading">
-                    <span class="section-number">05</span>
+                    <span class="section-number">04</span>
                     Persistent Preferences
                   </h2>
             <mat-card>
@@ -303,6 +303,41 @@
                 </mat-card-content>
               </mat-card>
             </section> 
+
+            <mat-divider />
+
+            <section class="section-based-theming">
+                <h2 class="numbered-heading">
+                  <span class="section-number">05</span>
+                  Section-Based Theming
+                </h2>
+                <mat-card>
+                  <mat-card-content>
+                    <p>Create unique theme contexts for different sections of your application:</p>
+                    <ul class="feature-list">
+                      <li>
+                        <mat-icon color="primary">account_tree</mat-icon>
+                        <span><strong>Route-specific themes</strong> - Define different theme palettes for separate areas of your app</span>
+                      </li>
+                      <li>
+                        <mat-icon color="primary">swap_horiz</mat-icon>
+                        <span><strong>Context switching</strong> - Automatically change available themes when navigating between sections</span>
+                      </li>
+                      <li>
+                        <mat-icon color="primary">settings_backup_restore</mat-icon>
+                        <span><strong>Smart restoration</strong> - Previous theme context returns when leaving a themed section</span>
+                      </li>
+                    </ul>
+                    
+                    <div class="component-demo centered">
+                      <button mat-raised-button color="primary" routerLink="/seasons">
+                        <mat-icon>palette</mat-icon>
+                        Try Seasonal Themes Demo
+                      </button>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </section>
 
             <mat-divider />
 
