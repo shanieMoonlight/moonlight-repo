@@ -85,9 +85,10 @@ export class SeasonsComponent implements OnDestroy &#123;
         </p>
         <pre><code class="language-typescript">
 this.themeGenerator.applyTheme(
-  this._data().theme,
-  `season-card-$&#123;this._data().theme.value&#125;`, // Optional unique class
-  this.elementRef.nativeElement // Apply theme just to this component
+
+  // Apply the Autumn theme when this component initializes
+  this.themeService.setTheme(AUTUMN_THEME);
+  
 );</code></pre>
       </div>
       
