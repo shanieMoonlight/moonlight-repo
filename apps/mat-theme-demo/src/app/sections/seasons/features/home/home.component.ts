@@ -10,6 +10,7 @@ import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.compon
 import { ThemePickerComponent } from "../../../../shared/ui/theme-picker/theme-picker.component";
 import { ThemeOption } from '@moonlight/material/theming/config';
 import { MatListModule } from '@angular/material/list';
+import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
 
 //#######################################################//
 
@@ -56,7 +57,8 @@ const seasonData: SeasonCardData[] = [
     MatListModule,
     SeasonInfoCardComponent,
     RouterModule,
-    ThemePickerComponent
+    ThemePickerComponent,
+    ThemeHierarchyDiagramComponent
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

@@ -6,7 +6,7 @@ import { ThemeOption, ThemingConfig } from "@moonlight/material/theming/config";
  */
 export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
   darkMode: 'light',
-  label: 'Default',
+  label: 'Home',
   value: 'seasonal-default',
   primaryColor: '#673AB7', // Deep Purple
   secondaryColor: '#FFD740', // Amber accent

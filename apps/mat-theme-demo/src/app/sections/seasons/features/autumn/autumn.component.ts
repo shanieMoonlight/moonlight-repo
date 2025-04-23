@@ -204,16 +204,22 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
     }
   `
 })
-export class AutumnComponent implements OnInit {
+export class AutumnComponent  {
   private themeService = inject(ThemeService);
   private router = inject(Router);
   
-  ngOnInit() {
+  constructor() {
+
     // Apply the Autumn theme when this component initializes
     this.themeService.setTheme(AUTUMN_THEME);
+
   }
+
+
   
   goToSeason(season: string) {
     this.router.navigate(['/features/seasons', season]);
   }
+
+
 }

@@ -1,67 +1,126 @@
 <div class="page-container">
-  <h1>Seasonal Themes</h1>
-  <p>
-    Explore different themes inspired by the seasons. Each card below uses the
-    <code>ThemeGeneratorService</code> to apply its specific theme locally,
-    without affecting the rest of the application or the other cards. This is done using:
-  </p>
+  <header class="page-header">
+    <h1>Hierarchical Theme Management</h1>
+    <p class="subtitle">Using section-specific theme palettes for different application areas</p>
+  </header>
+  
+  <mat-card class="explanation-card">
+    <mat-card-header>
+      <mat-card-title>How Section-Based Theming Works</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        You've now entered the <strong>Seasons</strong> section of the application, which has its own set of available themes:
+      </p>
+      
+      <div class="theme-pills">
+        <span class="theme-pill spring">Spring</span>
+        <span class="theme-pill summer">Summer</span>
+        <span class="theme-pill autumn">Autumn</span>
+        <span class="theme-pill winter">Winter</span>
+        <ml-theme-picker
+      [themes]="_availableThemes()"
+      [currentTheme]="_currentTheme()"
+      (themeChange)="changeTheme($event)"/>
+      </div>
+      
+      <p>
+        These themes are <strong>completely different</strong> from the Material themes in the main section. 
+        This demonstrates how the Moonlight theming system can provide different theme contexts for different 
+        application areas.
+      </p>
 
-  <!-- Use pre/code for multi-line code block -->
-  <pre>
-    <code class="language-typescript">
+      
+      <ml-theme-hierarchy-diagram/>
+
+      
+      <h3>How it works</h3>
+      <p>
+        When entering this section, we replace the available system themes using <code>DynamicThemeConfigService</code>:
+      </p>
+      
+      <pre><code class="language-typescript">
+&#64;Component(&#123;...&#125;)
+export class SeasonsComponent implements OnDestroy &#123;
+
+  constructor(private dynamicConfigService: DynamicThemeConfigService) &#123;
+
+    // Replace available themes with seasonal options
+    this.dynamicConfigService.setSystemThemes(SEASON_THEME_CONFIG.themeOptions);
+
+  &#125;
+  
+
+
+  ngOnDestroy(): void &#123;
+
+    // Remove our custom local themes , so when we leave the seasons section
+    // we are back to the default themes. ThemeService will handle setting the default theme in the new section.
+    this.dynamicConfigService.resetSystemThemesToInitial()
+
+  &#125;
+
+&#125;</code></pre>
+
+      <p>
+        This technique is perfect for:
+      </p>
+      <ul>
+        <li>Multi-tenant applications with different branding per tenant</li>
+        <li>Separate themed areas within a single application</li>
+        <li>Seasonal or time-based theme variations</li>
+        <li>Feature-specific theme contexts</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  
+  <section class="theme-usage">
+    <h2>Using Themes in Components</h2>
+    
+    <div class="usage-columns">
+      <div class="usage-column">
+        <h3>Local Theme Application</h3>
+        <p>
+          Each seasonal card below uses its own theme without affecting the rest of the application:
+        </p>
+        <pre><code class="language-typescript">
 this.themeGenerator.applyTheme(
   this._data().theme,
-  `season-card-$&rbrace;this._data().theme.value&lbrace;`, // Optional unique class
-  this.elementRef.nativeElement // Apply theme just to this component only
-);
-</code>
-</pre>
-
-  <p>
-    Clicking "Go to [Season]" will navigate to a dedicated page for that season
-    and apply the theme globally using the <code>ThemeService</code>. This affects
-    elements like the main navbar and demonstrates full-page theme transitions.
-    You can set the global theme like this:
-  </p>
-
-  <!-- Use pre/code for examples -->
-  <pre>
-    <code class="language-typescript">
-// Using the theme value:
+  `season-card-$&#123;this._data().theme.value&#125;`, // Optional unique class
+  this.elementRef.nativeElement // Apply theme just to this component
+);</code></pre>
+      </div>
+      
+      <div class="usage-column">
+        <h3>Global Theme Application</h3>
+        <p>
+          Clicking "Go to [Season]" applies the theme to the entire section:
+        </p>
+        <pre><code class="language-typescript">
+// Set theme by value
 this.themeService.setThemeByValue('autumn');
 
-// Or using the theme object:
-this.themeService.setTheme(AUTUMN_THEME); 
-    </code>
-  </pre>
-
-<p>NOtice we have a separate set of theme palletes in this 'seasons' section</p>
-  <mat-list>
-    <mat-list-item>Spring</mat-list-item>
-    <mat-list-item>Summer</mat-list-item>
-    <mat-list-item>Autumn</mat-list-item>
-    <mat-list-item>Winter</mat-list-item>
-  </mat-list>
-
-  <ml-theme-picker
-    [themes]="_availableThemes()"
-    [currentTheme]="_currentTheme()"
-    (themeChange)="changeTheme($event)"/>
-    <!-- 
-    Which can be set using the <code>ThemePickerComponent</code> above. 
-    In this section eaach component is responsible for their own theme which will also cover the rest of the app 
-    including the navbar.  When we leave this Seasons section themes will be reset using 
-    <pre><code>
-      ngOnDestroy(): void &#123;
-      // Remove our custom local themes , so when we leave the seasons section
-      // we are back to the default themes. ThemeService will handle setting the actual theme in the new section.
-      this.dynamicConfigService.resetSystemThemesToInitial()
-      &#125;
-    </code></pre> -->
-
+// Or using the theme object
+this.themeService.setTheme(AUTUMN_THEME);</code></pre>
+      </div>
+    </div>
+  </section>
+  
+  <div class="theme-picker-container">
+    <h2>Try Different Themes</h2>
+    <p>Select a seasonal theme to apply it throughout this section:</p>
+    <ml-theme-picker
+      [themes]="_availableThemes()"
+      [currentTheme]="_currentTheme()"
+      (themeChange)="changeTheme($event)"/>
+  </div>
+  
+  <h2>Seasonal Theme Examples</h2>
+  <p>Each card below demonstrates both local and global theming capabilities:</p>
+  
   <div class="seasons-grid">
     @for (season of _seasonData(); track season.title) {
-    <ml-season-info-card [data]="season" />
+      <ml-season-info-card [data]="season" />
     }
   </div>
 </div>
