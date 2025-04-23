@@ -20,13 +20,21 @@ export const SPRING_THEME = ThemeOption.create({
   secondaryColor: '#FFEB3B', // Bright yellow
   tertiaryColor: '#FF4081', // Pink blossom
 })
+// export const SUMMER_THEME = ThemeOption.create({
+//   darkMode: false,
+//   label: 'Summer',
+//   value: 'summer',
+//   primaryColor: '#03A9F4', // Sky blue
+//   secondaryColor: '#FF9800', // Warm orange
+//   tertiaryColor: '#4CAF50', // Vibrant green
+// })
 export const SUMMER_THEME = ThemeOption.create({
   darkMode: false,
   label: 'Summer',
   value: 'summer',
-  primaryColor: '#03A9F4', // Sky blue
-  secondaryColor: '#FF9800', // Warm orange
-  tertiaryColor: '#4CAF50', // Vibrant green
+  primaryColor: '#ff598f', // Sky blue
+  secondaryColor: '#01dddd', // Warm orange
+  tertiaryColor: '#FF9800', // Vibrant green
 })
 export const AUTUMN_THEME = ThemeOption.create({
   darkMode: false,

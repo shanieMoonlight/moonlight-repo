@@ -57,13 +57,12 @@ export class MultiThemeApiDemoComponent {
     `);
 
 _codeExample = signal(`
-  private applyLocalTheme(localTheme: ThemeOption) {
     this.themeGenerator.applyTheme(
       localTheme,
       // \`\${this.componentThemeClassPrefix}-\${localTheme.value}\`,
       this.componentElementRef.nativeElement // Apply theme just to this component only
     );
-  }  
+  
 `);
 
 }
