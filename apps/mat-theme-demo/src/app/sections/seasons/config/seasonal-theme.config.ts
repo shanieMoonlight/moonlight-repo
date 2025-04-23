@@ -1,7 +1,17 @@
 import { ThemeOption, ThemingConfig } from "@moonlight/material/theming/config";
 
 
-
+/**
+ * Default theme option for the homepage
+ */
+export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
+  darkMode: false,
+  label: 'Default',
+  value: 'seasonal-default',
+  primaryColor: '#673AB7', // Deep Purple
+  secondaryColor: '#FFD740', // Amber accent
+  tertiaryColor: '#00BCD4', // Cyan
+});
 
 export const  SPRING_THEME = ThemeOption.create({
   darkMode: false,
@@ -41,6 +51,7 @@ export const  WINTER_THEME = ThemeOption.create({
 
 
 const _themeOptions: ThemeOption[] = [
+  DEFAULT_SEAONAL_THEME,
   SPRING_THEME,
   SUMMER_THEME,
   AUTUMN_THEME,

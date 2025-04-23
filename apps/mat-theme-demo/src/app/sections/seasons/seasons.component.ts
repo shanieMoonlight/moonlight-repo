@@ -40,6 +40,8 @@ export class SeasonsComponent  implements OnDestroy{
 
 
   ngOnDestroy(): void {
+    // Remove our custom local themes , so when we leave the seasons section
+    // we are back to the default themes. ThemeService will handle setting the actual theme in the new section.
     this.dynamicConfigService.resetSystemThemesToInitial()
   }
 

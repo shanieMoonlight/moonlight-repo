@@ -36,7 +36,7 @@ this.themeService.setTheme(AUTUMN_THEME);
   </pre>
 
   <div class="seasons-grid">
-    @for (season of seasonData; track season.title) {
+    @for (season of _seasonData(); track season.title) {
     <ml-season-info-card [data]="season" />
     }
   </div>

@@ -86,7 +86,7 @@ Remove any console.log statements from production code
 Consider a debug mode toggle
 TODO Comments:
 
-Address the "Colors are upside down" TODO comment
+
 Remove or fix any remaining TODOs
 8. Final Pre-Publishing Checklist
 <input disabled="" type="checkbox"> Run all tests (nx test theming)
@@ -126,23 +126,9 @@ export class MyComponent {
   }
 }
 
-Build a page that shows this off :
-    Apply Theme to Specific Element
 
 
 Redo : devLog
 
-NavLinks are too big
-
-TODO How to handle the old class???? Generator
-
-
-transitionService.isTransitioning$ make a signal
-
-
-????
-Theme transition animations when switching seasons
-A split-screen view that shows multiple themes side-by-side
-Interactive theme customization within each season
 
 More on colors

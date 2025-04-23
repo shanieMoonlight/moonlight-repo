@@ -1,12 +1,47 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '@moonlight/material/theming/service';
-import { AUTUMN_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
+import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
+
+//#######################################################//
+
+const seasonData: SeasonCardData[] = [
+  {
+    title: 'Spring',
+    description: 'Fresh and vibrant colors.',
+    icon: 'local_florist', // Example icon
+    theme: SPRING_THEME, // Replace with actual theme
+    routePath: '/seasons/spring'
+  },
+  {
+    title: 'Summer',
+    description: 'Warm and bright palettes.',
+    icon: 'wb_sunny', // Example icon
+    theme: SUMMER_THEME,
+    routePath: '/seasons/summer'
+  },
+  {
+    title: 'Autumn',
+    description: 'Earthy and cozy tones.',
+    icon: 'forest', // Example icon
+    theme: AUTUMN_THEME,
+    routePath: '/seasons/autumn'
+  },
+  {
+    title: 'Winter',
+    description: 'Cool and crisp aesthetics.',
+    icon: 'ac_unit', // Example icon
+    theme: WINTER_THEME,
+    routePath: '/seasons/winter'
+  }
+]
+
+//#######################################################//
 
 @Component({
   selector: 'ml-seasons-home',
@@ -26,43 +61,11 @@ export class SeasonalHomeComponent {
 
   private themeService = inject(ThemeService);
 
-  //- - - - - - - - - - - - - - -//
-  // Define data for each season card
-  seasonData: SeasonCardData[] = [
-    {
-      title: 'Spring',
-      description: 'Fresh and vibrant colors.',
-      icon: 'local_florist', // Example icon
-      theme: SPRING_THEME, // Replace with actual theme
-      routePath: '/seasons/spring'
-    },
-    {
-      title: 'Summer',
-      description: 'Warm and bright palettes.',
-      icon: 'wb_sunny', // Example icon
-      theme: SUMMER_THEME,
-      routePath: '/seasons/summer'
-    },
-    {
-      title: 'Autumn',
-      description: 'Earthy and cozy tones.',
-      icon: 'forest', // Example icon
-      theme: AUTUMN_THEME,
-      routePath: '/seasons/autumn'
-    },
-    {
-      title: 'Winter',
-      description: 'Cool and crisp aesthetics.',
-      icon: 'ac_unit', // Example icon
-      theme: WINTER_THEME,
-      routePath: '/seasons/winter'
-    }
-  ]
 
-  //-----------------------------//
+  protected _seasonData = signal(seasonData);
 
-}
+  constructor() {
+    this.themeService.setTheme(DEFAULT_SEAONAL_THEME)
+  }
 
-
-
-
+}//Cls

@@ -210,7 +210,6 @@ export class AutumnComponent implements OnInit {
   
   ngOnInit() {
     // Apply the Autumn theme when this component initializes
-    this.themeService.setThemeByValue('autumn');
     this.themeService.setTheme(AUTUMN_THEME);
   }
   
