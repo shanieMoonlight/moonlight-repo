@@ -11,51 +11,6 @@ export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTime
 
 
 
-
-export const SPRING_THEME = ThemeOption.create({
-  darkMode: false,
-  label: 'Spring',
-  value: 'spring',
-  primaryColor: '#8BC34A', // Fresh green
-  secondaryColor: '#FFEB3B', // Bright yellow
-  tertiaryColor: '#FF4081', // Pink blossom
-})
-// export const SUMMER_THEME = ThemeOption.create({
-//   darkMode: false,
-//   label: 'Summer',
-//   value: 'summer',
-//   primaryColor: '#03A9F4', // Sky blue
-//   secondaryColor: '#FF9800', // Warm orange
-//   tertiaryColor: '#4CAF50', // Vibrant green
-// })
-export const SUMMER_THEME = ThemeOption.create({
-  darkMode: false,
-  label: 'Summer',
-  value: 'summer',
-  primaryColor: '#ff598f', // Sky blue
-  secondaryColor: '#01dddd', // Warm orange
-  tertiaryColor: '#FF9800', // Vibrant green
-})
-export const AUTUMN_THEME = ThemeOption.create({
-  darkMode: false,
-  label: 'Autumn',
-  value: 'autumn',
-  primaryColor: '#FF5722', // Sunset orange
-  secondaryColor: '#FFC107', // Golden yellow
-  tertiaryColor: '#191102', // Lime green
-})
-export const WINTER_THEME = ThemeOption.create({
-  darkMode: false,
-  label: 'Winter',
-  value: 'winter',
-  primaryColor: '#1E88E5', // Ice blue
-  secondaryColor: '#E0E0E0', // Silver/snow
-  tertiaryColor: '#263238', // Dark blue-gray
-})
-
-
-
-
 const _themeOptions: ThemeOption[] = [
   ThemeOption.create({
     darkMode: 'system',
@@ -77,11 +32,21 @@ const _themeOptions: ThemeOption[] = [
     value: 'pastel',
     primaryColor: '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
-  }),
-  SPRING_THEME,
-  SUMMER_THEME,
-  AUTUMN_THEME,
-  WINTER_THEME,
+  })  ,
+    ThemeOption.create({
+      darkMode: true,
+      label: 'Deep Ocean',
+      value: 'deep-ocean',
+      primaryColor: '#1E3A8A', // Deep blue
+      secondaryColor: '#06B6D4', // Cyan
+    }),
+    ThemeOption.create({
+      darkMode: false,
+      label: 'Cherry Blossom',
+      value: 'cherry-blossom',
+      primaryColor: '#EC4899', // Pink
+      secondaryColor: '#84CC16', // Lime green
+    })
 ];
 
 export const XMAS_THEME: ThemeOption = ThemeOption.create({
@@ -109,8 +74,9 @@ export const THEME_CONFIG = ThemingConfig.create({
   themeClassPrefix: 'my-app-theme',
   transitionOptions: {
     style: 'morph',
-    duration: 500,
-    showTransitions: false,
+    // style: 'overlay',
+    duration: 5000,
+    showTransitions: true,
   }
 })
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -6,11 +6,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
+import { DynamicThemeConfigService } from '@moonlight/material/theming/config';
 import { ThemeTransitionIndicatorComponent } from '../../shared/utils/theme-transition/theme-transition-indicator.component';
-import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
-import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
 import { SEASON_THEME_CONFIG } from './config/seasonal-theme.config';
-import { ThemeService } from '@moonlight/material/theming/service';
+import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
 
 
 @Component({
@@ -26,26 +25,22 @@ import { ThemeService } from '@moonlight/material/theming/service';
     RouterModule,
     ThemeTransitionIndicatorComponent
   ],
-  providers: [
-    ThemeAndModeSetup.provideThemingModule(SEASON_THEME_CONFIG)
-  ],
   selector: 'ml-seasons-root',
   templateUrl: './seasons.component.html',
   styleUrl: './seasons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeasonsComponent {
-  title = 'material-theming-demo';
+export class SeasonsComponent  implements OnDestroy{
+  
 
-  
-  private themeService = inject(ThemeService);
-/**
- *
- */
-constructor() {
-  
-  this.themeService.refreshTheme();
-  
-}
+  constructor(private dynamicConfigService: DynamicThemeConfigService) {
+    // Replace the central theme options with the seasonal ones
+    this.dynamicConfigService.setSystemThemes(SEASON_THEME_CONFIG.themeOptions);
+  }
+
+
+  ngOnDestroy(): void {
+    this.dynamicConfigService.resetSystemThemesToInitial()
+  }
 
 }
