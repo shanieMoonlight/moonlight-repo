@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
-import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/material/theming/config";
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@moonlight/material/theming/config";
 import { ColorUtilsService } from '@moonlight/material/theming/utils';
 import { AnimationFrameService } from '@moonlight/utils/testing';
 import { GeneratedPalettes } from './models/theme-palletes';
@@ -46,6 +46,7 @@ export class ThemeGeneratorService {
   private _memoizer = inject(MemoizationService);
 
   private _systemPrefs = inject(SystemPrefsService)
+  private _config = inject(ThemeConfigService)
 
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
@@ -82,9 +83,10 @@ export class ThemeGeneratorService {
     theme: ThemeOption,
     themeClassOverride?: string,
     targetElement?: HTMLElement) {
- //TODO How to handle the old class????
+
     if (!this.isBrowser())
       return
+
 
 
     const isDark = this.shouldUseDarkMode(theme)
@@ -105,18 +107,9 @@ export class ThemeGeneratorService {
       this.applyPaletteVariables(palettes, targetElement)
 
       // Then apply the M3 system variables using the direct mapper approach
-      this.applySystemVariables(theme, palettes, targetElement, isDark)
+      this.applySystemVariables(theme, isDark, palettes, targetElement)
 
-      // Set the theme class users might want to react to different classes outside of material situations.  (theme-xmas, theme-halloween, etc.)
-      if (themeClass)
-        this._renderer.addClass(targetElement, `${THEME_CLASS_PREFIX}-${themeClass}`)
-
-      // Add dark mode class if needed
-      if (isDark)
-        this._renderer.addClass(targetElement, DARK_MODE_CLASS)
-      else
-        this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
-
+      this.applyThemeAndModeClassess(themeClass, isDark, targetElement)
 
     })
   }
@@ -147,6 +140,31 @@ export class ThemeGeneratorService {
   // PRIVATE METHODS
   //-----------------------------//
 
+  private applyThemeAndModeClassess(themeClass: ThemeValue, isDark: boolean, targetElement: HTMLElement) {
+
+    const themeClassPrefix = this._config.themeClassPrefix ?? THEME_CLASS_PREFIX
+    //Remove old theme classes      
+    targetElement.classList.forEach(className => {
+      if (className.startsWith(themeClassPrefix))
+        this._renderer.removeClass(targetElement, className)
+    })
+
+    // Set the theme class users might want to react to different classes outside of material situations.  (theme-xmas, theme-halloween, etc.)
+    if (themeClass)
+      this._renderer.addClass(targetElement, `${this._config.themeClassPrefix}-${themeClass}`)
+
+
+    // Add dark mode class if needed
+    if (isDark)
+      this._renderer.addClass(targetElement, DARK_MODE_CLASS)
+    else
+      this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+
+
+  }
+
+  //- - - - - - - - - - - - - - -//
+
   /**
    * Apply palette shade variables to the target element
    */
@@ -170,7 +188,7 @@ export class ThemeGeneratorService {
   /**
    * Apply M3 system variables based on the direct-palette-mapper approach
    */
-  private applySystemVariables(theme: ThemeOption, palettes: GeneratedPalettes, targetElement: HTMLElement, isDark: boolean) {
+  private applySystemVariables(theme: ThemeOption, isDark: boolean, palettes: GeneratedPalettes, targetElement: HTMLElement) {
 
     const p = palettes;
 

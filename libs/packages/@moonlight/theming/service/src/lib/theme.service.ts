@@ -16,7 +16,7 @@ const THEME_KEY = 'moonlight_theme_key'
 
 //##################################################//
 
-// filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@moonlight\theming\service\src\lib\theme.service.ts
+
 /**
  * Core service for managing theme application and persistence in the application.
  * 
