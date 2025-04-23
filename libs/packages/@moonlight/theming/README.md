@@ -17,6 +17,7 @@ A powerful, flexible theming system for Angular Material applications that enabl
 - **🔄 CSS Variables** - Modern implementation using CSS custom properties
 - **🔄 Dynamic theme configuration** - Update available themes at runtime
 - **🎬 Smooth theme transitions** - Visually pleasing theme changes with overlay or morph effects
+- **🗺️ Hierarchical theming** - Different sections of your app can have different themes
 
 ## Installation
 
@@ -50,26 +51,33 @@ html {
 
 ```typescript
 // theme.config.ts
-import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
+import { ThemingConfig, ThemeOption } from '@moonlight/material/theming/config';
 
-export const THEME_CONFIG = ThemeConfig.create([
-  ThemeOption.create({
-    value: 'indigo',
-    label: 'Indigo',
-    primaryColor: '#3F51B5',
-    secondaryColor: '#FF4081',
-    darkMode: 'system'
-  }),
-  ThemeOption.create({
-    value: 'deeppurple',
-    label: 'Deep Purple',
-    primaryColor: '#673AB7',
-    secondaryColor: '#00BCD4',
-    darkMode: 'system'
-  }),
-  // Add more themes as needed
-]);
-
+export const THEME_CONFIG = ThemingConfig.create({
+  themeOptions: [
+    ThemeOption.create({
+      value: 'indigo',
+      label: 'Indigo',
+      primaryColor: '#3F51B5',
+      secondaryColor: '#FF4081',
+      darkMode: 'system'
+    }),
+    ThemeOption.create({
+      value: 'deeppurple',
+      label: 'Deep Purple',
+      primaryColor: '#673AB7',
+      secondaryColor: '#00BCD4',
+      darkMode: 'system'
+    }),
+    // Add more themes as needed
+  ],
+  defaultDarkModeType: 'system',
+  transitionOptions: {
+    style: 'morph',
+    duration: 600,
+    showTransitions: true
+  }
+});
 ```
 
 
@@ -77,7 +85,7 @@ export const THEME_CONFIG = ThemeConfig.create([
 
 ```typescript
 // theme.config.ts
-import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
+import { ThemingConfig, ThemeOption } from '@moonlight/material/theming/config';
 
   const today = new Date();
   const thisYear = today.getFullYear();
@@ -122,7 +130,15 @@ import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
   if (IS_XMAS) _themeOptions.push(XMAS_THEME);
   if (IS_HALLOWEEN) _themeOptions.push(HALLOWEEN_THEME);
 
-  export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
+  export const THEME_CONFIG = ThemingConfig.create({
+    themeOptions: _themeOptions,
+    defaultDarkModeType: 'system',
+    transitionOptions: {
+      style: 'morph',
+      duration: 400,
+      showTransitions: true
+    }
+  });
 ```
 
 ### 3. Set up the theme providers
@@ -188,6 +204,13 @@ export const appConfig: ApplicationConfig = {
 <ml-theme-showcase-mat></ml-theme-showcase-mat>
 ```
 
+### Theme Transition Indicator
+
+```html
+<!-- Add this component to show a visual indicator during theme transitions -->
+<ml-theme-transition-indicator></ml-theme-transition-indicator>
+```
+
 ## Using CSS Variables
 
 The library exposes theme colors through CSS variables following these patterns:
@@ -215,12 +238,12 @@ The library exposes theme colors through CSS variables following these patterns:
 ```css
 .my-element {
   /* Access any tone from 0-100 */
-  background-color: var(--color-primary-40);
-  border-color: var(--color-primary-80);
+  background-color: var(--ml-color-primary-40);
+  border-color: var(--ml-color-primary-80);
   
   /* Different palette types */
-  color: var(--color-secondary-50);
-  box-shadow: 0 2px 4px var(--color-neutral-0);
+  color: var(--ml-color-secondary-50);
+  box-shadow: 0 2px 4px var(--ml-color-neutral-0);
 }
 ```
 
@@ -243,16 +266,15 @@ export class MyComponent {
   
   // Toggle dark mode
   toggleDarkMode() {
-    this.themeService.toggleDarkMode();
+    const current = this.themeService.darkModeType();
+    this.themeService.setDarkMode(
+      current === 'dark' ? 'light' : 'dark'
+    );
   }
   
   // Set a specific theme
   setTheme(themeValue: string) {
-    const themes = this.themeService.systemThemes();
-    const theme = themes.find(t => t.value === themeValue);
-    if (theme) {
-      this.themeService.setTheme(theme);
-    }
+    this.themeService.setThemeByValue(themeValue);
   }
 }
 ```
@@ -322,6 +344,62 @@ export class SeasonalComponent implements OnInit {
 
 The `ThemeService` automatically watches for changes in available themes and handles cases where the current theme is removed, falling back to the first available theme.
 
+## Hierarchical Theming
+
+One of the most powerful features of this library is hierarchical theming, which allows different parts of your application to have their own theme contexts.
+
+### Creating Section-Specific Themes
+
+Different sections of your application can have their own set of theme options:
+
+```typescript
+import { Component, OnDestroy, inject } from '@angular/core';
+import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+
+@Component({
+  selector: 'app-marketing-section',
+  templateUrl: './marketing-section.component.html'
+})
+export class MarketingSectionComponent implements OnDestroy {
+  private themeConfig = inject(DynamicThemeConfigService);
+  
+  constructor() {
+    // Override available themes just for this section
+    this.themeConfig.setSystemThemes([
+      ThemeOption.create({
+        value: 'brand-primary',
+        label: 'Brand Primary',
+        primaryColor: '#2E5CE6',
+        secondaryColor: '#F6BC00',
+        darkMode: 'light'
+      }),
+      ThemeOption.create({
+        value: 'brand-secondary',
+        label: 'Brand Secondary',
+        primaryColor: '#6C3DF4',
+        secondaryColor: '#00D0BF',
+        darkMode: 'light'
+      })
+    ]);
+  }
+  
+  ngOnDestroy() {
+    // Reset to application-wide themes when leaving this section
+    this.themeConfig.resetSystemThemesToInitial();
+  }
+}
+```
+
+Theme selectors in your application will automatically update to show only the themes available in the current context.
+
+### Use Cases for Hierarchical Theming
+
+- **Marketing Campaigns**: Different campaigns can have unique themes
+- **Seasonal Content**: Holiday-specific sections with themed UI
+- **White-Labeling**: Customize themes for different clients in a multi-tenant application
+- **Feature Sandboxes**: Special themes for experimental features
+- **Admin vs User Areas**: Different themes for different user roles
+
 ## Theme Transitions
 
 Smooth transitions between themes enhance the user experience. Configure transition settings in your theme configuration:
@@ -360,8 +438,33 @@ export class ThemeManager {
     // Manually trigger a transition between themes
     this.transitionService.transitionThemes(from, to);
   }
+  
+  // Check if a transition is in progress
+  get isTransitioning() {
+    return this.transitionService.isTransitioning();
+  }
 }
 ```
+
+### Transition Styles
+
+The library supports two transition styles:
+
+#### Overlay Transition
+A full-screen overlay appears briefly while the theme changes, creating a clean break between themes. This is ideal for dramatic theme changes with high contrast differences.
+
+#### Morph Transition
+All colors smoothly animate from their old values to new values, creating a fluid morphing effect. This works best for related color schemes or subtle theme changes.
+
+### Theme Transition Indicator
+
+For the best user experience, add the transition indicator component to show when a theme change is in progress:
+
+```html
+<ml-theme-transition-indicator></ml-theme-transition-indicator>
+```
+
+This component automatically shows a subtle loading indicator during theme transitions and hides itself when the transition is complete.
 
 ## Performance Benefits
 
@@ -371,6 +474,7 @@ This library offers several performance advantages over traditional Angular Mate
 2. **Tree-shakable architecture** - Import only what you need
 3. **Memoized color generation** - Palette calculations are cached for improved performance
 4. **Batched DOM updates** - Changes use requestAnimationFrame for efficient rendering
+5. **Minimal DOM operations** - CSS variables are updated efficiently in batches
 
 ## Entry Points
 
@@ -380,9 +484,8 @@ The library is organized into multiple entry points:
 - `@moonlight/material/theming/components` - Ready-to-use UI components
 - `@moonlight/material/theming/config` - Theme configuration utilities
 - `@moonlight/material/theming/customizer` - Theme selection & customization UI
-- `@moonlight/material/theming/ui` - UI elements for theme visualization
-- `@moonlight/material/theming/utils` - Utility functions and helpers
 - `@moonlight/material/theming/showcase` - Components for theme showcases
+- `@moonlight/material/theming/utils` - Utility functions and helpers
 
 Import from specific entry points instead of the main entry point to take advantage of tree-shaking:
 
@@ -438,7 +541,10 @@ const themeOptions = [
 if (isChristmasTime) themeOptions.push(XMAS_THEME);
 if (isHalloweenTime) themeOptions.push(HALLOWEEN_THEME);
 
-export const THEME_CONFIG = ThemeConfig.create(themeOptions);
+export const THEME_CONFIG = ThemingConfig.create({
+  themeOptions: themeOptions,
+  // Other configuration options...
+});
 ```
 
 ## Browser Support
@@ -565,145 +671,8 @@ This reference documents all available variables that you can use in your applic
 - `--ml-color-primary-99`
 - `--ml-color-primary-100`
 
-### Secondary Palette Tones
-- `--ml-color-secondary-0`
-- `--ml-color-secondary-1`
-- `--ml-color-secondary-2`
-- `--ml-color-secondary-4`
-- `--ml-color-secondary-6`
-- `--ml-color-secondary-10`
-- `--ml-color-secondary-12`
-- `--ml-color-secondary-17`
-- `--ml-color-secondary-20`
-- `--ml-color-secondary-22`
-- `--ml-color-secondary-24`
-- `--ml-color-secondary-30`
-- `--ml-color-secondary-40`
-- `--ml-color-secondary-50`
-- `--ml-color-secondary-60`
-- `--ml-color-secondary-70`
-- `--ml-color-secondary-80`
-- `--ml-color-secondary-87`
-- `--ml-color-secondary-90`
-- `--ml-color-secondary-92`
-- `--ml-color-secondary-94`
-- `--ml-color-secondary-95`
-- `--ml-color-secondary-96`
-- `--ml-color-secondary-98`
-- `--ml-color-secondary-99`
-- `--ml-color-secondary-100`
-
-### Tertiary Palette Tones
-- `--ml-color-tertiary-0`
-- `--ml-color-tertiary-1`
-- `--ml-color-tertiary-2`
-- `--ml-color-tertiary-4`
-- `--ml-color-tertiary-6`
-- `--ml-color-tertiary-10`
-- `--ml-color-tertiary-12`
-- `--ml-color-tertiary-17`
-- `--ml-color-tertiary-20`
-- `--ml-color-tertiary-22`
-- `--ml-color-tertiary-24`
-- `--ml-color-tertiary-30`
-- `--ml-color-tertiary-40`
-- `--ml-color-tertiary-50`
-- `--ml-color-tertiary-60`
-- `--ml-color-tertiary-70`
-- `--ml-color-tertiary-80`
-- `--ml-color-tertiary-87`
-- `--ml-color-tertiary-90`
-- `--ml-color-tertiary-92`
-- `--ml-color-tertiary-94`
-- `--ml-color-tertiary-95`
-- `--ml-color-tertiary-96`
-- `--ml-color-tertiary-98`
-- `--ml-color-tertiary-99`
-- `--ml-color-tertiary-100`
-
-### Error Palette Tones
-- `--ml-color-error-0`
-- `--ml-color-error-1`
-- `--ml-color-error-2`
-- `--ml-color-error-4`
-- `--ml-color-error-6`
-- `--ml-color-error-10`
-- `--ml-color-error-12`
-- `--ml-color-error-17`
-- `--ml-color-error-20`
-- `--ml-color-error-22`
-- `--ml-color-error-24`
-- `--ml-color-error-30`
-- `--ml-color-error-40`
-- `--ml-color-error-50`
-- `--ml-color-error-60`
-- `--ml-color-error-70`
-- `--ml-color-error-80`
-- `--ml-color-error-87`
-- `--ml-color-error-90`
-- `--ml-color-error-92`
-- `--ml-color-error-94`
-- `--ml-color-error-95`
-- `--ml-color-error-96`
-- `--ml-color-error-98`
-- `--ml-color-error-99`
-- `--ml-color-error-100`
-
-### Neutral Palette Tones
-- `--ml-color-neutral-0`
-- `--ml-color-neutral-1`
-- `--ml-color-neutral-2`
-- `--ml-color-neutral-4`
-- `--ml-color-neutral-6`
-- `--ml-color-neutral-10`
-- `--ml-color-neutral-12`
-- `--ml-color-neutral-17`
-- `--ml-color-neutral-20`
-- `--ml-color-neutral-22`
-- `--ml-color-neutral-24`
-- `--ml-color-neutral-30`
-- `--ml-color-neutral-40`
-- `--ml-color-neutral-50`
-- `--ml-color-neutral-60`
-- `--ml-color-neutral-70`
-- `--ml-color-neutral-80`
-- `--ml-color-neutral-87`
-- `--ml-color-neutral-90`
-- `--ml-color-neutral-92`
-- `--ml-color-neutral-94`
-- `--ml-color-neutral-95`
-- `--ml-color-neutral-96`
-- `--ml-color-neutral-98`
-- `--ml-color-neutral-99`
-- `--ml-color-neutral-100`
-
-### Neutral Variant Palette Tones
-- `--ml-color-neutralVariant-0`
-- `--ml-color-neutralVariant-1`
-- `--ml-color-neutralVariant-2`
-- `--ml-color-neutralVariant-4`
-- `--ml-color-neutralVariant-6`
-- `--ml-color-neutralVariant-10`
-- `--ml-color-neutralVariant-12`
-- `--ml-color-neutralVariant-17`
-- `--ml-color-neutralVariant-20`
-- `--ml-color-neutralVariant-22`
-- `--ml-color-neutralVariant-24`
-- `--ml-color-neutralVariant-30`
-- `--ml-color-neutralVariant-40`
-- `--ml-color-neutralVariant-50`
-- `--ml-color-neutralVariant-60`
-- `--ml-color-neutralVariant-70`
-- `--ml-color-neutralVariant-80`
-- `--ml-color-neutralVariant-87`
-- `--ml-color-neutralVariant-90`
-- `--ml-color-neutralVariant-92`
-- `--ml-color-neutralVariant-94`
-- `--ml-color-neutralVariant-95`
-- `--ml-color-neutralVariant-96`
-- `--ml-color-neutralVariant-98`
-- `--ml-color-neutralVariant-99`
-- `--ml-color-neutralVariant-100`
+### Secondary, Tertiary, Error, Neutral, and Neutral Variant Palettes
+Each of these palettes also has the full range of tone variables from 0-100, following the same pattern as the primary palette.
 
 ## Usage Example
 
@@ -721,8 +690,7 @@ This reference documents all available variables that you can use in your applic
   // Use specific tone from primary palette
   box-shadow: 0 2px 4px var(--ml-color-primary-40);
 }
-
-
+```
 
 ## License
 

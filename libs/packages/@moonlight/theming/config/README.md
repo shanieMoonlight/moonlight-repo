@@ -1,154 +1,145 @@
 # @moonlight/material/theming/config
 
-Secondary entry point of `@moonlight/material/theming`. It can be used by importing from `@moonlight/material/theming/config`.
-
-## Overview
-
-The `/config` entry point provides configuration utilities for setting up and managing themes in Angular applications. It offers a simple, declarative way to define theme options, default themes, and integrate with Angular's dependency injection.
+The configuration module for the Moonlight Material theming system. This module provides the foundation for defining and managing theme options across your application.
 
 ## Key Features
 
-- Define multiple theme options with customizable colors and properties
-- Configure dark mode behavior (forced or system-based)
-- Easily set up theming providers for your Angular application
-- Type-safe theme configuration
+- **Theme Definitions** - Define themes with primary, secondary, and accent colors
+- **Dark Mode Configuration** - Control light/dark mode behavior and system preference detection
+- **Hierarchical Theming** - Configure different themes for different sections of your application
+- **Runtime Theme Updates** - Add, remove, or modify themes dynamically during application execution
+- **Theme Persistence** - Save and restore user theme preferences
 
-## Installation
-
-This entry point is included with the main package:
-
-```bash
-npm install @moonlight/material/theming
-```
-
-## Usage
-
-### 1. Define Your Theme Configuration
-
-Create a file to define your application's theme options:
-
-```typescript
-// app-theme.config.ts
-import { ThemeConfig, ThemeOption } from "@moonlight/material/theming/config";
-
-// Define theme options
-const themeOptions: ThemeOption[] = [
-  ThemeOption.create({
-    darkMode: 'system',
-    label: 'Default',
-    value: 'default',
-    primaryColor: '#4682B4',  // Steel blue
-    secondaryColor: '#D2691E', // Chocolate
-  }),
-  ThemeOption.create({
-     darkMode: 'light',
-    label: 'Violet and Lime',
-    value: 'violet-lime',
-    primaryColor: '#8A2BE2',  // Violet
-    secondaryColor: '#32CD32', // Lime green
-  }),
-  // Add more themes as needed
-];
-
-// Create the theme configuration
-export const THEME_CONFIG = ThemeConfig.create(themeOptions);
-```
-
-### 2. Set Up in Your Application
-
-In your app configuration, use the `ThemeAndModeSetup` utility to set up the necessary providers:
-
-```typescript
-// app.config.ts
-import { ApplicationConfig } from '@angular/core';
-import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
-import { THEME_CONFIG } from './config/app-theme.config';
-
-export const appConfig: ApplicationConfig = {
-  providers: [
-    // Other providers...
-    ThemeAndModeSetup.getThemeProviders(THEME_CONFIG)
-  ],
-};
-```
-
-## API Reference
+## Main Classes
 
 ### ThemeOption
 
-A class for creating theme options with properly typed properties.
+Defines a complete theme configuration including colors and dark mode settings:
 
-#### Properties
+```typescript
+// Create a theme option
+const myTheme = ThemeOption.create({
+  value: 'ocean-blue',       // Unique theme identifier
+  label: 'Ocean Blue',       // User-friendly name
+  primaryColor: '#0277BD',   // Main color
+  secondaryColor: '#26A69A', // Accent color
+  tertiaryColor: '#7E57C2',  // Optional tertiary color
+  errorColor: '#F44336',     // Optional error color
+  darkMode: 'system'         // 'light', 'dark', or 'system'
+});
+```
 
-- `value`: Unique identifier for the theme
-- `label`: Display name for the theme
-- `primaryColor`: Primary color in hex format
-- `secondaryColor`: Secondary color in hex format
-- `tertiaryColor` (optional): Tertiary color in hex format
-- `errorColor` (optional): Error color in hex format
-- `darkMode`: Controls dark mode behavior (boolean or 'system')
+### ThemingConfig
 
-#### Methods
+Central configuration for the theming system:
 
-- `static create(options: ThemeOptionParams): ThemeOption` - Factory method to create theme options
+```typescript
+// Create a theme configuration
+const config = ThemingConfig.create({
+  // Available themes in your application
+  themeOptions: [
+    ThemeOption.create({ /* ... */ }),
+    ThemeOption.create({ /* ... */ }),
+  ],
+  
+  // Default dark mode behavior (light, dark, system)
+  defaultDarkModeType: 'system',
+  
+  // Theme transition settings
+  transitionOptions: {
+    style: 'morph',          // 'morph' or 'overlay'
+    duration: 500,           // Transition duration in ms
+    showTransitions: true    // Whether to show transitions
+  },
+  
+  // CSS class prefix for theme classes
+  themeClassPrefix: 'my-theme'
+});
+```
 
-### ThemeConfig
+### DynamicThemeConfigService
 
-A class for managing collections of theme options.
+Service for managing theme options at runtime:
 
-#### Properties
+```typescript
+// Inject in your component or service
+private themeConfig = inject(DynamicThemeConfigService);
 
-- `themes`: Array of available theme options
-- `defaultTheme`: The default theme to apply if none is selected
+// Add a new theme
+themeConfig.addSystemTheme(ThemeOption.create({ /* ... */ }));
 
-#### Methods
+// Remove a theme
+themeConfig.removeSystemTheme('theme-id');
 
-- `static create(themes: ThemeOption[], defaultThemeIndex?: number): ThemeConfig` - Factory method to create theme configuration
+// Set all available themes
+themeConfig.setSystemThemes([/* array of ThemeOption */]);
+
+// Reset to initial configuration
+themeConfig.resetSystemThemesToInitial();
+```
 
 ### ThemeAndModeSetup
 
-A utility class for configuring theme providers.
-
-#### Methods
-
-- `static getThemeProviders(config: ThemeConfig): Provider[]` - Returns Angular providers for theme configuration
-
-## Dynamic Setup
-
-### Otional Themes
-
-Consider adding seasonal themes that can be conditionally enabled:
+Helper for setting up theme providers in your app:
 
 ```typescript
-// Check if it's the Christmas season
-const today = new Date();
-const isChristmasSeason = today.getMonth() === 11;
+// In your app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
+import { MY_THEME_CONFIG } from './theme.config';
 
-// Conditional theme options
-const themeOptions = [
-  // Regular themes...
-];
-
-// Add seasonal theme if appropriate
-if (isChristmasSeason) {
-  themeOptions.push(
-    ThemeOption.create({
-       darkMode: 'light',
-      label: 'Christmas',
-      value: 'xmas',
-      primaryColor: '#C8102E', // Red
-      secondaryColor: '#006747', // Green
-    })
-  );
-}
-
-
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // Set up all theming providers with your configuration
+    ThemeAndModeSetup.provideThemingModule(MY_THEME_CONFIG)
+  ]
+};
 ```
 
-### Consistent Theme Values
+## Constants
 
-Use the `value` property to create CSS class names for additional custom styling.
+The module provides several constants for theme configuration:
 
-### Predefined Color Schemes
+- `COLOR_VAR_PREFIX` - CSS variable prefix for color shades
+- `DARK_MODE_CLASS` - CSS class applied to elements in dark mode
+- `THEME_CLASS_PREFIX` - Default prefix for theme CSS classes
 
-Consider creating a palette of predefined color combinations that work well together.
+## Hierarchical Theming
+
+One of the most powerful features is the ability to temporarily override themes for different sections of your application:
+
+```typescript
+@Component({
+  selector: 'app-marketing-section',
+  template: `
+    <div class="marketing-container">
+      <h1>Marketing Section</h1>
+      <ml-theme-picker-mat></ml-theme-picker-mat>
+      <router-outlet></router-outlet>
+    </div>
+  `
+})
+export class MarketingSectionComponent implements OnInit, OnDestroy {
+  private themeConfig = inject(DynamicThemeConfigService);
+  
+  ngOnInit() {
+    // Override themes just for this section
+    this.themeConfig.setSystemThemes([
+      ThemeOption.create({
+        value: 'marketing-theme',
+        label: 'Marketing Theme',
+        primaryColor: '#E91E63',
+        secondaryColor: '#FFC107'
+      }),
+      // More themes specific to this section...
+    ]);
+  }
+  
+  ngOnDestroy() {
+    // Restore global themes when leaving this section
+    this.themeConfig.resetSystemThemesToInitial();
+  }
+}
+```
+
+This enables different parts of your application to have their own theme contexts, with the `ThemeService` and theme components automatically adapting to show the context-specific themes.
