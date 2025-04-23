@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@moonlight/material/theming/config";
-import { ColorUtilsService } from '@moonlight/material/theming/utils';
+import { ColorUtilsService, consoleDev } from '@moonlight/material/theming/utils';
 import { AnimationFrameService } from '@moonlight/utils/testing';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
@@ -81,7 +81,7 @@ export class ThemeGeneratorService {
    */
   applyTheme(
     theme: ThemeOption,
-    themeClassOverride?: string,
+    themeClassOverride?: ThemeValue,
     targetElement?: HTMLElement) {
 
     if (!this.isBrowser())
@@ -133,7 +133,7 @@ export class ThemeGeneratorService {
    * // Save to file or display in UI
    * ```
    */
-  exportThemeAsScss = (theme: ThemeOption): string =>
+  protected exportThemeAsScss = (theme: ThemeOption): string =>
     theme ? this._scssGenerator.exportThemeAsScss(theme) : ''
 
   //-----------------------------//
@@ -190,84 +190,83 @@ export class ThemeGeneratorService {
    */
   private applySystemVariables(theme: ThemeOption, isDark: boolean, palettes: GeneratedPalettes, targetElement: HTMLElement) {
 
-    const p = palettes;
 
     // M3 colors - Primary
-    this.setVariable(targetElement, '--mat-sys-primary', p.primary[isDark ? 80 : 40]);
-    this.setVariable(targetElement, '--mat-sys-on-primary', p.primary[isDark ? 20 : 100]);
-    this.setVariable(targetElement, '--mat-sys-primary-container', p.primary[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-primary-container', p.primary[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-primary', palettes.primary[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-primary', palettes.primary[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-primary-container', palettes.primary[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-primary-container', palettes.primary[isDark ? 90 : 10]);
 
     // M3 colors - Secondary
-    this.setVariable(targetElement, '--mat-sys-secondary', p.secondary[isDark ? 80 : 40]);
-    this.setVariable(targetElement, '--mat-sys-on-secondary', p.secondary[isDark ? 20 : 100]);
-    this.setVariable(targetElement, '--mat-sys-secondary-container', p.secondary[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-secondary-container', p.secondary[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-secondary', palettes.secondary[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary', palettes.secondary[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-secondary-container', palettes.secondary[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary-container', palettes.secondary[isDark ? 90 : 10]);
 
     // M3 colors - Tertiary
-    this.setVariable(targetElement, '--mat-sys-tertiary', p.tertiary[isDark ? 80 : 40]);
-    this.setVariable(targetElement, '--mat-sys-on-tertiary', p.tertiary[isDark ? 20 : 100]);
-    this.setVariable(targetElement, '--mat-sys-tertiary-container', p.tertiary[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-tertiary-container', p.tertiary[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-tertiary', palettes.tertiary[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-tertiary', palettes.tertiary[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-tertiary-container', palettes.tertiary[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-tertiary-container', palettes.tertiary[isDark ? 90 : 10]);
 
     // M3 colors - Error
-    this.setVariable(targetElement, '--mat-sys-error', p.error[isDark ? 80 : 40]);
-    this.setVariable(targetElement, '--mat-sys-on-error', p.error[isDark ? 20 : 100]);
-    this.setVariable(targetElement, '--mat-sys-error-container', p.error[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-error-container', p.error[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-error', palettes.error[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-error', palettes.error[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-error-container', palettes.error[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-error-container', palettes.error[isDark ? 90 : 10]);
 
     // M3 Surface and background colors
-    this.setVariable(targetElement, '--mat-sys-background', p.neutral[isDark ? 6 : 99]);
-    this.setVariable(targetElement, '--mat-sys-on-background', p.neutral[isDark ? 90 : 10]);
-    this.setVariable(targetElement, '--mat-sys-surface', p.neutral[isDark ? 6 : 99]);
-    this.setVariable(targetElement, '--mat-sys-on-surface', p.neutral[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-background', palettes.neutral[isDark ? 6 : 99]);
+    this.setVariable(targetElement, '--mat-sys-on-background', palettes.neutral[isDark ? 90 : 10]);
+    this.setVariable(targetElement, '--mat-sys-surface', palettes.neutral[isDark ? 6 : 99]);
+    this.setVariable(targetElement, '--mat-sys-on-surface', palettes.neutral[isDark ? 90 : 10]);
 
     // Additional surface variants (simplified list)
-    this.setVariable(targetElement, '--mat-sys-surface-container', p.neutral[isDark ? 12 : 94]);
-    this.setVariable(targetElement, '--mat-sys-surface-container-low', p.neutral[isDark ? 10 : 96]);
-    this.setVariable(targetElement, '--mat-sys-surface-container-high', p.neutral[isDark ? 17 : 92]);
+    this.setVariable(targetElement, '--mat-sys-surface-container', palettes.neutral[isDark ? 12 : 94]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-low', palettes.neutral[isDark ? 10 : 96]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-high', palettes.neutral[isDark ? 17 : 92]);
 
     // Primary fixed variants
-    this.setVariable(targetElement, '--mat-sys-primary-fixed', p.primary[90]);
-    this.setVariable(targetElement, '--mat-sys-primary-fixed-dim', p.primary[80]);
-    this.setVariable(targetElement, '--mat-sys-on-primary-fixed', p.primary[10]);
-    this.setVariable(targetElement, '--mat-sys-on-primary-fixed-variant', p.primary[30]);
+    this.setVariable(targetElement, '--mat-sys-primary-fixed', palettes.primary[90]);
+    this.setVariable(targetElement, '--mat-sys-primary-fixed-dim', palettes.primary[80]);
+    this.setVariable(targetElement, '--mat-sys-on-primary-fixed', palettes.primary[10]);
+    this.setVariable(targetElement, '--mat-sys-on-primary-fixed-variant', palettes.primary[30]);
 
     // Secondary fixed variants
-    this.setVariable(targetElement, '--mat-sys-secondary-fixed', p.secondary[90]);
-    this.setVariable(targetElement, '--mat-sys-secondary-fixed-dim', p.secondary[80]);
-    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed', p.secondary[10]);
-    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed-variant', p.secondary[30]);
+    this.setVariable(targetElement, '--mat-sys-secondary-fixed', palettes.secondary[90]);
+    this.setVariable(targetElement, '--mat-sys-secondary-fixed-dim', palettes.secondary[80]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed', palettes.secondary[10]);
+    this.setVariable(targetElement, '--mat-sys-on-secondary-fixed-variant', palettes.secondary[30]);
 
     // Tertiary fixed variants
-    this.setVariable(targetElement, '--mat-sys-tertiary-fixed', p.tertiary[90]);
-    this.setVariable(targetElement, '--mat-sys-tertiary-fixed-dim', p.tertiary[80]);
+    this.setVariable(targetElement, '--mat-sys-tertiary-fixed', palettes.tertiary[90]);
+    this.setVariable(targetElement, '--mat-sys-tertiary-fixed-dim', palettes.tertiary[80]);
 
     // Additional surface variants
-    this.setVariable(targetElement, '--mat-sys-surface-variant', p.neutralVariant[isDark ? 30 : 90]);
-    this.setVariable(targetElement, '--mat-sys-on-surface-variant', p.neutralVariant[isDark ? 80 : 30]);
-    this.setVariable(targetElement, '--mat-sys-surface-container-lowest', p.neutral[isDark ? 4 : 100]);
-    this.setVariable(targetElement, '--mat-sys-surface-container-highest', p.neutral[isDark ? 22 : 90]);
-    this.setVariable(targetElement, '--mat-sys-surface-dim', p.neutral[isDark ? 6 : 87]);
-    this.setVariable(targetElement, '--mat-sys-surface-bright', p.neutral[isDark ? 24 : 98]);
+    this.setVariable(targetElement, '--mat-sys-surface-variant', palettes.neutralVariant[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-surface-variant', palettes.neutralVariant[isDark ? 80 : 30]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-lowest', palettes.neutral[isDark ? 4 : 100]);
+    this.setVariable(targetElement, '--mat-sys-surface-container-highest', palettes.neutral[isDark ? 22 : 90]);
+    this.setVariable(targetElement, '--mat-sys-surface-dim', palettes.neutral[isDark ? 6 : 87]);
+    this.setVariable(targetElement, '--mat-sys-surface-bright', palettes.neutral[isDark ? 24 : 98]);
 
     // Outline colors
-    this.setVariable(targetElement, '--mat-sys-outline', p.neutralVariant[isDark ? 60 : 50]);
-    this.setVariable(targetElement, '--mat-sys-outline-variant', p.neutralVariant[isDark ? 30 : 80]);
+    this.setVariable(targetElement, '--mat-sys-outline', palettes.neutralVariant[isDark ? 60 : 50]);
+    this.setVariable(targetElement, '--mat-sys-outline-variant', palettes.neutralVariant[isDark ? 30 : 80]);
 
     // Inverse colors
-    this.setVariable(targetElement, '--mat-sys-inverse-primary', p.primary[isDark ? 40 : 80]);
-    this.setVariable(targetElement, '--mat-sys-inverse-surface', p.neutral[isDark ? 90 : 20]);
-    this.setVariable(targetElement, '--mat-sys-inverse-on-surface', p.neutral[isDark ? 20 : 95]);
+    this.setVariable(targetElement, '--mat-sys-inverse-primary', palettes.primary[isDark ? 40 : 80]);
+    this.setVariable(targetElement, '--mat-sys-inverse-surface', palettes.neutral[isDark ? 90 : 20]);
+    this.setVariable(targetElement, '--mat-sys-inverse-on-surface', palettes.neutral[isDark ? 20 : 95]);
 
     // Miscellaneous
-    this.setVariable(targetElement, '--mat-sys-surface-tint', p.primary[80]);
-    this.setVariable(targetElement, '--mat-sys-scrim', p.neutral[0]);
-    this.setVariable(targetElement, '--mat-sys-shadow', p.neutral[0]);
+    this.setVariable(targetElement, '--mat-sys-surface-tint', palettes.primary[80]);
+    this.setVariable(targetElement, '--mat-sys-scrim', palettes.neutral[0]);
+    this.setVariable(targetElement, '--mat-sys-shadow', palettes.neutral[0]);
 
     // Additional useful values for Angular Material
-    this.setVariable(targetElement, '--mat-sys-neutral10', p.neutral[10]);
-    this.setVariable(targetElement, '--mat-sys-neutral-variant20', p.neutralVariant[20]);
+    this.setVariable(targetElement, '--mat-sys-neutral10', palettes.neutral[10]);
+    this.setVariable(targetElement, '--mat-sys-neutral-variant20', palettes.neutralVariant[20]);
 
 
     // Add original seed colors for direct access
@@ -277,7 +276,9 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-seed-error', theme.errorColor || '#B3261E');
 
     // Add RGB variables for transparency effects
-    this.addRGBVariables(p, targetElement, isDark);
+    this.addRGBVariables(palettes, targetElement, isDark);
+
+
   }
 
   //- - - - - - - - - - - - - - -//
@@ -338,9 +339,10 @@ export class ThemeGeneratorService {
    * @param theme The theme configuration to evaluate
    * @returns True if dark mode should be applied, false otherwise
    */
-  private shouldUseDarkMode = (theme: ThemeOption): boolean => theme.darkMode === 'system'
-    ? this._systemPrefs.prefersDarkMode()
-    : !!theme.darkMode;
+  private shouldUseDarkMode = (theme: ThemeOption): boolean =>
+    theme.darkMode === 'system'
+      ? this._systemPrefs.prefersDarkMode()
+      : theme.darkMode === 'dark';
 
 
   //- - - - - - - - - - - - - - -//

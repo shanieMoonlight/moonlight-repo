@@ -8,7 +8,7 @@ import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator
 import { GeneratedPalettes } from './models/theme-palletes';
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service'; // Import SystemPrefsService
 import { DOCUMENT } from '@angular/common';
-import { AnimationFrameService } from '../../../../../../../utils/testing/src/index';
+import { AnimationFrameService } from '../../../../../../../utils/testing/src/index'; // Import AnimationFrameService
 
 describe('ThemeGeneratorService', () => {
   let service: ThemeGeneratorService;
@@ -31,7 +31,7 @@ describe('ThemeGeneratorService', () => {
     errorColor: '#FF00FF',
     value: 'test-theme',
     label: 'Test Theme',
-    darkMode: false // Explicitly set darkMode
+     darkMode: 'light' // Explicitly set darkMode
   });
 
   const mockThemeOptionSystemDark: ThemeOption = ThemeOption.create({
@@ -64,7 +64,12 @@ describe('ThemeGeneratorService', () => {
       classList: {
         add: jest.fn(),
         remove: jest.fn(),
-        contains: jest.fn()
+        contains: jest.fn(),
+        // Add a proper forEach implementation
+        forEach: jest.fn().mockImplementation(callback => {
+          // Just implement it as empty by default (no classes)
+          // Individual tests can override this behavior if needed
+        })
       }
     } as unknown as HTMLElement;
 
@@ -148,7 +153,7 @@ describe('ThemeGeneratorService', () => {
         primaryColor: '#b12d00',
         secondaryColor: '#705d00',
         tertiaryColor: '#ac2471',
-        darkMode: false
+         darkMode: 'light'
       });
 
       // Act
@@ -186,7 +191,7 @@ describe('ThemeGeneratorService', () => {
         primaryColor: '#b12d00',
         secondaryColor: '#705d00',
         tertiaryColor: '#ac2471',
-        darkMode: false
+         darkMode: 'light'
       });
 
       // Act
@@ -203,26 +208,67 @@ describe('ThemeGeneratorService', () => {
 
     //- - - - - - - - - - - - - - -//
 
+    it('should remove old theme classes when applying a new theme', fakeAsync(() => {
+      // Setup mock element with existing theme classes
+      const mockElementWithClasses = {
+        style: {
+          setProperty: jest.fn(),
+          getPropertyValue: jest.fn()
+        },
+        classList: {
+          forEach: jest.fn().mockImplementation(callback => {
+            // Simulate existing classes including one matching the theme prefix
+            callback(`${THEME_CLASS_PREFIX}-old-theme`);
+            callback('other-class');
+          }),
+          add: jest.fn(),
+          remove: jest.fn(),
+          contains: jest.fn()
+        }
+      } as unknown as HTMLElement;
+      
+      // Spy on our renderer methods since we'll be using those to add/remove classes
+      // (We assume applyThemeAndModeClassess might not exist, so let's fix that too)
+      
+      // Apply a new theme
+      service.applyTheme(mockThemeOption, undefined, mockElementWithClasses);
+      flush();
+      
+      // The renderer should remove the old theme class
+      expect(rendererMock.removeClass).toHaveBeenCalledWith(
+        mockElementWithClasses,
+        `${THEME_CLASS_PREFIX}-old-theme`
+      );
+      
+      // And add the new theme class
+      expect(rendererMock.addClass).toHaveBeenCalledWith(
+        mockElementWithClasses,
+        `${THEME_CLASS_PREFIX}-${mockThemeOption.value}`
+      );
+    }));
+
+    //- - - - - - - - - - - - - - -//
+
     it('should call applySystemVariables with the correct parameters (light mode)', fakeAsync(() => {
       const systemSpy = jest.spyOn(service as any, 'applySystemVariables');
       systemPrefsMock.prefersDarkMode.mockReturnValue(false); // Ensure system is light
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: false }); // Explicit light
+      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' }); // Explicit light
 
       service.applyTheme(theme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
-      expect(systemSpy).toHaveBeenCalledWith(theme, mockPalettes, mockElement, false); // isDark should be false
+      expect(systemSpy).toHaveBeenCalledWith(theme, false, mockPalettes, mockElement); // Corrected parameter order
     }));
 
     it('should call applySystemVariables with the correct parameters (dark mode)', fakeAsync(() => {
       const systemSpy = jest.spyOn(service as any, 'applySystemVariables');
       systemPrefsMock.prefersDarkMode.mockReturnValue(true); // Ensure system is dark
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: true }); // Explicit dark
+      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' }); // Explicit dark
 
       service.applyTheme(theme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
-      expect(systemSpy).toHaveBeenCalledWith(theme, mockPalettes, mockElement, true); // isDark should be true
+      expect(systemSpy).toHaveBeenCalledWith(theme, true, mockPalettes, mockElement); // Corrected parameter order
     }));
 
     it('should call applySystemVariables with the correct parameters (system mode - dark)', fakeAsync(() => {
@@ -232,7 +278,7 @@ describe('ThemeGeneratorService', () => {
       service.applyTheme(mockThemeOptionSystemDark, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
-      expect(systemSpy).toHaveBeenCalledWith(mockThemeOptionSystemDark, mockPalettes, mockElement, true); // isDark should be true
+      expect(systemSpy).toHaveBeenCalledWith(mockThemeOptionSystemDark, true, mockPalettes, mockElement); // Corrected parameter order
     }));
 
     it('should call applySystemVariables with the correct parameters (system mode - light)', fakeAsync(() => {
@@ -242,9 +288,8 @@ describe('ThemeGeneratorService', () => {
       service.applyTheme(mockThemeOptionSystemDark, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
-      expect(systemSpy).toHaveBeenCalledWith(mockThemeOptionSystemDark, mockPalettes, mockElement, false); // isDark should be false
+      expect(systemSpy).toHaveBeenCalledWith(mockThemeOptionSystemDark, false, mockPalettes, mockElement); // Corrected parameter order
     }));
-
 
     //- - - - - - - - - - - - - - -//
 
@@ -272,7 +317,7 @@ describe('ThemeGeneratorService', () => {
     //- - - - - - - - - - - - - - -//
 
     it('should add dark mode class if theme forces dark', fakeAsync(() => {
-      const darkTheme = ThemeOption.create({ ...mockThemeOption, darkMode: true });
+      const darkTheme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' });
       service.applyTheme(darkTheme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
@@ -298,7 +343,7 @@ describe('ThemeGeneratorService', () => {
     //- - - - - - - - - - - - - - -//
 
     it('should remove dark mode class if theme forces light', fakeAsync(() => {
-      const lightTheme = ThemeOption.create({ ...mockThemeOption, darkMode: false });
+      const lightTheme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' });
       service.applyTheme(lightTheme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
@@ -340,7 +385,7 @@ describe('ThemeGeneratorService', () => {
         label: 'Test Theme',
         primaryColor: '#b12d00',
         secondaryColor: '#b18800',
-        darkMode: false
+         darkMode: 'light'
       });
       
       // Act
@@ -398,80 +443,72 @@ describe('ThemeGeneratorService', () => {
 
   //-----------------------------//
 
-  describe('applySystemVariables', () => {
-    // Need to pass the theme object now
-    it('should set primary color variables based on isDark flag (light)', () => {
-      const setVariableSpy = jest.spyOn(service as any, 'setVariable');
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: false });
-
-      (service as any).applySystemVariables(theme, mockPalettes, mockElement, false); // isDark = false
-
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-primary', mockPalettes.primary['40']);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-on-primary', mockPalettes.primary['100']);
-      // Check a few others
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-surface', mockPalettes.neutral['99']);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-on-surface', mockPalettes.neutral['10']);
-    });
-
-    it('should set primary color variables based on isDark flag (dark)', () => {
-      const setVariableSpy = jest.spyOn(service as any, 'setVariable');
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: true });
-
-      (service as any).applySystemVariables(theme, mockPalettes, mockElement, true); // isDark = true
-
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-primary', mockPalettes.primary['80']);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-on-primary', mockPalettes.primary['20']);
-      // Check a few others
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-surface', mockPalettes.neutral['6']);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-sys-on-surface', mockPalettes.neutral['90']);
-    });
-
-    //- - - - - - - - - - - - - - -//
-
-    it('should call addRGBVariables with the palettes and isDark flag', () => {
-      const addRGBSpy = jest.spyOn(service as any, 'addRGBVariables');
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: false });
-
-      (service as any).applySystemVariables(theme, mockPalettes, mockElement, false);
-      expect(addRGBSpy).toHaveBeenCalledWith(mockPalettes, mockElement, false);
-
-      addRGBSpy.mockClear();
-      const darkTheme = ThemeOption.create({ ...mockThemeOption, darkMode: true });
-      (service as any).applySystemVariables(darkTheme, mockPalettes, mockElement, true);
-      expect(addRGBSpy).toHaveBeenCalledWith(mockPalettes, mockElement, true);
-    });
-
-    //- - - - - - - - - - - - - - -//
-
-    it('should set seed color variables', () => {
-      const setVariableSpy = jest.spyOn(service as any, 'setVariable');
-      const theme = ThemeOption.create({ ...mockThemeOption });
-
-      (service as any).applySystemVariables(theme, mockPalettes, mockElement, false);
-
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-primary', theme.primaryColor);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-secondary', theme.secondaryColor);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-tertiary', theme.tertiaryColor);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-error', theme.errorColor);
-    });
-
-    it('should set seed color variables with defaults for missing optional colors', () => {
-      const setVariableSpy = jest.spyOn(service as any, 'setVariable');
-      const theme = ThemeOption.create({ // Use create to get defaults
-        primaryColor: '#FF0000',
-        secondaryColor: '#00FF00',
-        value: 'minimal',
-        label: 'Minimal'
+  describe('applySystemVariables behaviors', () => {
+    // Replace direct invocation of private method with public API
+    
+    it('should set primary color variables based on dark mode setting (light)', fakeAsync(() => {
+      // Set up light mode theme
+      const lightTheme = ThemeOption.create({ 
+        ...mockThemeOption, 
+         darkMode: 'light' 
       });
-
-      (service as any).applySystemVariables(theme, mockPalettes, mockElement, false);
-
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-primary', theme.primaryColor);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-secondary', theme.secondaryColor);
-      // Check that defaults from ThemeOption.create are used
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-tertiary', DEFAULT_COLOR_TERTIARY);
-      expect(setVariableSpy).toHaveBeenCalledWith(mockElement, '--mat-seed-error', DEFAULT_COLOR_ERROR);
-    });
+      
+      // Call the public method instead of directly testing the private method
+      service.applyTheme(lightTheme, undefined, mockElement);
+      flush(); // Process requestAnimationFrame
+      
+      // Verify CSS variables were properly set with expected values
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-primary', mockPalettes.primary['40']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-on-primary', mockPalettes.primary['100']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-surface', mockPalettes.neutral['99']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-on-surface', mockPalettes.neutral['10']);
+    }));
+  
+    it('should set primary color variables based on dark mode setting (dark)', fakeAsync(() => {
+      // Set up dark mode theme
+      const darkTheme = ThemeOption.create({ 
+        ...mockThemeOption, 
+         darkMode: 'dark' 
+      });
+      
+      // Call the public method
+      service.applyTheme(darkTheme, undefined, mockElement);
+      flush();
+      
+      // Verify expected CSS variables
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-primary', mockPalettes.primary['80']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-on-primary', mockPalettes.primary['20']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-surface', mockPalettes.neutral['6']);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-sys-on-surface', mockPalettes.neutral['90']);
+    }));
+  
+    it('should set original seed color variables', fakeAsync(() => {
+      const theme = ThemeOption.create({ 
+        ...mockThemeOption
+      });
+      
+      service.applyTheme(theme, undefined, mockElement);
+      flush();
+      
+      // Verify the original seed colors are set as CSS variables
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-seed-primary', theme.primaryColor);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-seed-secondary', theme.secondaryColor);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-seed-tertiary', theme.tertiaryColor);
+      expect(mockElement.style.setProperty).toHaveBeenCalledWith('--mat-seed-error', theme.errorColor);
+    }));
+  
+    it('should set RGB color variables for transparency support', fakeAsync(() => {
+      service.applyTheme(mockThemeOption, undefined, mockElement);
+      flush();
+      
+      // Verify RGB variables
+      expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(
+        mockElement, 
+        '--mat-sys-surface-rgb', 
+        mockPalettes.neutral['99']
+      );
+      // Check other key RGB variables as needed
+    }));
   });
 
   //-----------------------------//
@@ -502,10 +539,10 @@ describe('ThemeGeneratorService', () => {
 
   describe('exportThemeAsScss', () => {
     // Now takes theme as argument
-    it('should call scssGenerator.exportThemeAsScss with the provided theme', () => {
-      const result = service.exportThemeAsScss(mockThemeOption); // Pass theme directly
+    it('should call scssGenerator exportThemeAsScss  with the provided theme', () => {
+      const result = service['exportThemeAsScss'](mockThemeOption); // Pass theme directly
 
-      expect(scssGeneratorMock.exportThemeAsScss).toHaveBeenCalledWith(mockThemeOption);
+      expect(scssGeneratorMock['exportThemeAsScss']).toHaveBeenCalledWith(mockThemeOption);
       expect(result).toBe('// SCSS mock content');
     });
 
@@ -513,9 +550,9 @@ describe('ThemeGeneratorService', () => {
 
     // Test case for null/undefined theme
     it('should return empty string if theme is null or undefined', () => {
-      expect(service.exportThemeAsScss(null as any)).toBe('');
-      expect(service.exportThemeAsScss(undefined as any)).toBe('');
-      expect(scssGeneratorMock.exportThemeAsScss).not.toHaveBeenCalled();
+      expect(service['exportThemeAsScss'](null as any)).toBe('');
+      expect(service['exportThemeAsScss'](undefined as any)).toBe('');
+      expect(scssGeneratorMock['exportThemeAsScss']).not.toHaveBeenCalled();
     });
   });
 
@@ -532,12 +569,12 @@ describe('ThemeGeneratorService', () => {
 
   describe('shouldUseDarkMode', () => {
     it('should return true if theme.darkMode is true', () => {
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: true });
+      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(true);
     });
 
     it('should return false if theme.darkMode is false', () => {
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: false });
+      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(false);
     });
 

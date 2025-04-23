@@ -13,9 +13,9 @@ import { ThemeService } from '../../../../service/src/index';
 import { MatEverythingModule } from '../../../../utils/src';
 import { MlThemePickerMatComponent } from './theme-picker.component';
 
-const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light', darkMode: false, primaryColor: '#ffffff', secondaryColor: '#000000' });
-const mockSystemTheme2: ThemeOption = ThemeOption.create({ label: 'System Dark', value: 'system-dark', darkMode: true, primaryColor: '#000000', secondaryColor: '#ffffff' });
-const mockCustomTheme1: ThemeOption = ThemeOption.create({ label: 'Custom Blue', value: 'custom-blue', darkMode: false, primaryColor: '#0000ff', secondaryColor: '#ffffff' });
+const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light',  darkMode: 'light', primaryColor: '#ffffff', secondaryColor: '#000000' });
+const mockSystemTheme2: ThemeOption = ThemeOption.create({ label: 'System Dark', value: 'system-dark', darkMode: 'dark', primaryColor: '#000000', secondaryColor: '#ffffff' });
+const mockCustomTheme1: ThemeOption = ThemeOption.create({ label: 'Custom Blue', value: 'custom-blue',  darkMode: 'light', primaryColor: '#0000ff', secondaryColor: '#ffffff' });
 
 const mockSystemThemes = signal([mockSystemTheme1, mockSystemTheme2]);
 const mockCustomThemes = signal([mockCustomTheme1]);

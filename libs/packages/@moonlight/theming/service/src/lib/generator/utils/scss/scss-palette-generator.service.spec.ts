@@ -14,7 +14,7 @@ describe('ScssPaletteGeneratorService', () => {
     errorColor: '#FF00FF',
     value: 'test-theme',
     label: 'Test Theme',
-    darkMode: false
+     darkMode: 'light'
   };
 
   const mockPalettes = {
@@ -91,7 +91,7 @@ describe('ScssPaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'incomplete',
       label: 'Incomplete Theme',
-      darkMode: false
+       darkMode: 'light'
     })
     
     const result = service.exportThemeAsScss(incompleteTheme);

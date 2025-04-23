@@ -35,9 +35,7 @@ export class ThemeAndModeSetup {
      */
     static provideThemingModule = (config: ThemingConfig = ThemingConfig.create())
         : (Provider | EnvironmentProviders)[] =>
-        {
-            console.log("ThemeAndModeSetup.provideThemingModule", config);
-            
+        {            
             return [
                 {
                     provide: ThemeConfigService,

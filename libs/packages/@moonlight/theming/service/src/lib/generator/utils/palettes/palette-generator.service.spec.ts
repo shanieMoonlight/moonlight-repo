@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { argbFromHex, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
-import {  DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, ThemeConfig, ThemeConfigService , DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, ThemeOption } from '../../../../../../config/src/index';
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, ThemeConfigService, ThemeOption, ThemingConfig } from '../../../../../../config/src/index';
 import { PaletteGeneratorService } from './palette-generator.service';
 
 // Mock the Material Color Utilities to control their behavior
@@ -58,7 +58,7 @@ describe('PaletteGeneratorService', () => {
   let configServiceMock: Partial<typeof ThemeConfigService>;
 
   // Create a mock ThemeConfig with sample color tones
-  const mockConfig: Partial<ThemeConfig> = {
+  const mockConfig: Partial<ThemingConfig> = {
     colorTones: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100]
   };
 
@@ -95,7 +95,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-      darkMode: false
+       darkMode: 'light'
     };
 
     service.generatePalettes(themeOption);
@@ -122,7 +122,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'minimal-theme',
       label: 'Minimal Theme',
-      darkMode: false
+       darkMode: 'light'
     });
 
     service.generatePalettes(themeOption);
@@ -142,7 +142,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-      darkMode: false
+       darkMode: 'light'
     };
 
     const result = service.generatePalettes(themeOption);
@@ -175,7 +175,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-      darkMode: false
+       darkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);
@@ -196,7 +196,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-      darkMode: false
+       darkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);
@@ -219,7 +219,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#46dd55',
       value: 'empty-theme',
       label: 'Empty Theme',
-      darkMode: false
+       darkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);

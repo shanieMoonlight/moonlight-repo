@@ -9,7 +9,7 @@ import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DE
 */
 export type ThemeValue = string | number;
 
-export type DarkModeType = true | false | 'system';
+export type DarkModeType = 'light' | 'dark' | 'system';
 
 //##################################################//
 
@@ -143,7 +143,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#31004a',
     tertiaryColor: '#556B2F',
     errorColor: DEFAULT_COLOR_ERROR, // Add error color
-    darkMode: true // Add fallback mode
+    darkMode: 'dark' // Add fallback mode
   },
   {
     label: 'Ocean',
@@ -152,7 +152,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#526773',
     tertiaryColor: '#6C939B',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: false
+    darkMode: 'light'
   },
   {
     label: 'Xmas',
@@ -161,7 +161,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#006747',
     tertiaryColor: '#FFD700',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Sugar',
@@ -170,7 +170,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#f61067',
     tertiaryColor: '#e4ff1a',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: false
+    darkMode: 'light'
   },
   {
     label: 'Sunset',
@@ -179,7 +179,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#FFD700',
     tertiaryColor: '#FF69B4',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: false
+    darkMode: 'light'
   },
   {
     label: 'Starry Night',
@@ -188,7 +188,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#F0C420', // Bright yellow star
     tertiaryColor: '#8496B0', // Misty blue
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Dark Raspberry',
@@ -197,7 +197,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#5E0009',
     tertiaryColor: '#720137',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Coffee Beans',
@@ -206,7 +206,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#603A28',
     tertiaryColor: '#522D17',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Dark Forrest',
@@ -215,7 +215,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#245B47',
     tertiaryColor: '#223546',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Walnut',
@@ -224,7 +224,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#9B773D',
     tertiaryColor: '#646263',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   },
   {
     label: 'Deep Purple',
@@ -233,7 +233,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#493F3D',
     tertiaryColor: '#563457',
     errorColor: DEFAULT_COLOR_ERROR,
-    darkMode: true
+    darkMode: 'dark'
   }
 ];
 

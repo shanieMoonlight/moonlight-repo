@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { DEFAULT_TRANSITION_DURATION, DEFAULT_TRANSITION_STYLE, DarkModeType, ThemeConfigService, ThemeOption, ThemingConfig, TransitionStyle } from '@moonlight/material/theming/config';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeGeneratorService } from '../generator/theme-generator.service';
-import { DarkModeType, ThemingConfig, ThemeConfigService, ThemeOption, DEFAULT_TRANSITION_OPTIONS, TransitionStyle, DEFAULT_TRANSITION_STYLE, DEFAULT_TRANSITION_DURATION } from '@moonlight/material/theming/config';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 
 @Injectable({

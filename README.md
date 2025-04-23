@@ -266,7 +266,7 @@ The library supports seasonal themes that can be automatically enabled based on 
 ```typescript
 // Seasonal theme examples
 const XMAS_THEME = ThemeOption.create({
-  darkMode: false,
+   darkMode: 'light',
   label: 'Christmas',
   value: 'xmas',
   primaryColor: '#C8102E', // Red
@@ -274,7 +274,7 @@ const XMAS_THEME = ThemeOption.create({
 });
 
 const HALLOWEEN_THEME = ThemeOption.create({
-  darkMode: true,
+   darkMode: 'dark',
   label: 'Halloween',
   value: 'halloween',
   primaryColor: '#FF7518', // Orange

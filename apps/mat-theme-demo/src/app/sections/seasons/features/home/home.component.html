@@ -35,6 +35,30 @@ this.themeService.setTheme(AUTUMN_THEME);
     </code>
   </pre>
 
+<p>NOtice we have a separate set of theme palletes in this 'seasons' section</p>
+  <mat-list>
+    <mat-list-item>Spring</mat-list-item>
+    <mat-list-item>Summer</mat-list-item>
+    <mat-list-item>Autumn</mat-list-item>
+    <mat-list-item>Winter</mat-list-item>
+  </mat-list>
+
+  <ml-theme-picker
+    [themes]="_availableThemes()"
+    [currentTheme]="_currentTheme()"
+    (themeChange)="changeTheme($event)"/>
+    <!-- 
+    Which can be set using the <code>ThemePickerComponent</code> above. 
+    In this section eaach component is responsible for their own theme which will also cover the rest of the app 
+    including the navbar.  When we leave this Seasons section themes will be reset using 
+    <pre><code>
+      ngOnDestroy(): void &#123;
+      // Remove our custom local themes , so when we leave the seasons section
+      // we are back to the default themes. ThemeService will handle setting the actual theme in the new section.
+      this.dynamicConfigService.resetSystemThemesToInitial()
+      &#125;
+    </code></pre> -->
+
   <div class="seasons-grid">
     @for (season of _seasonData(); track season.title) {
     <ml-season-info-card [data]="season" />

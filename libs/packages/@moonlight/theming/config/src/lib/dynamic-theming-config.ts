@@ -34,7 +34,7 @@ export class DynamicThemeConfigService {
   //------------------------------//
 
   constructor() {
-    console.log('DynamicThemeConfigService Initialized with:', this._initialConfig.themeOptions);
+    // console.log('DynamicThemeConfigService Initialized with:', this._initialConfig.themeOptions);
   }
 
   //------------------------------//
@@ -44,7 +44,7 @@ export class DynamicThemeConfigService {
    * @param themes The new array of ThemeOption objects.
    */
   setSystemThemes(themes: ThemeOption[]): void {
-    console.log('DynamicThemeConfigService: Setting system themes to:', themes);
+    // console.log('DynamicThemeConfigService: Setting system themes to:', themes);
     this._systemThemesBs.next([...themes]); // Set the signal with a new array copy
   }
 
@@ -71,7 +71,7 @@ export class DynamicThemeConfigService {
    * Resets the system themes back to the initial configuration provided at startup.
    */
   resetSystemThemesToInitial(): void {
-    console.log('DynamicThemeConfigService: Resetting system themes to initial.');
+    // console.log('DynamicThemeConfigService: Resetting system themes to initial.');
     this._systemThemesBs.next([...this._initialConfig.themeOptions]);
   }
 

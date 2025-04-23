@@ -20,28 +20,28 @@ const _themeOptions: ThemeOption[] = [
     secondaryColor: '#D2691E',
   }),
   ThemeOption.create({
-    darkMode: false,
+    darkMode: 'light',
     label: 'Violet and Lime',
     value: 'violet-lime',
     primaryColor: '#8A2BE2',
     secondaryColor: '#32CD32',
   }),
   ThemeOption.create({
-    darkMode: false,
+    darkMode: 'light',
     label: 'Pastel',
     value: 'pastel',
     primaryColor: '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
   })  ,
     ThemeOption.create({
-      darkMode: true,
+      darkMode: 'dark',
       label: 'Deep Ocean',
       value: 'deep-ocean',
       primaryColor: '#1E3A8A', // Deep blue
       secondaryColor: '#06B6D4', // Cyan
     }),
     ThemeOption.create({
-      darkMode: false,
+      darkMode: 'light',
       label: 'Cherry Blossom',
       value: 'cherry-blossom',
       primaryColor: '#EC4899', // Pink
@@ -50,7 +50,7 @@ const _themeOptions: ThemeOption[] = [
 ];
 
 export const XMAS_THEME: ThemeOption = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Xmas',
   value: 'xmas',
   primaryColor: '#C8102E',
@@ -58,7 +58,7 @@ export const XMAS_THEME: ThemeOption = ThemeOption.create({
 });
 
 export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
-  darkMode: true,
+  darkMode: 'dark',
   label: 'Halloween',
   value: 'halloween-theme',
   primaryColor: '#FF7518',

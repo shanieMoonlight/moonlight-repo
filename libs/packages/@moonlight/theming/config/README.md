@@ -41,7 +41,7 @@ const themeOptions: ThemeOption[] = [
     secondaryColor: '#D2691E', // Chocolate
   }),
   ThemeOption.create({
-    darkMode: false,
+     darkMode: 'light',
     label: 'Violet and Lime',
     value: 'violet-lime',
     primaryColor: '#8A2BE2',  // Violet
@@ -133,7 +133,7 @@ const themeOptions = [
 if (isChristmasSeason) {
   themeOptions.push(
     ThemeOption.create({
-      darkMode: false,
+       darkMode: 'light',
       label: 'Christmas',
       value: 'xmas',
       primaryColor: '#C8102E', // Red

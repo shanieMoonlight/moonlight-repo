@@ -44,7 +44,6 @@ export class ThemeService {
   private _localStorage = inject(SsrLocalStorage)
   private _systemPrefs = inject(SystemPrefsService)
   private _destroyor = inject(DestroyRef)
-  // private _config = inject(ThemeConfigService)
   private _config = inject(DynamicThemeConfigService)
   private _themeGenerator = inject(ThemeGeneratorService)
   private _themeTransition = inject(ThemeTransitionService)
@@ -55,21 +54,24 @@ export class ThemeService {
 
   private _systemDarkMode$ = this._systemPrefs.prefersDarkMode$
 
-  private _isDarkModeBs = new BehaviorSubject<DarkModeType>(false)
+  private _darkModeTypeBs = new BehaviorSubject<DarkModeType | null | undefined>('light')
+  darkModeType$: Observable<DarkModeType> = this._darkModeTypeBs.pipe(
+    map(mode => mode ?? this._config.defaultDarkMode ?? 'system'))
+  darkModeType = toSignal(this.darkModeType$, { initialValue: this._config.defaultDarkMode ?? 'system' })
+
   /** Current dark mode status (Observable)*/
-  isDarkMode$: Observable<boolean> = this._isDarkModeBs.pipe(
+  isDarkMode$: Observable<boolean> = this.darkModeType$.pipe(
     switchMap(mode => mode === 'system'
       ? this._systemDarkMode$
-      : of(mode))
-  )
-
+      : of(mode === 'dark')))
   /** Current dark mode status (Signal)*/
   isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
 
 
-  private _currentThemeBs = new BehaviorSubject<ThemeOption>(this._config.systemThemes()[0] ?? defaultThemeOption) // Initialize with a default
+  private _currentThemeBs = new BehaviorSubject<ThemeOption | undefined | null>(null) // Initialize with a default
   /** Current theme  (Observable)*/
-  currentTheme$ = this._currentThemeBs.asObservable();
+  currentTheme$ = this._currentThemeBs.pipe(
+    map(theme => theme ?? this._config.systemThemes()[0] ?? defaultThemeOption))
   /** Current theme (Signal)*/
   currentTheme = toSignal(this.currentTheme$, { initialValue: this._config.systemThemes()[0] ?? defaultThemeOption })
 
@@ -92,12 +94,13 @@ export class ThemeService {
     startWith([]))
   availableThemes = toSignal(this.availableThemes$, { initialValue: [] })
 
-  private _currentData$ = combineLatest([this.currentTheme$, this._isDarkModeBs, this.customThemes$])
+  private _currentData$ = combineLatest([this.currentTheme$, this.darkModeType$, this.customThemes$])
     .pipe(
-      // devLog((data) => 'ThemeService:currentData' +  data.length),
+      devLog('ThemeService:currentData', (data) => data),
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode, customThemes]) => {
+
         const themeWithCurrentDarkMode = {
           ...themeOption,
           darkMode: darkMode
@@ -113,6 +116,7 @@ export class ThemeService {
 
     // Added effect to handle theme invalidation - GOOD
     effect(() => {
+      consoleDev.log('This is the effect')
       const currentSystemThemes = this.systemThemes();
       const currentThemeValue = this.currentTheme().value;
       consoleDev.log('ThemeService: System themes changed, checking current theme validity.');
@@ -134,10 +138,10 @@ export class ThemeService {
   /**
    * Sets the application's light/dark mode 
    * 
-   * @param darkMode When true, applies dark mode class; when false, applies light mode class
+   * @param darkMode null| undefine will use system config defaults then preference
    */
-  setDarkMode = (darkMode: DarkModeType) =>
-    this._isDarkModeBs.next(darkMode)
+  setDarkMode = (darkMode: DarkModeType | null | undefined) =>
+    this._darkModeTypeBs.next(darkMode)
 
   //-----------------------------//
 
@@ -150,9 +154,7 @@ export class ThemeService {
     return !!theme
   }
 
-
   //-----------------------------//
-
 
   /**
    * Sets the current theme based on the provided ThemeOption.
@@ -162,7 +164,31 @@ export class ThemeService {
    * @param theme The ThemeOption to apply, or null/undefined to apply the default.
    */
   setTheme = (theme: ThemeOption | null | undefined) =>
-    this._currentThemeBs.next(theme ?? this._config.systemThemes()[0] ?? defaultThemeOption)
+    this._currentThemeBs.next(theme);
+
+  //-----------------------------//
+
+  /**
+   * Reapplies the current application theme to the document.
+   * 
+   * This is useful when temporarily previewing other themes and then needing to
+   * restore the application's actual theme. For example, when a theme selector
+   * component is destroyed, it should call this method to ensure the application
+   * returns to its proper theme.
+   * 
+   * @example
+   * ```typescript
+   * // In a component that temporarily previews themes
+   * ngOnDestroy() {
+   *   // Restore the application's theme when this component is destroyed
+   *   this.themeService.reapplyCurrentTheme();
+   * }
+   * ```
+   */
+  applyTheme = (theme: ThemeOption, targetElement?: HTMLElement) => {
+    if (!theme) return
+    this._themeGenerator.applyTheme(theme, theme.value, targetElement);
+  }
 
   //-----------------------------//
 
@@ -245,12 +271,35 @@ export class ThemeService {
     // Reset dark mode using system preference if applicable
     const prefersDark = defaultTheme.darkMode;
 
-    this._isDarkModeBs.next(prefersDark);
-    this._currentThemeBs.next(defaultTheme);
+    this._darkModeTypeBs.next(prefersDark);
+
+    this._currentThemeBs.next(undefined);
 
     // Clear stored preferences
     this._localStorage.removeItem(THEME_KEY);
   }
+
+  //-----------------------------//
+
+  /**
+   * Reapplies the current application theme to the document.
+   * 
+   * This is useful when temporarily previewing other themes and then needing to
+   * restore the application's actual theme. For example, when a theme selector
+   * component is destroyed, it should call this method to ensure the application
+   * returns to its proper theme.
+   * 
+   * @example
+   * ```typescript
+   * // In a component that temporarily previews themes
+   * ngOnDestroy() {
+   *   // Restore the application's theme when this component is destroyed
+   *   this.themeService.reapplyCurrentTheme();
+   * }
+   * ```
+   */
+  reapplyCurrentTheme = (): void =>
+    this.applyTheme(this.currentTheme())
 
   //-----------------------------//
 
@@ -260,18 +309,17 @@ export class ThemeService {
   // PRIVATE METHODS
   //-----------------------------//
 
-  private initialize(): void {
+  protected initialize(): void {
 
     try {
-
-      consoleDev.log('Initializing theme service...', this._config);
-      //Get this running first sin case something goes wrong below
+      //Get this running first in case something goes wrong below
       this._currentData$
         .pipe(
           takeUntilDestroyed(this._destroyor),
-          devLog('ThemeService:currentData')
+          // devLog('ThemeService:currentData')
         )
         .subscribe(data => {
+          consoleDev.log('subscribe - Theme data:', data);
           this.applyCurrentTheme(data)
           this._localStorage.setItemObject(THEME_KEY, data)
         })
@@ -281,8 +329,10 @@ export class ThemeService {
       const currentTheme = themeData?.currentTheme ?? this._config.systemThemes()[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
-      const darkMode = currentTheme?.darkMode ?? this._config.defaultDarkMode === 'dark'
-      this._isDarkModeBs.next(darkMode)
+      const darkMode = currentTheme?.darkMode
+        ?? this._config.defaultDarkMode
+        ?? 'system'
+      this._darkModeTypeBs.next(darkMode)
 
       this._customThemesBs.next(themeData?.customThemes ?? [])
 
@@ -306,7 +356,7 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
+  protected applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
 
     // Direct application to specific element - no transition needed
     if (element || !this._config.transitionOptions.showTransitions)
@@ -321,7 +371,7 @@ export class ThemeService {
     // Store current theme for next transition
     this._previousTheme = themeData.currentTheme;
 
-    consoleDev.log('Applying theme with trasition:', themeData.currentTheme);
+    consoleDev.log('Applying theme with transition:', themeData.currentTheme);
     // Use transition service for document-level theme changes
     this._themeTransition.transitionThemes(
       previousTheme,
@@ -332,7 +382,7 @@ export class ThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  private setDefaultTheme() {
+  protected setDefaultTheme() {
     // No need to call clear() here
     const defaultOption = this._config.systemThemes()[0] ?? defaultThemeOption // Get first theme or a hardcoded default
 

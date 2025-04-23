@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { defaultThemeOption, ThemeOption } from '@moonlight/material/theming/config';
-import { ThemeGeneratorService } from '@moonlight/material/theming/service';
+import { ThemeService } from '@moonlight/material/theming/service';
 import { devLog } from '@moonlight/utils/rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
 import { CurrentThemeBannerComponent } from '../../../../../../shared/ui/banner/current-theme-banner.component';
@@ -49,7 +49,7 @@ export interface ThemeDemoConfig {
     MatTooltipModule,
     LightDarkToggleComponent,
     ThemePickerComponent
-],
+  ],
   templateUrl: './theme-demo-card.component.html',
   styleUrl: './theme-demo-card.component.scss',
   host: {
@@ -59,7 +59,7 @@ export interface ThemeDemoConfig {
 export class ThemeDemoCardComponent implements OnInit {
 
   private componentElementRef = inject(ElementRef);
-  private themeGenerator = inject(ThemeGeneratorService);
+  private themeService = inject(ThemeService);
   private _destroyor = inject(DestroyRef)
 
   //- - - - - - - - - - - - - - -//
@@ -71,8 +71,6 @@ export class ThemeDemoCardComponent implements OnInit {
 
   //- - - - - - - - - - - - - - -//
 
-  private static componentCount = 0
-  private componentThemeClassPrefix = `theme-demo-card-${++ThemeDemoCardComponent.componentCount}`;
   protected _compareThemesFn = (o1: ThemeOption, o2: ThemeOption) => o1.value == o2.value
 
   //Where do we start?
@@ -99,7 +97,9 @@ export class ThemeDemoCardComponent implements OnInit {
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode]) => {
-        const themeWithCurrentDarkMode: ThemeOption = { ...themeOption, darkMode: darkMode }
+        const themeWithCurrentDarkMode: ThemeOption = { ...themeOption, darkMode: darkMode ? 'dark' : 'light' }
+        console.log('ThemeDemoCardComponent:currentData', themeWithCurrentDarkMode);
+        
         return themeWithCurrentDarkMode
       })
     )
@@ -115,39 +115,38 @@ export class ThemeDemoCardComponent implements OnInit {
   //-----------------------------//
 
   ngOnInit(): void {
-    this.randomizeLocalTheme() 
+    this.randomizeLocalTheme()
   }
 
   //-----------------------------//
 
- protected randomizeLocalTheme() {
+  protected randomizeLocalTheme() {
 
     const themes = this._availableThemes();
-    const randomIndex = Math.floor(Math.random() * themes.length)    
+    const randomIndex = Math.floor(Math.random() * themes.length)
     const randomTheme = themes[randomIndex]
 
     const randomDarkMode = Math.random() < 0.5
-    
+
     this._changeThemeClick$.next(randomTheme);
-    this._changeDarkModeClick$.next(randomDarkMode)    
+    this._changeDarkModeClick$.next(randomDarkMode)
   }
-  
+
   //-----------------------------//
 
 
   protected resetToDefaults() {
-    
+
     this._changeThemeClick$.next(this._initialTheme());
-    this._changeDarkModeClick$.next(this._intialDarkMode())    
+    this._changeDarkModeClick$.next(this._intialDarkMode())
   }
-  
+
   //-----------------------------//
 
   private applyLocalTheme(localTheme: ThemeOption) {
-    
-    this.themeGenerator.applyTheme(
+
+    this.themeService.applyTheme(
       localTheme,
-      `${this.componentThemeClassPrefix}-${localTheme.value}`, //optional
       this.componentElementRef.nativeElement // Apply theme just to this component only
     )
   }

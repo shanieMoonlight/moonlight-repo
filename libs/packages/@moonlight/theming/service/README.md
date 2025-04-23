@@ -68,7 +68,7 @@ const theme: ThemeOption = {
   value: 'custom-theme',
   primaryColor: '#6200EE',
   secondaryColor: '#03DAC6',
-  darkMode: true
+   darkMode: 'dark'
 };
 
 this.themeGeneratorService.applyTheme(theme);

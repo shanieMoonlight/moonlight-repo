@@ -99,36 +99,18 @@ Remove or fix any remaining TODOs
 
 
 
-import { Component, inject } from '@angular/core';
-import { ThemeService } from '@moonlight/material/theming/service';
-
-@Component({/*...*/})
-export class MyComponent {
-  private themeService = inject(ThemeService);
-  
-  // Access current theme
-  currentTheme = this.themeService.currentTheme;
-  
-  // Toggle dark mode
-  toggleDarkMode() {
-    this.themeService.toggleDarkMode();
-  }
-  
-  // Set a specific theme
-
-  Make this a ThemeService method
-  setTheme(themeValue: string) {
-    const themes = this.themeService.systemThemes();
-    const theme = themes.find(t => t.value === themeValue);
-    if (theme) {
-      this.themeService.setTheme(theme);
-    }
-  }
-}
-
-
-
 Redo : devLog
 
 
-More on colors
+
+MOre tests. 
+
+Update readme
+Mention Dynamic config 
+Finish Dynamic config 
+
+Provide full list of colors
+Mention ThemeTransitionService and ThemeTransitionIndicatorComponent
+
+
+In season-home show the pallete , draw a diagram of the app structure and show how theming can be localized to sections

@@ -93,7 +93,7 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
   ];
 
   export const XMAS_THEME: ThemeOption = ThemeOption.create({
-    darkMode: false,
+     darkMode: 'light',
     label: 'Xmas',
     value: 'xmas',
     primaryColor: '#C8102E',
@@ -101,7 +101,7 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
   });
 
   export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
-    darkMode: true,
+     darkMode: 'dark',
     label: 'Halloween',
     value: 'halloween-theme',
     primaryColor: '#FF7518',

@@ -5,7 +5,7 @@ import { ThemeOption, ThemingConfig } from "@moonlight/material/theming/config";
  * Default theme option for the homepage
  */
 export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Default',
   value: 'seasonal-default',
   primaryColor: '#673AB7', // Deep Purple
@@ -14,7 +14,7 @@ export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
 });
 
 export const  SPRING_THEME = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Spring',
   value: 'spring',
   primaryColor: '#8BC34A', // Fresh green
@@ -23,15 +23,16 @@ export const  SPRING_THEME = ThemeOption.create({
 })
 
 export const SUMMER_THEME = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Summer',
   value: 'summer',
-  primaryColor: '#ff598f', // Sky blue
-  secondaryColor: '#FF9800', // Warm orange
-  tertiaryColor: '#01dddd', // Vibrant green
+  primaryColor: '#ff598f',    
+  secondaryColor: '#20A4F3',  
+  tertiaryColor: '#EC7D10',   
 })
+
 export const  AUTUMN_THEME = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Autumn',
   value: 'autumn',
   primaryColor: '#FF5722', // Sunset orange
@@ -39,15 +40,13 @@ export const  AUTUMN_THEME = ThemeOption.create({
   tertiaryColor: '#191102', // Lime green
 })
 export const  WINTER_THEME = ThemeOption.create({
-  darkMode: false,
+  darkMode: 'light',
   label: 'Winter',
   value: 'winter',
   primaryColor: '#1E88E5', // Ice blue
   secondaryColor: '#E0E0E0', // Silver/snow
   tertiaryColor: '#263238', // Dark blue-gray
 })
-
-
 
 
 const _themeOptions: ThemeOption[] = [

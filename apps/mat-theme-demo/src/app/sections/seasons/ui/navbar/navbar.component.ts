@@ -1,15 +1,12 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
-import { AppConstants } from '../../../../config/constants';
-import { NavigateNewWindowDirective } from '@moonlight/utils/open-in-new-window';
-import { ShareService } from '@moonlight/utils/share';
-import { RouterModule } from '@angular/router';
-import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
-import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { ShareService } from '@moonlight/utils/share';
+import { map } from 'rxjs';
+import { AppConstants } from '../../../../config/constants';
 
 //##################################################//
 // 

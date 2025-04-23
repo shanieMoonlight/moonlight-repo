@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { DARK_MODE_CLASS, DEFAULT_COLOR_TONES, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
 import { defaultPresetSelectorThemes, ThemeOption } from './theme-options';
-import { DEFAULT_TRANSITION_OPTIONS, ThemeTransitionOptions, TransitionStyle } from './theme-transition-options';
+import { DEFAULT_TRANSITION_OPTIONS, ThemeTransitionOptions } from './theme-transition-options';
 
 //##################################################//
 

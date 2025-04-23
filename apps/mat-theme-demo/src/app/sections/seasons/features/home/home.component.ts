@@ -7,6 +7,9 @@ import { RouterModule } from '@angular/router';
 import { ThemeService } from '@moonlight/material/theming/service';
 import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
+import { ThemePickerComponent } from "../../../../shared/ui/theme-picker/theme-picker.component";
+import { ThemeOption } from '@moonlight/material/theming/config';
+import { MatListModule } from '@angular/material/list';
 
 //#######################################################//
 
@@ -50,22 +53,32 @@ const seasonData: SeasonCardData[] = [
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
+    MatListModule,
     SeasonInfoCardComponent,
-    RouterModule
-  ],
+    RouterModule,
+    ThemePickerComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeasonalHomeComponent {
-
-  private themeService = inject(ThemeService);
-
-
+  
+  private _themeService = inject(ThemeService);
+  
+  
   protected _seasonData = signal(seasonData);
-
+  protected _availableThemes = this._themeService.availableThemes
+  protected _currentTheme = this._themeService.currentTheme
+  
   constructor() {
-    this.themeService.setTheme(DEFAULT_SEAONAL_THEME)
+    this._themeService.setTheme(DEFAULT_SEAONAL_THEME)
   }
+  
+  
+  changeTheme(opt: ThemeOption) {
+    this._themeService.setTheme(opt)
+  }
+
 
 }//Cls

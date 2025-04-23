@@ -15,6 +15,8 @@ A powerful, flexible theming system for Angular Material applications that enabl
 - **🏗️ Modular architecture** - Tree-shakable with multiple entry points
 - **💾 Persistent preferences** - User theme choices and settings are saved between sessions
 - **🔄 CSS Variables** - Modern implementation using CSS custom properties
+- **🔄 Dynamic theme configuration** - Update available themes at runtime
+- **🎬 Smooth theme transitions** - Visually pleasing theme changes with overlay or morph effects
 
 ## Installation
 
@@ -102,7 +104,7 @@ import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
   ];
 
   export const XMAS_THEME: ThemeOption = ThemeOption.create({
-    darkMode: false,
+     darkMode: 'light',
     label: 'Xmas',
     value: 'xmas',
     primaryColor: '#C8102E',
@@ -110,7 +112,7 @@ import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
   });
 
   export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
-    darkMode: true,
+     darkMode: 'dark',
     label: 'Halloween',
     value: 'halloween-theme',
     primaryColor: '#FF7518',
@@ -274,6 +276,93 @@ export class ThemePreviewComponent {
 }
 ```
 
+## Dynamic Theme Configuration
+
+The `DynamicThemeConfigService` allows updating themes at runtime, which is useful for:
+
+- Adding seasonal themes based on special events or dates
+- Loading themes from a backend API
+- Creating an admin panel to modify available themes
+
+```typescript
+import { Component, inject, OnInit } from '@angular/core';
+import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+
+@Component({/*...*/})
+export class SeasonalComponent implements OnInit {
+  private themeConfig = inject(DynamicThemeConfigService);
+  
+  ngOnInit() {
+    // Check if it's a holiday and add a special theme
+    const today = new Date();
+    if (today.getMonth() === 6 && today.getDate() === 4) { // July 4th
+      const independenceTheme = ThemeOption.create({
+        value: 'july4th',
+        label: 'Independence Day',
+        primaryColor: '#3C3B6E', // Navy blue
+        secondaryColor: '#B22234', // Red
+         darkMode: 'light'
+      });
+      
+      this.themeConfig.addSystemTheme(independenceTheme);
+    }
+  }
+  
+  // Reset all themes to initial configuration
+  resetThemes() {
+    this.themeConfig.resetSystemThemesToInitial();
+  }
+  
+  // Replace all themes with new ones
+  loadThemesFromApi(themes: ThemeOption[]) {
+    this.themeConfig.setSystemThemes(themes);
+  }
+}
+```
+
+The `ThemeService` automatically watches for changes in available themes and handles cases where the current theme is removed, falling back to the first available theme.
+
+## Theme Transitions
+
+Smooth transitions between themes enhance the user experience. Configure transition settings in your theme configuration:
+
+```typescript
+import { ThemingConfig } from '@moonlight/material/theming/config';
+
+export const THEME_CONFIG = ThemingConfig.create({
+  // Your theme options...
+  transitionOptions: {
+    // 'overlay' shows a fade transition between themes
+    // 'morph' smoothly transitions all colors simultaneously
+    style: 'morph', 
+    
+    // Duration of transition in milliseconds
+    duration: 800,
+    
+    // Enable/disable transitions
+    showTransitions: true
+  }
+});
+```
+
+You can also use the `ThemeTransitionService` directly for advanced use cases:
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeTransitionService } from '@moonlight/material/theming/service';
+
+@Component({/*...*/})
+export class ThemeManager {
+  private transitionService = inject(ThemeTransitionService);
+  
+  switchTheme(from: ThemeOption, to: ThemeOption) {
+    // Manually trigger a transition between themes
+    this.transitionService.transitionThemes(from, to);
+  }
+}
+```
+
 ## Performance Benefits
 
 This library offers several performance advantages over traditional Angular Material theming:
@@ -322,7 +411,7 @@ The library supports seasonal themes that can be automatically enabled based on 
 ```typescript
 // Seasonal theme examples
 const XMAS_THEME = ThemeOption.create({
-  darkMode: false,
+   darkMode: 'light',
   label: 'Christmas',
   value: 'xmas',
   primaryColor: '#C8102E', // Red
@@ -330,7 +419,7 @@ const XMAS_THEME = ThemeOption.create({
 });
 
 const HALLOWEEN_THEME = ThemeOption.create({
-  darkMode: true,
+   darkMode: 'dark',
   label: 'Halloween',
   value: 'halloween',
   primaryColor: '#FF7518', // Orange

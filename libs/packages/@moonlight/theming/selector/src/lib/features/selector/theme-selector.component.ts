@@ -4,8 +4,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemingConfig, ThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
-import { ThemeGeneratorService, ThemeService } from '@moonlight/material/theming/service';
+import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfigService, ThemeOption, ThemingConfig } from '@moonlight/material/theming/config';
+import { ScssPaletteGeneratorService, ThemeService } from '@moonlight/material/theming/service';
 import { consoleDev, MatEverythingModule } from '@moonlight/material/theming/utils';
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
@@ -71,8 +71,8 @@ export class MlThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
   private _document = inject(DOCUMENT);
-  private _themeGenerator = inject(ThemeGeneratorService)
   private _themeService = inject(ThemeService)
+  private _scssPalettes = inject(ScssPaletteGeneratorService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
   private _config: ThemingConfig = inject(ThemeConfigService)
@@ -107,16 +107,13 @@ export class MlThemeSelectorComponent implements OnDestroy {
     darkMode: this._fb.nonNullable.control<DarkModeType>('system')
   }) as IThemeForm;
 
+
   //-----------------------------//
   // LIFECYCLE METHODS
   //-----------------------------//
 
   ngOnDestroy() {
-    // Re-apply the application's actual theme when the component is destroyed
-    const currentAppTheme = this._themeService.currentTheme()
-    if (currentAppTheme)
-      // Directly use the generator to revert styles to the application's theme
-      this._themeGenerator.applyTheme(currentAppTheme, undefined)
+    this._themeService.reapplyCurrentTheme()
   }
 
   //-----------------------------//
@@ -212,11 +209,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
       return;
 
     // Pass the full ThemeOption to applyTheme
-    this._themeGenerator.applyTheme(
-      theme,
-      undefined,
-      this._document.documentElement
-    )
+    this._themeService.applyTheme(theme)
 
     this._generatorPreviewTheme.set(theme)
   }
@@ -233,7 +226,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
     if (!this.isBrowser())
       return;
 
-    const scssContent = this._themeGenerator.exportThemeAsScss(theme);
+    const scssContent = this._scssPalettes.exportThemeAsScss(theme);
     if (!scssContent)
       return
 

@@ -3,16 +3,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MockBuilder, MockRender } from 'ng-mocks';
 import { of } from 'rxjs';
-import { ThemeConfig, ThemeConfigService, ThemeOption } from '../../../.././../config/src/index';
-import { ThemeGeneratorService, ThemeService } from '../../../.././../service/src/index';
+import { ThemeConfigService, ThemeOption, ThemingConfig } from '../../../.././../config/src/index';
+import { ScssPaletteGeneratorService } from '../../../.././../service/src/index'
+import { ThemeService } from '../../../.././../service/src/index';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeManagerComponent  } from '../custom-theme-mgr/custom-theme-mgr.component';
+import { MlCustomThemeManagerComponent } from '../custom-theme-mgr/custom-theme-mgr.component';
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { MlThemeSelectorComponent } from './theme-selector.component';
 
 describe('MlThemeSelectorComponent', () => {
   let component: MlThemeSelectorComponent;
-  let themeGeneratorMock: jest.Mocked<ThemeGeneratorService>;
   let themeServiceMock: jest.Mocked<ThemeService>;
   let dialogMock: jest.Mocked<MatDialog>;
 
@@ -24,45 +24,51 @@ describe('MlThemeSelectorComponent', () => {
   } as ThemeOption;
 
   // Create a full ThemeConfig object
-  const mockConfig = ThemeConfig.create().setSelectorPresetThemes([mockPreset]);
+  const mockConfig = ThemingConfig.create().setSelectorPresetThemes([mockPreset]);
 
-  beforeEach(() => {
+  let scssPaletteGeneratorMock: jest.Mocked<ScssPaletteGeneratorService> =
 
-    themeGeneratorMock = {
-      applyTheme: jest.fn(),
-      exportThemeAsScss: jest.fn()
-    } as unknown as jest.Mocked<ThemeGeneratorService>;
 
-    themeServiceMock = {
-      addCustomTheme: jest.fn(),
-      currentTheme: jest.fn().mockReturnValue(null),
-      customThemes$: of([])
-    } as unknown as jest.Mocked<ThemeService>;
+    beforeEach(() => {
 
-    dialogMock = {
-      open: jest.fn().mockReturnValue({
-        afterClosed: () => of(true)
-      })
-    } as unknown as jest.Mocked<MatDialog>;
-    // Use MockBuilder to properly handle module imports 
-    // and override providers from imported modules
-    return MockBuilder(MlThemeSelectorComponent)
-      // Keep ReactiveFormsModule real
-      .keep(ReactiveFormsModule)
-      // Mock everything else but provide our mocks
-      .provide({ provide: ThemeGeneratorService, useValue: themeGeneratorMock })
-      .provide({ provide: ThemeService, useValue: themeServiceMock })
-      .provide({ provide: MatDialog, useValue: dialogMock })
-      .provide({ provide: ThemeConfigService, useValue: mockConfig })
-      .provide({ provide: PLATFORM_ID, useValue: 'browser' });
-  });
+
+      // Initialize in beforeEach:
+      scssPaletteGeneratorMock = {
+        exportThemeAsScss: jest.fn().mockReturnValue('')
+      } as unknown as jest.Mocked<ScssPaletteGeneratorService>;
+
+      themeServiceMock = {
+        addCustomTheme: jest.fn(),
+        currentTheme: jest.fn().mockReturnValue(null),
+        customThemes$: of([]),
+        reapplyCurrentTheme: jest.fn(),
+        applyTheme: jest.fn()
+      } as unknown as jest.Mocked<ThemeService>;
+
+      dialogMock = {
+        open: jest.fn().mockReturnValue({
+          afterClosed: () => of(true)
+        })
+      } as unknown as jest.Mocked<MatDialog>;
+      // Use MockBuilder to properly handle module imports 
+      // and override providers from imported modules
+      return MockBuilder(MlThemeSelectorComponent)
+        // Keep ReactiveFormsModule real
+        .keep(ReactiveFormsModule)
+        // Mock everything else but provide our mocks
+        .provide({ provide: ThemeService, useValue: themeServiceMock })
+        .provide({ provide: MatDialog, useValue: dialogMock })
+        .provide({ provide: ThemeConfigService, useValue: mockConfig })
+        .provide({ provide: ScssPaletteGeneratorService, useValue: scssPaletteGeneratorMock })
+        .provide({ provide: PLATFORM_ID, useValue: 'browser' });
+    });
 
 
   beforeEach(() => {
     const fixture = MockRender(MlThemeSelectorComponent);
     component = fixture.point.componentInstance;
   });
-  
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -83,9 +89,9 @@ describe('MlThemeSelectorComponent', () => {
     component['previewFormTheme'](form);
 
     // Assert - focus on observable outcome
-    expect(themeGeneratorMock.applyTheme).toHaveBeenCalled();
+    expect(themeServiceMock.applyTheme).toHaveBeenCalled();
 
-    const themeArg = themeGeneratorMock.applyTheme.mock.calls[0][0];
+    const themeArg = themeServiceMock.applyTheme.mock.calls[0][0];
     expect(themeArg.label).toBe('Test Theme');
     expect(themeArg.primaryColor).toBe('#ff0000');
     expect(themeArg.secondaryColor).toBe('#00ff00');
@@ -98,15 +104,15 @@ describe('MlThemeSelectorComponent', () => {
     // Arrange
     const form = component['_themeForm'];
     form.get('themeName')?.setValue(''); // Invalid - required field
-    
+
     // Set up the spy BEFORE calling the method that uses console.warn
     const consoleSpy = jest.spyOn(console, 'warn');
-    
+
     // Act
     component['previewFormTheme'](form);
-    
+
     // Assert
-    expect(themeGeneratorMock.applyTheme).not.toHaveBeenCalled();
+    expect(themeServiceMock.applyTheme).not.toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('invalid'));
   });
 
@@ -125,30 +131,18 @@ describe('MlThemeSelectorComponent', () => {
     // Verify theme was applied
     // Instead of checking if DOM elements were modified,
     // verify that the service was called with correct arguments:
-    expect(themeGeneratorMock.applyTheme).toHaveBeenCalledWith(
-      expect.objectContaining({ value: presetTheme.value }),
-      undefined,
-      expect.any(HTMLElement)
+    expect(themeServiceMock.applyTheme).toHaveBeenCalledWith(
+      expect.objectContaining({ value: presetTheme.value })
     );
   });
 
   it('should restore application theme on component destroy', () => {
-    // Arrange - mock a current application theme
-    const appTheme = {
-      value: 'app-theme',
-      primaryColor: '#cccccc'
-    } as ThemeOption;
-
-    themeServiceMock.currentTheme.mockReturnValue(appTheme);
 
     // Act
     component.ngOnDestroy();
 
     // Assert - verify original theme was restored
-    expect(themeGeneratorMock.applyTheme).toHaveBeenCalledWith(
-      appTheme,
-      undefined
-    );
+    expect(themeServiceMock.reapplyCurrentTheme).toHaveBeenCalledWith();
   });
 
   it('should open dialog when saving a custom theme', () => {
@@ -175,13 +169,13 @@ describe('MlThemeSelectorComponent', () => {
     // Arrange
     const theme = { value: 'export-test' } as ThemeOption;
     const scssContent = '.test { color: red; }';
-    themeGeneratorMock.exportThemeAsScss.mockReturnValue(scssContent);
+    scssPaletteGeneratorMock.exportThemeAsScss.mockReturnValue(scssContent);
 
     // Act
     component['openScssDialog'](theme);
 
     // Assert
-    expect(themeGeneratorMock.exportThemeAsScss).toHaveBeenCalledWith(theme);
+    expect(scssPaletteGeneratorMock.exportThemeAsScss).toHaveBeenCalledWith(theme);
     expect(dialogMock.open).toHaveBeenCalledWith(
       ScssDisplayComponent,
       expect.objectContaining({
@@ -199,7 +193,7 @@ describe('MlThemeSelectorComponent', () => {
 
     // Assert
     expect(dialogMock.open).toHaveBeenCalledWith(
-      MlCustomThemeManagerComponent ,
+      MlCustomThemeManagerComponent,
       expect.anything()
     );
   });
@@ -215,8 +209,8 @@ describe('MlThemeSelectorComponent', () => {
     component['manageCustomThemes']();
 
     // Assert - verify no operations happened
-    expect(themeGeneratorMock.applyTheme).not.toHaveBeenCalled();
-    expect(themeGeneratorMock.exportThemeAsScss).not.toHaveBeenCalled();
+    expect(themeServiceMock.applyTheme).not.toHaveBeenCalled();
+    expect(scssPaletteGeneratorMock.exportThemeAsScss).not.toHaveBeenCalled();
     expect(dialogMock.open).not.toHaveBeenCalled();
 
     // Restore original implementation

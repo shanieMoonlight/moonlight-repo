@@ -1,31 +1,31 @@
 
-import { Component, computed, ElementRef, inject, input, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
+import { Component, computed, ElementRef, inject, input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { ThemeOption } from '@moonlight/material/theming/config';
-import { ThemeGeneratorService } from '@moonlight/material/theming/service';
+import { ThemeService } from '@moonlight/material/theming/service';
 import { ThemeBannerComponent } from '../../../../../shared/ui/banner/theme-banner.component';
 
 export interface SeasonCardData {
-    title: string;
-    description: string;
-    icon: string; // Material icon name
-    theme: ThemeOption;
-    routePath: string;
+  title: string;
+  description: string;
+  icon: string; // Material icon name
+  theme: ThemeOption;
+  routePath: string;
 }
 
 @Component({
-    selector: 'ml-season-info-card',
-    standalone: true,
-    imports: [
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        ThemeBannerComponent
-    ],
-    template: `
+  selector: 'ml-season-info-card',
+  standalone: true,
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    ThemeBannerComponent
+  ],
+  template: `
     <mat-card class="season-card">
       <mat-card-header>
         <!-- Icon removed from avatar -->
@@ -47,7 +47,7 @@ export interface SeasonCardData {
       </mat-card-actions>
     </mat-card>
   `,
-    styles: [`
+  styles: [`
     .season-card {
       display: flex;
       flex-direction: column;
@@ -92,35 +92,34 @@ export interface SeasonCardData {
 })
 export class SeasonInfoCardComponent implements OnInit {
 
-    private themeGenerator = inject(ThemeGeneratorService);
-    private elementRef = inject(ElementRef);
-    private router = inject(Router);
+  private _themeService = inject(ThemeService);
+  private elementRef = inject(ElementRef);
+  private router = inject(Router);
 
-    //- - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - -//
 
-    _data = input.required<SeasonCardData>({ alias: 'data' });
+  _data = input.required<SeasonCardData>({ alias: 'data' });
 
-    //- - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - -//
 
-    protected _localTheme = computed(() => this._data().theme);
-    // Internal signal/property to hold the theme for the banner
+  protected _localTheme = computed(() => this._data().theme);
+  // Internal signal/property to hold the theme for the banner
 
-    //-----------------------------//
+  //-----------------------------//
 
-    ngOnInit(): void {
-        // Apply the theme locally to this card component instance
-        this.themeGenerator.applyTheme(
-            this._data().theme,
-            `season-card-${this._data().theme.value}`, // Optional unique class
-            this.elementRef.nativeElement
-        )
-    }
+  ngOnInit(): void {
+    // Apply the theme locally to this card component instance
+    this._themeService.applyTheme(
+      this._data().theme,
+      this.elementRef.nativeElement
+    )
+  }
 
-    //-----------------------------//
+  //-----------------------------//
 
-    navigate = () =>
-        this.router.navigate([this._data().routePath])
+  navigate = () =>
+    this.router.navigate([this._data().routePath])
 
-    //-----------------------------//
+  //-----------------------------//
 
 }//Cls

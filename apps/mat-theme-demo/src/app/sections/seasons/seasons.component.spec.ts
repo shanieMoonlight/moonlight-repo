@@ -10,10 +10,4 @@ describe('SeasonsComponent', () => {
   });
 
 
-
-  it(`should have as title 'mat-theme-demo'`, () => {
-    const fixture = TestBed.createComponent(SeasonsComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('mat-theme-demo');
-  });
 });

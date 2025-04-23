@@ -50,7 +50,7 @@ export class MlDarkModeToggleMatComponent {
   //- - - - - - - - - - - - - - -//
 
   toggleDarkTheme = (checked: boolean) =>
-    this._themeService.setDarkMode(checked)  
+    this._themeService.setDarkMode(checked ? 'dark' : 'light')  
 
 } //Cls
 
