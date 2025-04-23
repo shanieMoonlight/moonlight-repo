@@ -7,7 +7,7 @@
  * - @moonlight/material/theming/service - Core theme services
  * - @moonlight/material/theming/components - Ready-to-use theme components
  * - @moonlight/material/theming/config - Configuration types and utilities
- * - @moonlight/material/theming/selector - Theme selection components
+ * - @moonlight/material/theming/customizer - Theme selection components
  * - @moonlight/material/theming/ui - UI elements for theme visualization
  * - @moonlight/material/theming/utils - Helper utilities
  * - @moonlight/material/theming/showcase - Components for showcasing themes

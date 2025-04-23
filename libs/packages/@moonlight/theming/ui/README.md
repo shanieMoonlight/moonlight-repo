@@ -74,13 +74,13 @@ export class YourModule {}
 ## Best Practices
 
 - Use `MlThemeAvatarComponent` in theme pickers, dialogs, or any UI where a visual representation of a theme is needed.
-- Combine with `@moonlight/material/theming/selector` or `@moonlight/material/theming/components` for a complete theming solution.
+- Combine with `@moonlight/material/theming/customizer` or `@moonlight/material/theming/components` for a complete theming solution.
 
 ---
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/selector` – Theme selection UI component
+- `@moonlight/material/theming/customizer` – Theme selection UI component
 - `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
 - `@moonlight/material/theming/service` – Core theme generation and application services
 

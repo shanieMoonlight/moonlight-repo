@@ -116,7 +116,7 @@ this.themeGeneratorService.applyTheme(theme);
 ## Related Entry Points
 
 - `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/selector` – Theme selection UI component
+- `@moonlight/material/theming/customizer` – Theme selection UI component
 - `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
 
 ---

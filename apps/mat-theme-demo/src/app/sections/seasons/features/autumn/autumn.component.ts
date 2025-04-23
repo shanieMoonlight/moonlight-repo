@@ -218,7 +218,7 @@ export class AutumnComponent  {
 
   
   goToSeason(season: string) {
-    this.router.navigate(['/features/seasons', season]);
+    this.router.navigate(['/seasons', season]);
   }
 
 

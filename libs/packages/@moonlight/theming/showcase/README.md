@@ -80,7 +80,7 @@ This setup allows users to select or customize a theme and immediately see how i
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/selector` – Theme selection UI component
+- `@moonlight/material/theming/customizer` – Theme selection UI component
 - `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
 - `@moonlight/material/theming/config` – Theme configuration utilities
 - `@moonlight/material/theming/service` – Core theme generation and application services

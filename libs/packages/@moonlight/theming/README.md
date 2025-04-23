@@ -379,7 +379,7 @@ The library is organized into multiple entry points:
 - `@moonlight/material/theming/service` - Core theming services
 - `@moonlight/material/theming/components` - Ready-to-use UI components
 - `@moonlight/material/theming/config` - Theme configuration utilities
-- `@moonlight/material/theming/selector` - Theme selection & customization UI
+- `@moonlight/material/theming/customizer` - Theme selection & customization UI
 - `@moonlight/material/theming/ui` - UI elements for theme visualization
 - `@moonlight/material/theming/utils` - Utility functions and helpers
 - `@moonlight/material/theming/showcase` - Components for theme showcases

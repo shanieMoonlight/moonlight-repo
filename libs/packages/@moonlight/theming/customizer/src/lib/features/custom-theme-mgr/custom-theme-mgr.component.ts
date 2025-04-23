@@ -1,4 +1,4 @@
-// filepath: libs/packages/@moonlight/theming/selector/src/lib/custom-theme-manager/custom-theme-manager.component.ts
+// filepath: libs/packages/@moonlight/theming/customizer/src/lib/custom-theme-manager/custom-theme-manager.component.ts
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ThemeValue } from '@moonlight/material/theming/config';

@@ -89,7 +89,7 @@ export class ColorDemoComponent {
 
 - `@moonlight/material/theming/service` – Core theme generation and application services
 - `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/selector` – Theme selection UI component
+- `@moonlight/material/theming/customizer` – Theme selection UI component
 
 ---
 

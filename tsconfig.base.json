@@ -24,8 +24,8 @@
       "@moonlight/material/theming/config": [
         "libs/packages/@moonlight/theming/config/src/index.ts"
       ],
-      "@moonlight/material/theming/selector": [
-        "libs/packages/@moonlight/theming/selector/src/index.ts"
+      "@moonlight/material/theming/customizer": [
+        "libs/packages/@moonlight/theming/customizer/src/index.ts"
       ],
       "@moonlight/material/theming/service": [
         "libs/packages/@moonlight/theming/service/src/index.ts"
