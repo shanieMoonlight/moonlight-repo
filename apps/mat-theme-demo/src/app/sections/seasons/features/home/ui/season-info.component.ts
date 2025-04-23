@@ -108,11 +108,13 @@ export class SeasonInfoCardComponent implements OnInit {
   //-----------------------------//
 
   ngOnInit(): void {
+
     // Apply the theme locally to this card component instance
     this._themeService.applyTheme(
       this._data().theme,
-      this.elementRef.nativeElement
+      this.elementRef.nativeElement //<-- Get the native element reference
     )
+
   }
 
   //-----------------------------//

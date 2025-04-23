@@ -28,7 +28,7 @@ describe('DynamicThemeConfigService', () => {
     // Create mock initial config
     mockInitialConfig = ThemingConfig.create({
       themeOptions: initialThemeOptions,
-      defaultMode: 'light',
+      defaultDarkModeType: 'light',
       themeClassPrefix: 'test-theme'
     });
 
@@ -148,6 +148,6 @@ describe('DynamicThemeConfigService', () => {
   it('should preserve static config properties', () => {
     // Check that other properties from the initial config are preserved
     expect(service.themeClassPrefix).toBe(mockInitialConfig.themeClassPrefix);
-    expect(service.defaultDarkMode).toBe(mockInitialConfig.defaultDarkMode);
+    expect(service.defaultDarkModeType).toBe(mockInitialConfig.defaultDarkModeType);
   });
 });

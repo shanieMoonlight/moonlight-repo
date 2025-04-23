@@ -74,7 +74,7 @@ class MockDynamicThemeConfigService {
 const createMockThemeConfig = (overrides?: Partial<ThemingConfig>): ThemingConfig => {
   const config = ThemingConfig.create();
   config.themeOptions = [mockLightTheme, mockDarkTheme];
-  config.defaultDarkMode = 'light';
+  config.defaultDarkModeType = 'light';
   if (overrides) {
     Object.assign(config, overrides);
   }
@@ -87,7 +87,7 @@ const setupTestBedHelper = (configOverrides?: Partial<ThemingConfig>, storageDat
 
   const dynamicConfigMock = new MockDynamicThemeConfigService();
   dynamicConfigMock.setSystemThemes(themeConfigMock.themeOptions);
-  dynamicConfigMock.defaultDarkMode = themeConfigMock.defaultDarkMode;
+  dynamicConfigMock.defaultDarkMode = themeConfigMock.defaultDarkModeType;
 
   TestBed.configureTestingModule({
     providers: [
@@ -288,7 +288,7 @@ describe('ThemeService Initialization and Core Logic', () => {
     localStorageMock.getItemObject.mockReturnValue(storedData);
 
     // Create config with dark mode default = true
-    themeConfigMock = createMockThemeConfig({ defaultDarkMode: 'dark' });
+    themeConfigMock = createMockThemeConfig({ defaultDarkModeType: 'dark' });
 
     TestBed.configureTestingModule({
       providers: [

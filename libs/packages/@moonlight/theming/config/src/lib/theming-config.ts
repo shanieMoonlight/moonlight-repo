@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { DARK_MODE_CLASS, DEFAULT_COLOR_TONES, LIGHT_MODE_CLASS, THEME_CLASS_PREFIX } from './constants';
-import { defaultPresetSelectorThemes, ThemeOption } from './theme-options';
+import { DarkModeType, defaultPresetSelectorThemes, ThemeOption } from './theme-options';
 import { DEFAULT_TRANSITION_OPTIONS, ThemeTransitionOptions } from './theme-transition-options';
 
 //##################################################//
@@ -12,18 +12,12 @@ export const ThemeConfigService = new InjectionToken<ThemingConfig>(
   }
 )
 
-/**
- * Utility service for color manipulation and transformation.
- * 
- * Provides methods to work with hex colors, convert between formats,
- * and set color-related CSS variables.
- */
-export type ThemeMode = 'light' | 'dark';
 
 //##################################################//
 
 /** Interface for ThemeConfig creation options */
 export interface ThemingConfigOptions {
+
   /** List of available theme options */
   themeOptions?: ThemeOption[];
   /** CSS class for dark mode */
@@ -33,7 +27,7 @@ export interface ThemingConfigOptions {
   /** Prefix for theme-specific CSS classes */
   themeClassPrefix?: string;
   /** Default theme mode ('light' or 'dark') */
-  defaultMode?: ThemeMode;
+  defaultDarkModeType?: DarkModeType;
   /** Custom color tones for palette generation */
   customColorTones?: number[];
   /** Preset themes for selectors */
@@ -70,7 +64,7 @@ export class ThemingConfig {
   darkModeClass = DARK_MODE_CLASS
   lightModeClass = LIGHT_MODE_CLASS
   themeClassPrefix = THEME_CLASS_PREFIX
-  defaultDarkMode: ThemeMode = 'light'
+  defaultDarkModeType: DarkModeType = 'light'
   colorTones: number[] = DEFAULT_COLOR_TONES
   /**Used in theme-selector */
   presetSelectorThemes: ThemeOption[] = defaultPresetSelectorThemes
@@ -89,7 +83,7 @@ export class ThemingConfig {
     this.darkModeClass = options.darkModeClass ?? DARK_MODE_CLASS;
     this.lightModeClass = options.lightModeClass ?? LIGHT_MODE_CLASS;
     this.themeClassPrefix = options.themeClassPrefix ?? THEME_CLASS_PREFIX;
-    this.defaultDarkMode = options.defaultMode ?? 'light';
+    this.defaultDarkModeType = options.defaultDarkModeType ?? 'light';
     this.colorTones = options.customColorTones ?? DEFAULT_COLOR_TONES;
     this.presetSelectorThemes = options.presetSelectorThemes ?? defaultPresetSelectorThemes;
  // Merge provided transition options with defaults

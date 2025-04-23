@@ -70,7 +70,7 @@ if (IS_HALLOWEEN) _themeOptions.push(HALLOWEEN_THEME);
 
 export const THEME_CONFIG = ThemingConfig.create({
   themeOptions: _themeOptions,
-  defaultMode: 'dark',
+  defaultDarkModeType: 'dark',
   themeClassPrefix: 'my-app-theme',
   transitionOptions: {
     style: 'morph',

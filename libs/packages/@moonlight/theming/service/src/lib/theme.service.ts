@@ -56,16 +56,16 @@ export class ThemeService {
 
   private _darkModeTypeBs = new BehaviorSubject<DarkModeType | null | undefined>('light')
   darkModeType$: Observable<DarkModeType> = this._darkModeTypeBs.pipe(
-    map(mode => mode ?? this._config.defaultDarkMode ?? 'system'))
-  darkModeType = toSignal(this.darkModeType$, { initialValue: this._config.defaultDarkMode ?? 'system' })
+    map(mode => mode ?? this._config.defaultDarkModeType ?? 'system'))
+  darkModeType = toSignal(this.darkModeType$, { initialValue: this._config.defaultDarkModeType ?? 'system' })
 
   /** Current dark mode status (Observable)*/
   isDarkMode$: Observable<boolean> = this.darkModeType$.pipe(
     switchMap(mode => mode === 'system'
       ? this._systemDarkMode$
-      : of(mode === 'dark')))
+      : of(mode === 'dark'))  )
   /** Current dark mode status (Signal)*/
-  isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkMode === 'dark' })
+  isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkModeType === 'dark' })
 
 
   private _currentThemeBs = new BehaviorSubject<ThemeOption | undefined | null>(null) // Initialize with a default
@@ -330,7 +330,7 @@ export class ThemeService {
       this._currentThemeBs.next(currentTheme)
 
       const darkMode = currentTheme?.darkMode
-        ?? this._config.defaultDarkMode
+        ?? this._config.defaultDarkModeType
         ?? 'system'
       this._darkModeTypeBs.next(darkMode)
 
@@ -359,7 +359,7 @@ export class ThemeService {
   protected applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
 
     // Direct application to specific element - no transition needed
-    if (element || !this._config.transitionOptions.showTransitions)
+    if (element || !this._config.transitionOptions().showTransitions)
       return this._themeGenerator.applyTheme(
         themeData.currentTheme,
         undefined,

@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeOption } from './theme-options';
+import { DarkModeType, ThemeOption } from './theme-options';
 import { ThemeTransitionOptions } from './theme-transition-options';
-import { ThemeConfigService, ThemeMode, ThemingConfig } from './theming-config';
+import { ThemeConfigService, ThemingConfig } from './theming-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,66 +15,93 @@ export class DynamicThemeConfigService {
 
   //- - - - - - - - - - - - - - - //
 
-  // Hold the theme options in a WritableSignal, initialized from the static config
-  // private _themeOptionsSignal: WritableSignal<ThemeOption[]> = signal<ThemeOption[]>([...this._initialConfig.themeOptions]);
   private _systemThemesBs = new BehaviorSubject<ThemeOption[]>([...this._initialConfig.themeOptions]);
-  readonly systemThemes$ = this._systemThemesBs.asObservable();
-  // Expose a read-only Signal for consumers
-  // public readonly themeOptions: Signal<ThemeOption[]> = this._themeOptionsSignal.asReadonly();
+  readonly systemThemes$ = this._systemThemesBs.asObservable()
   readonly systemThemes = toSignal(this.systemThemes$, { initialValue: this._initialConfig.themeOptions })
 
-  // --- Other config properties (can also be signals if needed) ---
-  // For simplicity, let's keep others static for now, read from initialConfig
-  public readonly darkModeClass: string = this._initialConfig.darkModeClass;
-  public readonly lightModeClass: string = this._initialConfig.lightModeClass;
-  public readonly themeClassPrefix: string = this._initialConfig.themeClassPrefix;
-  public readonly defaultDarkMode: ThemeMode = this._initialConfig.defaultDarkMode;
-  public readonly transitionOptions: ThemeTransitionOptions = this._initialConfig.transitionOptions;
+  private _defaultDarkModeTypeBs = new BehaviorSubject<DarkModeType>(this._initialConfig.defaultDarkModeType);
+  readonly defaultDarkModeType$ = this._defaultDarkModeTypeBs.asObservable()
+  public readonly defaultDarkModeType: DarkModeType = this._initialConfig.defaultDarkModeType;
+
+  // Dark mode class
+  private _darkModeClassBs = new BehaviorSubject<string>(this._initialConfig.darkModeClass);
+  readonly darkModeClass$ = this._darkModeClassBs.asObservable();
+  readonly darkModeClass = toSignal(this.darkModeClass$, { initialValue: this._initialConfig.darkModeClass });
+
+  // Light mode class
+  private _lightModeClassBs = new BehaviorSubject<string>(this._initialConfig.lightModeClass);
+  readonly lightModeClass$ = this._lightModeClassBs.asObservable();
+  readonly lightModeClass = toSignal(this.lightModeClass$, { initialValue: this._initialConfig.lightModeClass });
+
+  // Theme class prefix
+  private _themeClassPrefixBs = new BehaviorSubject<string>(this._initialConfig.themeClassPrefix);
+  readonly themeClassPrefix$ = this._themeClassPrefixBs.asObservable();
+  readonly themeClassPrefix = toSignal(this.themeClassPrefix$, { initialValue: this._initialConfig.themeClassPrefix });
+
+  // Transition options
+  private _transitionOptionsBs = new BehaviorSubject<ThemeTransitionOptions>(this._initialConfig.transitionOptions);
+  readonly transitionOptions$ = this._transitionOptionsBs.asObservable();
+  readonly transitionOptions = toSignal(this.transitionOptions$, { initialValue: this._initialConfig.transitionOptions });
+
 
   //------------------------------//
 
-  constructor() {
-    // console.log('DynamicThemeConfigService Initialized with:', this._initialConfig.themeOptions);
+  // System themes methods
+  setSystemThemes(themes: ThemeOption[]): DynamicThemeConfigService {
+    this._systemThemesBs.next([...themes]);
+    return this;
   }
 
-  //------------------------------//
-
-  /**
-   * Updates the list of available system themes.
-   * @param themes The new array of ThemeOption objects.
-   */
-  setSystemThemes(themes: ThemeOption[]): void {
-    // console.log('DynamicThemeConfigService: Setting system themes to:', themes);
-    this._systemThemesBs.next([...themes]); // Set the signal with a new array copy
-  }
-
-  //------------------------------//
-
-  /**
-   * Adds a single theme to the current list of system themes.
-   * Avoids duplicates based on theme value.
-   * @param theme The ThemeOption to add.
-   */
-  addSystemTheme(theme: ThemeOption): void {
-
-    const currentSystemThemes = this._systemThemesBs.getValue(); // Get the current themes from BehaviorSubject
-
+  addSystemTheme(theme: ThemeOption): DynamicThemeConfigService {
+    const currentSystemThemes = this._systemThemesBs.getValue();
+    
     if (currentSystemThemes.some(t => t.value === theme.value))
-      return  // Already exists, do nothing
+      return this;
 
-    this._systemThemesBs.next([...currentSystemThemes, theme]); // Add new theme to the BehaviorSubject
+    this._systemThemesBs.next([...currentSystemThemes, theme]);
+    return this;
   }
 
-  //------------------------------//
-
-  /**
-   * Resets the system themes back to the initial configuration provided at startup.
-   */
-  resetSystemThemesToInitial(): void {
-    // console.log('DynamicThemeConfigService: Resetting system themes to initial.');
+  resetSystemThemesToInitial(): DynamicThemeConfigService {
     this._systemThemesBs.next([...this._initialConfig.themeOptions]);
+    return this;
   }
 
-  //------------------------------//
+  // Add setter methods for other properties
+  setDarkModeClass(darkModeClass: string): DynamicThemeConfigService {
+    this._darkModeClassBs.next(darkModeClass);
+    return this;
+  }
 
-}//Cls
+  setLightModeClass(lightModeClass: string): DynamicThemeConfigService {
+    this._lightModeClassBs.next(lightModeClass);
+    return this;
+  }
+
+  setThemeClassPrefix(themeClassPrefix: string): DynamicThemeConfigService {
+    this._themeClassPrefixBs.next(themeClassPrefix);
+    return this;
+  }
+
+  setDefaultDarkMode(defaultDarkMode: DarkModeType): DynamicThemeConfigService {
+    this._defaultDarkModeTypeBs.next(defaultDarkMode);
+    return this;
+  }
+
+  setTransitionOptions(transitionOptions: ThemeTransitionOptions): DynamicThemeConfigService {
+    this._transitionOptionsBs.next({ ...transitionOptions });
+    return this;
+  }
+
+  // Reset all configuration to initial values
+  resetAllToInitial(): DynamicThemeConfigService {
+    this._systemThemesBs.next([...this._initialConfig.themeOptions]);
+    this._darkModeClassBs.next(this._initialConfig.darkModeClass);
+    this._lightModeClassBs.next(this._initialConfig.lightModeClass);
+    this._themeClassPrefixBs.next(this._initialConfig.themeClassPrefix);
+    this._defaultDarkModeTypeBs.next(this._initialConfig.defaultDarkModeType);
+    this._transitionOptionsBs.next({ ...this._initialConfig.transitionOptions });
+    return this;
+  }
+  
+}

@@ -102,15 +102,7 @@ Remove or fix any remaining TODOs
 Redo : devLog
 
 
-
-MOre tests. 
-
 Update readme
-Mention Dynamic config 
-Finish Dynamic config 
 
-Provide full list of colors
 Mention ThemeTransitionService and ThemeTransitionIndicatorComponent
 
-
-In season-home show the pallete , draw a diagram of the app structure and show how theming can be localized to sections
