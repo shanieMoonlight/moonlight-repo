@@ -447,6 +447,283 @@ Works in all modern browsers that support:
 - CSS Custom Properties (Variables)
 - ES2020+ features
 
+
+# Moonlight Theming CSS Variables Reference
+
+The Moonlight theming system provides a comprehensive set of CSS variables that follow the Material Design 3 specification.
+This reference documents all available variables that you can use in your application's styles.
+
+## Material Design 3 Theme System Variables
+
+### Primary Colors
+- `--mat-sys-primary` - Primary color
+- `--mat-sys-on-primary` - Text/icons on primary color
+- `--mat-sys-primary-container` - Container with primary color
+- `--mat-sys-on-primary-container` - Text/icons on primary container
+- `--mat-sys-primary-fixed` - Fixed variant of primary
+- `--mat-sys-primary-fixed-dim` - Dimmed fixed variant of primary
+- `--mat-sys-on-primary-fixed` - Text/icons on fixed primary
+- `--mat-sys-on-primary-fixed-variant` - Variant text/icons on fixed primary
+- `--mat-sys-inverse-primary` - Inverse of primary color
+
+### Secondary Colors
+- `--mat-sys-secondary` - Secondary color
+- `--mat-sys-on-secondary` - Text/icons on secondary color
+- `--mat-sys-secondary-container` - Container with secondary color
+- `--mat-sys-on-secondary-container` - Text/icons on secondary container
+- `--mat-sys-secondary-fixed` - Fixed variant of secondary
+- `--mat-sys-secondary-fixed-dim` - Dimmed fixed variant of secondary
+- `--mat-sys-on-secondary-fixed` - Text/icons on fixed secondary
+- `--mat-sys-on-secondary-fixed-variant` - Variant text/icons on fixed secondary
+
+### Tertiary Colors
+- `--mat-sys-tertiary` - Tertiary color
+- `--mat-sys-on-tertiary` - Text/icons on tertiary color
+- `--mat-sys-tertiary-container` - Container with tertiary color
+- `--mat-sys-on-tertiary-container` - Text/icons on tertiary container
+- `--mat-sys-tertiary-fixed` - Fixed variant of tertiary
+- `--mat-sys-tertiary-fixed-dim` - Dimmed fixed variant of tertiary
+
+### Error Colors
+- `--mat-sys-error` - Error color
+- `--mat-sys-on-error` - Text/icons on error color
+- `--mat-sys-error-container` - Container with error color
+- `--mat-sys-on-error-container` - Text/icons on error container
+
+### Surface and Background
+- `--mat-sys-background` - Background color
+- `--mat-sys-on-background` - Text/icons on background
+- `--mat-sys-surface` - Surface color
+- `--mat-sys-on-surface` - Text/icons on surface
+- `--mat-sys-surface-variant` - Variant surface color
+- `--mat-sys-on-surface-variant` - Text/icons on surface variant
+- `--mat-sys-inverse-surface` - Inverse surface color
+- `--mat-sys-inverse-on-surface` - Text/icons on inverse surface
+
+### Surface Variants
+- `--mat-sys-surface-container` - Container surface color
+- `--mat-sys-surface-container-low` - Low emphasis container surface
+- `--mat-sys-surface-container-high` - High emphasis container surface
+- `--mat-sys-surface-container-lowest` - Lowest emphasis container surface
+- `--mat-sys-surface-container-highest` - Highest emphasis container surface
+- `--mat-sys-surface-dim` - Dimmed surface color
+- `--mat-sys-surface-bright` - Bright surface color
+
+### Outline and Miscellaneous
+- `--mat-sys-outline` - Outline color
+- `--mat-sys-outline-variant` - Variant outline color
+- `--mat-sys-surface-tint` - Surface tint color
+- `--mat-sys-scrim` - Scrim color for overlays
+- `--mat-sys-shadow` - Shadow color
+- `--mat-sys-neutral10` - Neutral color at 10% tone
+- `--mat-sys-neutral-variant20` - Neutral variant color at 20% tone
+
+## RGB Values for Transparency Support
+- `--mat-sys-primary-rgb` - RGB values of primary color
+- `--mat-sys-on-primary-rgb` - RGB values of on-primary color
+- `--mat-sys-primary-container-rgb` - RGB values of primary container
+- `--mat-sys-secondary-rgb` - RGB values of secondary color
+- `--mat-sys-on-secondary-rgb` - RGB values of on-secondary color
+- `--mat-sys-surface-rgb` - RGB values of surface color
+- `--mat-sys-on-surface-rgb` - RGB values of on-surface color
+- `--mat-sys-error-rgb` - RGB values of error color
+- `--mat-sys-background-rgb` - RGB values of background color
+
+## Original Seed Colors
+- `--mat-seed-primary` - Original primary color hex
+- `--mat-seed-secondary` - Original secondary color hex
+- `--mat-seed-tertiary` - Original tertiary color hex
+- `--mat-seed-error` - Original error color hex
+
+## Complete Palette Tone Variables
+
+### Primary Palette Tones
+- `--ml-color-primary-0`
+- `--ml-color-primary-1`
+- `--ml-color-primary-2`
+- `--ml-color-primary-4`
+- `--ml-color-primary-6`
+- `--ml-color-primary-10`
+- `--ml-color-primary-12`
+- `--ml-color-primary-17`
+- `--ml-color-primary-20`
+- `--ml-color-primary-22`
+- `--ml-color-primary-24`
+- `--ml-color-primary-30`
+- `--ml-color-primary-40`
+- `--ml-color-primary-50`
+- `--ml-color-primary-60`
+- `--ml-color-primary-70`
+- `--ml-color-primary-80`
+- `--ml-color-primary-87`
+- `--ml-color-primary-90`
+- `--ml-color-primary-92`
+- `--ml-color-primary-94`
+- `--ml-color-primary-95`
+- `--ml-color-primary-96`
+- `--ml-color-primary-98`
+- `--ml-color-primary-99`
+- `--ml-color-primary-100`
+
+### Secondary Palette Tones
+- `--ml-color-secondary-0`
+- `--ml-color-secondary-1`
+- `--ml-color-secondary-2`
+- `--ml-color-secondary-4`
+- `--ml-color-secondary-6`
+- `--ml-color-secondary-10`
+- `--ml-color-secondary-12`
+- `--ml-color-secondary-17`
+- `--ml-color-secondary-20`
+- `--ml-color-secondary-22`
+- `--ml-color-secondary-24`
+- `--ml-color-secondary-30`
+- `--ml-color-secondary-40`
+- `--ml-color-secondary-50`
+- `--ml-color-secondary-60`
+- `--ml-color-secondary-70`
+- `--ml-color-secondary-80`
+- `--ml-color-secondary-87`
+- `--ml-color-secondary-90`
+- `--ml-color-secondary-92`
+- `--ml-color-secondary-94`
+- `--ml-color-secondary-95`
+- `--ml-color-secondary-96`
+- `--ml-color-secondary-98`
+- `--ml-color-secondary-99`
+- `--ml-color-secondary-100`
+
+### Tertiary Palette Tones
+- `--ml-color-tertiary-0`
+- `--ml-color-tertiary-1`
+- `--ml-color-tertiary-2`
+- `--ml-color-tertiary-4`
+- `--ml-color-tertiary-6`
+- `--ml-color-tertiary-10`
+- `--ml-color-tertiary-12`
+- `--ml-color-tertiary-17`
+- `--ml-color-tertiary-20`
+- `--ml-color-tertiary-22`
+- `--ml-color-tertiary-24`
+- `--ml-color-tertiary-30`
+- `--ml-color-tertiary-40`
+- `--ml-color-tertiary-50`
+- `--ml-color-tertiary-60`
+- `--ml-color-tertiary-70`
+- `--ml-color-tertiary-80`
+- `--ml-color-tertiary-87`
+- `--ml-color-tertiary-90`
+- `--ml-color-tertiary-92`
+- `--ml-color-tertiary-94`
+- `--ml-color-tertiary-95`
+- `--ml-color-tertiary-96`
+- `--ml-color-tertiary-98`
+- `--ml-color-tertiary-99`
+- `--ml-color-tertiary-100`
+
+### Error Palette Tones
+- `--ml-color-error-0`
+- `--ml-color-error-1`
+- `--ml-color-error-2`
+- `--ml-color-error-4`
+- `--ml-color-error-6`
+- `--ml-color-error-10`
+- `--ml-color-error-12`
+- `--ml-color-error-17`
+- `--ml-color-error-20`
+- `--ml-color-error-22`
+- `--ml-color-error-24`
+- `--ml-color-error-30`
+- `--ml-color-error-40`
+- `--ml-color-error-50`
+- `--ml-color-error-60`
+- `--ml-color-error-70`
+- `--ml-color-error-80`
+- `--ml-color-error-87`
+- `--ml-color-error-90`
+- `--ml-color-error-92`
+- `--ml-color-error-94`
+- `--ml-color-error-95`
+- `--ml-color-error-96`
+- `--ml-color-error-98`
+- `--ml-color-error-99`
+- `--ml-color-error-100`
+
+### Neutral Palette Tones
+- `--ml-color-neutral-0`
+- `--ml-color-neutral-1`
+- `--ml-color-neutral-2`
+- `--ml-color-neutral-4`
+- `--ml-color-neutral-6`
+- `--ml-color-neutral-10`
+- `--ml-color-neutral-12`
+- `--ml-color-neutral-17`
+- `--ml-color-neutral-20`
+- `--ml-color-neutral-22`
+- `--ml-color-neutral-24`
+- `--ml-color-neutral-30`
+- `--ml-color-neutral-40`
+- `--ml-color-neutral-50`
+- `--ml-color-neutral-60`
+- `--ml-color-neutral-70`
+- `--ml-color-neutral-80`
+- `--ml-color-neutral-87`
+- `--ml-color-neutral-90`
+- `--ml-color-neutral-92`
+- `--ml-color-neutral-94`
+- `--ml-color-neutral-95`
+- `--ml-color-neutral-96`
+- `--ml-color-neutral-98`
+- `--ml-color-neutral-99`
+- `--ml-color-neutral-100`
+
+### Neutral Variant Palette Tones
+- `--ml-color-neutralVariant-0`
+- `--ml-color-neutralVariant-1`
+- `--ml-color-neutralVariant-2`
+- `--ml-color-neutralVariant-4`
+- `--ml-color-neutralVariant-6`
+- `--ml-color-neutralVariant-10`
+- `--ml-color-neutralVariant-12`
+- `--ml-color-neutralVariant-17`
+- `--ml-color-neutralVariant-20`
+- `--ml-color-neutralVariant-22`
+- `--ml-color-neutralVariant-24`
+- `--ml-color-neutralVariant-30`
+- `--ml-color-neutralVariant-40`
+- `--ml-color-neutralVariant-50`
+- `--ml-color-neutralVariant-60`
+- `--ml-color-neutralVariant-70`
+- `--ml-color-neutralVariant-80`
+- `--ml-color-neutralVariant-87`
+- `--ml-color-neutralVariant-90`
+- `--ml-color-neutralVariant-92`
+- `--ml-color-neutralVariant-94`
+- `--ml-color-neutralVariant-95`
+- `--ml-color-neutralVariant-96`
+- `--ml-color-neutralVariant-98`
+- `--ml-color-neutralVariant-99`
+- `--ml-color-neutralVariant-100`
+
+## Usage Example
+
+```scss
+.my-custom-element {
+  // Use primary color with 70% opacity
+  background-color: rgba(var(--mat-sys-primary-rgb), 0.7);
+  
+  // Use on-surface color for text
+  color: var(--mat-sys-on-surface);
+  
+  // Use error container for highlights
+  border: 2px solid var(--mat-sys-error-container);
+  
+  // Use specific tone from primary palette
+  box-shadow: 0 2px 4px var(--ml-color-primary-40);
+}
+
+
+
 ## License
 
 MIT
