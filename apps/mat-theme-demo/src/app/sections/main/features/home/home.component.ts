@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
 import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
 import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
-import { CurrentThemeBannerComponent } from '../../../../shared/ui/banner/current-theme-banner.component';
+import { MlCurrentThemeBannerComponent } from  '@moonlight/material/theming/ui';
 @Component({
   selector: 'ml-home',
   imports: [
@@ -19,7 +19,7 @@ import { CurrentThemeBannerComponent } from '../../../../shared/ui/banner/curren
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     MlThemeShowcaseMatComponent,
-    CurrentThemeBannerComponent
+    MlCurrentThemeBannerComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

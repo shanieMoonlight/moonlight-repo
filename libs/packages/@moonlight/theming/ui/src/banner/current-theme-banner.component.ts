@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+/**
+ * UI i element for demoing the current theme.
+ */
 @Component({
   selector: 'ml-current-theme-banner',
   imports: [MatTooltipModule],
@@ -35,6 +38,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CurrentThemeBannerComponent {
-  _withTooltips = input(false, {alias: 'withTooltips'}); // Default to false
+export class MlCurrentThemeBannerComponent {
+
+  _withTooltips = input(false, {alias: 'withTooltips'}) 
+
 }

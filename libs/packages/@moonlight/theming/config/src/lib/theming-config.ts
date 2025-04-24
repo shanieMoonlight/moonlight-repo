@@ -67,7 +67,7 @@ export class ThemingConfig {
   defaultDarkModeType: DarkModeType = 'light'
   colorTones: number[] = DEFAULT_COLOR_TONES
   /**Used in theme-selector */
-  presetSelectorThemes: ThemeOption[] = defaultPresetSelectorThemes
+  presetCustomizerThemes: ThemeOption[] = defaultPresetSelectorThemes
 
   // Replace showThemeTrasitions with the new options object
   transitionOptions: ThemeTransitionOptions = DEFAULT_TRANSITION_OPTIONS
@@ -85,7 +85,7 @@ export class ThemingConfig {
     this.themeClassPrefix = options.themeClassPrefix ?? THEME_CLASS_PREFIX;
     this.defaultDarkModeType = options.defaultDarkModeType ?? 'light';
     this.colorTones = options.customColorTones ?? DEFAULT_COLOR_TONES;
-    this.presetSelectorThemes = options.presetSelectorThemes ?? defaultPresetSelectorThemes;
+    this.presetCustomizerThemes = options.presetSelectorThemes ?? defaultPresetSelectorThemes;
  // Merge provided transition options with defaults
  this.transitionOptions = {
   ...this.transitionOptions, // Start with defaults
@@ -131,7 +131,7 @@ export class ThemingConfig {
   //- - - - - - - - - - - - - - - //   
 
   setSelectorPresetThemes(presetThemes: ThemeOption[]) {
-    this.presetSelectorThemes = presetThemes
+    this.presetCustomizerThemes = presetThemes
     return this
   }
   

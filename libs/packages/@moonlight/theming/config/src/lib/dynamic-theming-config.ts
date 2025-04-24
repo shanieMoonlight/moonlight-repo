@@ -21,7 +21,8 @@ export class DynamicThemeConfigService {
 
   private _defaultDarkModeTypeBs = new BehaviorSubject<DarkModeType>(this._initialConfig.defaultDarkModeType);
   readonly defaultDarkModeType$ = this._defaultDarkModeTypeBs.asObservable()
-  public readonly defaultDarkModeType: DarkModeType = this._initialConfig.defaultDarkModeType;
+  // public readonly defaultDarkModeType: DarkModeType = this._initialConfig.defaultDarkModeType;
+  public readonly defaultDarkModeType = toSignal(this.defaultDarkModeType$, { initialValue: this._initialConfig.defaultDarkModeType });
 
   // Dark mode class
   private _darkModeClassBs = new BehaviorSubject<string>(this._initialConfig.darkModeClass);
@@ -100,7 +101,7 @@ export class DynamicThemeConfigService {
     this._lightModeClassBs.next(this._initialConfig.lightModeClass);
     this._themeClassPrefixBs.next(this._initialConfig.themeClassPrefix);
     this._defaultDarkModeTypeBs.next(this._initialConfig.defaultDarkModeType);
-    this._transitionOptionsBs.next({ ...this._initialConfig.transitionOptions });
+    this._transitionOptionsBs.next(this._initialConfig.transitionOptions );
     return this;
   }
   

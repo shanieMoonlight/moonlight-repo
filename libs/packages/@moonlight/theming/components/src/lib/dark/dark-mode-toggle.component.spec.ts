@@ -68,6 +68,6 @@ describe('MlDarkModeToggleMatComponent', () => {
 
   it('should call themeService.setDarkMode when toggleDarkTheme is called', () => {
     component.toggleDarkTheme(true);
-    expect(mockThemeService.setDarkMode).toHaveBeenCalledWith(true);
+    expect(mockThemeService.setDarkMode).toHaveBeenCalledWith('dark');
   });
 });

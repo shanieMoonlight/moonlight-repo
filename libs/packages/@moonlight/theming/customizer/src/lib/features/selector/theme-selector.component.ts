@@ -1,4 +1,4 @@
-import { DOCUMENT, isPlatformBrowser, TitleCasePipe } from '@angular/common';
+import { isPlatformBrowser, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, OnDestroy, PLATFORM_ID, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -70,7 +70,6 @@ interface IThemeForm
 export class MlThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
-  private _document = inject(DOCUMENT);
   private _themeService = inject(ThemeService)
   private _scssPalettes = inject(ScssPaletteGeneratorService)
   private _fb = inject(FormBuilder)
@@ -83,11 +82,11 @@ export class MlThemeSelectorComponent implements OnDestroy {
    * Input to customize the preset themes available in the selector.
    * If not provided, the default preset themes from ThemeConfig will be used.
    */
-  _presetInput = input<ThemeOption[]>(this._config.presetSelectorThemes, { alias: 'presetThemes' });
+  _presetInput = input<ThemeOption[]>(this._config.presetCustomizerThemes, { alias: 'presetThemes' });
   // Computed signal handles the fallback. We need this to test the default value. Otherwise, it will be undefined.
   protected _presetThemes = computed(() => {
     const provided = this._presetInput();
-    return provided === undefined ? this._config.presetSelectorThemes : provided;
+    return provided === undefined ? this._config.presetCustomizerThemes : provided;
   });
 
   //- - - - - - - - - - - - - - -//

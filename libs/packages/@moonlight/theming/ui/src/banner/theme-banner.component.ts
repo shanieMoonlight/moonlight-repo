@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ThemeOption } from '@moonlight/material/theming/config';
 
+/**
+ * UI i element for demoing a specific theme.
+ */
 @Component({
   selector: 'ml-theme-banner',
   imports: [MatTooltipModule],
@@ -33,7 +36,7 @@ import { ThemeOption } from '@moonlight/material/theming/config';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemeBannerComponent {
+export class MlThemeBannerComponent {
 
   _theme = input.required<ThemeOption>( {alias: 'theme'})
 

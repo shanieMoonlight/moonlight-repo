@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { DynamicThemeConfigService } from './dynamic-theming-config';
 import { ThemeConfigService, ThemingConfig } from './theming-config';
-import { ThemeOption } from './theme-options';
+import { ThemeOption, DarkModeType } from './theme-options';
+import { ThemeTransitionOptions } from './theme-transition-options';
+import {  DEFAULT_TRANSITION_OPTIONS} from "../../../config/src/index";
 
 describe('DynamicThemeConfigService', () => {
   let service: DynamicThemeConfigService;
@@ -29,7 +31,14 @@ describe('DynamicThemeConfigService', () => {
     mockInitialConfig = ThemingConfig.create({
       themeOptions: initialThemeOptions,
       defaultDarkModeType: 'light',
-      themeClassPrefix: 'test-theme'
+      themeClassPrefix: 'test-theme',
+      lightModeClass: 'test-light',
+      darkModeClass: 'test-dark',
+      transitionOptions: {
+        showTransitions: true,
+        style: 'morph',
+        duration: 300
+      }
     });
 
     TestBed.configureTestingModule({
@@ -145,9 +154,93 @@ describe('DynamicThemeConfigService', () => {
     expect(service.systemThemes()).toEqual(initialThemeOptions);
   });
 
-  it('should preserve static config properties', () => {
-    // Check that other properties from the initial config are preserved
-    expect(service.themeClassPrefix).toBe(mockInitialConfig.themeClassPrefix);
-    expect(service.defaultDarkModeType).toBe(mockInitialConfig.defaultDarkModeType);
+  // Updated test to properly check signal values
+  it('should initialize with correct config properties as signals', () => {
+    // Check that signals return the correct initial values
+    expect(service.defaultDarkModeType()).toBe(mockInitialConfig.defaultDarkModeType);
+    expect(service.themeClassPrefix()).toBe(mockInitialConfig.themeClassPrefix);
+    expect(service.darkModeClass()).toBe(mockInitialConfig.darkModeClass);
+    expect(service.lightModeClass()).toBe(mockInitialConfig.lightModeClass);
+    expect(service.transitionOptions()).toEqual(mockInitialConfig.transitionOptions);
+  });
+
+  // New tests for update methods
+  it('should update defaultDarkMode when setDefaultDarkMode is called', () => {
+    const newDarkMode: DarkModeType = 'dark';
+    
+    // Call the method
+    service.setDefaultDarkMode(newDarkMode);
+    
+    // Check signal was updated
+    expect(service.defaultDarkModeType()).toBe(newDarkMode);
+    
+    // Check observable emits new value
+    let emittedValue: DarkModeType | undefined;
+    service.defaultDarkModeType$.subscribe(value => {
+      emittedValue = value;
+    });
+    
+    expect(emittedValue).toBe(newDarkMode);
+  });
+
+  it('should update darkModeClass when setDarkModeClass is called', () => {
+    const newClass = 'new-dark-class';
+    
+    service.setDarkModeClass(newClass);
+    
+    expect(service.darkModeClass()).toBe(newClass);
+  });
+
+  it('should update lightModeClass when setLightModeClass is called', () => {
+    const newClass = 'new-light-class';
+    
+    service.setLightModeClass(newClass);
+    
+    expect(service.lightModeClass()).toBe(newClass);
+  });
+
+  it('should update themeClassPrefix when setThemeClassPrefix is called', () => {
+    const newPrefix = 'new-prefix';
+    
+    service.setThemeClassPrefix(newPrefix);
+    
+    expect(service.themeClassPrefix()).toBe(newPrefix);
+  });
+
+  it('should update transitionOptions when setTransitionOptions is called', () => {
+    const newOptions: ThemeTransitionOptions = {
+      showTransitions: false,
+      style: 'overlay',
+      duration: 500
+    };
+    
+    service.setTransitionOptions(newOptions);
+    
+    expect(service.transitionOptions()).toEqual(newOptions);
+  });
+
+  it('should reset all properties when resetAllToInitial is called', () => {
+    // First change everything
+    service.setSystemThemes([]);
+    service.setDefaultDarkMode('dark');
+    service.setDarkModeClass('changed-dark');
+    service.setLightModeClass('changed-light');
+    service.setThemeClassPrefix('changed-prefix');
+    service.setTransitionOptions(DEFAULT_TRANSITION_OPTIONS);
+    
+    // Verify changes took effect
+    expect(service.systemThemes().length).toBe(0);
+    expect(service.defaultDarkModeType()).toBe('dark');
+    
+    // Now reset all
+    service.resetAllToInitial();
+    
+    // Verify everything is back to initial values
+    expect(service.systemThemes()).toEqual(initialThemeOptions);
+    expect(service.defaultDarkModeType()).toBe(mockInitialConfig.defaultDarkModeType);
+    expect(service.darkModeClass()).toBe(mockInitialConfig.darkModeClass);
+    expect(service.lightModeClass()).toBe(mockInitialConfig.lightModeClass);
+    expect(service.themeClassPrefix()).toBe(mockInitialConfig.themeClassPrefix);
+    expect(service.transitionOptions()).toEqual(mockInitialConfig.transitionOptions);
   });
 });

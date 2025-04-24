@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ThemeOption } from '@moonlight/material/theming/config';
 import { ThemeService } from '@moonlight/material/theming/service';
-import { ThemeBannerComponent } from '../../../../../shared/ui/banner/theme-banner.component';
+import { MlThemeBannerComponent } from '@moonlight/material/theming/ui';
 
 export interface SeasonCardData {
   title: string;
@@ -23,7 +23,7 @@ export interface SeasonCardData {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    ThemeBannerComponent
+    MlThemeBannerComponent
   ],
   template: `
     <mat-card class="season-card">

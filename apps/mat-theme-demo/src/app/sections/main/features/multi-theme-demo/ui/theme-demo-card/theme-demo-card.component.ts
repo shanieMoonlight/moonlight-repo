@@ -13,7 +13,7 @@ import { defaultThemeOption, ThemeOption } from '@moonlight/material/theming/con
 import { ThemeService } from '@moonlight/material/theming/service';
 import { devLog } from '@moonlight/utils/rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
-import { CurrentThemeBannerComponent } from '../../../../../../shared/ui/banner/current-theme-banner.component';
+import { MlCurrentThemeBannerComponent } from  '@moonlight/material/theming/ui';
 import { LightDarkToggleComponent } from '../../../../../../shared/ui/light-dark-toggle/light-dark-toggle.component';
 import { ThemePickerComponent } from '../../../../../../shared/ui/theme-picker/theme-picker.component';
 
@@ -45,7 +45,7 @@ export interface ThemeDemoConfig {
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    CurrentThemeBannerComponent,
+    MlCurrentThemeBannerComponent,
     MatTooltipModule,
     LightDarkToggleComponent,
     ThemePickerComponent

@@ -11,7 +11,7 @@ export interface MemoizationOptions {
 }
 
 /**
- * Cache for storing results of a specific function
+ * Cache for storing RESULTS of a specific function
  * Memoizer will run the supplied OriginalFunction on a key miss and store the result in the cache
  * @template T Type of values stored in the cache
  */
