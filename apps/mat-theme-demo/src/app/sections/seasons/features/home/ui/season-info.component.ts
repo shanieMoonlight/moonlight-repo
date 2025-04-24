@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { ThemeOption } from '@moonlight/material-theming/config';
-import { ThemeService } from '@moonlight/material-theming/service';
-import { MlThemeBannerComponent } from '@moonlight/material-theming/ui';
+import { ThemeOption } from '@spider-baby/material-theming/config';
+import { ThemeService } from '@spider-baby/material-theming/service';
+import { MlThemeBannerComponent } from '@spider-baby/material-theming/ui';
 
 export interface SeasonCardData {
   title: string;

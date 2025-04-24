@@ -1,8 +1,8 @@
-# Moonlight Material Theming
+# SpiderBaby Material Theming
 
 A powerful, flexible theming system for Angular Material applications that enables dynamic theme switching without page reloads. Built upon [Angular Material](https://material.angular.io/), this library extends its capabilities with runtime theme changes, hierarchical sections, and CSS variable-based theming.
 
-[![npm version](https://img.shields.io/npm/v/@moonlight/material-theming.svg)](https://www.npmjs.com/package/@moonlight/material-theming)
+[![npm version](https://img.shields.io/npm/v/@spider-baby/material-theming.svg)](https://www.npmjs.com/package/@spider-baby/material-theming)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Features
@@ -19,7 +19,7 @@ A powerful, flexible theming system for Angular Material applications that enabl
 ## Installation
 
 ```bash
-npm install @moonlight/material-theming
+npm install @spider-baby/material-theming
 ```
 
 ## Quick Start
@@ -31,7 +31,7 @@ npm install @moonlight/material-theming
 @use '@angular/material' as mat;
 
 // Import color overrides to enable theming support
-@use '@moonlight/material-theming/styles/mat-color-overrides';
+@use '@spider-baby/material-theming/styles/mat-color-overrides';
 
 // Configure Angular Material with an empty theme (variables set by ThemeGeneratorService)
 html {
@@ -46,7 +46,7 @@ html {
 
 ```typescript
 // theme.config.ts
-import { ThemeConfig, ThemeOption } from '@moonlight/material-theming/config';
+import { ThemeConfig, ThemeOption } from '@spider-baby/material-theming/config';
 
 export const THEME_CONFIG = ThemeConfig.create([
   ThemeOption.create({
@@ -73,7 +73,7 @@ export const THEME_CONFIG = ThemeConfig.create([
 // app.config.ts
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
+import { ThemeAndModeSetup } from '@spider-baby/material-theming/config';
 import { THEME_CONFIG } from './theme.config';
 
 export const appConfig: ApplicationConfig = {
@@ -174,7 +174,7 @@ Available tones: 0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ThemeService } from '@moonlight/material-theming/service';
+import { ThemeService } from '@spider-baby/material-theming/service';
 
 @Component({/*...*/})
 export class MyComponent {
@@ -203,8 +203,8 @@ export class MyComponent {
 
 ```typescript
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { ThemeGeneratorService } from '@moonlight/material-theming/service';
-import { ThemeOption } from '@moonlight/material-theming/config';
+import { ThemeGeneratorService } from '@spider-baby/material-theming/service';
+import { ThemeOption } from '@spider-baby/material-theming/config';
 
 @Component({/*...*/})
 export class ThemePreviewComponent {
@@ -231,23 +231,23 @@ This library offers several performance advantages over traditional Angular Mate
 
 The library is organized into multiple entry points:
 
-- `@moonlight/material-theming/service` - Core theming services
-- `@moonlight/material-theming/components` - Ready-to-use UI components
-- `@moonlight/material-theming/config` - Theme configuration utilities
-- `@moonlight/material-theming/customizer` - Theme selection & customization UI
-- `@moonlight/material-theming/ui` - UI elements for theme visualization
-- `@moonlight/material-theming/utils` - Utility functions and helpers
-- `@moonlight/material-theming/showcase` - Components for theme showcases
+- `@spider-baby/material-theming/service` - Core theming services
+- `@spider-baby/material-theming/components` - Ready-to-use UI components
+- `@spider-baby/material-theming/config` - Theme configuration utilities
+- `@spider-baby/material-theming/customizer` - Theme selection & customization UI
+- `@spider-baby/material-theming/ui` - UI elements for theme visualization
+- `@spider-baby/material-theming/utils` - Utility functions and helpers
+- `@spider-baby/material-theming/showcase` - Components for theme showcases
 
 Import from specific entry points instead of the main entry point to take advantage of tree-shaking:
 
 ```typescript
 // Good - specific imports
-import { ThemeService } from '@moonlight/material-theming/service';
-import { ThemeOption } from '@moonlight/material-theming/config';
+import { ThemeService } from '@spider-baby/material-theming/service';
+import { ThemeOption } from '@spider-baby/material-theming/config';
 
 // Bad - don't import from the main entry point
-import { UseSecondaryEntryPoints } from '@moonlight/material-theming';
+import { UseSecondaryEntryPoints } from '@spider-baby/material-theming';
 ```
 
 ## Persistence

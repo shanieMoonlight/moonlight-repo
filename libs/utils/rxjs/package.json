@@ -1,5 +1,5 @@
 {
-  "name": "@moonlight/utils-rxjs",
+  "name": "@spider-baby/utils-rxjs",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/core": "^19.2.0",

@@ -1,5 +1,5 @@
 <mat-toolbar >
-    <ng-container 
+    <!-- <ng-container 
         [ngTemplateOutlet]="navItem" 
         [ngTemplateOutletContext]="{
             routerLink: '/', 
@@ -7,7 +7,23 @@
             iconName: 'palette', 
             text: 'MainPage'
         }">
-    </ng-container>
+    </ng-container> -->
+    @if(!isSmallScreen()){
+        <div class="navlink"
+            [routerLink]="'/'"
+            routerLinkActive="active"  
+            [matTooltip]="'home'">
+            MainPage
+        </div>
+    }@else {
+        <img class="navlink" 
+            src="images/tranparent/spider-baby-6.png" alt="MainPage" 
+            [routerLink]="'/'"
+            routerLinkActive="active" 
+            [matTooltip]="'MainPage'"
+            [attr.aria-label]="'MainPage'"/>
+    }
+    
 
 
     <ng-container 

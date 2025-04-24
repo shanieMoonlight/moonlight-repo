@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { MaterialThemingSetup } from '@moonlight/material-theming/config';
+import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 // import { NavbarComponent } from './shared/ui/navbar/navbar.component';
 
 

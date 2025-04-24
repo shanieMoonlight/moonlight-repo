@@ -3,8 +3,8 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { MatEverythingModule } from '@moonlight/material-theming/utils';
-import { ShareService } from '@moonlight/utils-share';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 

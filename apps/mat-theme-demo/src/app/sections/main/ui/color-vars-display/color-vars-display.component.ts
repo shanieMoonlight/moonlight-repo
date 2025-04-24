@@ -23,7 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     <mat-card appearance="outlined">
       <mat-card-header>
         <mat-card-title>Material Design 3 Theme Variables</mat-card-title>
-        <mat-card-subtitle>All available CSS variables from Moonlight Theming</mat-card-subtitle>
+        <mat-card-subtitle>All available CSS variables from SpiderBaby Theming</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <mat-accordion multi>

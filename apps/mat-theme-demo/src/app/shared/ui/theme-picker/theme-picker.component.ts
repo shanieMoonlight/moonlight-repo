@@ -3,8 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeOption } from '@moonlight/material-theming/config';
-import { MlThemeAvatarComponent } from "@moonlight/material-theming/ui";
+import { ThemeOption } from '@spider-baby/material-theming/config';
+import { MlThemeAvatarComponent } from "@spider-baby/material-theming/ui";
 
 @Component({
   selector: 'ml-theme-picker',

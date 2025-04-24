@@ -51,4 +51,17 @@ Thumbs.db
 **/keystore
 
 **/@copilot/
-**/libs/packages/@moonlight/theming/build-helpers
+**/libs/packages/@spider-baby/theming/build-helpers
+
+# Ignore all images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.ico
+
+# Optionally, ignore images in all subfolders
+**/images/
+**/favicons/

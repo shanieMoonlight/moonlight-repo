@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { ThemeService } from '@moonlight/material-theming/service';
+import { ThemeService } from '@spider-baby/material-theming/service';
 import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/theme-demo-card.component';
 
 @Component({

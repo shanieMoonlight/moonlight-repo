@@ -15,42 +15,42 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moonlight/material-theming": [
-        "libs/packages/@moonlight/theming/src/index.ts"
+      "@spider-baby/material-theming": [
+        "libs/packages/@spider-baby/theming/src/index.ts"
       ],
-      "@moonlight/material-theming/components": [
-        "libs/packages/@moonlight/theming/components/src/index.ts"
+      "@spider-baby/material-theming/components": [
+        "libs/packages/@spider-baby/theming/components/src/index.ts"
       ],
-      "@moonlight/material-theming/config": [
-        "libs/packages/@moonlight/theming/config/src/index.ts"
+      "@spider-baby/material-theming/config": [
+        "libs/packages/@spider-baby/theming/config/src/index.ts"
       ],
-      "@moonlight/material-theming/customizer": [
-        "libs/packages/@moonlight/theming/customizer/src/index.ts"
+      "@spider-baby/material-theming/customizer": [
+        "libs/packages/@spider-baby/theming/customizer/src/index.ts"
       ],
-      "@moonlight/material-theming/init": [
-        "libs/packages/@moonlight/theming/init/src/index.ts"
+      "@spider-baby/material-theming/init": [
+        "libs/packages/@spider-baby/theming/init/src/index.ts"
       ],
-      "@moonlight/material-theming/service": [
-        "libs/packages/@moonlight/theming/service/src/index.ts"
+      "@spider-baby/material-theming/service": [
+        "libs/packages/@spider-baby/theming/service/src/index.ts"
       ],
-      "@moonlight/material-theming/showcase": [
-        "libs/packages/@moonlight/theming/showcase/src/index.ts"
+      "@spider-baby/material-theming/showcase": [
+        "libs/packages/@spider-baby/theming/showcase/src/index.ts"
       ],
-      "@moonlight/material-theming/ui": [
-        "libs/packages/@moonlight/theming/ui/src/index.ts"
+      "@spider-baby/material-theming/ui": [
+        "libs/packages/@spider-baby/theming/ui/src/index.ts"
       ],
-      "@moonlight/material-theming/utils": [
-        "libs/packages/@moonlight/theming/utils/src/index.ts"
+      "@spider-baby/material-theming/utils": [
+        "libs/packages/@spider-baby/theming/utils/src/index.ts"
       ],
-      "@moonlight/ssr-storage": [
-        "libs/packages/@moonlight/ssr/storage/src/index.ts"
+      "@spider-baby/ssr-storage": [
+        "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],
-      "@moonlight/utils-download": ["libs/utils/download/src/index.ts"],
-      "@moonlight/utils-memoization": ["libs/utils/memoization/src/index.ts"],
-      "@moonlight/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
-      "@moonlight/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
-      "@moonlight/utils-share": ["libs/utils/share/src/index.ts"],
-      "@moonlight/utils-testing": ["libs/utils/testing/src/index.ts"]
+      "@spider-baby/utils-download": ["libs/utils/download/src/index.ts"],
+      "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
+      "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
+      "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
+      "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
+      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

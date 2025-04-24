@@ -9,11 +9,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { defaultThemeOption, ThemeOption } from '@moonlight/material-theming/config';
-import { ThemeService } from '@moonlight/material-theming/service';
-import { devLog } from '@moonlight/utils-rxjs';
+import { defaultThemeOption, ThemeOption } from '@spider-baby/material-theming/config';
+import { ThemeService } from '@spider-baby/material-theming/service';
+import { devLog } from '@spider-baby/utils-rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
-import { MlCurrentThemeBannerComponent } from  '@moonlight/material-theming/ui';
+import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
 import { LightDarkToggleComponent } from '../../../../../../shared/ui/light-dark-toggle/light-dark-toggle.component';
 import { ThemePickerComponent } from '../../../../../../shared/ui/theme-picker/theme-picker.component';
 
