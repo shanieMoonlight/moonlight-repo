@@ -1,6 +1,6 @@
-# @moonlight/material/theming/ui
+# @moonlight/material-theming/ui
 
-Secondary entry point of `@moonlight/material/theming`. Import from `@moonlight/material/theming/ui` to use reusable UI components for theming.
+Secondary entry point of `@moonlight/material-theming`. Import from `@moonlight/material-theming/ui` to use reusable UI components for theming.
 
 ---
 
@@ -33,7 +33,7 @@ Components included in this entry point:
 This entry point is included with the main package:
 
 ```bash
-npm install @moonlight/material/theming
+npm install @moonlight/material-theming
 ```
 
 ---
@@ -50,7 +50,7 @@ import {
   MlThemeChipComponent,
   MlThemePreviewComponent,
   MlThemeComparisonComponent
-} from '@moonlight/material/theming/ui';
+} from '@moonlight/material-theming/ui';
 
 @Component({
   // For standalone components
@@ -169,8 +169,8 @@ The UI components automatically adapt to the current theme context when used wit
 
 ```typescript
 import { Component, OnDestroy } from '@angular/core';
-import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
-import { MlThemeChipComponent } from '@moonlight/material/theming/ui';
+import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material-theming/config';
+import { MlThemeChipComponent } from '@moonlight/material-theming/ui';
 
 @Component({
   selector: 'app-feature-section',
@@ -219,10 +219,10 @@ The UI components will automatically show the section-specific themes rather tha
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/customizer` – Theme selection and customization UI components
-- `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
-- `@moonlight/material/theming/service` – Core theme generation and application services
-- `@moonlight/material/theming/showcase` – Components for theme showcases
+- `@moonlight/material-theming/customizer` – Theme selection and customization UI components
+- `@moonlight/material-theming/components` – Theme/dark mode toggle UI components
+- `@moonlight/material-theming/service` – Core theme generation and application services
+- `@moonlight/material-theming/showcase` – Components for theme showcases
 
 ---
 

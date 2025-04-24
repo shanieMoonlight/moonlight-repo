@@ -5,9 +5,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
-import { NavigateNewWindowDirective } from '@moonlight/utils/open-in-new-window';
-import { ShareService } from '@moonlight/utils/share';
+import { MatEverythingModule } from '@moonlight/material-theming/utils';
+import { NavigateNewWindowDirective } from '@moonlight/utils-open-in-new-window';
+import { ShareService } from '@moonlight/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 

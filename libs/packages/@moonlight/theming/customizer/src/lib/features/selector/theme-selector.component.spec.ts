@@ -1,8 +1,8 @@
 import { PLATFORM_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ThemeConfigService, ThemeOption, ThemingConfig } from '@moonlight/material/theming/config';
-import { ScssPaletteGeneratorService, ThemeService } from '@moonlight/material/theming/service';
+import { ThemeConfigService, ThemeOption, ThemingConfig } from '@moonlight/material-theming/config';
+import { ScssPaletteGeneratorService, ThemeService } from '@moonlight/material-theming/service';
 import { MockBuilder, MockRender } from 'ng-mocks';
 import { of } from 'rxjs';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';

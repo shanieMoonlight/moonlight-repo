@@ -1,4 +1,4 @@
-import { defaultThemeOption, ThemeOption } from "@moonlight/material/theming/config";
+import { defaultThemeOption, ThemeOption } from "@moonlight/material-theming/config";
 
 //##################################################//
 

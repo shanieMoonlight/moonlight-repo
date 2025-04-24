@@ -1,4 +1,4 @@
-# @moonlight/material/theming/service
+# @moonlight/material-theming/service
 
 The core entry point for managing and applying themes in the browser. This library provides the foundational services for storing, generating, and applying themes dynamically. While most users of the library won't need to interact with this directly, developers may find it useful to understand how it works under the hood.
 
@@ -44,7 +44,7 @@ npm install @moonlight/ng/theming
 You can inject the services into your components:
 
 ```typescript
-import { ThemeService, ThemeTransitionService } from '@moonlight/material/theming/service';
+import { ThemeService, ThemeTransitionService } from '@moonlight/material-theming/service';
 
 @Component({
   selector: 'app-theme-demo',
@@ -69,8 +69,8 @@ export class ThemeDemoComponent {
 Use the `ThemeGeneratorService` to apply themes programmatically:
 
 ```typescript
-import { ThemeGeneratorService } from '@moonlight/material/theming/service';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeGeneratorService } from '@moonlight/material-theming/service';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 @Component({
   selector: 'app-theme-preview',
@@ -97,8 +97,8 @@ export class ThemePreviewComponent {
 For custom theme transition effects:
 
 ```typescript
-import { ThemeTransitionService } from '@moonlight/material/theming/service';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeTransitionService } from '@moonlight/material-theming/service';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 @Component({
   selector: 'app-theme-switcher',
@@ -190,7 +190,7 @@ The `ThemeTransitionService` supports two main transition styles:
 Transitions are configured through the `transitionOptions` property in your theme configuration:
 
 ```typescript
-import { ThemingConfig } from '@moonlight/material/theming/config';
+import { ThemingConfig } from '@moonlight/material-theming/config';
 
 export const THEME_CONFIG = ThemingConfig.create({
   // Theme options...
@@ -208,8 +208,8 @@ One of the most powerful features of this library is the ability to create theme
 
 ```typescript
 import { Component, OnDestroy } from '@angular/core';
-import { DynamicThemeConfigService } from '@moonlight/material/theming/config';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { DynamicThemeConfigService } from '@moonlight/material-theming/config';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 @Component({
   selector: 'app-feature-section',
@@ -251,15 +251,15 @@ When a user navigates to this section, they'll only see the feature-specific the
 - Use `ThemeGeneratorService` for applying themes dynamically in custom scenarios.
 - Use `ThemeTransitionService` for custom transition effects between themes.
 - Create modular theming hierarchies for complex applications with distinct sections.
-- Combine with `@moonlight/material/theming/config` for a complete theming solution.
+- Combine with `@moonlight/material-theming/config` for a complete theming solution.
 
 ---
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/customizer` – Theme selection UI component
-- `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
+- `@moonlight/material-theming/config` – Theme configuration utilities
+- `@moonlight/material-theming/customizer` – Theme selection UI component
+- `@moonlight/material-theming/components` – Theme/dark mode toggle UI components
 
 ---
 

@@ -9,7 +9,7 @@ import { ThemingConfig, ThemeConfigService } from "./theming-config"
  * @example
  * ```typescript
  * // In app.config.ts
- * import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
+ * import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
  * 
  * export const appConfig: ApplicationConfig = {
  *   providers: [

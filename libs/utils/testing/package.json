@@ -1,5 +1,5 @@
 {
-  "name": "@moonlight/utils/testing",
+  "name": "@moonlight/utils-testing",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",

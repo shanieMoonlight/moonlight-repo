@@ -1,4 +1,4 @@
-# @moonlight/material/theming/utils
+# @moonlight/material-theming/utils
 
 This entry point provides utility services and helper functions for the Moonlight theming library. While these utilities are primarily used by the core services, advanced users may find them useful for custom theming implementations.
 
@@ -33,7 +33,7 @@ These utilities form the foundation of the theming system's ability to generate 
 This entry point is included with the main package:
 
 ```bash
-npm install @moonlight/material/theming
+npm install @moonlight/material-theming
 ```
 
 ---
@@ -45,7 +45,7 @@ npm install @moonlight/material/theming
 The `ColorUtilsService` provides methods for working with colors in various formats:
 
 ```typescript
-import { ColorUtilsService } from '@moonlight/material/theming/utils';
+import { ColorUtilsService } from '@moonlight/material-theming/utils';
 
 @Component({
   // ...
@@ -83,7 +83,7 @@ export class ThemeHelperComponent {
 The `SystemPrefsService` allows you to detect and observe system dark mode preferences:
 
 ```typescript
-import { SystemPrefsService } from '@moonlight/material/theming/utils';
+import { SystemPrefsService } from '@moonlight/material-theming/utils';
 
 @Component({
   // ...
@@ -111,7 +111,7 @@ export class ThemeAwareComponent implements OnInit {
 The `consoleDev` utility provides controlled console output that only appears in development environments:
 
 ```typescript
-import { consoleDev } from '@moonlight/material/theming/utils';
+import { consoleDev } from '@moonlight/material-theming/utils';
 
 // These will only appear in development, not production
 consoleDev.log('Theme debug info:', themeDetails);
@@ -159,7 +159,7 @@ Debug utility that only outputs messages in development environments:
 A convenience module that imports and exports common Angular Material modules:
 
 ```typescript
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { MatEverythingModule } from '@moonlight/material-theming/utils';
 
 @NgModule({
   imports: [
@@ -177,7 +177,7 @@ export class YourModule {}
 For more advanced applications, you can use the color utilities to create custom theme palettes:
 
 ```typescript
-import { ColorUtilsService } from '@moonlight/material/theming/utils';
+import { ColorUtilsService } from '@moonlight/material-theming/utils';
 
 @Injectable()
 export class CustomPaletteService {
@@ -215,10 +215,10 @@ export class CustomPaletteService {
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/service` – Core theme generation and application services
-- `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/components` – Theme UI components
-- `@moonlight/material/theming/customizer` – Theme selection and customization UI
+- `@moonlight/material-theming/service` – Core theme generation and application services
+- `@moonlight/material-theming/config` – Theme configuration utilities
+- `@moonlight/material-theming/components` – Theme UI components
+- `@moonlight/material-theming/customizer` – Theme selection and customization UI
 
 ---
 

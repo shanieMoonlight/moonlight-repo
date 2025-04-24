@@ -15,39 +15,39 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moonlight/material/theming": [
+      "@moonlight/material-theming": [
         "libs/packages/@moonlight/theming/src/index.ts"
       ],
-      "@moonlight/material/theming/components": [
+      "@moonlight/material-theming/components": [
         "libs/packages/@moonlight/theming/components/src/index.ts"
       ],
-      "@moonlight/material/theming/config": [
+      "@moonlight/material-theming/config": [
         "libs/packages/@moonlight/theming/config/src/index.ts"
       ],
-      "@moonlight/material/theming/customizer": [
+      "@moonlight/material-theming/customizer": [
         "libs/packages/@moonlight/theming/customizer/src/index.ts"
       ],
-      "@moonlight/material/theming/service": [
+      "@moonlight/material-theming/service": [
         "libs/packages/@moonlight/theming/service/src/index.ts"
       ],
-      "@moonlight/material/theming/showcase": [
+      "@moonlight/material-theming/showcase": [
         "libs/packages/@moonlight/theming/showcase/src/index.ts"
       ],
-      "@moonlight/material/theming/ui": [
+      "@moonlight/material-theming/ui": [
         "libs/packages/@moonlight/theming/ui/src/index.ts"
       ],
-      "@moonlight/material/theming/utils": [
+      "@moonlight/material-theming/utils": [
         "libs/packages/@moonlight/theming/utils/src/index.ts"
       ],
       "@moonlight/ssr-storage": [
         "libs/packages/@moonlight/ssr/storage/src/index.ts"
       ],
-      "@moonlight/utils/download": ["libs/utils/download/src/index.ts"],
-      "@moonlight/utils/memoization": ["libs/utils/memoization/src/index.ts"],
-      "@moonlight/utils/open-in-new-window": ["libs/utils/oinw/src/index.ts"],
-      "@moonlight/utils/rxjs": ["libs/utils/rxjs/src/index.ts"],
-      "@moonlight/utils/share": ["libs/utils/share/src/index.ts"],
-      "@moonlight/utils/testing": ["libs/utils/testing/src/index.ts"]
+      "@moonlight/utils-download": ["libs/utils/download/src/index.ts"],
+      "@moonlight/utils-memoization": ["libs/utils/memoization/src/index.ts"],
+      "@moonlight/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
+      "@moonlight/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
+      "@moonlight/utils-share": ["libs/utils/share/src/index.ts"],
+      "@moonlight/utils-testing": ["libs/utils/testing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,6 +1,6 @@
-# @moonlight/material/theming/customizer
+# @moonlight/material-theming/customizer
 
-Secondary entry point of `@moonlight/material/theming`. Import from `@moonlight/material/theming/customizer` to use the theme selector and customization UI components.
+Secondary entry point of `@moonlight/material-theming`. Import from `@moonlight/material-theming/customizer` to use the theme selector and customization UI components.
 
 ---
 
@@ -37,7 +37,7 @@ This component is ideal for applications that want to offer end-users or develop
 This entry point is included with the main package:
 
 ```bash
-npm install @moonlight/material/theming
+npm install @moonlight/material-theming
 ```
 
 ---
@@ -49,7 +49,7 @@ npm install @moonlight/material/theming
 Add the customizer component to your feature module or as a standalone component:
 
 ```typescript
-import { ThemeSelectorComponent } from '@moonlight/material/theming/customizer';
+import { ThemeSelectorComponent } from '@moonlight/material-theming/customizer';
 
 @Component({
   // For standalone components
@@ -67,7 +67,7 @@ export class YourComponent {}
 
 ### 3. Provide Theme Configuration
 
-Make sure you have set up your theme configuration using `@moonlight/material/theming/config` and provided it in your app's providers.
+Make sure you have set up your theme configuration using `@moonlight/material-theming/config` and provided it in your app's providers.
 
 ---
 
@@ -79,8 +79,8 @@ You can provide your own set of theme presets to the selector:
 
 ```typescript
 import { Component } from '@angular/core';
-import { ThemeSelectorComponent } from '@moonlight/material/theming/customizer';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeSelectorComponent } from '@moonlight/material-theming/customizer';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 @Component({
   selector: 'app-settings',
@@ -116,7 +116,7 @@ The theme selector can be opened in a dialog for a cleaner user experience:
 ```typescript
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ThemeSelectorComponent } from '@moonlight/material/theming/customizer';
+import { ThemeSelectorComponent } from '@moonlight/material-theming/customizer';
 
 @Component({
   selector: 'app-nav',
@@ -189,7 +189,7 @@ The theme selector works seamlessly with the hierarchical theming system. When u
 
 ```typescript
 import { Component, OnDestroy } from '@angular/core';
-import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material-theming/config';
 
 @Component({
   selector: 'app-seasonal-section',
@@ -228,10 +228,10 @@ export class SeasonalSectionComponent implements OnDestroy {
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
-- `@moonlight/material/theming/service` – Core theme generation and application services
-- `@moonlight/material/theming/showcase` – Theme showcase and preview components
+- `@moonlight/material-theming/config` – Theme configuration utilities
+- `@moonlight/material-theming/components` – Theme/dark mode toggle UI components
+- `@moonlight/material-theming/service` – Core theme generation and application services
+- `@moonlight/material-theming/showcase` – Theme showcase and preview components
 
 ---
 

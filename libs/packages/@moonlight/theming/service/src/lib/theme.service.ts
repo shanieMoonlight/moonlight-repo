@@ -1,9 +1,9 @@
 import { DestroyRef, Injectable, effect, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { DarkModeType, DynamicThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/material/theming/config';
-import { consoleDev } from '@moonlight/material/theming/utils';
+import { DarkModeType, DynamicThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '@moonlight/material-theming/config';
+import { consoleDev } from '@moonlight/material-theming/utils';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
-import { devLog } from '@moonlight/utils/rxjs';
+import { devLog } from '@moonlight/utils-rxjs';
 import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';

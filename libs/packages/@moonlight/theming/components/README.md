@@ -1,4 +1,4 @@
-# @moonlight/material/theming/components
+# @moonlight/material-theming/components
 
 UI components for theme switching and dark mode, built with Angular Material.
 
@@ -19,7 +19,7 @@ This entry point provides reusable Angular components for theme management in ap
 This entry point is included with the main package:
 
 ```bash
-npm install @moonlight/material/theming
+npm install @moonlight/material-theming
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ npm install @moonlight/material/theming
 Import the components you need in your Angular module or use as standalone components:
 
 ```typescript
-import { DarkModeToggleMatComponent, ThemeTransitionIndicatorComponent } from '@moonlight/material/theming/components';
+import { DarkModeToggleMatComponent, ThemeTransitionIndicatorComponent } from '@moonlight/material-theming/components';
 
 @Component({
   // ...
@@ -120,9 +120,9 @@ All components are designed to be accessible:
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/service` – Core theme generation and application services
-- `@moonlight/material/theming/customizer` – Theme selection and customization UI components
+- `@moonlight/material-theming/config` – Theme configuration utilities
+- `@moonlight/material-theming/service` – Core theme generation and application services
+- `@moonlight/material-theming/customizer` – Theme selection and customization UI components
 
 ## License
 

@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BehaviorSubject } from 'rxjs';
 import { MlDarkModeToggleMatComponent } from './dark-mode-toggle.component';
-import { ThemeService } from '@moonlight/material/theming/service';
+import { ThemeService } from '@moonlight/material-theming/service';
 
 // Remove jest.mock completely and instead create a mock class
 class MockThemeService {

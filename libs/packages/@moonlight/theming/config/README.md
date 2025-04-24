@@ -1,4 +1,4 @@
-# @moonlight/material/theming/config
+# @moonlight/material-theming/config
 
 The configuration module for the Moonlight Material theming system. This module provides the foundation for defining and managing theme options across your application.
 
@@ -85,7 +85,7 @@ Helper for setting up theme providers in your app:
 ```typescript
 // In your app.config.ts
 import { ApplicationConfig } from '@angular/core';
-import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
+import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
 import { MY_THEME_CONFIG } from './theme.config';
 
 export const appConfig: ApplicationConfig = {

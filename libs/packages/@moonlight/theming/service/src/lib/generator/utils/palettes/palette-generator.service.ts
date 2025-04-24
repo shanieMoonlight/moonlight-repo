@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { argbFromHex, CustomColor, hexFromArgb, themeFromSourceColor, TonalPalette } from '@material/material-color-utilities';
-import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, ThemingConfig, ThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
-import { consoleDev } from '@moonlight/material/theming/utils';
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, DEFAULT_COLOR_TERTIARY, ThemingConfig, ThemeConfigService, ThemeOption } from '@moonlight/material-theming/config';
+import { consoleDev } from '@moonlight/material-theming/utils';
 import { GeneratedPalettes } from '../../models/theme-palletes';
 
 @Injectable({

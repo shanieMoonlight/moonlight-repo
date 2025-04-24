@@ -6,7 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { BehaviorSubject, take } from 'rxjs';
-import { consoleDev } from '@moonlight/material/theming/utils';
+import { consoleDev } from '@moonlight/material-theming/utils';
 
 //#########################################//
 

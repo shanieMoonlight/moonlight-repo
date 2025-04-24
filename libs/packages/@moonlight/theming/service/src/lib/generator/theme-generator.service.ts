@@ -1,13 +1,13 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
-import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@moonlight/material/theming/config";
-import { ColorUtilsService, consoleDev } from '@moonlight/material/theming/utils';
-import { AnimationFrameService } from '@moonlight/utils/testing';
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@moonlight/material-theming/config";
+import { ColorUtilsService, consoleDev } from '@moonlight/material-theming/utils';
+import { AnimationFrameService } from '@moonlight/utils-testing';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
-import { MemoizationService } from '@moonlight/utils/memoization';
+import { MemoizationService } from '@moonlight/utils-memoization';
 
 
 /**

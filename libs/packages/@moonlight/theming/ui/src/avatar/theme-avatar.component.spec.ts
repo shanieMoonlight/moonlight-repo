@@ -1,4 +1,4 @@
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeOption } from '@moonlight/material-theming/config';
 import { render, screen } from '@testing-library/angular';
 import '@testing-library/jest-dom';
 import { MlThemeAvatarComponent } from './theme-avatar.component';

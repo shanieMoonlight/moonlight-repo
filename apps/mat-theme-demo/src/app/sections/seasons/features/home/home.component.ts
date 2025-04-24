@@ -4,11 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { ThemeService } from '@moonlight/material/theming/service';
+import { ThemeService } from '@moonlight/material-theming/service';
 import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
 import { ThemePickerComponent } from "../../../../shared/ui/theme-picker/theme-picker.component";
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeOption } from '@moonlight/material-theming/config';
 import { MatListModule } from '@angular/material/list';
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
 

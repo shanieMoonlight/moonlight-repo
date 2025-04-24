@@ -5,7 +5,7 @@
     "module": "commonjs",
     "target": "es2016",
     "types": ["jest", "node"],  "paths": {
-      "@moonlight/material/theming/config": [
+      "@moonlight/material-theming/config": [
         "libs/packages/@moonlight/theming/config/src/index.ts"
       ],
       "@moonlight/ssr-storage": [

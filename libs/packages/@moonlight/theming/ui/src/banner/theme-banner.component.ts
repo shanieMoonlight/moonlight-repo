@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 /**
  * UI i element for demoing a specific theme.

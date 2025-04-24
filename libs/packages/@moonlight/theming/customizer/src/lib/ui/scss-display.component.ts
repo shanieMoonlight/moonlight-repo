@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { MatEverythingModule } from '@moonlight/material-theming/utils';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BlobDownloadService } from '@moonlight/utils/download';
+import { BlobDownloadService } from '@moonlight/utils-download';
 
 @Component({
   selector: 'ml-scss-display',

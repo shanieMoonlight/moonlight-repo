@@ -1,5 +1,5 @@
 {
-  "name": "@moonlight/utils/open-in-new-window",
+  "name": "@moonlight/utils-open-in-new-window",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",

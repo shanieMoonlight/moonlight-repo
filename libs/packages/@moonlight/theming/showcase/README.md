@@ -1,6 +1,6 @@
-# @moonlight/material/theming/showcase
+# @moonlight/material-theming/showcase
 
-Secondary entry point of `@moonlight/material/theming`. Import from `@moonlight/material/theming/showcase` to use the theme showcase and demo components.
+Secondary entry point of `@moonlight/material-theming`. Import from `@moonlight/material-theming/showcase` to use the theme showcase and demo components.
 
 ---
 
@@ -32,7 +32,7 @@ This is ideal for:
 This entry point is included with the main package:
 
 ```bash
-npm install @moonlight/material/theming
+npm install @moonlight/material-theming
 ```
 
 ---
@@ -42,7 +42,7 @@ npm install @moonlight/material/theming
 Import the showcase component as a standalone component:
 
 ```typescript
-import { ThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
+import { ThemeShowcaseMatComponent } from '@moonlight/material-theming/showcase';
 
 @Component({
   selector: 'app-theme-demo',
@@ -121,7 +121,7 @@ You can extend the showcase component to include your own custom components:
 
 ```typescript
 import { Component } from '@angular/core';
-import { ThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
+import { ThemeShowcaseMatComponent } from '@moonlight/material-theming/showcase';
 
 @Component({
   selector: 'app-extended-showcase',
@@ -149,9 +149,9 @@ The showcase component automatically adapts to the current theme context, making
 
 ```typescript
 import { Component, OnDestroy } from '@angular/core';
-import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
-import { ThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
-import { ThemeSelectorComponent } from '@moonlight/material/theming/customizer';
+import { DynamicThemeConfigService, ThemeOption } from '@moonlight/material-theming/config';
+import { ThemeShowcaseMatComponent } from '@moonlight/material-theming/showcase';
+import { ThemeSelectorComponent } from '@moonlight/material-theming/customizer';
 
 @Component({
   selector: 'app-section-theme-demo',
@@ -194,10 +194,10 @@ export class SectionThemeDemoComponent implements OnDestroy {
 
 ## Related Entry Points
 
-- `@moonlight/material/theming/customizer` – Theme selection and customization UI components
-- `@moonlight/material/theming/components` – Theme/dark mode toggle UI components
-- `@moonlight/material/theming/config` – Theme configuration utilities
-- `@moonlight/material/theming/service` – Core theme generation and application services
+- `@moonlight/material-theming/customizer` – Theme selection and customization UI components
+- `@moonlight/material-theming/components` – Theme/dark mode toggle UI components
+- `@moonlight/material-theming/config` – Theme configuration utilities
+- `@moonlight/material-theming/service` – Core theme generation and application services
 
 ---
 

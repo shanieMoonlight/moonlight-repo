@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ThemeOption } from '@moonlight/material/theming/config';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
-import { MlThemeAvatarComponent } from '@moonlight/material/theming/ui';
+import { ThemeOption } from '@moonlight/material-theming/config';
+import { MatEverythingModule } from '@moonlight/material-theming/utils';
+import { MlThemeAvatarComponent } from '@moonlight/material-theming/ui';
 
 //##########################################//
 

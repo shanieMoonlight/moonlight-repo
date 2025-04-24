@@ -4,10 +4,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material/theming/components';
-import { DEFAULT_COLOR_TONES } from '@moonlight/material/theming/config';
-import { MlThemeShowcaseMatComponent } from '@moonlight/material/theming/showcase';
-import { MlCurrentThemeBannerComponent } from  '@moonlight/material/theming/ui';
+import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@moonlight/material-theming/components';
+import { DEFAULT_COLOR_TONES } from '@moonlight/material-theming/config';
+import { MlThemeShowcaseMatComponent } from '@moonlight/material-theming/showcase';
+import { MlCurrentThemeBannerComponent } from  '@moonlight/material-theming/ui';
 @Component({
   selector: 'ml-home',
   imports: [
@@ -31,10 +31,10 @@ export class HomeComponent {
 
 
   // Installation and setup code snippets as signals
-  protected _npmInstallCmd = signal('npm install @moonlight/material/theming');
+  protected _npmInstallCmd = signal('npm install @moonlight/material-theming');
 
   protected _basicSetupCode = signal(`// app.config.ts
-import { ThemeAndModeSetup } from '@moonlight/material/theming/config';
+import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
 
 export const appConfig: ApplicationConfig = {
 providers: [
@@ -46,7 +46,7 @@ providers: [
 
 protected _customConfigCode = signal(`// app-theme.config.ts
 
-  import { ThemeConfig } from '@moonlight/material/theming/config';
+  import { ThemeConfig } from '@moonlight/material-theming/config';
   
   export const THEME_CONFIG = ThemeConfig.create([
     { 
@@ -66,7 +66,7 @@ protected _customConfigCode = signal(`// app-theme.config.ts
 
 protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
  
-  import { ThemeConfig, ThemeOption } from '@moonlight/material/theming/config';
+  import { ThemeConfig, ThemeOption } from '@moonlight/material-theming/config';
 
   const today = new Date();
   const thisYear = today.getFullYear();

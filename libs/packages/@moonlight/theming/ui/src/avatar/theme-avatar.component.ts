@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeOption } from '@moonlight/material-theming/config';
 
 /**
  * A component that displays a theme as a visual avatar with color stripes.

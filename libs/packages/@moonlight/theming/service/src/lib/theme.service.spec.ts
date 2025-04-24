@@ -1,6 +1,6 @@
 import { DestroyRef } from '@angular/core';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { DarkModeType, DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+import { DarkModeType, DynamicThemeConfigService, ThemeOption } from '@moonlight/material-theming/config';
 import { SsrLocalStorage } from '@moonlight/ssr-storage';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';

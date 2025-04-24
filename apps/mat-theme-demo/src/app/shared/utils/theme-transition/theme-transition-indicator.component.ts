@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ThemeTransitionService } from '@moonlight/material/theming/service';
+import { ThemeTransitionService } from '@moonlight/material-theming/service';
 
 @Component({
   selector: 'ml-theme-transition-indicator',

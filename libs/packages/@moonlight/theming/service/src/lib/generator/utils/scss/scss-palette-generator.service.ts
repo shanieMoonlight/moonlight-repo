@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, PALETTES_MAP_SCSS_VAR, ThemeOption } from '@moonlight/material/theming/config';
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, PALETTES_MAP_SCSS_VAR, ThemeOption } from '@moonlight/material-theming/config';
 import { PaletteGeneratorService } from '../palettes/palette-generator.service';
 
 @Injectable({

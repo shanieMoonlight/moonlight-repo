@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ThemeService } from '@moonlight/material/theming/service';
-import { MatEverythingModule } from '@moonlight/material/theming/utils';
+import { ThemeService } from '@moonlight/material-theming/service';
+import { MatEverythingModule } from '@moonlight/material-theming/utils';
 
 /**
  * A component that showcases Material Design components with the current theme.
