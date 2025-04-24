@@ -9,22 +9,22 @@ import { ThemingConfig, ThemeConfigService } from "./theming-config"
  * @example
  * ```typescript
  * // In app.config.ts
- * import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
+ * import { MaterialThemingSetup } from '@moonlight/material-theming/config';
  * 
  * export const appConfig: ApplicationConfig = {
  *   providers: [
  *     // Use default theme configuration
- *     ...ThemeAndModeSetup.getThemeProviders(),
+ *     ...MaterialThemingSetup.getThemeProviders(),
  *     
  *     // Or with custom configuration
- *     ...ThemeAndModeSetup.getThemeProviders(ThemeConfig.create([
+ *     ...MaterialThemingSetup.getThemeProviders(ThemeConfig.create([
  *       { value: 'custom-theme', label: 'Custom', primaryColor: '#ff0000' }
  *     ]))
  *   ]
  * };
  * ```
  */
-export class ThemeAndModeSetup {
+export class MaterialThemingSetup {
 
     /**
      * Gets an array of providers needed to set up the theming system.

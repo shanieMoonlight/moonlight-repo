@@ -117,14 +117,17 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
 
   protected _componentUsageCode = signal(`<!-- Add to your template -->
     <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
-    <ml-theme-picker-mat></ml-theme-picker-mat>`);
+    <ml-theme-picker-mat></ml-theme-picker-mat>
+    
+  This will allow users to change Themes and Dark Mode as the wish
+    `  );
 
     protected _scssCode = signal(`
 // Custom Theming for Angular Material
 @use "@angular/material" as mat;
 
-// Import color overrides
-@use "./overrides/mat-color-overrides.scss" as matColorOverrides;
+// Import color overrides (Optional)
+@use '@moonlight/material-theming/styles/mat-color-overrides.scss' as *;
 
 // Fonts
 $font-family: 'Roboto, "Helvetica Neue", sans-serif';

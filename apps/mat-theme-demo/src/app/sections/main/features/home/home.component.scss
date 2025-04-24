@@ -247,3 +247,21 @@ mat-divider {
     color: var(--mat-sys-primary);
   }
 }
+
+
+.mat-theme-warning{
+  code{
+    margin:0 5px;
+    font-size: 1rem;
+    color: #7e0000;
+  } 
+}
+
+
+:host-context(.dark-mode) .mat-theme-warning{
+  code{
+    margin:0 5px;
+    font-size: 1rem;
+    color: #bd7272;
+  } 
+}

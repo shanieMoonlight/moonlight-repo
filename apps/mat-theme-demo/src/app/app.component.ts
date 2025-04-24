@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
+import { MaterialThemingSetup } from '@moonlight/material-theming/config';
 // import { NavbarComponent } from './shared/ui/navbar/navbar.component';
 
 
@@ -21,7 +21,7 @@ import { ThemeAndModeSetup } from '@moonlight/material-theming/config';
     RouterModule
   ],
   providers: [    
-    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
+    MaterialThemingSetup.provideThemingModule(THEME_CONFIG)
   ],
   selector: 'ml-app-root',
   templateUrl: './app.component.html',
