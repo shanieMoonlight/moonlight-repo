@@ -5,7 +5,7 @@ import { ThemeOption, ThemingConfig } from "@spider-baby/material-theming/config
  * Default theme option for the homepage
  */
 export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
-  darkMode: 'light',
+  defaultDarkMode: 'light',
   label: 'Home',
   value: 'seasonal-default',
   primaryColor: '#673AB7', // Deep Purple
@@ -14,7 +14,7 @@ export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
 });
 
 export const  SPRING_THEME = ThemeOption.create({
-  darkMode: 'light',
+  defaultDarkMode: 'light',
   label: 'Spring',
   value: 'spring',
   primaryColor: '#8BC34A', // Fresh green
@@ -23,7 +23,7 @@ export const  SPRING_THEME = ThemeOption.create({
 })
 
 export const SUMMER_THEME = ThemeOption.create({
-  darkMode: 'light',
+  defaultDarkMode: 'light',
   label: 'Summer',
   value: 'summer',
   primaryColor: '#ff598f',    
@@ -32,7 +32,7 @@ export const SUMMER_THEME = ThemeOption.create({
 })
 
 export const  AUTUMN_THEME = ThemeOption.create({
-  darkMode: 'light',
+  defaultDarkMode: 'light',
   label: 'Autumn',
   value: 'autumn',
   primaryColor: '#FF5722', // Sunset orange
@@ -40,7 +40,7 @@ export const  AUTUMN_THEME = ThemeOption.create({
   tertiaryColor: '#191102', // Lime green
 })
 export const  WINTER_THEME = ThemeOption.create({
-  darkMode: 'light',
+  defaultDarkMode: 'light',
   label: 'Winter',
   value: 'winter',
   primaryColor: '#1E88E5', // Ice blue

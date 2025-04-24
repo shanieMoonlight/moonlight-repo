@@ -54,6 +54,8 @@ protected _customConfigCode = signal(`// app-theme.config.ts
       label: 'Ocean Blue', 
       primaryColor: '#0277BD', 
       secondaryColor: '#26A69A' 
+      tertiaryColor: '#8B0000', //(optional)
+      errorColor: '#FF0000',//(optional)
     },
     { 
       value: 'sunset-orange', 
@@ -83,6 +85,8 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
       label: 'Ocean Blue', 
       primaryColor: '#0277BD', 
       secondaryColor: '#26A69A' 
+      tertiaryColor: '#8B0000', //(optional)
+      errorColor: '#FF0000',//(optional)
     }),
     ThemeOption.create({
       value: 'sunset-orange', 

@@ -189,10 +189,12 @@
     <mat-divider />
 
     <div class="mat-theme-warning" style="margin-top:2rem; color:#b71c1c;">
-        <strong>Note:</strong> The theme will only be initialized if the <code>ThemeService</code> is injected at least once in your app.<br>
-        Or if you are using our <code>MlThemePickerMatComponent</code> or <code>MlDarkModeToggleMatComponent</code> 
+        <strong>Note:</strong> The theme will only be initialized if the <code>ThemeService</code> is injected at least once in your app, 
+        <br>or if you are using our <code>MlThemePickerMatComponent</code> or <code>MlDarkModeToggleMatComponent</code> .
         <br>
-        To ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
+        
+        <br>
+        If not ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
         <small>
           Example:<br>
           <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code>

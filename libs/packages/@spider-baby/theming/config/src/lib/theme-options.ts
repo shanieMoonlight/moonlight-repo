@@ -98,7 +98,8 @@ export class ThemeOption {
     errorColor?: string|null
 
     /** Optional dark mode setting (true, false, or 'system') */
-    darkMode?: DarkModeType;
+    defaultDarkMode?: DarkModeType;
+
   }): ThemeOption {
     // Validate required fields
     if (!options.label) throw new Error('Theme label is required');
@@ -114,7 +115,7 @@ export class ThemeOption {
       options.secondaryColor,
       options.tertiaryColor || DEFAULT_COLOR_TERTIARY,
       options.errorColor || DEFAULT_COLOR_ERROR,
-      options.darkMode ?? 'system'
+      options.defaultDarkMode ?? 'system'
     )
   }
 }
