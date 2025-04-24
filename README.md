@@ -1,6 +1,6 @@
 # Moonlight Material Theming
 
-A powerful, flexible theming system for Angular Material applications that enables dynamic theme switching without page reloads.
+A powerful, flexible theming system for Angular Material applications that enables dynamic theme switching without page reloads. Built upon [Angular Material](https://material.angular.io/), this library extends its capabilities with runtime theme changes, hierarchical sections, and CSS variable-based theming.
 
 [![npm version](https://img.shields.io/npm/v/@moonlight/material/theming.svg)](https://www.npmjs.com/package/@moonlight/material/theming)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -301,6 +301,16 @@ export const THEME_CONFIG = ThemeConfig.create(themeOptions);
 Works in all modern browsers that support:
 - CSS Custom Properties (Variables)
 - ES2020+ features
+
+## Acknowledgments
+
+This library is built on top of [Angular Material](https://material.angular.io/), a comprehensive UI component library that implements Google's Material Design specifications. Angular Material provides the foundation for our theming system, and we extend its capabilities with runtime theme switching, hierarchical theming, and additional features.
+
+- [Angular Material documentation](https://material.angular.io/guides)
+- [Material Design specifications](https://m3.material.io/)
+
+The Angular Material library is licensed under the MIT License and is maintained by the Angular team at Google.
+
 
 ## License
 
