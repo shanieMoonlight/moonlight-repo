@@ -38,7 +38,7 @@ html {
   @include mat.theme(());
 }
 
-// Include core styles
+// Include core styles 
 @include mat.core();
 ```
 
