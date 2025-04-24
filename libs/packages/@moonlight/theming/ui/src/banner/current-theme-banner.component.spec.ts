@@ -1,8 +1,8 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { MlCurrentThemeBannerComponent } from './current-theme-banner.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { Component } from '@angular/core';
 
 // Create a test host component to properly set the input
 @Component({

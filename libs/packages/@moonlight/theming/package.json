@@ -9,6 +9,11 @@
     "@angular/material": "^19.0.0 || ^19.1.0 || ^19.2.0",
     "@angular/forms": "^19.0.0 || ^19.1.0 || ^19.2.0",
     "@angular/cdk": "^19.0.0 || ^19.1.0 || ^19.2.0",
+    "@moonlight/utils/download": "^0.0.1",
+    "@moonlight/utils/testing": "^0.0.1",
+    "@moonlight/utils/memoization": "^0.0.1",
+    "@moonlight/ssr-storage": "^0.0.1",
+    "@moonlight/utils/rxjs": "^0.0.1",
     "rxjs": "^7.4.0"
   },
   "dependencies": {

@@ -1,14 +1,14 @@
 import { DestroyRef } from '@angular/core';
-import { TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DarkModeType, DynamicThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '../../../config/src/index';
-import { SsrLocalStorage } from '../../../../ssr/storage/src/index';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { DarkModeType, DynamicThemeConfigService, ThemeOption } from '@moonlight/material/theming/config';
+import { SsrLocalStorage } from '@moonlight/ssr-storage';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
-import { ThemeData, ThemeDataUtils } from './theme-data';
-import { ThemeService } from './theme.service';
+import { ThemeData } from './theme-data';
 import { ThemeTransitionService } from './transitions/transitions.service';
+// import { DarkModeType, DynamicThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '../../../config/src/index';
+import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
   let service: ThemeService;

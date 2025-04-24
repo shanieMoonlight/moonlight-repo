@@ -1,14 +1,15 @@
-import { TestBed, fakeAsync, tick, flush } from '@angular/core/testing'; // Import fakeAsync and tick/flush
-import { ThemeGeneratorService } from './theme-generator.service';
+import { DOCUMENT } from '@angular/common';
 import { PLATFORM_ID, RendererFactory2 } from '@angular/core';
-import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, THEME_CLASS_PREFIX, ThemeOption } from '../../../../config/src/index';
-import { ColorUtilsService } from '../../../../utils/src/index';
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@moonlight/material/theming/config";
+import { ColorUtilsService } from '@moonlight/material/theming/utils';
+import { AnimationFrameService } from '@moonlight/utils/testing';
+import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
-import { GeneratedPalettes } from './models/theme-palletes';
-import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service'; // Import SystemPrefsService
-import { DOCUMENT } from '@angular/common';
-import { AnimationFrameService } from '../../../../../../../utils/testing/src/index'; // Import AnimationFrameService
+import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
+
+import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing'; // Import fakeAsync and tick/flush
+import { ThemeGeneratorService } from './theme-generator.service';
 
 describe('ThemeGeneratorService', () => {
   let service: ThemeGeneratorService;

@@ -1,13 +1,12 @@
 import { PLATFORM_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ThemeConfigService, ThemeOption, ThemingConfig } from '@moonlight/material/theming/config';
+import { ScssPaletteGeneratorService, ThemeService } from '@moonlight/material/theming/service';
 import { MockBuilder, MockRender } from 'ng-mocks';
 import { of } from 'rxjs';
-import { ThemeConfigService, ThemeOption, ThemingConfig } from '../../../.././../config/src/index';
-import { ScssPaletteGeneratorService } from '../../../.././../service/src/index'
-import { ThemeService } from '../../../.././../service/src/index';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeManagerComponent } from '../custom-theme-mgr/custom-theme-mgr.component';
+import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { MlThemeSelectorComponent } from './theme-selector.component';
 

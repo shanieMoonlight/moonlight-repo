@@ -32,6 +32,10 @@ export default async (): Promise<Config> => ({
     '^@moonlight/material/theming/config$': '<rootDir>/libs/packages/@moonlight/theming/config/src/index.ts',
     '^@moonlight/material/theming/components$': '<rootDir>/libs/packages/@moonlight/theming/mat/src/index.ts',
     '^@moonlight/material/theming/service$': '<rootDir>/libs/packages/@moonlight/theming/service/src/index.ts',
+    '^@moonlight/material/theming/customizer$': '<rootDir>/libs/packages/@moonlight/theming/customizer/src/index.ts',
+    '^@moonlight/material/theming/showcase$': '<rootDir>/libs/packages/@moonlight/theming/showcase/src/index.ts',
+    '^@moonlight/material/theming/ui$': '<rootDir>/libs/packages/@moonlight/theming/ui/src/index.ts',
+    '^@moonlight/material/theming/utils$': '<rootDir>/libs/packages/@moonlight/theming/utils/src/index.ts',
     '^@moonlight/ssr-storage$': '<rootDir>/libs/packages/@moonlight/ssr/storage/src/index.ts',
 
     // Keep a generic one as a fallback if needed, but ensure it's correct

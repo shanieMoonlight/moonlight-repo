@@ -1,7 +1,7 @@
+import { ThemeOption } from '@moonlight/material/theming/config';
 import { render, screen } from '@testing-library/angular';
-import { MlThemeAvatarComponent } from './theme-avatar.component';
-import { ThemeOption } from '../../../config/src/index';
 import '@testing-library/jest-dom';
+import { MlThemeAvatarComponent } from './theme-avatar.component';
 
 // Helper function to create mock ThemeOption
 const createMockTheme = (overrides: Partial<ThemeOption> = {}): ThemeOption => ({

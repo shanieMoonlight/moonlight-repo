@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { DynamicThemeConfigService } from './dynamic-theming-config';
 import { ThemeConfigService, ThemingConfig } from './theming-config';
 import { ThemeOption, DarkModeType } from './theme-options';
-import { ThemeTransitionOptions } from './theme-transition-options';
-import {  DEFAULT_TRANSITION_OPTIONS} from "../../../config/src/index";
+import { ThemeTransitionOptions, DEFAULT_TRANSITION_OPTIONS } from './theme-transition-options';
 
 describe('DynamicThemeConfigService', () => {
   let service: DynamicThemeConfigService;

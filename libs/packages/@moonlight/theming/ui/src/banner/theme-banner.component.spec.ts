@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { MlThemeBannerComponent } from './theme-banner.component';
-import { ThemeOption } from '../../../config/src/index';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { By } from '@angular/platform-browser';
+import { ThemeOption } from '@moonlight/material/theming/config';
+import { MlThemeBannerComponent } from './theme-banner.component';
 
 // Create a test host component to properly set the input
 @Component({

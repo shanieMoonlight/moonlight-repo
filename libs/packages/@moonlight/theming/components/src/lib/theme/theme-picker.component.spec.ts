@@ -8,9 +8,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltipHarness } from '@angular/material/tooltip/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeOption } from '../../../../config/src/index';
-import { ThemeService } from '../../../../service/src/index';
-import { MatEverythingModule } from '../../../../utils/src';
+import { ThemeOption } from '@moonlight/material/theming/config';
+import { ThemeService } from '@moonlight/material/theming/service';
+import { MlThemeAvatarComponent } from '@moonlight/material/theming/ui';
+import { MatEverythingModule } from '@moonlight/material/theming/utils';
 import { MlThemePickerMatComponent } from './theme-picker.component';
 
 const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light',  darkMode: 'light', primaryColor: '#ffffff', secondaryColor: '#000000' });
