@@ -20,6 +20,7 @@
     "@material/material-color-utilities": "^0.3.0",
     "@ng-matero/extensions": "^19.3.2",
     "express": "^4.21.2",
+    "npm-name": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
