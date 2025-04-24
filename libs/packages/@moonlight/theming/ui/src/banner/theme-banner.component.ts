@@ -27,11 +27,6 @@ import { ThemeOption } from '@moonlight/material/theming/config';
         .right { 
           flex: 1;
         }
-        // * {
-        //   transition:
-        //     color 1.4s cubic-bezier(0.4, 0, 0.2, 1),
-        //     background-color 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-        // }
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
