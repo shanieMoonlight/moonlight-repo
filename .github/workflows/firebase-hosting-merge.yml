@@ -34,7 +34,7 @@ jobs:
         run: npm run postbuild:spider-baby-mat-theming
 
       - name: List files in deploy directory
-        run: ls -al dist/apps/sb-mat-thm-demo/browser
+        run: ls -alR dist/apps/sb-mat-thm-demo/browser
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
