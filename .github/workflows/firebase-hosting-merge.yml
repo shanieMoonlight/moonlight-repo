@@ -18,11 +18,14 @@ jobs:
         with:
           node-version: 22 # Or the Node.js version your project uses
 
-      - name: List files in repository
-        run: ls -al
-
-      - name: Install Dependencies
+      - name: Install Dependencies (root)
         run: npm ci # Or npm install if you don't have a lock file
+
+      - name: Install Dependencies (functions)
+        run: |
+          cd functions
+          npm ci # Or npm install if you don't have a lock file
+          cd ..
 
       - name: Build Angular app
         run: npx nx run mat-theme-demo:build --configuration=production
