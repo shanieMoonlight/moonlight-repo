@@ -3,6 +3,18 @@
         <img class="hero-image" src="images/tranparent/spider-baby-6.png" alt="SpiderBaby Material" />
         <h1>SpiderBaby Material Theming</h1>
         <p class="tagline">A powerful, flexible theming system for Angular Material</p>
+        
+    <!-- Add GitHub link here -->
+    <div class="repo-link">
+        <a href="https://github.com/yourusername/spider-baby-material-theming" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           mat-raised-button 
+           color="primary">
+            <mat-icon svgIcon="git"></mat-icon>
+            View on GitHub
+        </a>
+    </div>
     </header>
 
     <mat-divider />
@@ -128,17 +140,21 @@
             Getting Started
         </h2>
         <div class="mat-required-blurb">
+            <h3>Prerequisites</h3>
             <strong>Note:</strong> This library requires
             <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.<br>
-            <br>
-            <strong>Recommended:</strong>
-            <pre><code>ng add &#64;angular/material</code></pre>
-            This command will install all dependencies and set up themes, fonts, and animations automatically.<br>
-            <br>
-            <strong>Manual install:</strong>
-            <pre><code>npm install &#64;angular/material &#64;angular/cdk</code></pre>
             See the <a href="https://material.angular.io/guide/getting-started" target="_blank" rel="noopener">Angular Material Getting Started
                 Guide</a> for full setup instructions.
+            <br>
+            <br>
+            <strong>Angular Material Setup:</strong>
+            <br>
+            This command will install all dependencies and set up themes, fonts, and animations automatically.<br>
+            <pre><code>ng add &#64;angular/material</code></pre>
+            or manual install
+            <br>
+            <!-- <strong>Manual install:</strong> -->
+            <pre><code>npm install &#64;angular/material &#64;angular/cdk</code></pre>
         </div>
         <h3>Installation</h3>
         <pre><code>{{ _npmInstallCmd() }}</code></pre>

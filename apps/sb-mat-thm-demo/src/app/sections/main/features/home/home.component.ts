@@ -162,7 +162,7 @@ body {
 
 
 body {
-  margin: 0.1;
+  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 

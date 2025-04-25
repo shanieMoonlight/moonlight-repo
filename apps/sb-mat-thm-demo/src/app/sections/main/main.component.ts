@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { NavbarComponent } from './ui/navbar/navbar.component';
+import { IconsService } from './utils/icons/icons.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  title = 'material-theming-demo';
+  
+  iconsService = inject(IconsService)
 
-}
+}//Cls
