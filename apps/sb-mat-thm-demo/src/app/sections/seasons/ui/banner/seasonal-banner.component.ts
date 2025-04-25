@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'ml-seasonal-banner',
+  selector: 'sb-seasonal-banner',
   standalone: true,
   imports: [MatCardModule, MatIconModule],
   template: `

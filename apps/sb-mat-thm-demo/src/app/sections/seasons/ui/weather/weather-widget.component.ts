@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-  selector: 'ml-weather-widget',
+  selector: 'sb-weather-widget',
   standalone: true,
   imports: [MatCardModule, MatIconModule, MatDividerModule],
   template: `

@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'ml-theme-variables-showcase',
+    selector: 'sb-theme-variables-showcase',
     standalone: true,
     imports: [
         CommonModule,
@@ -82,10 +82,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <ul class="variable-list tone-list">
               @for (tone of tones; track $index) {
                 <li class="variable-item">
-                  <code>--ml-color-primary-{{ tone }}</code>
+                  <code>--sb-color-primary-{{ tone }}</code>
                   <button 
                     mat-icon-button 
-                    [cdkCopyToClipboard]="'--ml-color-primary-' + tone"
+                    [cdkCopyToClipboard]="'--sb-color-primary-' + tone"
                     matTooltip="Copy to clipboard">
                     <mat-icon>content_copy</mat-icon>
                   </button>
@@ -103,10 +103,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <ul class="variable-list tone-list">
               @for (tone of tones; track $index ) {
                 <li class="variable-item">
-                  <code>--ml-color-secondary-{{ tone }}</code>
+                  <code>--sb-color-secondary-{{ tone }}</code>
                   <button 
                     mat-icon-button 
-                    [cdkCopyToClipboard]="'--ml-color-secondary-' + tone"
+                    [cdkCopyToClipboard]="'--sb-color-secondary-' + tone"
                     matTooltip="Copy to clipboard">
                     <mat-icon>content_copy</mat-icon>
                   </button>

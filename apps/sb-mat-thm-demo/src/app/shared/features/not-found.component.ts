@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'ml-not-found',
+  selector: 'sb-not-found',
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `

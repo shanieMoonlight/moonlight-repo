@@ -18,7 +18,7 @@
         <span class="theme-pill summer">Summer</span>
         <span class="theme-pill autumn">Autumn</span>
         <span class="theme-pill winter">Winter</span>
-        <ml-theme-picker [themes]="_availableThemes()" [currentTheme]="_currentTheme()" (themeChange)="changeTheme($event)" />
+          <ml-theme-picker-mat [includeCustomThemes]="false"/>
       </div>
 
       <p>
@@ -28,7 +28,7 @@
       </p>
 
 
-      <ml-theme-hierarchy-diagram />
+      <sb-theme-hierarchy-diagram />
 
 
       <h3>How it works</h3>
@@ -119,7 +119,7 @@ constructor()  &#123;
   <div class="theme-picker-container">
     <h2>Try Different Themes</h2>
     <p>Select from seasonal theme only available in this section:</p>
-    <ml-theme-picker [themes]="_availableThemes()" [currentTheme]="_currentTheme()" (themeChange)="changeTheme($event)" />
+    <sb-theme-picker [themes]="_availableThemes()" [currentTheme]="_currentTheme()" (themeChange)="changeTheme($event)" />
   </div>
 
   <h2>Seasonal Theme Examples</h2>
@@ -127,7 +127,7 @@ constructor()  &#123;
 
   <div class="seasons-grid">
     @for (season of _seasonData(); track season.title) {
-    <ml-season-info-card [data]="season" />
+    <sb-season-info-card [data]="season" />
     }
   </div>
 </div>

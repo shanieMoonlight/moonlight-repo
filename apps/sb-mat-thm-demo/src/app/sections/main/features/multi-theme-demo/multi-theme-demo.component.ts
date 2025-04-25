@@ -5,7 +5,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
 import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/theme-demo-card.component';
 
 @Component({
-  selector: 'ml-multi-theme-demo',
+  selector: 'sb-multi-theme-demo',
   standalone: true,
   imports: [
     MatDividerModule,

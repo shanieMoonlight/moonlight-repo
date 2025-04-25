@@ -4,7 +4,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MlThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 
 @Component({
-  selector: 'ml-customization',
+  selector: 'sb-customization',
   imports: [
     MatEverythingModule,
     MlThemeSelectorComponent,

@@ -24,7 +24,7 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
     RouterModule,
     ThemeTransitionIndicatorComponent
   ],
-  selector: 'ml-seasons-root',
+  selector: 'sb-seasons-root',
   templateUrl: './seasons.component.html',
   styleUrl: './seasons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

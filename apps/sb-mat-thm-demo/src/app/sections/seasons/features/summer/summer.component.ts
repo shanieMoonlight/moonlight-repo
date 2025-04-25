@@ -10,7 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ml-summer',
+  selector: 'sb-summer',
   standalone: true,
   imports: [
     SeasonalBannerComponent,
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
   ],
   template: `
     <div class="season-page">
-      <ml-seasonal-banner 
+      <sb-seasonal-banner 
         title="Summer" 
         subtitle="Long days, warm nights, endless possibilities"
         [seasonalIcons]="['wb_sunny', 'beach_access', 'waves']"/>
@@ -31,7 +31,7 @@ import { Router } from '@angular/router';
       <div class="content-area">
         <section class="weather-section">
           <h2>Summer Weather</h2>
-          <ml-weather-widget
+          <sb-weather-widget
             weatherIcon="wb_sunny"
             [temperature]="88"
             location="Sunset Beach"
@@ -44,19 +44,19 @@ import { Router } from '@angular/router';
         <section class="activities-section">
           <h2>Summer Activities</h2>
           <div class="card-grid">
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Beach Day"
               subtitle="Sand & surf"
               content="Dive into crystal clear waters, build sandcastles, or simply relax under an umbrella. The beach offers a perfect escape from summer heat."
               icon="beach_access"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Outdoor Festivals"
               subtitle="Music & art"
               content="Summer is festival season! From music to food, art to cultural celebrations, there's always something happening under the summer sky."
               icon="festival"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Water Sports"
               subtitle="Cool adventures"
               content="Try kayaking, paddleboarding, or jet skiing to beat the heat while enjoying the thrill of water adventures. Perfect for adrenaline seekers!"

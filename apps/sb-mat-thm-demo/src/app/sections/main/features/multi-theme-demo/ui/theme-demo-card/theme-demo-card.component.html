@@ -12,11 +12,11 @@
         <section class="config header-actions">
           <div class="theme-actions">
             <!-- Every theme gets it's own Theme Selector. Completely local theming-->
-            <ml-theme-picker
+            <sb-theme-picker
               [themes]="_availableThemes()"
               [currentTheme]="_currentTheme()"
               (themeChange)="_changeThemeClick$.next($event)"/>
-            <ml-light-dark-toggle 
+            <sb-light-dark-toggle 
               [checked]="_currentDarkMode()"
               (modeChanged)="_changeDarkModeClick$.next($event)"/>
           </div>

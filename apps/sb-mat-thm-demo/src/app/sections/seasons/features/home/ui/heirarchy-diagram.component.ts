@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'ml-theme-hierarchy-diagram',
+  selector: 'sb-theme-hierarchy-diagram',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `

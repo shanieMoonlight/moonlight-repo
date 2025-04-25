@@ -10,7 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ml-spring',
+  selector: 'sb-spring',
   standalone: true,
   imports: [
     SeasonalBannerComponent,

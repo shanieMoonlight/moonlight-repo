@@ -11,6 +11,7 @@ import { ThemePickerComponent } from "../../../../shared/ui/theme-picker/theme-p
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { MatListModule } from '@angular/material/list';
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
+import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 
 //#######################################################//
 
@@ -48,7 +49,7 @@ const seasonData: SeasonCardData[] = [
 //#######################################################//
 
 @Component({
-  selector: 'ml-seasons-home',
+  selector: 'sb-seasons-home',
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -58,7 +59,8 @@ const seasonData: SeasonCardData[] = [
     SeasonInfoCardComponent,
     RouterModule,
     ThemePickerComponent,
-    ThemeHierarchyDiagramComponent
+    ThemeHierarchyDiagramComponent,
+    MlThemePickerMatComponent
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

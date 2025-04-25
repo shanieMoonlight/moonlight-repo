@@ -7,7 +7,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
 import { MlThemeAvatarComponent } from "@spider-baby/material-theming/ui";
 
 @Component({
-  selector: 'ml-theme-picker',
+  selector: 'sb-theme-picker',
   imports: [
     MatButtonModule,
     MatMenuModule,

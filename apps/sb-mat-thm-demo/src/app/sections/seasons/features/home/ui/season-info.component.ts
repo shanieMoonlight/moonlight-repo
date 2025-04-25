@@ -17,7 +17,7 @@ export interface SeasonCardData {
 }
 
 @Component({
-  selector: 'ml-season-info-card',
+  selector: 'sb-season-info-card',
   standalone: true,
   imports: [
     MatCardModule,
@@ -38,7 +38,7 @@ export interface SeasonCardData {
           <mat-icon class="large-icon">{{ _data().icon }}</mat-icon>
         </div>
         <!-- Theme banner below the icon -->
-        <ml-theme-banner [theme]="_localTheme()" />
+        <sb-theme-banner [theme]="_localTheme()" />
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" (click)="navigate()">
@@ -76,7 +76,7 @@ export interface SeasonCardData {
       color: var(--mat-sys-primary); /* Use primary theme color for icon */
       margin-bottom: 24px; /* Space between icon and banner */
     }
-    ml-theme-banner {
+    sb-theme-banner {
         width: 100%; /* Make banner take full width */
         margin-top: auto; /* Push banner towards the bottom if space allows */
     }

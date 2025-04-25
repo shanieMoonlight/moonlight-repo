@@ -3,7 +3,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ThemeTransitionService } from '@spider-baby/material-theming/service';
 
 @Component({
-  selector: 'ml-theme-transition-indicator',
+  selector: 'sb-theme-transition-indicator',
   standalone: true,
   imports: [MatProgressBarModule],
   template: `

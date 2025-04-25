@@ -37,7 +37,7 @@ const NPM_ICON = `
 //##################################################//
 // 
 @Component({
-  selector: 'ml-navbar',
+  selector: 'sb-navbar',
   imports: [
     MatEverythingModule,
     NavigateNewWindowDirective,

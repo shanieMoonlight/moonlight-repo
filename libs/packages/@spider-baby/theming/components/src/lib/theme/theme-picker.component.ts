@@ -41,6 +41,13 @@ export class MlThemePickerMatComponent {
      */
     _toolTip = input('Change app theme', { alias: 'pickerTooltip' })
 
+
+    /**
+     * ALlow user to pick from custom themes.
+     * Defaults to `true`.
+     */
+    _includeCustomThemes = input(true, { alias: 'includeCustomThemes' })
+
     /**
      * Emits the currently selected `ThemeOption` whenever the theme changes.
      * Can be bound via output binding `theme`.

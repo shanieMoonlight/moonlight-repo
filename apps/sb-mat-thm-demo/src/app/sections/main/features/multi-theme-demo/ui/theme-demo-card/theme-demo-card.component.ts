@@ -34,7 +34,7 @@ export interface ThemeDemoConfig {
 
 
 @Component({
-  selector: 'ml-theme-demo-card',
+  selector: 'sb-theme-demo-card',
   standalone: true,
   imports: [
     MatCardModule,

@@ -10,7 +10,7 @@ import { DEFAULT_COLOR_TONES } from '@spider-baby/material-theming/config';
 import { MlThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
 @Component({
-  selector: 'ml-home',
+  selector: 'sb-home',
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -122,8 +122,8 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
 
 
   protected _componentUsageCode = signal(`<!-- Add to your template -->
-    <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
-    <ml-theme-picker-mat></ml-theme-picker-mat>
+    <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
+    <sb-theme-picker-mat></sb-theme-picker-mat>
     
   This will allow users to change Themes and Dark Mode as the wish
     `  );

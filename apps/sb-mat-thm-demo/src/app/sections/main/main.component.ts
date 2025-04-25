@@ -23,7 +23,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
   ],
   providers: [
   ],
-  selector: 'ml-main-root',
+  selector: 'sb-main-root',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })

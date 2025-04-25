@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
 
 @Component({
-  selector: 'ml-autumn',
+  selector: 'sb-autumn',
   standalone: true,
   imports: [
     SeasonalBannerComponent,
@@ -24,7 +24,7 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
   ],
   template: `
     <div class="season-page">
-      <ml-seasonal-banner 
+      <sb-seasonal-banner 
         title="Autumn" 
         subtitle="The season of change and harvest"
         [seasonalIcons]="['eco', 'park', 'forest']"/>
@@ -32,7 +32,7 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
       <div class="content-area">
         <section class="weather-section">
           <h2>Autumn Weather</h2>
-          <ml-weather-widget
+          <sb-weather-widget
             weatherIcon="filter_drama"
             [temperature]="58"
             location="Maple Ridge"
@@ -45,19 +45,19 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
         <section class="activities-section">
           <h2>Autumn Activities</h2>
           <div class="card-grid">
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Leaf Peeping"
               subtitle="Vibrant landscapes"
               content="Take in the breathtaking views as leaves transform into brilliant shades of red, orange, and gold. Scenic drives and hiking trails offer perfect vantage points."
               icon="park"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Harvest Festivals"
               subtitle="Seasonal celebrations"
               content="Celebrate the bounty of the season at local harvest festivals featuring apple picking, pumpkin patches, hayrides, corn mazes, and artisanal foods."
               icon="agriculture"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Cozy Evenings"
               subtitle="Autumn comfort"
               content="As evenings grow cooler, enjoy the comforts of warm drinks, hearty soups, and gathering around fire pits with friends and family."

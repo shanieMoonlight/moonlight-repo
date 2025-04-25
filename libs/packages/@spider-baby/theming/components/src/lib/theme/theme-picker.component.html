@@ -7,7 +7,7 @@
   </mat-icon>
 </button>
 
-
+{{_includeCustomThemes()}}
 <mat-menu #menu="matMenu">
   @for (option of _systemOptions(); track option) {
     <button
@@ -25,23 +25,24 @@
     </button>
   }
 
-  @if(_customOptions().length > 0) {
+  @if (_includeCustomThemes() && _customOptions().length > 0) {
+      
     <mat-divider/>
-  }
-  
-  @for (option of _customOptions(); track option) {
-    <button
-      mat-menu-item
-      [class.selected]="option.value === _selectedOption()?.value"
-      (click)="_changeThemeClick$.next(option)">
-      <mat-icon
-        role="img"
-        class="colors-icon"
-        svgicon="theme-example"
-        aria-hidden="true">
-        <ml-theme-avatar [theme]="option"/>
-      </mat-icon>
-      <span>{{ option.label }}</span>
-    </button>
-  }
+    
+    @for (option of _customOptions(); track option) {
+      <button
+        mat-menu-item
+        [class.selected]="option.value === _selectedOption()?.value"
+        (click)="_changeThemeClick$.next(option)">
+        <mat-icon
+          role="img"
+          class="colors-icon"
+          svgicon="theme-example"
+          aria-hidden="true">
+          <ml-theme-avatar [theme]="option"/>
+        </mat-icon>
+        <span>{{ option.label }}</span>
+      </button>
+    }
+}
 </mat-menu>

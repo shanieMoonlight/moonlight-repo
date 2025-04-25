@@ -10,7 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ml-winter',
+  selector: 'sb-winter',
   standalone: true,
   imports: [
     SeasonalBannerComponent,
@@ -23,16 +23,16 @@ import { Router } from '@angular/router';
   ],
   template: `
     <div class="season-page">
-      <ml-seasonal-banner 
+      <sb-seasonal-banner 
         title="Winter" 
         subtitle="A peaceful landscape of snow and ice"
         [seasonalIcons]="['ac_unit', 'nights_stay', 'snowing']"
-      ></ml-seasonal-banner>
+      ></sb-seasonal-banner>
       
       <div class="content-area">
         <section class="weather-section">
           <h2>Winter Weather</h2>
-          <ml-weather-widget
+          <sb-weather-widget
             weatherIcon="snowing"
             [temperature]="28"
             location="Frost Valley"
@@ -45,19 +45,19 @@ import { Router } from '@angular/router';
         <section class="activities-section">
           <h2>Winter Activities</h2>
           <div class="card-grid">
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Skiing & Snowboarding"
               subtitle="Mountain adventures"
               content="Carve through fresh powder on mountain slopes. Whether you're a novice or expert, winter sports offer exhilarating ways to embrace the cold season."
               icon="downhill_skiing"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Cozy Retreats"
               subtitle="Warm indulgence"
               content="Embrace hygge with plush blankets, crackling fireplaces, and steaming mugs of hot chocolate. Winter is the perfect time for indoor comfort."
               icon="fireplace"/>
             
-            <ml-seasonal-card
+            <sb-seasonal-card
               title="Holiday Magic"
               subtitle="Festive celebrations"
               content="Experience the wonder of winter holidays with twinkling lights, festive decorations, and seasonal traditions that bring warmth to the coldest months."

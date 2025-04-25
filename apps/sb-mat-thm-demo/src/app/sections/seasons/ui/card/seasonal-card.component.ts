@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'ml-seasonal-card',
+  selector: 'sb-seasonal-card',
   standalone: true,
   imports: [MatCardModule, MatIconModule, MatButtonModule],
   template: `

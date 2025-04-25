@@ -6,7 +6,7 @@ import { ThemeOption, ThemingConfig } from "@spider-baby/material-theming/config
  */
 export const DEFAULT_SEAONAL_THEME = ThemeOption.create({
   defaultDarkMode: 'light',
-  label: 'Home',
+  label: 'Seasons Home',
   value: 'seasonal-default',
   primaryColor: '#673AB7', // Deep Purple
   secondaryColor: '#FFD740', // Amber accent

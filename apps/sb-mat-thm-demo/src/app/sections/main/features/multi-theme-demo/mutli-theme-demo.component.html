@@ -29,7 +29,7 @@
 
   <div class="api-grid">
     @for (card of demoCards; track card.title) {
-      <ml-theme-demo-card
+      <sb-theme-demo-card
         [config]="card"
         [availableThemes]="themeService.availableThemes()"
         [progressValue]="progressValue"/>

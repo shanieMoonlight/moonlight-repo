@@ -11,7 +11,7 @@ import { AppConstants } from '../../../../config/constants';
 //##################################################//
 // 
 @Component({
-  selector: 'ml-seasonal-navbar',
+  selector: 'sb-seasonal-navbar',
   imports: [
     MatEverythingModule,
     NgTemplateOutlet,

@@ -24,6 +24,9 @@ export default [
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/no-output-rename': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off'
     },
   },
   {
