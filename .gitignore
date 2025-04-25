@@ -54,14 +54,15 @@ Thumbs.db
 **/libs/packages/@spider-baby/theming/build-helpers
 
 # Ignore all images
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
-*.webp
-*.ico
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+# *.svg
+# *.webp
 
 # Optionally, ignore images in all subfolders
-**/images/
+**/dev-images/
 **/favicons/
+# Ignore dev assets folder at the root of your project
+**/@dev-assets/

@@ -19,7 +19,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/sb-mat-thm-demo/public"
+            "input": "apps/sb-mat-thm-demo/public",
+            "output": "."
           }
         ],
         "styles": ["apps/sb-mat-thm-demo/src/styles.scss"],

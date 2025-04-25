@@ -130,38 +130,42 @@ protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
 
     protected _scssCode = signal(`
 // Custom Theming for Angular Material
+// Add this to your global styles.scss or a separate theming file that you import in your main styles.scss
+
+
+// Import @angular/material
 @use "@angular/material" as mat;
 
 // Import color overrides (Optional)
-@use '@spider-baby/material-theming/styles/mat-color-overrides.scss' as *;
+@use "./overrides/mat-color-overrides.scss" as matColorOverrides;
 
-// Fonts
-$font-family: 'Roboto, "Helvetica Neue", sans-serif';
 
-// Define typography
-$custom-typography: (
-  plain-family: Roboto,
-  brand-family: Open Sans,
-  bold-weight: 900,
-  medium-weight: 500,
-  regular-weight: 300,
-);
+// @angular/material - Include core styles 
+// (only needed once per application)
+@include mat.core();
 
-// Angular Material v19 theme setup. This is still required for shapes, border-radius etc.
+
 html {
-  // Leave the color palette empty as we're handling colors via CSS variables using our theming system
+
+  // @angular/material v19 theme setup. This is still required for shapes, border-radius etc.
+  // Leave the color palette empty as we're handling colors via CSS variables using our Theming System.
   @include mat.theme((
-    // typography: $custom-typography // Uncomment this line to use custom typography
-  ));
+      typography: Roboto,
+      density: 0));
 }
+
+
+html,
+body {
+  height: 100%;
+}
+
 
 body {
-  margin: 0;
-  font-family: $font-family;
+  margin: 0.1;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-// Include core styles - only needed once per application
-@include mat.core();
       `);
 
 }
