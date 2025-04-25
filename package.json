@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/spider-baby-mat-theming/browser/index.csr.html\" \"dist/apps/spider-baby-mat-theming/browser/index.html\""
+    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\""
   },
   "private": true,
   "dependencies": {
