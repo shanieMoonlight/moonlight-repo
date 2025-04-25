@@ -42,6 +42,9 @@
       "@spider-baby/material-theming/utils": [
         "libs/packages/@spider-baby/theming/utils/src/index.ts"
       ],
+      "@spider-baby/mini-state": [
+        "libs/packages/@spider-baby/mini-state/src/index.ts"
+      ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],
