@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { DEFAULT_COLOR_TONES } from '@spider-baby/material-theming/config';
@@ -15,6 +16,7 @@ import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
+    MatTooltipModule,
     RouterModule,
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,

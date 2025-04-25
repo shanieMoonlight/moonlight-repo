@@ -5,6 +5,10 @@
         <p class="tagline">A powerful, flexible theming system for Angular Material</p>
     </header>
 
+    <mat-divider />
+
+    <ml-current-theme-banner [withTooltips]="true" />
+
     <section class="features">
         <mat-card>
             <mat-card-header>
@@ -267,7 +271,9 @@
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
-                                <div class="tone-swatch" [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-primary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -280,7 +286,9 @@
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
-                                <div class="tone-swatch" [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-secondary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -293,7 +301,9 @@
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
-                                <div class="tone-swatch" [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-tertiary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -306,7 +316,9 @@
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
-                                <div class="tone-swatch" [style.background-color]="'var(--color-error-' + tone + ')'"></div>
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-error-' + tone + ')'"
+                                    [style.background-color]="'var(--color-error-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -319,7 +331,9 @@
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
-                                <div class="tone-swatch" [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-neutral-' + tone + ')'"
+                                    [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
