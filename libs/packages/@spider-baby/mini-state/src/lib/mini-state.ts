@@ -1,5 +1,6 @@
 import { Signal, computed, signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
+import { devConsole } from "@spider-baby/dev-console"
 import { BehaviorSubject, finalize, Observable, ReplaySubject, Subject, Subscription, switchMap, tap } from "rxjs"
 
 //=========================================================//
@@ -9,13 +10,13 @@ const SPACE_2 = '\u200C '
 
 //=========================================================//
 
-export class MiniState<Input, Output> {
+export class MiniState<Input, Output, TError = any> {
 
     protected _successMsgBs = new Subject<string>()
     protected _successDataBs = new Subject<Output>()
     protected _loadingBs = new BehaviorSubject<boolean>(false)
     protected _errorMsgBs = new Subject<string>()
-    protected _errorBs = new Subject<any>()
+    protected _errorBs = new Subject<TError>()
 
     data$: Observable<Output>
     data: Signal<Output | undefined>
@@ -35,9 +36,11 @@ export class MiniState<Input, Output> {
     loading = toSignal(this.loading$, { initialValue: false })
 
 
-    protected _errorFn?: (input: Input, error: any) => void
-    protected _errorMsgFn: (error: any) => string =
-        error => error?.message ?? error?.msg ?? ''
+    protected _errorFn?: (input: Input, error: TError) => void
+    protected _errorMsgFn: (error: TError) => string = error => {
+        const err = error as any; // Still need this casting internally
+        return err?.message ?? err?.msg ?? '';
+    }
 
     protected _onSuccessFn?: (input: Input, output: Output) => void
     protected _successMsgFn?: (input: Input, output: Output) => string
@@ -47,7 +50,7 @@ export class MiniState<Input, Output> {
     protected _triggerFn$: (input: Input) => Observable<Output>
     protected _onTriggerFn?: (t: Input) => void
 
-    protected static space = SPACE_1
+    private _instanceSpace = SPACE_1
     protected _sub?: Subscription
 
     //-------------------------------------//
@@ -107,7 +110,7 @@ export class MiniState<Input, Output> {
      * Any extra side effects that should happen after a successful trigger response
      * Any side effects that should happen after a failed trigger response
      */
-    setOnErrorFn(errorFn: (input: Input, error: any) => void) {
+    setOnErrorFn(errorFn: (input: Input, error: TError) => void) {
         this._errorFn = errorFn
         return this
     }
@@ -118,7 +121,7 @@ export class MiniState<Input, Output> {
      * How to convert an error resonse to a message that will be emitted.
      * Default: error => error?.message ?? error?.msg ?? ''
      */
-    setErrorMsgFn(msgFn: (error: any) => string) {
+    setErrorMsgFn(msgFn: (error: TError) => string) {
         this._errorMsgFn = msgFn
         return this
     }
@@ -138,8 +141,7 @@ export class MiniState<Input, Output> {
 
     trigger(input: Input) {
 
-        // console.log('trigger', input);
-
+        devConsole.log('trigger', input);
 
         this._loadingBs.next(true)
 
@@ -153,9 +155,9 @@ export class MiniState<Input, Output> {
             .subscribe({
                 next: data => {
 
-                    // console.log('MiniState', data);
-                    // console.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
-                    // console.log(this._successDataProcessor);
+                    devConsole.log('MiniState', data);
+                    devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
+                    devConsole.log(this._successDataProcessor);
 
 
                     this._loadingBs.next(false)
@@ -184,36 +186,48 @@ export class MiniState<Input, Output> {
     //-------------------------------------//
 
     /** Stop Listening */
-    unsubscribe() { this._sub?.unsubscribe?.() }
+    unsubscribe() {
+
+        this._sub?.unsubscribe?.()
+        
+        // Complete all subjects
+        this._successMsgBs.complete();
+        this._successDataBs.complete();
+        this._loadingBs.complete();
+        this._errorMsgBs.complete();
+        this._errorBs.complete();
+
+        // Clear any references that might prevent garbage collection
+        this._errorFn = undefined;
+        this._onSuccessFn = undefined;
+        this._successMsgFn = undefined;
+        this._successDataProcessor = undefined;
+        this._onTriggerFn = undefined;
+    }
 
     //-------------------------------------//
 
     /**This makes sure all messages are unique. So that popups with @Inputs will be triggered */
     protected getSpace = () => {
-        if (!MiniState.space.length)
-            return MiniState.space = SPACE_1
-        else if (MiniState.space == SPACE_1)
-            return MiniState.space = SPACE_2
+        if (!this._instanceSpace.length)
+            return this._instanceSpace = SPACE_1
+        else if (this._instanceSpace == SPACE_1)
+            return this._instanceSpace = SPACE_2
         else
-            return MiniState.space = ''
+            return this._instanceSpace = ''
     }
 
     //-------------------------------------//
 
-    protected emitErrorMsg(errorMsg?: string) {
-
-        //Add/remove space to make sure all messages are different. (To trigger @Inputs)
-        if (errorMsg)
-            this._errorMsgBs.next(errorMsg + this.getSpace())
-    }
+    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    protected emitErrorMsg = (errorMsg?: string) =>
+        errorMsg && this._errorMsgBs.next(errorMsg + this.getSpace())
 
     //-------------------------------------//
 
-    protected emitSuccessMsg(successMsg?: string) {
-        //Add/remove space to make sure all messages are different. (To trigger @Inputs)
-        if (successMsg)
-            this._successMsgBs.next(successMsg + this.getSpace())
-    }
+    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    protected emitSuccessMsg = (successMsg?: string) =>
+        successMsg && this._successMsgBs.next(successMsg + this.getSpace())
 
     //-------------------------------------//
 

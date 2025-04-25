@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/material-theming": [
         "libs/packages/@spider-baby/theming/src/index.ts"
       ],
@@ -44,6 +45,9 @@
       ],
       "@spider-baby/mini-state": [
         "libs/packages/@spider-baby/mini-state/src/index.ts"
+      ],
+      "@spider-baby/notifications": [
+        "libs/packages/@spider-baby/notifications/src/index.ts"
       ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
