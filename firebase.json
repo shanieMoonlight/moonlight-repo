@@ -21,7 +21,7 @@
     }
   ],
   "hosting": {
-    "public": "dist/apps/sb-mat-thm-demo",
+    "public": "dist/apps/spider-baby-mat-theming",
     "ignore": [
       "firebase.json",
       "**/.*",
