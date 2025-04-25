@@ -38,7 +38,7 @@ export interface SeasonCardData {
           <mat-icon class="large-icon">{{ _data().icon }}</mat-icon>
         </div>
         <!-- Theme banner below the icon -->
-        <sb-theme-banner [theme]="_localTheme()" />
+        <ml-theme-banner [theme]="_localTheme()" />
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" (click)="navigate()">

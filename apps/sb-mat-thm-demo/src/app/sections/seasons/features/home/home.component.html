@@ -119,7 +119,11 @@ constructor()  &#123;
   <div class="theme-picker-container">
     <h2>Try Different Themes</h2>
     <p>Select from seasonal theme only available in this section:</p>
-    <sb-theme-picker [themes]="_availableThemes()" [currentTheme]="_currentTheme()" (themeChange)="changeTheme($event)" />
+    <ml-theme-picker-mat [includeCustomThemes]="false"/>
+    <!-- <sb-theme-picker 
+      [themes]="_availableThemes()" 
+      [currentTheme]="_currentTheme()" 
+      (themeChange)="changeTheme($event)" /> -->
   </div>
 
   <h2>Seasonal Theme Examples</h2>

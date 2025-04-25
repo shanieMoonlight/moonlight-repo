@@ -21,7 +21,7 @@
     }
   ],
   "hosting": {
-    "public": "dist/apps/mat-theme-demo",
+    "public": "dist/apps/sb-mat-thm-demo",
     "ignore": [
       "firebase.json",
       "**/.*",

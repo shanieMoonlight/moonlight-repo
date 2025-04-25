@@ -29,8 +29,8 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
   styleUrl: './seasons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeasonsComponent  implements OnDestroy{
-  
+export class SeasonsComponent implements OnDestroy {
+
 
   constructor(private dynamicConfigService: DynamicThemeConfigService) {
 
@@ -39,6 +39,7 @@ export class SeasonsComponent  implements OnDestroy{
 
   }
 
+  //- - - - - - - - - - - - - - -//
 
   ngOnDestroy(): void {
 
@@ -47,5 +48,5 @@ export class SeasonsComponent  implements OnDestroy{
     this.dynamicConfigService.resetSystemThemesToInitial()
 
   }
-  
+
 }//Cls

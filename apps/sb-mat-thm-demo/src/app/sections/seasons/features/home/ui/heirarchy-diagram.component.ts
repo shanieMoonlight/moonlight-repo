@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { THEME_CONFIG } from '../../../../../config/app-theme.config';
+import { SEASON_THEME_CONFIG } from '../../../config/seasonal-theme.config';
 
 @Component({
   selector: 'sb-theme-hierarchy-diagram',
@@ -30,12 +32,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
           matTooltip="Root level where Material themes are defined">
           <div class="box-title">Root App</div>
           <div class="box-subtitle">Base Angular Material Styles</div>
+
           <div class="themes-container material-themes" [class.active]="currentStep === 0 || currentStep === 2">
-            <div class="theme-section-title">Material Themes Defined Here</div>
-            <div class="theme-item indigo-theme">- Indigo</div>
-            <div class="theme-item purple-theme">- Deep Purple</div>
-            <div class="theme-item teal-theme">- Teal</div>
-            <div class="theme-item amber-theme">- Amber</div>
+            <div class="theme-section-title">Root Themes Defined Here</div>
+            @for (theme of _baseThemes(); track $index) {
+              <div class="theme-item" [style.color]="theme.primaryColor">- {{theme.label}}</div>
+            }
           </div>
         </div>
         
@@ -70,10 +72,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <div class="box-title">Seasons Section</div>
             <div class="themes-container seasonal-themes" [class.active]="currentStep === 1">
               <div class="theme-section-title">Replaces with Seasonal Themes:</div>
-              <div class="theme-item spring-theme">- Spring</div>
-              <div class="theme-item summer-theme">- Summer</div>
-              <div class="theme-item autumn-theme">- Autumn</div>
-              <div class="theme-item winter-theme">- Winter</div>
+               @for (theme of _seasonalThemes(); track $index) {
+                <div class="theme-item" [style.color]="theme.primaryColor">- {{theme.label}}</div>
+              }
             </div>
             <div class="box-footer">ThemePickerComponent (Shows Season themes)</div>
           </div>
@@ -343,31 +344,38 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ]
 })
 export class ThemeHierarchyDiagramComponent {
+
+  _baseThemes = signal(THEME_CONFIG.themeOptions)
+  _seasonalThemes = signal(SEASON_THEME_CONFIG.themeOptions)
+
+  //- - - - - - - - - - - - - - -//
+
   highlightedSection: 'root' | 'main' | 'seasons' | null = null;
   isAnimating = false;
   currentStep = 0;
-  
+
   animationSteps = [
     'In Main section, the Material themes from Root are available',
     'When navigating to Seasons section, seasonal themes replace Material themes',
     'When returning to Main section, original Material themes are restored'
   ];
-  
-  
+
+  //- - - - - - - - - - - - - - -//
+
   showAnimation() {
     if (this.isAnimating) return;
-    
+
     this.isAnimating = true;
     this.currentStep = 0;
-    
+
     // Start animation sequence
     const animationInterval = setInterval(() => {
       this.currentStep++;
-      
+
       if (this.currentStep >= this.animationSteps.length) {
         this.currentStep = 0;
         clearInterval(animationInterval);
-        
+
         // Wait a moment on the final step before ending animation
         setTimeout(() => {
           this.isAnimating = false;
