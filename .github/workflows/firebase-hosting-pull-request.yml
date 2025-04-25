@@ -19,10 +19,15 @@ jobs:
         with:
           node-version: 21.1 # Or the Node.js version your project uses
 
-      - name: Install Dependencies
+      - name: Build Angular app
         run: npm ci # Or npm install if you don't have a lock file
 
+      - name: Install Dependencies
       - run: npx nx run mat-theme-demo:build --configuration=production
+
+      - name: Rename index.csr.html to index.html
+      - run: npm run postbuild:mat-theme-demo
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

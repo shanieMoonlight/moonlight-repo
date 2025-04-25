@@ -2,7 +2,9 @@
   "name": "@spider-baby-repo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "postbuild:mat-theme-demo": "copy dist\\apps\\mat-theme-demo\\browser\\index.csr.html dist\\apps\\mat-theme-demo\\browser\\index.html"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.6",
