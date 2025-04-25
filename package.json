@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postbuild:mat-theme-demo": "copy dist\\apps\\mat-theme-demo\\browser\\index.csr.html dist\\apps\\mat-theme-demo\\browser\\index.html"
+    "postbuild:mat-theme-demo": "cp dist\\apps\\mat-theme-demo\\browser\\index.csr.html dist\\apps\\mat-theme-demo\\browser\\index.html"
   },
   "private": true,
   "dependencies": {
