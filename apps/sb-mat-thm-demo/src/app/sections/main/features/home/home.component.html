@@ -4,21 +4,24 @@
         <h1>SpiderBaby Material Theming</h1>
         <p class="tagline">A powerful, flexible theming system for Angular Material</p>
         
-    <!-- Add GitHub link here -->
-    <div class="repo-link">
-        <a [href]="_gitRepoUrl()" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           mat-raised-button 
-           color="primary">
-            <mat-icon svgIcon="git"></mat-icon>
-            View on GitHub
-        </a>
-    </div>
+        <div class="links">
+            <button mat-raised-button  [mlNavigateNewWindow]="_gitRepoUrl()" >
+                <mat-icon svgIcon="git"/>
+                GitHub
+            </button>
+            <button mat-raised-button  [mlNavigateNewWindow]="_npmUrl()" >
+                <mat-icon svgIcon="npm"/>
+                NPM
+            </button>
+            <button mat-raised-button sbShareCurrentPage>
+                <mat-icon>share</mat-icon>
+                Share
+            </button>
+        </div>
+
     </header>
 
     <mat-divider />
-
     
     <section class="features">
         <ml-current-theme-banner [withTooltips]="true" />
@@ -26,10 +29,7 @@
         <ml-current-theme-banner [withTooltips]="true" />
     </section>
 
-
-
     <mat-divider />
-
 
     <section>
         <sb-home-performance [sectionNumber]="'01'"/>
@@ -59,18 +59,20 @@
         <sb-home-sectioned-themes [sectionNumber]="'05'"/>
      </section>
 
-<mat-divider />
+    <mat-divider />
 
-<section class="showcase">
-    <sb-home-section-hdr 
-        [sectionNumber]="'06'" 
-        [title]="'Theme Preview'"/>
-    <p>See how Material components look with the currently selected theme:</p>
-    <ml-theme-showcase-mat />
-</section>
+    <section class="showcase">
+        <sb-home-section-hdr 
+            [sectionNumber]="'06'" 
+            [title]="'Theme Preview'"/>
+        <p>See how Material components look with the currently selected theme:</p>
+        <ml-theme-showcase-mat />
+    </section>
 
-<mat-divider />
+    <mat-divider />
 
-<section class="section-based-theming">
-    <sb-home-git [sectionNumber]="'07'"/>
-</section>
+    <section class="section-based-theming">
+        <sb-home-git [sectionNumber]="'07'"/>
+    </section>
+
+</div>

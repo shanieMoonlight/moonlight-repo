@@ -12,9 +12,17 @@ mat-toolbar {
 
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
-  // background-color: var(--mat-sys-surface-container); 
+  display: flex;
+  justify-content: space-between;
 }
 
+
+.left-links, .right-links {
+  display: flex;
+  /* Use flexbox for alignment */
+  align-items: center;
+  /* Center items vertically */
+}
 
 .rhs-outlet {
   margin-left: auto;
@@ -22,13 +30,6 @@ mat-toolbar {
   display: flex;
   /* Ensure content inside aligns well */
   align-items: center;
-}
-
-.spacer {
-  // Use flex-grow instead of fixed width for better flexibility
-  flex: 1 1 auto;
-  // Or keep width if preferred, maybe adjust slightly
-  // width: 24px; 
 }
 
 .navlink {

@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'ml',
+          prefix: 'sb',
           style: 'camelCase',
         },
       ],
@@ -34,7 +34,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'ml',
+          prefix: 'sb',
           style: 'kebab-case',
         },
       ],
