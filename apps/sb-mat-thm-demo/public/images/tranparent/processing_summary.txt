@@ -1,7 +1,0 @@
-Processing Summary - 25/04/2025 14:36:44
-Source folder: C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\public\images\tranparent
-Total folder types processed: 4
-- small: 2 images processed
-- medium: 2 images processed
-- large: 2 images processed
-- xlarge: 2 images processed

@@ -19,6 +19,12 @@ A powerful, flexible theming system for Angular Material applications that enabl
 - **🎬 Smooth theme transitions** - Visually pleasing theme changes with overlay or morph effects
 - **🗺️ Hierarchical theming** - Different sections of your app can have different themes
 
+## Demo
+
+```bash
+[npm install @spider-baby/material-theming](https://spiderbabymaterialtheming.web.app/)
+```
+
 ## Installation
 
 ```bash
