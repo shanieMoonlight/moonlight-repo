@@ -8,12 +8,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/mat-theme-demo",
         "index": "apps/mat-theme-demo/src/index.html",
         "browser": "apps/mat-theme-demo/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/mat-theme-demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -22,7 +26,9 @@
             "input": "apps/mat-theme-demo/public"
           }
         ],
-        "styles": ["apps/mat-theme-demo/src/styles.scss"],
+        "styles": [
+          "apps/mat-theme-demo/src/styles.scss"
+        ],
         "scripts": [],
         "server": "apps/mat-theme-demo/src/main.server.ts",
         "ssr": {
@@ -77,7 +83,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/mat-theme-demo/jest.config.ts"
       }
@@ -89,6 +97,29 @@
         "port": 4200,
         "staticFilePath": "dist/apps/mat-theme-demo/browser",
         "spa": true
+      }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/mat-theme-demo/server",
+        "main": "apps/mat-theme-demo/src/main.server.ts",
+        "tsConfig": "apps/mat-theme-demo/tsconfig.server.json"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "sourceMap": false,
+          "optimization": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "prerender": {
+      "executor": "@angular-devkit/build-angular:prerender",
+      "options": {
+        "browserTarget": "mat-theme-demo:build:production",
+        "serverTarget": "mat-theme-demo:server:production"
       }
     }
   }

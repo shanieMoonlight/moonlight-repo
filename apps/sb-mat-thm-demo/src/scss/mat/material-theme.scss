@@ -1,0 +1,36 @@
+// Custom Theming for Angular Material
+@use "@angular/material" as mat;
+
+// Import color overrides
+@use "./overrides/mat-color-overrides.scss" as matColorOverrides;
+
+// Fonts
+$font-family: 'Roboto, "Helvetica Neue", sans-serif';
+
+// Define typography configuration as a separate variable
+$demo-typography: (
+  plain-family: Roboto,
+  brand-family: Open Sans,
+  bold-weight: 900,
+  medium-weight: 500,
+  regular-weight: 300,
+);
+
+
+// Angular Material v19 theme setup This is still required for shapes, border-radius etc.
+html {
+  // Leave the color palette empty as we're handling colors via CSS variables.
+  // Using our theming system
+  @include mat.theme((
+    typography: Roboto,
+    density: 0
+  ));
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+}
+
+// Include core styles - only needed once per application
+@include mat.core();

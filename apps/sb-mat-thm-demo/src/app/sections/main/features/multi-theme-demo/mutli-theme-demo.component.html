@@ -1,0 +1,38 @@
+<div class="demo-container">
+  <section class="header-section">
+    <h2>Multi-Theme Demo</h2>
+    <p class="mat-subtitle-1">{{ _demoDescription() }}</p>
+    <p class="mat-caption sub-description">{{ _demoSubDescription() }}</p>
+  </section>
+
+  
+
+  <!-- <section class="how-it-works"> -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>How Local Theming Works</mat-card-title>
+      <mat-card-subtitle>
+        The following code applies the selected theme only to this card and its children, without affecting the rest of the app:
+      </mat-card-subtitle>
+      </mat-card-header>  
+      <mat-card-content>
+        <pre><code class="language-typescript">
+          {{_codeExample()}}
+        </code></pre>
+        <p>
+          These element will not be affected by the global app theme.  Try for yourself with the theme picker or dark mode switch in the nav.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  <!-- </section> -->
+  
+
+  <div class="api-grid">
+    @for (card of demoCards; track card.title) {
+      <ml-theme-demo-card
+        [config]="card"
+        [availableThemes]="themeService.availableThemes()"
+        [progressValue]="progressValue"/>
+    }
+  </div>
+</div>

@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CustomizationComponent as CustomizationComponent } from './customization.component';
+
+describe('ThemingComponent', () => {
+  let component: CustomizationComponent;
+  let fixture: ComponentFixture<CustomizationComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CustomizationComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CustomizationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

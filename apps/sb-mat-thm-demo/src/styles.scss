@@ -1,0 +1,11 @@
+@use "scss/mat/material-theme.scss" as *;
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0.1;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

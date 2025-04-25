@@ -1,0 +1,106 @@
+<div class="card-container">
+  <!-- Top Banner -->
+  <ml-current-theme-banner/>
+
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <div class="header-content">
+        <div>
+          <mat-card-title>Theme: {{ _currentTheme()?.label }}</mat-card-title>
+          <mat-card-subtitle>Change theme and dark mode for this card only in real-time</mat-card-subtitle>
+        </div>
+        <section class="config header-actions">
+          <div class="theme-actions">
+            <!-- Every theme gets it's own Theme Selector. Completely local theming-->
+            <ml-theme-picker
+              [themes]="_availableThemes()"
+              [currentTheme]="_currentTheme()"
+              (themeChange)="_changeThemeClick$.next($event)"/>
+            <ml-light-dark-toggle 
+              [checked]="_currentDarkMode()"
+              (modeChanged)="_changeDarkModeClick$.next($event)"/>
+          </div>
+        </section>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <!-- Buttons Showcase -->
+      @if (_config().type === 'buttons') {
+        <div class="button-row">
+          <button mat-button class="primary">Primary</button>
+          <button mat-raised-button class="primary">Raised</button>
+          <button mat-stroked-button class="primary">Stroked</button>
+          <button mat-flat-button class="primary">Flat</button>
+          <button mat-mini-fab class="primary"><mat-icon>add</mat-icon></button>
+        </div>
+        <div class="button-row">
+          <button mat-button class="secondary">Secondary</button>
+          <button mat-raised-button class="secondary">Secondary</button>
+          <button mat-stroked-button class="secondary">Stroked</button>
+          <button mat-flat-button class="secondary">Flat</button>
+          <button mat-mini-fab class="secondary"><mat-icon>edit</mat-icon></button>
+        </div>        
+        <div class="button-row">
+          <button mat-button class="tertiary">Tertiary</button>
+          <button mat-raised-button class="tertiary">Tertiary</button>
+          <button mat-stroked-button class="tertiary">Stroked</button>
+          <button mat-flat-button class="tertiary">Flat</button>
+          <button mat-mini-fab class="tertiary"><mat-icon>edit</mat-icon></button>
+        </div>
+      }
+      
+      <!-- Theme Info -->
+      @if (_config().type === 'info') {
+        <div class="theme-info">
+          <div class="theme-property">
+            <strong>Name:</strong> {{ _currentTheme()?.label }}
+          </div>
+          <div class="theme-property">
+            <strong>ID:</strong> {{ _currentTheme()?.value }}
+          </div>
+          <div class="theme-property">
+            <strong>Dark Mode:</strong> {{ _currentDarkMode() ? 'Enabled' : 'Disabled' }}
+          </div>
+          <div class="theme-property">
+            <strong>Primary Color:</strong> 
+            <span class="color-box" [style.background-color]="_currentTheme()?.primaryColor"></span>
+            {{ _currentTheme()?.primaryColor }}
+          </div>
+          <div class="theme-property">
+            <strong>Secondary Color:</strong> 
+            <span class="color-box" [style.background-color]="_currentTheme()?.secondaryColor"></span>
+            {{ _currentTheme()?.secondaryColor }}
+          </div>
+        </div>
+      }
+      
+      <!-- Quick Actions -->
+      @if (_config().type === 'actions') {
+        <div class="actions-container">
+          
+          <button mat-raised-button color="accent" (click)="randomizeLocalTheme()">
+            Random Theme
+          </button>
+          
+          <button mat-stroked-button color="warn" (click)="resetToDefaults()">
+            Reset to Default
+          </button>
+        </div>
+        
+        <div class="progress-container">
+          <mat-progress-bar mode="determinate" [value]="_progressValue()" color="primary"/>
+          <mat-progress-bar mode="indeterminate" color="accent"/>
+        </div>
+      }
+      
+      <!-- Code Example (shown for all types) -->
+      <!-- <div class="code-example">
+        <pre><code>{{ _config().codeExample }}</code></pre>
+      </div> -->
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Bottom Banner -->
+  <ml-current-theme-banner/>
+</div>
