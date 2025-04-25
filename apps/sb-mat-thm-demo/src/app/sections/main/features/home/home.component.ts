@@ -9,6 +9,16 @@ import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider
 import { DEFAULT_COLOR_TONES } from '@spider-baby/material-theming/config';
 import { MlThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
+import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { AppConstants } from '../.././../../config/constants';
+import { HomeGettingStartedComponent } from './ui/getting-started/getting-started.component';
+import { HomePerformanceComponent } from "./ui/performance/performance.component";
+import { HomeColorVarsComponent } from './ui/color-vars/color-vars.component';
+import { PersistenceComponent } from "./ui/persistence/persistence.component";
+import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes.component";
+import { HomeSectionHdrComponent } from "./ui/section-hdr/section-hdr.component";
+import { GitComponent } from "./ui/git/git.component";
+import { CardsComponent } from "./ui/cards/cards.component";
 @Component({
   selector: 'sb-home',
   imports: [
@@ -21,8 +31,17 @@ import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     MlThemeShowcaseMatComponent,
-    MlCurrentThemeBannerComponent
-  ],
+    MlCurrentThemeBannerComponent,
+    NavigateNewWindowDirective,
+    HomeGettingStartedComponent,
+    HomePerformanceComponent,
+    HomeColorVarsComponent,
+    PersistenceComponent,
+    SectionedThemesComponent,
+    HomeSectionHdrComponent,
+    GitComponent,
+    CardsComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,142 +50,9 @@ export class HomeComponent {
 
   protected _tones = signal(DEFAULT_COLOR_TONES)
 
+  protected _gitRepoUrl = signal(AppConstants.GIT_REPO)
 
-  // Installation and setup code snippets as signals
-  protected _npmInstallCmd = signal('npm install @spider-baby/material-theming');
-
-  protected _basicSetupCode = signal(`// app.config.ts
-import { ThemeAndModeSetup } from '@spider-baby/material-theming/config';
-
-export const appConfig: ApplicationConfig = {
-providers: [
-  // ... other providers
-    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
-]
-};`);
-
-
-protected _customConfigCode = signal(`// app-theme.config.ts
-
-  import { ThemeConfig } from '@spider-baby/material-theming/config';
   
-  export const THEME_CONFIG = ThemeConfig.create([
-    { 
-      value: 'ocean-blue', 
-      label: 'Ocean Blue', 
-      primaryColor: '#0277BD', 
-      secondaryColor: '#26A69A' 
-      tertiaryColor: '#8B0000', //(optional)
-      errorColor: '#FF0000',//(optional)
-    },
-    { 
-      value: 'sunset-orange', 
-      label: 'Sunset Orange', 
-      primaryColor: '#FF5722', 
-      secondaryColor: '#FFC107' 
-    }
-  ]);
-  `);
-
-protected _customConfigAcvancedCode = signal(`// app-theme.config.ts (Dynamic)
- 
-  import { ThemeConfig, ThemeOption } from '@spider-baby/material-theming/config';
-
-  const today = new Date();
-  const thisYear = today.getFullYear();
-  const xmasTime = new Date(thisYear, 11, 1);
-  const halloweenTimeStart = new Date(thisYear, 10, 1);
-  const halloweenTimeEnd = new Date(thisYear, 11, 1);
-  export const IS_XMAS = today >= xmasTime;
-  export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTimeEnd;
-
-
-  const _themeOptions: ThemeOption[] = [
-    ThemeOption.create({
-      value: 'ocean-blue', 
-      label: 'Ocean Blue', 
-      primaryColor: '#0277BD', 
-      secondaryColor: '#26A69A' 
-      tertiaryColor: '#8B0000', //(optional)
-      errorColor: '#FF0000',//(optional)
-    }),
-    ThemeOption.create({
-      value: 'sunset-orange', 
-      label: 'Sunset Orange', 
-      primaryColor: '#FF5722', 
-      secondaryColor: '#FFC107' 
-    })
-  ];
-
-  export const XMAS_THEME: ThemeOption = ThemeOption.create({
-     darkMode: 'light',
-    label: 'Xmas',
-    value: 'xmas',
-    primaryColor: '#C8102E',
-    secondaryColor: '#006747',
-  });
-
-  export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
-     darkMode: 'dark',
-    label: 'Halloween',
-    value: 'halloween-theme',
-    primaryColor: '#FF7518',
-    secondaryColor: '#31004a',
-  });
-
-  if (IS_XMAS) _themeOptions.push(XMAS_THEME);
-  if (IS_HALLOWEEN) _themeOptions.push(HALLOWEEN_THEME);
-
-  export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
-  `);
-
-
-  protected _componentUsageCode = signal(`<!-- Add to your template -->
-    <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
-    <sb-theme-picker-mat></sb-theme-picker-mat>
-    
-  This will allow users to change Themes and Dark Mode as the wish
-    `  );
-
-    protected _scssCode = signal(`
-// Custom Theming for Angular Material
-// Add this to your global styles.scss or a separate theming file that you import in your main styles.scss
-
-
-// Import @angular/material
-@use "@angular/material" as mat;
-
-// Import color overrides (Optional)
-@use "./overrides/mat-color-overrides.scss" as matColorOverrides;
-
-
-// @angular/material - Include core styles 
-// (only needed once per application)
-@include mat.core();
-
-
-html {
-
-  // @angular/material v19 theme setup. This is still required for shapes, border-radius etc.
-  // Leave the color palette empty as we're handling colors via CSS variables using our Theming System.
-  @include mat.theme((
-      typography: Roboto,
-      density: 0));
-}
-
-
-html,
-body {
-  height: 100%;
-}
-
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-      `);
 
 }
 

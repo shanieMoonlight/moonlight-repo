@@ -1,19 +1,11 @@
 <mat-toolbar >
-    @if(!isSmallScreen()){
-        <div class="navlink"
-            [routerLink]="'home'"
-            routerLinkActive="active"  
-            [matTooltip]="'Home'">
-            Home
-        </div>
-    }@else {
-        <img class="navlink" 
-            src="images/tranparent/small/spider-baby-6.png" alt="SpiderBaby Material" 
-            [routerLink]="'home'"
-            routerLinkActive="active" 
-            [matTooltip]="'Home'"
-            [attr.aria-label]="'home'"/>
-    }
+    
+<img class="navlink" 
+    src="images/tranparent/small/spider-baby-6.png" alt="SpiderBaby Material" 
+    [routerLink]="'home'"
+    routerLinkActive="active" 
+    [matTooltip]="'Home'"
+    [attr.aria-label]="'home'"/>
     
     
     

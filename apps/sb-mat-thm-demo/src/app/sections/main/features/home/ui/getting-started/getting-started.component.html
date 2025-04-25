@@ -1,0 +1,87 @@
+
+<sb-home-section-hdr 
+  [sectionNumber]="_sectionNumber()" 
+  [title]="'Getting Started'"/>
+
+<div class="mat-required-blurb">
+    <h3>Prerequisites</h3>
+    <strong>Note:</strong> This library requires
+    <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.<br>
+    See the <a href="https://material.angular.io/guide/getting-started" target="_blank" rel="noopener">Angular Material Getting Started
+        Guide</a> for full setup instructions.
+    <br>
+    <br>
+    <strong>Angular Material Setup:</strong>
+    <br>
+    This command will install all dependencies and set up themes, fonts, and animations automatically.<br>
+    <pre><code>ng add &#64;angular/material</code></pre>
+    or manual install
+    <br>
+    <!-- <strong>Manual install:</strong> -->
+    <pre><code>npm install &#64;angular/material &#64;angular/cdk</code></pre>
+</div>
+<h3>Installation</h3>
+<pre><code>{{ _npmInstallCmd() }}</code></pre>
+
+<h3>Custom Theme Config</h3>
+<pre><code>{{ _customConfigCode() }}</code></pre>
+
+<h3>Custom Theme Config (Dynamic)</h3>
+<pre><code>{{ _customConfigAcvancedCode() }}</code></pre>
+
+<h3>Register provider</h3>
+<pre><code>{{ _basicSetupCode() }}</code></pre>
+
+<h3>Style Setup</h3>
+<pre><code>{{ _scssCode() }}</code></pre>
+
+<h3>Using Color Overrides</h3>
+<p>
+    To customize Material button and FAB colors with your theme’s CSS variables, import the provided SCSS overrides in your global or feature
+    styles:
+</p>
+<p>
+    This will asllow you apply your theme’s primary, secondary, tertiary, and error colors to all Material buttons, FABs and other Mat Components using CSS variables. You can
+    see this in action in our <code>Theme Showcase</code> demo.
+</p>
+    <pre><code>&#64;use '&#64;spider-baby/material-theming/styles/mat-color-overrides.scss' as *;</code></pre>
+    
+    <h3>Button Color Overrides: Example</h3>
+    <p>
+      Below you can see the code to use a themed button, and the actual result:
+    </p>
+    
+    <div class="button-examples">
+      <div class="button-example-row">
+        <pre><code>&lt;button mat-flat-button class="primary"&gt;Primary&lt;/button&gt;</code></pre>
+        <button mat-flat-button class="primary">Primary</button>
+      </div>
+      <div class="button-example-row">
+        <pre><code>&lt;button mat-flat-button class="secondary"&gt;Secondary&lt;/button&gt;</code></pre>
+        <button mat-flat-button class="secondary">Secondary</button>
+      </div>
+      <div class="button-example-row">
+        <pre><code>&lt;button mat-flat-button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre>
+        <button mat-flat-button class="tertiary">Tertiary</button>
+      </div>
+    </div>
+
+<h3>Component Usage</h3>
+<pre><code>{{ _componentUsageCode() }}</code></pre>
+
+
+
+<mat-divider />
+
+<div class="mat-theme-warning" style="margin-top:2rem; color:#b71c1c;">
+    <strong>Note:</strong> The theme will only be initialized if the <code>ThemeService</code> is injected at least once in your app, 
+    <br>or if you are using our <code>MlThemePickerMatComponent</code> or <code>MlDarkModeToggleMatComponent</code> .
+    <br>
+    
+    <br>
+    If not ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
+    <small>
+      Example:<br>
+      <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code>
+    </small>
+  </div>

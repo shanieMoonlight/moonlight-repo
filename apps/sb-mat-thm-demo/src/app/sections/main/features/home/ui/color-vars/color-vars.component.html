@@ -1,0 +1,142 @@
+
+
+<div class="section-heading-actions">
+    <sb-home-section-hdr 
+        [sectionNumber]="_sectionNumber()" 
+        [title]="'Accessing Material Colors in CSS'"/>
+    <button mat-raised-button color="primary" 
+        routerLink="/main/variables-list">
+        <mat-icon>format_list_bulleted</mat-icon>
+        View Complete Variables List
+    </button>
+</div>
+
+    
+    <mat-card>
+                <mat-card-header>
+                    <mat-card-title>CSS Variables-Based Theming</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        Unlike traditional Angular Material theming, this library uses CSS variables to apply themes at runtime:
+                    </p>
+                    <!-- <pre><code>html {{        // Empty theme - variables set by ThemeGeneratorService        @include mat.theme(());      }}</code></pre> -->
+                    <p>Theme colors are exposed via both Material Design and custom CSS variables:</p>
+                    <ul>
+                        <ul class="color-variables-list">
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-sys-primary)"></span>
+                                <code>--mat-sys-primary</code> - Material design system colors
+                            </li>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-sys-secondary)"></span>
+                                <code>--mat-sys-secondary</code> - Material design system colors
+                            </li>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-sys-tertiary)"></span>
+                                <code>--mat-sys-tertiary</code> - Material design system colors
+                            </li>
+                            <mat-divider />
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-seed-primary)"></span>
+                                <code>--mat-seed-primary</code> - Original theme seed colors
+                            </li>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-seed-secondary)"></span>
+                                <code>--mat-seed-secondary</code> - Original theme seed colors
+                            </li>
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--mat-seed-tertiary)"></span>
+                                <code>--mat-seed-tertiary</code> - Original theme seed colors
+                            </li>
+                            <mat-divider />
+                            <li>
+                                <span class="color-swatch" style="background-color: var(--color-primary-40)"></span>
+                                <code>--color-primary-40</code> - Primary color palette (40)
+                            </li>
+                        </ul>
+                    </ul>
+
+                    <div class="tone-showcase">
+                        <h4>Primary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-primary-[tone])</code></p>
+
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-primary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Secondary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-secondary-[tone])</code></p>
+
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-secondary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Tertiary Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-tertiary-[tone])</code></p>
+
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-tertiary-' + tone + ')'"
+                                    [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Error Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-error-[tone])</code></p>
+
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-error-' + tone + ')'"
+                                    [style.background-color]="'var(--color-error-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tone-showcase">
+                        <h4>Neutral Color Palette Tones</h4>
+                        <p>Access any tone with <code>var(--color-neutral-[tone])</code></p>
+
+                        <div class="tone-grid">
+                            @for (tone of _tones(); track $index) {
+                            <div class="tone-item">
+                                <div class="tone-swatch" 
+                                    [matTooltip]="'var(--color-neutral-' + tone + ')'"
+                                    [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
+                                <span class="tone-label">{{tone}}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <p>These variables are set by the <code>ThemeGeneratorService</code> and can be used in your CSS stylesheets.</p>
+                        <p>Try switching themes to see these colors change dynamically!</p>
+                    </div>
+                </mat-card-content>
+                <mat-card-footer>
+                </mat-card-footer>
+            </mat-card>

@@ -1,0 +1,27 @@
+@use '../@common/common.scss' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+
+
+
+
+.mat-theme-warning {
+  code {
+    margin: 0 5px;
+    font-size: 1rem;
+    color: #7e0000;
+  }
+}
+
+
+:host-context(.dark-mode) .mat-theme-warning {
+  code {
+    margin: 0 5px;
+    font-size: 1rem;
+    color: #bd7272;
+  }
+}

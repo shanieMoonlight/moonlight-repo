@@ -6,7 +6,7 @@
         
     <!-- Add GitHub link here -->
     <div class="repo-link">
-        <a href="https://github.com/yourusername/spider-baby-material-theming" 
+        <a [href]="_gitRepoUrl()" 
            target="_blank" 
            rel="noopener noreferrer" 
            mat-raised-button 
@@ -19,428 +19,58 @@
 
     <mat-divider />
 
-    <ml-current-theme-banner [withTooltips]="true" />
-
+    
     <section class="features">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Dark Mode Toggle</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Easily add a dark mode toggle to your application with smooth transitions.</p>
-                <div class="component-demo">
-                    <div class="toggle-option">
-                        <span class="option-label">Icon only:</span>
-                        <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
-                    </div>
-                    <div class="toggle-option">
-                        <span class="option-label">With switch:</span>
-                        <ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <!-- <button mat-button routerLink="/components/dark-mode-toggle">Learn More</button> -->
-            </mat-card-actions>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Theme Picker</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Let users choose from predefined themes, including your seasonal options.</p>
-                <div class="component-demo">
-                    <ml-theme-picker-mat />
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <!-- <button mat-button routerLink="/components/theme-picker">Learn More</button> -->
-            </mat-card-actions>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Theme Customization</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Allow users to create and save their own custom themes.</p>
-                <div class="component-demo centered">
-                    <button mat-raised-button color="primary" routerLink="/main/custom-theming">
-                        <mat-icon>palette</mat-icon>
-                        Open Theme Customizer
-                    </button>
-                </div>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Multi Theme Demo</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Showcase multiple independently themed sections on a single page. Each card demonstrates local theme and dark mode switching.</p>
-                <div class="component-demo centered">
-                    <button mat-raised-button color="primary" routerLink="/main/multi-demo">
-                        <mat-icon>view_module</mat-icon>
-                        Open Multi Theme Demo
-                    </button>
-                </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button routerLink="/main/multi-demo">Learn More</button>
-            </mat-card-actions>
-        </mat-card>
+        <ml-current-theme-banner [withTooltips]="true" />
+        <sb-home-cards/>
+        <ml-current-theme-banner [withTooltips]="true" />
     </section>
 
 
-    <ml-current-theme-banner [withTooltips]="true" />
 
     <mat-divider />
 
+
     <section>
-        <h2 class="numbered-heading">
-            <span class="section-number">01</span>
-            Performance Advantages
-        </h2>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Optimized Performance & Bundle Size</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>The library is designed for optimal performance and reduced bundle size:</p>
-                <ul class="feature-list">
-                    <li>
-                        <mat-icon color="primary">speed</mat-icon>
-                        <span><strong>Smaller bundle sizes</strong> - Color palettes are generated at runtime instead of shipping pre-compiled CSS for
-                            each theme</span>
-                    </li>
-                    <li>
-                        <mat-icon color="primary">compress</mat-icon>
-                        <span><strong>Tree-shakable architecture</strong> - Secondary entry points allow you to import only what you need</span>
-                    </li>
-                    <li>
-                        <mat-icon color="primary">cached</mat-icon>
-                        <span><strong>Memoized color generation</strong> - Palette calculations are cached to prevent redundant work</span>
-                    </li>
-                    <li>
-                        <mat-icon color="primary">sync</mat-icon>
-                        <span><strong>Batched updates</strong> - DOM changes use requestAnimationFrame for optimal rendering performance</span>
-                    </li>
-                </ul>
-            </mat-card-content>
-        </mat-card>
+        <sb-home-performance [sectionNumber]="'01'"/>
     </section>
 
     <mat-divider />
 
     <section class="getting-started">
-        <h2 class="numbered-heading">
-            <span class="section-number">02</span>
-            Getting Started
-        </h2>
-        <div class="mat-required-blurb">
-            <h3>Prerequisites</h3>
-            <strong>Note:</strong> This library requires
-            <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.<br>
-            See the <a href="https://material.angular.io/guide/getting-started" target="_blank" rel="noopener">Angular Material Getting Started
-                Guide</a> for full setup instructions.
-            <br>
-            <br>
-            <strong>Angular Material Setup:</strong>
-            <br>
-            This command will install all dependencies and set up themes, fonts, and animations automatically.<br>
-            <pre><code>ng add &#64;angular/material</code></pre>
-            or manual install
-            <br>
-            <!-- <strong>Manual install:</strong> -->
-            <pre><code>npm install &#64;angular/material &#64;angular/cdk</code></pre>
-        </div>
-        <h3>Installation</h3>
-        <pre><code>{{ _npmInstallCmd() }}</code></pre>
+        <sb-home-getting-started [sectionNumber]="'02'"/>
+     </section>
 
-        <h3>Custom Theme Config</h3>
-        <pre><code>{{ _customConfigCode() }}</code></pre>
+     <mat-divider />
+     
+    <section class="color-vars">
+        <sb-home-color-vars [sectionNumber]="'03'"/>
+     </section>
 
-        <h3>Custom Theme Config (Dynamic)</h3>
-        <pre><code>{{ _customConfigAcvancedCode() }}</code></pre>
+     <mat-divider />
 
-        <h3>Register provider</h3>
-        <pre><code>{{ _basicSetupCode() }}</code></pre>
-
-        <h3>Style Setup</h3>
-        <pre><code>{{ _scssCode() }}</code></pre>
-
-        <h3>Using Color Overrides</h3>
-        <p>
-            To customize Material button and FAB colors with your theme’s CSS variables, import the provided SCSS overrides in your global or feature
-            styles:
-        </p>
-        <p>
-            This will asllow you apply your theme’s primary, secondary, tertiary, and error colors to all Material buttons, FABs and other Mat Components using CSS variables. You can
-            see this in action in our <code>Theme Showcase</code> demo.
-        </p>
-            <pre><code>&#64;use '&#64;spider-baby/material-theming/styles/mat-color-overrides.scss' as *;</code></pre>
-            
-            <h3>Button Color Overrides: Example</h3>
-            <p>
-              Below you can see the code to use a themed button, and the actual result:
-            </p>
-            
-            <div class="button-examples">
-              <div class="button-example-row">
-                <pre><code>&lt;button mat-flat-button class="primary"&gt;Primary&lt;/button&gt;</code></pre>
-                <button mat-flat-button class="primary">Primary</button>
-              </div>
-              <div class="button-example-row">
-                <pre><code>&lt;button mat-flat-button class="secondary"&gt;Secondary&lt;/button&gt;</code></pre>
-                <button mat-flat-button class="secondary">Secondary</button>
-              </div>
-              <div class="button-example-row">
-                <pre><code>&lt;button mat-flat-button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre>
-                <button mat-flat-button class="tertiary">Tertiary</button>
-              </div>
-            </div>
-
-        <h3>Component Usage</h3>
-        <pre><code>{{ _componentUsageCode() }}</code></pre>
-    </section>
+     <section class="persistence">
+        <sb-home-persistence [sectionNumber]="'04'"/>
+     </section> 
 
     <mat-divider />
 
-    <div class="mat-theme-warning" style="margin-top:2rem; color:#b71c1c;">
-        <strong>Note:</strong> The theme will only be initialized if the <code>ThemeService</code> is injected at least once in your app, 
-        <br>or if you are using our <code>MlThemePickerMatComponent</code> or <code>MlDarkModeToggleMatComponent</code> .
-        <br>
-        
-        <br>
-        If not ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
-        <small>
-          Example:<br>
-          <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code>
-        </small>
-      </div>
+     <section class="section-based-theming">
+        <sb-home-sectioned-themes [sectionNumber]="'05'"/>
+     </section>
 
-    <mat-divider />
+<mat-divider />
 
-    <section class="technical-features">
-        <div class="section-heading-actions">
-            <h2 class="numbered-heading">
-                <span class="section-number">03</span>
-                Accessing Material Colors in CSS
-            </h2>
-            <button mat-raised-button color="primary" routerLink="/main/variables-list">
-                <mat-icon>format_list_bulleted</mat-icon>
-                View Complete Variables List
-            </button>
-        </div>
-        <div class="tech-cards">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>CSS Variables-Based Theming</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        Unlike traditional Angular Material theming, this library uses CSS variables to apply themes at runtime:
-                    </p>
-                    <!-- <pre><code>html {{        // Empty theme - variables set by ThemeGeneratorService        @include mat.theme(());      }}</code></pre> -->
-                    <p>Theme colors are exposed via both Material Design and custom CSS variables:</p>
-                    <ul>
-                        <ul class="color-variables-list">
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-sys-primary)"></span>
-                                <code>--mat-sys-primary</code> - Material design system colors
-                            </li>
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-sys-secondary)"></span>
-                                <code>--mat-sys-secondary</code> - Material design system colors
-                            </li>
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-sys-tertiary)"></span>
-                                <code>--mat-sys-tertiary</code> - Material design system colors
-                            </li>
-                            <mat-divider />
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-seed-primary)"></span>
-                                <code>--mat-seed-primary</code> - Original theme seed colors
-                            </li>
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-seed-secondary)"></span>
-                                <code>--mat-seed-secondary</code> - Original theme seed colors
-                            </li>
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--mat-seed-tertiary)"></span>
-                                <code>--mat-seed-tertiary</code> - Original theme seed colors
-                            </li>
-                            <mat-divider />
-                            <li>
-                                <span class="color-swatch" style="background-color: var(--color-primary-40)"></span>
-                                <code>--color-primary-40</code> - Primary color palette (40)
-                            </li>
-                        </ul>
-                    </ul>
+<section class="showcase">
+    <sb-home-section-hdr 
+        [sectionNumber]="'06'" 
+        [title]="'Theme Preview'"/>
+    <p>See how Material components look with the currently selected theme:</p>
+    <ml-theme-showcase-mat />
+</section>
 
-                    <div class="tone-showcase">
-                        <h4>Primary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-primary-[tone])</code></p>
+<mat-divider />
 
-                        <div class="tone-grid">
-                            @for (tone of _tones(); track $index) {
-                            <div class="tone-item">
-                                <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-primary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
-                                <span class="tone-label">{{tone}}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="tone-showcase">
-                        <h4>Secondary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-secondary-[tone])</code></p>
-
-                        <div class="tone-grid">
-                            @for (tone of _tones(); track $index) {
-                            <div class="tone-item">
-                                <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-secondary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
-                                <span class="tone-label">{{tone}}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="tone-showcase">
-                        <h4>Tertiary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-tertiary-[tone])</code></p>
-
-                        <div class="tone-grid">
-                            @for (tone of _tones(); track $index) {
-                            <div class="tone-item">
-                                <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-tertiary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
-                                <span class="tone-label">{{tone}}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="tone-showcase">
-                        <h4>Error Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-error-[tone])</code></p>
-
-                        <div class="tone-grid">
-                            @for (tone of _tones(); track $index) {
-                            <div class="tone-item">
-                                <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-error-' + tone + ')'"
-                                    [style.background-color]="'var(--color-error-' + tone + ')'"></div>
-                                <span class="tone-label">{{tone}}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="tone-showcase">
-                        <h4>Neutral Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-neutral-[tone])</code></p>
-
-                        <div class="tone-grid">
-                            @for (tone of _tones(); track $index) {
-                            <div class="tone-item">
-                                <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-neutral-' + tone + ')'"
-                                    [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
-                                <span class="tone-label">{{tone}}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <p>These variables are set by the <code>ThemeGeneratorService</code> and can be used in your CSS stylesheets.</p>
-                        <p>Try switching themes to see these colors change dynamically!</p>
-                    </div>
-                </mat-card-content>
-                <mat-card-footer>
-                </mat-card-footer>
-            </mat-card>
-
-            <mat-divider />
-
-            <section class="persistence">
-                <h2 class="numbered-heading">
-                    <span class="section-number">04</span>
-                    Persistent Preferences
-                </h2>
-                <mat-card>
-                    <mat-card-content>
-                        <p>User preferences are automatically saved between sessions:</p>
-                        <ul class="feature-list">
-                            <li>
-                                <mat-icon color="primary">save</mat-icon>
-                                <span><strong>Theme selection</strong> - Users' chosen theme is remembered</span>
-                            </li>
-                            <li>
-                                <mat-icon color="primary">brightness_4</mat-icon>
-                                <span><strong>Dark mode preference</strong> - Light/dark mode setting persists</span>
-                            </li>
-                            <li>
-                                <mat-icon color="primary">brush</mat-icon>
-                                <span><strong>Custom themes</strong> - User-created themes are stored</span>
-                            </li>
-                            <li>
-                                <mat-icon color="primary">settings</mat-icon>
-                                <span><strong>Configurable storage</strong> - Uses localStorage by default with options for custom storage
-                                    strategies</span>
-                            </li>
-                        </ul>
-                    </mat-card-content>
-                </mat-card>
-            </section>
-
-            <mat-divider />
-
-            <section class="section-based-theming">
-                <h2 class="numbered-heading">
-                    <span class="section-number">05</span>
-                    Section-Based Theming
-                </h2>
-                <mat-card>
-                    <mat-card-content>
-                        <p>Create unique theme contexts for different sections of your application:</p>
-                        <ul class="feature-list">
-                            <li>
-                                <mat-icon color="primary">account_tree</mat-icon>
-                                <span><strong>Route-specific themes</strong> - Define different theme palettes for separate areas of your app</span>
-                            </li>
-                            <li>
-                                <mat-icon color="primary">swap_horiz</mat-icon>
-                                <span><strong>Context switching</strong> - Automatically change available themes when navigating between
-                                    sections</span>
-                            </li>
-                            <li>
-                                <mat-icon color="primary">settings_backup_restore</mat-icon>
-                                <span><strong>Smart restoration</strong> - Previous theme context returns when leaving a themed section</span>
-                            </li>
-                        </ul>
-
-                        <div class="component-demo centered">
-                            <button mat-raised-button color="primary" routerLink="/seasons">
-                                <mat-icon>palette</mat-icon>
-                                Try Seasonal Themes Demo
-                            </button>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </section>
-
-            <mat-divider />
-
-            <section class="showcase">
-                <h2 class="numbered-heading">
-                    <span class="section-number">06</span>
-                    Theme Preview
-                </h2>
-                <p>See how Material components look with the currently selected theme:</p>
-                <ml-theme-showcase-mat />
-            </section>
-        </div>
+<section class="section-based-theming">
+    <sb-home-git [sectionNumber]="'07'"/>
+</section>

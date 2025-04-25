@@ -1,0 +1,90 @@
+@use '../@common/common.scss' as *;
+
+
+
+.color-variables-list {
+    list-style: none;
+    padding: 0;
+  
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+  
+    .color-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      margin-right: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+  
+    code {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-right: 6px;
+    }
+  }
+  
+  .tone-showcase {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  
+    h4 {
+      margin-bottom: 0.5rem;
+    }
+  
+    p {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+  
+    .hint {
+      font-size: 0.8rem;
+      font-style: italic;
+      opacity: 0.7;
+      margin-top: 1rem;
+    }
+  }
+  
+  .tone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tone-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    .tone-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      margin-bottom: 0.25rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, color 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      ;
+  
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+    }
+  
+    .tone-label {
+      font-size: 0.7rem;
+      color: var(--mat-sys-on-surface);
+      opacity: 0.8;
+    }
+  }
+  
+  .footer {
+    margin-top: 3rem;
+  }
