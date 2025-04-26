@@ -1,0 +1,9 @@
+{
+  "name": "mini-state-demo-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/mini-state/demo-e2e/src",
+  "implicitDependencies": ["mini-state-demo"],
+  "// targets": "to see all targets run: nx show project mini-state-demo-e2e --web",
+  "targets": {}
+}
