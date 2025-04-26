@@ -12,24 +12,36 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 21.1 # Or the Node.js version your project uses
+          node-version: 22 # Or the Node.js version your project uses
 
-      - name: Build Angular app
+      - name: Install Dependencies (root)
         run: npm ci # Or npm install if you don't have a lock file
 
-      - name: Install Dependencies
+      - name: Install Dependencies (functions)
+        run: |
+          cd functions
+          npm ci # Or npm install if you don't have a lock file
+          cd ..
+
+      - name: Build Angular app
         run: npx nx run spider-baby-mat-theming:build --configuration=production
 
       - name: Rename index.csr.html to index.html
         run: npm run postbuild:spider-baby-mat-theming
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: List files in deploy directory
+        run: ls -alR dist/apps/sb-mat-thm-demo/browser
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
+          channelId: live
           projectId: spiderbabymaterialtheming
