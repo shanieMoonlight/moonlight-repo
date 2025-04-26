@@ -1,0 +1,12 @@
+<div class="api-home-container">
+    <header class="api-header">
+      <h1>Spider Baby Mini-State API</h1>
+      <p class="subtitle">Comprehensive documentation and guides mini-state system</p>
+    </header>
+  
+    <div class="api-cards-grid">
+      @for (route of apiRoutes; track route.route) {
+        <sb-ui-cards-api-nav [data]="route"/>
+      }
+    </div>
+  </div>

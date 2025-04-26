@@ -1,0 +1,59 @@
+@use "@angular/material" as mat;
+
+//======================= CHIP ========================//
+
+.primary {
+  @include mat.chips-overrides(
+    (
+      elevated-selected-container-color: var(--mat-sys-primary-container),
+      selected-hover-state-layer-color: var(--mat-sys-on-primary-container),
+      selected-focus-state-layer-color: var(--mat-sys-on-primary-container),
+      selected-label-text-color: var(--mat-sys-on-primary-container),
+      with-icon-selected-icon-color: var(--mat-sys-on-primary-container),
+      selected-trailing-action-state-layer-color: var(--mat-sys-on-primary-container),
+      selected-trailing-icon-color: var(--mat-sys-on-primary-container)
+    )
+  );
+}
+
+.secondary {
+  @include mat.chips-overrides(
+    (
+      elevated-selected-container-color: var(--mat-sys-secondary-container),
+      selected-hover-state-layer-color: var(--mat-sys-on-secondary-container),
+      selected-focus-state-layer-color: var(--mat-sys-on-secondary-container),
+      selected-label-text-color: var(--mat-sys-on-secondary-container),
+      with-icon-selected-icon-color: var(--mat-sys-on-secondary-container),
+      selected-trailing-action-state-layer-color: var(--mat-sys-on-secondary-container),
+      selected-trailing-icon-color: var(--mat-sys-on-secondary-container)
+    )
+  );
+}
+
+.tertiary {
+  @include mat.chips-overrides(
+    (
+      elevated-selected-container-color: var(--mat-sys-tertiary-container),
+      selected-hover-state-layer-color: var(--mat-sys-on-tertiary-container),
+      selected-focus-state-layer-color: var(--mat-sys-on-tertiary-container),
+      selected-label-text-color: var(--mat-sys-on-tertiary-container),
+      with-icon-selected-icon-color: var(--mat-sys-on-tertiary-container),
+      selected-trailing-action-state-layer-color: var(--mat-sys-on-tertiary-container),
+      selected-trailing-icon-color: var(--mat-sys-on-tertiary-container)
+    )
+  );
+}
+
+.error {
+  @include mat.chips-overrides(
+    (
+      elevated-selected-container-color: var(--mat-sys-error-container),
+      selected-hover-state-layer-color: var(--mat-sys-on-error-container),
+      selected-focus-state-layer-color: var(--mat-sys-on-error-container),
+      selected-label-text-color: var(--mat-sys-on-error-container),
+      with-icon-selected-icon-color: var(--mat-sys-on-error-container),
+      selected-trailing-action-state-layer-color: var(--mat-sys-on-error-container),
+      selected-trailing-icon-color: var(--mat-sys-on-error-container)
+    )
+  );
+}

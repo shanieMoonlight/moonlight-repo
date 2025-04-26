@@ -55,6 +55,8 @@
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],
+      "@spider-baby/ui-cards": ["libs/ui/cards/src/index.ts"],
+      "@spider-baby/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
       "@spider-baby/utils-download": ["libs/utils/download/src/index.ts"],
       "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
       "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],

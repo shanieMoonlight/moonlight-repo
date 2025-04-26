@@ -1,15 +1,9 @@
 
 
+Create download setup files.
+SEO
 
-Remove or fix any remaining TODOs
-8. Final Pre-Publishing Checklist
-<input disabled="" type="checkbox"> Run all tests (nx test theming)
-<input disabled="" type="checkbox"> Build the package (nx build theming)
-<input disabled="" type="checkbox"> Check bundle size
-<input disabled="" type="checkbox"> Verify exports with a test application
-<input disabled="" type="checkbox"> Review changelogs and versioning
-<input disabled="" type="checkbox"> Check license files are present
-<input disabled="" type="checkbox"> Validate package.json configuration
+
 
 
 

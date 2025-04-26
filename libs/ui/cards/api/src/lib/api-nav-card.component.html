@@ -1,0 +1,16 @@
+<mat-card class="api-nav-card" [ngClass]="_data().color || 'primary'">
+  <mat-card-header>
+    <div mat-card-avatar class="card-icon">
+      <mat-icon>{{_data().icon}}</mat-icon>
+    </div>
+    <mat-card-title>{{_data().title}}</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <p>{{_data().description}}</p>
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <button mat-button [routerLink]="_data().route">EXPLORE</button>
+  </mat-card-actions>
+</mat-card>

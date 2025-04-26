@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'lib',
+          prefix: 'sb',
           style: 'camelCase',
         },
       ],
@@ -34,10 +34,13 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'lib',
+          prefix: 'sb',
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/no-output-rename': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off'
     },
   },
   {

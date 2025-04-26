@@ -9,26 +9,26 @@
         [attr.aria-label]="'home'"/>   
     
     @if(!isSmallScreen()){  
-    <button mat-icon-button 
-        aria-label="Git repo for project"
-        [mlNavigateNewWindow]="_gitRepoUrl()" 
-        [matTooltip]="'Git repo'">
-        <mat-icon svgIcon="git" />
-    </button>    
-    
-    <button mat-icon-button 
-        aria-label="Npm Package"
-        [mlNavigateNewWindow]="_npmPkgUrl()" 
-        [matTooltip]="'Npm Package'">
-        <mat-icon svgIcon="npm" />
-    </button>
+        <button mat-icon-button 
+            aria-label="Git repo for project"
+            [mlNavigateNewWindow]="_gitRepoUrl()" 
+            [matTooltip]="'Git repo'">
+            <mat-icon svgIcon="git" />
+        </button>    
+        
+        <button mat-icon-button 
+            aria-label="Npm Package"
+            [mlNavigateNewWindow]="_npmPkgUrl()" 
+            [matTooltip]="'Npm Package'">
+            <mat-icon svgIcon="npm" />
+        </button>
 
-    <button mat-icon-button 
-        aria-label="Share current page"
-        (click)="share()"
-        matTooltip="Share this page">
-        <mat-icon>share</mat-icon>
-    </button> 
+        <button mat-icon-button 
+            aria-label="Share current page"
+            (click)="share()"
+            matTooltip="Share this page">
+            <mat-icon>share</mat-icon>
+        </button> 
     } 
 </div>
 
@@ -44,8 +44,7 @@
             tooltip: 'Custom Themes', 
             iconName: 'tune', 
             text: 'Customize'
-        }">
-    </ng-container>
+        }"/>
 
     
     <ng-container 
@@ -55,8 +54,7 @@
             tooltip: 'Multiple Themes', 
             iconName: 'workspaces', 
             text: 'Multi-Theming'
-        }">
-    </ng-container>
+        }"/>
     
     <ng-container 
         [ngTemplateOutlet]="navItem" 
@@ -65,9 +63,17 @@
             tooltip: 'Seasonal Themes', 
             iconName: 'local_florist', 
             text: 'Seasons'
-        }">
-    </ng-container>
-  
+        }"/>
+        
+        <ng-container 
+            [ngTemplateOutlet]="navItem" 
+            [ngTemplateOutletContext]="{
+                routerLink: '/api', 
+                tooltip: 'Api Documentation', 
+                iconName: 'api', 
+                text: 'Api'
+            }"/>
+    
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){
         <ng-container [ngTemplateOutlet]="template" />

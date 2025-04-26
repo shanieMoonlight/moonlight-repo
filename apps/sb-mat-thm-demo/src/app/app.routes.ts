@@ -24,10 +24,5 @@ export const appRoutes: Route[] = [
       path: '**',
       loadComponent: () => import('./shared/features/not-found.component').then((m) => m.NotFoundComponent),
       pathMatch: 'full',
-    },
-    // {
-    //   path: '**',
-    //   loadComponent: () => import('@inigo/not-found/with-footer').then((m) => NotFoundWithFooterComponent),
-    //   data: DelayPreloader(9000),
-    // },
+    }
   ];

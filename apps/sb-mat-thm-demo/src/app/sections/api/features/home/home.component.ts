@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ApiRouteData, ApiNavCardComponent } from './ui/api-nav-card.component';
+import { SbMatApiNavCardComponent, ApiRouteData } from '@spider-baby/ui-cards/api';
 
 @Component({
   selector: 'sb-api-home',
-  imports: [ApiNavCardComponent],
+  imports: [SbMatApiNavCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
