@@ -1,7 +1,7 @@
-import { Signal, computed, signal } from "@angular/core"
+import { computed, Signal, signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { devConsole } from "@spider-baby/dev-console"
-import { BehaviorSubject, finalize, Observable, ReplaySubject, Subject, Subscription, switchMap, tap } from "rxjs"
+import { BehaviorSubject, finalize, Observable, ReplaySubject, Subject, Subscription } from "rxjs"
 
 //=========================================================//
 
@@ -10,19 +10,19 @@ const SPACE_2 = '\u200C '
 
 //=========================================================//
 
-export interface MessageWrapper {
+export interface MessageData {
     message: string;
     timestamp: number; // Or a unique ID/counter
-  }
+}
 
 //=========================================================//
 
 export class MiniState<Input, Output, TError = any> {
 
-    protected _successMsgBs = new Subject<string>()
+    protected _successMsgBs = new Subject<MessageData | undefined>()
     protected _successDataBs = new Subject<Output>()
     protected _loadingBs = new BehaviorSubject<boolean>(false)
-    protected _errorMsgBs = new Subject<string>()
+    protected _errorMsgBs = new Subject<MessageData | undefined>()
     protected _errorBs = new Subject<TError>()
 
     data$: Observable<Output>
@@ -196,7 +196,7 @@ export class MiniState<Input, Output, TError = any> {
     unsubscribe() {
 
         this._sub?.unsubscribe?.()
-        
+
         // Complete all subjects
         this._successMsgBs.complete();
         this._successDataBs.complete();
@@ -228,13 +228,13 @@ export class MiniState<Input, Output, TError = any> {
 
     //Add/remove space to make sure all messages are different. (To trigger @Inputs)
     protected emitErrorMsg = (errorMsg?: string) =>
-        errorMsg && this._errorMsgBs.next(errorMsg + this.getSpace())
+        errorMsg && this._errorMsgBs.next({ message: errorMsg, timestamp: Date.now() })
 
     //-------------------------------------//
 
     //Add/remove space to make sure all messages are different. (To trigger @Inputs)
     protected emitSuccessMsg = (successMsg?: string) =>
-        successMsg && this._successMsgBs.next(successMsg + this.getSpace())
+        successMsg && this._successMsgBs.next({ message: successMsg, timestamp: Date.now() })
 
     //-------------------------------------//
 
@@ -242,12 +242,10 @@ export class MiniState<Input, Output, TError = any> {
      * Set all popup Observables/Signals to default/empty values.
      */
     clearPopups() {
-        this._successMsgBs.next('')
-        this._errorMsgBs.next('')
+        this._successMsgBs.next(undefined)
+        this._errorMsgBs.next(undefined)
         this._loadingBs.next(false)
     }
-
-    //-------------------------------------//
 
 }
 

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, output, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { MessageData } from '@spider-baby/mini-state';
 
 @Component({
   selector: 'sb-error-modal',
@@ -115,8 +116,8 @@ export class ErrorModalComponent {
 
   _errorMsg = signal<string | undefined>(undefined);  
   @Input('errorMsg')
-  set errorMsg(value: string | null | undefined) {
-    this._errorMsg.set(value ?? undefined);
+  set errorMsg(data: MessageData | null | undefined) {
+    this._errorMsg.set(data?.message ?? undefined);
   }
 
   //- - - - - - - - - - - - - - //

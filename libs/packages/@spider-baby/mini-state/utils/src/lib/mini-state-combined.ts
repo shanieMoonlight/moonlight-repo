@@ -1,13 +1,13 @@
 import { Signal } from "@angular/core";
-import { MiniState } from "@spider-baby/mini-state";
+import { MessageData, MiniState } from "@spider-baby/mini-state";
 import { MsUtility } from "./mini-state-utility";
 
 export class MiniStateCombined {
 
-    readonly errorMsg: Signal<string | undefined>   
+    readonly errorMsg: Signal<MessageData | undefined>   
     readonly error: Signal<any>                     
     readonly loading: Signal<boolean>               
-    readonly successMsg: Signal<string | undefined> 
+    readonly successMsg: Signal<MessageData | undefined> 
     readonly data: Signal<any | undefined> 
 
     //-------------------------//    

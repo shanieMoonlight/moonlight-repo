@@ -1,5 +1,5 @@
 import { merge } from "rxjs";
-import { MiniState } from "@spider-baby/mini-state";
+import { MessageData, MiniState } from "@spider-baby/mini-state";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { Signal, computed } from "@angular/core";
 
@@ -12,14 +12,14 @@ export class MsUtility {
 
     //- - - - - - - - - - - - -//
 
-    static combineErrorMsgs = (...miniStates: MiniState<any, any>[]): Signal<string | undefined> =>
+    static combineErrorMsgs = (...miniStates: MiniState<any, any>[]): Signal<MessageData | undefined> =>
         toSignal(merge(
             ...miniStates.map(st => st.errorMsg$)
         ))
 
     //- - - - - - - - - - - - -//
 
-    static combineSuccessMsgs = (...miniStates: MiniState<any, any>[]): Signal<string | undefined> =>
+    static combineSuccessMsgs = (...miniStates: MiniState<any, any>[]): Signal<MessageData | undefined> =>
         toSignal(merge(
             ...miniStates.map(st => st.successMsg$)
         ))

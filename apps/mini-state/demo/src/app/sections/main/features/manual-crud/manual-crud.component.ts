@@ -29,7 +29,7 @@ export class ManualCrudComponent {
   //- - - - - - - - - - - - - //
 
   protected displayColumns = signal(['id', 'userId', 'title'])
-  
+
   //- - - - - - - - - - - - - //
 
   protected _getAllState = MiniStateBuilder
@@ -52,8 +52,7 @@ export class ManualCrudComponent {
   private _states = MiniStateCombined.Create(
     this._getAllState,
     this._updateState,
-    this._deleteState,
-  )
+    this._deleteState)
 
   protected _data = computed(() => this._getAllState.data() ?? [])
   protected _successMsg = this._states.successMsg
