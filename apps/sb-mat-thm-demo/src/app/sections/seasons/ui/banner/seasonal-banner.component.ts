@@ -21,6 +21,10 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
   `,
   styles: `
+    :host {
+      width: 100%;
+      display: block;
+    }
     .banner {
       position: relative;
       height: 200px;

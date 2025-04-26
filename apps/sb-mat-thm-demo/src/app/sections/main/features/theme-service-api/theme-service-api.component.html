@@ -1,0 +1,154 @@
+<div class="api-docs">
+    <h1>ThemeService API Documentation</h1>
+    <p class="description">
+      ThemeService is the core service for managing themes in your application. 
+      It provides methods and properties for setting, getting, and manipulating themes.
+    </p>
+  
+    <h2>Properties</h2>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>currentTheme</mat-panel-title>
+          <mat-panel-description>Signal&lt;ThemeOption&gt;</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>A signal that provides the current active theme.</p>
+        <pre><code [highlight]="currentThemeExample" language="typescript">????</code></pre>
+      </mat-expansion-panel>
+      
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>currentTheme$</mat-panel-title>
+          <mat-panel-description>Observable&lt;ThemeOption&gt;</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>An observable that provides the current active theme.</p>
+        <pre><code [highlight]="currentThemeObservableExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>isDarkMode</mat-panel-title>
+          <mat-panel-description>Signal&lt;boolean&gt;</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>A signal that indicates whether dark mode is currently active.</p>
+        <pre><code [highlight]="isDarkModeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>availableThemes</mat-panel-title>
+          <mat-panel-description>Signal&lt;ThemeOption[]&gt;</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>A signal that provides all available themes (system and custom).</p>
+        <pre><code [highlight]="availableThemesExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+    </mat-accordion>
+  
+    <h2>Methods</h2>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>setTheme</mat-panel-title>
+          <mat-panel-description>(theme: ThemeOption) => void</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Sets the current theme based on the provided ThemeOption object.</p>
+        <pre><code [highlight]="setThemeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>setThemeByValue</mat-panel-title>
+          <mat-panel-description>(themeValue: ThemeValue) => boolean</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Sets the current theme by its identifier value. Returns true if successful.</p>
+        <pre><code [highlight]="setThemeByValueExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>setDarkMode</mat-panel-title>
+          <mat-panel-description>(darkMode: DarkModeType | null | undefined) => void</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Sets the application's light/dark mode. Use 'light', 'dark', or 'system'.</p>
+        <pre><code [highlight]="setDarkModeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>applyTheme</mat-panel-title>
+          <mat-panel-description>(theme: ThemeOption, targetElement?: HTMLElement) => void</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Applies a theme to the document or a specific element. Useful for local theming.</p>
+        <pre><code [highlight]="applyThemeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>applyThemeByValue</mat-panel-title>
+          <mat-panel-description>(themeValue: ThemeValue, targetElement?: HTMLElement) => boolean</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Applies a theme by its value to the document or a specific element. Returns true if successful.</p>
+        <pre><code [highlight]="applyThemeByValueExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>addCustomTheme</mat-panel-title>
+          <mat-panel-description>(theme: ThemeOption) => ThemeOption[]</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Adds a custom theme to the list of available themes.</p>
+        <pre><code [highlight]="addCustomThemeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>removeCustomTheme</mat-panel-title>
+          <mat-panel-description>(value: ThemeValue) => ThemeOption[]</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Removes a custom theme by its value.</p>
+        <pre><code [highlight]="removeCustomThemeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>reapplyCurrentTheme</mat-panel-title>
+          <mat-panel-description>() => void</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Reapplies the current application theme. Useful after temporarily previewing other themes.</p>
+        <pre><code [highlight]="reapplyCurrentThemeExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>resetToDefaults</mat-panel-title>
+          <mat-panel-description>() => void</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Resets all theme settings to system defaults and clears custom themes.</p>
+        <pre><code [highlight]="resetToDefaultsExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+  
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>exportThemeSettings</mat-panel-title>
+          <mat-panel-description>() => {{ '{' }} theme: ThemeOption, isDark: boolean {{ '}' }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Exports the current theme settings as a serializable object.</p>
+        <pre><code [highlight]="exportThemeSettingsExample" language="typescript"></code></pre>
+      </mat-expansion-panel>
+    </mat-accordion>
+  
+    <h2>Usage Examples</h2>
+    <mat-tab-group>
+      <mat-tab label="Basic Usage">
+        <pre><code [highlight]="basicUsageExample" language="typescript"></code></pre>
+      </mat-tab>
+      
+      <mat-tab label="Local Theming">
+        <pre><code [highlight]="localThemingExample" language="typescript"></code></pre>
+      </mat-tab>
+      
+      <mat-tab label="Custom Themes">
+        <pre><code [highlight]="customThemesExample" language="typescript"></code></pre>
+      </mat-tab>
+    </mat-tab-group>
+  </div>

@@ -18,7 +18,7 @@ class TestHostComponent {
     primaryColor: '#FF0000',
     secondaryColor: '#00FF00',
     tertiaryColor: '#0000FF',
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   } as ThemeOption;
 }
 
@@ -47,7 +47,7 @@ describe('MlThemeBannerComponent', () => {
     primaryColor: '#FF0000',
     secondaryColor: '#00FF00',
     tertiaryColor: '#0000FF',
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   } as ThemeOption;
 
   beforeEach(async () => {

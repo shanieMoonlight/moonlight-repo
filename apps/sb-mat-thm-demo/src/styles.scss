@@ -1,2 +1,64 @@
 @use "scss/mat/material-theme.scss" as *;
+@import 'highlight.js/styles/github.css';
+@import 'highlight.js/styles/vs2015.css'; // Dark theme
 
+
+
+
+
+// // Add custom styles for code blocks
+// pre {
+//     margin: 1rem 0;
+//     border-radius: 8px;
+//     overflow: auto;
+//     max-height: 400px;
+//   }
+  
+//   code.hljs {
+//     padding: 1rem;
+//     display: block;
+//     font-family: 'Roboto Mono', monospace;
+//     font-size: 14px;
+//     line-height: 1.5;
+//     background-color: var(--mat-sys-surface-container-highest);
+//     border: 1px solid var(--mat-sys-outline-variant);
+//   }
+  
+//   // Light mode adjustments
+//   .light-theme {
+//     code.hljs {
+//       filter: brightness(1.1);
+//     }
+//   }
+
+
+
+
+
+
+// // Add this to styles.scss
+// :root {
+//     // Other styles...
+    
+//     // Light mode highlight styles (will be applied when not in dark mode)
+//     &:not(.dark-mode) {
+//       @import 'highlight.js/styles/github.css';
+      
+//       // Override some highlight styles for light mode if needed
+//       pre code.hljs {
+//         background-color: var(--mat-sys-surface-container-high);
+//         border: 1px solid var(--mat-sys-outline-variant);
+//       }
+//     }
+    
+//     // Dark mode highlight styles
+//     &.dark-mode {
+//       @import 'highlight.js/styles/vs2015.css';
+      
+//       // Override some highlight styles for dark mode if needed
+//       pre code.hljs {
+//         background-color: var(--mat-sys-surface-container-highest);
+//         border: 1px solid var(--mat-sys-outline-variant);
+//       }
+//     }
+//   }

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ScssPaletteGeneratorService } from './scss-palette-generator.service';
 import { PaletteGeneratorService } from '../palettes/palette-generator.service';
-import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, PALETTES_MAP_SCSS_VAR, ThemeOption } from '../../../../../../config/src/index';
+import { DEFAULT_COLOR_ERROR, DEFAULT_COLOR_TERTIARY, PALETTES_MAP_SCSS_VAR, ThemeOption } from  '@spider-baby/material-theming/config';
 
 describe('ScssPaletteGeneratorService', () => {
   let service: ScssPaletteGeneratorService;
@@ -14,7 +14,7 @@ describe('ScssPaletteGeneratorService', () => {
     errorColor: '#FF00FF',
     value: 'test-theme',
     label: 'Test Theme',
-     defaultDarkMode: 'light'
+    darkMode: 'light'
   };
 
   const mockPalettes = {
@@ -91,7 +91,7 @@ describe('ScssPaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'incomplete',
       label: 'Incomplete Theme',
-       defaultDarkMode: 'light'
+       darkMode: 'light'
     })
     
     const result = service.exportThemeAsScss(incompleteTheme);

@@ -54,7 +54,7 @@ export class ThemeOption {
    * @param errorColor The color used to indicate errors or destructive actions.
    * Provides consistent error state visualization across the theme.
    * 
-   * @param defaultDarkMode Determines if dark mode should be used by default.
+   * @param darkMode Determines if dark mode should be used by default.
    * When true, the theme initializes in dark mode; when false, it initializes in light mode, 
    * when 'system' will default to system preferences.
    */
@@ -65,7 +65,7 @@ export class ThemeOption {
     public readonly secondaryColor: string,
     public readonly tertiaryColor: string | null,
     public readonly errorColor: string,
-    public readonly defaultDarkMode: DarkModeType
+    public readonly darkMode: DarkModeType
   ) { }
 
   //------------------------------//
@@ -98,7 +98,7 @@ export class ThemeOption {
     errorColor?: string|null
 
     /** Optional dark mode setting (true, false, or 'system') */
-    defaultDarkMode?: DarkModeType;
+    darkMode?: DarkModeType;
 
   }): ThemeOption {
     // Validate required fields
@@ -115,7 +115,7 @@ export class ThemeOption {
       options.secondaryColor,
       options.tertiaryColor || DEFAULT_COLOR_TERTIARY,
       options.errorColor || DEFAULT_COLOR_ERROR,
-      options.defaultDarkMode ?? 'system'
+      options.darkMode ?? 'system'
     )
   }
 }
@@ -127,7 +127,7 @@ export const defaultThemeOption: ThemeOption = {
   secondaryColor: DEFAULT_COLOR_SECONDARY,
   tertiaryColor: DEFAULT_COLOR_TERTIARY,
   errorColor: DEFAULT_COLOR_ERROR,
-  defaultDarkMode: 'system',
+  darkMode: 'system',
   value: DEFAULT_THEME_VALUE,
   label: DEFAULT_THEME_LABEL,
 }
@@ -144,7 +144,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#31004a',
     tertiaryColor: '#556B2F',
     errorColor: DEFAULT_COLOR_ERROR, // Add error color
-    defaultDarkMode: 'dark' // Add fallback mode
+    darkMode: 'dark' // Add fallback mode
   },
   {
     label: 'Ocean',
@@ -153,7 +153,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#526773',
     tertiaryColor: '#6C939B',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   },
   {
     label: 'Xmas',
@@ -162,7 +162,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#006747',
     tertiaryColor: '#FFD700',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Sugar',
@@ -171,7 +171,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#f61067',
     tertiaryColor: '#e4ff1a',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   },
   {
     label: 'Sunset',
@@ -180,7 +180,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#FFD700',
     tertiaryColor: '#FF69B4',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   },
   {
     label: 'Starry Night',
@@ -189,7 +189,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#F0C420', // Bright yellow star
     tertiaryColor: '#8496B0', // Misty blue
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Dark Raspberry',
@@ -198,7 +198,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#5E0009',
     tertiaryColor: '#720137',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Coffee Beans',
@@ -207,7 +207,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#603A28',
     tertiaryColor: '#522D17',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Dark Forrest',
@@ -216,7 +216,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#245B47',
     tertiaryColor: '#223546',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Walnut',
@@ -225,7 +225,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#9B773D',
     tertiaryColor: '#646263',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   },
   {
     label: 'Deep Purple',
@@ -234,7 +234,7 @@ export const defaultPresetSelectorThemes: ThemeOption[] = [
     secondaryColor: '#493F3D',
     tertiaryColor: '#563457',
     errorColor: DEFAULT_COLOR_ERROR,
-    defaultDarkMode: 'dark'
+    darkMode: 'dark'
   }
 ];
 

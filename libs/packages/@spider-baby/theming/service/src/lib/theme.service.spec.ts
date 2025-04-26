@@ -7,7 +7,6 @@ import { ThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData } from './theme-data';
 import { ThemeTransitionService } from './transitions/transitions.service';
-// import { DarkModeType, DynamicThemeConfigService, ThemeOption, ThemeValue, defaultThemeOption } from '../../../config/src/index';
 import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
@@ -42,14 +41,14 @@ describe('ThemeService', () => {
 
   const mockThemes: ThemeOption[] = [
     ThemeOption.create({
-      defaultDarkMode: 'system',
+      darkMode: 'system',
       label: 'Default',
       value: 'default',
       primaryColor: '#4682B4',
       secondaryColor: '#D2691E',
     }),
     ThemeOption.create({
-      defaultDarkMode: 'light',
+      darkMode: 'light',
       label: 'Violet',
       value: 'violet',
       primaryColor: '#8A2BE2',
@@ -221,7 +220,7 @@ describe('ThemeService', () => {
 
   describe('addCustomTheme', () => {
     const customTheme = ThemeOption.create({
-      defaultDarkMode: 'light',
+      darkMode: 'light',
       label: 'Custom',
       value: 'custom',
       primaryColor: '#FF0000',
@@ -272,7 +271,7 @@ describe('ThemeService', () => {
     it('should remove a custom theme by value', fakeAsync(() => {
       // Add some custom themes first
       const customTheme1 = ThemeOption.create({
-        defaultDarkMode: 'light',
+        darkMode: 'light',
         label: 'Custom1',
         value: 'custom1',
         primaryColor: '#FF0000',
@@ -280,7 +279,7 @@ describe('ThemeService', () => {
       });
 
       const customTheme2 = ThemeOption.create({
-        defaultDarkMode: 'dark',
+        darkMode: 'dark',
         label: 'Custom2',
         value: 'custom2',
         primaryColor: '#0000FF',
@@ -304,7 +303,7 @@ describe('ThemeService', () => {
     it('should clear custom themes', fakeAsync(() => {
       // Add a custom theme first
       const customTheme = ThemeOption.create({
-        defaultDarkMode: 'light',
+        darkMode: 'light',
         label: 'Custom',
         value: 'custom',
         primaryColor: '#FF0000',

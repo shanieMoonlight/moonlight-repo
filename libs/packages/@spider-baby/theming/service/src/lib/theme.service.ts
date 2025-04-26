@@ -64,7 +64,7 @@ export class ThemeService {
   isDarkMode$: Observable<boolean> = this.darkModeType$.pipe(
     switchMap(mode => mode === 'system'
       ? this._systemDarkMode$
-      : of(mode === 'dark'))  )
+      : of(mode === 'dark')))
   /** Current dark mode status (Signal)*/
   isDarkMode = toSignal(this.isDarkMode$, { initialValue: this._config.defaultDarkModeType() === 'dark' })
 
@@ -280,7 +280,7 @@ export class ThemeService {
     const defaultTheme = this._config.systemThemes()[0] ?? defaultThemeOption;
 
     // Reset dark mode using system preference if applicable
-    const prefersDark = defaultTheme.defaultDarkMode;
+    const prefersDark = defaultTheme.darkMode;
 
     this._darkModeTypeBs.next(prefersDark);
 
@@ -340,7 +340,7 @@ export class ThemeService {
       const currentTheme = themeData?.currentTheme ?? this._config.systemThemes()[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
-      const darkMode = currentTheme?.defaultDarkMode
+      const darkMode = currentTheme?.darkMode
         ?? this._config.defaultDarkModeType()
         ?? 'system'
       this._darkModeTypeBs.next(darkMode)
@@ -387,7 +387,7 @@ export class ThemeService {
     this._themeTransition.transitionThemes(
       previousTheme,
       themeData.currentTheme,
-      themeData.currentTheme.defaultDarkMode
+      themeData.currentTheme.darkMode
     );
   }
 
@@ -399,7 +399,7 @@ export class ThemeService {
 
     consoleDev.log('Setting default theme:', defaultOption);
 
-    this.setDarkMode(defaultOption.defaultDarkMode)
+    this.setDarkMode(defaultOption.darkMode)
     this.setTheme(defaultOption)
   }
 

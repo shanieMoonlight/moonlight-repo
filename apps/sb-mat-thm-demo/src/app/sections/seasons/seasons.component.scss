@@ -1,7 +1,6 @@
 :host {
     display: block;
     padding-top: 72px;
-    ;
 }
 
 sb-seasonal-navbar {
@@ -14,10 +13,28 @@ sb-seasonal-navbar {
 }
 
 .theming {
-    display: flex;
-    justify-content: space-around;
 
-    >* {
-        margin: 5px;
+    position: fixed;
+    top: 72px; /* Position just below the navbar */
+    right: 15px; /* 15px from the right edge */
+    display: flex;
+    flex-direction: column; /* Stack controls vertically */
+    align-items: center;
+    gap: 8px; /* Space between elements */
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--mat-sys-surface);
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 19; /* Just below navbar z-index */
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 600px) {
+    .theming {
+        flex-direction: row;
+        right: 8px;
+        padding: 4px;
     }
 }

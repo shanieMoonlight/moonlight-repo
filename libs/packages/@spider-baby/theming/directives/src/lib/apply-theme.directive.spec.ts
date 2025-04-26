@@ -46,7 +46,7 @@ class TestObjectComponent {
     label: 'Test Theme',
     primaryColor: '#673AB7',
     secondaryColor: '#00BCD4',
-    defaultDarkMode: 'light'
+    darkMode: 'light'
   });
 }
 

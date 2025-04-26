@@ -87,11 +87,10 @@ export class ThemeGeneratorService {
     if (!this.isBrowser())
       return
 
-
-
     const isDark = this.shouldUseDarkMode(theme)
     // const palettes = this._paletteGenerator.generatePalettes(theme)
     // Use memoized function instead of direct call
+    consoleDev.log('Generating palettes for theme:', theme.value,theme.darkMode, theme)
     const palettes = this._memoizedGeneratePalettes(theme);
     const themeClass = themeClassOverride ?? theme.value
 
@@ -108,6 +107,7 @@ export class ThemeGeneratorService {
 
       // Then apply the M3 system variables using the direct mapper approach
       this.applySystemVariables(theme, isDark, palettes, targetElement)
+
 
       this.applyThemeAndModeClassess(themeClass, isDark, targetElement)
 
@@ -340,9 +340,9 @@ export class ThemeGeneratorService {
    * @returns True if dark mode should be applied, false otherwise
    */
   private shouldUseDarkMode = (theme: ThemeOption): boolean =>
-    theme.defaultDarkMode === 'system'
+    theme.darkMode === 'system'
       ? this._systemPrefs.prefersDarkMode()
-      : theme.defaultDarkMode === 'dark';
+      : theme.darkMode === 'dark';
 
 
   //- - - - - - - - - - - - - - -//
@@ -364,10 +364,9 @@ export class ThemeGeneratorService {
       return this._paletteGenerator.generatePalettes(theme);
     };
 
-
     // Step 4: Define the cache key generator function
     const keyGenerator = (theme: ThemeOption): string => {
-      return `${theme.primaryColor}-${theme.secondaryColor}-${theme.tertiaryColor || ''}-${theme.errorColor || ''}-${theme.defaultDarkMode}`;
+      return `${theme.primaryColor}-${theme.secondaryColor}-${theme.tertiaryColor || ''}-${theme.errorColor || ''}-${theme.darkMode}`;
     };
 
     // Step 5: Create the memoized function by combining all parts

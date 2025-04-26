@@ -22,6 +22,10 @@ export const mainRoutes: Route[] = [
             loadComponent: () => import('./features/complete-color-list/complete-color-list.component').then(m => m.CompleteColorListComponent),
         },
         {
+            path: 'service-api',
+            loadComponent: () => import('./features/theme-service-api/theme-service-api.component').then(m => m.ThemeServiceApiComponent),
+        },
+        {
             path: '',
             loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
         },

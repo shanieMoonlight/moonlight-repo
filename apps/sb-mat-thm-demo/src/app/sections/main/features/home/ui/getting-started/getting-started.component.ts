@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'sb-home-getting-started',
   imports: [
     MatEverythingModule,
-    HomeSectionHdrComponent
+    HomeSectionHdrComponent,
+    RouterModule
   ],
   templateUrl: './getting-started.component.html',
   styleUrl: './getting-started.component.scss',
@@ -109,10 +111,14 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
 
 
   protected _componentUsageCode = signal(`<!-- Add to your template -->
+
+  <!--To allow users to change Themes and Dark Mode as they wish-->
   <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
   <sb-theme-picker-mat></sb-theme-picker-mat>
   
-This will allow users to change Themes and Dark Mode as they wish
+
+  <!--To set a local theme for a specific component and its children -->
+  <my-locally-themed-component  [mlApplyTheme]="theme" />
   `  );
 
   protected _scssCode = signal(`

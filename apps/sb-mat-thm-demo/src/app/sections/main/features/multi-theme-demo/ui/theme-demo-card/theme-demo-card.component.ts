@@ -97,7 +97,7 @@ export class ThemeDemoCardComponent implements OnInit {
       debounceTime(100),
       distinctUntilChanged(),
       map(([themeOption, darkMode]) => {
-        const themeWithCurrentDarkMode: ThemeOption = { ...themeOption, defaultDarkMode: darkMode ? 'dark' : 'light' }
+        const themeWithCurrentDarkMode: ThemeOption = { ...themeOption, darkMode: darkMode ? 'dark' : 'light' }
         console.log('ThemeDemoCardComponent:currentData', themeWithCurrentDarkMode);
         
         return themeWithCurrentDarkMode

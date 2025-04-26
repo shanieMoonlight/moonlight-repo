@@ -1,3 +1,9 @@
+
+<div class="theming">        
+  <sb-theme-picker-mat/>
+  <sb-dark-mode-toggle-mat/>
+</div>
+
 <div class="page-container">
   <header class="page-header">
     <h1>Hierarchical Theme Management</h1>
@@ -125,7 +131,15 @@ constructor()  &#123;
   <div class="directive-examples">
 
     <h2>Seasonal Theme Examples</h2>
-    <p>Each card below demonstrates local theming (bounded by the card). Follow the link to see the global theming capabilities</p>
+    <div class="description">
+      Each card below demonstrates local theming (bounded by the card) using our <code>mlApplyTheme</code> directive. 
+      <pre><code>&#64;for (season of _seasonData(); track season.title) &#123;
+        &lt;sb-season-info-card [mlApplyTheme]="season.theme" [data]="season" /&gt;
+  &#125;
+      </code></pre>
+      This directive applies the theme only to the targeted element and its children, creating isolated theme contexts 
+      without affecting the rest of the application. Follow the link to see the global theming capabilities.
+    </div>
     
     <div class="seasons-grid">
       @for (season of _seasonData(); track season.title) {

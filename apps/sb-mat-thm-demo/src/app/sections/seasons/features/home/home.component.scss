@@ -1,37 +1,58 @@
 :host {
   display: block;
+  position: relative;
 }
 
 .page-container {
   /* Center content and limit width */
-  max-width: 1200px; /* Adjust as needed */
-  margin: 0 auto; 
-  padding: 32px 24px; /* Add more vertical padding */
+  max-width: 1200px;
+  /* Adjust as needed */
+  margin: 0 auto;
+  padding: 32px 24px;
+  /* Add more vertical padding */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-h1 { 
-  margin-bottom: 24px; /* More space below heading */
-  font-size: 2.5em; /* Larger heading */
-  font-weight: 300; /* Lighter font weight */
-  color: var(--mat-sys-on-surface); /* Use theme color */
-  text-align: center; /* Center heading */
+h1 {
+  margin-bottom: 24px;
+  /* More space below heading */
+  font-size: 2.5em;
+  /* Larger heading */
+  font-weight: 300;
+  /* Lighter font weight */
+  color: var(--mat-sys-on-surface);
+  /* Use theme color */
+  text-align: center;
+  /* Center heading */
 }
 
-p { 
-  margin-bottom: 16px; 
-  line-height: 1.7; /* Increase line spacing */
-  font-size: 1em; /* Slightly larger paragraph text */
-  color: var(--mat-sys-on-surface-variant); /* Use theme color */
-  max-width: 800px; /* Limit paragraph width for readability */
-  margin-left: auto; /* Center paragraphs */
-  margin-right: auto; /* Center paragraphs */
-  text-align: center; /* Center text within paragraphs */
+p {
+  margin-bottom: 16px;
+  line-height: 1.7;
+  /* Increase line spacing */
+  font-size: 1em;
+  /* Slightly larger paragraph text */
+  color: var(--mat-sys-on-surface-variant);
+  /* Use theme color */
+  max-width: 800px;
+  /* Limit paragraph width for readability */
+  margin-left: auto;
+  /* Center paragraphs */
+  margin-right: auto;
+  /* Center paragraphs */
+  text-align: center;
+  /* Center text within paragraphs */
 }
 
 /* Style inline code elements */
 p code {
-  background-color: var(--mat-sys-surface-container-high); /* Use theme color */
-  color: var(--mat-sys-on-surface); /* Use theme color */
+  background-color: var(--mat-sys-surface-container-high);
+  /* Use theme color */
+  color: var(--mat-sys-on-surface);
+  /* Use theme color */
   padding: 0.2em 0.4em;
   border-radius: 4px;
   font-family: 'Courier New', Courier, monospace;
@@ -41,19 +62,23 @@ p code {
 .seasons-grid {
   display: grid;
   /* Default to 1 column for smaller screens */
-  grid-template-columns: 1fr; 
-  gap: 24px; 
-  margin-top: 40px; 
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 40px;
   /* Center the grid container itself if needed, adjust max-width */
-  max-width: 800px; /* Limit grid width for 2 columns */
+  max-width: 800px;
+  /* Limit grid width for 2 columns */
   margin-left: auto;
   margin-right: auto;
 }
 
 pre {
   // ... other styles ...
-  max-width: 800px; /* Match paragraph width */
-  margin: 16px auto; /* Center the block */ // <-- THIS LINE DOES IT
+  max-width: 800px;
+  /* Match paragraph width */
+  margin: 16px auto;
+  /* Center the block */
+  // <-- THIS LINE DOES IT
   background-color: var(--mat-sys-surface-container);
   padding: 0.5rem;
 }
@@ -154,9 +179,22 @@ code {
 
 
 
-.directive-examples{
-  text-align: center;
+.directive-examples {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    text-align: center;
 
+  }
+
+  .description {
+    max-width: 800px;
+  }
+  .seasons-grid{
+    width: 100%;
+  }
 }
 
 
@@ -164,6 +202,32 @@ code {
 
 
 
+.theming {
+
+  position: absolute;
+  top: px; /* Position just below the navbar */
+  right: 15px; /* 15px from the right edge */
+  display: flex;
+  flex-direction: column; /* Stack controls vertically */
+  align-items: center;
+  gap: 8px; /* Space between elements */
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--mat-sys-surface);
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 19; /* Just below navbar z-index */
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 600px) {
+  .theming {
+      flex-direction: row;
+      // right: 8px;
+      // padding: 4px;
+  }
+}
 
 
 
@@ -171,6 +235,7 @@ code {
 /* Apply 2-column layout on screens wider than 600px */
 @media (min-width: 600px) {
   .seasons-grid {
-    grid-template-columns: repeat(2, 1fr); /* Explicitly 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+    /* Explicitly 2 columns */
   }
 }

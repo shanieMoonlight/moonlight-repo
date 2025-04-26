@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing'; // Import TestBed
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { render, screen, fireEvent } from '@testing-library/angular';
-import { ThemeOption } from '../../../../../config/src/index';
+import { ThemeOption } from '@spider-baby/material-theming/config';
 import { MlCustomThemeSavedComponent, CustomThemeSavedDialogData } from './theme-saved.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import '@testing-library/jest-dom';
-import { MlThemeAvatarComponent } from '../../../../../ui/src/index'; // Import Real Component
+import { MlThemeAvatarComponent } from  '@spider-baby/material-theming/ui';; // Import Real Component
 
 // --- Mock Child Component ---
 @Component({
@@ -27,7 +27,7 @@ const createMockTheme = (label = 'Test Theme', value = 'test-theme'): ThemeOptio
   secondaryColor: '#FFC107',
   tertiaryColor: '#03A9F4',
   errorColor: '#F44336',
-  defaultDarkMode: 'light',
+  darkMode: 'light',
 });
 
 describe('CustomThemeSavedComponent', () => {
