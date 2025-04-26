@@ -1,0 +1,12 @@
+<div class="api-home-container">
+    <header class="api-header">
+      <h1>Spider Baby Material Theming API</h1>
+      <p class="subtitle">Comprehensive documentation and guides for the theming system</p>
+    </header>
+  
+    <div class="api-cards-grid">
+      @for (route of apiRoutes; track route.route) {
+        <sb-api-nav-card [data]="route"></sb-api-nav-card>
+      }
+    </div>
+  </div>

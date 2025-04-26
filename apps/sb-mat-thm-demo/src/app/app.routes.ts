@@ -8,9 +8,13 @@ export const appRoutes: Route[] = [
       loadChildren: () => import('./sections/seasons/seasons.routes').then((m) => m.seasonalRoutes)
     }, 
     {
+      path: 'api',
+      loadChildren: () => import('./sections/api/api.routes').then((m) => m.apiRoutes)
+    },  
+    {
       path: 'main',
       loadChildren: () => import('./sections/main/main.routes').then((m) => m.mainRoutes)
-    },  
+    },
     {
       path: '',
       redirectTo: 'main',

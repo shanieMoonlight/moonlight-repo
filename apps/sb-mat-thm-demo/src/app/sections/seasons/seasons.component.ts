@@ -5,7 +5,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { ThemeTransitionIndicatorComponent } from '../../shared/utils/theme-transition/theme-transition-indicator.component';
 import { SEASON_THEME_CONFIG } from './config/seasonal-theme.config';
@@ -20,8 +19,6 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
     MatTooltipModule,
     MatSidenavModule,
     SeasonalNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
     RouterModule,
     ThemeTransitionIndicatorComponent
   ],

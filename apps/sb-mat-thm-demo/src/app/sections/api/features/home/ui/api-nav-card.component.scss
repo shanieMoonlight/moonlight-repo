@@ -1,0 +1,67 @@
+/* filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\src\app\sections\api\ui\api-nav-card\api-nav-card.component.scss */
+.api-nav-card {
+  max-width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  &.primary {
+    border-left-color: var(--mat-sys-primary);
+    
+    .card-icon {
+      background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
+  }
+  
+  &.secondary {
+    border-left-color: var(--mat-sys-secondary);
+    
+    .card-icon {
+      background-color: var(--mat-sys-secondary-container);
+      color: var(--mat-sys-on-secondary-container);
+    }
+  }
+  
+  &.tertiary {
+    border-left-color: var(--mat-sys-tertiary);
+    
+    .card-icon {
+      background-color: var(--mat-sys-tertiary-container);
+      color: var(--mat-sys-on-tertiary-container);
+    }
+  }
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+mat-card-content {
+  flex: 1;
+  padding: 16px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px 16px;
+  
+  button {
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,56 @@
+<mat-toolbar >
+    
+    <div class="left-links">
+        <img class="navlink" 
+            src="images/tranparent/small/spider-baby-6.png" alt="MainPage" 
+            [routerLink]="'/'"
+            routerLinkActive="active" 
+            [matTooltip]="'MainPage'"
+            [attr.aria-label]="'MainPage'"/>
+        
+    </div>
+
+    <div class="title-container" [routerLink]="'home'">
+        <span class="title-text">API</span>
+        <div class="title-accent"></div>
+      </div>
+      
+
+<div class="right-links">
+    
+    <div class="rhs-outlet">
+        @if(_rhsOutletTemplate(); as template){
+        <ng-container [ngTemplateOutlet]="template" />
+        }
+    </div>
+</div>
+
+</mat-toolbar>
+
+
+<!-- ---------------------------------------------- -->
+ 
+
+<ng-template #navItem let-routerLink="routerLink" let-tooltip="tooltip" let-iconName="iconName" let-text="text">
+    @if(!isSmallScreen()){
+        <div class="navlink"
+            [routerLink]="routerLink"
+            routerLinkActive="active"  
+            [routerLinkActiveOptions]="{ exact: routerLink === 'home' }" 
+            [matTooltip]="tooltip">
+            {{text}}
+        </div>
+    }@else {
+        <button mat-icon-button
+            [routerLink]="routerLink"
+            routerLinkActive="active" 
+            [routerLinkActiveOptions]="{ exact: routerLink === 'home' }" 
+            [matTooltip]="tooltip"
+            [attr.aria-label]="tooltip">
+            <mat-icon>{{iconName}}</mat-icon>
+        </button>
+    }
+</ng-template>
+
+
+<!-- ---------------------------------------------- -->
