@@ -1,8 +1,8 @@
 
-<div class="theming">        
+<!-- <div class="theming">        
   <sb-theme-picker-mat/>
   <sb-dark-mode-toggle-mat/>
-</div>
+</div> -->
 
 <div class="page-container">
   <header class="page-header">
@@ -17,6 +17,9 @@
     <mat-card-content>
       <p>
         You've now entered the <strong>Seasons</strong> section of the application, which has its own set of available themes:
+        <br>
+        In this example the user can't select themes (no picker in the navbar).  Each component sets their own theme using
+        the <code>ThemeService</code> to apply the theme. That will apply as long as that component is active.
       </p>
 
       <div class="theme-pills">
