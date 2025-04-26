@@ -19,6 +19,10 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/manual-crud/manual-crud.component').then(m => m.ManualCrudComponent),
             },
             {
+                path: 'crud',
+                loadComponent: () => import('./features/crud/crud.component').then(m => m.CrudComponent),
+            },
+            {
                 path: '',
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },

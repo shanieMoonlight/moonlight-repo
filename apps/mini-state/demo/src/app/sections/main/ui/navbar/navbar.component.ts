@@ -31,17 +31,22 @@ const rhsNavbarItems: NavbarItem[] = [
   {
     routerLink: 'manual-crud',
     tooltip: 'Manual Crud',
-    iconName: 'auto_transmission',
+    iconName: 'construction',
     text: 'Crud (mnl)'
   },
   {
-    routerLink: '/api', 
-    tooltip: 'Api Documentation', 
-    iconName: 'api', 
+    routerLink: 'crud',
+    tooltip: 'Crud',
+    iconName: 'oil_barrel',
+    text: 'Crud'
+  },
+  {
+    routerLink: '/api',
+    tooltip: 'Api Documentation',
+    iconName: 'api',
     text: 'Api'
   },
 ]
-
 
 //##############################################################//
 
