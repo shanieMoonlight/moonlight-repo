@@ -7,7 +7,7 @@ import { MlThemeBannerComponent } from './theme-banner.component';
 
 // Create a test host component to properly set the input
 @Component({
-  template: `<ml-theme-banner [theme]="theme"></ml-theme-banner>`,
+  template: `<sb-theme-banner [theme]="theme"></sb-theme-banner>`,
   imports: [MlThemeBannerComponent],
   standalone: true
 })

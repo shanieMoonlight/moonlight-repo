@@ -1,10 +1,10 @@
 <mat-card>
   <mat-card-header>
-    <ml-theme-avatar [theme]="(_themeSignal())" mat-card-avatar />
+    <sb-theme-avatar [theme]="(_themeSignal())" mat-card-avatar />
     <mat-card-title>Theme Saved</mat-card-title>
     <mat-card-subtitle>{{ _themeSignal().label }}</mat-card-subtitle>
   </mat-card-header>
-  <ml-theme-avatar class="img" [theme]="_themeSignal()" [isCircle]="false" mat-card-image />
+  <sb-theme-avatar class="img" [theme]="_themeSignal()" [isCircle]="false" mat-card-image />
   <mat-card-content>
     <p>
       The theme "{{ _themeSignal().label }}" has been saved successfully!

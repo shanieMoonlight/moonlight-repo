@@ -6,7 +6,7 @@ import { MlCurrentThemeBannerComponent } from './current-theme-banner.component'
 
 // Create a test host component to properly set the input
 @Component({
-  template: `<ml-current-theme-banner [withTooltips]="showTooltips"></ml-current-theme-banner>`,
+  template: `<sb-current-theme-banner [withTooltips]="showTooltips"></sb-current-theme-banner>`,
   imports: [MlCurrentThemeBannerComponent],
   standalone: true
 })

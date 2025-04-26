@@ -12,7 +12,7 @@ import { MlThemeAvatarComponent } from '../../../../../ui/src/index'; // Import 
 
 // --- Mock Child Component ---
 @Component({
-  selector: 'ml-theme-avatar',
+  selector: 'sb-theme-avatar',
   template: '<div data-testid="mock-theme-avatar"></div>',
   standalone: true,
   inputs: ['theme'],

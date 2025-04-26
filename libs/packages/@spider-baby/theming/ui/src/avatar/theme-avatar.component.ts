@@ -10,14 +10,14 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
  * @example
  * ```html
  * <!-- Basic usage with a circular avatar -->
- * <ml-theme-avatar [theme]="myTheme"></ml-theme-avatar>
+ * <sb-theme-avatar [theme]="myTheme"></sb-theme-avatar>
  * 
  * <!-- Square avatar -->
- * <ml-theme-avatar [theme]="myTheme" [isCircle]="false"></ml-theme-avatar>
+ * <sb-theme-avatar [theme]="myTheme" [isCircle]="false"></sb-theme-avatar>
  * ```
  */
 @Component({
-  selector: 'ml-theme-avatar',
+  selector: 'sb-theme-avatar',
   imports: [],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -170,8 +170,8 @@ export const appConfig: ApplicationConfig = {
 <!-- app.component.html -->
 <div class="app-container">
   <header>
-    <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
-    <ml-theme-picker-mat></ml-theme-picker-mat>
+    <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
+    <sb-theme-picker-mat></sb-theme-picker-mat>
   </header>
   
   <main>
@@ -186,35 +186,35 @@ export const appConfig: ApplicationConfig = {
 
 ```html
 <!-- Icon only -->
-<ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
 
 <!-- With switch -->
-<ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat [hideSwitch]="false"></sb-dark-mode-toggle-mat>
 ```
 
 ### Theme Picker
 
 ```html
-<ml-theme-picker-mat></ml-theme-picker-mat>
+<sb-theme-picker-mat></sb-theme-picker-mat>
 ```
 
 ### Theme Customizer
 
 ```html
-<ml-theme-selector></ml-theme-selector>
+<sb-theme-selector></sb-theme-selector>
 ```
 
 ### Theme Showcase
 
 ```html
-<ml-theme-showcase-mat></ml-theme-showcase-mat>
+<sb-theme-showcase-mat></sb-theme-showcase-mat>
 ```
 
 ### Theme Transition Indicator
 
 ```html
 <!-- Add this component to show a visual indicator during theme transitions -->
-<ml-theme-transition-indicator></ml-theme-transition-indicator>
+<sb-theme-transition-indicator></sb-theme-transition-indicator>
 ```
 
 ## Using CSS Variables
@@ -244,12 +244,12 @@ The library exposes theme colors through CSS variables following these patterns:
 ```css
 .my-element {
   /* Access any tone from 0-100 */
-  background-color: var(--ml-color-primary-40);
-  border-color: var(--ml-color-primary-80);
+  background-color: var(--sb-color-primary-40);
+  border-color: var(--sb-color-primary-80);
   
   /* Different palette types */
-  color: var(--ml-color-secondary-50);
-  box-shadow: 0 2px 4px var(--ml-color-neutral-0);
+  color: var(--sb-color-secondary-50);
+  box-shadow: 0 2px 4px var(--sb-color-neutral-0);
 }
 ```
 
@@ -467,7 +467,7 @@ All colors smoothly animate from their old values to new values, creating a flui
 For the best user experience, add the transition indicator component to show when a theme change is in progress:
 
 ```html
-<ml-theme-transition-indicator></ml-theme-transition-indicator>
+<sb-theme-transition-indicator></sb-theme-transition-indicator>
 ```
 
 This component automatically shows a subtle loading indicator during theme transitions and hides itself when the transition is complete.
@@ -650,32 +650,32 @@ This reference documents all available variables that you can use in your applic
 ## Complete Palette Tone Variables
 
 ### Primary Palette Tones
-- `--ml-color-primary-0`
-- `--ml-color-primary-1`
-- `--ml-color-primary-2`
-- `--ml-color-primary-4`
-- `--ml-color-primary-6`
-- `--ml-color-primary-10`
-- `--ml-color-primary-12`
-- `--ml-color-primary-17`
-- `--ml-color-primary-20`
-- `--ml-color-primary-22`
-- `--ml-color-primary-24`
-- `--ml-color-primary-30`
-- `--ml-color-primary-40`
-- `--ml-color-primary-50`
-- `--ml-color-primary-60`
-- `--ml-color-primary-70`
-- `--ml-color-primary-80`
-- `--ml-color-primary-87`
-- `--ml-color-primary-90`
-- `--ml-color-primary-92`
-- `--ml-color-primary-94`
-- `--ml-color-primary-95`
-- `--ml-color-primary-96`
-- `--ml-color-primary-98`
-- `--ml-color-primary-99`
-- `--ml-color-primary-100`
+- `--sb-color-primary-0`
+- `--sb-color-primary-1`
+- `--sb-color-primary-2`
+- `--sb-color-primary-4`
+- `--sb-color-primary-6`
+- `--sb-color-primary-10`
+- `--sb-color-primary-12`
+- `--sb-color-primary-17`
+- `--sb-color-primary-20`
+- `--sb-color-primary-22`
+- `--sb-color-primary-24`
+- `--sb-color-primary-30`
+- `--sb-color-primary-40`
+- `--sb-color-primary-50`
+- `--sb-color-primary-60`
+- `--sb-color-primary-70`
+- `--sb-color-primary-80`
+- `--sb-color-primary-87`
+- `--sb-color-primary-90`
+- `--sb-color-primary-92`
+- `--sb-color-primary-94`
+- `--sb-color-primary-95`
+- `--sb-color-primary-96`
+- `--sb-color-primary-98`
+- `--sb-color-primary-99`
+- `--sb-color-primary-100`
 
 ### Secondary, Tertiary, Error, Neutral, and Neutral Variant Palettes
 Each of these palettes also has the full range of tone variables from 0-100, following the same pattern as the primary palette.
@@ -694,7 +694,7 @@ Each of these palettes also has the full range of tone variables from 0-100, fol
   border: 2px solid var(--mat-sys-error-container);
   
   // Use specific tone from primary palette
-  box-shadow: 0 2px 4px var(--ml-color-primary-40);
+  box-shadow: 0 2px 4px var(--sb-color-primary-40);
 }
 ```
 

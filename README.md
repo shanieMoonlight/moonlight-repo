@@ -90,8 +90,8 @@ export const appConfig: ApplicationConfig = {
 <!-- app.component.html -->
 <div class="app-container">
   <header>
-    <ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
-    <ml-theme-picker-mat></ml-theme-picker-mat>
+    <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
+    <sb-theme-picker-mat></sb-theme-picker-mat>
   </header>
   
   <main>
@@ -106,28 +106,28 @@ export const appConfig: ApplicationConfig = {
 
 ```html
 <!-- Icon only -->
-<ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
 
 <!-- With switch -->
-<ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat [hideSwitch]="false"></sb-dark-mode-toggle-mat>
 ```
 
 ### Theme Picker
 
 ```html
-<ml-theme-picker-mat></ml-theme-picker-mat>
+<sb-theme-picker-mat></sb-theme-picker-mat>
 ```
 
 ### Theme Customizer
 
 ```html
-<ml-theme-selector></ml-theme-selector>
+<sb-theme-selector></sb-theme-selector>
 ```
 
 ### Theme Showcase
 
 ```html
-<ml-theme-showcase-mat></ml-theme-showcase-mat>
+<sb-theme-showcase-mat></sb-theme-showcase-mat>
 ```
 
 ## Using CSS Variables

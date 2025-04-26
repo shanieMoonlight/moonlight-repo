@@ -14,7 +14,7 @@ export interface CustomThemeSavedDialogData {
 //##########################################//
 
 @Component({
-  selector: 'ml-custom-theme-saved',
+  selector: 'sb-custom-theme-saved',
   imports: [
     MatEverythingModule,
     MlThemeAvatarComponent

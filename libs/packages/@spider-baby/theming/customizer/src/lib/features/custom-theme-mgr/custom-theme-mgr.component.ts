@@ -15,7 +15,7 @@ import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
  * @example
  * ```html
  * <!-- Basic usage -->
- * <ml-custom-theme-mgr></ml-custom-theme-mgr>
+ * <sb-custom-theme-mgr></sb-custom-theme-mgr>
  * 
  * <!-- Usage in dialog -->
  * this._dialog.open(MlCustomThemeManagerComponent, {
@@ -24,7 +24,7 @@ import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
  * ```
  */
 @Component({
-  selector: 'ml-custom-theme-mgr',
+  selector: 'sb-custom-theme-mgr',
   imports: [MatEverythingModule, MlThemeAvatarComponent],
   templateUrl: './custom-theme-mgr.component.html',
   styleUrl: './custom-theme-mgr.component.scss',

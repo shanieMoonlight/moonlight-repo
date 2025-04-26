@@ -1,5 +1,5 @@
 {
-  "name": "ml-utils-open-in-new-window",
+  "name": "sb-utils-open-in-new-window",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utils/oinw/src",
   "prefix": "ml",

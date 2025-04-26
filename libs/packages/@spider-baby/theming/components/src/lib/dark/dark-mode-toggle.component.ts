@@ -14,11 +14,11 @@ import { ThemeService } from '@spider-baby/material-theming/service';
  * 
  * @example
  * ```html
- * <ml-dark-mode-toggle-mat [showTooltip]="true"></ml-dark-mode-toggle-mat>
+ * <sb-dark-mode-toggle-mat [showTooltip]="true"></sb-dark-mode-toggle-mat>
  * ```
  */
 @Component({
-  selector: 'ml-dark-mode-toggle-mat',
+  selector: 'sb-dark-mode-toggle-mat',
   standalone: true,
   imports: [
     NgTemplateOutlet,

@@ -3,16 +3,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { ThemeOption } from '@spider-baby/material-theming/config';
+import { MlApplyThemeDirective } from '@spider-baby/material-theming/directives';
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
-import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
-import { ThemePickerComponent } from "../../../../shared/ui/theme-picker/theme-picker.component";
-import { ThemeOption } from '@spider-baby/material-theming/config';
-import { MatListModule } from '@angular/material/list';
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
-import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
-import { MlApplyThemeDirective } from '@spider-baby/material-theming/directives';
+import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
 
 //#######################################################//
 
@@ -59,7 +58,6 @@ const seasonData: SeasonCardData[] = [
     MatListModule,
     SeasonInfoCardComponent,
     RouterModule,
-    ThemePickerComponent,
     ThemeHierarchyDiagramComponent,
     MlThemePickerMatComponent,
     MlApplyThemeDirective

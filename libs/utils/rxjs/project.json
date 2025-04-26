@@ -1,5 +1,5 @@
 {
-  "name": "ml-utils-rxjs",
+  "name": "sb-utils-rxjs",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utils/rxjs/src",
   "prefix": "ml",

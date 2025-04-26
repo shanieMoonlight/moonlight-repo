@@ -1,5 +1,5 @@
 {
-  "name": "ml-utils-memoization",
+  "name": "sb-utils-memoization",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utils/memoization/src",
   "prefix": "lib",

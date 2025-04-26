@@ -48,7 +48,7 @@ import { ThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcas
   selector: 'app-theme-demo',
   template: `
     <h1>Theme Preview</h1>
-    <ml-theme-showcase-mat></ml-theme-showcase-mat>
+    <sb-theme-showcase-mat></sb-theme-showcase-mat>
   `,
   standalone: true,
   imports: [ThemeShowcaseMatComponent]
@@ -65,7 +65,7 @@ export class ThemeDemoComponent {}
       <mat-card-title>Customize Theme</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <ml-theme-selector></ml-theme-selector>
+      <sb-theme-selector></sb-theme-selector>
     </mat-card-content>
   </mat-card>
   
@@ -74,7 +74,7 @@ export class ThemeDemoComponent {}
       <mat-card-title>Preview</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <ml-theme-showcase-mat></ml-theme-showcase-mat>
+      <sb-theme-showcase-mat></sb-theme-showcase-mat>
     </mat-card-content>
   </mat-card>
 </div>
@@ -85,12 +85,12 @@ export class ThemeDemoComponent {}
 The showcase component can be configured to show specific component sets:
 
 ```html
-<ml-theme-showcase-mat 
+<sb-theme-showcase-mat 
   [showButtons]="true"
   [showInputs]="true"
   [showIndicators]="false"
   [showCards]="true">
-</ml-theme-showcase-mat>
+</sb-theme-showcase-mat>
 ```
 
 ---
@@ -126,7 +126,7 @@ import { ThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcas
 @Component({
   selector: 'app-extended-showcase',
   template: `
-    <ml-theme-showcase-mat></ml-theme-showcase-mat>
+    <sb-theme-showcase-mat></sb-theme-showcase-mat>
     
     <div class="custom-components-showcase">
       <h3>Custom Components</h3>
@@ -159,8 +159,8 @@ import { ThemeSelectorComponent } from '@spider-baby/material-theming/customizer
     <h1>Section Themes</h1>
     <p>These themes are only available in this section of the app.</p>
     
-    <ml-theme-selector></ml-theme-selector>
-    <ml-theme-showcase-mat></ml-theme-showcase-mat>
+    <sb-theme-selector></sb-theme-selector>
+    <sb-theme-showcase-mat></sb-theme-showcase-mat>
   `,
   standalone: true,
   imports: [ThemeShowcaseMatComponent, ThemeSelectorComponent]

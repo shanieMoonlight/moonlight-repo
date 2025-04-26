@@ -70,11 +70,11 @@ export class YourComponent {}
 Display a visual representation of a theme:
 
 ```html
-<ml-theme-avatar 
+<sb-theme-avatar 
   [theme]="selectedTheme"
   [size]="'medium'"
   [showLabel]="true">
-</ml-theme-avatar>
+</sb-theme-avatar>
 ```
 
 ### Theme Chip Example
@@ -82,12 +82,12 @@ Display a visual representation of a theme:
 Create selectable theme chips:
 
 ```html
-<ml-theme-chip
+<sb-theme-chip
   *ngFor="let theme of availableThemes"
   [theme]="theme"
   [selected]="theme.value === selectedTheme.value"
   (click)="selectTheme(theme)">
-</ml-theme-chip>
+</sb-theme-chip>
 ```
 
 ### Theme Preview Example
@@ -95,10 +95,10 @@ Create selectable theme chips:
 Show a preview of how the theme affects UI elements:
 
 ```html
-<ml-theme-preview 
+<sb-theme-preview 
   [theme]="previewTheme"
   [darkMode]="'light'">
-</ml-theme-preview>
+</sb-theme-preview>
 ```
 
 ### Theme Comparison Example
@@ -106,10 +106,10 @@ Show a preview of how the theme affects UI elements:
 Compare multiple themes side by side:
 
 ```html
-<ml-theme-comparison
+<sb-theme-comparison
   [themes]="[themeA, themeB]"
   [labels]="['Before', 'After']">
-</ml-theme-comparison>
+</sb-theme-comparison>
 ```
 
 ---
@@ -177,12 +177,12 @@ import { MlThemeChipComponent } from '@spider-baby/material-theming/ui';
   template: `
     <h2>Section-Specific Themes</h2>
     <div class="theme-options">
-      <ml-theme-chip 
+      <sb-theme-chip 
         *ngFor="let theme of availableThemes()" 
         [theme]="theme"
         [selected]="isSelected(theme)"
         (themeSelected)="selectTheme($event)">
-      </ml-theme-chip>
+      </sb-theme-chip>
     </div>
   `,
   imports: [MlThemeChipComponent],

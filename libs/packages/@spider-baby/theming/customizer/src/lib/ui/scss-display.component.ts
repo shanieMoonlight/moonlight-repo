@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlobDownloadService } from '@spider-baby/utils-download';
 
 @Component({
-  selector: 'ml-scss-display',
+  selector: 'sb-scss-display',
   standalone: true,
   imports: [MatEverythingModule],
   template: `

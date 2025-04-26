@@ -1,5 +1,5 @@
 {
-  "name": "ml-utils-download",
+  "name": "sb-utils-download",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utils/download/src",
   "prefix": "lib",

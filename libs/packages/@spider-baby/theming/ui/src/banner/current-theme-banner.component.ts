@@ -5,7 +5,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
  * UI i element for demoing the current theme.
  */
 @Component({
-  selector: 'ml-current-theme-banner',
+  selector: 'sb-current-theme-banner',
   imports: [MatTooltipModule],
   template: `
     <div class="left" [matTooltip]="_withTooltips() ? 'Secondary Color (--mat-seed-secondary)' : ''"></div>

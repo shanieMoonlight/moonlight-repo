@@ -27,12 +27,12 @@ const toFileName = (name: string) => name
  * @example
  * ```html
  * <mat-form-field>
- *   <ml-color-input formControlName="primaryColor" placeholder="Choose primary color"></ml-color-input>
+ *   <sb-color-input formControlName="primaryColor" placeholder="Choose primary color"></sb-color-input>
  * </mat-form-field>
  * ```
  */
 @Component({
-  selector: 'ml-color-input',
+  selector: 'sb-color-input',
   standalone: true,
   imports: [MatIconModule],
   template: `

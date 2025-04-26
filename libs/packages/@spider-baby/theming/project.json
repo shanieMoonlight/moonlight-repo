@@ -1,5 +1,5 @@
 {
-  "name": "ml-material-theming",
+  "name": "sb-material-theming",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/packages/@spider-baby/theming/src",
   "prefix": "ml",

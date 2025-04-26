@@ -40,14 +40,14 @@ interface IThemeForm
  * @example
  * ```html
  * <!-- Basic usage with default preset themes -->
- * <ml-theme-selector></ml-theme-selector>
+ * <sb-theme-selector></sb-theme-selector>
  * 
  * <!-- With custom preset themes -->
- * <ml-theme-selector [presetThemes]="myPresetThemes"></ml-theme-selector>
+ * <sb-theme-selector [presetThemes]="myPresetThemes"></sb-theme-selector>
  * ```
  */
 @Component({
-  selector: 'ml-theme-selector',
+  selector: 'sb-theme-selector',
   imports: [
     ReactiveFormsModule,
     MatEverythingModule,

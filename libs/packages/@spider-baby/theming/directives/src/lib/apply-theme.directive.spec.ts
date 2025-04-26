@@ -13,7 +13,7 @@ const mockThemeService = {
 
 // Test component with string value
 @Component({
-  selector: 'ml-test-string-component', // Add unique selector
+  selector: 'sb-test-string-component', // Add unique selector
   standalone: true, // Make it standalone
   imports: [MlApplyThemeDirective], // Import the directive
   template: `<div [mlApplyTheme]="themeValue"></div>`
@@ -24,7 +24,7 @@ class TestStringComponent {
 
 // Test component with number value
 @Component({
-  selector: 'ml-test-number-component', // Add unique selector
+  selector: 'sb-test-number-component', // Add unique selector
   standalone: true, // Make it standalone
   imports: [MlApplyThemeDirective], // Import the directive
   template: `<div [mlApplyTheme]="themeNumber"></div>`
@@ -35,7 +35,7 @@ class TestNumberComponent {
 
 // Test component with ThemeOption object
 @Component({
-  selector: 'ml-test-object-component', // Add unique selector
+  selector: 'sb-test-object-component', // Add unique selector
   standalone: true, // Make it standalone
   imports: [MlApplyThemeDirective], // Import the directive
   template: `<div [mlApplyTheme]="themeObject"></div>`
@@ -52,7 +52,7 @@ class TestObjectComponent {
 
 // Test component with attribute syntax
 @Component({
-  selector: 'ml-test-attribute-component', // Add unique selector
+  selector: 'sb-test-attribute-component', // Add unique selector
   standalone: true, // Make it standalone
   imports: [MlApplyThemeDirective], // Import the directive
   template: `<div mlApplyTheme="attribute-theme"></div>`
@@ -61,7 +61,7 @@ class TestAttributeComponent {}
 
 // Test component with undefined value
 @Component({
-  selector: 'ml-test-undefined-component', // Add unique selector
+  selector: 'sb-test-undefined-component', // Add unique selector
   standalone: true, // Make it standalone
   imports: [MlApplyThemeDirective], // Import the directive
   template: `<div [mlApplyTheme]="undefinedTheme"></div>`

@@ -18,7 +18,7 @@ import { Subject, merge, tap } from 'rxjs';
  * `providers: [ThemeAndModeSetup.getThemeProviders()]`
  */
 @Component({
-    selector: 'ml-theme-picker-mat',
+    selector: 'sb-theme-picker-mat',
     standalone: true,
     imports: [
         MatEverythingModule,

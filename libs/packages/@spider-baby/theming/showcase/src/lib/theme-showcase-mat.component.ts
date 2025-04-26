@@ -14,17 +14,17 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
  * @example
  * ```html
  * <!-- Simple usage -->
- * <ml-theme-showcase-mat></ml-theme-showcase-mat>
+ * <sb-theme-showcase-mat></sb-theme-showcase-mat>
  * 
  * <!-- In a themed container -->
  * <div class="themed-preview">
  *   <h2>Theme Preview</h2>
- *   <ml-theme-showcase-mat></ml-theme-showcase-mat>
+ *   <sb-theme-showcase-mat></sb-theme-showcase-mat>
  * </div>
  * ```
  */
 @Component({
-  selector: 'ml-theme-showcase-mat',
+  selector: 'sb-theme-showcase-mat',
   imports: [
     MatEverythingModule
   ],

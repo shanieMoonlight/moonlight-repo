@@ -6,7 +6,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
  * UI i element for demoing a specific theme.
  */
 @Component({
-  selector: 'ml-theme-banner',
+  selector: 'sb-theme-banner',
   imports: [MatTooltipModule],
   template: `
     <div class="left" [style.backgroundColor]="_primary()"></div>

@@ -43,17 +43,17 @@ The `DarkModeToggleMatComponent` provides a button or switch for controlling dar
 
 ```html
 <!-- As a simple icon button -->
-<ml-dark-mode-toggle-mat></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
 
 <!-- With a visible switch -->
-<ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat [hideSwitch]="false"></sb-dark-mode-toggle-mat>
 
 <!-- With custom labels -->
-<ml-dark-mode-toggle-mat 
+<sb-dark-mode-toggle-mat 
   lightLabel="Light Mode" 
   darkLabel="Dark Mode"
   systemLabel="System Preference">
-</ml-dark-mode-toggle-mat>
+</sb-dark-mode-toggle-mat>
 ```
 
 ### API Reference
@@ -71,13 +71,13 @@ The `ThemeTransitionIndicatorComponent` displays visual feedback during theme tr
 
 ```html
 <!-- Place at the app level for global theme transitions -->
-<ml-theme-transition-indicator></ml-theme-transition-indicator>
+<sb-theme-transition-indicator></sb-theme-transition-indicator>
 
 <!-- With custom settings -->
-<ml-theme-transition-indicator 
+<sb-theme-transition-indicator 
   [type]="'spinner'"
   [size]="'large'">
-</ml-theme-transition-indicator>
+</sb-theme-transition-indicator>
 ```
 
 ### API Reference
@@ -92,7 +92,7 @@ The `ThemeTransitionIndicatorComponent` displays visual feedback during theme tr
 ```html
 <div class="app-container">
   <header>
-    <ml-dark-mode-toggle-mat [hideSwitch]="false"></ml-dark-mode-toggle-mat>
+    <sb-dark-mode-toggle-mat [hideSwitch]="false"></sb-dark-mode-toggle-mat>
   </header>
   
   <main>
@@ -100,7 +100,7 @@ The `ThemeTransitionIndicatorComponent` displays visual feedback during theme tr
   </main>
   
   <!-- Add transition indicator for smooth theme changes -->
-  <ml-theme-transition-indicator></ml-theme-transition-indicator>
+  <sb-theme-transition-indicator></sb-theme-transition-indicator>
 </div>
 ```
 

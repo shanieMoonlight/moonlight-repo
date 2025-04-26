@@ -73,7 +73,7 @@ export const LIGHT_MODE_CLASS = 'light-mode';
  * Prefix used for theme-specific CSS classes.
  * Theme classes follow the pattern: `${THEME_CLASS_PREFIX}-${themeValue}`.
  */
-export const THEME_CLASS_PREFIX = 'ml-theme';
+export const THEME_CLASS_PREFIX = 'sb-theme';
 
 /**
  * Prefix used for color CSS variables.

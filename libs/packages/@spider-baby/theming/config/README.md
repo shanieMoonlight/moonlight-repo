@@ -114,7 +114,7 @@ One of the most powerful features is the ability to temporarily override themes 
   template: `
     <div class="marketing-container">
       <h1>Marketing Section</h1>
-      <ml-theme-picker-mat></ml-theme-picker-mat>
+      <sb-theme-picker-mat></sb-theme-picker-mat>
       <router-outlet></router-outlet>
     </div>
   `

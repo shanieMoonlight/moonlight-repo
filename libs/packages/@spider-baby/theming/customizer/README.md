@@ -62,7 +62,7 @@ export class YourComponent {}
 ### 2. Use in Your Template
 
 ```html
-<ml-theme-selector></ml-theme-selector>
+<sb-theme-selector></sb-theme-selector>
 ```
 
 ### 3. Provide Theme Configuration
@@ -86,7 +86,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
   selector: 'app-settings',
   template: `
     <h2>Theme Settings</h2>
-    <ml-theme-selector [presetThemes]="organizationThemes"></ml-theme-selector>
+    <sb-theme-selector [presetThemes]="organizationThemes"></sb-theme-selector>
   `,
   imports: [ThemeSelectorComponent],
   standalone: true
@@ -143,7 +143,7 @@ export class NavComponent {
 
 ## API Reference
 
-### `<ml-theme-selector>`
+### `<sb-theme-selector>`
 
 #### Inputs
 
@@ -195,7 +195,7 @@ import { DynamicThemeConfigService, ThemeOption } from '@spider-baby/material-th
   selector: 'app-seasonal-section',
   template: `
     <h1>Seasonal Themes</h1>
-    <ml-theme-selector></ml-theme-selector>
+    <sb-theme-selector></sb-theme-selector>
     <router-outlet></router-outlet>
   `
 })

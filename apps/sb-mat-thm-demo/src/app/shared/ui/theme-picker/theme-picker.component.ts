@@ -28,7 +28,7 @@ import { MlThemeAvatarComponent } from "@spider-baby/material-theming/ui";
           [class.selected]="theme.value === _currentTheme()?.value"
           (click)="_themeChange.emit(theme)">
           <mat-icon class="colors-icon" aria-hidden="true">
-            <ml-theme-avatar [theme]="theme"/>
+            <sb-theme-avatar [theme]="theme"/>
           </mat-icon>
           <span>{{ theme.label }}</span>
         </button>
