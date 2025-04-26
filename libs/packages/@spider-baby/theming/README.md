@@ -66,14 +66,14 @@ export const THEME_CONFIG = ThemingConfig.create({
       label: 'Indigo',
       primaryColor: '#3F51B5',
       secondaryColor: '#FF4081',
-      darkMode: 'system'
+      defaultDarkMode: 'system'
     }),
     ThemeOption.create({
       value: 'deeppurple',
       label: 'Deep Purple',
       primaryColor: '#673AB7',
       secondaryColor: '#00BCD4',
-      darkMode: 'system'
+      defaultDarkMode: 'system'
     }),
     // Add more themes as needed
   ],
@@ -118,7 +118,7 @@ import { ThemingConfig, ThemeOption } from '@spider-baby/material-theming/config
   ];
 
   export const XMAS_THEME: ThemeOption = ThemeOption.create({
-     darkMode: 'light',
+     defaultDarkMode: 'light',
     label: 'Xmas',
     value: 'xmas',
     primaryColor: '#C8102E',
@@ -126,7 +126,7 @@ import { ThemingConfig, ThemeOption } from '@spider-baby/material-theming/config
   });
 
   export const HALLOWEEN_THEME: ThemeOption = ThemeOption.create({
-     darkMode: 'dark',
+     defaultDarkMode: 'dark',
     label: 'Halloween',
     value: 'halloween-theme',
     primaryColor: '#FF7518',
@@ -329,7 +329,7 @@ export class SeasonalComponent implements OnInit {
         label: 'Independence Day',
         primaryColor: '#3C3B6E', // Navy blue
         secondaryColor: '#B22234', // Red
-         darkMode: 'light'
+         defaultDarkMode: 'light'
       });
       
       this.themeConfig.addSystemTheme(independenceTheme);
@@ -377,14 +377,14 @@ export class MarketingSectionComponent implements OnDestroy {
         label: 'Brand Primary',
         primaryColor: '#2E5CE6',
         secondaryColor: '#F6BC00',
-        darkMode: 'light'
+        defaultDarkMode: 'light'
       }),
       ThemeOption.create({
         value: 'brand-secondary',
         label: 'Brand Secondary',
         primaryColor: '#6C3DF4',
         secondaryColor: '#00D0BF',
-        darkMode: 'light'
+        defaultDarkMode: 'light'
       })
     ]);
   }
@@ -520,7 +520,7 @@ The library supports seasonal themes that can be automatically enabled based on 
 ```typescript
 // Seasonal theme examples
 const XMAS_THEME = ThemeOption.create({
-   darkMode: 'light',
+   defaultDarkMode: 'light',
   label: 'Christmas',
   value: 'xmas',
   primaryColor: '#C8102E', // Red
@@ -528,7 +528,7 @@ const XMAS_THEME = ThemeOption.create({
 });
 
 const HALLOWEEN_THEME = ThemeOption.create({
-   darkMode: 'dark',
+   defaultDarkMode: 'dark',
   label: 'Halloween',
   value: 'halloween',
   primaryColor: '#FF7518', // Orange

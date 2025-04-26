@@ -32,7 +32,7 @@ describe('ThemeGeneratorService', () => {
     errorColor: '#FF00FF',
     value: 'test-theme',
     label: 'Test Theme',
-     darkMode: 'light' // Explicitly set darkMode
+     defaultDarkMode: 'light' // Explicitly set darkMode
   });
 
   const mockThemeOptionSystemDark: ThemeOption = ThemeOption.create({
@@ -40,7 +40,7 @@ describe('ThemeGeneratorService', () => {
     secondaryColor: '#008000',
     value: 'system-theme',
     label: 'System Theme',
-    darkMode: 'system' // Use system preference
+    defaultDarkMode: 'system' // Use system preference
   });
 
   // Mock generated palettes (ensure keys match what PaletteGeneratorService produces)
@@ -154,7 +154,7 @@ describe('ThemeGeneratorService', () => {
         primaryColor: '#b12d00',
         secondaryColor: '#705d00',
         tertiaryColor: '#ac2471',
-         darkMode: 'light'
+         defaultDarkMode: 'light'
       });
 
       // Act
@@ -192,7 +192,7 @@ describe('ThemeGeneratorService', () => {
         primaryColor: '#b12d00',
         secondaryColor: '#705d00',
         tertiaryColor: '#ac2471',
-         darkMode: 'light'
+         defaultDarkMode: 'light'
       });
 
       // Act
@@ -253,7 +253,7 @@ describe('ThemeGeneratorService', () => {
     it('should call applySystemVariables with the correct parameters (light mode)', fakeAsync(() => {
       const systemSpy = jest.spyOn(service as any, 'applySystemVariables');
       systemPrefsMock.prefersDarkMode.mockReturnValue(false); // Ensure system is light
-      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' }); // Explicit light
+      const theme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'light' }); // Explicit light
 
       service.applyTheme(theme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
@@ -264,7 +264,7 @@ describe('ThemeGeneratorService', () => {
     it('should call applySystemVariables with the correct parameters (dark mode)', fakeAsync(() => {
       const systemSpy = jest.spyOn(service as any, 'applySystemVariables');
       systemPrefsMock.prefersDarkMode.mockReturnValue(true); // Ensure system is dark
-      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' }); // Explicit dark
+      const theme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'dark' }); // Explicit dark
 
       service.applyTheme(theme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
@@ -318,7 +318,7 @@ describe('ThemeGeneratorService', () => {
     //- - - - - - - - - - - - - - -//
 
     it('should add dark mode class if theme forces dark', fakeAsync(() => {
-      const darkTheme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' });
+      const darkTheme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'dark' });
       service.applyTheme(darkTheme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
@@ -344,7 +344,7 @@ describe('ThemeGeneratorService', () => {
     //- - - - - - - - - - - - - - -//
 
     it('should remove dark mode class if theme forces light', fakeAsync(() => {
-      const lightTheme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' });
+      const lightTheme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'light' });
       service.applyTheme(lightTheme, undefined, mockElement);
       flush(); // Process requestAnimationFrame
 
@@ -386,7 +386,7 @@ describe('ThemeGeneratorService', () => {
         label: 'Test Theme',
         primaryColor: '#b12d00',
         secondaryColor: '#b18800',
-         darkMode: 'light'
+         defaultDarkMode: 'light'
       });
       
       // Act
@@ -451,7 +451,7 @@ describe('ThemeGeneratorService', () => {
       // Set up light mode theme
       const lightTheme = ThemeOption.create({ 
         ...mockThemeOption, 
-         darkMode: 'light' 
+         defaultDarkMode: 'light' 
       });
       
       // Call the public method instead of directly testing the private method
@@ -469,7 +469,7 @@ describe('ThemeGeneratorService', () => {
       // Set up dark mode theme
       const darkTheme = ThemeOption.create({ 
         ...mockThemeOption, 
-         darkMode: 'dark' 
+         defaultDarkMode: 'dark' 
       });
       
       // Call the public method
@@ -570,25 +570,25 @@ describe('ThemeGeneratorService', () => {
 
   describe('shouldUseDarkMode', () => {
     it('should return true if theme.darkMode is true', () => {
-      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'dark' });
+      const theme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'dark' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(true);
     });
 
     it('should return false if theme.darkMode is false', () => {
-      const theme = ThemeOption.create({ ...mockThemeOption,  darkMode: 'light' });
+      const theme = ThemeOption.create({ ...mockThemeOption,  defaultDarkMode: 'light' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(false);
     });
 
     it('should return system preference if theme.darkMode is "system" (dark)', () => {
       systemPrefsMock.prefersDarkMode.mockReturnValue(true);
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: 'system' });
+      const theme = ThemeOption.create({ ...mockThemeOption, defaultDarkMode: 'system' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(true);
       expect(systemPrefsMock.prefersDarkMode).toHaveBeenCalled();
     });
 
     it('should return system preference if theme.darkMode is "system" (light)', () => {
       systemPrefsMock.prefersDarkMode.mockReturnValue(false);
-      const theme = ThemeOption.create({ ...mockThemeOption, darkMode: 'system' });
+      const theme = ThemeOption.create({ ...mockThemeOption, defaultDarkMode: 'system' });
       expect((service as any).shouldUseDarkMode(theme)).toBe(false);
       expect(systemPrefsMock.prefersDarkMode).toHaveBeenCalled();
     });
@@ -602,7 +602,7 @@ describe('ThemeGeneratorService', () => {
         value: 'default-dark',
         label: 'Default Dark'
       });
-      expect(theme.darkMode).toBe('system'); // Verify default
+      expect(theme.defaultDarkMode).toBe('system'); // Verify default
       expect((service as any).shouldUseDarkMode(theme)).toBe(true);
       expect(systemPrefsMock.prefersDarkMode).toHaveBeenCalled();
     });
@@ -615,7 +615,7 @@ describe('ThemeGeneratorService', () => {
         value: 'default-light',
         label: 'Default Light'
       });
-      expect(theme.darkMode).toBe('system'); // Verify default
+      expect(theme.defaultDarkMode).toBe('system'); // Verify default
       expect((service as any).shouldUseDarkMode(theme)).toBe(false);
       expect(systemPrefsMock.prefersDarkMode).toHaveBeenCalled();
     });

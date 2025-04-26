@@ -23,6 +23,8 @@ mat-toolbar {
   align-items: center;
   /* Center items vertically */
 }
+.left-links{
+}
 
 .rhs-outlet {
   margin-left: auto;
@@ -84,7 +86,12 @@ button[mat-icon-button] {
   }
 }
 
-img{
+img.navlink {
   width: auto ;
   height: 32px;
+  padding-left: 0;
+}
+
+mat-divider{
+  height: 24px;
 }

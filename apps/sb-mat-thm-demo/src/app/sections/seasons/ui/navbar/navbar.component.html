@@ -23,55 +23,60 @@
 
 
     <div class="right-links">
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'spring', 
-            tooltip: 'Spring Theme', 
-            iconName: 'spa', 
-            text: 'Spring'
-        }">
-    </ng-container>
+        <ng-container 
+            [ngTemplateOutlet]="navItem" 
+            [ngTemplateOutletContext]="{
+                routerLink: 'spring', 
+                tooltip: 'Spring Theme', 
+                iconName: 'spa', 
+                text: 'Spring'
+            }">
+        </ng-container>
 
-    
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'summer', 
-            tooltip: 'Summer Theme', 
-            iconName: 'sunny', 
-            text: 'Summer'
-        }">
-    </ng-container>    
+        
+        <ng-container 
+            [ngTemplateOutlet]="navItem" 
+            [ngTemplateOutletContext]="{
+                routerLink: 'summer', 
+                tooltip: 'Summer Theme', 
+                iconName: 'sunny', 
+                text: 'Summer'
+            }">
+        </ng-container>    
 
-    
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'autumn', 
-            tooltip: 'Autumn Theme', 
-            iconName: 'eco', 
-            text: 'Autumn'
-        }">
-    </ng-container>
+        
+        <ng-container 
+            [ngTemplateOutlet]="navItem" 
+            [ngTemplateOutletContext]="{
+                routerLink: 'autumn', 
+                tooltip: 'Autumn Theme', 
+                iconName: 'eco', 
+                text: 'Autumn'
+            }">
+        </ng-container>
 
-    
-    <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: 'winter', 
-            tooltip: 'Winter Theme', 
-            iconName: 'ac_unit', 
-            text: 'Winter'
-        }">
-    </ng-container>
-  
-    <div class="rhs-outlet">
-        @if(_rhsOutletTemplate(); as template){
-        <ng-container [ngTemplateOutlet]="template" />
+        
+        <ng-container 
+            [ngTemplateOutlet]="navItem" 
+            [ngTemplateOutletContext]="{
+                routerLink: 'winter', 
+                tooltip: 'Winter Theme', 
+                iconName: 'ac_unit', 
+                text: 'Winter'
+            }">
+        </ng-container>
+        
+        @if(isSmallScreen()){
+            <mat-divider [vertical]="true"/>
         }
+
+
+        <div class="rhs-outlet">
+            @if(_rhsOutletTemplate(); as template){
+            <ng-container [ngTemplateOutlet]="template" />
+            }
+        </div>
     </div>
-</div>
 
 </mat-toolbar>
 

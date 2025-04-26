@@ -193,6 +193,16 @@ export class ThemeService {
 
   //-----------------------------//
 
+
+  applyThemeByValue(themeValue: ThemeValue, targetElement?: HTMLElement): boolean {
+    const theme = this.availableThemes().find(t => t.value === themeValue);
+    if (theme)
+      this._themeGenerator.applyTheme(theme, theme.value, targetElement)
+    return !!theme
+  }
+
+  //-----------------------------//
+
   /**
  * Exports the current theme settings as a serializable object
  * that can be shared or imported later
@@ -270,7 +280,7 @@ export class ThemeService {
     const defaultTheme = this._config.systemThemes()[0] ?? defaultThemeOption;
 
     // Reset dark mode using system preference if applicable
-    const prefersDark = defaultTheme.darkMode;
+    const prefersDark = defaultTheme.defaultDarkMode;
 
     this._darkModeTypeBs.next(prefersDark);
 
@@ -330,7 +340,7 @@ export class ThemeService {
       const currentTheme = themeData?.currentTheme ?? this._config.systemThemes()[0] ?? defaultThemeOption
       this._currentThemeBs.next(currentTheme)
 
-      const darkMode = currentTheme?.darkMode
+      const darkMode = currentTheme?.defaultDarkMode
         ?? this._config.defaultDarkModeType()
         ?? 'system'
       this._darkModeTypeBs.next(darkMode)
@@ -377,7 +387,7 @@ export class ThemeService {
     this._themeTransition.transitionThemes(
       previousTheme,
       themeData.currentTheme,
-      themeData.currentTheme.darkMode
+      themeData.currentTheme.defaultDarkMode
     );
   }
 
@@ -389,7 +399,7 @@ export class ThemeService {
 
     consoleDev.log('Setting default theme:', defaultOption);
 
-    this.setDarkMode(defaultOption.darkMode)
+    this.setDarkMode(defaultOption.defaultDarkMode)
     this.setTheme(defaultOption)
   }
 

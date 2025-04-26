@@ -149,7 +149,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
       secondaryColor: values.secondaryColor,
       tertiaryColor: values.tertiaryColor ?? defaultThemeOption.tertiaryColor,
       errorColor: values.errorColor ?? defaultThemeOption.errorColor,
-      darkMode: values.darkMode // Use the form's dark mode value
+      defaultDarkMode: values.darkMode // Use the form's dark mode value
     }
 
     this.previewTheme(themeToApply)
@@ -170,7 +170,7 @@ export class MlThemeSelectorComponent implements OnDestroy {
       secondaryColor: theme.secondaryColor,
       tertiaryColor: theme.tertiaryColor,
       errorColor: theme.errorColor,
-      darkMode: theme.darkMode,
+      darkMode: theme.defaultDarkMode,
       themeName: `${theme.value}`,
     })
 

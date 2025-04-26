@@ -90,10 +90,8 @@ export interface SeasonCardData {
     }
   `]
 })
-export class SeasonInfoCardComponent implements OnInit {
+export class SeasonInfoCardComponent {
 
-  private _themeService = inject(ThemeService);
-  private elementRef = inject(ElementRef);
   private router = inject(Router);
 
   //- - - - - - - - - - - - - - -//
@@ -103,25 +101,11 @@ export class SeasonInfoCardComponent implements OnInit {
   //- - - - - - - - - - - - - - -//
 
   protected _localTheme = computed(() => this._data().theme);
-  // Internal signal/property to hold the theme for the banner
-
-  //-----------------------------//
-
-  ngOnInit(): void {
-
-    // Apply the theme locally to this card component instance
-    this._themeService.applyTheme(
-      this._data().theme,
-      this.elementRef.nativeElement //<-- Get the native element reference
-    )
-
-  }
 
   //-----------------------------//
 
   navigate = () =>
     this.router.navigate([this._data().routePath])
 
-  //-----------------------------//
 
 }//Cls

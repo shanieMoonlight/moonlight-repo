@@ -21,6 +21,7 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
     MatSidenavModule,
     SeasonalNavbarComponent,
     MlDarkModeToggleMatComponent,
+    MlThemePickerMatComponent,
     RouterModule,
     ThemeTransitionIndicatorComponent
   ],

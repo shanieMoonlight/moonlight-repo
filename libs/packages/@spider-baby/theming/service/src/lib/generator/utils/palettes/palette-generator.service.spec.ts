@@ -95,7 +95,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     };
 
     service.generatePalettes(themeOption);
@@ -122,7 +122,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'minimal-theme',
       label: 'Minimal Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     });
 
     service.generatePalettes(themeOption);
@@ -142,7 +142,7 @@ describe('PaletteGeneratorService', () => {
       errorColor: '#FF00FF',
       value: 'test-theme',
       label: 'Test Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     };
 
     const result = service.generatePalettes(themeOption);
@@ -175,7 +175,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);
@@ -196,7 +196,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#00FF00',
       value: 'test-theme',
       label: 'Test Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);
@@ -219,7 +219,7 @@ describe('PaletteGeneratorService', () => {
       secondaryColor: '#46dd55',
       value: 'empty-theme',
       label: 'Empty Theme',
-       darkMode: 'light'
+       defaultDarkMode: 'light'
     });
 
     const result = service.generatePalettes(themeOption);

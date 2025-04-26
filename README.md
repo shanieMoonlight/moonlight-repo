@@ -54,14 +54,14 @@ export const THEME_CONFIG = ThemeConfig.create([
     label: 'Indigo',
     primaryColor: '#3F51B5',
     secondaryColor: '#FF4081',
-    darkMode: 'system'
+    defaultDarkMode: 'system'
   }),
   ThemeOption.create({
     value: 'deeppurple',
     label: 'Deep Purple',
     primaryColor: '#673AB7',
     secondaryColor: '#00BCD4',
-    darkMode: 'system'
+    defaultDarkMode: 'system'
   }),
   // Add more themes as needed
 ]);
@@ -266,7 +266,7 @@ The library supports seasonal themes that can be automatically enabled based on 
 ```typescript
 // Seasonal theme examples
 const XMAS_THEME = ThemeOption.create({
-   darkMode: 'light',
+   defaultDarkMode: 'light',
   label: 'Christmas',
   value: 'xmas',
   primaryColor: '#C8102E', // Red
@@ -274,7 +274,7 @@ const XMAS_THEME = ThemeOption.create({
 });
 
 const HALLOWEEN_THEME = ThemeOption.create({
-   darkMode: 'dark',
+   defaultDarkMode: 'dark',
   label: 'Halloween',
   value: 'halloween',
   primaryColor: '#FF7518', // Orange

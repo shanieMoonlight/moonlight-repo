@@ -27,7 +27,7 @@ const createMockTheme = (label = 'Test Theme', value = 'test-theme'): ThemeOptio
   secondaryColor: '#FFC107',
   tertiaryColor: '#03A9F4',
   errorColor: '#F44336',
-   darkMode: 'light',
+  defaultDarkMode: 'light',
 });
 
 describe('CustomThemeSavedComponent', () => {

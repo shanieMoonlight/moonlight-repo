@@ -120,18 +120,18 @@ constructor()  &#123;
     <h2>Try Different Themes</h2>
     <p>Select from seasonal theme only available in this section:</p>
     <ml-theme-picker-mat [includeCustomThemes]="false"/>
-    <!-- <sb-theme-picker 
-      [themes]="_availableThemes()" 
-      [currentTheme]="_currentTheme()" 
-      (themeChange)="changeTheme($event)" /> -->
   </div>
 
-  <h2>Seasonal Theme Examples</h2>
-  <p>Each card below demonstrates local theming (bounded by the card). Follow the link to see the global theming capabilities</p>
+  <div class="directive-examples">
 
-  <div class="seasons-grid">
-    @for (season of _seasonData(); track season.title) {
-    <sb-season-info-card [data]="season" />
-    }
+    <h2>Seasonal Theme Examples</h2>
+    <p>Each card below demonstrates local theming (bounded by the card). Follow the link to see the global theming capabilities</p>
+    
+    <div class="seasons-grid">
+      @for (season of _seasonData(); track season.title) {
+        <sb-season-info-card  [mlApplyTheme]="season.theme"  [data]="season" />
+      }
+    </div>
   </div>
+  
 </div>

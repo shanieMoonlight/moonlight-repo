@@ -340,9 +340,9 @@ export class ThemeGeneratorService {
    * @returns True if dark mode should be applied, false otherwise
    */
   private shouldUseDarkMode = (theme: ThemeOption): boolean =>
-    theme.darkMode === 'system'
+    theme.defaultDarkMode === 'system'
       ? this._systemPrefs.prefersDarkMode()
-      : theme.darkMode === 'dark';
+      : theme.defaultDarkMode === 'dark';
 
 
   //- - - - - - - - - - - - - - -//
@@ -367,7 +367,7 @@ export class ThemeGeneratorService {
 
     // Step 4: Define the cache key generator function
     const keyGenerator = (theme: ThemeOption): string => {
-      return `${theme.primaryColor}-${theme.secondaryColor}-${theme.tertiaryColor || ''}-${theme.errorColor || ''}-${theme.darkMode}`;
+      return `${theme.primaryColor}-${theme.secondaryColor}-${theme.tertiaryColor || ''}-${theme.errorColor || ''}-${theme.defaultDarkMode}`;
     };
 
     // Step 5: Create the memoized function by combining all parts

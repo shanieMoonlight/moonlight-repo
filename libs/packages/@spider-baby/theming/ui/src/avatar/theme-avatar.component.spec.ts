@@ -11,7 +11,7 @@ const createMockTheme = (overrides: Partial<ThemeOption> = {}): ThemeOption => (
   secondaryColor: '#FFC107', // Amber 500
   tertiaryColor: '#03A9F4', // Light Blue 500
   errorColor: '#F44336', // Red 500
-   darkMode: 'light',
+  defaultDarkMode: 'light',
   ...overrides,
 });
 

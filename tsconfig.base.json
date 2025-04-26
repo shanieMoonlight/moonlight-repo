@@ -28,6 +28,9 @@
       "@spider-baby/material-theming/customizer": [
         "libs/packages/@spider-baby/theming/customizer/src/index.ts"
       ],
+      "@spider-baby/material-theming/directives": [
+        "libs/packages/@spider-baby/theming/directives/src/index.ts"
+      ],
       "@spider-baby/material-theming/init": [
         "libs/packages/@spider-baby/theming/init/src/index.ts"
       ],

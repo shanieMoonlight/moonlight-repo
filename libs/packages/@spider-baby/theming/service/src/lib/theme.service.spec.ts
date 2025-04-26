@@ -42,14 +42,14 @@ describe('ThemeService', () => {
 
   const mockThemes: ThemeOption[] = [
     ThemeOption.create({
-      darkMode: 'system',
+      defaultDarkMode: 'system',
       label: 'Default',
       value: 'default',
       primaryColor: '#4682B4',
       secondaryColor: '#D2691E',
     }),
     ThemeOption.create({
-      darkMode: 'light',
+      defaultDarkMode: 'light',
       label: 'Violet',
       value: 'violet',
       primaryColor: '#8A2BE2',
@@ -221,7 +221,7 @@ describe('ThemeService', () => {
 
   describe('addCustomTheme', () => {
     const customTheme = ThemeOption.create({
-      darkMode: 'light',
+      defaultDarkMode: 'light',
       label: 'Custom',
       value: 'custom',
       primaryColor: '#FF0000',
@@ -272,7 +272,7 @@ describe('ThemeService', () => {
     it('should remove a custom theme by value', fakeAsync(() => {
       // Add some custom themes first
       const customTheme1 = ThemeOption.create({
-        darkMode: 'light',
+        defaultDarkMode: 'light',
         label: 'Custom1',
         value: 'custom1',
         primaryColor: '#FF0000',
@@ -280,7 +280,7 @@ describe('ThemeService', () => {
       });
 
       const customTheme2 = ThemeOption.create({
-        darkMode: 'dark',
+        defaultDarkMode: 'dark',
         label: 'Custom2',
         value: 'custom2',
         primaryColor: '#0000FF',
@@ -304,7 +304,7 @@ describe('ThemeService', () => {
     it('should clear custom themes', fakeAsync(() => {
       // Add a custom theme first
       const customTheme = ThemeOption.create({
-        darkMode: 'light',
+        defaultDarkMode: 'light',
         label: 'Custom',
         value: 'custom',
         primaryColor: '#FF0000',
