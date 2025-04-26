@@ -1,0 +1,55 @@
+<div class="data-table-container">
+  <div class="table-header">
+    <h2>{{ title() }}</h2>
+    <div class="table-actions">
+      <button mat-raised-button color="primary" (click)="onRefresh()">
+        <mat-icon>refresh</mat-icon> Refresh Data
+      </button>
+    </div>
+  </div>
+  
+
+  @if (items() && items().length > 0) {
+    <div class="table-container">
+      @if (isLoading()) {
+        <mat-progress-bar mode="indeterminate" />
+      }
+      <table mat-table [dataSource]="items()">
+        <!-- Dynamic Columns -->
+        @for (column of displayColumns(); track column) {
+          <ng-container [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+            <td mat-cell *matCellDef="let item">{{ item[column] }}</td>
+          </ng-container>
+        }
+        
+        <!-- Actions Column -->
+        @if (includeActions()) {
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let item">
+              <button mat-icon-button color="primary" matTooltip="View Details" (click)="onViewDetails(item)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" matTooltip="Edit" (click)="onEditItem(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" matTooltip="Delete" (click)="onDeleteItem(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        }
+        
+        <tr mat-header-row *matHeaderRowDef="allDisplayColumns()"></tr>
+        <tr mat-row *matRowDef="let row; columns: allDisplayColumns();"></tr>
+      </table>
+    </div>
+  } @else {
+    <div class="no-data">
+      <mat-icon>{{ iconName() }}</mat-icon>
+      <p>{{ emptyMessage() }}</p>
+    </div>
+  }
+</div>
+

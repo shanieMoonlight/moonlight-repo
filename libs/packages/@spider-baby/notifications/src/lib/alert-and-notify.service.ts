@@ -1,6 +1,5 @@
-import { inject, Injectable } from '@angular/core';
+import { forwardRef, inject, Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { ANotificationService } from './a-alert-and-notify-service';
 import { SbNotificationStatusService } from './alert-and-notify-status.service';
 
 //###########################################################//
@@ -9,16 +8,35 @@ export const DEFAULT_TOAST_DURATION_MILLIS = 2000;
 
 //###########################################################//
 
+
+@Injectable({
+  providedIn: 'root',
+  useClass: forwardRef(() => SbConsoleNotificationService), // Default implementation.
+})
+export abstract class ANotificationService {
+
+  abstract showLoader$(isLoading: boolean, spinnerOpts?: any): Observable<any>;
+  abstract showErrorMsg$(errorMsg?: string, errorOpts?: any): Observable<any>;
+  abstract showSuccessToast$(successMsg?: string, durationMillis?: number, toastOpts?: any): Observable<any>;
+  abstract showSuccessPopup$(successMsg?: string, successOpts?: any): Observable<any>;
+
+}
+
+
+
+
+//###########################################################//
+
 @Injectable({
   providedIn: 'root',
 })
-export class SbConsoleNotificationService extends ANotificationService { 
+export class SbConsoleNotificationService extends ANotificationService {
 
   private _status = inject(SbNotificationStatusService);
 
   //---------------------------//
 
-  override showLoader$(isLoading: boolean, spinnerOpts:any): Observable<any> {
+  override showLoader$(isLoading: boolean, spinnerOpts: any): Observable<any> {
     this._status.setIsLoading(isLoading)
     console.log('showLoader$', isLoading, spinnerOpts)
     return of(isLoading)

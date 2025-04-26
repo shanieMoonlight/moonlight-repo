@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnDestroy, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ANotificationService } from './a-alert-and-notify-service';
+import { ANotificationService } from './alert-and-notify.service';
 
 @Component({
   selector: 'sb-notifications',
@@ -10,7 +10,7 @@ import { ANotificationService } from './a-alert-and-notify-service';
   styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GgWbNotificationsComponent implements OnDestroy{
+export class SbNotificationsComponent implements OnDestroy{
 
   private _service = inject(ANotificationService)
   private _destroyer = inject(DestroyRef);
@@ -38,7 +38,7 @@ export class GgWbNotificationsComponent implements OnDestroy{
 
   //- - - - - - - - - - - - - -//
 
-  @Input('errorMsg') set errorMsg(value: string | null | undefined) {
+  @Input('error') set errorMsg(value: string | null | undefined) {
     this._service
       .showErrorMsg$(value ?? undefined)
       .pipe(takeUntilDestroyed(this._destroyer))

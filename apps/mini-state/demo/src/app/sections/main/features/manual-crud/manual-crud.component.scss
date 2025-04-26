@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 2rem 0;
+}
+
+// Add to simple.component.scss
+.content-container {
+  width: 90%;
+  max-width: 1200px;
+  padding: 1rem;
+}
+

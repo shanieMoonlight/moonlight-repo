@@ -49,6 +49,9 @@
       "@spider-baby/mini-state": [
         "libs/packages/@spider-baby/mini-state/src/index.ts"
       ],
+      "@spider-baby/mini-state/utils": [
+        "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
+      ],
       "@spider-baby/notifications": [
         "libs/packages/@spider-baby/notifications/src/index.ts"
       ],

@@ -9,6 +9,43 @@ import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 
+//##############################################################//
+
+interface NavbarItem {
+  routerLink: string,
+  tooltip: string,
+  iconName: string,
+  text: string
+}
+
+//##############################################################//
+
+
+const rhsNavbarItems: NavbarItem[] = [
+  {
+    routerLink: 'simple',
+    tooltip: 'Simple',
+    iconName: 'egg',
+    text: 'Simple'
+  },
+  {
+    routerLink: 'manual-crud',
+    tooltip: 'Manual Crud',
+    iconName: 'auto_transmission',
+    text: 'Crud (mnl)'
+  },
+  {
+    routerLink: '/api', 
+    tooltip: 'Api Documentation', 
+    iconName: 'api', 
+    text: 'Api'
+  },
+]
+
+
+//##############################################################//
+
+
 @Component({
   selector: 'sb-navbar',
   imports: [
@@ -34,6 +71,7 @@ export class NavbarComponent {
 
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO)
   protected _npmPkgUrl = signal(AppConstants.NPM_PKG)
+  protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems)
 
 
   isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])

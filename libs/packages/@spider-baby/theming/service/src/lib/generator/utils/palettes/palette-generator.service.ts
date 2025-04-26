@@ -24,7 +24,7 @@ export class PaletteGeneratorService {
    * @returns An object containing the primary color and all its tonal variations
    */
   generatePalettes(themeOption: ThemeOption): GeneratedPalettes {
-    consoleDev.log('Generating palettes...', themeOption.label, themeOption)
+    // consoleDev.log('Generating palettes...', themeOption.label, themeOption)
 
     const primary = themeOption.primaryColor ?? DEFAULT_COLOR_PRIMARY;
     const secondary = themeOption.secondaryColor ?? DEFAULT_COLOR_SECONDARY;

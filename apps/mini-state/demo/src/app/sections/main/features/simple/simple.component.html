@@ -1,0 +1,27 @@
+
+
+<div class="content-container">
+    <sb-data-table 
+      [items]="_data()" 
+      [displayColumns]="displayColumns()"
+      [isLoading]="_loading()" 
+      [includeActions]="true"
+      [title]="'Album Collection'"
+      [emptyMessage]="'No albums found. Try refreshing the data.'"
+      [loadingMessage]="'Loading albums...'"
+      [itemName]="'album'"
+      [iconName]="'album'"
+      (refresh)="refresh()"/>
+</div>
+
+
+<sb-error-modal 
+    [errorMsg]="_errorMsg()"
+    (tryAgain)="refresh()">
+
+<sb-success-modal [successMsg]="_successMsg()">
+
+<!-- <sb-notifications
+    [error]="_errorMsg()"
+    [successPopup]="_successMsg()"
+    [loading]="_loading()"/> -->

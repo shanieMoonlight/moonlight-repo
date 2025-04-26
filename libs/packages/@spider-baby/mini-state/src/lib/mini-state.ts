@@ -10,6 +10,13 @@ const SPACE_2 = '\u200C '
 
 //=========================================================//
 
+export interface MessageWrapper {
+    message: string;
+    timestamp: number; // Or a unique ID/counter
+  }
+
+//=========================================================//
+
 export class MiniState<Input, Output, TError = any> {
 
     protected _successMsgBs = new Subject<string>()

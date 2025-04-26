@@ -32,19 +32,20 @@
     } 
 </div>
 
-    <!-- 
-        <span class="spacer"></span>    
-    } -->
 
-<div class="right-links">          
+<div class="right-links">     
+    
+    @for(navLink of _rhsNavItems(); track navLink) {
         <ng-container 
-            [ngTemplateOutlet]="navItem" 
-            [ngTemplateOutletContext]="{
-                routerLink: '/api', 
-                tooltip: 'Api Documentation', 
-                iconName: 'api', 
-                text: 'Api'
-            }"/>
+        [ngTemplateOutlet]="navItem" 
+        [ngTemplateOutletContext]="{
+            routerLink: navLink.routerLink, 
+            tooltip: navLink.tooltip, 
+            iconName: navLink.iconName, 
+            text: navLink.text
+        }"/>
+    }
+    
     
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){

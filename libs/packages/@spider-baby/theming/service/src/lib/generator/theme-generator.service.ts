@@ -90,7 +90,7 @@ export class ThemeGeneratorService {
     const isDark = this.shouldUseDarkMode(theme)
     // const palettes = this._paletteGenerator.generatePalettes(theme)
     // Use memoized function instead of direct call
-    consoleDev.log('Generating palettes for theme:', theme.value,theme.darkMode, theme)
+    // consoleDev.log('Generating palettes for theme:', theme.value,theme.darkMode, theme)
     const palettes = this._memoizedGeneratePalettes(theme);
     const themeClass = themeClassOverride ?? theme.value
 

@@ -120,7 +120,7 @@ export class ThemeService {
       consoleDev.log('This is the effect')
       const currentSystemThemes = this.systemThemes();
       const currentThemeValue = this.currentTheme().value;
-      consoleDev.log('ThemeService: System themes changed, checking current theme validity.');
+      // consoleDev.log('ThemeService: System themes changed, checking current theme validity.');
       if (!this.customThemes().some(t => t.value === currentThemeValue) &&
         !currentSystemThemes.some(t => t.value === currentThemeValue)) {
         consoleDev.warn(`ThemeService: Current theme "${currentThemeValue}" no longer exists in system themes. Resetting to default.`);
@@ -330,7 +330,7 @@ export class ThemeService {
           // devLog('ThemeService:currentData')
         )
         .subscribe(data => {
-          consoleDev.log('subscribe - Theme data:', data);
+          // consoleDev.log('subscribe - Theme data:', data);
           this.applyCurrentTheme(data)
           this._localStorage.setItemObject(THEME_KEY, data)
         })

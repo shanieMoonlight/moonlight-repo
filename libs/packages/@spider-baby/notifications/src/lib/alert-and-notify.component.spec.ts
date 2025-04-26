@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GgWbNotificationsComponent } from './alert-and-notify.component';
+import { SbNotificationsComponent } from './alert-and-notify.component';
 
-describe('GgWbNotificationsComponent', () => {
-  let component: GgWbNotificationsComponent;
-  let fixture: ComponentFixture<GgWbNotificationsComponent>;
+describe('SbNotificationsComponent', () => {
+  let component: SbNotificationsComponent;
+  let fixture: ComponentFixture<SbNotificationsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GgWbNotificationsComponent],
+      imports: [SbNotificationsComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GgWbNotificationsComponent);
+    fixture = TestBed.createComponent(SbNotificationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
