@@ -1,23 +1,23 @@
 <div class="container">
     <header class="header">
-        <img class="hero-image" src="images/tranparent/spider-baby-6.png" alt="SpiderBaby Material" />
+        <img class="hero-image" src="images/tranparent/spider-baby-6.png" alt="SpiderBaby Material Theming Logo" />
         <h1>SpiderBaby Material Theming</h1>
         <p class="tagline">A powerful, flexible theming system for Angular Material!</p>
         
         <div class="links">
-            <button mat-raised-button  [mlNavigateNewWindow]="_gitRepoUrl()" >
+            <button mat-raised-button [mlNavigateNewWindow]="_gitRepoUrl()" aria-label="View GitHub Repository">
                 <mat-icon svgIcon="git"/>
                 GitHub
             </button>
-            <button mat-raised-button  [mlNavigateNewWindow]="_npmUrl()" >
+            <button mat-raised-button [mlNavigateNewWindow]="_npmUrl()" aria-label="View NPM Package">
                 <mat-icon svgIcon="npm"/>
                 NPM
             </button>
-            <button mat-raised-button sbShareCurrentPage>
+            <button mat-raised-button sbShareCurrentPage aria-label="Share this page">
                 <mat-icon>share</mat-icon>
                 Share
             </button>
-            <button mat-raised-button [routerLink]="['/api']">
+            <button mat-raised-button [routerLink]="['/api']" aria-label="View API Documentation">
                 <mat-icon>api</mat-icon>
                 API
             </button>
@@ -27,7 +27,8 @@
 
     <mat-divider />
     
-    <section class="features">
+    <section class="features" aria-labelledby="features-heading">
+        <h2 id="features-heading" class="visually-hidden">Features</h2>
         <sb-current-theme-banner [withTooltips]="true" />
         <sb-home-cards/>
         <sb-current-theme-banner [withTooltips]="true" />
@@ -35,37 +36,43 @@
 
     <mat-divider />
 
-    <section>
+    <section aria-labelledby="performance-heading">
+        <h2 id="performance-heading" class="visually-hidden">Performance</h2>
         <sb-home-performance [sectionNumber]="'01'"/>
     </section>
 
     <mat-divider />
 
-    <section class="getting-started">
+    <section class="getting-started" aria-labelledby="getting-started-heading">
+        <h2 id="getting-started-heading" class="visually-hidden">Getting Started</h2>
         <sb-home-getting-started [sectionNumber]="'02'"/>
      </section>
 
      <mat-divider />
      
-    <section class="color-vars">
+    <section class="color-vars" aria-labelledby="color-vars-heading">
+        <h2 id="color-vars-heading" class="visually-hidden">Color Variables</h2>
         <sb-home-color-vars [sectionNumber]="'03'"/>
      </section>
 
      <mat-divider />
 
-     <section class="persistence">
+     <section class="persistence" aria-labelledby="persistence-heading">
+        <h2 id="persistence-heading" class="visually-hidden">Theme Persistence</h2>
         <sb-home-persistence [sectionNumber]="'04'"/>
      </section> 
 
     <mat-divider />
 
-     <section class="section-based-theming">
+     <section class="section-based-theming" aria-labelledby="sectioned-themes-heading">
+        <h2 id="sectioned-themes-heading" class="visually-hidden">Section-Based Theming</h2>
         <sb-home-sectioned-themes [sectionNumber]="'05'"/>
      </section>
 
     <mat-divider />
 
-    <section class="showcase">
+    <section class="showcase" aria-labelledby="theme-showcase-heading">
+        <h2 id="theme-showcase-heading" class="visually-hidden">Theme Showcase</h2>
         <sb-home-section-hdr 
             [sectionNumber]="'06'" 
             [title]="'Theme Preview'"/>
@@ -75,8 +82,17 @@
 
     <mat-divider />
 
-    <section class="section-based-theming">
+    <section class="section-based-theming" aria-labelledby="git-heading">
+        <h2 id="git-heading" class="visually-hidden">Source Code</h2>
         <sb-home-git [sectionNumber]="'07'"/>
     </section>
 
+    <footer>
+        <p>&copy; <span id="current-year">2024</span> SpiderBaby Material Theming. Licensed under MIT.</p>
+        <p>
+            <a href="https://github.com/paultrygs/angular-material-theming" rel="noopener" target="_blank">GitHub</a> | 
+            <a href="https://www.npmjs.com/package/@spider-baby/material-theming" rel="noopener" target="_blank">NPM</a>
+        </p>
+        <script>document.getElementById('current-year').textContent = new Date().getFullYear().toString();</script>
+    </footer>
 </div>

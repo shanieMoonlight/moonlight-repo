@@ -1,39 +1,48 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { StructuredDataService } from './shared/services/structured-data.service';
+import { SeoService } from './shared/services/seo.service';
+import { PerformanceService } from './shared/services/performance.service';
+import { AppConstants } from './config/constants';
 
 @Component({
-  imports: [RouterModule],
   selector: 'sb-mat-demo-root',
+  standalone: true,
+  imports: [RouterOutlet],
   template: `
     <router-outlet />
   `,
-  styles: `
-    
-    :host {
-      display: block;
-      position: relative;
-    }
-    
-    .github-corner:hover .octo-arm {
-      animation: octocat-wave 560ms ease-in-out;
-    }
-    
-    @keyframes octocat-wave {
-      0%, 100% { transform: rotate(0); }
-      20%, 60% { transform: rotate(-25deg); }
-      40%, 80% { transform: rotate(10deg); }
-    }
-    
-    @media (max-width: 500px) {
-      .github-corner:hover .octo-arm {
-        animation: none;
-      }
-      .github-corner .octo-arm {
-        animation: octocat-wave 560ms ease-in-out;
-      }
-    }
-  `,
+ styles: `    
+ :host {
+   display: block;
+   position: relative;
+ }
+ `
 })
-export class AppComponent {
-  title = 'SpiderBaby Material Theming';
+export class AppComponent implements OnInit {
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document,
+    private structuredDataService: StructuredDataService,
+    private seoService: SeoService,
+    private performanceService: PerformanceService
+  ) {}
+
+  ngOnInit() {
+    // Add base structured data for the whole site
+    this.structuredDataService.addLibraryStructuredData();
+
+    // Initialize performance monitoring
+    this.performanceService.measureCoreWebVitals();
+
+    // Handle route changes to update canonical URLs
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Update canonical URL based on current route
+      this.seoService.addCanonicalLink(AppConstants.DEMO_URL + this.router.url);
+    });
+  }
 }
