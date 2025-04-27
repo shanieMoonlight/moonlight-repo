@@ -48,7 +48,9 @@ data = combinedState.data;               // Signal<any> - data from the most rec
 const isLoading = MiniStateCombined.CombineLoaders(state1, state2, state3);
 
 // Usage in templates
-<loading-spinner *ngIf="isLoading()"></loading-spinner>
+@if(isLoading()) {
+  <loading-spinner></loading-spinner>
+}
 
 // Or in reactive code
 effect(() => {
@@ -64,7 +66,9 @@ effect(() => {
 const errorMsg = MiniStateCombined.CombineErrorMsgs(state1, state2, state3);
 
 // Usage in templates
-<error-alert *ngIf="errorMsg()">{{ errorMsg() }}</error-alert>
+@if(errorMsg()) {
+  <error-alert>{{ errorMsg() }}</error-alert>
+}
 
 // The signal will contain the most recent error message
 // If multiple errors occur, only the latest is shown`;
@@ -74,7 +78,9 @@ const errorMsg = MiniStateCombined.CombineErrorMsgs(state1, state2, state3);
 const successMsg = MiniStateCombined.CombineSuccessMsgs(state1, state2, state3);
 
 // Usage in templates
-<success-toast *ngIf="successMsg()">{{ successMsg() }}</success-toast>
+@if(successMsg()) {
+  <success-toast>{{ successMsg() }}</success-toast>
+}
 
 // When any state produces a success message, it will be available through this signal`;
 
@@ -111,36 +117,44 @@ import { User } from './user.model';
   selector: 'app-user-profile',
   template: \`
     <!-- Show a single loading indicator for any operation -->
-    <div class="loading-overlay" *ngIf="loading()">
-      <mat-spinner diameter="40"></mat-spinner>
-    </div>
+    @if(loading()) {
+      <div class="loading-overlay">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    }
     
     <!-- Show the latest error message from any operation -->
-    <mat-error *ngIf="errorMsg()">{{ errorMsg() }}</mat-error>
+    @if(errorMsg()) {
+      <mat-error>{{ errorMsg() }}</mat-error>
+    }
     
     <!-- Show the latest success message from any operation -->
-    <div class="success-message" *ngIf="successMsg()">{{ successMsg() }}</div>
+    @if(successMsg()) {
+      <div class="success-message">{{ successMsg() }}</div>
+    }
     
-    <div class="profile-container" *ngIf="user()">
-      <h2>{{ user().displayName }}</h2>
-      
-      <!-- User details -->
-      <div class="user-details">
-        <p>Email: {{ user().email }}</p>
-        <p>Joined: {{ user().createdAt | date }}</p>
+    @if(user()) {
+      <div class="profile-container">
+        <h2>{{ user().displayName }}</h2>
+        
+        <!-- User details -->
+        <div class="user-details">
+          <p>Email: {{ user().email }}</p>
+          <p>Joined: {{ user().createdAt | date }}</p>
+        </div>
+        
+        <!-- User actions -->
+        <div class="user-actions">
+          <button mat-button (click)="refreshUser()">Refresh</button>
+          <button mat-raised-button color="primary" (click)="updateUser()">
+            Update Profile
+          </button>
+          <button mat-raised-button color="warn" (click)="deleteUser()">
+            Delete Account
+          </button>
+        </div>
       </div>
-      
-      <!-- User actions -->
-      <div class="user-actions">
-        <button mat-button (click)="refreshUser()">Refresh</button>
-        <button mat-raised-button color="primary" (click)="updateUser()">
-          Update Profile
-        </button>
-        <button mat-raised-button color="warn" (click)="deleteUser()">
-          Delete Account
-        </button>
-      </div>
-    </div>
+    }
   \`
 })
 export class UserProfileComponent {

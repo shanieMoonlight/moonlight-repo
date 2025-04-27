@@ -153,7 +153,9 @@ import { User, UserFilter } from './user.model';
       
       <!-- User Table -->
       <div class="table-container">
-        <mat-progress-bar *ngIf="loading()" mode="indeterminate"></mat-progress-bar>
+        @if(loading()) {
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        }
         <table mat-table [dataSource]="users()">
           <!-- Name Column -->
           <ng-container matColumnDef="name">
@@ -181,13 +183,17 @@ import { User, UserFilter } from './user.model';
           </ng-container>
           
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          @for(row of users(); track row.id) {
+            <tr mat-row [columns]="displayedColumns"></tr>
+          }
         </table>
         
         <!-- Empty state -->
-        <div *ngIf="!loading() && users().length === 0" class="empty-state">
-          No users found. Try adjusting your filters or add a new user.
-        </div>
+        @if(!loading() && users().length === 0) {
+          <div class="empty-state">
+            No users found. Try adjusting your filters or add a new user.
+          </div>
+        }
       </div>
     </div>
   \`

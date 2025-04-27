@@ -94,17 +94,23 @@ import { WeatherService } from './weather.service';
   selector: 'app-weather',
   template: \`
     <h2>Current Weather</h2>
-    <div *ngIf="loading()">Loading weather data...</div>
+    @if(loading()) {
+      <div>Loading weather data...</div>
+    }
     
-    <div *ngIf="errorMsg()" class="error">
-      {{ errorMsg() }}
-    </div>
+    @if(errorMsg()) {
+      <div class="error">
+        {{ errorMsg() }}
+      </div>
+    }
     
-    <div *ngIf="weather() && !loading()">
-      <p>Temperature: {{ weather().temperature }}°C</p>
-      <p>Conditions: {{ weather().conditions }}</p>
-      <button (click)="refresh()">Refresh</button>
-    </div>
+    @if(weather() && !loading()) {
+      <div>
+        <p>Temperature: {{ weather().temperature }}°C</p>
+        <p>Conditions: {{ weather().conditions }}</p>
+        <button (click)="refresh()">Refresh</button>
+      </div>
+    }
   \`
 })
 export class WeatherComponent {
@@ -153,19 +159,25 @@ import { User } from './user.model';
         </button>
       </div>
       
-      <div *ngIf="errorMsg()" class="error-message">
-        {{ errorMsg() }}
-      </div>
+      @if(errorMsg()) {
+        <div class="error-message">
+          {{ errorMsg() }}
+        </div>
+      }
       
-      <div *ngIf="successMsg()" class="success-message">
-        {{ successMsg() }}
-      </div>
+      @if(successMsg()) {
+        <div class="success-message">
+          {{ successMsg() }}
+        </div>
+      }
       
-      <div *ngIf="user()" class="user-profile">
-        <h3>{{ user().name }}</h3>
-        <p>Email: {{ user().email }}</p>
-        <p>Role: {{ user().role }}</p>
-      </div>
+      @if(user()) {
+        <div class="user-profile">
+          <h3>{{ user().name }}</h3>
+          <p>Email: {{ user().email }}</p>
+          <p>Role: {{ user().role }}</p>
+        </div>
+      }
     </div>
   \`
 })
@@ -202,5 +214,4 @@ export class UserProfileComponent {
     this.userState.trigger(this.userId);
   }
 }`;
-
 }

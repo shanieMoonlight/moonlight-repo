@@ -17,31 +17,41 @@ export class MiniStateUtilityDocsComponent {
 const combinedErrors = MiniStateUtility.combineErrors(state1, state2, state3);
 
 // Use the combined signal in your template
-<error-alert *ngIf="combinedErrors()">{{ combinedErrors() }}</error-alert>`;
+@if(combinedErrors()) {
+  <error-alert>{{ combinedErrors() }}</error-alert>
+}`;
 
   combineErrorMsgsExample = `// Combine error messages from multiple MiniState instances
 const combinedErrorMsgs = MiniStateUtility.combineErrorMsgs(state1, state2, state3);
 
 // Use the combined signal in your template
-<error-alert *ngIf="combinedErrorMsgs()">{{ combinedErrorMsgs() }}</error-alert>`;
+@if(combinedErrorMsgs()) {
+  <error-alert>{{ combinedErrorMsgs() }}</error-alert>
+}`;
 
   combineSuccessMsgsExample = `// Combine success messages from multiple MiniState instances
 const combinedSuccessMsgs = MiniStateUtility.combineSuccessMsgs(state1, state2, state3);
 
 // Use the combined signal in your template
-<success-toast *ngIf="combinedSuccessMsgs()">{{ combinedSuccessMsgs() }}</success-toast>`;
+@if(combinedSuccessMsgs()) {
+  <success-toast>{{ combinedSuccessMsgs() }}</success-toast>
+}`;
 
   combineLoadingExample = `// Combine loading states from multiple MiniState instances
 const isLoading = MiniStateUtility.combineLoading(state1, state2, state3);
 
 // Use the combined signal in your template
-<loading-spinner *ngIf="isLoading()"></loading-spinner>`;
+@if(isLoading()) {
+  <loading-spinner></loading-spinner>
+}`;
 
   combineDataExample = `// Combine data from multiple MiniState instances
 const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 
 // Use the combined signal in your template
-<div *ngIf="combinedData()">
-  Latest data: {{ combinedData() }}
-</div>`;
+@if(combinedData()) {
+  <div>
+    Latest data: {{ combinedData() }}
+  </div>
+}`;
 }

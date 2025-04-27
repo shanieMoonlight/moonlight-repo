@@ -161,41 +161,53 @@ import { User } from './user.model';
       </div>
       
       <!-- Loading state -->
-      <mat-progress-bar *ngIf="loading()" mode="indeterminate"></mat-progress-bar>
+      @if(loading()) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
       
       <!-- Error message -->
-      <div *ngIf="errorMsg()" class="error-message">
-        {{ errorMsg() }}
-      </div>
+      @if(errorMsg()) {
+        <div class="error-message">
+          {{ errorMsg() }}
+        </div>
+      }
       
       <!-- Success message -->
-      <div *ngIf="successMsg()" class="success-message">
-        {{ successMsg() }}
-      </div>
+      @if(successMsg()) {
+        <div class="success-message">
+          {{ successMsg() }}
+        </div>
+      }
       
       <!-- Results -->
-      <div class="results" *ngIf="users() && users().length > 0">
-        <h3>Search Results</h3>
-        <mat-card *ngFor="let user of users()">
-          <mat-card-header>
-            <mat-card-title>{{ user.name }}</mat-card-title>
-            <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p>{{ user.bio }}</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button [routerLink]="['/users', user.id]">
-              View Profile
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
+      @if(users() && users().length > 0) {
+        <div class="results">
+          <h3>Search Results</h3>
+          @for(user of users(); track user.id) {
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>{{ user.name }}</mat-card-title>
+                <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ user.bio }}</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button [routerLink]="['/users', user.id]">
+                  View Profile
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
       
       <!-- Empty state -->
-      <div *ngIf="searchPerformed() && users().length === 0" class="empty-state">
-        No users found matching your search criteria.
-      </div>
+      @if(searchPerformed() && users().length === 0) {
+        <div class="empty-state">
+          No users found matching your search criteria.
+        </div>
+      }
     </div>
   \`
 })
