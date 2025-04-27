@@ -154,7 +154,7 @@ export class DownloadSetupFilesService {
     return this._http.get(`${this._setupFilesBasePath}${filename}`, {
       responseType: 'text'
     }).pipe(
-      delay(5000), // Optional delay for demo purposes
+      // delay(5000), // Optional delay for demo purposes
       map(textContent => {
         this._downloadService.downloadBlob(textContent, {
           filename: downloadName,

@@ -5,22 +5,38 @@ import { SeoConfig } from '@spider-baby/utils-seo/config';
 
 //################################################//
 
+/**
+ * Structure for a meta tag with name or property attribute
+ */
 type MetaTag = {
     name?: string;
     property?: string;
     content: string;
 };
 
+/**
+ * Options for updating metadata in the document head
+ */
 interface MetaDataOptions {
+    /** Page title (defaults to app name from config) */
     title?: string
+    /** Page description (defaults to app description from config) */
     description?: string
+    /** Image URL for social sharing (defaults to logo from config) */
     image?: string
+    /** Canonical URL for the page (defaults to base URL from config) */
     url?: string
 }
 
 //################################################//
 
-
+/**
+ * Service for managing SEO-related metadata including page titles,
+ * meta descriptions, Open Graph tags, and canonical links.
+ * 
+ * This service helps improve search engine discoverability and social
+ * media sharing appearance for Angular applications.
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -33,6 +49,12 @@ export class SeoService {
 
     //-----------------------------//
 
+    /**
+     * Updates the document metadata for SEO and social sharing
+     * 
+     * @param options - Metadata options to update (title, description, image, url)
+     * If any option is omitted, it will use the default from SeoConfig
+     */
     updateMetadata(options: MetaDataOptions = {}) {
         
         const title = options.title ?? this._config.appName
@@ -57,7 +79,7 @@ export class SeoService {
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: description },
             { name: 'twitter:image', content: image },
-            { name: 'keywords', content: 'Angular Material, Material Design, theming, CSS variables, dark mode, theme customization, Angular library' },
+            { name: 'keywords', content: this._config.keywords.join(', ') || 'Angular Material, Material Design, theming, CSS variables, dark mode, theme customization, Angular library' },
         ]
 
         // Update each meta tag
@@ -73,6 +95,14 @@ export class SeoService {
 
     //-----------------------------//
 
+    /**
+     * Adds or updates the canonical link in the document head
+     * 
+     * Canonical links help prevent duplicate content issues by indicating
+     * the preferred URL for a page when multiple URLs might contain the same content.
+     * 
+     * @param url - The canonical URL for the current page
+     */
     addCanonicalLink(url: string) {
         const link: HTMLLinkElement = this._document.querySelector('link[rel="canonical"]') || this._document.createElement('link');
         link.setAttribute('rel', 'canonical');
