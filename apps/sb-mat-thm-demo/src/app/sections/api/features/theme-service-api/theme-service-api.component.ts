@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
+import { Router } from '@angular/router';
+import { SeoService } from '../../../../shared/services/seo.service';
+import { AppConstants } from '../../../../config/constants';
+import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 @Component({
   selector: 'sb-api-theme-service-api',
@@ -10,11 +14,28 @@ import { HighlightModule } from 'ngx-highlightjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [MatExpansionModule, MatTabsModule, HighlightModule],
-  providers: [
-    
-  ]
+  providers: []
 })
-export class ThemeServiceApiComponent {
+export class ThemeServiceApiComponent implements OnInit {
+
+  private _seoService = inject(SeoService)
+  private _router = inject(Router)
+  private _urlService = inject(UrlService)
+
+  //- - - - - - - - - - - - - - -//
+
+  ngOnInit() {
+    // Set SEO metadata specific to the Theme Service API page
+    this._seoService.updateMetadata({
+      title: 'Theme Service API - SpiderBaby Material Theming',
+      description: 'Comprehensive documentation for the SpiderBaby ThemeService API. Learn how to manipulate themes, toggle dark mode, and create custom themes for Angular Material.',
+      url: this._urlService.combineWithBase(this._router.url),
+    });
+
+    // Add canonical link
+    this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
+  }
+
   // Property examples
   currentThemeExample = `// Access the current theme as a signal
 const theme = themeService.currentTheme();

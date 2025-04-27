@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,6 +20,7 @@ import { HomePerformanceComponent } from "./ui/performance/performance.component
 import { PersistenceComponent } from "./ui/persistence/persistence.component";
 import { HomeSectionHdrComponent } from "./ui/section-hdr/section-hdr.component";
 import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes.component";
+import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 
 @Component({
@@ -49,29 +50,32 @@ import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
+
+  private _seoService = inject(SeoService)
+  private _router = inject(Router)
+  private _urlService = inject(UrlService)
+  private _structuredDataService = inject(StructuredDataService)
+
+  //- - - - - - - - - - - - - - -//
   
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO);
   protected _npmUrl = signal(AppConstants.NPM_PKG);
-
-  constructor(
-    private seoService: SeoService,
-    private structuredDataService: StructuredDataService,
-    private router: Router
-  ) {}
+  
+  //-----------------------------//
 
   ngOnInit() {
     // Set SEO metadata
-    this.seoService.updateMetadata({
+    this._seoService.updateMetadata({
       title: 'SpiderBaby Material Theming | Enhanced Angular Material Theming System',
       description: 'A powerful, flexible theming system for Angular Material with dynamic theme switching, section-based theming, and Material Design 3 support.',
-      url: AppConstants.DEMO_URL + this.router.url,
+      url: this._urlService.combineWithBase(this._router.url),
     });
 
     // Add canonical link
-    this.seoService.addCanonicalLink(AppConstants.DEMO_URL + this.router.url);
+    this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
 
     // Add structured data
-    this.structuredDataService.addLibraryStructuredData();
+    this._structuredDataService.addLibraryStructuredData();
   }
 }
 

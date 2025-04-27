@@ -5,7 +5,7 @@
     </header>
   
     <div class="api-cards-grid">
-      @for (route of apiRoutes; track route.route) {
+      @for (route of _apiRoutes(); track route.route) {
         <sb-ui-cards-api-nav [data]="route"/>
       }
     </div>
