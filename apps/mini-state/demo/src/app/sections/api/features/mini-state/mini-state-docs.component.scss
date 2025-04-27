@@ -1,0 +1,60 @@
+.api-docs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+h1 {
+  color: var(--mat-sys-primary);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  color: var(--mat-sys-primary);
+  margin: 2rem 0 1rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  padding-bottom: 0.5rem;
+}
+
+mat-accordion {
+  margin-bottom: 2rem;
+}
+
+pre {
+  margin: 1rem 0;
+  padding: 0;
+  background: var(--mat-sys-surface-container-high);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+mat-panel-title {
+  font-weight: 500;
+  color: var(--mat-sys-primary);
+}
+
+mat-panel-description {
+  color: var(--mat-sys-on-surface-variant);
+  font-family: monospace;
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  padding: 1rem;
+}
+
+.method-signature {
+  font-family: monospace;
+  background-color: var(--mat-sys-surface-container-high);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  display: inline-block;
+  font-size: 0.9rem;
+}

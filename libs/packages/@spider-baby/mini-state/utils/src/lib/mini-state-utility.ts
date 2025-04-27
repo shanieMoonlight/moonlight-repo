@@ -10,7 +10,7 @@ import { combineLatest, distinctUntilChanged, map, merge, Observable, of } from 
  * such as loading states, error messages, success messages, and data. These utilities are
  * used internally by MiniStateCombined but can also be used directly for more granular control.
  */
-export class MsUtility {
+export class MiniStateUtility {
 
     /**
      * Combines error objects from multiple MiniState instances into a single Observable.

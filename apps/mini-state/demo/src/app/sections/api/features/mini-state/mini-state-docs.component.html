@@ -1,0 +1,101 @@
+<div class="api-docs">
+  <h1>MiniState API Documentation</h1>
+  <p class="description">
+    MiniState is the core class of the mini-state library, providing a simple, signal-based state
+    management solution for Angular applications. It handles async operations, loading states,
+    errors, and success messages with a clean, declarative API.
+  </p>
+
+  <h2>Core Concept</h2>
+  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+
+  <h2>Constructor</h2>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>new MiniState()</mat-panel-title>
+      <mat-panel-description>constructor parameters</mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Creates a new MiniState instance with the specified trigger function and optional parameters.</p>
+    <pre><code [highlight]="constructorExample" language="typescript"></code></pre>
+  </mat-expansion-panel>
+
+  <h2>Properties</h2>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>data, loading, errorMsg, successMsg</mat-panel-title>
+      <mat-panel-description>signals and observables</mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>MiniState provides both signals and observables for all state properties:</p>
+    <ul>
+      <li><strong>data</strong>: Signal for the current data value</li>
+      <li><strong>loading</strong>: Signal indicating if an operation is in progress</li>
+      <li><strong>errorMsg</strong>: Signal for the current error message (if any)</li>
+      <li><strong>successMsg</strong>: Signal for the current success message (if any)</li>
+      <li><strong>data$</strong>: Observable for the data value</li>
+      <li><strong>loading$</strong>: Observable for the loading state</li>
+      <li><strong>errorMsg$</strong>: Observable for error messages</li>
+      <li><strong>successMsg$</strong>: Observable for success messages</li>
+    </ul>
+    <pre><code [highlight]="propertiesExample" language="typescript"></code></pre>
+  </mat-expansion-panel>
+
+  <h2>Methods</h2>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>trigger() and retrigger()</mat-panel-title>
+        <mat-panel-description>initiating operations</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Methods to initiate or repeat operations:</p>
+      <ul>
+        <li><strong>trigger(input)</strong>: Initiates the async operation with the provided input</li>
+        <li><strong>retrigger()</strong>: Repeats the most recent operation with the same input</li>
+        <li><strong>resetMessages()</strong>: Clears error and success messages</li>
+      </ul>
+      <pre><code [highlight]="triggerExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Configuration Methods</mat-panel-title>
+        <mat-panel-description>customizing behavior</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Methods to customize MiniState behavior:</p>
+      <ul>
+        <li><strong>setSuccessMsgFn(fn)</strong>: Sets a function that generates success messages</li>
+        <li><strong>setOnTriggerFn(fn)</strong>: Sets a function that runs when trigger() is called</li>
+      </ul>
+      <pre><code [highlight]="configurationExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Data Manipulation</mat-panel-title>
+        <mat-panel-description>modifying state directly</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Methods to directly modify the data state:</p>
+      <ul>
+        <li><strong>setData(data)</strong>: Sets the data value directly</li>
+        <li><strong>updateData(updateFn)</strong>: Updates data using a callback function</li>
+      </ul>
+      <pre><code [highlight]="dataManipulationExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Error Handling</mat-panel-title>
+        <mat-panel-description>managing errors</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Methods for error management:</p>
+      <ul>
+        <li><strong>setErrorMsg(msg)</strong>: Sets an error message directly</li>
+        <li><strong>resetErrorMsg()</strong>: Clears the current error message</li>
+      </ul>
+      <pre><code [highlight]="errorHandlingExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <h2>Complete Example</h2>
+  <p>The following example demonstrates a complete user search component using MiniState:</p>
+  <pre><code [highlight]="completeExample" language="typescript"></code></pre>
+</div>

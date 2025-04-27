@@ -1,0 +1,63 @@
+<div class="api-docs">
+  <h1>MiniStateUtility API Documentation</h1>
+  <p class="description">
+    The <strong>MiniStateUtility</strong> class provides static methods to combine and aggregate state from multiple
+    <code>MiniState</code> instances. These utilities are useful for creating unified signals and observables for
+    loading states, error messages, success messages, and data.
+  </p>
+
+  <h2>Overview</h2>
+  <p>
+    The <strong>MiniStateUtility</strong> class includes the following key methods:
+  </p>
+  <ul>
+    <li><code>combineErrors</code>: Combines error objects from multiple states.</li>
+    <li><code>combineErrorMsgs</code>: Combines error messages from multiple states.</li>
+    <li><code>combineSuccessMsgs</code>: Combines success messages from multiple states.</li>
+    <li><code>combineLoading</code>: Combines loading states from multiple states.</li>
+    <li><code>combineData</code>: Combines data from multiple states.</li>
+  </ul>
+
+  <h2>Examples</h2>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>combineErrors</mat-panel-title>
+        <mat-panel-description>Combine error objects</mat-panel-description>
+      </mat-expansion-panel-header>
+      <pre><code [highlight]="combineErrorsExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>combineErrorMsgs</mat-panel-title>
+        <mat-panel-description>Combine error messages</mat-panel-description>
+      </mat-expansion-panel-header>
+      <pre><code [highlight]="combineErrorMsgsExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>combineSuccessMsgs</mat-panel-title>
+        <mat-panel-description>Combine success messages</mat-panel-description>
+      </mat-expansion-panel-header>
+      <pre><code [highlight]="combineSuccessMsgsExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>combineLoading</mat-panel-title>
+        <mat-panel-description>Combine loading states</mat-panel-description>
+      </mat-expansion-panel-header>
+      <pre><code [highlight]="combineLoadingExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>combineData</mat-panel-title>
+        <mat-panel-description>Combine data</mat-panel-description>
+      </mat-expansion-panel-header>
+      <pre><code [highlight]="combineDataExample" language="typescript"></code></pre>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,0 +1,122 @@
+<div class="api-docs">
+  <h1>MiniStateBuilder API Documentation</h1>
+  <p class="description">
+    MiniStateBuilder provides a fluent API for creating MiniState instances with a clean, chainable syntax.
+    It simplifies the process of configuring a MiniState with initial data, success message functions, and other options.
+  </p>
+
+  <h2>Core Concept</h2>
+  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+
+  <div class="builder-diagram">
+    <div class="diagram-box">
+      <div class="phase">1. Initialize</div>
+      <code>MiniStateBuilder.Create()</code>
+      <div class="arrow-down"></div>
+    </div>
+    <div class="diagram-box">
+      <div class="phase">2. Configure</div>
+      <code>.setInitialData([])</code>
+      <code>.setSuccessMsgFn(...)</code>
+      <div class="arrow-down"></div>
+    </div>
+    <div class="diagram-box">
+      <div class="phase">3. Build</div>
+      <code>.build()</code>
+      <div class="arrow-down"></div>
+    </div>
+    <div class="diagram-result-box">
+      <code>MiniState Instance</code>
+    </div>
+  </div>
+
+  <h2>Factory Methods</h2>
+
+  <div class="method-card">
+    <h3>Create</h3>
+    <div class="method-signature">
+      static Create&lt;O&gt;(triggerFn: () => Promise&lt;O&gt; | Observable&lt;O&gt;)
+    </div>
+    <p>
+      Creates a MiniStateBuilder for operations that don't require input parameters.
+      The trigger function takes no parameters.
+    </p>
+    <pre><code [highlight]="createExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>CreateWithInput</h3>
+    <div class="method-signature">
+      static CreateWithInput&lt;I, O&gt;(triggerFn: (input: I) => Promise&lt;O&gt; | Observable&lt;O&gt;)
+    </div>
+    <p>
+      Creates a MiniStateBuilder for operations that require input parameters.
+      The trigger function takes one parameter of type I.
+    </p>
+    <pre><code [highlight]="createWithInputExample" language="typescript"></code></pre>
+  </div>
+
+  <h2>Configuration Methods</h2>
+
+  <div class="method-card">
+    <h3>setInitialData</h3>
+    <div class="method-signature">
+      setInitialData(initialData: O)
+    </div>
+    <p>
+      Sets the initial data value for the MiniState before any operations are triggered.
+      This is useful for providing default values or an empty state.
+    </p>
+    <pre><code [highlight]="setInitialDataExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>setSuccessMsgFn</h3>
+    <div class="method-signature">
+      setSuccessMsgFn(fn: (input: I, output: O) => string | undefined)
+    </div>
+    <p>
+      Sets a function that generates success messages when operations complete successfully.
+      The function receives both the input and output values and should return a string message
+      or undefined (for no message).
+    </p>
+    <pre><code [highlight]="setSuccessMsgFnExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>setOnTriggerFn</h3>
+    <div class="method-signature">
+      setOnTriggerFn(fn: (input: I) => void)
+    </div>
+    <p>
+      Sets a function that gets called when the trigger() method is invoked on the MiniState.
+      This is useful for logging, analytics, or performing side effects.
+    </p>
+    <pre><code [highlight]="setOnTriggerFnExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>build</h3>
+    <div class="method-signature">
+      build()
+    </div>
+    <p>
+      Finalizes the builder configuration and returns a fully configured MiniState instance.
+      This is always the last method called in the chain.
+    </p>
+    <pre><code [highlight]="buildExample" language="typescript"></code></pre>
+  </div>
+
+  <h2>Complete Examples</h2>
+
+  <mat-tab-group>
+    <mat-tab label="Basic Example">
+      <p>A weather component that loads current weather data without input parameters:</p>
+      <pre><code [highlight]="basicExample" language="typescript"></code></pre>
+    </mat-tab>
+    <mat-tab label="With Input Example">
+      <p>A user profile component that loads a user based on an ID input:</p>
+      <pre><code [highlight]="inputExample" language="typescript"></code></pre>
+    </mat-tab>
+  </mat-tab-group>
+</div>

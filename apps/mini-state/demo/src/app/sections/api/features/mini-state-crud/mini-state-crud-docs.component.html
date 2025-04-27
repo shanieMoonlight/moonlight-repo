@@ -1,0 +1,161 @@
+<div class="api-docs">
+  <h1>MiniCrudState API Documentation</h1>
+  <p class="description">
+    MiniCrudState extends MiniState to provide specialized support for CRUD (Create, Read, Update, Delete) 
+    operations on collections of items. It handles client-side updates to the data array when items are 
+    added, updated, or deleted, making it perfect for building data management interfaces.
+  </p>
+
+  <h2>Overview</h2>
+  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+
+  <div class="example-note">
+    <p><strong>Key Feature:</strong> MiniCrudState automatically maintains the client-side array of items 
+    when CRUD operations are performed. This means the UI will update immediately after add, update, or delete 
+    operations, without waiting for a subsequent reload of the data.</p>
+  </div>
+
+  <h2>Creating a MiniCrudState</h2>
+  <div class="method-card">
+    <h3>Create</h3>
+    <div class="method-signature">
+      static Create&lt;Filter, Item&gt;(triggerFn$: (filter: Filter) => Observable&lt;Item[]&gt;)
+    </div>
+    <p>Creates a new MiniCrudState instance for a collection of items that can be filtered.</p>
+    <pre><code [highlight]="createExample" language="typescript"></code></pre>
+  </div>
+
+  <h2>Configuration Methods</h2>
+  <div class="method-card">
+    <h3>setAddState</h3>
+    <div class="method-signature">
+      setAddState&lt;T&gt;(triggerFn$: (input: Item) => Observable&lt;Item | undefined&gt;, successMsgFn?: (input: Item, output: Item | undefined) => string, onTriggerFn?: (input: Item) => void)
+    </div>
+    <p>Configures the add operation for the CRUD state. When an item is successfully added, 
+    it will automatically be appended to the items array in the state.</p>
+    <pre><code [highlight]="setAddStateExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>setUpdateState</h3>
+    <div class="method-signature">
+      setUpdateState&lt;T&gt;(triggerFn$: (input: Item) => Observable&lt;Item | undefined&gt;, successMsgFn?: (input: Item, output: Item | undefined) => string, onTriggerFn?: (input: Item) => void)
+    </div>
+    <p>Configures the update operation for the CRUD state. When an item is successfully updated,
+    the corresponding item in the array will be replaced with the updated version.</p>
+    <pre><code [highlight]="setUpdateStateExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>setDeleteState</h3>
+    <div class="method-signature">
+      setDeleteState&lt;DeleteResult&gt;(triggerFn$: (input: Item) => Observable&lt;DeleteResult | undefined&gt;, successMsgFn: (input: Item, output: DeleteResult | undefined) => string, onTriggerFn?: (input: Item) => void)
+    </div>
+    <p>Configures the delete operation for the CRUD state. When an item is successfully deleted,
+    it will automatically be removed from the items array in the state.</p>
+    <pre><code [highlight]="setDeleteStateExample" language="typescript"></code></pre>
+  </div>
+
+  <div class="method-card">
+    <h3>setEqualsFn</h3>
+    <div class="method-signature">
+      setEqualsFn(equals?: (item1?: Item, item2?: Item) => boolean)
+    </div>
+    <p>Sets the function used to determine if two items are equal. This is used when finding 
+    items to update or delete in the collection.</p>
+    <pre><code [highlight]="setEqualsFnExample" language="typescript"></code></pre>
+  </div>
+
+  <h2>Operation Methods</h2>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>trigger</mat-panel-title>
+        <mat-panel-description>(filter: Filter) => MiniState&lt;Filter, Item[]&gt;</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Triggers the main operation to load the collection based on the provided filter.</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>triggerAdd</mat-panel-title>
+        <mat-panel-description>(item: Item) => MiniState&lt;Item, Item | undefined&gt;</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Triggers the add operation with the provided item. When successful, the item will be 
+      added to the collection in the state.</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>triggerUpdate</mat-panel-title>
+        <mat-panel-description>(item: Item) => MiniState&lt;Item, Item | undefined&gt;</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Triggers the update operation with the provided item. When successful, the item will 
+      be updated in the collection in the state.</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>triggerDelete</mat-panel-title>
+        <mat-panel-description>(item: Item) => MiniState&lt;Item, any&gt;</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Triggers the delete operation with the provided item. When successful, the item will 
+      be removed from the collection in the state.</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <h2>How It Works</h2>
+  <div class="operation-flow">
+    <div class="flow-step">
+      <div class="flow-step-number">1</div>
+      <div class="flow-step-content">
+        <h4>Get All Items</h4>
+        <p>When you call <code>trigger(filter)</code>, MiniCrudState loads the entire collection 
+        based on the provided filter and replaces the current data array.</p>
+      </div>
+    </div>
+    
+    <div class="flow-step">
+      <div class="flow-step-number">2</div>
+      <div class="flow-step-content">
+        <h4>Add Item</h4>
+        <p>When you call <code>triggerAdd(item)</code>, MiniCrudState:</p>
+        <ol>
+          <li>Calls the API to create the item</li>
+          <li>On success, appends the new item to the existing data array</li>
+          <li>No additional fetch is needed to update the UI</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="flow-step">
+      <div class="flow-step-number">3</div>
+      <div class="flow-step-content">
+        <h4>Update Item</h4>
+        <p>When you call <code>triggerUpdate(item)</code>, MiniCrudState:</p>
+        <ol>
+          <li>Calls the API to update the item</li>
+          <li>On success, finds and replaces the matching item in the data array</li>
+          <li>Uses the <code>equals</code> function to find the matching item</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="flow-step">
+      <div class="flow-step-number">4</div>
+      <div class="flow-step-content">
+        <h4>Delete Item</h4>
+        <p>When you call <code>triggerDelete(item)</code>, MiniCrudState:</p>
+        <ol>
+          <li>Calls the API to delete the item</li>
+          <li>On success, removes the matching item from the data array</li>
+          <li>Uses the <code>equals</code> function to find the item to remove</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <h2>Complete Usage Example</h2>
+  <p>The following example demonstrates a complete user management component using MiniCrudState:</p>
+  <pre><code [highlight]="completeExample" language="typescript"></code></pre>
+</div>

@@ -1,6 +1,6 @@
 import { Signal } from "@angular/core";
 import { MiniState } from "@spider-baby/mini-state";
-import { MsUtility } from "./mini-state-utility";
+import { MiniStateUtility } from "./mini-state-utility";
 import { Observable } from "rxjs";
 
 /**
@@ -59,17 +59,17 @@ export class MiniStateCombined {
      */
     private constructor(miniStates: MiniState<any, any>[]) {
 
-        this.loading = MsUtility.combineLoading(...miniStates)
-        this.error = MsUtility.combineErrors(...miniStates)
-        this.successMsg = MsUtility.combineSuccessMsgs(...miniStates)
-        this.errorMsg = MsUtility.combineErrorMsgs(...miniStates)
-        this.data = MsUtility.combineData(...miniStates)
+        this.loading = MiniStateUtility.combineLoading(...miniStates)
+        this.error = MiniStateUtility.combineErrors(...miniStates)
+        this.successMsg = MiniStateUtility.combineSuccessMsgs(...miniStates)
+        this.errorMsg = MiniStateUtility.combineErrorMsgs(...miniStates)
+        this.data = MiniStateUtility.combineData(...miniStates)
         
-        this.loading$ = MsUtility.combineLoading$(...miniStates)
-        this.error$ = MsUtility.combineErrors$(...miniStates)
-        this.successMsg$ = MsUtility.combineSuccessMsgs$(...miniStates)
-        this.errorMsg$ = MsUtility.combineErrorMsgs$(...miniStates)
-        this.data$ = MsUtility.combineData$(...miniStates)
+        this.loading$ = MiniStateUtility.combineLoading$(...miniStates)
+        this.error$ = MiniStateUtility.combineErrors$(...miniStates)
+        this.successMsg$ = MiniStateUtility.combineSuccessMsgs$(...miniStates)
+        this.errorMsg$ = MiniStateUtility.combineErrorMsgs$(...miniStates)
+        this.data$ = MiniStateUtility.combineData$(...miniStates)
     }
 
     //-------------------------//
@@ -92,7 +92,7 @@ export class MiniStateCombined {
      * @returns A computed signal that is true while any state is loading
      */
     static CombineLoaders = (...miniStates: MiniState<any, any>[]) =>
-        MsUtility.combineLoading(...miniStates)
+        MiniStateUtility.combineLoading(...miniStates)
 
     //- - - - - - - - - - - - -//    
 
@@ -103,7 +103,7 @@ export class MiniStateCombined {
      * @returns A signal that emits the most recent error message
      */
     static CombineErrorMsgs = (...miniStates: MiniState<any, any>[]) =>
-        MsUtility.combineErrorMsgs(...miniStates)
+        MiniStateUtility.combineErrorMsgs(...miniStates)
 
     //- - - - - - - - - - - - -//   
 
@@ -114,7 +114,7 @@ export class MiniStateCombined {
      * @returns A signal that emits the most recent success message
      */
     static CombineSuccessMsgs = (...miniStates: MiniState<any, any>[]) =>
-        MsUtility.combineSuccessMsgs(...miniStates)
+        MiniStateUtility.combineSuccessMsgs(...miniStates)
 
     //- - - - - - - - - - - - -// 
 
@@ -125,7 +125,7 @@ export class MiniStateCombined {
      * @returns A signal that emits the most recent data
      */
     static CombineData = (...miniStates: MiniState<any, any>[]) =>
-        MsUtility.combineData(...miniStates)
+        MiniStateUtility.combineData(...miniStates)
 
     //- - - - - - - - - - - - -//
 
@@ -136,7 +136,7 @@ export class MiniStateCombined {
      * @returns A signal that emits the most recent error object
      */
     static CombineErrors = (...miniStates: MiniState<any, any>[]) =>
-        MsUtility.combineErrors(...miniStates)
+        MiniStateUtility.combineErrors(...miniStates)
 
     //-------------------------//
 

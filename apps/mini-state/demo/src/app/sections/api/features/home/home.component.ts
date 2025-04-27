@@ -13,47 +13,40 @@ export class ApiHomeComponent {
 
   apiRoutes: ApiRouteData[] = [
     {
-      title: 'Theme Service API',
-      description: 'Comprehensive documentation of ThemeService methods and properties for managing themes in your application.',
-      icon: 'palette',
-      route: '/api/service-api',
+      title: 'MiniState',
+      description: 'Core class for managing async operations with automatic handling of loading states, errors, and success messages.',
+      icon: 'change_history',
+      route: '/api/mini-state',
       color: 'primary'
     },
     {
-      title: 'CSS Variables',
-      description: 'Complete list of CSS variables available in the theming system for customizing your application.',
-      icon: 'code',
-      route: '/api/variables-list',
+      title: 'MiniStateBuilder',
+      description: 'Factory for creating MiniState instances for common async operation patterns including reactive inputs.',
+      icon: 'construction',
+      route: '/api/mini-state-builder',
       color: 'secondary'
     },
-    // {
-    //   title: 'Configuration Options',
-    //   description: 'Learn how to configure the theming system with various options and settings.',
-    //   icon: 'settings',
-    //   route: '/api/configuration',
-    //   color: 'tertiary'
-    // },
-    // {
-    //   title: 'Theme Models',
-    //   description: 'Explore the data models used by the theming system including ThemeOption and ThemeConfig.',
-    //   icon: 'schema',
-    //   route: '/api/models',
-    //   color: 'primary'
-    // },
-    // {
-    //   title: 'Custom Themes',
-    //   description: 'Guide to creating and managing custom themes in your application.',
-    //   icon: 'brush',
-    //   route: '/api/custom-themes',
-    //   color: 'secondary'
-    // },
-    // {
-    //   title: 'Integration Examples',
-    //   description: 'Real-world examples of integrating the theming system with various UI components.',
-    //   icon: 'integration_instructions',
-    //   route: '/api/examples',
-    //   color: 'tertiary'
-    // }
+    {
+      title: 'MiniCrudState',
+      description: 'Extended MiniState for streamlined CRUD operations with automatic client-side data updates.',
+      icon: 'table_view',
+      route: '/api/mini-state-crud',
+      color: 'tertiary'
+    },
+    {
+      title: 'MiniStateCombined',
+      description: 'Utility for combining multiple MiniState instances for unified loading, error, and success handling.',
+      icon: 'merge_type',
+      route: '/api/mini-state-combined',
+      color: 'primary'
+    },
+    {
+      title: 'MiniStateUtility',
+      description: 'Helper methods for working with multiple MiniState instances and combining their signals/observables.',
+      icon: 'handyman',
+      route: '/api/ms-utility',
+      color: 'secondary'
+    }
   ];
 
 }
