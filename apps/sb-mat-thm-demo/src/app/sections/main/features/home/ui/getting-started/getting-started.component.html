@@ -117,14 +117,14 @@
     <button 
       mat-raised-button 
       [color]="file.filename === 'complete-setup.zip' ? 'tertiary' : file.filename.includes('scss') ? 'accent' : 'primary'"
-      [disabled]="isDownloading(file.filename)"
-      (click)="downloadFile(file)">
+      [disabled]="_isDownloading()"
+      (click)="_downloadFileClick$.next(file)">
       <mat-icon>{{ file.icon || 'download' }}</mat-icon>
-      @if (isDownloading(file.filename)) {
-        <span>Download {{ file.filename }}</span>
+      @if (file.filename === _activeFile()) {
+        <span>Downloading...</span>
       }
       @else {
-        <span>Downloading...</span>
+        <span>Download {{ file.filename }}</span>
       }
     </button>
   </div>

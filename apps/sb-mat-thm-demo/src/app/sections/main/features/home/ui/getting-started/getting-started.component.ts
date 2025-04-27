@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { DownloadSetupFilesService, SetupFile } from '../../../../../../shared/utils/setup/download-setup/download-setup.service';
 import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
+import { map, Subject, switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'sb-home-getting-started',
@@ -28,7 +30,15 @@ export class HomeGettingStartedComponent {
 
   protected _setupFiles = this._setupFilesService.setupFiles
   // protected _downloadingFile = this._setupFilesService.downloadingFile
-  protected _downloadingFile = signal<string | null>(null);
+  protected _downloadingFile = this._setupFilesService.activeDownload
+
+  protected _downloadFileClick$ = new Subject<SetupFile>();
+  protected _activeFile$ = this._downloadFileClick$.pipe(
+    switchMap((file) => this._setupFilesService.downloadPredefinedFile(file))
+  )
+  protected _activeFile = toSignal(this._activeFile$, { initialValue: null })
+  protected _isDownloading = computed(() => this._activeFile() !== null)
+
 
   //-----------------------------//
 
@@ -173,25 +183,5 @@ font-family: Roboto, "Helvetica Neue", sans-serif;
     `);
 
   //-----------------------------//
-
-  protected downloadFile(file: SetupFile): void {
-    this._downloadingFile.set(file.filename);
-
-    this._setupFilesService.downloadPredefinedFile(file)
-      .subscribe({
-        next: () => this._downloadingFile.set(null),
-        error: () => this._downloadingFile.set(null)
-      });
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  /**
-   * Checks if a specific file is currently downloading
-   * @param filename The name of the file to check
-   * @returns True if the file is currently downloading
-   */
-  protected isDownloading = (filename: string): boolean =>
-    this._downloadingFile() === filename;
 
 }//Cls

@@ -1,8 +1,9 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BlobDownloadService } from '@spider-baby/utils-download';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, delay, map, of, tap } from 'rxjs';
 import { consoleDev } from '@spider-baby/material-theming/utils';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 //############################################//
 export interface SetupFile {
@@ -68,8 +69,9 @@ export class DownloadSetupFilesService {
 
   // Pre-defined setup files available for download
   readonly setupFiles = signal(SETUP_FILES)
-  protected _downloadingFile = signal<string | null>(null);
-  readonly downloadingFile = computed(() => this._downloadingFile())
+  private _activeDownload = new BehaviorSubject<string | null>(null);
+  readonly activeDownload$ = this._activeDownload.asObservable();
+  readonly activeDownload = toSignal(this.activeDownload$)
 
   //-----------------------------//
 
@@ -80,8 +82,8 @@ export class DownloadSetupFilesService {
    * @param isBinary Whether the file is binary (like ZIP)
    * @returns Observable that completes when download is finished
    */
-  downloadSetupFile(filename: string, displayName?: string, isBinary = false): Observable<boolean> {
-    this._downloadingFile.set(filename)
+  downloadSetupFile(filename: string, displayName?: string, isBinary = false): Observable<string | null> {
+    this._activeDownload.next(filename);
 
     // Determine file type from extension for proper MIME type
     const extension = filename.split('.').pop()?.toLowerCase();
@@ -95,14 +97,21 @@ export class DownloadSetupFilesService {
     // Use the provided display name or the original filename
     const downloadName = displayName || filename;
 
-    consoleDev.log(`Downloading ${filename} as ${downloadName}`, `${this._setupFilesBasePath}${filename}`)
+    if (isBinary) {
+      this.downloadBinary(filename, downloadName, mimeType).subscribe({
+        error: () => this._activeDownload.next(null),
+        complete: () => this._activeDownload.next(null)
+      });
+    } else {
+      // Handle text files
+      this.downloadStandard(filename, downloadName, mimeType).subscribe({
+        error: () => this._activeDownload.next(null),
+        complete: () => this._activeDownload.next(null)
+      });
+    }
 
-    // Use different approach for binary files (like ZIP)
-    if (isBinary)
-      return this.downloadBinary(filename, downloadName, mimeType);
-
-    // Handle text files
-    return this.downloadStandard(filename, downloadName, mimeType)
+    // Return the observable that tracks the download state
+    return this.activeDownload$;
   }
 
   //-----------------------------//
@@ -123,12 +132,10 @@ export class DownloadSetupFilesService {
           filename: downloadName,
           mimeType
         });
-        this._downloadingFile.set(null);
         return true;
       }),
       catchError(error => {
         console.error(`Error downloading binary file ${filename}:`, error);
-        this._downloadingFile.set(null);
         return of(false);
       })
     );
@@ -147,17 +154,16 @@ export class DownloadSetupFilesService {
     return this._http.get(`${this._setupFilesBasePath}${filename}`, {
       responseType: 'text'
     }).pipe(
+      delay(5000), // Optional delay for demo purposes
       map(textContent => {
         this._downloadService.downloadBlob(textContent, {
           filename: downloadName,
           mimeType
         });
-        this._downloadingFile.set(null);
         return true;
       }),
       catchError(error => {
         console.error(`Error downloading text file ${filename}:`, error);
-        this._downloadingFile.set(null);
         return of(false);
       })
     );
@@ -170,9 +176,8 @@ export class DownloadSetupFilesService {
    * @param file The setup file configuration to download
    * @returns Observable that completes when download is finished
    */
-  downloadPredefinedFile(file: SetupFile): Observable<boolean> {
-    return this.downloadSetupFile(file.filename, file.displayName, file.isBinary ?? false);
-  }
+  downloadPredefinedFile = (file: SetupFile): Observable<string | null> => 
+    this.downloadSetupFile(file.filename, file.displayName, file.isBinary ?? false)
 
   //-----------------------------//
 
