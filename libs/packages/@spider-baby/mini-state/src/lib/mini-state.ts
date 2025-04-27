@@ -1,7 +1,7 @@
-import { computed, Signal, signal } from "@angular/core"
+import { Signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { devConsole } from "@spider-baby/dev-console"
-import { BehaviorSubject, distinctUntilChanged, finalize, map, mapTo, Observable, ReplaySubject, skip, startWith, Subject, Subscription } from "rxjs"
+import { BehaviorSubject, distinctUntilChanged, finalize, map, Observable, ReplaySubject, skip, startWith, Subject, Subscription } from "rxjs"
 
 //=========================================================//
 
@@ -10,6 +10,21 @@ const SPACE_2 = '\u200C '
 
 //=========================================================//
 
+/**
+ * Core class for managing the state of an asynchronous operation.
+ * 
+ * MiniState encapsulates the essential states associated with async operations:
+ * - Data (the result of the operation)
+ * - Loading state (whether the operation is in progress)
+ * - Error state (any errors that occurred during the operation)
+ * - Success/error messages (user-friendly feedback messages)
+ * 
+ * It exposes these states as both RxJS Observables and Angular Signals.
+ * 
+ * @template Input - The type of input required by the trigger function
+ * @template Output - The type of data returned by the async operation
+ * @template TError - The type of error that might be thrown by the async operation
+ */
 export class MiniState<Input, Output, TError = any> {
 
     protected _successMsgBs = new Subject<string | undefined>()
@@ -18,50 +33,86 @@ export class MiniState<Input, Output, TError = any> {
     protected _errorMsgBs = new Subject<string | undefined>()
     protected _errorBs = new Subject<TError>()
 
+    /** Observable that emits the data returned by the async operation */
     data$: Observable<Output>
+    /** Signal that provides the data returned by the async operation */
     data: Signal<Output | undefined>
+    
     private _prevInputBs = new BehaviorSubject<Input | undefined>(undefined)
+    /**
+     * Observable that emits true after the first successful trigger
+     * Starts with false, then switches to true after the first emission from _prevInputBs
+     */
     private _wasTriggered$ = this._prevInputBs.asObservable().pipe(
         skip(1), // Ignore the initial undefined value
         map(() => true), // Map the first emission after the initial one to true
         startWith(false), // Ensure the observable starts with false
         distinctUntilChanged() // Only emit when the value changes (from false to true)
     );
+    /** Signal that indicates whether a trigger has successfully completed at least once */
     private wasTriggered = toSignal(this._wasTriggered$, { initialValue: false })
+    /** Signal that provides the last input that was used in a successful trigger */
     private prevInput = toSignal(this._prevInputBs)
 
+    /** Observable that emits success messages after successful operations */
     successMsg$ = this._successMsgBs.asObservable()
+    /** Signal that provides the latest success message */
     successMsg = toSignal(this.successMsg$)
 
+    /** Observable that emits error messages when operations fail */
     errorMsg$ = this._errorMsgBs.asObservable()
+    /** Signal that provides the latest error message */
     errorMsg = toSignal(this.errorMsg$)
 
+    /** Observable that emits error objects when operations fail */
     error$ = this._errorBs.asObservable()
+    /** Signal that provides the latest error object */
     error = toSignal(this.error$)
 
+    /** Observable that emits loading state changes (true when loading, false when complete) */
     loading$ = this._loadingBs.asObservable()
+    /** Signal that provides the current loading state */
     loading = toSignal(this.loading$, { initialValue: false })
 
 
     protected _errorFn?: (input: Input, error: TError) => void
+    /**
+     * Function that converts error objects to user-friendly error messages
+     * Default implementation extracts message or msg property from error object
+     */
     protected _errorMsgFn: (error: TError) => string = error => {
         const err = error as any; // Still need this casting internally
         return err?.message ?? err?.msg ?? '';
     }
 
+    /** Function to call after a successful operation completes */
     protected _onSuccessFn?: (input: Input, output: Output) => void
+    /** Function that generates success messages from input and output data */
     protected _successMsgFn?: (input: Input, output: Output) => string
+    /**
+     * Function that processes the raw output data before storing it
+     * Can be used to transform, combine with previous data, or filter the results
+     */
     protected _successDataProcessor?: (input: Input, output: Output, prevInput: Input | undefined, prevOutput: Output | undefined) => Output | undefined =
         (input, output) => output
 
+    /** Function that performs the async operation when triggered */
     protected _triggerFn$: (input: Input) => Observable<Output>
+    /** Optional function to call when trigger is initiated (before async operation starts) */
     protected _onTriggerFn?: (t: Input) => void
 
     private _instanceSpace = SPACE_1
+    /** Subscription for the current trigger operation */
     protected _sub?: Subscription
 
     //-------------------------------------//
 
+    /**
+     * Creates a new MiniState instance
+     * 
+     * @param triggerFn$ Function that performs the async operation when triggered
+     * @param initialOutputValue Optional initial value for the output data
+     */
     constructor(
         triggerFn$: (input: Input) => Observable<Output>,
         initialOutputValue?: Output
@@ -83,9 +134,10 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /** 
-     * Create a message based off the request and response data that will be emitted after a successful trigger.
-     * Defaults: No message.
-     * Useful for scenarios like deleting and updating data
+     * Sets a function to generate success messages after successful operations
+     * 
+     * @param msgFn Function that generates success messages from input and output data
+     * @returns This MiniState instance for method chaining
      */
     setSuccessMsgFn(msgFn?: (input: Input, output: Output) => string) {
         this._successMsgFn = msgFn
@@ -94,7 +146,12 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
-    /** Any side effects that should happen after a succesful trigger */
+    /** 
+     * Sets a function to be called after a successful operation completes
+     * 
+     * @param successFn Function to call after successful completion
+     * @returns This MiniState instance for method chaining
+     */
     setOnSuccessFn(successFn: (input: Input, output: Output) => void) {
         this._onSuccessFn = successFn
         return this
@@ -103,8 +160,14 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /** 
-     * What to do with the data after a succesful trigger before passing on to client/user.
-     * Default: returns unprocessed data
+     * Sets a function to process the output data before it's stored
+     * 
+     * This can be used to transform the data, combine it with previous data,
+     * filter it, or perform any other operation before it's exposed through
+     * the data$ observable and data signal.
+     * 
+     * @param successDataProcessorFn Function that processes output data
+     * @returns This MiniState instance for method chaining
      */
     setSuccessDataProcessorFn(successDataProcessorFn: (input: Input, output: Output, prevInput: Input | undefined, prevOutput: Output | undefined) => Output | undefined) {
         this._successDataProcessor = successDataProcessorFn
@@ -114,8 +177,10 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /** 
-     * Any extra side effects that should happen after a successful trigger response
-     * Any side effects that should happen after a failed trigger response
+     * Sets a function to be called when an operation fails
+     * 
+     * @param errorFn Function to call when an error occurs
+     * @returns This MiniState instance for method chaining
      */
     setOnErrorFn(errorFn: (input: Input, error: TError) => void) {
         this._errorFn = errorFn
@@ -125,8 +190,10 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /**
-     * How to convert an error resonse to a message that will be emitted.
-     * Default: error => error?.message ?? error?.msg ?? ''
+     * Sets a function to convert error objects to user-friendly messages
+     * 
+     * @param msgFn Function that converts errors to messages
+     * @returns This MiniState instance for method chaining
      */
     setErrorMsgFn(msgFn: (error: TError) => string) {
         this._errorMsgFn = msgFn
@@ -136,8 +203,13 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /** 
-     * Any extra side effects that should happen after a successful trigger response
-     * Default: Do nothing
+     * Sets a function to be called when a trigger is initiated
+     * 
+     * This is called before the async operation begins and can be used
+     * for setup or validation.
+     * 
+     * @param onTriggerFn Function to call when trigger is initiated
+     * @returns This MiniState instance for method chaining
      */
     setOnTriggerFn(onTriggerFn?: (t: Input) => void) {
         this._onTriggerFn = onTriggerFn
@@ -146,6 +218,15 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
+    /**
+     * Triggers the async operation with the provided input
+     * 
+     * This initiates the operation, manages loading states, and
+     * handles success/error outcomes.
+     * 
+     * @param input The input to pass to the trigger function
+     * @returns This MiniState instance for method chaining
+     */
     trigger(input: Input) {
 
         devConsole.log('trigger', input);
@@ -192,6 +273,14 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
+    /**
+     * Re-triggers the operation using the most recent input value
+     * 
+     * This is useful for refreshing data without needing to track
+     * the last input value outside of MiniState.
+     * 
+     * @returns This MiniState instance for method chaining
+     */
     retrigger(): this {
         if (this.wasTriggered())
             this.trigger(this.prevInput() as Input);
@@ -203,7 +292,12 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
-    /** Stop Listening */
+    /** 
+     * Stops all ongoing operations and cleans up resources
+     * 
+     * This should be called when the MiniState is no longer needed
+     * to prevent memory leaks.
+     */
     unsubscribe() {
 
         this._sub?.unsubscribe?.()
@@ -225,19 +319,34 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
-    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    /**
+     * Emits an error message through the errorMsg$ observable
+     * 
+     * @param errorMsg The error message to emit
+     */
     protected emitErrorMsg = (errorMsg?: string) =>
         errorMsg && this._errorMsgBs.next(errorMsg + this.getSpace())
 
     //-------------------------------------//
 
-    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    /**
+     * Emits a success message through the successMsg$ observable
+     * 
+     * @param successMsg The success message to emit
+     */
     protected emitSuccessMsg = (successMsg?: string) =>
         successMsg && this._successMsgBs.next(successMsg + this.getSpace())
 
     //-------------------------------------//
 
-    /**This makes sure all messages are unique. So that popups with @Inputs will be triggered */
+    /**
+     * Ensures each emitted message is unique by appending a space character
+     * 
+     * This is needed to trigger Angular @Input setters even when the message
+     * content is identical to the previous message.
+     * 
+     * @returns A space character that alternates between variations
+     */
     protected getSpace = () => {
         if (!this._instanceSpace.length)
             return this._instanceSpace = SPACE_1
@@ -250,7 +359,9 @@ export class MiniState<Input, Output, TError = any> {
     //-------------------------------------//
 
     /**
-     * Set all popup Observables/Signals to default/empty values.
+     * Clears all popup messages and resets loading state
+     * 
+     * This can be used to manually reset the UI state when needed.
      */
     clearPopups() {
         this._successMsgBs.next(undefined)
