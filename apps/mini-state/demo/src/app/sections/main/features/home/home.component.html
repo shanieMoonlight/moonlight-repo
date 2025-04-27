@@ -1,1 +1,97 @@
-<p>home works!</p>
+<div class="home-container">
+  <header class="hero">
+    <div class="hero-content">
+        <img class="hero-image" src="images/tranparent/spider-baby-6.png" alt="SpiderBaby Material" />
+      <h1 class="title">{{ title }}</h1>
+      <h2 class="subtitle">{{ subtitle }}</h2>
+      <p class="description">{{ description }}</p>
+      
+      <div class="cta-buttons">
+        <a mat-raised-button color="primary" routerLink="/simple">
+          <mat-icon>play_arrow</mat-icon> Try Examples
+        </a>
+        <a mat-stroked-button color="accent" href="https://github.com/your-repo/mini-state" target="_blank">
+          <mat-icon>code</mat-icon> View on GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="features-section">
+    <h2 class="section-title">Examples</h2>
+    <p class="section-description">
+      Explore these examples to see how Mini-State simplifies state management in Angular applications.
+    </p>
+
+    <div class="features-grid">
+      @for (feature of features; track feature.title) {
+        <mat-card class="feature-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
+            <mat-card-title>{{ feature.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ feature.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a mat-button color="primary" [routerLink]="feature.route">View Example</a>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  </section>
+
+  <mat-divider></mat-divider>
+
+  <section class="benefits-section">
+    <h2 class="section-title">Why Mini-State?</h2>
+    <p class="section-description">
+      Mini-State provides a streamlined approach to handling async operations and state management.
+    </p>
+
+    <div class="benefits-grid">
+      @for (benefit of benefits; track benefit.title) {
+        <div class="benefit-item">
+          <mat-icon class="benefit-icon">{{ benefit.icon }}</mat-icon>
+          <div class="benefit-content">
+            <h3 class="benefit-title">{{ benefit.title }}</h3>
+            <p class="benefit-description">{{ benefit.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="quick-start">
+    <h2 class="section-title">Quick Start</h2>
+    <p>Get started with Mini-State in your Angular application:</p>
+    
+    <div class="code-block">
+      <pre><code>npm install &#64;spider-baby/mini-state</code></pre>
+    </div>
+    
+    <p>Then create your first state object:</p>
+    
+    <div class="code-block">
+      <pre><code>import &#123; MiniStateBuilder &#125; from '&#64;spider-baby/mini-state';
+
+const userState = MiniStateBuilder
+  .Create(() => userService.getUsers())
+  .setSuccessMsgFn((users) => `Loaded &#123;users.length&#125; users`)
+  .build();
+
+// Access reactive state
+const users = userState.data;
+const loading = userState.loading;
+const errorMsg = userState.errorMsg;
+
+// Trigger data loading
+userState.trigger();</code></pre>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <p>Mini-State Demo Application</p>
+    <p><small>Built with Angular</small></p>
+  </footer>
+</div>
