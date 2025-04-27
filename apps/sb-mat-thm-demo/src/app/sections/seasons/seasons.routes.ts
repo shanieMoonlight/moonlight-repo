@@ -7,12 +7,17 @@ export const seasonalRoutes: Route[] = [
         component: SeasonsComponent,
         children: [
             {
+                path: 'season-home',
+                title: 'Seasons Home - SpiderBaby Material Theming',
+                loadComponent: () => import('./features/home/home.component').then(m => m.SeasonalHomeComponent)
+            },
+            {
                 path: 'summer',
                 title: 'Summer Theme - SpiderBaby Material Theming',
                 loadComponent: () => import('./features/summer/summer.component').then(m => m.SummerComponent)
             },
             {
-                path: 'fall',
+                path: 'autumn',
                 title: 'Fall Theme - SpiderBaby Material Theming',
                 loadComponent: () => import('./features/autumn/autumn.component').then(m => m.AutumnComponent)
             },
@@ -29,7 +34,7 @@ export const seasonalRoutes: Route[] = [
             {
                 path: '',
                 title: 'Seasonal Themes - SpiderBaby Material Theming',
-                loadComponent: () => import('./features/summer/summer.component').then(m => m.SummerComponent)
+                loadComponent: () => import('./features/home/home.component').then(m => m.SeasonalHomeComponent)
             },
             {
               path: '**',

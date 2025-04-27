@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { MlDarkModeToggleMatComponent } from '@spider-baby/material-theming/components';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { ThemeTransitionIndicatorComponent } from '../../shared/utils/theme-transition/theme-transition-indicator.component';
@@ -11,7 +11,6 @@ import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
 @Component({
   imports: [
     MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
     MatEverythingModule,
     SeasonalNavbarComponent,
     RouterModule,
