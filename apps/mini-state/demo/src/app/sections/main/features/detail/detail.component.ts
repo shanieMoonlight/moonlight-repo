@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
@@ -34,16 +34,15 @@ export class DetailComponent {
 
   protected _form: IAlbumForm = this._fb.group({
     id: this._fb.nonNullable.control<string | number>(''),
-    userId: this._fb.nonNullable.control<string | number>(''),
-    title: this._fb.nonNullable.control<string>(''),
+    userId: this._fb.nonNullable.control<string | number>('', [Validators.required]),
+    title: this._fb.nonNullable.control<string>('', [Validators.required]),
   })
 
   private _id$ = this._actRoute.paramMap
     .pipe(
       map((params: ParamMap) => params.get('id') ?? undefined),
-      filter((id: string | undefined): id is string => !!id),
+      filter((id: string | undefined): id is string => !!id)
     )
-  private _id = toSignal(this._id$, { initialValue: '0' })
 
   //- - - - - - - - - - - - - //  
 
@@ -67,9 +66,6 @@ export class DetailComponent {
 
   //--------------------------//
 
-  /**
-   *
-   */
   constructor() {
     this._state.data$
       .pipe(takeUntilDestroyed(this._destroyer))
@@ -79,18 +75,21 @@ export class DetailComponent {
       })
   }
 
-
   //--------------------------//
 
   protected edit = (album: Album) =>
     this._editState.trigger(album)
 
+
   protected refresh = () =>
-    this._itemState.trigger(this._id())
+    this._itemState.retrigger()
+
 
   protected randomize(){    
     const randomId = Math.floor(Math.random() * 100) + 1; 
     this._router.navigate(['../', randomId], { relativeTo: this._actRoute });
   }
+
+  //--------------------------//
 
 }//Cls

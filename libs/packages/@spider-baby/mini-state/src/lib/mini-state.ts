@@ -1,19 +1,12 @@
 import { computed, Signal, signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { devConsole } from "@spider-baby/dev-console"
-import { BehaviorSubject, finalize, Observable, ReplaySubject, Subject, Subscription } from "rxjs"
+import { BehaviorSubject, distinctUntilChanged, finalize, map, mapTo, Observable, ReplaySubject, skip, startWith, Subject, Subscription } from "rxjs"
 
 //=========================================================//
 
 const SPACE_1 = ' \u200B'
 const SPACE_2 = '\u200C '
-
-//=========================================================//
-
-// export interface MessageData {
-//     message: string;
-//     timestamp: number; // Or a unique ID/counter
-// }
 
 //=========================================================//
 
@@ -27,8 +20,15 @@ export class MiniState<Input, Output, TError = any> {
 
     data$: Observable<Output>
     data: Signal<Output | undefined>
-    private _prevInput = signal<Input | undefined>(undefined)
-    protected prevInput = computed(() => this._prevInput())
+    private _prevInputBs = new BehaviorSubject<Input | undefined>(undefined)
+    private _wasTriggered$ = this._prevInputBs.asObservable().pipe(
+        skip(1), // Ignore the initial undefined value
+        map(() => true), // Map the first emission after the initial one to true
+        startWith(false), // Ensure the observable starts with false
+        distinctUntilChanged() // Only emit when the value changes (from false to true)
+    );
+    private wasTriggered = toSignal(this._wasTriggered$, { initialValue: false })
+    private prevInput = toSignal(this._prevInputBs)
 
     successMsg$ = this._successMsgBs.asObservable()
     successMsg = toSignal(this.successMsg$)
@@ -173,7 +173,7 @@ export class MiniState<Input, Output, TError = any> {
 
                     //In case loading MUST complete first (Maybe for navigation)
                     setTimeout(() => this._onSuccessFn?.(input, data), 500)
-                    this._prevInput.set(input)
+                    this._prevInputBs.next(input)
                 },
                 error: error => {
 
@@ -188,6 +188,17 @@ export class MiniState<Input, Output, TError = any> {
             })
 
         return this
+    }
+
+    //-------------------------------------//
+
+    retrigger(): this {
+        if (this.wasTriggered())
+            this.trigger(this.prevInput() as Input);
+        else
+            console.warn('MiniState: retrigger called before any successful trigger.');
+
+        return this;
     }
 
     //-------------------------------------//
