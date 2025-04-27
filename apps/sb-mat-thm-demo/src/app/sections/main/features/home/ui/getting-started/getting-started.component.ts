@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { DownloadSetupFilesService, SetupFile } from '../../../../../../shared/utils/setup/download-setup/download-setup.service';
+import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
 
 @Component({
   selector: 'sb-home-getting-started',
@@ -17,9 +18,19 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeGettingStartedComponent {
 
+  private _setupFilesService = inject(DownloadSetupFilesService);
+
+  //- - - - - - - - - - - - - - -//
 
   _sectionNumber = input.required({ alias: 'sectionNumber' });
 
+  //- - - - - - - - - - - - - - -//
+
+  protected _setupFiles = this._setupFilesService.setupFiles
+  // protected _downloadingFile = this._setupFilesService.downloadingFile
+  protected _downloadingFile = signal<string | null>(null);
+
+  //-----------------------------//
 
   // Installation and setup code snippets as signals
   protected _npmInstallCmd = signal('npm install @spider-baby/material-theming');
@@ -161,4 +172,26 @@ font-family: Roboto, "Helvetica Neue", sans-serif;
 
     `);
 
-}
+  //-----------------------------//
+
+  protected downloadFile(file: SetupFile): void {
+    this._downloadingFile.set(file.filename);
+
+    this._setupFilesService.downloadPredefinedFile(file)
+      .subscribe({
+        next: () => this._downloadingFile.set(null),
+        error: () => this._downloadingFile.set(null)
+      });
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  /**
+   * Checks if a specific file is currently downloading
+   * @param filename The name of the file to check
+   * @returns True if the file is currently downloading
+   */
+  protected isDownloading = (filename: string): boolean =>
+    this._downloadingFile() === filename;
+
+}//Cls

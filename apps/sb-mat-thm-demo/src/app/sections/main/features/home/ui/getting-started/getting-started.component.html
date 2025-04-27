@@ -100,3 +100,43 @@
       <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code>
     </small>
   </div>
+
+  <mat-divider />
+  
+<h3>Quick Start Files</h3>
+<p>
+  Download ready-to-use configuration files to get started quickly with SpiderBaby Material Theming:
+</p>
+
+<div class="setup-files-container">
+
+  @for (file of _setupFiles(); track $index) {
+  <div class="setup-file-card">
+    <h4>{{ file.title }}</h4>
+    <p>{{ file.description }}</p>
+    <button 
+      mat-raised-button 
+      [color]="file.filename === 'complete-setup.zip' ? 'tertiary' : file.filename.includes('scss') ? 'accent' : 'primary'"
+      [disabled]="isDownloading(file.filename)"
+      (click)="downloadFile(file)">
+      <mat-icon>{{ file.icon || 'download' }}</mat-icon>
+      @if (isDownloading(file.filename)) {
+        <span>Download {{ file.filename }}</span>
+      }
+      @else {
+        <span>Downloading...</span>
+      }
+    </button>
+  </div>
+}
+</div>
+
+<div class="api-documentation-link">
+  <p>
+    For more information about the available options and API, check out the
+    <a [routerLink]="['/api/service-api']" class="api-link">
+      <mat-icon>code</mat-icon>
+      Complete API Documentation
+    </a>
+  </p>
+</div>

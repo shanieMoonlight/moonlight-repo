@@ -1,0 +1,34 @@
+// Custom Theming for Angular Material
+
+// Import @angular/material
+@use "@angular/material" as mat;
+
+// Import color overrides (Optional)
+@use '@spider-baby/material-theming/styles/mat-color-overrides.scss' as *;
+
+
+// @angular/material - Include core styles 
+// (only needed once per application)
+@include mat.core();
+
+
+html {
+
+  // @angular/material v19 theme setup. This is still required for shapes, border-radius etc.
+  // Leave the color palette empty as we're handling colors via CSS variables using our Theming System
+  @include mat.theme((
+      typography: Roboto,
+      density: 0));
+}
+
+
+html,
+body {
+  height: 100%;
+}
+
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

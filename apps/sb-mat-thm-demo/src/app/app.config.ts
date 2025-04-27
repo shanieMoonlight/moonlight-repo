@@ -1,19 +1,18 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
-import {
-  provideClientHydration,
-  withEventReplay,
-} from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
+    provideHttpClient(withFetch()),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
