@@ -36,6 +36,8 @@ export interface ThemingConfigOptions {
   transitionOptions?: ThemeTransitionOptions; 
 }
 
+//##################################################//
+
 /**
  * Configuration settings for the theming system.
  * 
