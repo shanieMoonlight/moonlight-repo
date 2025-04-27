@@ -60,7 +60,6 @@ const seasonData: SeasonCardData[] = [
     RouterModule,
     ThemeHierarchyDiagramComponent,
     MlApplyThemeDirective,
-    MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
 ],
   templateUrl: './home.component.html',
