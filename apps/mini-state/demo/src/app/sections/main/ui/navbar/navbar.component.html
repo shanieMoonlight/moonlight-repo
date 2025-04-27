@@ -34,6 +34,15 @@
 
 
 <div class="right-links">     
+
+    <ng-container 
+        [ngTemplateOutlet]="navItem" 
+        [ngTemplateOutletContext]="{
+            routerLink: 'detail/' + _randomId, 
+            tooltip: 'Item Detail', 
+            iconName: 'asterisk', 
+            text: 'Detail'
+        }"/>
     
     @for(navLink of _rhsNavItems(); track navLink) {
         <ng-container 
@@ -45,7 +54,6 @@
             text: navLink.text
         }"/>
     }
-    
     
     <div class="rhs-outlet">
         @if(_rhsOutletTemplate(); as template){

@@ -1,28 +1,41 @@
 import { Signal } from "@angular/core";
-import { MessageData, MiniState } from "@spider-baby/mini-state";
+import { MiniState } from "@spider-baby/mini-state";
 import { MsUtility } from "./mini-state-utility";
+import { Observable } from "rxjs";
 
 export class MiniStateCombined {
 
-    readonly errorMsg: Signal<MessageData | undefined>   
+    readonly errorMsg: Signal<string | undefined>   
+    readonly errorMsg$: Observable<string | undefined>   
     readonly error: Signal<any>                     
+    readonly error$: Observable<any>                     
     readonly loading: Signal<boolean>               
-    readonly successMsg: Signal<MessageData | undefined> 
+    readonly loading$: Observable<boolean>               
+    readonly successMsg: Signal<string | undefined> 
+    readonly successMsg$: Observable<string | undefined> 
     readonly data: Signal<any | undefined> 
+    readonly data$: Observable<any | undefined> 
 
     //-------------------------//    
 
     private constructor(miniStates: MiniState<any, any>[]) {
+
         this.loading = MsUtility.combineLoading(...miniStates)
         this.error = MsUtility.combineErrors(...miniStates)
         this.successMsg = MsUtility.combineSuccessMsgs(...miniStates)
         this.errorMsg = MsUtility.combineErrorMsgs(...miniStates)
         this.data = MsUtility.combineData(...miniStates)
+        
+        this.loading$ = MsUtility.combineLoading$(...miniStates)
+        this.error$ = MsUtility.combineErrors$(...miniStates)
+        this.successMsg$ = MsUtility.combineSuccessMsgs$(...miniStates)
+        this.errorMsg$ = MsUtility.combineErrorMsgs$(...miniStates)
+        this.data$ = MsUtility.combineData$(...miniStates)
     }
 
     //-------------------------//
 
-    static Create = (...miniStates: MiniState<any, any>[]) =>
+    static Combine = (...miniStates: MiniState<any, any>[]) =>
         new MiniStateCombined(miniStates)
 
     //- - - - - - - - - - - - -//    

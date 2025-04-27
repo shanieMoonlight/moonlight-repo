@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, output, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MessageData } from '@spider-baby/mini-state';
 
 @Component({
   selector: 'sb-error-modal',
@@ -116,14 +115,13 @@ export class ErrorModalComponent {
 
   _errorMsg = signal<string | undefined>(undefined);  
   @Input('errorMsg')
-  set errorMsg(data: MessageData | null | undefined) {
-    this._errorMsg.set(data?.message ?? undefined);
+  set errorMsg(message: string | null | undefined) {
+    this._errorMsg.set(message ?? undefined);
   }
 
   //- - - - - - - - - - - - - - //
 
-  _dismissError = output({ alias: 'dismiss' });
-  _tryAgain = output({ alias: 'tryAgain' });
+  _dismissError = output({ alias: 'dismiss' })
 
   //----------------------------//
 
@@ -132,14 +130,5 @@ export class ErrorModalComponent {
     console.log('dismissError', this._errorMsg());
     
   }
-
-  //- - - - - - - - - - - - - - //
-
-  protected tryAgain(): void {    
-    this._errorMsg.set(undefined)
-    this._tryAgain.emit()
-  }
-
-  //----------------------------//
-
+  
 }//Cls

@@ -10,19 +10,19 @@ const SPACE_2 = '\u200C '
 
 //=========================================================//
 
-export interface MessageData {
-    message: string;
-    timestamp: number; // Or a unique ID/counter
-}
+// export interface MessageData {
+//     message: string;
+//     timestamp: number; // Or a unique ID/counter
+// }
 
 //=========================================================//
 
 export class MiniState<Input, Output, TError = any> {
 
-    protected _successMsgBs = new Subject<MessageData | undefined>()
+    protected _successMsgBs = new Subject<string | undefined>()
     protected _successDataBs = new Subject<Output>()
     protected _loadingBs = new BehaviorSubject<boolean>(false)
-    protected _errorMsgBs = new Subject<MessageData | undefined>()
+    protected _errorMsgBs = new Subject<string | undefined>()
     protected _errorBs = new Subject<TError>()
 
     data$: Observable<Output>
@@ -214,6 +214,18 @@ export class MiniState<Input, Output, TError = any> {
 
     //-------------------------------------//
 
+    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    protected emitErrorMsg = (errorMsg?: string) =>
+        errorMsg && this._errorMsgBs.next(errorMsg + this.getSpace())
+
+    //-------------------------------------//
+
+    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
+    protected emitSuccessMsg = (successMsg?: string) =>
+        successMsg && this._successMsgBs.next(successMsg + this.getSpace())
+
+    //-------------------------------------//
+
     /**This makes sure all messages are unique. So that popups with @Inputs will be triggered */
     protected getSpace = () => {
         if (!this._instanceSpace.length)
@@ -223,18 +235,6 @@ export class MiniState<Input, Output, TError = any> {
         else
             return this._instanceSpace = ''
     }
-
-    //-------------------------------------//
-
-    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
-    protected emitErrorMsg = (errorMsg?: string) =>
-        errorMsg && this._errorMsgBs.next({ message: errorMsg, timestamp: Date.now() })
-
-    //-------------------------------------//
-
-    //Add/remove space to make sure all messages are different. (To trigger @Inputs)
-    protected emitSuccessMsg = (successMsg?: string) =>
-        successMsg && this._successMsgBs.next({ message: successMsg, timestamp: Date.now() })
 
     //-------------------------------------//
 

@@ -1,19 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { SbNotificationsComponent } from '@spider-baby/notifications';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { ErrorModalComponent } from '../../ui/modals/error/error.component';
-import { SuccessModalComponent } from "../../ui/modals/success/success.component";
+import { NotificationsModalComponent } from '../../ui/modals/notifications/notifications.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
   selector: 'sb-simple',
   imports: [
     MatEverythingModule,
-    ErrorModalComponent,
-    SuccessModalComponent,
-    DataTableComponent
+    DataTableComponent,
+    NotificationsModalComponent
   ],
   templateUrl: './simple.component.html',
   styleUrl: './simple.component.scss',
@@ -24,7 +21,6 @@ export class SimpleComponent {
   private _ioService = inject(DummyAlbumIoService)
 
   //- - - - - - - - - - - - - //
-
 
   protected displayColumns = signal(['id', 'userId', 'title'])
 
@@ -39,11 +35,7 @@ export class SimpleComponent {
 
   //--------------------------//
 
-  protected refresh(): void {
-    this._state.trigger();
-  }
-
-  //--------------------------//
-
+  protected refresh = () =>
+    this._state.trigger()
 
 }//Cls

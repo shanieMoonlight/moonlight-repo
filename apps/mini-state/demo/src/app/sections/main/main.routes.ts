@@ -11,6 +11,14 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },
             {
+                path: 'detail',
+                loadComponent: () => import('./features/detail/detail.component').then(m => m.DetailComponent),
+            },
+            {
+                path: 'detail/:id',
+                loadComponent: () => import('./features/detail/detail.component').then(m => m.DetailComponent),
+            },
+            {
                 path: 'simple',
                 loadComponent: () => import('./features/simple/simple.component').then(m => m.SimpleComponent),
             },

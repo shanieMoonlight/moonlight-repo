@@ -13,7 +13,7 @@
     <div class="table-container">
       @if (isLoading()) {
         <mat-progress-bar mode="indeterminate" />
-      }
+      }      
       <table mat-table [dataSource]="items()">
         <!-- Dynamic Columns -->
         @for (column of displayColumns(); track column) {

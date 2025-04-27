@@ -1,11 +1,5 @@
-import { Component, input, output, EventEmitter, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoaderModalComponent } from "../modals/loader/loader.component";
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
@@ -19,7 +13,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
     styleUrl: './data-table.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataTableComponent<T extends { id: string | number }> {
+export class DataTableComponent<T> {
 
     // Input signals
     items = input<T[]>([]);

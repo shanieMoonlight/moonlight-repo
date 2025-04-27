@@ -5,7 +5,7 @@
       [items]="_data()" 
       [displayColumns]="displayColumns()"
       [isLoading]="_loading()" 
-      [includeActions]="true"
+      [includeActions]="false"
       [title]="'Album Collection'"
       [emptyMessage]="'No albums found. Try refreshing the data.'"
       [loadingMessage]="'Loading albums...'"
@@ -15,13 +15,8 @@
 </div>
 
 
-<sb-error-modal 
+<sb-notifications-modal 
     [errorMsg]="_errorMsg()"
-    (tryAgain)="refresh()">
-
-<sb-success-modal [successMsg]="_successMsg()">
-
-<!-- <sb-notifications
-    [error]="_errorMsg()"
-    [successPopup]="_successMsg()"
-    [loading]="_loading()"/> -->
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" 
+    [loadingMessage]="'Loading albums...'"/>

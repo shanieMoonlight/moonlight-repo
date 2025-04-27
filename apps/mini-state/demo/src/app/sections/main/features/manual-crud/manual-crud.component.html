@@ -19,12 +19,9 @@
 </div>
 
 
-<sb-success-modal 
-    [successMsg]="_successMsg()"/>
-    
-<sb-error-modal 
+<sb-notifications-modal 
     [errorMsg]="_errorMsg()"
-    (tryAgain)="refresh()"/>
-
-<sb-loader-modal [isLoading]="_loading()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
+

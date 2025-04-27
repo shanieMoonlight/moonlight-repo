@@ -1,10 +1,20 @@
+import { FormControl, FormGroup } from "@angular/forms";
+
 export interface Album {
-    userId: number,
-    id: number | string,
+    id?: string | number,
+    userId: string | number,
     title: string
 }
 
-//#####################################################//
+//#########################################//
+
+export interface IAlbumForm extends FormGroup<{
+    id: FormControl<string | number>;
+    userId: FormControl<string | number>
+    title: FormControl<string>
+}> { }
+
+//#########################################//
 
 
 export class AlbumUtils {
@@ -13,10 +23,10 @@ export class AlbumUtils {
      * Generates a random Album with unique ID
      * @returns A randomly generated Album object
      */
-    static generateRandomAlbum(): Album {
+    static generateRandomAlbum(id?: string | number): Album {
 
         const userId = Math.floor(Math.random() * 10) + 1; // Random userId between 1-10
-        const id = Math.floor(Math.random() * 1000) + 1; // Random id between 1-1000
+        id ??= Math.floor(Math.random() * 1000) + 1; // Random id between 1-1000
 
         // Array of possible title prefixes and suffixes for variety
         const titlePrefixes = ['Amazing', 'Beautiful', 'Wonderful', 'Incredible', 'Fantastic'];
@@ -51,13 +61,15 @@ export class AlbumUtils {
 
         for (let i = 0; i < count; i++) {
             // Keep generating until we get a unique ID
-            let album = this.generateRandomAlbum();
-            while (usedIds.has(album.id)) {
+            let album = this.generateRandomAlbum()
+            const albumId = album.id ?? 0
+            while (usedIds.has(albumId)) {
                 album = this.generateRandomAlbum();
             }
 
             // Track the ID we're using
-            usedIds.add(album.id);
+            if (album.id)
+                usedIds.add(album.id);
             albums.push(album);
         }
 
@@ -68,4 +80,4 @@ export class AlbumUtils {
 
 
 
-//#####################################################//
+//#########################################//

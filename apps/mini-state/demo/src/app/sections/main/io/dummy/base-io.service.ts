@@ -1,69 +1,54 @@
 import { delay, mergeMap, Observable, of, throwError } from 'rxjs';
 import { MessageResponse } from '../../data/message-response';
-import { signal } from '@angular/core';
 
 
 export abstract class BaseDummyIoService<T> {
 
   protected errorProbability = 0.2; // 20% chance of error by default
-  private currentData = signal<T[]>([])
 
   //----------------------------//
 
-  getAll(): Observable<T[]> {
-    console.log('getAll()');
-
-    const count = this.getRandomInt(0, 12)
-    const items = this.generateRandomItems(count)
-    this.currentData.set(items); // Store the current data
-    return this.withChaos(
-      of(items),
+  getAll = (): Observable<T[]> =>
+    this.withChaos(
+      of(this._generateRandomItems(0, 12)),
       'Failed to retrieve items'
-    );
-  }
+    )
 
   //----------------------------//
 
-  getById(id: string | number): Observable<T | undefined> {
-    return this.withChaos(
-      of(this.generateRandomItem()),
-      `Failed to retrieve item with id ${id}`
-    );
-  }
+  getById = (id: string | number): Observable<T | undefined> =>
+    this.withChaos(
+      of(this.generateRandomItem(id)),
+      `Failed to retrieve item with id ${id}\r\nSomething unexpected happened 😱!`
+    )
 
   //----------------------------//
 
-  create(item: T): Observable<T> {
-    console.log('create()', item);
-    return this.withChaos(
+  create = (item: T): Observable<T> =>
+    this.withChaos(
       of(item),
       'Failed to create item'
-    );
-  }
+    )
 
   //----------------------------//
 
-  update(item: T): Observable<T> {
-    console.log('update()', item);
-    return this.withChaos(
+  update = (item: T): Observable<T> =>
+    this.withChaos(
       of(item),
-      'Failed to update item'
-    );
-  }
+      'Failed to update item.\r\nSomething unexpected happened 😱!'
+    )
 
   //----------------------------//
 
-  delete(id: string | number): Observable<MessageResponse> {
-    console.log(`delete(${id})`);
-    return this.withChaos(
+  delete = (id: string | number): Observable<MessageResponse> =>
+    this.withChaos(
       of({ message: 'Item successfully deleted' }),
-      `Failed to delete item with id ${id}`
-    );
-  }
+      `Failed to delete item with id ${id}.\r\nSomething unexpected happened 😱!`
+    )
 
   //----------------------------//
 
-  abstract generateRandomItem(): T | undefined
+  abstract generateRandomItem(id: string | number): T | undefined
   abstract generateRandomItems(count: number): T[]
 
   //----------------------------//
@@ -71,10 +56,14 @@ export abstract class BaseDummyIoService<T> {
   private getRandomInt = (min: number, max: number): number =>
     Math.floor(Math.random() * (max - min + 1)) + min
 
-
   //----------------------------//
 
+  private _generateRandomItems = (min: number, max: number): T[] => {
+    const count = this.getRandomInt(min, max)
+    return this.generateRandomItems(count)
+  }
 
+  //----------------------------//
   /**
    * Wraps an observable with chaos behavior (random errors and delays)
    * @param source The source observable
@@ -88,7 +77,7 @@ export abstract class BaseDummyIoService<T> {
     customErrorProbability?: number
   ): Observable<R> {
     const errorProb = customErrorProbability ?? this.errorProbability;
-    const delayMs = Math.random() * 1000 + 1000; // Random delay between 1-2 seconds
+    const delayMs = Math.random() * 2000 + 1000; // Random delay between 1-2 seconds
 
     return of(null).pipe(
       delay(delayMs),

@@ -8,10 +8,10 @@ import { BaseDummyIoService } from './base-io.service';
 export class DummyAlbumIoService extends BaseDummyIoService<Album> {
 
 
-  override generateRandomItem(): Album | undefined {
+  override generateRandomItem(id: string | number): Album | undefined {
     return Math.random() < 0.1
       ? undefined
-      : AlbumUtils.generateRandomAlbum()
+      : AlbumUtils.generateRandomAlbum(id)
   }
 
   override generateRandomItems(count: number): Album[] {

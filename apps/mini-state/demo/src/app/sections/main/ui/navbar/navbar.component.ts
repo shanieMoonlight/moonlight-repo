@@ -74,6 +74,15 @@ export class NavbarComponent {
 
   //- - - - - - - - - - - - - - -//
 
+
+  public get _randomId(): number {
+    const min = 1
+    const max = 1000
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+
+
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO)
   protected _npmPkgUrl = signal(AppConstants.NPM_PKG)
   protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems)

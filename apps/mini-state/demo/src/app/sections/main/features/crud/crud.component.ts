@@ -1,22 +1,17 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniCrudState, MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { ErrorModalComponent } from '../../ui/modals/error/error.component';
-import { LoaderModalComponent } from '../../ui/modals/loader/loader.component';
-import { SuccessModalComponent } from '../../ui/modals/success/success.component';
+import { NotificationsModalComponent } from '../../ui/modals/notifications/notifications.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
   selector: 'sb-manual-crud',
   imports: [
     MatEverythingModule,
-    ErrorModalComponent,
-    SuccessModalComponent,
     DataTableComponent,
-    LoaderModalComponent
+    NotificationsModalComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
@@ -41,7 +36,7 @@ export class CrudComponent {
       (album: Album) => this._ioService.update(album),
       (album) => `⭐⭐⭐ \r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
     .setDeleteState(
-      (album: Album) => this._ioService.delete(album.id),
+      (album: Album) => this._ioService.delete(album.id!),
       (album) =>  `Album ${album.title} deleted successfully 🗑️
       You will have to imagine that it was removed from the list.
       This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`

@@ -4,20 +4,16 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { ErrorModalComponent } from '../../ui/modals/error/error.component';
-import { LoaderModalComponent } from '../../ui/modals/loader/loader.component';
-import { SuccessModalComponent } from '../../ui/modals/success/success.component';
+import { NotificationsModalComponent } from "../../ui/modals/notifications/notifications.component";
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
   selector: 'sb-manual-crud',
   imports: [
     MatEverythingModule,
-    ErrorModalComponent,
-    SuccessModalComponent,
     DataTableComponent,
-    LoaderModalComponent
-  ],
+    NotificationsModalComponent
+],
   templateUrl: './manual-crud.component.html',
   styleUrl: './manual-crud.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,14 +38,14 @@ export class ManualCrudComponent {
 
 
   protected _deleteState = MiniStateBuilder
-    .CreateWithInput((album: Album) => this._ioService.delete(album.id))
+    .CreateWithInput((album: Album) => this._ioService.delete(album.id!))
     .setSuccessMsgFn((album: Album) => `Album ${album.title} deleted successfully 🗑️
      You will have to imagine that it was removed from the list.
      This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`)
 
   //- - - - - - - - - - - - - //
 
-  private _states = MiniStateCombined.Create(
+  private _states = MiniStateCombined.Combine(
     this._getAllState,
     this._updateState,
     this._deleteState)

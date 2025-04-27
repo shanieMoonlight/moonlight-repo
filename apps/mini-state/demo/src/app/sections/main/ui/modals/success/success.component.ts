@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, output, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MessageData } from '@spider-baby/mini-state';
 
 @Component({
   selector: 'sb-success-modal',
@@ -114,8 +113,8 @@ export class SuccessModalComponent {
 
   _successMsg = signal<string | undefined>(undefined);
   @Input('successMsg')
-  set successMsg(data: MessageData | null | undefined) {
-    this._successMsg.set(data?.message ?? undefined);
+  set successMsg(message: string | null | undefined) {
+    this._successMsg.set(message ?? undefined);
   }
 
   _dismissSuccess = output({ alias: 'dismiss' });
