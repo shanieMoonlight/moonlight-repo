@@ -10,14 +10,14 @@ export class SeoSetup {
      * @param config Optional custom seo configuration. 
      * @returns An array of providers to include in an application's provider array.
      */
-    static provideSeoModule = (config: SeoConfig)
-        : (Provider | EnvironmentProviders)[] => {
+    static provideSeoModule = (config: SeoConfig): (Provider | EnvironmentProviders)[] => {
+        // Validate that config is a proper SeoConfig instance
+        if (!(config instanceof SeoConfig)) 
+          throw new Error('SeoSetup: The provided config must be created using SeoConfig.create()')
+        
         return [
-            {
-                provide: SeoConfigService,
-                useValue: config,
-            },
-        ]
-    }
+          { provide: SeoConfigService, useValue: config }
+        ];
+      }
 
 } //Cls
