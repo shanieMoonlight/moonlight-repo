@@ -1,6 +1,15 @@
-<sb-seasonal-navbar/>
+<sb-seasonal-navbar
+    [rhsOutletTemplate]="rhsOutletTemplate"/>
+
 <router-outlet />
 
 <sb-theme-transition-indicator/>
 
 
+<!-- ======================================= -->
+
+<ng-template #rhsOutletTemplate>
+    <sb-dark-mode-toggle-mat/>
+</ng-template>
+
+<!-- ======================================= -->

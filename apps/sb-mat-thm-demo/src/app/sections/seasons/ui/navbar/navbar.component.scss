@@ -6,10 +6,7 @@
 }
 
 mat-toolbar {
-  // Ensure items are vertically centered if needed (usually default)
   align-items: center;
-  // Optional: Set a background color using theme variables if you don't want the default surface
-
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
   display: flex;
@@ -19,11 +16,7 @@ mat-toolbar {
 
 .left-links, .right-links {
   display: flex;
-  /* Use flexbox for alignment */
-  align-items: center;
-  /* Center items vertically */
-}
-.left-links{
+  align-items: center;  
 }
 
 .rhs-outlet {

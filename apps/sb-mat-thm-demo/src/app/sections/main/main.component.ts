@@ -1,22 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { NavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
 
 
 @Component({
   imports: [
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatSidenavModule,
+    MatEverythingModule,
     NavbarComponent,
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
