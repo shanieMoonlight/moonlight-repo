@@ -3,11 +3,16 @@ import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { AppConstants } from '../../config/constants';
 
+//################################################//
+
 type MetaTag = {
     name?: string;
     property?: string;
     content: string;
 };
+
+//################################################//
+
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +24,6 @@ export class SeoService {
     private _title = inject(Title)
 
     //-----------------------------//
-
 
     updateMetadata({
         title = 'SpiderBaby Material Theming',
@@ -48,15 +52,15 @@ export class SeoService {
         // Update each meta tag
         tags.forEach(tag => {
             // For name-based meta tags
-            if (tag.name) {
+            if (tag.name)
                 this._meta.updateTag({ name: tag.name, content: tag.content });
-            }
             // For property-based meta tags (Open Graph, etc.)
-            else if (tag.property) {
+            else if (tag.property)
                 this._meta.updateTag({ property: tag.property, content: tag.content });
-            }
         });
     }
+
+    //-----------------------------//
 
     addCanonicalLink(url: string) {
         const link: HTMLLinkElement = this._document.querySelector('link[rel="canonical"]') || this._document.createElement('link');
@@ -67,10 +71,11 @@ export class SeoService {
         if (head) {
             // Remove existing canonical if it exists
             const existingLink = head.querySelector('link[rel="canonical"]');
-            if (existingLink) {
+            if (existingLink)
                 existingLink.remove();
-            }
+
             head.appendChild(link);
         }
     }
-}
+
+}//Cls
