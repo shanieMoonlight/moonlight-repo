@@ -23,6 +23,27 @@ export const API_ROUTES: ApiRouteData[] = [
     route: '/api/variables-list',
     color: 'secondary'
   },
+  {
+    title: 'Theme Picker API',
+    description: 'Documentation for the Theme Picker component, including examples and usage.',
+    icon: 'palette',
+    route: '/api/theme-picker-api',
+    color: 'primary'
+  },
+  {
+    title: 'Dark Mode Toggle API',
+    description: 'Documentation for the Dark Mode Toggle component, including examples and usage.',
+    icon: 'toggle_on',
+    route: '/api/dark-mode-toggle-api',
+    color: 'secondary'
+  },
+  {
+    title: 'Apply Theme Directive API',
+    description: 'Documentation for the Apply Theme directive, including examples and usage.',
+    icon: 'brush',
+    route: '/api/apply-theme-api',
+    color: 'tertiary'
+  },
 ]
 
 //###############################################//
@@ -39,7 +60,7 @@ export const API_ROUTES: ApiRouteData[] = [
     SbMatApiNavCardComponent
   ]
 })
-export class HomeComponent implements OnInit {
+export class ApiHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)

@@ -135,9 +135,9 @@ ngOnInit(): void &#123;
 
     <h2>Seasonal Theme Examples</h2>
     <div class="description">
-      Each card below demonstrates local theming (bounded by the card) using our <code>mlApplyTheme</code> directive. 
+      Each card below demonstrates local theming (bounded by the card) using our <code>sbApplyTheme</code> directive. 
       <pre><code>&#64;for (season of _seasonData(); track season.title) &#123;
-        &lt;sb-season-info-card [mlApplyTheme]="season.theme" [data]="season" /&gt;
+        &lt;sb-season-info-card [sbApplyTheme]="season.theme" [data]="season" /&gt;
   &#125;
       </code></pre>
       This directive applies the theme only to the targeted element and its children, creating isolated theme contexts 
@@ -146,7 +146,7 @@ ngOnInit(): void &#123;
     
     <div class="seasons-grid">
       @for (season of _seasonData(); track season.title) {
-        <sb-season-info-card  [mlApplyTheme]="season.theme"  [data]="season" />
+        <sb-season-info-card  [sbApplyTheme]="season.theme"  [data]="season" />
       }
     </div>
   </div>

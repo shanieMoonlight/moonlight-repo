@@ -141,7 +141,7 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
   
 
   <!--To set a local theme for a specific component and its children -->
-  <my-locally-themed-component  [mlApplyTheme]="theme" />
+  <my-locally-themed-component  [sbApplyTheme]="theme" />
   `  );
 
   protected _scssCode = signal(`

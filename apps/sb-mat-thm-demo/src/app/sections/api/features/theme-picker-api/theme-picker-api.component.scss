@@ -1,0 +1,21 @@
+.api-docs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+h1 {
+  color: var(--mat-sys-primary);
+  margin-bottom: 1rem;
+}
+
+mat-tab-group {
+  margin-top: 2rem;
+}
