@@ -10,8 +10,6 @@ SEO
 Redo : devLog
 
 
-change neutralVariant to neutral-variant
-
 
 Make sore all versions of this are generated
     '--mat-sys-primary',

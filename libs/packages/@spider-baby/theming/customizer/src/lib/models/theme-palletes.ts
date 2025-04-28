@@ -34,5 +34,5 @@ export interface GeneratedPalettes {
   /**
    * Neutral variant palette - used for surface variants and medium-emphasis text
    */
-  'neutral-variant': Record<number, string>;
+  'neutralVariant': Record<number, string>;
 }

@@ -1,13 +1,13 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@spider-baby/material-theming/config";
-import { ColorUtilsService, consoleDev } from '@spider-baby/material-theming/utils';
+import { ColorUtilsService } from '@spider-baby/material-theming/utils';
+import { MemoizationService } from '@spider-baby/utils-memoization';
 import { AnimationFrameService } from '@spider-baby/utils-testing';
 import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
-import { MemoizationService } from '@spider-baby/utils-memoization';
 
 
 /**
@@ -173,10 +173,11 @@ export class ThemeGeneratorService {
     // Set variables for each palette type
     Object.entries(palettes).forEach(([paletteName, shades]) => {
       Object.entries(shades).forEach(([tone, colorValue]) => {
-        // Use setProperty instead of setStyle for CSS custom properties       
-
+        // Use setProperty instead of setStyle for CSS custom properties    
+        // Convert camelCase to kebab-case for CSS variable naming
+        const kebabPaletteName = this.camelToKebabCase(paletteName);
         targetElement.style.setProperty(
-          `--${COLOR_VAR_PREFIX}-${paletteName}-${tone}`,
+          `--${COLOR_VAR_PREFIX}-${kebabPaletteName}-${tone}`,
           `${colorValue}`
         )
       })
@@ -214,6 +215,18 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-on-error', palettes.error[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-error-container', palettes.error[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-error-container', palettes.error[isDark ? 90 : 10]);
+    
+    // M3 colors - Neutral
+    this.setVariable(targetElement, '--mat-sys-neutral', palettes.neutral[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-neutral', palettes.neutral[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-neutral-container', palettes.neutral[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-neutral-container', palettes.neutral[isDark ? 90 : 10]);
+    
+    // M3 colors - NeutralVariant
+    this.setVariable(targetElement, '--mat-sys-neutral-variant', palettes.neutralVariant[isDark ? 80 : 40]);
+    this.setVariable(targetElement, '--mat-sys-on-neutral-variant', palettes.neutralVariant[isDark ? 20 : 100]);
+    this.setVariable(targetElement, '--mat-sys-neutral-variant-container', palettes.neutralVariant[isDark ? 30 : 90]);
+    this.setVariable(targetElement, '--mat-sys-on-neutral-variant-container', palettes.neutralVariant[isDark ? 90 : 10]);
 
     // M3 Surface and background colors
     this.setVariable(targetElement, '--mat-sys-background', palettes.neutral[isDark ? 6 : 99]);
@@ -382,5 +395,12 @@ export class ThemeGeneratorService {
     isPlatformBrowser(this._platformId)
 
   //- - - - - - - - - - - - - - -//
+
+  /**
+ * Converts a camelCase string to kebab-case
+ * For example: 'neutralVariant' becomes 'neutral-variant'
+ */
+  private camelToKebabCase = (str: string): string =>
+    str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
 
 }//Cls

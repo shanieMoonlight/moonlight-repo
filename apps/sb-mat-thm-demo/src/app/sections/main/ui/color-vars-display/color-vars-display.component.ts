@@ -115,7 +115,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </ul>
           </mat-expansion-panel>
 
-          <!-- Add similar panels for tertiary, error, neutral, neutralVariant -->
+          <!-- Add similar panels for tertiary, error, neutral, neutral-variant -->
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>

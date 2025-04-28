@@ -57,7 +57,7 @@ export class ThemeVariablesShowcaseComponent {
   ]
 
   // Generate all tone values
-  protected _colorTypes = ['primary', 'secondary', 'tertiary', 'error', 'neutral', 'neutralVariant'];
+  protected _colorTypes = ['primary', 'secondary', 'tertiary', 'error', 'neutral', 'neutral-variant'];
   protected _tones = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100]
     .sort((a, b) => a - b);
 
