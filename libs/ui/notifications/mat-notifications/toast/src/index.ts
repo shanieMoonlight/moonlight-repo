@@ -1,1 +1,1 @@
-export * from './lib/toast.module';
+export * from './lib/toast.component';

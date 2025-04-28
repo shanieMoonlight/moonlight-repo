@@ -35,11 +35,6 @@ export class DetailComponent {
 
   //- - - - - - - - - - - - - //
 
-  protected _form: IAlbumForm = this._fb.group({
-    id: this._fb.nonNullable.control<string | number>(''),
-    userId: this._fb.nonNullable.control<string | number>('', [Validators.required]),
-    title: this._fb.nonNullable.control<string>('', [Validators.required]),
-  })
 
   private _id$ = this._actRoute.paramMap
     .pipe(
@@ -66,17 +61,6 @@ export class DetailComponent {
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
-
-  //--------------------------//
-
-  constructor() {
-    this._state.data$
-      .pipe(takeUntilDestroyed(this._destroyer))
-      .subscribe((album: Album) => {
-        console.log('Album:', album)
-        this._form.patchValue(album)
-      })
-  }
 
   //--------------------------//
 

@@ -13,14 +13,15 @@
       [itemName]="'album'"
       [iconName]="'album'"
       (refresh)="refresh()"
-      (viewDetails)="onViewDetails($event)"
-      (editItem)="onEditItem($event)"
+      (addItem)="openAddAlbumDialog()"
+      (editItem)="openEditAlbumDialog($event)"
       (deleteItem)="onDeleteItem($event)"/>
 </div>
 
 
 <sb-notifications-modal-mat
     [errorMsg]="_errorMsg()"
+    [successMsg]="_successMsg()" 
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>

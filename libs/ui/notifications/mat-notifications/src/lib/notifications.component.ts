@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ErrorModalComponent } from '@spider-baby/mat-notifications/error';
 import { SbMatLoaderModalComponent } from '@spider-baby/mat-notifications/loader';
 import { SuccessModalComponent } from '@spider-baby/mat-notifications/success';
+import { SbMatToastModalComponent as SbMatToastComponent } from '@spider-baby/mat-notifications/toast';
 
 @Component({
   selector: 'sb-notifications-modal-mat',
@@ -9,7 +10,8 @@ import { SuccessModalComponent } from '@spider-baby/mat-notifications/success';
     ErrorModalComponent,
     SuccessModalComponent,
     ErrorModalComponent,
-    SbMatLoaderModalComponent
+    SbMatLoaderModalComponent,
+    SbMatToastComponent
   ],
   template: ` 
     <sb-error-modal-mat 
@@ -19,7 +21,10 @@ import { SuccessModalComponent } from '@spider-baby/mat-notifications/success';
         [successMsg]="_successMsg()"/>
 
     <sb-loader-modal-mat [isLoading]="_isLoading()" 
-        [loadingMessage]="_loadingMessage()"/>    
+        [loadingMsg]="_loadingMsg()"/>    
+
+    <sb-toast-mat
+        [toastMsg]="_toastMsg()"/>    
   `,
   styles: `
     :host {
@@ -32,7 +37,8 @@ export class SbMatNotificationsModalComponent {
 
   _successMsg = input<string | undefined>(undefined, { alias: 'successMsg' });
   _errorMsg = input<string | undefined>(undefined, { alias: 'errorMsg' })
-  _loadingMessage = input<string | undefined>(undefined, { alias: 'loadingMessage' });
+  _toastMsg = input<string | undefined>(undefined, { alias: 'toastMsg' })
+  _loadingMsg = input<string | undefined>(undefined, { alias: 'loadingMessage' });
   _isLoading = input<boolean>(false, { alias: 'isLoading' })
   
 }

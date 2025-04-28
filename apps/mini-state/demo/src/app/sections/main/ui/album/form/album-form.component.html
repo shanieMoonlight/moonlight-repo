@@ -1,13 +1,13 @@
 <form [formGroup]="_form" class="album-form">
-         
-   <mat-form-field appearance="outline">
+   
+   <mat-form-field appearance="outline" [class.hide]="_isAddForm()">
       <mat-label>ID</mat-label>
       <input matInput formControlName="id" readonly> 
    </mat-form-field>
 
    <mat-form-field appearance="outline">
       <mat-label>User ID</mat-label>
-      <input matInput formControlName="userId" readonly>
+      <input matInput formControlName="userId" type="number" >
    </mat-form-field>
 
    <mat-form-field appearance="outline">

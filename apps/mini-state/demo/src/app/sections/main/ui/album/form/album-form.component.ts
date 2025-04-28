@@ -61,7 +61,7 @@ export class AlbumFormComponent {
 
 
   protected add = (album: Album) =>
-    this._editEvent.emit(album)
+    this._addEvent.emit(album)
 
   //--------------------------//
 

@@ -1,0 +1,11 @@
+<div class="content-container">
+  <button mat-icon-button (click)="closeDialog()" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h2>New Detail</h2>
+   <sb-album-form
+    [album]="_album"
+    (add)="closeDialog($event)"
+    (edit)="closeDialog($event)"  />
+</div>
+

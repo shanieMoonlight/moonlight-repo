@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, output, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, Input, output, PLATFORM_ID, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
@@ -111,9 +112,14 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 })
 export class SuccessModalComponent {
 
+  private _platformId = inject(PLATFORM_ID)
+
+  //- - - - - - - - - - - - - //
+
   _successMsg = signal<string | undefined>(undefined);
   @Input('successMsg')
   set successMsg(message: string | null | undefined) {
+    if (!this.isBrowser()) return
     this._successMsg.set(message ?? undefined);
   }
 
@@ -123,4 +129,10 @@ export class SuccessModalComponent {
   protected dismissSuccess = () =>
     this._successMsg.set(undefined)
 
+  //--------------------------//
+  
+  private isBrowser = (): boolean =>    
+    isPlatformBrowser(this._platformId)
+  
+  //--------------------------//
 }

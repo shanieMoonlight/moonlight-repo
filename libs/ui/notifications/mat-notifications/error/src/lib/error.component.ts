@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, output, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, Input, output, PLATFORM_ID, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
@@ -113,9 +114,14 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 })
 export class ErrorModalComponent {
 
+  private _platformId = inject(PLATFORM_ID)
+
+  //- - - - - - - - - - - - - //
+  
   _errorMsg = signal<string | undefined>(undefined);  
   @Input('errorMsg')
   set errorMsg(message: string | null | undefined) {
+    if (!this.isBrowser()) return
     this._errorMsg.set(message ?? undefined);
   }
 
@@ -131,4 +137,11 @@ export class ErrorModalComponent {
     
   }
   
+  //--------------------------//
+  
+  private isBrowser = (): boolean =>    
+    isPlatformBrowser(this._platformId)
+  
+  //--------------------------//
+
 }//Cls

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, input, NgZone, Output, output } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
@@ -31,8 +31,25 @@ export class DataTableComponent<T> {
     // Event outputs
     viewDetails = output<T>();
     editItem = output<T>();
+    editItem2 = output<T>();
     deleteItem = output<T>();
     refresh = output<void>();
+    // refresh2 = output<void>();
+    addItem = output<void>();
+    // @Output() addItem = new EventEmitter<boolean>();
+    @Output() refresh2 = new EventEmitter<boolean>();
+
+    //--------------------------//
+
+    /**
+     *
+     */
+    constructor(private zone: NgZone) {
+        this.addItem.subscribe((value) => {
+            console.log('Add item event emitted:', value);
+        })
+
+    }
 
     //--------------------------//
 
@@ -51,6 +68,10 @@ export class DataTableComponent<T> {
 
     protected onEditItem = (item: T) =>
         this.editItem.emit(item)
+
+
+    protected onAddItem = () =>
+        this.addItem.emit()
 
     protected onDeleteItem = (item: T) =>
         this.deleteItem.emit(item)

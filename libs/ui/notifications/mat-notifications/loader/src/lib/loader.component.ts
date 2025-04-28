@@ -49,7 +49,7 @@ mat-spinnerl {
 })
 export class SbMatLoaderModalComponent {
 
-  loadingMessage = input<string|undefined>('Loading data...');
+  loadingMsg = input<string|undefined>('Loading data...');
   isLoading = input<boolean>(false);
 
 }

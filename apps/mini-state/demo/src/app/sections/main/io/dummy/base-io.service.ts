@@ -2,9 +2,9 @@ import { delay, mergeMap, Observable, of, throwError } from 'rxjs';
 import { MessageResponse } from '../../data/message-response';
 
 
-export abstract class BaseDummyIoService<T> {
+export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
-  protected errorProbability = 0.2; // 20% chance of error by default
+  protected errorProbability = 0.1; // 20% chance of error by default
 
   //----------------------------//
 
@@ -24,11 +24,13 @@ export abstract class BaseDummyIoService<T> {
 
   //----------------------------//
 
-  create = (item: T): Observable<T> =>
-    this.withChaos(
+  create = (item: T): Observable<T> => {
+    item.id = this.getRandomInt(1, 1000) // Assign a random id for the demo
+    return this.withChaos(
       of(item),
       'Failed to create item'
-    )
+    );
+  }
 
   //----------------------------//
 
