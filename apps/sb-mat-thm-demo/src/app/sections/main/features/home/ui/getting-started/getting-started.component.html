@@ -50,6 +50,12 @@
     <h3>Button Color Overrides: Example</h3>
     <p>
       Below you can see the code to use a themed button, and the actual result:
+      <br>
+      <code>class="primary"</code> will apply the color <code>var(--mat-sys-primary)</code> to the button background and <code>var(--mat-sys-on-primary)</code> to the text color.
+      <br>
+      <code>class="secondary"</code> will apply the color <code>var(--mat-sys-secondary)</code> to the button background and <code>var(--mat-sys-on-secondary)</code> to the text color.
+      <br>
+      etc...
     </p>
     
     <div class="button-examples">
@@ -105,7 +111,15 @@
     <!-- </small> -->
     Example:<br>
   </div>
-  <pre><code [highlight]='`bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)`' language="typescript"></code></pre>
+  <pre><code [highlight]='`
+    bootstrapApplication(AppComponent, 
+      &#123; 
+        providers: [
+          //...otherProviders,
+          provideThemeInitializer(THEME_CONFIG)
+        ] 
+      &#125;)
+  `' language="typescript"></code></pre>
 
   <mat-divider />
   

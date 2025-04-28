@@ -17,29 +17,34 @@ describe('SeoService', () => {
   };
 
   beforeEach(() => {
-    // Create mocks
+    // Create fresh mocks for each test
     metaMock = {
       updateTag: jest.fn(),
       removeTag: jest.fn(),
       getTag: jest.fn(),
       addTag: jest.fn(),
       addTags: jest.fn(),
-      getTags: jest.fn()
+      getTags: jest.fn(),
     } as unknown as jest.Mocked<Meta>;
-
+  
     titleMock = {
       setTitle: jest.fn(),
-      getTitle: jest.fn()
+      getTitle: jest.fn(),
     } as unknown as jest.Mocked<Title>;
-
+  
     documentMock = {
-      querySelector: jest.fn().mockReturnValue(null),
+      querySelector: jest.fn((selector: string) => {
+        if (selector === 'head') {
+          return { ...mockHeadElement }; // Return a fresh copy of mockHeadElement
+        }
+        return null;
+      }),
       createElement: jest.fn().mockReturnValue({
         setAttribute: jest.fn(),
       }),
-      head: mockHeadElement
+      head: { ...mockHeadElement } as unknown as HTMLElement, // Return a fresh copy of mockHeadElement
     } as unknown as Document;
-
+  
     seoConfigMock = {
       appName: 'Test App',
       appDescription: 'Test Description',
@@ -51,20 +56,23 @@ describe('SeoService', () => {
       socialLinks: ['https://example.com'],
       defaultOgImageUrl: 'https://test.com/og-image.png',
       twitterHandle: '@testapp',
-      titleSuffix: ' | Test App'
+      titleSuffix: ' | Test App',
     } as SeoConfig;
-
+  
     TestBed.configureTestingModule({
       providers: [
         SeoService,
         { provide: Meta, useValue: metaMock },
         { provide: Title, useValue: titleMock },
         { provide: DOCUMENT, useValue: documentMock },
-        { provide: SeoConfig, useValue: seoConfigMock }
-      ]
+        { provide: SeoConfig, useValue: seoConfigMock },
+      ],
     });
-
+  
     service = TestBed.inject(SeoService);
+  
+    // Clear all mocks before each test
+    jest.clearAllMocks();
   });
 
   it('should be created', () => {
@@ -151,7 +159,7 @@ describe('SeoService', () => {
     it('should create a new canonical link if none exists', () => {
       const mockLink = { setAttribute: jest.fn() };
       (documentMock.createElement as jest.Mock).mockReturnValue(mockLink);
-      (documentMock.querySelector as jest.Mock).mockReturnValue(null);
+      (mockHeadElement.querySelector as jest.Mock).mockReturnValue(null);
 
       service.addCanonicalLink('https://test.com/page');
 
@@ -164,13 +172,9 @@ describe('SeoService', () => {
     it('should update existing canonical link if one exists', () => {
       const existingLink = { setAttribute: jest.fn(), remove: jest.fn() };
       const newLink = { setAttribute: jest.fn() };
-      
-      (documentMock.querySelector as jest.Mock)
-        .mockReturnValueOnce(existingLink) // First call for finding existing link
-        .mockReturnValueOnce(existingLink); // Second call for head.querySelector
-      
-      (documentMock.createElement as jest.Mock).mockReturnValue(newLink);
+
       (mockHeadElement.querySelector as jest.Mock).mockReturnValue(existingLink);
+      (documentMock.createElement as jest.Mock).mockReturnValue(newLink);
 
       service.addCanonicalLink('https://test.com/updated-page');
 
@@ -181,9 +185,18 @@ describe('SeoService', () => {
     });
 
     it('should do nothing if document head is not available', () => {
-      const documentWithoutHead = { ...documentMock, head: null };
-      const mockLink = { setAttribute: jest.fn() };
+      const documentWithoutHead = {
+        ...documentMock,
+        querySelector: jest.fn((selector: string) => {
+          if (selector === 'head') {
+            return null; // Simulate no head element
+          }
+          return null;
+        }),
+      };
       
+      const mockLink = { setAttribute: jest.fn() };
+
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
         providers: [
@@ -191,19 +204,20 @@ describe('SeoService', () => {
           { provide: Meta, useValue: metaMock },
           { provide: Title, useValue: titleMock },
           { provide: DOCUMENT, useValue: documentWithoutHead },
-          { provide: SeoConfig, useValue: seoConfigMock }
-        ]
+          { provide: SeoConfig, useValue: seoConfigMock },
+        ],
       });
-      
+
       const serviceWithoutHead = TestBed.inject(SeoService);
       (documentWithoutHead.createElement as jest.Mock).mockReturnValue(mockLink);
-      
+
       serviceWithoutHead.addCanonicalLink('https://test.com/page');
       
+      console.log('documentWithoutHead', documentWithoutHead.head,  documentWithoutHead);
+
       expect(documentWithoutHead.createElement).toHaveBeenCalledWith('link');
       expect(mockLink.setAttribute).toHaveBeenCalledWith('rel', 'canonical');
       expect(mockLink.setAttribute).toHaveBeenCalledWith('href', 'https://test.com/page');
-      // It shouldn't try to append to head
       expect(mockHeadElement.appendChild).not.toHaveBeenCalled();
     });
   });

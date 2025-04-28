@@ -22,18 +22,29 @@ describe('StructuredDataService', () => {
   beforeEach(() => {
     // Reset mock calls
     jest.clearAllMocks();
-
+  
     // Create document mock
     documentMock = {
-      head: mockHeadElement,
+      head: mockHeadElement as unknown as HTMLElement,
       createElement: jest.fn().mockReturnValue({
         setAttribute: jest.fn(),
         type: null,
         text: null,
       }),
-      querySelector: jest.fn().mockReturnValue(null),
+      querySelector: jest.fn((selector: string) => {
+        if (selector === 'head') {
+          return mockHeadElement;
+        }
+        return null;
+      }),
+      querySelectorAll: jest.fn((selector: string) => {
+        if (selector === 'script[type="application/ld+json"]') {
+          return mockHeadElement.querySelectorAll(selector);
+        }
+        return [];
+      }),
     } as unknown as Document;
-
+  
     // Create SeoConfig mock
     seoConfigMock = {
       appName: 'Test App',
@@ -46,17 +57,17 @@ describe('StructuredDataService', () => {
       socialLinks: ['https://example.com'],
       defaultOgImageUrl: 'https://test.com/og-image.png',
       twitterHandle: '@testapp',
-      titleSuffix: ' | Test App'
+      titleSuffix: ' | Test App',
     } as SeoConfig;
-
+  
     TestBed.configureTestingModule({
       providers: [
         StructuredDataService,
         { provide: DOCUMENT, useValue: documentMock },
-        { provide: SeoConfig, useValue: seoConfigMock }
-      ]
+        { provide: SeoConfig, useValue: seoConfigMock },
+      ],
     });
-
+  
     service = TestBed.inject(StructuredDataService);
   });
 

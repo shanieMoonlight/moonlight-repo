@@ -38,6 +38,8 @@ export class PerformanceService {
      * to reset metrics on navigation
      */
     constructor() {
+        if(!this.isBrowser()) return
+        
         // Monitor route changes to track page performance
         this._router.events.pipe(
             filter(event => event instanceof NavigationEnd)

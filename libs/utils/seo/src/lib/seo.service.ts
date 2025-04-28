@@ -109,6 +109,9 @@ export class SeoService {
         link.setAttribute('href', url);
 
         const head = this._document.querySelector('head');
+        console.log('head', head)
+        // Check if head element exists before appending the link;
+        
         if (head) {
             // Remove existing canonical if it exists
             const existingLink = head.querySelector('link[rel="canonical"]');
