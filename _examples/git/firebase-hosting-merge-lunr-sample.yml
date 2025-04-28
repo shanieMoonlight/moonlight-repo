@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2  # Important: Need history to compare changes
+
+      - name: Determine Changed Site
+        id: changed-site
+        run: |
+          # This is a simplified example.  You'll need to adapt this to your project structure.
+          # This assumes each site has its own directory at the root of the repo.
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          if [[ "$CHANGED_FILES" == *"/material-theming-demo/"* ]]; then
+            echo "::set-output name=site::material-theming"
+          elif [[ "$CHANGED_FILES" == *"/mini-state-demo/"* ]]; then
+            echo "::set-output name=site::mini-state"
+          else
+            echo "::set-output name=site::none" # No relevant changes
+          fi
+
+      - name: Deploy to Firebase (Conditional)
+        if: steps.changed-site.outputs.site != 'none'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: spiderbabymaterialtheming
+          channelId: live

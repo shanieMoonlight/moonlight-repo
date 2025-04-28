@@ -1,0 +1,36 @@
+<form [formGroup]="_form" class="album-form">
+         
+   <mat-form-field appearance="outline">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" readonly> 
+   </mat-form-field>
+
+   <mat-form-field appearance="outline">
+      <mat-label>User ID</mat-label>
+      <input matInput formControlName="userId" readonly>
+   </mat-form-field>
+
+   <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+   </mat-form-field>
+
+   <div class="form-actions">
+      @if(_isAddForm()){
+         <button mat-raised-button color="primary" 
+            type="button"
+            (click)="add(_form.getRawValue())" 
+            [disabled]="_form.invalid">
+            Add
+         </button>
+      }@else {
+         <button mat-raised-button color="primary" 
+            type="button"
+            (click)="edit(_form.getRawValue())" 
+            [disabled]="_form.invalid">
+            Save
+         </button>
+      }
+   </div> 
+
+ </form>

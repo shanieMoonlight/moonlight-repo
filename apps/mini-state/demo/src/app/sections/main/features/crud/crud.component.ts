@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { NotificationsModalComponent } from '../../ui/modals/notifications/notifications.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    NotificationsModalComponent
+    SbMatNotificationsModalComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
@@ -63,6 +63,9 @@ export class CrudComponent {
 
   protected onDeleteItem = (album: Album) =>
     this._crudState.triggerDelete(album)
+  
+  protected onAddItem = (album: Album) =>
+    this._crudState.triggerAdd(album)
 
   //--------------------------//
 

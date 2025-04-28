@@ -8,39 +8,15 @@
   <button mat-raised-button color="primary" (click)="randomize()">
     <mat-icon>refresh</mat-icon> Random Data
   </button>
-   <form [formGroup]="_form" class="album-form">
-      
-    <mat-form-field appearance="outline">
-       <mat-label>ID</mat-label>
-       <input matInput formControlName="id" readonly> 
-    </mat-form-field>
 
-    <mat-form-field appearance="outline">
-       <mat-label>User ID</mat-label>
-       <input matInput formControlName="userId" readonly>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-       <mat-label>Title</mat-label>
-       <input matInput formControlName="title">
-    </mat-form-field>
-
-    <!-- Add Submit/Edit buttons here if needed later -->
-    <div class="form-actions">
-       <button mat-raised-button color="primary" 
-          type="button"
-          (click)="edit(_form.getRawValue())" 
-          [disabled]="_form.invalid || _loading()">
-          Save
-        </button>
-    </div> 
-   
-
- </form>
+   <sb-album-form
+      [album]="_album()"
+      (edit)="edit($event)" />
 </div>
 
 
-<sb-notifications-modal 
+
+<sb-notifications-modal-mat
     [errorMsg]="_errorMsg()"
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 

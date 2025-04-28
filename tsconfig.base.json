@@ -16,6 +16,21 @@
     "baseUrl": ".",
     "paths": {
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
+      "@spider-baby/mat-notifications": [
+        "libs/ui/notifications/mat-notifications/src/index.ts"
+      ],
+      "@spider-baby/mat-notifications/error": [
+        "libs/ui/notifications/mat-notifications/error/src/index.ts"
+      ],
+      "@spider-baby/mat-notifications/loader": [
+        "libs/ui/notifications/mat-notifications/loader/src/index.ts"
+      ],
+      "@spider-baby/mat-notifications/success": [
+        "libs/ui/notifications/mat-notifications/success/src/index.ts"
+      ],
+      "@spider-baby/mat-notifications/toast": [
+        "libs/ui/notifications/mat-notifications/toast/src/index.ts"
+      ],
       "@spider-baby/material-theming": [
         "libs/packages/@spider-baby/theming/src/index.ts"
       ],
@@ -51,9 +66,6 @@
       ],
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
-      ],
-      "@spider-baby/notifications": [
-        "libs/packages/@spider-baby/notifications/src/index.ts"
       ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"

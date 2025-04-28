@@ -11,7 +11,7 @@ export abstract class BaseDummyIoService<T> {
   getAll = (): Observable<T[]> =>
     this.withChaos(
       of(this._generateRandomItems(0, 12)),
-      'Failed to retrieve items'
+      `Failed to retrieve items\r\nSomething unexpected happened 😱!`
     )
 
   //----------------------------//

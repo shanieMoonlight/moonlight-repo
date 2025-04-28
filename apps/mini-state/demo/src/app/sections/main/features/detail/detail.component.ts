@@ -1,22 +1,25 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { filter, map } from 'rxjs';
 import { Album, IAlbumForm } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { NotificationsModalComponent } from '../../ui/modals/notifications/notifications.component';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { AlbumFormComponent } from '../../ui/album/form/album-form.component';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'sb-simple',
   imports: [
     MatEverythingModule,
-    NotificationsModalComponent,
-    ReactiveFormsModule
+    SbMatNotificationsModalComponent,
+    ReactiveFormsModule,
+    AlbumFormComponent,
+    JsonPipe
   ],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',

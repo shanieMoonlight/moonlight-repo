@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+
+
+.album-form {
+  display: flex; // Use flexbox for layout
+  flex-direction: column; // Stack form fields vertically
+  gap: 16px; // Add space between the form fields
+  width: 100%; // Optional: Limit the maximum width of the form
+  margin: 0 auto; // Optional: Center the form horizontally if width is limited
+}
+
+// Ensure Material form fields take up the available width
+mat-form-field {
+  width: 100%;
+}
+
+// Optional: Styles for action buttons if you add them later
+.form-actions {
+  display: flex;
+  justify-content: flex-end; // Align buttons to the right
+  gap: 8px; // Space between buttons
+  margin-top: 16px; // Add some space above the buttons
+}
