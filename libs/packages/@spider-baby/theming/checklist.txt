@@ -10,4 +10,19 @@ SEO
 Redo : devLog
 
 
+change neutralVariant to neutral-variant
 
+
+Make sore all versions of this are generated
+    '--mat-sys-primary',
+    '--mat-sys-on-primary',
+    '--mat-sys-primary-container',
+    '--mat-sys-on-primary-container',
+    '--mat-sys-primary-fixed',
+    '--mat-sys-primary-fixed-dim',
+    '--mat-sys-on-primary-fixed',
+    '--mat-sys-on-primary-fixed-variant',
+    '--mat-sys-inverse-primary'
+
+
+USe highlight

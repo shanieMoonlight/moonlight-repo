@@ -8,18 +8,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'sb-theme-variables-showcase',
-    standalone: true,
-    imports: [
-        CommonModule,
-        MatExpansionModule,
-        MatCardModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        ClipboardModule
-    ],
-    template: `
+  selector: 'sb-theme-variables-showcase',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    ClipboardModule,
+  ],
+  template: `
     <mat-card appearance="outlined">
       <mat-card-header>
         <mat-card-title>Material Design 3 Theme Variables</mat-card-title>
@@ -114,8 +114,70 @@ import { MatTooltipModule } from '@angular/material/tooltip';
               }
             </ul>
           </mat-expansion-panel>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Tertiary Palette Tones</mat-panel-title>
+              <mat-panel-description>All tertiary color tones (0-100)</mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <ul class="variable-list tone-list">
+              @for (tone of tones; track $index ) {
+                <li class="variable-item">
+                  <code>--color-tertiary-{{ tone }}</code>
+                  <button 
+                    mat-icon-button 
+                    [cdkCopyToClipboard]="'--color-tertiary-' + tone"
+                    matTooltip="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </li>
+              }
+            </ul>
+          </mat-expansion-panel>
 
-          <!-- Add similar panels for tertiary, error, neutral, neutralVariant -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Error Palette Tones</mat-panel-title>
+              <mat-panel-description>All error color tones (0-100)</mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <ul class="variable-list tone-list">
+              @for (tone of tones; track $index ) {
+                <li class="variable-item">
+                  <code>--color-error-{{ tone }}</code>
+                  <button 
+                    mat-icon-button 
+                    [cdkCopyToClipboard]="'--color-error-' + tone"
+                    matTooltip="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </li>
+              }
+            </ul>
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Neutral Palette Tones</mat-panel-title>
+              <mat-panel-description>All neutral color tones (0-100)</mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <ul class="variable-list tone-list">
+              @for (tone of tones; track $index ) {
+                <li class="variable-item">
+                  <code>--color-neutral-{{ tone }}</code>
+                  <button 
+                    mat-icon-button 
+                    [cdkCopyToClipboard]="'--color-neutral-' + tone"
+                    matTooltip="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </li>
+              }
+            </ul>
+          </mat-expansion-panel>
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -142,7 +204,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       </mat-card-content>
     </mat-card>
   `,
-    styles: [`
+  styles: [`
 .variable-list {
   list-style-type: none;
   padding-left: 0.5rem;
@@ -187,37 +249,49 @@ code {
   max-width: calc(100% - 44px); /* 36px button + 8px margin */
 }
   `],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeVariablesShowcaseComponent {
-    // System variables
-    primaryColors = [
-        '--mat-sys-primary',
-        '--mat-sys-on-primary',
-        '--mat-sys-primary-container',
-        '--mat-sys-on-primary-container',
-        '--mat-sys-primary-fixed',
-        '--mat-sys-primary-fixed-dim',
-        '--mat-sys-on-primary-fixed',
-        '--mat-sys-on-primary-fixed-variant',
-        '--mat-sys-inverse-primary'
-    ];
 
-    secondaryColors = [
-        '--mat-sys-secondary',
-        '--mat-sys-on-secondary',
-        '--mat-sys-secondary-container',
-        '--mat-sys-on-secondary-container',
-        '--mat-sys-secondary-fixed',
-        '--mat-sys-secondary-fixed-dim',
-        '--mat-sys-on-secondary-fixed',
-        '--mat-sys-on-secondary-fixed-variant'
-    ];
+protected _colorTypes = ['primary', 'secondary', 'tertiary', 'error', 'neutral', 'neutralVariant'];
 
-    // ... define similar arrays for other variable groups
 
-    // Generate all tone values
-    tones = Array.from({ length: 11 }, (_, i) => i * 10)
-        .concat([1, 2, 4, 6, 12, 17, 22, 24, 87, 92, 94, 95, 96, 98, 99, 100])
-        .sort((a, b) => a - b);
+  // System variables
+  primaryColors = [
+    '--mat-sys-primary',
+    '--mat-sys-on-primary',
+    '--mat-sys-primary-container',
+    '--mat-sys-on-primary-container',
+    '--mat-sys-primary-fixed',
+    '--mat-sys-primary-fixed-dim',
+    '--mat-sys-on-primary-fixed',
+    '--mat-sys-on-primary-fixed-variant',
+    '--mat-sys-inverse-primary'
+  ];
+
+  secondaryColors = [
+    '--mat-sys-secondary',
+    '--mat-sys-on-secondary',
+    '--mat-sys-secondary-container',
+    '--mat-sys-on-secondary-container',
+    '--mat-sys-secondary-fixed',
+    '--mat-sys-secondary-fixed-dim',
+    '--mat-sys-on-secondary-fixed',
+    '--mat-sys-on-secondary-fixed-variant'
+  ];
+  tertiaryColors = [
+    '--mat-sys-tertiarytertiary',
+    '--mat-sys-on-tertiary',
+    '--mat-sys-tertiary-container',
+    '--mat-sys-on-tertiary-container',
+    '--mat-sys-tertiary-fixed',
+    '--mat-sys-tertiary-fixed-dim',
+    '--mat-seed-tertiary',
+  ];
+
+  // ... define similar arrays for other variable groups
+
+  // Generate all tone values
+  tones = [0, 4, 6, 10, 12, 17, 20, 22, 24, 25, 30, 35, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100];
 }
+

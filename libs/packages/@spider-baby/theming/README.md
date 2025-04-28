@@ -244,12 +244,12 @@ The library exposes theme colors through CSS variables following these patterns:
 ```css
 .my-element {
   /* Access any tone from 0-100 */
-  background-color: var(--sb-color-primary-40);
-  border-color: var(--sb-color-primary-80);
+  background-color: var(--color-primary-40);
+  border-color: var(--color-primary-80);
   
   /* Different palette types */
-  color: var(--sb-color-secondary-50);
-  box-shadow: 0 2px 4px var(--sb-color-neutral-0);
+  color: var(--color-secondary-50);
+  box-shadow: 0 2px 4px var(--color-neutral-0);
 }
 ```
 
@@ -650,32 +650,32 @@ This reference documents all available variables that you can use in your applic
 ## Complete Palette Tone Variables
 
 ### Primary Palette Tones
-- `--sb-color-primary-0`
-- `--sb-color-primary-1`
-- `--sb-color-primary-2`
-- `--sb-color-primary-4`
-- `--sb-color-primary-6`
-- `--sb-color-primary-10`
-- `--sb-color-primary-12`
-- `--sb-color-primary-17`
-- `--sb-color-primary-20`
-- `--sb-color-primary-22`
-- `--sb-color-primary-24`
-- `--sb-color-primary-30`
-- `--sb-color-primary-40`
-- `--sb-color-primary-50`
-- `--sb-color-primary-60`
-- `--sb-color-primary-70`
-- `--sb-color-primary-80`
-- `--sb-color-primary-87`
-- `--sb-color-primary-90`
-- `--sb-color-primary-92`
-- `--sb-color-primary-94`
-- `--sb-color-primary-95`
-- `--sb-color-primary-96`
-- `--sb-color-primary-98`
-- `--sb-color-primary-99`
-- `--sb-color-primary-100`
+- `--color-primary-0`
+- `--color-primary-1`
+- `--color-primary-2`
+- `--color-primary-4`
+- `--color-primary-6`
+- `--color-primary-10`
+- `--color-primary-12`
+- `--color-primary-17`
+- `--color-primary-20`
+- `--color-primary-22`
+- `--color-primary-24`
+- `--color-primary-30`
+- `--color-primary-40`
+- `--color-primary-50`
+- `--color-primary-60`
+- `--color-primary-70`
+- `--color-primary-80`
+- `--color-primary-87`
+- `--color-primary-90`
+- `--color-primary-92`
+- `--color-primary-94`
+- `--color-primary-95`
+- `--color-primary-96`
+- `--color-primary-98`
+- `--color-primary-99`
+- `--color-primary-100`
 
 ### Secondary, Tertiary, Error, Neutral, and Neutral Variant Palettes
 Each of these palettes also has the full range of tone variables from 0-100, following the same pattern as the primary palette.
@@ -694,7 +694,7 @@ Each of these palettes also has the full range of tone variables from 0-100, fol
   border: 2px solid var(--mat-sys-error-container);
   
   // Use specific tone from primary palette
-  box-shadow: 0 2px 4px var(--sb-color-primary-40);
+  box-shadow: 0 2px 4px var(--color-primary-40);
 }
 ```
 
