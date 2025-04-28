@@ -5,13 +5,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { MlApplyThemeDirective } from '@spider-baby/material-theming/directives';
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
+import { HighlightModule } from 'ngx-highlightjs';
 
 //#######################################################//
 
@@ -61,6 +62,7 @@ const seasonData: SeasonCardData[] = [
     ThemeHierarchyDiagramComponent,
     MlApplyThemeDirective,
     MlThemePickerMatComponent,
+    HighlightModule
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

@@ -5,13 +5,15 @@ import { DownloadSetupFilesService, SetupFile } from '../../../../../../shared/u
 import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
 import { map, Subject, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'sb-home-getting-started',
   imports: [
     MatEverythingModule,
     HomeSectionHdrComponent,
-    RouterModule
+    RouterModule,
+    HighlightModule
   ],
   templateUrl: './getting-started.component.html',
   styleUrl: './getting-started.component.scss',
@@ -151,7 +153,7 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
 @use "@angular/material" as mat;
 
 // Import color overrides (Optional)
-@use "./overrides/mat-color-overrides.scss" as matColorOverrides;
+@use '@spider-baby/material-theming/styles/mat-color-overrides.scss' as *;
 
 
 // @angular/material - Include core styles 

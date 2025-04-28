@@ -45,7 +45,9 @@
         When entering this section, we replace the available system themes using <code>DynamicThemeConfigService</code>:
       </p>
 
-      <pre><code class="language-typescript">
+   
+
+<pre><code [highlight]="`
 &#64;Component(&#123;...&#125;)
 export class SeasonsComponent implements OnDestroy &#123;
 
@@ -65,8 +67,7 @@ export class SeasonsComponent implements OnDestroy &#123;
     this.dynamicConfigService.resetSystemThemesToInitial()
 
   &#125;
-
-&#125;</code></pre>
+`" language="typescript"></code></pre>
 
       <p>
         This technique is perfect for:
@@ -89,7 +90,8 @@ export class SeasonsComponent implements OnDestroy &#123;
         <p>
           Each seasonal card below uses its own theme without affecting the rest of the application:
         </p>
-        <pre><code class="language-typescript">
+        
+<pre><code [highlight]="`
 ngOnInit(): void &#123;
 
     // Apply the theme locally to this card component instance
@@ -99,8 +101,7 @@ ngOnInit(): void &#123;
     )
 
   &#125;
-
-</code></pre>
+  `" language="typescript"></code></pre>
       </div>
 
       <div class="usage-column">
@@ -109,8 +110,7 @@ ngOnInit(): void &#123;
           Clicking "Go to [Season]" applies the theme to the entire section:
           Including the navbar and all other components.
         </p>
-        <pre><code class="language-typescript">
-constructor()  &#123;
+        <pre><code [highlight]="`
 
     // Apply the Autumn theme when this component initializes
     this.themeService.setTheme(AUTUMN_THEME);
@@ -120,7 +120,7 @@ constructor()  &#123;
 
 &#125;
 
-</code></pre>
+            `" language="typescript"></code></pre>
       </div>
     </div>
   </section>

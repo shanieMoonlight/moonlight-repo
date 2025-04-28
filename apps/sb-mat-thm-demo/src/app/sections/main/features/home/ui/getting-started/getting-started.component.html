@@ -24,16 +24,16 @@
 <pre><code>{{ _npmInstallCmd() }}</code></pre>
 
 <h3>Custom Theme Config</h3>
-<pre><code>{{ _customConfigCode() }}</code></pre>
+<pre><code [highlight]="_customConfigCode()" language="typescript"></code></pre>
 
 <h3>Custom Theme Config (Dynamic)</h3>
-<pre><code>{{ _customConfigAcvancedCode() }}</code></pre>
+<pre><code [highlight]="_customConfigAcvancedCode()" language="typescript"></code></pre>
 
 <h3>Register provider</h3>
-<pre><code>{{ _basicSetupCode() }}</code></pre>
+<pre><code [highlight]="_basicSetupCode()" language="typescript"></code></pre>
 
 <h3>Style Setup</h3>
-<pre><code>{{ _scssCode() }}</code></pre>
+<pre><code [highlight]="_scssCode()" language="scss"></code></pre>
 
 <h3>Using Color Overrides</h3>
 <p>
@@ -44,7 +44,8 @@
     This will asllow you apply your theme’s primary, secondary, tertiary, and error colors to all Material buttons, FABs and other Mat Components using CSS variables. You can
     see this in action in our <code>Theme Showcase</code> demo.
 </p>
-    <pre><code>&#64;use '&#64;spider-baby/material-theming/styles/mat-color-overrides.scss' as *;</code></pre>
+    <!-- <pre><code>&#64;use '&#64;spider-baby/material-theming/styles/mat-color-overrides.scss' as *;</code></pre> -->
+    <pre><code [highlight]="`@use '@spider-baby/material-theming/styles/mat-color-overrides.scss' as *;`" language="scss"></code></pre>
     
     <h3>Button Color Overrides: Example</h3>
     <p>
@@ -53,21 +54,24 @@
     
     <div class="button-examples">
       <div class="button-example-row">
-        <pre><code>&lt;button mat-flat-button class="primary"&gt;Primary&lt;/button&gt;</code></pre>
+        <!-- <pre><code>&lt;button mat-flat-button class="primary"&gt;Primary&lt;/button&gt;</code></pre> -->
+        <pre><code [highlight]='`<button mat-flat-button class="primary">Primary<&lt;>/button>`' language="html"></code></pre>
         <button mat-flat-button class="primary">Primary</button>
       </div>
       <div class="button-example-row">
-        <pre><code>&lt;button mat-flat-button class="secondary"&gt;Secondary&lt;/button&gt;</code></pre>
+        <!-- <pre><code>&lt;button mat-flat-button class="secondary"&gt;Secondary&lt;/button&gt;</code></pre> -->
+        <pre><code [highlight]='`<button mat-flat-button class="secondary">Secondary</button>`' language="html"></code></pre>
         <button mat-flat-button class="secondary">Secondary</button>
       </div>
       <div class="button-example-row">
-        <pre><code>&lt;button mat-flat-button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre>
+        <!-- <pre><code>&lt;button mat-flat-button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre> -->
+        <pre><code [highlight]='`<button mat-flat-button class="tertiary">Tertiary</button>`' language="html"></code></pre>
         <button mat-flat-button class="tertiary">Tertiary</button>
       </div>
     </div>
 
 <h3>Component Usage</h3>
-<pre><code>{{ _componentUsageCode() }}</code></pre>
+<pre><code [highlight]="_componentUsageCode()" language="html"></code></pre>
 
 
 <div class="api-documentation-link">
@@ -95,11 +99,13 @@
     
     <br>
     If not ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
-    <small>
-      Example:<br>
-      <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code>
-    </small>
+    <!-- <small> -->
+      <!-- <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code> -->
+      
+    <!-- </small> -->
+    Example:<br>
   </div>
+  <pre><code [highlight]='`bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)`' language="typescript"></code></pre>
 
   <mat-divider />
   

@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
-import { HighlightModule } from 'ngx-highlightjs';
 import { Router } from '@angular/router';
+import { HighlightModule } from 'ngx-highlightjs';
 import { SeoService } from '../../../../shared/services/seo.service';
-import { AppConstants } from '../../../../config/constants';
 import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 @Component({
@@ -13,7 +12,11 @@ import { UrlService } from '../../../../shared/utils/urls/url.service';
   styleUrls: ['./theme-service-api.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatExpansionModule, MatTabsModule, HighlightModule],
+  imports: [
+    MatExpansionModule,
+    MatTabsModule,
+    HighlightModule
+  ],
   providers: []
 })
 export class ThemeServiceApiComponent implements OnInit {

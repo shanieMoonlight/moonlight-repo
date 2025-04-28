@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/theme-demo-card.component';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'sb-multi-theme-demo',
@@ -10,7 +11,8 @@ import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/th
   imports: [
     MatDividerModule,
     ThemeDemoCardComponent,
-    MatCardModule
+    MatCardModule,
+    HighlightModule
   ],
   templateUrl: './mutli-theme-demo.component.html',
   styleUrl: './multi-theme-demo.component.scss'
@@ -57,11 +59,10 @@ export class MultiThemeApiDemoComponent {
     `);
 
 _codeExample = signal(`
-    this.themeGenerator.applyTheme(
+  this.themeService.applyTheme(
       localTheme,
-      // \`\${this.componentThemeClassPrefix}-\${localTheme.value}\`,
       this.componentElementRef.nativeElement // Apply theme just to this component only
-    );
+  )
   
 `);
 

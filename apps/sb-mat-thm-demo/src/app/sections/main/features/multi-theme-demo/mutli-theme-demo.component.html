@@ -16,9 +16,10 @@
       </mat-card-subtitle>
       </mat-card-header>  
       <mat-card-content>
-        <pre><code class="language-typescript">
+        <!-- <pre><code class="language-typescript">
           {{_codeExample()}}
-        </code></pre>
+        </code></pre> -->
+        <pre><code [highlight]="_codeExample()" language="typescript"></code></pre>
         <p>
           These element will not be affected by the global app theme.  Try for yourself with the theme picker or dark mode switch in the nav.
         </p>
