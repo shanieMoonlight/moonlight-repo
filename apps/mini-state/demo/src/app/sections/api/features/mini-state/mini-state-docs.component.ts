@@ -15,10 +15,13 @@ export class MiniStateDocsComponent {
   // Core concept
   conceptExample = `// MiniState is the core class for managing async operations
 import { MiniState } from '@spider-baby/mini-state';
+import { DestroyRef, inject } from '@angular/core';
 
 // Create a MiniState for loading users
+const destroyRef = inject(DestroyRef);
 const userState = new MiniState<string, User[]>(
-  (filter: string) => userService.search(filter)
+  (filter: string) => userService.search(filter),
+  destroyRef
 );
 
 // Access the state through signals and observables
@@ -274,5 +277,6 @@ export class UserSearchComponent {
     this.userState.setData([]);
     this.userState.resetMessages();
   }
-}`
+}`;
+
 }

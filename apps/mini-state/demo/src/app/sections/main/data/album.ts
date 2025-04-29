@@ -4,6 +4,7 @@ export interface Album {
     id?: string | number,
     userId: string | number,
     title: string
+    description?: string|null
 }
 
 //#########################################//
@@ -12,6 +13,7 @@ export interface IAlbumForm extends FormGroup<{
     id: FormControl<string | number>;
     userId: FormControl<string | number>
     title: FormControl<string>
+    description: FormControl<string|null>
 }> { }
 
 //#########################################//
@@ -23,7 +25,7 @@ export class AlbumUtils {
      * Generates a random Album with unique ID
      * @returns A randomly generated Album object
      */
-    static generateRandomAlbum(id?: string | number): Album {
+    static generateRandomAlbum(id?: string | number, phrase?: string): Album {
 
         const userId = Math.floor(Math.random() * 10) + 1; // Random userId between 1-10
         id ??= Math.floor(Math.random() * 1000) + 1; // Random id between 1-1000
@@ -38,12 +40,24 @@ export class AlbumUtils {
         const randomMiddle = titleMiddles[Math.floor(Math.random() * titleMiddles.length)];
         const randomSuffix = titleSuffixes[Math.floor(Math.random() * titleSuffixes.length)];
 
-        const title = `${randomPrefix} ${randomMiddle} ${randomSuffix}`;
+        const title = `${randomPrefix} ${phrase} ${randomMiddle} ${randomSuffix}`;
+
+
+        const descriptions = [
+            'A collection of unforgettable moments.',
+            `An  ${phrase} anthology of beautiful memories.`,
+            'A journey through incredible experiences.',
+            `A compilation of fantastic  ${phrase} adventures.`,
+            'A series of wonderful stories.'
+        ];
+
+        const description = descriptions[Math.floor(Math.random() * descriptions.length)];
 
         return {
             userId,
             id,
-            title
+            title,
+            description
         };
     }
 

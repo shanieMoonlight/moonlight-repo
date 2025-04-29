@@ -7,7 +7,7 @@ import { MainConstants } from '../../config/constants';
 
 export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
-  protected errorProbability = MainConstants.API_FAILURE_RATE; 
+  protected errorProbability = MainConstants.API_FAILURE_RATE;
 
   protected _platformId: object;
   protected isBrowser = false;
@@ -27,6 +27,18 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
     return this.withChaos(
       of(this._generateRandomItems(0, 12)),
+      `Failed to retrieve items\r\nSomething unexpected happened 😱!`
+    );
+  }
+
+  //----------------------------//
+
+  search(searchTerm?: string): Observable<T[]> {
+    if (!this.isBrowser)
+      return of([])
+
+    return this.withChaos(
+      of(this._generateRandomItems(0, 12, searchTerm)),
       `Failed to retrieve items\r\nSomething unexpected happened 😱!`
     );
   }
@@ -85,7 +97,7 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
   //----------------------------//
 
   abstract generateRandomItem(id: string | number): T | undefined
-  abstract generateRandomItems(count: number): T[]
+  abstract generateRandomItems(count: number, searchTerm?: string): T[]
 
   //----------------------------//
 
@@ -94,9 +106,9 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   //----------------------------//
 
-  private _generateRandomItems(min: number, max: number): T[] {
+  private _generateRandomItems(min: number, max: number, searchTerm?: string): T[] {
     const count = this.getRandomInt(min, max)
-    return this.generateRandomItems(count)
+    return this.generateRandomItems(count, searchTerm)
   }
 
   //----------------------------//

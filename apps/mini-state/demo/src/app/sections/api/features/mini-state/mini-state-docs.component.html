@@ -5,6 +5,9 @@
     management solution for Angular applications. It handles async operations, loading states,
     errors, and success messages with a clean, declarative API.
   </p>
+  <p class="note">
+    Note: The recommended way to initialize a MiniState is through the MiniStateBuilder. It simplifies the setup and ensures best practices are followed.
+  </p>
 
   <h2>Core Concept</h2>
   <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
@@ -50,7 +53,7 @@
       <ul>
         <li><strong>trigger(input)</strong>: Initiates the async operation with the provided input</li>
         <li><strong>retrigger()</strong>: Repeats the most recent operation with the same input</li>
-        <li><strong>resetMessages()</strong>: Clears error and success messages</li>
+        <li><strong>unsubscribe()</strong>: Stops all ongoing operations and cleans up resources</li>
       </ul>
       <pre><code [highlight]="triggerExample" language="typescript"></code></pre>
     </mat-expansion-panel>
@@ -64,6 +67,7 @@
       <ul>
         <li><strong>setSuccessMsgFn(fn)</strong>: Sets a function that generates success messages</li>
         <li><strong>setOnTriggerFn(fn)</strong>: Sets a function that runs when trigger() is called</li>
+        <li><strong>setErrorMsgFn(fn)</strong>: Sets a function to convert errors to user-friendly messages</li>
       </ul>
       <pre><code [highlight]="configurationExample" language="typescript"></code></pre>
     </mat-expansion-panel>

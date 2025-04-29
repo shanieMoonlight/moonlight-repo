@@ -44,6 +44,7 @@ export class AlbumFormComponent {
     id: this._fb.nonNullable.control<string | number>(''),
     userId: this._fb.nonNullable.control<string | number>('', [Validators.required]),
     title: this._fb.nonNullable.control<string>('', [Validators.required]),
+    description: this._fb.control<string|null>('', [Validators.required]),
   })
 
 

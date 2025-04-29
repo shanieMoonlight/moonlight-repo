@@ -1,0 +1,81 @@
+:host {
+  display: block;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem 0;
+}
+
+// Add to simple.component.scss
+.content-container {
+  width: 90%;
+  max-width: 1200px;
+  padding: 1rem;
+  min-height: 450px;
+}
+
+mat-divider{
+  width: 90%;
+  margin: 2rem 0;
+  border-top-color: var(--mat-sys-primary);
+}
+
+
+@media (min-width: 768px) {
+  .code-display {
+    flex-direction: row;
+  }
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.results {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+  mat-card{
+    width: 300px;
+
+  }
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--mat-sys-error);
+  font-weight: bold;
+}
+
+.error-message {
+  color: var(--mat-sys-error);
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  color: var(--mat-sys-primary);
+  font-weight: bold;
+  text-align: center;
+}
+
+

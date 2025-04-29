@@ -1,0 +1,67 @@
+<sb-main-demo-header/>
+
+
+<div class="search-container">
+  <h2>User Search</h2>
+  
+  <!-- Search input -->
+  <div class="search-form">
+    <mat-form-field>
+      <mat-label>Search Users</mat-label>
+      <input matInput [(ngModel)]="searchTerm" placeholder="Enter name or email">
+    </mat-form-field>
+    <button mat-raised-button color="primary" 
+            [disabled]="loading()" 
+            (click)="search()">
+      Search
+    </button>
+  </div>
+  
+  <!-- Loading state -->
+  @if(loading()) {
+    <mat-progress-bar mode="indeterminate"/>
+  }
+  
+  <!-- Error message -->
+  @if(errorMsg()) {
+    <div class="error-message">
+      {{ errorMsg() }}
+    </div>
+  }
+  
+  <!-- Success message -->
+  @if(successMsg()) {
+    <div class="success-message">
+      {{ successMsg() }}
+    </div>
+  }
+  
+  <!-- Results -->
+  @if(!!users()?.length) {
+    <h3>Search Results</h3>
+    <div class="results">
+      @for(user of users(); track user.id) {
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ user.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ user.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/users', user.id]">
+              View Album
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+  
+  <!-- Empty state -->
+  @if(searchPerformed() && !users()?.length) {
+    <div class="empty-state">
+      No users found matching your search criteria.
+    </div>
+  }
+</div>

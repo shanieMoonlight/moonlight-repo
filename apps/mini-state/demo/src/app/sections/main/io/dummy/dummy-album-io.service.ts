@@ -12,10 +12,10 @@ export class DummyAlbumIoService extends BaseDummyIoService<Album> {
   }
 
 
-  override generateRandomItem(id: string | number): Album | undefined {
+  override generateRandomItem(id: string | number, searchTerm?: string): Album | undefined {
     return Math.random() < 0.1
       ? undefined
-      : AlbumUtils.generateRandomAlbum(id)
+      : AlbumUtils.generateRandomAlbum(id, searchTerm)
   }
 
 
