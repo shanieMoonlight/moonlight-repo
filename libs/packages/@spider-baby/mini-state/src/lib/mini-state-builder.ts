@@ -1,4 +1,4 @@
-import { DestroyRef, Signal } from "@angular/core"
+import { DestroyRef, Signal, inject } from "@angular/core"
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop"
 import { Observable } from "rxjs"
 import { MiniState } from "./mini-state"
@@ -36,7 +36,8 @@ export class MiniStateBuilder {
      * ```
      */
     static Create<Output>(triggerFn$: () => Observable<Output>, initialOutputValue?: Output) {
-        const miniState = new MiniState<void, Output>(triggerFn$, initialOutputValue)
+        const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
+        const miniState = new MiniState<void, Output>(triggerFn$, destroyer, initialOutputValue)
         return miniState
     }
 
@@ -64,8 +65,9 @@ export class MiniStateBuilder {
      * getUserState.trigger(42);
      * ```
      */
-    static CreateWithInput<Input, Output>(triggerFn$: (input: Input) => Observable<Output>, initialOutputValue?: Output,) {
-        const miniState = new MiniState<Input, Output>(triggerFn$, initialOutputValue)
+    static CreateWithInput<Input, Output>(triggerFn$: (input: Input) => Observable<Output>, initialOutputValue?: Output) {
+        const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue)
         return miniState
     }
 
@@ -82,7 +84,6 @@ export class MiniStateBuilder {
      * @template Output - The type of data returned by the async operation
      * @param input$ - Observable that emits input values
      * @param triggerFn$ - Function that performs the async operation when triggered
-     * @param destroyer - Angular's DestroyRef for automatic cleanup
      * @param initialOutputValue - Optional initial value for the output data
      * @returns A configured MiniState instance that triggers automatically
      * 
@@ -99,10 +100,10 @@ export class MiniStateBuilder {
     static CreateWithObservableInput<Input, Output>(
         input$: Observable<Input>,
         triggerFn$: (input: Input) => Observable<Output>,
-        destroyer: DestroyRef,
-        initialOutputValue?: Output) {
-
-        const miniState = new MiniState<Input, Output>(triggerFn$, initialOutputValue)
+        initialOutputValue?: Output
+    ) {
+        const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue);
         input$
             .pipe(takeUntilDestroyed(destroyer))
             .subscribe(t => miniState.trigger(t))
@@ -122,7 +123,6 @@ export class MiniStateBuilder {
      * @template Output - The type of data returned by the async operation
      * @param input$ - Signal that provides input values
      * @param triggerFn$ - Function that performs the async operation when triggered
-     * @param destroyer - Angular's DestroyRef for automatic cleanup
      * @param initialOutputValue - Optional initial value for the output data
      * @returns A configured MiniState instance that triggers automatically
      * 
@@ -139,10 +139,10 @@ export class MiniStateBuilder {
     static CreateWithSignalInput<Input, Output>(
         input$: Signal<Input>,
         triggerFn$: (input: Input) => Observable<Output>,
-        destroyer: DestroyRef,
-        initialOutputValue?: Output) {
-
-        const miniState = new MiniState<Input, Output>(triggerFn$, initialOutputValue)
+        initialOutputValue?: Output
+    ) {
+        const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue)
         toObservable(input$)
             .pipe(takeUntilDestroyed(destroyer))
             .subscribe(t => miniState.trigger(t))

@@ -1,6 +1,7 @@
 import { Observable } from "rxjs"
 import { MiniState } from "./mini-state"
 import { MiniStateBuilder } from "./mini-state-builder"
+import { DestroyRef, inject } from "@angular/core"
 
 //=========================================================//
 
@@ -65,7 +66,8 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * @param triggerFn$ Function to fetch the collection of items
      */
     private constructor(triggerFn$: (input: Filter) => Observable<Item[]>) {
-        super(triggerFn$, [])
+        const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
+        super(triggerFn$,destroyer, [])
         console.log('ctor')
     }
 

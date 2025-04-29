@@ -1,4 +1,4 @@
-import { Signal } from "@angular/core"
+import { DestroyRef, Signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { devConsole } from "@spider-baby/dev-console"
 import { BehaviorSubject, distinctUntilChanged, finalize, map, Observable, ReplaySubject, skip, startWith, Subject, Subscription } from "rxjs"
@@ -115,6 +115,7 @@ export class MiniState<Input, Output, TError = any> {
      */
     constructor(
         triggerFn$: (input: Input) => Observable<Output>,
+        destroyer: DestroyRef,
         initialOutputValue?: Output
     ) {
 
@@ -129,6 +130,10 @@ export class MiniState<Input, Output, TError = any> {
         }
 
         this._triggerFn$ = triggerFn$
+
+        destroyer.onDestroy(() => {
+            this.unsubscribe()
+        })
     }
 
     //-------------------------------------//
@@ -315,6 +320,9 @@ export class MiniState<Input, Output, TError = any> {
         this._successMsgFn = undefined;
         this._successDataProcessor = undefined;
         this._onTriggerFn = undefined;
+
+        devConsole.log('MiniState unsubscribed');
+        
     }
 
     //-------------------------------------//

@@ -1,6 +1,5 @@
-import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
@@ -17,8 +16,7 @@ import { AlbumFormComponent } from '../../ui/album/form/album-form.component';
     MatEverythingModule,
     SbMatNotificationsModalComponent,
     ReactiveFormsModule,
-    AlbumFormComponent,
-    JsonPipe
+    AlbumFormComponent
   ],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
@@ -29,8 +27,6 @@ export class MainDemoDetailComponent {
   private _ioService = inject(DummyAlbumIoService)
   private _actRoute = inject(ActivatedRoute)
   private _router = inject(Router)
-  private _fb = inject(FormBuilder)
-  private _destroyer = inject(DestroyRef)
 
   //- - - - - - - - - - - - - //
 
@@ -45,8 +41,7 @@ export class MainDemoDetailComponent {
 
   private _itemState = MiniStateBuilder.CreateWithObservableInput(
     this._id$,
-    (id: string) => this._ioService.getById(id),
-    this._destroyer)
+    (id: string) => this._ioService.getById(id))
 
   private _editState = MiniStateBuilder
     .CreateWithInput((album: Album) => this._ioService.update(album))

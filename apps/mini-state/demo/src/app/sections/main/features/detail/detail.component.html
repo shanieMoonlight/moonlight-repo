@@ -5,7 +5,9 @@
   <button mat-raised-button color="primary" (click)="refresh()">
     <mat-icon>refresh</mat-icon> Refresh Data
   </button>
-  <button mat-raised-button color="primary" (click)="randomize()">
+  <button mat-raised-button color="primary" 
+    (click)="randomize()"
+    [matTooltip]="'Update Route param with random id to trigger MiniState input Observable'">
     <mat-icon>refresh</mat-icon> Random Data
   </button>
 
