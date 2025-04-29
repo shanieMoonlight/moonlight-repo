@@ -77,7 +77,37 @@
     </div>
 
 <h3>Component Usage</h3>
-<pre><code [highlight]="_componentUsageCode()" language="html"></code></pre>
+<div class="usasge-code">  
+  <p>
+    Allow users to change Themes and Dark Mode.
+  </p>
+  <pre><code [highlight]="`
+  <sb-dark-mode-toggle-mat/>
+  <sb-theme-picker-mat/>
+  `" language="html">
+  </code></pre>
+  <p>
+    To set a local theme for a specific component and its children. Isoloated from outer themes.
+  </p>
+  <pre><code [highlight]='`<my-locally-themed-component  [sbApplyTheme]="theme" />`' language="html"></code></pre>
+
+  <p>
+    To allow users to create custom themes, add this to your component template.
+  <br>
+  You can see it in action here  <a routerLink="/main/custom-theming" class="api-link">
+    <mat-icon inline>article</mat-icon>
+    Custom Themes
+  </a> 
+  </p>
+  <pre><code [highlight]="`<sb-theme-selector />`" language="html"></code></pre>
+  
+  <p>
+    To demonstrate current theme and dark mode on material components, add this to your component template.
+    <br>  
+    You can see it in action below (Theme Preview).
+  </p>
+  <pre><code [highlight]="`<sb-theme-selector />`" language="html"></code></pre>
+</div>
 
 
 <div class="api-documentation-link">

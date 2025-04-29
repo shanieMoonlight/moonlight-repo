@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
@@ -7,15 +7,13 @@ import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'sb-manual-crud',
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent,
-    // MatDialogModule
+    SbMatNotificationsModalComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
@@ -25,7 +23,6 @@ export class CrudComponent {
 
   private _dialog = inject(MatDialog);
   private _ioService = inject(DummyAlbumIoService)
-  private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - //
 
@@ -34,7 +31,7 @@ export class CrudComponent {
   //- - - - - - - - - - - - - //
 
   protected _crudState = MiniCrudState
-    .Create(() => this._ioService.getAll())
+    .Create<void, Album>(() => this._ioService.getAll())
     .setAddState(
       (album: Album) => this._ioService.create(album),
       (album) => `Album  ${album.title} added!`)
@@ -46,7 +43,7 @@ export class CrudComponent {
       (album) => `Album ${album.title} deleted successfully 🗑️
       You will have to imagine that it was removed from the list.
       This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`
-    ).trigger(undefined)
+    ).trigger()
 
   //- - - - - - - - - - - - - //
 
@@ -58,7 +55,7 @@ export class CrudComponent {
   //--------------------------//
 
   protected refresh = () =>
-    this._crudState.trigger(undefined)
+    this._crudState.trigger()
 
   protected onEditItem = (album: Album) =>
     this._crudState.triggerUpdate(album)

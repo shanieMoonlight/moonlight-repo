@@ -36,6 +36,11 @@ export const apiRoutes: Route[] = [
           loadComponent: () => import('./features/apply-theme-api/apply-theme-api.component').then(m => m.ApplyThemeApiComponent),
         },
         {
+          path: 'custom-themes-api',
+          title: 'Custom Theme Selector Component API - SpiderBaby Material Theming',
+          loadComponent: () => import('./features/custom-themes/custom-themes-api.component').then(m => m.CustomThemeApiComponent),
+        },
+        {
             path: '',
             title: 'API Documentation - SpiderBaby Material Theming',
             loadComponent: () => import('./features/home/home.component').then(m => m.ApiHomeComponent),

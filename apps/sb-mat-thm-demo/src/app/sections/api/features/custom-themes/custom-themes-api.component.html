@@ -1,0 +1,24 @@
+<div class="api-docs">
+  <h1>Theme Picker API Documentation</h1>
+  <p class="description">
+    The Custom Theme Selector component allows users create their own themes or select from predefined themes.
+    It integrates with the ThemeService to provide a seamless theming experience.
+    When a user creates a custom theme, it is saved in local storage and  will immediately show up in the Theme Picker and can be selected for use.
+  </p>
+  <p class="description">
+    To change the preset themes available in the Custom Theme Selector, you can enter your own Preset Themes the `presetSelectorThemes?: ThemeOption[];` array in the `ThemingConfig` setup class.
+    Theses themes will show up in the Custom Theme Selector but not in the Theme Picker (unless a user selects and stores it).
+  </p>
+
+  <h2>Usage</h2>
+  <mat-tab-group>
+    <mat-tab label="Basic Usage">
+      <pre><code [highlight]="basicUsageExample" language="html"></code></pre>
+    </mat-tab>
+    <!-- 
+      <mat-tab label="Advanced Usage">
+        <pre><code [highlight]="advancedUsageExample" language="html"></code></pre>
+      </mat-tab> 
+    -->
+  </mat-tab-group>
+</div>

@@ -44,6 +44,13 @@ export const API_ROUTES: ApiRouteData[] = [
     route: '/api/apply-theme-api',
     color: 'tertiary'
   },
+  {
+    title: 'Custom Theme Selector Component API',
+    description: 'Documentation for the Custom Theme Selector Component including examples and usage.',
+    icon: 'tune',
+    route: '/api/custom-themes-api',
+    color: 'primary'
+  },
 ]
 
 //###############################################//
