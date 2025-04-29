@@ -73,8 +73,9 @@ export class MainDemoSimpleComponent {
 
 }`);
 
-  protected _htmlCode = signal(`<div class='content-container'>
-
+  protected _htmlCode = signal(`
+  
+<div class='content-container'>
   <sb-data-table 
     [data]="_data()" 
     [displayColumns]="_displayColumns()"

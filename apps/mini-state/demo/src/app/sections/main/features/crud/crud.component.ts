@@ -106,9 +106,7 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent,
-    MainDemoHeaderComponent,
-    MainDemoCodeComponent
+    SbMatNotificationsModalComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
