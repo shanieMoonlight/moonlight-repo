@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs';
+import { MiniState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
+import { distinctUntilChanged, filter, Subject } from 'rxjs';
 
 
 ///#############################################//
@@ -69,8 +69,7 @@ const HTML_CODE = `
 
 //Example using MiniState intialized with constructor instead of Builder
 // and using a custom service to fetch data
-//Not using inpu triggered popups (like SbMatNotificationsModalComponent) for demonstration purposes
-// and to keep the example simple
+
 @Component({
   selector: 'sb-main-demo-search',
   imports: [
@@ -78,8 +77,7 @@ const HTML_CODE = `
     CommonModule,
     MainDemoHeaderComponent,
     RouterModule,
-    FormsModule,
-    ReactiveFormsModule
+    FormsModule
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
@@ -92,20 +90,16 @@ export class MainDemoSearchComponent {
 
   //- - - - - - - - - - - - - //
 
-  protected _searchControl = new FormControl('')
-  protected _searchTerm$ = this._searchControl.valueChanges.pipe(
-    tap(term => console.log('Search term:', term)),
-    filter((term): term is string => term !== null),
-    filter(term => term.length > 2),
-    distinctUntilChanged(),
-    debounceTime(300)
-  )  
+  // Search state
+  searchTerm = '';
 
-  // Create a MiniState for album search
-  private userState = MiniStateBuilder.CreateWithObservableInput(
-    this._searchTerm$,
-    (term: string) => this._ioService.search(term),   // Load users based on search term
-    [],// Initial empty array
+  // Create a MiniState for user search
+  private userState = new MiniState<string, Album[]>(
+    // Load users based on search term
+    (term: string) => this._ioService.search(term),
+    this.destroyRef,
+    // Initial empty array
+    [],
   ).setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
     users.length > 0
       ? `Found ${users.length} users matching "${term}"`
@@ -125,7 +119,7 @@ export class MainDemoSearchComponent {
   protected errorMsg = this.userState.errorMsg;
   protected successMsg = this.userState.successMsg;
 
-  //----------------------------//
+
 
   constructor() {
     // Listen for errors and handle them
@@ -139,11 +133,23 @@ export class MainDemoSearchComponent {
       })
   }
 
-  //----------------------------//
 
+
+  // Search users based on the current search term
+  search() {
+    if (!this.searchTerm.trim()) {
+      console.log('Please enter a search term');
+      return;
+    }
+
+    this.userState.trigger(this.searchTerm);
+  }
+
+  
   // Clear the search results
-  clearSearch = () =>
-    this._searchControl.reset()
+  clearSearch() {
+    this.searchTerm = '';
+  }
 
 
 }

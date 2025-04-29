@@ -8,15 +8,14 @@
   <div class="search-form">
     <mat-form-field>
       <mat-label>Search Users</mat-label>
-      <input matInput
-      
-       [formControl]="_searchControl"
-       placeholder="Enter name or email">
+      <input matInput 
+        [(ngModel)]="searchTerm" 
+        placeholder="Enter name or email">
     </mat-form-field>
     <button mat-raised-button color="primary" 
             [disabled]="loading()" 
-            (click)="clearSearch()">
-      Clear
+            (click)="search()">
+      Search
     </button>
   </div>
   

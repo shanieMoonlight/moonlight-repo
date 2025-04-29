@@ -96,7 +96,7 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   //----------------------------//
 
-  abstract generateRandomItem(id: string | number): T | undefined
+  abstract generateRandomItem(id: string | number, searchTerm?: string): T | undefined
   abstract generateRandomItems(count: number, searchTerm?: string): T[]
 
   //----------------------------//
@@ -108,6 +108,8 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   private _generateRandomItems(min: number, max: number, searchTerm?: string): T[] {
     const count = this.getRandomInt(min, max)
+    console.log(`Generating ${count} random items with search term: ${searchTerm}`);
+    
     return this.generateRandomItems(count, searchTerm)
   }
 

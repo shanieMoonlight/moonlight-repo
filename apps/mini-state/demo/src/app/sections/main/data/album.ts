@@ -27,6 +27,9 @@ export class AlbumUtils {
      */
     static generateRandomAlbum(id?: string | number, phrase?: string): Album {
 
+        console.log(`Generating random Album with id: ${id}, ${phrase}`);
+        
+
         const userId = Math.floor(Math.random() * 10) + 1; // Random userId between 1-10
         id ??= Math.floor(Math.random() * 1000) + 1; // Random id between 1-1000
 
@@ -68,14 +71,14 @@ export class AlbumUtils {
      * @param count The number of Albums to generate (default: 15)
      * @returns An array of randomly generated Album objects
      */
-    static generateRandomAlbums(count: number = 15): Album[] {
+    static generateRandomAlbums(count: number = 15, phrase?: string): Album[] {
         // Create a Set to track used IDs and ensure uniqueness
         const usedIds = new Set<number | string>();
         const albums: Album[] = [];
 
         for (let i = 0; i < count; i++) {
             // Keep generating until we get a unique ID
-            let album = this.generateRandomAlbum()
+            let album = this.generateRandomAlbum(undefined, phrase);
             const albumId = album.id ?? 0
             while (usedIds.has(albumId)) {
                 album = this.generateRandomAlbum();

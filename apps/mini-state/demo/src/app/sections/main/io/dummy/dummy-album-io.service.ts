@@ -19,8 +19,8 @@ export class DummyAlbumIoService extends BaseDummyIoService<Album> {
   }
 
 
-  override generateRandomItems(count: number): Album[] {
-    return AlbumUtils.generateRandomAlbums(count)
+  override generateRandomItems(count: number, searchTerm?: string): Album[] {
+    return AlbumUtils.generateRandomAlbums(count, searchTerm)
   }
 
   

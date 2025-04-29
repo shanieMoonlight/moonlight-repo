@@ -43,14 +43,14 @@ export class MiniState<Input, Output, TError = any> {
      * Observable that emits true after the first successful trigger
      * Starts with false, then switches to true after the first emission from _prevInputBs
      */
-    private _wasTriggered$ = this._prevInputBs.asObservable().pipe(
+    private wasTriggered$ = this._prevInputBs.asObservable().pipe(
         skip(1), // Ignore the initial undefined value
         map(() => true), // Map the first emission after the initial one to true
         startWith(false), // Ensure the observable starts with false
         distinctUntilChanged() // Only emit when the value changes (from false to true)
     );
     /** Signal that indicates whether a trigger has successfully completed at least once */
-    private wasTriggered = toSignal(this._wasTriggered$, { initialValue: false })
+    wasTriggered = toSignal(this.wasTriggered$, { initialValue: false })
     /** Signal that provides the last input that was used in a successful trigger */
     private prevInput = toSignal(this._prevInputBs)
 
@@ -237,6 +237,9 @@ export class MiniState<Input, Output, TError = any> {
         devConsole.log('trigger', input);
 
         this._loadingBs.next(true)
+
+        this._errorMsgBs.next(undefined); // Clear previous error message
+        this._successMsgBs.next(undefined); // Clear previous success message
 
         this._onTriggerFn?.(input)
 
