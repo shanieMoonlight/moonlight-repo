@@ -6,17 +6,18 @@ import { MainConstants } from '../../config/constants';
   imports: [],
   template: `
   <h1 class="api-header">This Dummy IO Service operates with a failure rate of {{ _failureRate() }}% for demo purposes to showcase error messages.</h1>
+  <p class="subscript">Checkout the code below. 👇</p>
   `,
   styles: `
     :host {
       display: block;
       width: 100%;
+      text-align: center;
     }
     .api-header {
       font-size: 1rem;
       // font-weight: bold;
       color: #d9534f; /* Bootstrap danger color for emphasis */
-      text-align: center;
       margin-bottom: 2rem;
     }
   `,
