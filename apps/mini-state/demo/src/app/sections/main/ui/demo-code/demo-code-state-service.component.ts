@@ -3,7 +3,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'sb-main-demo-code',
+  selector: 'sb-main-demo-component-with-separate-state-code',
   imports: [
     MatEverythingModule,
     HighlightModule
@@ -11,8 +11,11 @@ import { HighlightModule } from 'ngx-highlightjs';
   template: `
       <div class="code-display">
       <mat-tab-group>
-        <mat-tab label="TypeScript">
-          <pre><code [highlight]="_tsCode()" language="typescript"></code></pre>
+        <mat-tab label="State">
+          <pre><code [highlight]="_tsStateCode()" language="typescript"></code></pre>
+        </mat-tab>
+        <mat-tab label="Component">
+          <pre><code [highlight]="_tsComponentCode()" language="typescript"></code></pre>
         </mat-tab>
         <mat-tab label="HTML">
           <pre><code [highlight]="_htmlCode()" language="html"></code></pre>
@@ -38,8 +41,9 @@ import { HighlightModule } from 'ngx-highlightjs';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainDemoComponentCodeComponent {
+export class MainDemoComponentWithSeparateStateCodeComponent {
 
   _htmlCode = input.required<string>({ alias: 'html' });
-  _tsCode = input.required<string>({ alias: 'typescript' });
+  _tsStateCode = input.required<string>({ alias: 'typescriptState' });
+  _tsComponentCode = input.required<string>({ alias: 'typescriptComponent' });
 }

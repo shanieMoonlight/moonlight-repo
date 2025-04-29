@@ -9,73 +9,13 @@ import { filter, map } from 'rxjs';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormComponent } from '../../ui/album/form/album-form.component';
-import { MainDemoCodeComponent } from '../../ui/demo-code/demo-code.component';
+import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
 import { MainDemoHeaderComponent } from "../../ui/demo-header/demo-header.component";
 
-@Component({
-  selector: 'sb-main-demo-detail',
-  imports: [
-    MatEverythingModule,
-    SbMatNotificationsModalComponent,
-    ReactiveFormsModule,
-    AlbumFormComponent,
-    MainDemoCodeComponent,
-    MainDemoHeaderComponent
-  ],
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class MainDemoDetailComponent {
 
-  private _ioService = inject(DummyAlbumIoService)
-  private _actRoute = inject(ActivatedRoute)
-  private _router = inject(Router)
+///#############################################//
 
-  //- - - - - - - - - - - - - //
-
-  private _id$ = this._actRoute.paramMap.pipe(
-    map((params: ParamMap) => params.get('id') ?? undefined),
-    filter((id: string | undefined): id is string => !!id)
-  )
-
-  //- - - - - - - - - - - - - //  
-
-  private _itemState = MiniStateBuilder.CreateWithObservableInput(
-    this._id$,
-    (id: string) => this._ioService.getById(id))
-
-  private _editState = MiniStateBuilder
-    .CreateWithInput((album: Album) => this._ioService.update(album))
-    .setSuccessMsgFn((album: Album) => `Album ${album.title} updated successfully!`)
-
-  private _state = MiniStateCombined.Combine(
-    this._itemState,
-    this._editState)
-
-  protected _album = computed(() => this._state.data() ?? [])
-  protected _successMsg = this._state.successMsg
-  protected _errorMsg = this._state.errorMsg
-  protected _loading = this._state.loading
-
-  //--------------------------//
-
-  protected edit = (album: Album) =>
-    this._editState.trigger(album)
-
-
-  protected refresh = () =>
-    this._itemState.retrigger()
-
-
-  protected randomize() {
-    const randomId = Math.floor(Math.random() * 100) + 1;
-    this._router.navigate(['../', randomId], { relativeTo: this._actRoute });
-  }
-
-  //--------------------------//
-
-  protected _tsCode = signal(`
+const TS_CODE = `
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -147,9 +87,11 @@ export class MainDemoDetailComponent {
     this._router.navigate(['../', randomId], { relativeTo: this._actRoute });
   }
         
-}`);
+}`
 
-  protected _htmlCode = signal(`        
+///#############################################//
+
+const HTML_CODE = `        
      
 <div class="content-container">
   <h2>Album Detail</h2>
@@ -174,6 +116,76 @@ export class MainDemoDetailComponent {
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
-        `);
+        `
+
+///#############################################//
+
+
+@Component({
+  selector: 'sb-main-demo-detail',
+  imports: [
+    MatEverythingModule,
+    SbMatNotificationsModalComponent,
+    ReactiveFormsModule,
+    AlbumFormComponent,
+    MainDemoComponentCodeComponent,
+    MainDemoHeaderComponent
+  ],
+  templateUrl: './detail.component.html',
+  styleUrl: './detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class MainDemoDetailComponent {
+
+  private _ioService = inject(DummyAlbumIoService)
+  private _actRoute = inject(ActivatedRoute)
+  private _router = inject(Router)
+
+  //- - - - - - - - - - - - - //
+
+  private _id$ = this._actRoute.paramMap.pipe(
+    map((params: ParamMap) => params.get('id') ?? undefined),
+    filter((id: string | undefined): id is string => !!id)
+  )
+
+  //- - - - - - - - - - - - - //  
+
+  private _itemState = MiniStateBuilder.CreateWithObservableInput(
+    this._id$,
+    (id: string) => this._ioService.getById(id))
+
+  private _editState = MiniStateBuilder
+    .CreateWithInput((album: Album) => this._ioService.update(album))
+    .setSuccessMsgFn((album: Album) => `Album ${album.title} updated successfully!`)
+
+  private _state = MiniStateCombined.Combine(
+    this._itemState,
+    this._editState)
+
+  protected _album = computed(() => this._state.data() ?? [])
+  protected _successMsg = this._state.successMsg
+  protected _errorMsg = this._state.errorMsg
+  protected _loading = this._state.loading
+
+  //--------------------------//
+
+  protected edit = (album: Album) =>
+    this._editState.trigger(album)
+
+
+  protected refresh = () =>
+    this._itemState.retrigger()
+
+
+  protected randomize() {
+    const randomId = Math.floor(Math.random() * 100) + 1;
+    this._router.navigate(['../', randomId], { relativeTo: this._actRoute });
+  }
+
+  //--------------------------//
+
+  protected _tsCode = signal(TS_CODE);
+
+  protected _htmlCode = signal(HTML_CODE);
 
 }//Cls
