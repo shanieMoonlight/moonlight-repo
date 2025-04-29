@@ -24,7 +24,7 @@ import { CrudStateService } from './crud-state.service';
 export class MainDemoCrudWithSeparateStateComponent {
 
   private _dialog = inject(MatDialog);
-  private _state = inject(CrudStateService);
+  private _state = inject(CrudStateService)
 
   //- - - - - - - - - - - - - //
 
@@ -66,7 +66,8 @@ export class MainDemoCrudWithSeparateStateComponent {
     return this._dialog.open(AlbumFormModalComponent, {
       width: '600px',
       data: new NewAlbumDialogData(album), // Pass any initial data if needed
-    });
+    })
+
   }
 }//Cls
 
@@ -83,7 +84,6 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { Album } from '../../data/album';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
-import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 import { CrudStateService } from './crud-state.service';
 
@@ -92,8 +92,7 @@ import { CrudStateService } from './crud-state.service';
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent,
-    MainDemoHeaderComponent
+    SbMatNotificationsModalComponent
   ],
   providers: [CrudStateService], //<---- This is the key part, providing the state service here
                                  // This is also import if you want to access the ActivatedRooute form the state service   

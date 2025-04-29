@@ -97,7 +97,7 @@ export class MainHomeComponent {
     },
     {
       title: 'Composable',
-      description: 'Combine multiple state objects for complex scenarios with minimal effort',
+      description: 'Combine multiple state objects for combined scenarios with minimal effort',
       icon: 'layers'
     }
   ];

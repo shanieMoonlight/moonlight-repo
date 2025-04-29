@@ -31,11 +31,11 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
     DataTableComponent,
     SbMatNotificationsModalComponent
 ],
-  templateUrl: './complex.component.html',
-  styleUrl: './complex.component.scss',
+  templateUrl: './combined.component.html',
+  styleUrl: './combined.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainDemoComplexComponent {
+export class MainDemoCombinedComponent {
 
   private _ioService = inject(DummyAlbumIoService)
 
@@ -125,11 +125,11 @@ const HTML_CODE = `
     MainDemoHeaderComponent,
     MainDemoComponentCodeComponent
   ],
-  templateUrl: './complex.component.html',
-  styleUrl: './complex.component.scss',
+  templateUrl: './combined.component.html',
+  styleUrl: './combined.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainDemoComplexComponent {
+export class MainDemoCombinedComponent {
 
   private _ioService = inject(DummyAlbumIoService)
 

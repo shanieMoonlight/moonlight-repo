@@ -250,7 +250,7 @@ When a user navigates to this section, they'll only see the feature-specific the
 - Use `ThemeService` for managing theme state and user preferences.
 - Use `ThemeGeneratorService` for applying themes dynamically in custom scenarios.
 - Use `ThemeTransitionService` for custom transition effects between themes.
-- Create modular theming hierarchies for complex applications with distinct sections.
+- Create modular theming hierarchies for combined applications with distinct sections.
 - Combine with `@spider-baby/material-theming/config` for a complete theming solution.
 
 ---

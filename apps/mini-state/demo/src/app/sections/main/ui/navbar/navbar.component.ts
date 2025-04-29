@@ -29,10 +29,10 @@ const rhsNavbarItems: NavbarItem[] = [
     text: 'Simple'
   },
   {
-    routerLink: 'complex',
-    tooltip: 'Complex',
-    iconName: 'construction',
-    text: 'Complex'
+    routerLink: 'combined',
+    tooltip: 'Combined',
+    iconName: 'join_inner',
+    text: 'Combined'
   },
   {
     routerLink: 'crud',

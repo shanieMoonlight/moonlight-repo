@@ -23,8 +23,8 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/simple/simple.component').then(m => m.MainDemoSimpleComponent),
             },
             {
-                path: 'complex',
-                loadComponent: () => import('./features/complex/complex.component').then(m => m.MainDemoComplexComponent),
+                path: 'combined',
+                loadComponent: () => import('./features/combined/combined.component').then(m => m.MainDemoCombinedComponent),
             },
             {
                 path: 'crud',

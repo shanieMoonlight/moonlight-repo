@@ -54,7 +54,7 @@ export class MultiThemeApiDemoComponent {
   You can change themes, toggle dark mode, and reset to defaults, all scoped to a single card.
     `)
   _demoSubDescription = signal(`
-      This approach is ideal for complex websites or applications where different sections, widgets, or embedded components require independent theming. 
+      This approach is ideal for combined websites or applications where different sections, widgets, or embedded components require independent theming. 
       For example, you can safely preview or apply custom themes to specific cards, dashboards, or micro-frontends without impacting the global look and feel of the rest of your site.
     `);
 

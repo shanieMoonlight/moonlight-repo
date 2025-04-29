@@ -11,7 +11,7 @@ MiniState is a simple yet powerful state management solution for Angular applica
 - Async operation states (loading, success, error)
 - Data fetching and updates
 - UI feedback (loading indicators, success/error messages)
-- Component-level state management without the complexity of global state libraries
+- Component-level state management without the combinedity of global state libraries
 
 Perfect for when NgRx feels like overkill but you still want clean, reactive patterns for managing component state.
 
