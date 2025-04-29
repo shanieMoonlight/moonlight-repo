@@ -30,10 +30,18 @@ import { HighlightModule } from 'ngx-highlightjs';
     }
 
     .code-display {
-      margin-top: 2rem;
+      margin: 2rem;
       display: flex;
       flex-direction: column;
+      width: 96%;
+      max-width: 1200px;
       gap: 1rem;
+    }
+
+    code{
+      // width: 100%;
+      display: block;
+      overflow: auto;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

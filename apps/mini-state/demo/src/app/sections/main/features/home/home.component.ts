@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { HighlightModule } from 'ngx-highlightjs';
 
 interface Feature {
   title: string;
@@ -28,7 +29,8 @@ interface Benefit {
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    HighlightModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -38,7 +40,7 @@ export class MainHomeComponent {
   
   title = 'Mini-State Demo';
   subtitle = 'A lightweight, signals-based state management library for Angular';
-  description = `Mini-State provides a simple, flexible API for managing state in Angular applications. 
+  description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
   asynchronous operations while leveraging Angular's signals for reactivity.`;
 
@@ -64,7 +66,7 @@ export class MainHomeComponent {
     {
       title: 'Manual CRUD',
       description: 'Build your own CRUD functionality by combining multiple MiniState instances',
-      route: '/manual-crud',
+      route: '/crud',
       icon: 'build'
     }
   ];
@@ -76,7 +78,7 @@ export class MainHomeComponent {
       icon: 'code'
     },
     {
-      title: 'Built on Signals',
+      title: 'Signals',
       description: 'Leverages Angular\'s signals for efficient, fine-grained reactivity',
       icon: 'bolt'
     },

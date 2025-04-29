@@ -67,26 +67,80 @@
     <p>Get started with Mini-State in your Angular application:</p>
     
     <div class="code-block">
-      <pre><code>npm install &#64;spider-baby/mini-state</code></pre>
+      <pre><code 
+          [highlight]="`npm install &#64;spider-baby/mini-state`" 
+          [language]="'typescript'" ></code></pre>
     </div>
     
     <p>Then create your first state object:</p>
     
     <div class="code-block">
-      <pre><code>import &#123; MiniStateBuilder &#125; from '&#64;spider-baby/mini-state';
+      <pre><code 
+        [highlight]="`
+import &#123; MiniStateBuilder &#125; from '&#64;spider-baby/mini-state';
+
 
 const userState = MiniStateBuilder
   .Create(() => userService.getUsers())
-  .setSuccessMsgFn((users) => `Loaded &#123;users.length&#125; users`)
-  .build();
+  .setSuccessMsgFn((users) => \`Loaded &#123;users.length&#125; users\`) 
+  .trigger(); //trigger immediately
 
-// Access reactive state
+// Access reactive state signals
 const users = userState.data;
 const loading = userState.loading;
 const errorMsg = userState.errorMsg;
+const successMsg = userState.successMsg; //<-- If setSuccessMsgFn is not called, this will always  be undefined
 
 // Trigger data loading
-userState.trigger();</code></pre>
+protected refresh() {
+  userState.trigger();
+}
+        `" 
+        [language]="'typescript'" ></code></pre>
+    </div>
+
+
+    <div class="code-block">
+      <pre><code 
+        [highlight]="`
+import &#123; MiniCrudState &#125; from '&#64;spider-baby/mini-state';
+
+
+  private _crudState = MiniCrudState
+    .Create<void, Album>(() => this._albumService.getAll())
+    .setAddState(
+      (album: Album) => this._albumService.create(album),
+      (album) => \`Album  \${album.title} added!\`)
+    .setUpdateState(
+      (album: Album) => this._albumService.update(album),
+      (album) => \`Album \${album.title} updated successfully! \`)
+    .setDeleteState(
+      (album: Album) => this._albumService.delete(album.id!),
+      (album) => \`Album \${album.title} deleted successfully \`
+    ).trigger()
+
+  data = computed(() => this._crudState.data() ?? [])
+  successMsg = this._crudState.successMsg
+  errorMsg = this._crudState.errorMsg
+  loading = this._crudState.loading
+        
+        
+  //- - - - - - - - - - - - - //
+
+  refresh = () =>
+    this._crudState.trigger()
+
+  addItem = (album: Album) =>
+    this._crudState.triggerAdd(album)
+
+  deleteItem = (album: Album) =>
+    this._crudState.triggerDelete(album)
+
+  updateItem = (album: Album) =>
+    this._crudState.triggerUpdate(album)
+        
+        `" 
+        [language]="'typescript'" ></code></pre>
     </div>
   </section>
 
