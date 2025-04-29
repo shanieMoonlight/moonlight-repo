@@ -21,12 +21,6 @@ mat-divider{
   border-top-color: var(--mat-sys-primary);
 }
 
-.code-display {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
 
 @media (min-width: 768px) {
   .code-display {

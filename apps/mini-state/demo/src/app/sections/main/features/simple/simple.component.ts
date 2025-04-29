@@ -7,6 +7,7 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
 import { MainConstants } from '../../config/constants';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 import { HighlightModule } from 'ngx-highlightjs';
+import { MainDemoCodeComponent } from '../../ui/demo-code/demo-code.component';
 
 @Component({
   selector: 'sb-main-demo-simple',
@@ -15,7 +16,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     DataTableComponent,
     SbMatNotificationsModalComponent,
     MainDemoHeaderComponent,
-    HighlightModule
+    MainDemoCodeComponent
   ],
   templateUrl: './simple.component.html',
   styleUrl: './simple.component.scss',
@@ -46,7 +47,7 @@ export class MainDemoSimpleComponent {
 
   //--------------------------//
 
-  protected tsCode = `import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+  protected _tsCode = signal(`import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 
@@ -66,13 +67,13 @@ export class MainDemoSimpleComponent {
 
   protected _data = computed(() => this._state.data() ?? []);
 
-  
+
   protected refresh = () =>
     this._state.trigger();
 
-}`;
+}`);
 
-  protected htmlCode = `<div class='content-container'>
+  protected _htmlCode = signal(`<div class='content-container'>
 
   <sb-data-table 
     [data]="_data()" 
@@ -93,5 +94,5 @@ export class MainDemoSimpleComponent {
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
-`;
+`);
 }

@@ -12,6 +12,7 @@
       [loadingMessage]="'Loading albums...'"
       [itemName]="'album'"
       [iconName]="'album'"
+      [canAddItem]="true"
       (refresh)="refresh()"
       (addItem)="openAddAlbumDialog()"
       (editItem)="openEditAlbumDialog($event)"
@@ -25,3 +26,7 @@
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
+    
+<sb-main-demo-code 
+  [html]="_htmlCode()"
+  [typescript]="_tsCode()"/>
