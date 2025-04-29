@@ -63,7 +63,7 @@ export class MainDemoSimpleComponent {
 
   protected _state = MiniStateBuilder
     .Create(() => this._ioService.getAll())
-    .trigger();
+    .trigger();//Trigger immediately
 
   protected _data = computed(() => this._state.data() ?? []);
 

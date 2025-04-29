@@ -14,7 +14,6 @@
       [itemName]="'album'"
       [iconName]="'album'"
       (refresh)="refresh()"
-      (viewDetails)="onViewDetails($event)"
       (editItem)="onEditItem($event)"
       (deleteItem)="onDeleteItem($event)"/>
 </div>
@@ -27,3 +26,10 @@
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
 
+
+    <mat-divider/>
+
+    <sb-main-demo-code 
+      [html]="_htmlCode()"
+      [typescript]="_tsCode()"/>
+    
