@@ -1,30 +1,55 @@
 import { delay, mergeMap, Observable, of, throwError } from 'rxjs';
 import { MessageResponse } from '../../data/message-response';
+import { Injector, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { MainConstants } from '../../config/constants';
 
 
 export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
-  protected errorProbability = 0.1; // 20% chance of error by default
+  protected errorProbability = MainConstants.API_FAILURE_RATE; 
+
+  protected _platformId: object;
+  protected isBrowser = false;
 
   //----------------------------//
 
-  getAll = (): Observable<T[]> =>
-    this.withChaos(
+  constructor(injector: Injector) {
+    this._platformId = injector.get(PLATFORM_ID);
+    this.isBrowser = isPlatformBrowser(this._platformId);
+  }
+
+  //----------------------------//
+
+  getAll(): Observable<T[]> {
+    if (!this.isBrowser)
+      return of([])
+
+    return this.withChaos(
       of(this._generateRandomItems(0, 12)),
       `Failed to retrieve items\r\nSomething unexpected happened 😱!`
-    )
+    );
+  }
 
   //----------------------------//
 
-  getById = (id: string | number): Observable<T | undefined> =>
-    this.withChaos(
+  getById(id: string | number): Observable<T | undefined> {
+    if (!this.isBrowser)
+      return of(undefined)
+
+    return this.withChaos(
       of(this.generateRandomItem(id)),
       `Failed to retrieve item with id ${id}\r\nSomething unexpected happened 😱!`
     )
+  }
 
   //----------------------------//
 
-  create = (item: T): Observable<T> => {
+  create(item: T): Observable<T> {
+
+    if (!this.isBrowser)
+      return of(item)
+
     item.id = this.getRandomInt(1, 1000) // Assign a random id for the demo
     return this.withChaos(
       of(item),
@@ -34,19 +59,28 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   //----------------------------//
 
-  update = (item: T): Observable<T> =>
-    this.withChaos(
+  update(item: T): Observable<T> {
+    if (!this.isBrowser)
+      return of(item)
+
+    return this.withChaos(
       of(item),
       'Failed to update item.\r\nSomething unexpected happened 😱!'
-    )
+    );
+  }
 
   //----------------------------//
 
-  delete = (id: string | number): Observable<MessageResponse> =>
-    this.withChaos(
-      of({ message: 'Item successfully deleted' }),
+  delete(id: string | number): Observable<MessageResponse> {
+    const response: MessageResponse = { message: 'Item successfully deleted' }
+    if (!this.isBrowser)
+      return of(response)
+
+    return this.withChaos(
+      of(response),
       `Failed to delete item with id ${id}.\r\nSomething unexpected happened 😱!`
-    )
+    );
+  }
 
   //----------------------------//
 
@@ -60,7 +94,7 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   //----------------------------//
 
-  private _generateRandomItems = (min: number, max: number): T[] => {
+  private _generateRandomItems(min: number, max: number): T[] {
     const count = this.getRandomInt(min, max)
     return this.generateRandomItems(count)
   }

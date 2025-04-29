@@ -29,10 +29,10 @@ const rhsNavbarItems: NavbarItem[] = [
     text: 'Simple'
   },
   {
-    routerLink: 'manual-crud',
-    tooltip: 'Manual Crud',
+    routerLink: 'complex',
+    tooltip: 'Complex',
     iconName: 'construction',
-    text: 'Crud (mnl)'
+    text: 'Complex'
   },
   {
     routerLink: 'crud',

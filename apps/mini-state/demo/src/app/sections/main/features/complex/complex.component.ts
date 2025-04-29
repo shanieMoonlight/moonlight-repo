@@ -6,19 +6,21 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { DataTableComponent } from '../../ui/table/data-table.component';
+import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 
 @Component({
-  selector: 'sb-manual-crud',
+  selector: 'sb-main-demo-complex',
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    MainDemoHeaderComponent
 ],
-  templateUrl: './manual-crud.component.html',
-  styleUrl: './manual-crud.component.scss',
+  templateUrl: './complex.component.html',
+  styleUrl: './complex.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ManualCrudComponent {
+export class MainDemoComplexComponent {
 
   private _ioService = inject(DummyAlbumIoService)
 
@@ -28,16 +30,16 @@ export class ManualCrudComponent {
 
   //- - - - - - - - - - - - - //
 
-  protected _getAllState = MiniStateBuilder
+  private _getAllState = MiniStateBuilder
     .Create(() => this._ioService.getAll())
     .trigger()
+    
+    private _updateState = MiniStateBuilder
+  .CreateWithInput((album: Album) => this._ioService.update(album))
+  .setSuccessMsgFn((album: Album) => `⭐⭐⭐ \r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
 
-  protected _updateState = MiniStateBuilder
-    .CreateWithInput((album: Album) => this._ioService.update(album))
-    .setSuccessMsgFn((album: Album) => `⭐⭐⭐ \r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
 
-
-  protected _deleteState = MiniStateBuilder
+  private _deleteState = MiniStateBuilder
     .CreateWithInput((album: Album) => this._ioService.delete(album.id!))
     .setSuccessMsgFn((album: Album) => `Album ${album.title} deleted successfully 🗑️
      You will have to imagine that it was removed from the list.

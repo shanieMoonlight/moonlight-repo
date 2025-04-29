@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ManualCrudComponent } from './manual-crud.component';
+import { ManualCrudComponent } from './complex.component';
 
 describe('ManualCrudComponent', () => {
   let component: ManualCrudComponent;

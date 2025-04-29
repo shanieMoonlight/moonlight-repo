@@ -1,25 +1,27 @@
 <div class="data-table-container">
   <div class="table-header">
-    <h2>{{ title() }}</h2>
+    <h2>{{ _title() }}</h2>
     <div class="table-actions">
       <button mat-raised-button color="primary" (click)="onRefresh()">
         <mat-icon>refresh</mat-icon> Refresh Data
       </button>
-      <button mat-raised-button color="primary" (click)="onAddItem()">
-        <mat-icon>add</mat-icon> New Item
-      </button>
+      @if (_canAddItem()) {
+        <button mat-raised-button color="primary" (click)="onAddItem()">
+          <mat-icon>add</mat-icon> New Item
+        </button>
+      }
     </div>
   </div>
   
 
-  @if (items() && items().length > 0) {
+  @if (_data() && _data().length > 0) {
     <div class="table-container">
-      @if (isLoading()) {
+      @if (_isLoading()) {
         <mat-progress-bar mode="indeterminate" />
       }      
-      <table mat-table [dataSource]="items()">
+      <table mat-table [dataSource]="_data()">
         <!-- Dynamic Columns -->
-        @for (column of displayColumns(); track column) {
+        @for (column of _displayColumns(); track column) {
           <ng-container [matColumnDef]="column">
             <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
             <td mat-cell *matCellDef="let item">{{ item[column] }}</td>
@@ -27,7 +29,7 @@
         }
         
         <!-- Actions Column -->
-        @if (includeActions()) {
+        @if (_includeActions()) {
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let item">
@@ -50,8 +52,8 @@
     </div>
   } @else {
     <div class="no-data">
-      <mat-icon>{{ iconName() }}</mat-icon>
-      <p>{{ emptyMessage() }}</p>
+      <mat-icon>{{ _iconName() }}</mat-icon>
+      <p>{{ _emptyMessage() }}</p>
     </div>
   }
 </div>

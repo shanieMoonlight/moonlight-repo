@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Album, AlbumUtils } from '../../data/album';
 import { BaseDummyIoService } from './base-io.service';
 
@@ -7,6 +7,10 @@ import { BaseDummyIoService } from './base-io.service';
 })
 export class DummyAlbumIoService extends BaseDummyIoService<Album> {
 
+  constructor(injector: Injector) {
+    super(injector); // Pass the Injector to the base class
+  }
+
 
   override generateRandomItem(id: string | number): Album | undefined {
     return Math.random() < 0.1
@@ -14,9 +18,10 @@ export class DummyAlbumIoService extends BaseDummyIoService<Album> {
       : AlbumUtils.generateRandomAlbum(id)
   }
 
+
   override generateRandomItems(count: number): Album[] {
     return AlbumUtils.generateRandomAlbums(count)
   }
 
-
+  
 }

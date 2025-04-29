@@ -7,19 +7,21 @@ import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
+import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 
 @Component({
-  selector: 'sb-manual-crud',
+  selector: 'sb-main-demo-crud',
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    MainDemoHeaderComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CrudComponent {
+export class MainDemoCrudComponent {
 
   private _dialog = inject(MatDialog);
   private _ioService = inject(DummyAlbumIoService)
@@ -30,7 +32,7 @@ export class CrudComponent {
 
   //- - - - - - - - - - - - - //
 
-  protected _crudState = MiniCrudState
+  private _crudState = MiniCrudState
     .Create<void, Album>(() => this._ioService.getAll())
     .setAddState(
       (album: Album) => this._ioService.create(album),

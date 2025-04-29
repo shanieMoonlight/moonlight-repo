@@ -12,23 +12,23 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: 'detail',
-                loadComponent: () => import('./features/detail/detail.component').then(m => m.DetailComponent),
+                loadComponent: () => import('./features/detail/detail.component').then(m => m.MainDemoDetailComponent),
             },
             {
                 path: 'detail/:id',
-                loadComponent: () => import('./features/detail/detail.component').then(m => m.DetailComponent),
+                loadComponent: () => import('./features/detail/detail.component').then(m => m.MainDemoDetailComponent),
             },
             {
                 path: 'simple',
-                loadComponent: () => import('./features/simple/simple.component').then(m => m.SimpleComponent),
+                loadComponent: () => import('./features/simple/simple.component').then(m => m.MainDemoSimpleComponent),
             },
             {
-                path: 'manual-crud',
-                loadComponent: () => import('./features/manual-crud/manual-crud.component').then(m => m.ManualCrudComponent),
+                path: 'complex',
+                loadComponent: () => import('./features/complex/complex.component').then(m => m.MainDemoComplexComponent),
             },
             {
                 path: 'crud',
-                loadComponent: () => import('./features/crud/crud.component').then(m => m.CrudComponent),
+                loadComponent: () => import('./features/crud/crud.component').then(m => m.MainDemoCrudComponent),
             },
             {
                 path: '',

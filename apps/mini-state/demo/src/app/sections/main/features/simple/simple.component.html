@@ -1,9 +1,10 @@
-
-
 <div class="content-container">
-    <sb-data-table 
-      [items]="_data()" 
-      [displayColumns]="displayColumns()"
+    
+  <sb-main-demo-header/>
+  
+  <sb-data-table 
+      [data]="_data()" 
+      [displayColumns]="_displayColumns()"
       [isLoading]="_loading()" 
       [includeActions]="false"
       [title]="'Album Collection'"
@@ -13,8 +14,6 @@
       [iconName]="'album'"
       (refresh)="refresh()"/>
 </div>
-
-
 
 <sb-notifications-modal-mat
     [errorMsg]="_errorMsg()"

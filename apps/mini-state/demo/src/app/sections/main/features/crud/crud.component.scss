@@ -3,7 +3,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-self: center;
+  align-items: center;
+  flex-direction: column;
   padding: 2rem 0;
 }
 
