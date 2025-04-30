@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
@@ -6,13 +7,12 @@ import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
-import { DataTableComponent } from '../../ui/table/data-table.component';
-import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
-import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
 import { MainDemoComponentWithSeparateStateCodeComponent } from '../../ui/demo-code/demo-code-state-service.component';
-import { TS_CRUD_STATE_SERVICE_CODE } from '../crud-state/crud-state.service';
+import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
+import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
+import { DataTableComponent } from '../../ui/table/data-table.component';
 import { TS_CRUD_STATE_COMPONENT_CODE } from '../crud-state/crud-state.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TS_CRUD_STATE_SERVICE_CODE } from '../crud-state/crud-state.service';
 
 
 ///#############################################//

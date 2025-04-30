@@ -2,6 +2,7 @@ import { Observable } from "rxjs"
 import { MiniState } from "./mini-state"
 import { MiniStateBuilder } from "./mini-state-builder"
 import { DestroyRef, inject } from "@angular/core"
+import { ActiveOperationsTracker } from "./active-operations-tracker";
 
 //=========================================================//
 
@@ -46,6 +47,10 @@ import { DestroyRef, inject } from "@angular/core"
  */
 export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
+    // Use a Set to track active operations
+    private _activeOperations = new Set<MiniState<Item, any>>();
+    private _operationsTracker: ActiveOperationsTracker<MiniState<Item, any>>;
+
     protected _addState?: MiniState<Item, Item | undefined>
     protected _updateState?: MiniState<Item, Item | undefined>
     protected _deleteState?: MiniState<Item, any>
@@ -67,8 +72,11 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      */
     private constructor(triggerFn$: (input: Filter) => Observable<Item[]>) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        super(triggerFn$,destroyer, [])
-        console.log('ctor')
+        super(triggerFn$, destroyer, [])
+        // Initialize tracker with callback to update loading state
+        this._operationsTracker = new ActiveOperationsTracker<MiniState<Item, any>>(
+            (isLoading) => this._loadingBs.next(isLoading)
+        );
     }
 
     //-------------------------------------//
@@ -115,11 +123,11 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
         this._addState = MiniStateBuilder.CreateWithInput(triggerFn$)
 
-        this.setMiniStateOnTriggerFn(this._addState, onTriggerFn)
+        this.setInnerMiniStateOnTriggerFn(this._addState, onTriggerFn)
 
-        this.setMiniStateErrorMsg(this._addState)
+        this.setInnerMiniStateOnErrorFn(this._addState)
 
-        this.setMiniStateOnSuccessFn(
+        this.setInnerMiniStateOnSuccessFn(
             this._addState,
             (input, output, data) => [...data, output ?? input],
             successMsgFn
@@ -145,11 +153,11 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
         this._updateState = MiniStateBuilder.CreateWithInput(triggerFn$)
 
-        this.setMiniStateOnTriggerFn(this._updateState, onTriggerFn)
+        this.setInnerMiniStateOnTriggerFn(this._updateState, onTriggerFn)
 
-        this.setMiniStateErrorMsg(this._updateState)
+        this.setInnerMiniStateOnErrorFn(this._updateState)
 
-        this.setMiniStateOnSuccessFn(
+        this.setInnerMiniStateOnSuccessFn(
             this._updateState,
             (input, output, data) => data.map(item =>
                 this.equals(item, input) ? { ...item, ...(output ?? input) } : item
@@ -167,22 +175,22 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * 
      * @template DeleteResult The type of result returned by the delete operation
      * @param triggerFn$ Function that performs the delete operation
-     * @param successMsgFn Function to generate a success message after deleting an item
-     * @param onTriggerFn Optional function to call when the delete operation is triggered
+     * @param successMsgFn Optional Function to generate a success message after deleting an item
+     * @param onTriggerFn Optional Function to call when the delete operation is triggered 
      * @returns This MiniCrudState instance for method chaining
      */
     setDeleteState<DeleteResult>(
         triggerFn$: (input: Item) => Observable<DeleteResult | undefined>,
-        successMsgFn: (input: Item, output: DeleteResult | undefined) => string,
+        successMsgFn?: (input: Item, output: DeleteResult | undefined) => string,
         onTriggerFn?: (input: Item) => void) {
 
         this._deleteState = MiniStateBuilder.CreateWithInput(triggerFn$)
 
-        this.setMiniStateOnTriggerFn(this._deleteState, onTriggerFn)
+        this.setInnerMiniStateOnTriggerFn(this._deleteState, onTriggerFn)
 
-        this.setMiniStateErrorMsg(this._deleteState)
+        this.setInnerMiniStateOnErrorFn(this._deleteState)
 
-        this.setMiniStateOnSuccessFn(
+        this.setInnerMiniStateOnSuccessFn(
             this._deleteState,
             (input, output, data) => data.filter(item => !this.equals(item, input)),
             successMsgFn
@@ -241,13 +249,15 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
     /**
      * Sets up the onTrigger function for a MiniState instance used internally.
-     * 
+     * When the inner-state is triggered, it will set THIS loading state to true.
+     * and also call the provided onTriggerFn if it exists.
      * @param miniState The MiniState to configure
      * @param onTriggerFn Optional function to call when the operation is triggered
      */
-    protected setMiniStateOnTriggerFn = (miniState: MiniState<Item, any>, onTriggerFn?: (input: Item) => void) => 
+    protected setInnerMiniStateOnTriggerFn = (miniState: MiniState<Item, any>, onTriggerFn?: (input: Item) => void) =>
         miniState.setOnTriggerFn((item: Item) => {
-            this._loadingBs.next(true)
+            // Add this operation to the active set
+      this._operationsTracker.addOperation(miniState);
             onTriggerFn?.(item)
         })
 
@@ -255,12 +265,14 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
     /**
      * Sets up the error handling for a MiniState instance used internally.
-     * 
+     * When the inner-state errors, it will set THIS loading state to false.
+     * and use THIS _errorMsgFn to create the errorMessage .
      * @param miniState The MiniState to configure
      */
-    protected setMiniStateErrorMsg = (miniState: MiniState<Item, any>) => 
+    protected setInnerMiniStateOnErrorFn = (miniState: MiniState<Item, any>) =>
         miniState.setOnErrorFn((input: Item, error: any) => {
-            this._loadingBs.next(false)
+            // Remove this operation from the active set
+      this._operationsTracker.removeOperation(miniState);
             this.emitErrorMsg(this._errorMsgFn(error))
         })
 
@@ -268,25 +280,28 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
     /**
      * Sets up the success handling for a MiniState instance used internally.
+     * When the inner-state succeeds, it will set THIS loading state to false.
+     * Will emit a success message from THIS state if the inner-state successMsgFn is provided.
+     * Will also update the returned data using the provided successFn if it exists.
+     * Then push the updated data to THIS _successDataBs.
      * 
      * @param miniState The MiniState to configure
      * @param successFn Function to update the data array on success
      * @param successMsgFn Optional function to generate a success message
      */
-    protected setMiniStateOnSuccessFn(
+    protected setInnerMiniStateOnSuccessFn(
         miniState: MiniState<Item, any>,
         successFn?: (input: Item, output: Item | undefined, data: Item[]) => Item[],
         successMsgFn?: (input: Item, output: any | undefined) => string) {
 
         miniState.setOnSuccessFn((input: Item, output: Item | undefined) => {
 
-            this._loadingBs.next(false)
+            this._operationsTracker.removeOperation(miniState);
             this.emitSuccessMsg(successMsgFn?.(input, output))
 
             const currentData = this.data() ?? []
-            const updatedData = successFn?.(input, output, currentData) ?? []
+            const updatedData = successFn?.(input, output, currentData) ?? currentData
             this._successDataBs.next([...updatedData])
-
         })
     }
 
@@ -297,6 +312,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      */
     override resetMessagesAndLoading() {
         super.resetMessagesAndLoading()
+        this._operationsTracker.reset();
         this._addState?.resetMessagesAndLoading()
         this._updateState?.resetMessagesAndLoading()
         this._deleteState?.resetMessagesAndLoading()
