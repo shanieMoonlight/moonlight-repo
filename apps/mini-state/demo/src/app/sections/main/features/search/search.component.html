@@ -8,13 +8,14 @@
   <div class="search-form">
     <mat-form-field>
       <mat-label>Search Users</mat-label>
-      <input matInput
-      
+      <input matInput      
        [formControl]="_searchControl"
        placeholder="Enter name or email">
     </mat-form-field>
-    <button mat-raised-button color="primary" 
-            [disabled]="loading()" 
+    <button mat-raised-button 
+            class="primary" 
+            [matTooltip]="'Refresh data with no filtering'"
+            [disabled]="loading() || !_searchControl.value" 
             (click)="clearSearch()">
       Clear
     </button>
@@ -68,3 +69,11 @@
     </div>
   }
 </div>
+
+
+
+
+
+<sb-main-demo-code 
+  [html]="_htmlCode()"
+  [typescript]="_tsCode()"/>

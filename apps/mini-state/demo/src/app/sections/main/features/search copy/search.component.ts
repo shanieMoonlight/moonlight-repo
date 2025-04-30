@@ -8,7 +8,6 @@ import { MiniState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
-import { distinctUntilChanged, filter, Subject } from 'rxjs';
 
 
 ///#############################################//
@@ -69,6 +68,8 @@ const HTML_CODE = `
 
 //Example using MiniState intialized with constructor instead of Builder
 // and using a custom service to fetch data
+//Not using inpu triggered popups (like SbMatNotificationsModalComponent) for demonstration purposes
+// and to keep the example simple
 
 @Component({
   selector: 'sb-main-demo-search',
@@ -85,7 +86,7 @@ const HTML_CODE = `
 })
 export class MainDemoSearchComponent {
 
-  private _ioService = inject(DummyAlbumIoService);
+  private _albumService = inject(DummyAlbumIoService);
   private destroyRef = inject(DestroyRef);
 
   //- - - - - - - - - - - - - //
@@ -96,7 +97,7 @@ export class MainDemoSearchComponent {
   // Create a MiniState for user search
   private userState = new MiniState<string, Album[]>(
     // Load users based on search term
-    (term: string) => this._ioService.search(term),
+    (term: string) => this._albumService.search(term),
     this.destroyRef,
     // Initial empty array
     [],
@@ -119,6 +120,7 @@ export class MainDemoSearchComponent {
   protected errorMsg = this.userState.errorMsg;
   protected successMsg = this.userState.successMsg;
 
+  //- - - - - - - - - - - - - //
 
 
   constructor() {
@@ -133,6 +135,7 @@ export class MainDemoSearchComponent {
       })
   }
 
+  //- - - - - - - - - - - - - //
 
 
   // Search users based on the current search term
@@ -145,11 +148,10 @@ export class MainDemoSearchComponent {
     this.userState.trigger(this.searchTerm);
   }
 
-  
+
   // Clear the search results
-  clearSearch() {
+  clearSearch = () =>
     this.searchTerm = '';
-  }
 
 
-}
+}//Cls

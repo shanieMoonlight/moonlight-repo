@@ -53,7 +53,7 @@ export class MainHomeComponent {
     },
     {
       title: 'Detail View',
-      description: 'Using MiniState with router parameters and form integration for detail pages',
+      description: 'Using MiniState with observable router parameters and form integration for detail pages',
       route: '/detail/1',
       icon: 'assignment'
     },
@@ -64,10 +64,16 @@ export class MainHomeComponent {
       icon: 'edit_note'
     },
     {
-      title: 'Manual CRUD',
-      description: 'Build your own CRUD functionality by combining multiple MiniState instances',
+      title: 'Combined State',
+      description: 'Build your own Custom functionality by combining multiple MiniState instances',
       route: '/crud',
       icon: 'build'
+    },
+    {
+      title: 'Search',
+      description: 'Use MiniState for search functionality with loading and error handling',
+      route: '/search',
+      icon: 'search'
     }
   ];
 

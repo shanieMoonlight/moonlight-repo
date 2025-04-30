@@ -2,6 +2,7 @@ import { DestroyRef, Signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { devConsole } from "@spider-baby/dev-console"
 import { BehaviorSubject, distinctUntilChanged, finalize, map, Observable, ReplaySubject, skip, startWith, Subject, Subscription } from "rxjs"
+import { executeAfterEmissionAndOnTermination, onTriggerComplete } from "./utils/rxjs-utils"
 
 //=========================================================//
 
@@ -37,22 +38,19 @@ export class MiniState<Input, Output, TError = any> {
     data$: Observable<Output>
     /** Signal that provides the data returned by the async operation */
     data: Signal<Output | undefined>
-    
+
     private _prevInputBs = new BehaviorSubject<Input | undefined>(undefined)
+    prevInput = toSignal(this._prevInputBs)
+
+    private _wasTriggeredBs = new BehaviorSubject<boolean>(false);
     /**
-     * Observable that emits true after the first successful trigger
+     * Observable that emits true after the first trigger
      * Starts with false, then switches to true after the first emission from _prevInputBs
      */
-    private wasTriggered$ = this._prevInputBs.asObservable().pipe(
-        skip(1), // Ignore the initial undefined value
-        map(() => true), // Map the first emission after the initial one to true
-        startWith(false), // Ensure the observable starts with false
-        distinctUntilChanged() // Only emit when the value changes (from false to true)
-    );
+    wasTriggered$ = this._wasTriggeredBs.asObservable();
     /** Signal that indicates whether a trigger has successfully completed at least once */
     wasTriggered = toSignal(this.wasTriggered$, { initialValue: false })
     /** Signal that provides the last input that was used in a successful trigger */
-    private prevInput = toSignal(this._prevInputBs)
 
     /** Observable that emits success messages after successful operations */
     successMsg$ = this._successMsgBs.asObservable()
@@ -235,48 +233,65 @@ export class MiniState<Input, Output, TError = any> {
     trigger(input: Input) {
 
         devConsole.log('trigger', input);
-
         this._loadingBs.next(true)
-
         this._errorMsgBs.next(undefined); // Clear previous error message
         this._successMsgBs.next(undefined); // Clear previous success message
 
         this._onTriggerFn?.(input)
-
         this._sub?.unsubscribe?.()
 
         //Not using finalize in case obs doesn't complete
         this._sub = this._triggerFn$(input)
-            .pipe(finalize(() => this._loadingBs.next(false))) //This is for EMPTY
+            .pipe(
+                executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) => 
+                    this.handleTriggerComplete(input, outputValue, error, isFinalized)),
+            )
             .subscribe({
-                next: data => {
-
-                    devConsole.log('MiniState', data);
-                    devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
-                    devConsole.log(this._successDataProcessor);
-
-
-                    this._loadingBs.next(false)
-                    this._successDataBs.next(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data)
-                    this.emitSuccessMsg(this._successMsgFn?.(input, data))
-
-                    //In case loading MUST complete first (Maybe for navigation)
-                    setTimeout(() => this._onSuccessFn?.(input, data), 500)
-                    this._prevInputBs.next(input)
-                },
-                error: error => {
-
-                    // console.log('MiniState', error);
-                    this._loadingBs.next(false)
-                    this.emitErrorMsg(this._errorMsgFn(error))
-                    this._errorBs.next(error)
-
-                    //In case loading MUST complete first (Maybe for navigation)
-                    setTimeout(() => this._errorFn?.(input, error), 200)
-                }
+                next: data => this.handleTriggerSuccess(input, data),
+                error: error => this.handleTriggerError(input, error),
             })
 
         return this
+    }
+
+    //-------------------------------------//
+
+    private handleTriggerComplete(input: Input, data?: Output, error?: any, isFinalize?: boolean) {
+
+        this._loadingBs.next(false); //Close the loader
+        this._wasTriggeredBs.next(true); // Mark as triggered
+        devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
+
+    }
+
+    //- - - - - - - - - - - - - - - - - - -//
+
+    private handleTriggerSuccess(input: Input, data: Output) {
+
+        devConsole.log('MiniState', data);
+        devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
+        devConsole.log(this._successDataProcessor)
+
+        this._successDataBs.next(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data)
+        this.emitSuccessMsg(this._successMsgFn?.(input, data))
+
+        //In case loaders and popup messages MUST complete first 
+        // (Maybe if _onSuccessFn is for navigation away from page)
+        setTimeout(() => this._onSuccessFn?.(input, data), 500)
+        this._prevInputBs.next(input)
+    }
+
+    //- - - - - - - - - - - - - - - - - - -//
+
+    private handleTriggerError(input: Input, error: any) {
+
+        devConsole.log('MiniState', error);
+        this.emitErrorMsg(this._errorMsgFn(error))
+        this._errorBs.next(error)
+
+        //In case loading MUST complete first
+        // (Maybe if _errorFn is for navigation away from page)
+        setTimeout(() => this._errorFn?.(input, error), 200)
     }
 
     //-------------------------------------//
@@ -325,7 +340,7 @@ export class MiniState<Input, Output, TError = any> {
         this._onTriggerFn = undefined;
 
         devConsole.log('MiniState unsubscribed');
-        
+
     }
 
     //-------------------------------------//

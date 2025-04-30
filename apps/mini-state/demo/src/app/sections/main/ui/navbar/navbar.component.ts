@@ -41,6 +41,12 @@ const rhsNavbarItems: NavbarItem[] = [
     text: 'Crud'
   },
   {
+    routerLink: 'search',
+    tooltip: 'Search',
+    iconName: 'search',
+    text: 'Search'
+  },
+  {
     routerLink: '/api',
     tooltip: 'Api Documentation',
     iconName: 'api',
@@ -57,7 +63,7 @@ const rhsNavbarItems: NavbarItem[] = [
     MatEverythingModule,
     NavigateNewWindowDirective,
     NgTemplateOutlet,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
