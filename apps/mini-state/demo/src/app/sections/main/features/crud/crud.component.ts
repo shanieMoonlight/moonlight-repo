@@ -176,7 +176,7 @@ export class MainDemoCrudComponent {
       (album) => `Album  ${album.title} added!`)
     .setUpdateState(
       (album: Album) => this._ioService.update(album),
-      (album) => `⭐⭐⭐ \r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
+      (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
     .setDeleteState(
       (album: Album) => this._ioService.delete(album.id!),
       (album) => `Album ${album.title} deleted successfully 🗑️`

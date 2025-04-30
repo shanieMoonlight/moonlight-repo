@@ -121,191 +121,154 @@ userCrudState.setEqualsFn((item1, item2) =>
 );`;
 
   // Complete usage example
-  completeExample = `import { Component, DestroyRef, computed, inject } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+  completeExample = `import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
-import { UserService } from './user.service';
-import { User, UserFilter } from './user.model';
+import { User } from '../../data/user';
+import { UserService } from '../../services/user.service';
+import { UserFormModalComponent, NewUserDialogData } from '../../ui/user/form-modal/form-modal.component';
+import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
   selector: 'app-user-management',
+  standalone: true,
+  imports: [
+    MatEverythingModule,
+    DataTableComponent,
+    SbMatNotificationsModalComponent,
+    ReactiveFormsModule
+  ],
   template: \`
-    <div class="user-management">
-      <!-- Header with actions -->
-      <div class="header">
-        <h2>User Management</h2>
-        <div class="actions">
-          <button mat-raised-button color="primary" (click)="openAddUserDialog()">
-            Add User
+    <div class="content-container">
+      <div class="search-form">
+        <mat-form-field>
+          <mat-label>Search Users</mat-label>
+          <input matInput      
+           [formControl]="_searchControl"
+           placeholder="Enter name or email">
+        </mat-form-field>
+        <div class="btns">
+          <button mat-raised-button 
+            class="primary" 
+            [matTooltip]="'Search data'"
+            [disabled]="_loading() || !_searchControl.value" 
+            (click)="filterData(_searchControl.value!)">
+            Search
           </button>
-          <button mat-button (click)="refresh()">Refresh</button>
+          <button mat-raised-button 
+            class="primary" 
+            [matTooltip]="'Refresh data with no filtering'"
+            [disabled]="_loading() || !_searchControl.value" 
+            (click)="clearSearch()">
+            Clear
+          </button>
         </div>
       </div>
       
-      <!-- Filters -->
-      <div class="filters">
-        <mat-form-field>
-          <mat-label>Search</mat-label>
-          <input matInput [(ngModel)]="searchTerm" placeholder="Search users...">
-        </mat-form-field>
-        <button mat-button (click)="applyFilters()">Apply</button>
-      </div>
-      
-      <!-- User Table -->
-      <div class="table-container">
-        @if(loading()) {
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        }
-        <table mat-table [dataSource]="users()">
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let user">{{ user.name }}</td>
-          </ng-container>
-          
-          <!-- Email Column -->
-          <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-          </ng-container>
-          
-          <!-- Actions Column -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let user">
-              <button mat-icon-button (click)="editUser(user)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteUser(user)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-          
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          @for(row of users(); track row.id) {
-            <tr mat-row [columns]="displayedColumns"></tr>
-          }
-        </table>
-        
-        <!-- Empty state -->
-        @if(!loading() && users().length === 0) {
-          <div class="empty-state">
-            No users found. Try adjusting your filters or add a new user.
-          </div>
-        }
-      </div>
+      <sb-data-table 
+        [data]="_data()" 
+        [displayColumns]="displayColumns()"
+        [isLoading]="_loading()" 
+        [includeActions]="true"
+        [title]="'User Management'"
+        [emptyMessage]="'No users found. Try refreshing the data.'"
+        [loadingMessage]="'Loading users...'"
+        [itemName]="'user'"
+        [iconName]="'person'"
+        [canAddItem]="true"
+        (refresh)="refresh()"
+        (addItem)="openAddUserDialog()"
+        (editItem)="openEditUserDialog($event)"
+        (deleteItem)="onDeleteUser($event)"/>
     </div>
-  \`
+
+    <sb-notifications-modal-mat
+      [errorMsg]="_errorMsg()"
+      [successMsg]="_successMsg()" 
+      [isLoading]="_loading()" 
+      [loadingMessage]="'Loading users...'"/>
+  \`,
+  styleUrl: './user-management.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserManagementComponent {
-  private userService = inject(UserService);
-  private snackBar = inject(MatSnackBar);
-  private destroyRef = inject(DestroyRef);
+
+  private _dialog = inject(MatDialog);
+  private _userService = inject(UserService);
+
+  //- - - - - - - - - - - - - //
+
+  protected displayColumns = signal(['id', 'name', 'email', 'role']);
   
-  // Table configuration
-  displayedColumns = ['name', 'email', 'actions'];
-  
-  // Filter state
-  searchTerm = '';
-  
-  // Create the CRUD state for users
-  private userCrudState = MiniCrudState.Create<UserFilter, User>(
-    (filter: UserFilter) => this.userService.getAll(filter)
-  )
-  .setAddState(
-    (user: User) => this.userService.create(user),
-    (user: User) => \`User \${user.name} created successfully!\`
-  )
-  .setUpdateState(
-    (user: User) => this.userService.update(user),
-    (user: User) => \`User \${user.name} updated successfully!\`
-  )
-  .setDeleteState(
-    (user: User) => this.userService.delete(user.id),
-    (user: User) => \`User \${user.name} deleted successfully!\`
-  );
-  
-  // Expose state to the template
-  users = this.userCrudState.data;
-  loading = this.userCrudState.loading;
-  
-  constructor() {
-    // Initial data load
-    this.loadUsers();
-    
-    // Show success/error messages with snackbar
-    this.userCrudState.successMsg$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(msg => {
-        if (msg) this.snackBar.open(msg, 'Close', { duration: 3000 });
+  protected _searchControl = new FormControl('');
+
+  //- - - - - - - - - - - - - //
+
+  private _crudState = MiniCrudState
+    .Create<string | undefined, User>((searchTerm) => this._userService.getAllFiltered(searchTerm))
+    .setAddState(
+      (user: User) => this._userService.create(user),
+      (user) => \`User \${user.name} added successfully!\`
+    )
+    .setUpdateState(
+      (user: User) => this._userService.update(user),
+      (user) => \`User \${user.name} updated successfully!\`
+    )
+    .setDeleteState(
+      (user: User) => this._userService.delete(user.id!),
+      (user) => \`User \${user.name} deleted successfully\`
+    )
+    .trigger(''); // Trigger immediately with no filter
+
+  protected _data = computed(() => this._crudState.data() ?? []);
+  protected _successMsg = this._crudState.successMsg;
+  protected _errorMsg = this._crudState.errorMsg;
+  protected _loading = this._crudState.loading;
+
+  //--------------------------//
+
+  protected refresh = () =>
+    this._crudState.trigger('');
+
+  protected onDeleteUser = (user: User) =>
+    this._crudState.triggerDelete(user);
+
+  // Clear the search results
+  protected clearSearch() {
+    this._searchControl.reset();
+    this.refresh();
+  }
+
+  protected filterData = (searchTerm?: string) =>
+    this._crudState.trigger(searchTerm);
+
+  protected openAddUserDialog = () =>
+    this.openUserDialog()
+      .afterClosed()
+      .subscribe((user) => {
+        if (user) {
+          this._crudState.triggerAdd(user);
+        }
       });
-      
-    this.userCrudState.errorMsg$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(msg => {
-        if (msg) this.snackBar.open(msg, 'Error', { 
-          duration: 5000,
-          panelClass: 'error-snackbar'
-        });
+
+  protected openEditUserDialog = (user: User) =>
+    this.openUserDialog(user)
+      .afterClosed()
+      .subscribe((updatedUser) => {
+        if (updatedUser) {
+          this._crudState.triggerUpdate(updatedUser);
+        }
       });
-  }
-  
-  // Load users with current filters
-  loadUsers() {
-    const filter: UserFilter = {
-      searchTerm: this.searchTerm
-    };
-    this.userCrudState.trigger(filter);
-  }
-  
-  // Refresh the user list
-  refresh() {
-    this.userCrudState.retrigger();
-  }
-  
-  // Apply search filters
-  applyFilters() {
-    this.loadUsers();
-  }
-  
-  // Open dialog to add a new user
-  openAddUserDialog() {
-    const dialogRef = this.dialog.open(UserFormDialogComponent);
-    
-    dialogRef.afterClosed().subscribe(newUser => {
-      if (newUser) {
-        this.userCrudState.triggerAdd(newUser);
-      }
-    });
-  }
-  
-  // Edit an existing user
-  editUser(user: User) {
-    const dialogRef = this.dialog.open(UserFormDialogComponent, {
-      data: { user }
-    });
-    
-    dialogRef.afterClosed().subscribe(updatedUser => {
-      if (updatedUser) {
-        this.userCrudState.triggerUpdate(updatedUser);
-      }
-    });
-  }
-  
-  // Delete a user
-  deleteUser(user: User) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { 
-        title: 'Delete User',
-        message: \`Are you sure you want to delete \${user.name}?\`
-      }
-    });
-    
-    dialogRef.afterClosed().subscribe(confirmed => {
-      if (confirmed) {
-        this.userCrudState.triggerDelete(user);
-      }
+
+  //--------------------------//
+
+  private openUserDialog(user?: User): MatDialogRef<UserFormModalComponent, User | undefined> {
+    return this._dialog.open(UserFormModalComponent, {
+      width: '600px',
+      data: new NewUserDialogData(user),
     });
   }
 }`;
