@@ -37,10 +37,16 @@ userState.retrigger();`;
 
   // Constructor
   constructorExample = `// Basic constructor for a MiniState
+
+  destroyer = inject(DestroyRef); 
+
 const userState = new MiniState<string, User[]>(
   // The trigger function that performs the async operation
   (searchTerm: string) => userService.search(searchTerm),
   
+  // DestroyRef for cleanup
+  destroyer, 
+
   // Optional: Initial data value (empty array in this case)
   [],
   
@@ -147,107 +153,114 @@ import { User } from './user.model';
 @Component({
   selector: 'app-user-search',
   template: \`
-    <div class="search-container">
-      <h2>User Search</h2>
-      
-      <!-- Search input -->
-      <div class="search-form">
-        <mat-form-field>
-          <mat-label>Search Users</mat-label>
-          <input matInput [(ngModel)]="searchTerm" placeholder="Enter name or email">
-        </mat-form-field>
-        <button mat-raised-button color="primary" 
-                [disabled]="loading()" 
-                (click)="search()">
-          Search
-        </button>
-      </div>
-      
-      <!-- Loading state -->
-      @if(loading()) {
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      }
-      
-      <!-- Error message -->
-      @if(errorMsg()) {
-        <div class="error-message">
-          {{ errorMsg() }}
-        </div>
-      }
-      
-      <!-- Success message -->
-      @if(successMsg()) {
-        <div class="success-message">
-          {{ successMsg() }}
-        </div>
-      }
-      
-      <!-- Results -->
-      @if(users() && users().length > 0) {
-        <div class="results">
-          <h3>Search Results</h3>
-          @for(user of users(); track user.id) {
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>{{ user.name }}</mat-card-title>
-                <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>{{ user.bio }}</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button [routerLink]="['/users', user.id]">
-                  View Profile
-                </button>
-              </mat-card-actions>
-            </mat-card>
-          }
-        </div>
-      }
-      
-      <!-- Empty state -->
-      @if(searchPerformed() && users().length === 0) {
-        <div class="empty-state">
-          No users found matching your search criteria.
-        </div>
+  
+<div class="search-container">
+  <h2>User Search</h2>
+  
+  <!-- Search input -->
+  <div class="search-form">
+    <mat-form-field>
+      <mat-label>Search Users</mat-label>
+      <input matInput 
+        [(ngModel)]="searchTerm" 
+        placeholder="Enter name or email">
+    </mat-form-field>
+    <button mat-raised-button color="primary" 
+            [disabled]="loading()" 
+            (click)="search()">
+      Search
+    </button>
+  </div>
+  
+  <!-- Loading state -->
+  @if(loading()) {
+    <mat-progress-bar mode="indeterminate"/>
+  }
+  
+  <!-- Error message -->
+  @if(errorMsg()) {
+    <div class="error-message">
+      {{ errorMsg() }}
+    </div>
+  }
+  
+  <!-- Success message -->
+  @if(successMsg()) {
+    <div class="success-message">
+      {{ successMsg() }}
+    </div>
+  }
+  
+  <!-- Results -->
+  @if(!!users()?.length) {
+    <h3>Search Results</h3>
+    <div class="results">
+      @for(user of users(); track user.id) {
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ user.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ user.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/detail', user.id]">
+              View Album
+            </button>
+          </mat-card-actions>
+        </mat-card>
       }
     </div>
+  }
+  
+  <!-- Empty state -->
+  @if(_noDataMessage()) {
+    <div class="empty-state">
+      {{_noDataMessage()}}
+    </div>
+  }
+</div>
   \`
 })
-export class UserSearchComponent {
-  private userService = inject(UserService);
+export class MainDemoSearchComponent {
+
+  private _albumService = inject(DummyAlbumIoService);
   private destroyRef = inject(DestroyRef);
-  
+
+  //- - - - - - - - - - - - - //
+
   // Search state
   searchTerm = '';
-  
+
   // Create a MiniState for user search
-  private userState = new MiniState<string, User[]>(
+  private userState = new MiniState<string, Album[]>(
     // Load users based on search term
-    (term: string) => this.userService.searchUsers(term),
-    
-    // Initial empty array
+    (term: string) => this._albumService.search(term),
+    this.destroyRef,
+    // Initial empty array (optional)
     [],
-    
-    // Success message function
-    (term: string, users: User[]) => 
-      users.length > 0 
-        ? \`Found \${users.length} users matching "\${term}"\` 
-        : undefined
-  );
-  
+  ).setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
+    users.length > 0
+      ? \`Found \${users.length} users matching "\${term}"\`
+      : undefined)
+
+
   // Track if a search has been performed
-  private searchPerformed = computed(() => {
-    // Return true if we have either loaded data or had an error
-    return this.userState.data().length > 0 || !!this.userState.errorMsg();
-  });
-  
+  protected _noDataMessage = computed(() =>
+    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
+      ? 'No users found matching your search criteria.'
+      : undefined)
+
+
   // Expose signals to the template
   protected users = this.userState.data;
   protected loading = this.userState.loading;
   protected errorMsg = this.userState.errorMsg;
   protected successMsg = this.userState.successMsg;
-  
+
+  //- - - - - - - - - - - - - //
+
+
   constructor() {
     // Listen for errors and handle them
     this.userState.errorMsg$
@@ -257,26 +270,28 @@ export class UserSearchComponent {
           console.error('Search error:', error);
           // Could log to error monitoring service here
         }
-      });
+      })
   }
-  
+
+  //- - - - - - - - - - - - - //
+
+
   // Search users based on the current search term
   search() {
     if (!this.searchTerm.trim()) {
-      this.userState.setErrorMsg('Please enter a search term');
+      console.log('Please enter a search term');
       return;
     }
-    
-    this.userState.resetMessages();
+
     this.userState.trigger(this.searchTerm);
   }
-  
+
+
   // Clear the search results
-  clearSearch() {
+  clearSearch = () =>
     this.searchTerm = '';
-    this.userState.setData([]);
-    this.userState.resetMessages();
-  }
-}`;
+
+
+}//Cls`;
 
 }

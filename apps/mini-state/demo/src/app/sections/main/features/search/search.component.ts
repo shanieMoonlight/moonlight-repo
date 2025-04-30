@@ -16,7 +16,7 @@ import { MainDemoComponentCodeComponent } from "../../ui/demo-code/demo-code.com
 const TS_CODE = `
 //Example using MiniState intialized with MiniStateBuilder
 //and using a custom service to fetch data
-// just using if statements to demonstrate the functionality clearer
+//Just using if statements to demonstrate the functionality clearer
 @Component({
   selector: 'sb-main-demo-search',
   imports: [
