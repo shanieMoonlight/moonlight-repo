@@ -46,15 +46,15 @@ import { DestroyRef, inject } from "@angular/core"
  */
 export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
 
-    private _addState?: MiniState<Item, Item | undefined>
-    private _updateState?: MiniState<Item, Item | undefined>
-    private _deleteState?: MiniState<Item, any>
+    protected _addState?: MiniState<Item, Item | undefined>
+    protected _updateState?: MiniState<Item, Item | undefined>
+    protected _deleteState?: MiniState<Item, any>
 
     /**
      * Function used to determine if two items are equal.
      * By default, compares the 'id' property of the items.
      */
-    private equals: (item1?: Item, item2?: Item) => boolean =
+    protected equals: (item1?: Item, item2?: Item) => boolean =
         ((item1?: Item, item2?: Item) => (item1 as any)?.id === (item2 as any)?.id)
 
     //-------------------------------------//
@@ -245,7 +245,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * @param miniState The MiniState to configure
      * @param onTriggerFn Optional function to call when the operation is triggered
      */
-    private setMiniStateOnTriggerFn = (miniState: MiniState<Item, any>, onTriggerFn?: (input: Item) => void) => 
+    protected setMiniStateOnTriggerFn = (miniState: MiniState<Item, any>, onTriggerFn?: (input: Item) => void) => 
         miniState.setOnTriggerFn((item: Item) => {
             this._loadingBs.next(true)
             onTriggerFn?.(item)
@@ -258,7 +258,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * 
      * @param miniState The MiniState to configure
      */
-    private setMiniStateErrorMsg = (miniState: MiniState<Item, any>) => 
+    protected setMiniStateErrorMsg = (miniState: MiniState<Item, any>) => 
         miniState.setOnErrorFn((input: Item, error: any) => {
             this._loadingBs.next(false)
             this.emitErrorMsg(this._errorMsgFn(error))
@@ -273,7 +273,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * @param successFn Function to update the data array on success
      * @param successMsgFn Optional function to generate a success message
      */
-    private setMiniStateOnSuccessFn(
+    protected setMiniStateOnSuccessFn(
         miniState: MiniState<Item, any>,
         successFn?: (input: Item, output: Item | undefined, data: Item[]) => Item[],
         successMsgFn?: (input: Item, output: any | undefined) => string) {
