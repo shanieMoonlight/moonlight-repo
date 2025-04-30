@@ -2,7 +2,7 @@
   <h1>MiniStateBuilder API Documentation</h1>
   <p class="description">
     MiniStateBuilder provides a fluent API for creating MiniState instances with a clean, chainable syntax.
-    It simplifies the process of configuring a MiniState with initial data, success message functions, and other options.
+    It simplifies the process of configuring a MiniState and handles cleanup automatically via DestroyRef.
   </p>
 
   <h2>Core Concept</h2>
@@ -10,23 +10,26 @@
 
   <div class="builder-diagram">
     <div class="diagram-box">
-      <div class="phase">1. Initialize</div>
+      <div class="phase">1. Select Factory Method</div>
       <code>MiniStateBuilder.Create()</code>
+      <code>CreateWithInput()</code>
+      <code>CreateWithObservableInput()</code>
+      <code>CreateWithSignalInput()</code>
       <div class="arrow-down"></div>
     </div>
     <div class="diagram-box">
-      <div class="phase">2. Configure</div>
-      <code>.setInitialData([])</code>
+      <div class="phase">2. Configure (Optional)</div>
       <code>.setSuccessMsgFn(...)</code>
+      <code>.setErrorMsgFn(...)</code>
       <div class="arrow-down"></div>
     </div>
     <div class="diagram-box">
-      <div class="phase">3. Build</div>
-      <code>.build()</code>
+      <div class="phase">3. Use</div>
+      <code>.trigger()</code>
       <div class="arrow-down"></div>
     </div>
     <div class="diagram-result-box">
-      <code>MiniState Instance</code>
+      <code>MiniState manages state automatically</code>
     </div>
   </div>
 
@@ -35,10 +38,10 @@
   <div class="method-card">
     <h3>Create</h3>
     <div class="method-signature">
-      static Create&lt;O&gt;(triggerFn: () => Promise&lt;O&gt; | Observable&lt;O&gt;)
+      static Create&lt;Output&gt;(triggerFn$: () => Observable&lt;Output&gt;, initialOutputValue?: Output)
     </div>
     <p>
-      Creates a MiniStateBuilder for operations that don't require input parameters.
+      Creates a MiniState for operations that don't require input parameters (e.g., "get all" operations).
       The trigger function takes no parameters.
     </p>
     <pre><code [highlight]="createExample" language="typescript"></code></pre>
@@ -47,65 +50,45 @@
   <div class="method-card">
     <h3>CreateWithInput</h3>
     <div class="method-signature">
-      static CreateWithInput&lt;I, O&gt;(triggerFn: (input: I) => Promise&lt;O&gt; | Observable&lt;O&gt;)
+      static CreateWithInput&lt;Input, Output&gt;(triggerFn$: (input: Input) => Observable&lt;Output&gt;, initialOutputValue?: Output)
     </div>
     <p>
-      Creates a MiniStateBuilder for operations that require input parameters.
-      The trigger function takes one parameter of type I.
+      Creates a MiniState for operations that require input parameters (e.g., "get by id" or "filtered search").
+      The trigger function takes one parameter of type Input.
     </p>
     <pre><code [highlight]="createWithInputExample" language="typescript"></code></pre>
   </div>
 
-  <h2>Configuration Methods</h2>
-
   <div class="method-card">
-    <h3>setInitialData</h3>
+    <h3>CreateWithObservableInput</h3>
     <div class="method-signature">
-      setInitialData(initialData: O)
+      static CreateWithObservableInput&lt;Input, Output&gt;(input$: Observable&lt;Input&gt;, triggerFn$: (input: Input) => Observable&lt;Output&gt;, initialOutputValue?: Output)
     </div>
     <p>
-      Sets the initial data value for the MiniState before any operations are triggered.
-      This is useful for providing default values or an empty state.
+      Creates a MiniState that automatically triggers whenever the input$ Observable emits a new value.
+      Ideal for reacting to router parameters, form values, or other reactive data sources.
     </p>
-    <pre><code [highlight]="setInitialDataExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createWithObservableInputExample" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
-    <h3>setSuccessMsgFn</h3>
+    <h3>CreateWithSignalInput</h3>
     <div class="method-signature">
-      setSuccessMsgFn(fn: (input: I, output: O) => string | undefined)
+      static CreateWithSignalInput&lt;Input, Output&gt;(input$: Signal&lt;Input&gt;, triggerFn$: (input: Input) => Observable&lt;Output&gt;, initialOutputValue?: Output)
     </div>
     <p>
-      Sets a function that generates success messages when operations complete successfully.
-      The function receives both the input and output values and should return a string message
-      or undefined (for no message).
+      Creates a MiniState that automatically triggers whenever the input$ Signal changes.
+      Similar to CreateWithObservableInput but for Angular's Signal primitive.
     </p>
-    <pre><code [highlight]="setSuccessMsgFnExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createWithSignalInputExample" language="typescript"></code></pre>
   </div>
 
-  <div class="method-card">
-    <h3>setOnTriggerFn</h3>
-    <div class="method-signature">
-      setOnTriggerFn(fn: (input: I) => void)
-    </div>
-    <p>
-      Sets a function that gets called when the trigger() method is invoked on the MiniState.
-      This is useful for logging, analytics, or performing side effects.
-    </p>
-    <pre><code [highlight]="setOnTriggerFnExample" language="typescript"></code></pre>
-  </div>
-
-  <div class="method-card">
-    <h3>build</h3>
-    <div class="method-signature">
-      build()
-    </div>
-    <p>
-      Finalizes the builder configuration and returns a fully configured MiniState instance.
-      This is always the last method called in the chain.
-    </p>
-    <pre><code [highlight]="buildExample" language="typescript"></code></pre>
-  </div>
+  <h2>Automatic Cleanup</h2>
+  <p>
+    MiniStateBuilder automatically injects DestroyRef and sets up proper cleanup when the component is destroyed.
+    This means you don't need to manually call unsubscribe() - subscriptions are managed for you.
+  </p>
+  <pre><code [highlight]="completeChainExample" language="typescript"></code></pre>
 
   <h2>Complete Examples</h2>
 
@@ -114,9 +97,15 @@
       <p>A weather component that loads current weather data without input parameters:</p>
       <pre><code [highlight]="basicExample" language="typescript"></code></pre>
     </mat-tab>
-    <mat-tab label="With Input Example">
-      <p>A user profile component that loads a user based on an ID input:</p>
-      <pre><code [highlight]="inputExample" language="typescript"></code></pre>
+    
+    <mat-tab label="With Manual Input">
+      <p>A user profile component that loads user data based on manual input (e.g., from a search field):</p>
+      <pre><code [highlight]="manualInputExample" language="typescript"></code></pre>
+    </mat-tab>
+    
+    <mat-tab label="With Observable Input">
+      <p>A user detail component that automatically loads data based on route parameters:</p>
+      <pre><code [highlight]="observableInputExample" language="typescript"></code></pre>
     </mat-tab>
   </mat-tab-group>
 </div>

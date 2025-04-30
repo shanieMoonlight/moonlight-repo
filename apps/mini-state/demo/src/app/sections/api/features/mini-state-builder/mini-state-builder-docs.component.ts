@@ -19,72 +19,94 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 // Create a MiniState without input
 const counterState = MiniStateBuilder
   .Create(() => fetchCurrentCount())
-  .setSuccessMsgFn((count) => \`Counter loaded: \${count}\`)
-  .build();
+  .setSuccessMsgFn((count) => \`Counter loaded: \${count}\`);
+// Trigger immediately
+counterState.trigger();
 
-// Create a MiniState with input
+// Create a MiniState with input parameter
 const userState = MiniStateBuilder
-  .CreateWithInput((userId: string) => fetchUser(userId))
-  .setSuccessMsgFn((userId, user) => \`User \${user.name} loaded\`)
-  .build();`;
+  .CreateWithInput((userId: string) => fetchUser(userId));
+// Use later when needed
+userState.trigger('user-123');`;
 
   // Create method
   createExample = `// Create a MiniState for operations that don't require input
 const todosState = MiniStateBuilder
-  .Create(() => todoService.getAllTodos())
-  .build();
+  .Create(() => todoService.getAllTodos());
 
 // The created MiniState can be triggered without parameters
-todosState.trigger();  // Calls todoService.getAllTodos()`;
+todosState.trigger();  // Calls todoService.getAllTodos()
+
+// You can trigger it multiple times to refresh data
+refreshButton.addEventListener('click', () => {
+  todosState.trigger();  // Fetch fresh data
+});`;
 
   // CreateWithInput method
   createWithInputExample = `// Create a MiniState for operations that require input
 const userState = MiniStateBuilder
-  .CreateWithInput((userId: string) => userService.getUser(userId))
-  .build();
+  .CreateWithInput((userId: string) => userService.getUser(userId));
 
 // The created MiniState must be triggered with an input parameter
-userState.trigger('user-123');  // Calls userService.getUser('user-123')`;
+userState.trigger('user-123');  // Calls userService.getUser('user-123')
 
-  // setInitialData method
-  setInitialDataExample = `// Set the initial data value for the state
+// You can trigger with different inputs for different data
+userState.trigger('user-456');  // Now calls userService.getUser('user-456')`;
+
+  // CreateWithObservableInput method
+  createWithObservableInputExample = `// Create a MiniState that reacts to Observable inputs
+import { ActivatedRoute } from '@angular/router';
+import { map, filter } from 'rxjs/operators';
+
+// Extract ID from route parameters
+const id$ = this.route.paramMap.pipe(
+  map(params => params.get('id') ?? undefined),
+  filter((id): id is string => !!id)
+);
+
+// Create a MiniState that automatically triggers when the ID changes
+const itemState = MiniStateBuilder.CreateWithObservableInput(
+  id$,
+  (id: string) => this.itemService.getById(id)
+);
+
+// No need to call trigger() - it happens automatically when id$ emits!`;
+
+  // CreateWithSignalInput method
+  createWithSignalInputExample = `// Create a MiniState that reacts to Signal inputs
+import { signal } from '@angular/core';
+
+// Create a signal for the filter criteria
+const filterCriteria = signal({ status: 'active', page: 1 });
+
+// Create a MiniState that automatically triggers when the signal changes
+const itemsState = MiniStateBuilder.CreateWithSignalInput(
+  filterCriteria,
+  (criteria) => this.itemService.search(criteria)
+);
+
+// Change the signal to trigger a new search
+function nextPage() {
+  const current = filterCriteria();
+  filterCriteria.set({ ...current, page: current.page + 1 });
+  // State is automatically triggered with new criteria!
+}`;
+
+  // Final example (replacing build example)
+  completeChainExample = `// MiniStateBuilder returns a fully configured MiniState
+// You can chain methods directly onto the Create* methods
+
 const todosState = MiniStateBuilder
   .Create(() => todoService.getAllTodos())
-  .setInitialData([])  // Start with an empty array
-  .build();`;
+  .setSuccessMsgFn((todos) => \`Loaded \${todos.length} todos\`)
+  // Returns a configured MiniState - no build() method needed
+  .trigger(); // Optional: trigger immediately
 
-  // setSuccessMsgFn method
-  setSuccessMsgFnExample = `// Set a function to generate success messages
-const userState = MiniStateBuilder
-  .CreateWithInput((userId: string) => userService.getUser(userId))
-  .setSuccessMsgFn((userId, user) => {
-    if (user) {
-      return \`User \${user.name} loaded successfully\`;
-    }
-    return undefined;  // Return undefined for no message
-  })
-  .build();`;
+// Internal cleanup is handled by DestroyRef that's injected
+// automatically in the Create* methods, so you don't need to
+// worry about calling unsubscribe manually`;
 
-  // setOnTriggerFn method
-  setOnTriggerFnExample = `// Set a function to be called when trigger() is invoked
-const searchState = MiniStateBuilder
-  .CreateWithInput((term: string) => searchService.search(term))
-  .setOnTriggerFn((term) => {
-    console.log('Search triggered:', term);
-    analytics.track('search', { term });
-  })
-  .build();`;
-
-  // build method
-  buildExample = `// The build() method finalizes the builder and returns a MiniState instance
-const state = MiniStateBuilder
-  .Create(() => fetchData())
-  .setInitialData([])
-  .setSuccessMsgFn((data) => \`Loaded \${data.length} items\`)
-  .setOnTriggerFn(() => console.log('Fetch triggered'))
-  .build();  // Returns the configured MiniState`;
-
-  // Complete usage examples
+  // Updated basic example
   basicExample = `// Basic usage example with MiniStateBuilder
 import { Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
@@ -117,13 +139,12 @@ export class WeatherComponent {
   private weatherService = inject(WeatherService);
   
   // Create a MiniState for fetching weather data
+  // MiniStateBuilder automatically injects DestroyRef for cleanup
   private weatherState = MiniStateBuilder
     .Create(() => this.weatherService.getCurrentWeather())
-    .setInitialData(null)
     .setSuccessMsgFn((weather) => 
       \`Weather updated: \${weather.temperature}°C, \${weather.conditions}\`
-    )
-    .build();
+    );
   
   // Expose the state to the template
   protected weather = this.weatherState.data;
@@ -140,45 +161,42 @@ export class WeatherComponent {
   }
 }`;
 
-  inputExample = `// Example with input parameter
+  // Updated input example - remove build() references
+  manualInputExample = `// Example with manual input trigger
 import { Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { UserService } from './user.service';
-import { User } from './user.model';
 
 @Component({
   selector: 'app-user-profile',
   template: \`
-    <div class="user-search">
-      <h2>User Profile</h2>
-      
-      <div class="search-input">
-        <input [(ngModel)]="userId" placeholder="Enter User ID">
-        <button [disabled]="loading()" (click)="loadUser()">
-          {{ loading() ? 'Loading...' : 'Load User' }}
-        </button>
-      </div>
-      
-      @if(errorMsg()) {
-        <div class="error-message">
-          {{ errorMsg() }}
-        </div>
-      }
-      
-      @if(successMsg()) {
-        <div class="success-message">
-          {{ successMsg() }}
-        </div>
-      }
-      
-      @if(user()) {
-        <div class="user-profile">
-          <h3>{{ user().name }}</h3>
-          <p>Email: {{ user().email }}</p>
-          <p>Role: {{ user().role }}</p>
-        </div>
-      }
+    <h2>User Profile</h2>
+    
+    <!-- Manual ID input -->
+    <div class="search-input">
+      <input [(ngModel)]="userId" placeholder="Enter User ID">
+      <button [disabled]="loading()" (click)="loadUser()">
+        {{ loading() ? 'Loading...' : 'Load User' }}
+      </button>
     </div>
+    
+    <!-- Error and success messages -->
+    @if(errorMsg()) {
+      <div class="error-message">{{ errorMsg() }}</div>
+    }
+    
+    @if(successMsg()) {
+      <div class="success-message">{{ successMsg() }}</div>
+    }
+    
+    <!-- User data -->
+    @if(user()) {
+      <div class="user-profile">
+        <h3>{{ user().name }}</h3>
+        <p>Email: {{ user().email }}</p>
+        <p>Role: {{ user().role }}</p>
+      </div>
+    }
   \`
 })
 export class UserProfileComponent {
@@ -186,17 +204,12 @@ export class UserProfileComponent {
   
   userId = '';
   
-  // Create a MiniState for loading user data
+  // Create a MiniState for manual user loading
   private userState = MiniStateBuilder
     .CreateWithInput((id: string) => this.userService.getUserById(id))
     .setSuccessMsgFn((id, user) => 
-      user ? \`User \${user.name} loaded successfully\` : undefined
-    )
-    .setOnTriggerFn((id) => {
-      console.log(\`Loading user with ID: \${id}\`);
-      this.analytics.trackEvent('user_profile_view', { userId: id });
-    })
-    .build();
+      \`User \${user.name} loaded successfully\`
+    );
   
   // Expose the state to the template
   protected user = this.userState.data;
@@ -210,8 +223,81 @@ export class UserProfileComponent {
       return;
     }
     
-    this.userState.resetMessages();
     this.userState.trigger(this.userId);
+  }
+}`;
+
+  observableInputExample = `// Example with automatic observable input trigger
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { UserService } from './user.service';
+import { map, filter } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-user-detail',
+  template: \`
+    <h2>User Details</h2>
+    
+    <!-- Loading state -->
+    @if(loading()) {
+      <div class="loading">Loading user details...</div>
+    }
+    
+    <!-- Error message -->
+    @if(errorMsg()) {
+      <div class="error-message">{{ errorMsg() }}</div>
+    }
+    
+    <!-- User data loaded from route param -->
+    @if(user()) {
+      <div class="user-detail">
+        <h3>{{ user().name }}</h3>
+        <p>Email: {{ user().email }}</p>
+        <p>Role: {{ user().role }}</p>
+        <p>Member since: {{ user().joinDate | date }}</p>
+        
+        <h4>Activity</h4>
+        <ul>
+          @for(activity of user().recentActivity; track $index) {
+            <li>{{ activity.date | date }}: {{ activity.action }}</li>
+          }
+        </ul>
+      </div>
+    }
+    
+    <button (click)="goToRandomUser()">Load Random User</button>
+  \`
+})
+export class UserDetailComponent {
+  private userService = inject(UserService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  
+  // Extract ID from route parameters
+  private userId$ = this.route.paramMap.pipe(
+    map(params => params.get('userId') ?? undefined),
+    filter((id): id is string => !!id)
+  );
+  
+  // Create a MiniState that automatically triggers when route ID changes
+  private userState = MiniStateBuilder.CreateWithObservableInput(
+    // The observable input source
+    this.userId$,
+    // The function that loads data for each input value
+    (id: string) => this.userService.getUserById(id)
+  );
+  
+  // Expose the state to the template
+  protected user = this.userState.data;
+  protected loading = this.userState.loading;
+  protected errorMsg = this.userState.errorMsg;
+  
+  // Navigate to a random user to demonstrate automatic triggering
+  goToRandomUser() {
+    const randomId = Math.floor(Math.random() * 100) + 1;
+    this.router.navigate(['/users', randomId]);
+    // No need to call trigger() - it happens automatically when route changes!
   }
 }`;
 }
