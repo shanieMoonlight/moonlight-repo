@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export interface Album {
-    id?: string | number,
+    id?: string | number|null,
     userId: string | number,
     title: string
     description?: string|null
@@ -10,7 +10,7 @@ export interface Album {
 //#########################################//
 
 export interface IAlbumForm extends FormGroup<{
-    id: FormControl<string | number>;
+    id: FormControl<string | number|null>;
     userId: FormControl<string | number>
     title: FormControl<string>
     description: FormControl<string|null>
@@ -25,13 +25,11 @@ export class AlbumUtils {
      * Generates a random Album with unique ID
      * @returns A randomly generated Album object
      */
-    static generateRandomAlbum(id?: string | number, phrase?: string): Album {
-//TODO: this is causing infinite loops
-        console.log(`Generating random Album with id: ${id}, ${phrase}`);
-        
-
+    static generateRandomAlbum(id?: string | number, searchTerm?: string): Album {
         const userId = Math.floor(Math.random() * 10) + 1; // Random userId between 1-10
-        id ??= Math.floor(Math.random() * 1000) + 1; // Random id between 1-1000
+        
+        // Generate a random ID between 1-10000 if not provided
+        id ??= Math.floor(Math.random() * 10000) + 1;
 
         // Array of possible title prefixes and suffixes for variety
         const titlePrefixes = ['Amazing', 'Beautiful', 'Wonderful', 'Incredible', 'Fantastic'];
@@ -43,18 +41,27 @@ export class AlbumUtils {
         const randomMiddle = titleMiddles[Math.floor(Math.random() * titleMiddles.length)];
         const randomSuffix = titleSuffixes[Math.floor(Math.random() * titleSuffixes.length)];
 
-        const title = `${randomPrefix} ${phrase} ${randomMiddle} ${randomSuffix}`;
-
+        // Include searchTerm in title if provided
+        const title = searchTerm
+            ? `${randomPrefix} ${searchTerm} ${randomMiddle} ${randomSuffix}`
+            : `${randomPrefix} ${randomMiddle} ${randomSuffix}`;
 
         const descriptions = [
             'A collection of unforgettable moments.',
-            `An  ${phrase} anthology of beautiful memories.`,
+            'An anthology of beautiful memories.',
             'A journey through incredible experiences.',
-            `A compilation of fantastic  ${phrase} adventures.`,
+            'A compilation of fantastic adventures.',
             'A series of wonderful stories.'
         ];
 
-        const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+        // Include searchTerm in description if provided
+        let description = descriptions[Math.floor(Math.random() * descriptions.length)];
+        if (searchTerm) {
+            // Add searchTerm to half of the descriptions to make searching more realistic
+            if (Math.random() > 0.5) {
+                description = `An anthology of beautiful ${searchTerm} memories.`;
+            }
+        }
 
         return {
             userId,
@@ -71,22 +78,13 @@ export class AlbumUtils {
      * @param count The number of Albums to generate (default: 15)
      * @returns An array of randomly generated Album objects
      */
-    static generateRandomAlbums(count: number = 15, phrase?: string): Album[] {
-        // Create a Set to track used IDs and ensure uniqueness
-        const usedIds = new Set<number | string>();
+    static generateRandomAlbums(count: number = 15, searchTerm?: string): Album[] {
+        // Simplified approach: don't worry about ID uniqueness for demo purposes
         const albums: Album[] = [];
 
         for (let i = 0; i < count; i++) {
-            // Keep generating until we get a unique ID
-            let album = this.generateRandomAlbum(undefined, phrase);
-            const albumId = album.id ?? 0
-            while (usedIds.has(albumId)) {
-                album = this.generateRandomAlbum();
-            }
-
-            // Track the ID we're using
-            if (album.id)
-                usedIds.add(album.id);
+            // Generate a random album with searchTerm
+            const album = this.generateRandomAlbum(undefined, searchTerm);
             albums.push(album);
         }
 

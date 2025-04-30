@@ -23,6 +23,8 @@ export class AlbumFormComponent {
   protected _album = signal<Album | null | undefined>(null)
   @Input('album')
   public set album(album: Album | null | undefined) {
+    console.log('AlbumFormComponent: album', album);
+
     this._album.set(album)
     if (album)
       this.setFormValues(album)
@@ -31,8 +33,8 @@ export class AlbumFormComponent {
 
   //- - - - - - - - - - - - - //
 
-  _editEvent = output<Album>({alias: 'edit'})
-  _addEvent = output<Album>({alias: 'add'})
+  _editEvent = output<Album>({ alias: 'edit' })
+  _addEvent = output<Album>({ alias: 'add' })
 
   //- - - - - - - - - - - - - //
 
@@ -41,10 +43,10 @@ export class AlbumFormComponent {
   //- - - - - - - - - - - - - //
 
   protected _form: IAlbumForm = this._fb.group({
-    id: this._fb.nonNullable.control<string | number>(''),
+    id: this._fb.control<string | number | null>(''),
     userId: this._fb.nonNullable.control<string | number>('', [Validators.required]),
     title: this._fb.nonNullable.control<string>('', [Validators.required]),
-    description: this._fb.control<string|null>('', [Validators.required]),
+    description: this._fb.control<string | null>('', [Validators.required]),
   })
 
 

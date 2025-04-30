@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { MainConstants } from '../../config/constants';
 
 
-export abstract class BaseDummyIoService<T extends { id?: string | number }> {
+export abstract class BaseDummyIoService<T extends { id?: string | number|null }> {
 
   protected errorProbability = MainConstants.API_FAILURE_RATE;
 

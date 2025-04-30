@@ -20,7 +20,7 @@ export class DummyAlbumIoService extends BaseDummyIoService<Album> {
 
 
   override generateRandomItems(count: number, searchTerm?: string): Album[] {
-    return AlbumUtils.generateRandomAlbums(count, searchTerm)
+    return AlbumUtils.generateRandomAlbums(Math.min(25, count), searchTerm)
   }
 
   
