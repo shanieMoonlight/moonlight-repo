@@ -33,7 +33,7 @@ export abstract class BaseDummyIoService<T extends { id?: string | number }> {
 
   //----------------------------//
 
-  search(searchTerm?: string): Observable<T[]> {
+  getAllFiltered(searchTerm?: string): Observable<T[]> {
     if (!this.isBrowser)
       return of([])
 

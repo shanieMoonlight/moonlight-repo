@@ -26,7 +26,7 @@ export class AlbumUtils {
      * @returns A randomly generated Album object
      */
     static generateRandomAlbum(id?: string | number, phrase?: string): Album {
-
+//TODO: this is causing infinite loops
         console.log(`Generating random Album with id: ${id}, ${phrase}`);
         
 

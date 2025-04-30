@@ -5,7 +5,8 @@ import { MainConstants } from '../../config/constants';
   selector: 'sb-main-demo-header',
   imports: [],
   template: `
-  <h1 class="api-header">This Dummy IO Service operates with a failure rate of {{ _failureRate() }}% for demo purposes to showcase error messages.</h1>
+  <h1 class="api-header">This Dummy IO Service geneates random data with random quantities and operates with a 
+    failure rate of {{ _failureRate() }}% for demo purposes to showcase error messages.</h1>
   <p class="subscript">Checkout the code below. 👇</p>
   `,
   styles: `

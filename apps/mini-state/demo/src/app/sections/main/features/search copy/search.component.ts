@@ -97,7 +97,7 @@ export class MainDemoSearchComponent {
   // Create a MiniState for album search
   private albumState = new MiniState<string, Album[]>(
     // Load albums based on search term
-    (term: string) => this._albumService.search(term),
+    (term: string) => this._albumService.getAllFiltered(term),
     this.destroyRef,
     // Initial empty array
     [],

@@ -2,6 +2,32 @@
 <sb-main-demo-header/>
 
 <div class="content-container">
+  <div class="search-form">
+    <mat-form-field>
+      <mat-label>Search Albums</mat-label>
+      <input matInput      
+       [formControl]="_searchControl"
+       placeholder="Enter name or email">
+    </mat-form-field>
+    <div class="btns">
+
+      <button mat-raised-button 
+        class="primary" 
+        [matTooltip]="'Search data'"
+        [disabled]="_loading() || !_searchControl.value" 
+        (click)="filterData(_searchControl.value!)">
+        Search
+      </button>
+      <button mat-raised-button 
+      class="primary" 
+      [matTooltip]="'Refresh data with no filtering'"
+      [disabled]="_loading() || !_searchControl.value" 
+      (click)="clearSearch()">
+      Clear
+    </button>
+</div>
+  
+  </div>
     <sb-data-table 
       [data]="_data()" 
       [displayColumns]="displayColumns()"

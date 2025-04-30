@@ -214,7 +214,7 @@ export class MainDemoSearchComponent {
   // Create a MiniState for album search
   private userState = MiniStateBuilder.CreateWithObservableInput(
     this._searchTerm$, //<-- Observable Input
-    (term: string) => this._ioService.search(term),   // Load users based on search term
+    (term: string) => this._ioService.getAllFiltered(term),   // Load users based on search term
     [],// Initial empty array
   ).setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
     users.length > 0

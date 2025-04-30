@@ -12,6 +12,7 @@ import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.com
 import { MainDemoComponentWithSeparateStateCodeComponent } from '../../ui/demo-code/demo-code-state-service.component';
 import { TS_CRUD_STATE_SERVICE_CODE } from '../crud-state/crud-state.service';
 import { TS_CRUD_STATE_COMPONENT_CODE } from '../crud-state/crud-state.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 ///#############################################//
@@ -147,6 +148,7 @@ const HTML_CODE = `
     DataTableComponent,
     SbMatNotificationsModalComponent,
     MainDemoHeaderComponent,
+    ReactiveFormsModule,
     MainDemoComponentCodeComponent,
     MainDemoComponentWithSeparateStateCodeComponent
   ],
@@ -163,10 +165,12 @@ export class MainDemoCrudComponent {
 
   protected displayColumns = signal(['id', 'userId', 'title'])
 
+  protected _searchControl = new FormControl('')
+
   //- - - - - - - - - - - - - //
 
   private _crudState = MiniCrudState
-    .Create<void, Album>(() => this._ioService.getAll())
+    .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
     .setAddState(
       (album: Album) => this._ioService.create(album),
       (album) => `Album  ${album.title} added!`)
@@ -178,7 +182,7 @@ export class MainDemoCrudComponent {
       (album) => `Album ${album.title} deleted successfully 🗑️
       You will have to imagine that it was removed from the list.
       This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`
-    ).trigger()
+    ).trigger('')//Trigger immediately with no filter
 
   protected _data = computed(() => this._crudState.data() ?? [])
   protected _successMsg = this._crudState.successMsg
@@ -188,11 +192,22 @@ export class MainDemoCrudComponent {
   //--------------------------//
 
   protected refresh = () =>
-    this._crudState.trigger()
+    this._crudState.trigger('')
 
 
   protected onDeleteItem = (album: Album) =>
     this._crudState.triggerDelete(album)
+
+
+  // Clear the search results
+  clearSearch() {
+    this._searchControl.reset();
+    this.refresh();
+  }
+
+
+  filterData = (searchTerm?: string) =>
+    this._crudState.trigger(searchTerm)
 
 
   protected openAddAlbumDialog = () =>
@@ -211,6 +226,7 @@ export class MainDemoCrudComponent {
 
   //--------------------------//
 
+
   private openAlbumDialog(album?: Album): MatDialogRef<AlbumFormModalComponent, Album | undefined> {
     console.log('openAddAlbumDialog');
     return this._dialog.open(AlbumFormModalComponent, {
@@ -221,11 +237,11 @@ export class MainDemoCrudComponent {
 
   //--------------------------//
 
-  protected _tsCode = signal(TS_CODE);  
+  protected _tsCode = signal(TS_CODE);
   protected _htmlCode = signal(HTML_CODE);
-  
+
   protected _tsWithStateServiceCode = signal(TS_CRUD_STATE_SERVICE_CODE);
   protected _tsWithStateComponentCode = signal(TS_CRUD_STATE_COMPONENT_CODE);
-  
+
 }//Cls
 
