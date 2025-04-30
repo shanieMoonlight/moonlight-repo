@@ -39,19 +39,19 @@
   }
   
   <!-- Results -->
-  @if(!!users()?.length) {
+  @if(!!albums()?.length) {
     <h3>Search Results</h3>
     <div class="results">
-      @for(user of users(); track user.id) {
+      @for(album of albums(); track album.id) {
         <mat-card>
           <mat-card-header>
-            <mat-card-title>{{ user.title }}</mat-card-title>
+            <mat-card-title>{{ album.title }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <p>{{ user.description }}</p>
+            <p>{{ album.description }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button [routerLink]="['/detail', user.id]">
+            <button mat-button [routerLink]="['/detail', album.id]">
               View Album
             </button>
           </mat-card-actions>

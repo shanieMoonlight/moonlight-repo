@@ -94,38 +94,38 @@ export class MainDemoSearchComponent {
   // Search state
   searchTerm = '';
 
-  // Create a MiniState for user search
-  private userState = new MiniState<string, Album[]>(
-    // Load users based on search term
+  // Create a MiniState for album search
+  private albumState = new MiniState<string, Album[]>(
+    // Load albums based on search term
     (term: string) => this._albumService.search(term),
     this.destroyRef,
     // Initial empty array
     [],
-  ).setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
-    users.length > 0
-      ? `Found ${users.length} users matching "${term}"`
+  ).setOnSuccessFn((term: string, albums: Album[]) =>  // Success message function
+    albums.length > 0
+      ? `Found ${albums.length} albums matching "${term}"`
       : undefined)
 
 
   // Track if a search has been performed
   protected _noDataMessage = computed(() =>
-    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
-      ? 'No users found matching your search criteria.'
+    this.albumState.wasTriggered() && !this.errorMsg() && !this.albums()?.length
+      ? 'No albums found matching your search criteria.'
       : undefined)
 
 
   // Expose signals to the template
-  protected users = this.userState.data;
-  protected loading = this.userState.loading;
-  protected errorMsg = this.userState.errorMsg;
-  protected successMsg = this.userState.successMsg;
+  protected albums = this.albumState.data;
+  protected loading = this.albumState.loading;
+  protected errorMsg = this.albumState.errorMsg;
+  protected successMsg = this.albumState.successMsg;
 
   //- - - - - - - - - - - - - //
 
 
   constructor() {
     // Listen for errors and handle them
-    this.userState.errorMsg$
+    this.albumState.errorMsg$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(error => {
         if (error) {
@@ -138,14 +138,14 @@ export class MainDemoSearchComponent {
   //- - - - - - - - - - - - - //
 
 
-  // Search users based on the current search term
+  // Search albums based on the current search term
   search() {
     if (!this.searchTerm.trim()) {
       console.log('Please enter a search term');
       return;
     }
 
-    this.userState.trigger(this.searchTerm);
+    this.albumState.trigger(this.searchTerm);
   }
 
 

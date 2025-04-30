@@ -389,7 +389,7 @@ export class MiniState<Input, Output, TError = any> {
      * 
      * This can be used to manually reset the UI state when needed.
      */
-    clearPopups() {
+    resetMessagesAndLoading() {
         this._successMsgBs.next(undefined)
         this._errorMsgBs.next(undefined)
         this._loadingBs.next(false)

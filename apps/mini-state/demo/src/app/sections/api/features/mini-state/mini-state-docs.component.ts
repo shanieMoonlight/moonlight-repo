@@ -92,11 +92,11 @@ userState.trigger('new search term');
 userState.retrigger();
 
 // Reset error and success messages
-userState.resetMessages();
+userState.resetMessagesAndLoading();
 
 // Use method chaining
 userState
-  .resetMessages()
+  .resetMessagesAndLoading()
   .trigger('new search');`;
 
   // Configuration methods
@@ -153,7 +153,6 @@ import { User } from './user.model';
 @Component({
   selector: 'app-user-search',
   template: \`
-  
 <div class="search-container">
   <h2>User Search</h2>
   
@@ -192,19 +191,19 @@ import { User } from './user.model';
   }
   
   <!-- Results -->
-  @if(!!users()?.length) {
+  @if(!!albums()?.length) {
     <h3>Search Results</h3>
     <div class="results">
-      @for(user of users(); track user.id) {
+      @for(album of albums(); track album.id) {
         <mat-card>
           <mat-card-header>
-            <mat-card-title>{{ user.title }}</mat-card-title>
+            <mat-card-title>{{ album.title }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <p>{{ user.description }}</p>
+            <p>{{ album.description }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button [routerLink]="['/detail', user.id]">
+            <button mat-button [routerLink]="['/detail', album.id]">
               View Album
             </button>
           </mat-card-actions>
@@ -232,38 +231,38 @@ export class MainDemoSearchComponent {
   // Search state
   searchTerm = '';
 
-  // Create a MiniState for user search
-  private userState = new MiniState<string, Album[]>(
-    // Load users based on search term
+  // Create a MiniState for album search
+  private albumState = new MiniState<string, Album[]>(
+    // Load albums based on search term
     (term: string) => this._albumService.search(term),
     this.destroyRef,
-    // Initial empty array (optional)
+    // Initial empty array
     [],
-  ).setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
-    users.length > 0
-      ? \`Found \${users.length} users matching "\${term}"\`
+  ).setOnSuccessFn((term: string, albums: Album[]) =>  // Success message function
+    albums.length > 0
+      ? \`Found \${albums.length} albums matching "\${term}"\`
       : undefined)
 
 
   // Track if a search has been performed
   protected _noDataMessage = computed(() =>
-    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
-      ? 'No users found matching your search criteria.'
+    this.albumState.wasTriggered() && !this.errorMsg() && !this.albums()?.length
+      ? 'No albums found matching your search criteria.'
       : undefined)
 
 
   // Expose signals to the template
-  protected users = this.userState.data;
-  protected loading = this.userState.loading;
-  protected errorMsg = this.userState.errorMsg;
-  protected successMsg = this.userState.successMsg;
+  protected albums = this.albumState.data;
+  protected loading = this.albumState.loading;
+  protected errorMsg = this.albumState.errorMsg;
+  protected successMsg = this.albumState.successMsg;
 
   //- - - - - - - - - - - - - //
 
 
   constructor() {
     // Listen for errors and handle them
-    this.userState.errorMsg$
+    this.albumState.errorMsg$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(error => {
         if (error) {
@@ -276,14 +275,14 @@ export class MainDemoSearchComponent {
   //- - - - - - - - - - - - - //
 
 
-  // Search users based on the current search term
+  // Search albums based on the current search term
   search() {
     if (!this.searchTerm.trim()) {
       console.log('Please enter a search term');
       return;
     }
 
-    this.userState.trigger(this.searchTerm);
+    this.albumState.trigger(this.searchTerm);
   }
 
 
@@ -294,4 +293,137 @@ export class MainDemoSearchComponent {
 
 }//Cls`;
 
+  // Success message function example
+  successMsgFnExample = `// Set a function to generate success messages
+const userState = new MiniState<User, User>(
+  (user: User) => userService.update(user)
+);
+
+// Add a success message function
+userState.setSuccessMsgFn((user, updatedUser) => 
+  \`User \${user.name} updated successfully!\`
+);
+
+// Or with a conditional message
+userState.setSuccessMsgFn((user, updatedUser) => {
+  if (user.isNewUser) {
+    return \`Welcome, \${user.name}! Your account has been created.\`;
+  }
+  return \`User \${user.name} was updated successfully.\`;
+});`;
+
+  // Error message function example
+  errorMsgFnExample = `// Set a custom error message handler
+userState.setErrorMsgFn(error => {
+  // Check for specific error types
+  if (error.status === 401) {
+    return 'Your session has expired. Please log in again.';
+  }
+  if (error.status === 403) {
+    return 'You do not have permission to perform this action.';
+  }
+  
+  // Fall back to default error message
+  return error.message || 'An unexpected error occurred.';
+});`;
+
+  // Success data processor function example
+  successDataProcessorFnExample = `// Process data before storing it
+userState.setSuccessDataProcessorFn(
+  (input, output, prevInput, prevOutput) => {
+    // Only update specific properties
+    return {
+      ...(prevOutput || {}), // Keep previous data as base
+      ...output,             // Apply new data
+      lastUpdated: new Date() // Add custom property
+    };
+  }
+);
+
+// Example: Append to an array of results
+const searchState = new MiniState<string, User[]>(
+  (query) => userService.search(query)
+);
+
+// Process search results
+searchState.setSuccessDataProcessorFn(
+  (query, newResults, prevQuery, prevResults = []) => {
+    // For pagination: append new results to existing ones
+    if (query === prevQuery + ' page=2') {
+      return [...prevResults, ...newResults];
+    }
+    // For new search: replace results
+    return newResults;
+  }
+);`;
+
+  // On success function example
+  onSuccessFnExample = `// Navigate after successful user creation
+const createUserState = new MiniState<User, User>(
+  (user) => userService.create(user)
+);
+
+// Set an action to execute after success
+createUserState.setOnSuccessFn((user, createdUser) => {
+  console.log('User created successfully:', createdUser);
+  router.navigate(['/users', createdUser.id]);
+});
+
+// Real-world example: After successful login
+loginState.setOnSuccessFn((credentials, user) => {
+  // Store auth token
+  authService.setToken(user.token);
+  
+  // Redirect based on user role
+  if (user.isAdmin) {
+    router.navigate(['/admin-dashboard']);
+  } else {
+    router.navigate(['/user-dashboard']);
+  }
+});`;
+
+  // On error function example
+  onErrorFnExample = `// Handle authentication failures
+loginState.setOnErrorFn((credentials, error) => {
+  // Track failed login attempts
+  authService.recordFailedAttempt(credentials.username);
+  
+  // Redirect to password reset if too many failures
+  if (error.failedAttempts > 3) {
+    router.navigate(['/reset-password'], { 
+      queryParams: { username: credentials.username } 
+    });
+  }
+});
+
+// Another example: Redirect to error page for critical errors
+dataState.setOnErrorFn((input, error) => {
+  if (error.critical) {
+    errorService.logCriticalError(error);
+    router.navigate(['/system-error'], { 
+      state: { errorCode: error.code }
+    });
+  }
+});`;
+
+  // On trigger function example
+  onTriggerFnExample = `// Log analytics before performing operation
+userState.setOnTriggerFn(user => {
+  analytics.trackEvent('user_update_started', {
+    userId: user.id,
+    timestamp: new Date()
+  });
+});
+
+// Another example: Validate input before operation
+formSubmitState.setOnTriggerFn(formData => {
+  // Final validation before submitting
+  if (!formData.termsAccepted) {
+    alert('You must accept the terms before continuing.');
+    throw new Error('Terms not accepted');
+  }
+  
+  // Prepare data for submission
+  formData.submittedAt = new Date().toISOString();
+});`;
 }

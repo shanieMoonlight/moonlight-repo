@@ -295,11 +295,11 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     /**
      * Clears all popup messages and resets loading state for all internal states.
      */
-    override clearPopups() {
-        super.clearPopups()
-        this._addState?.clearPopups()
-        this._updateState?.clearPopups()
-        this._deleteState?.clearPopups()
+    override resetMessagesAndLoading() {
+        super.resetMessagesAndLoading()
+        this._addState?.resetMessagesAndLoading()
+        this._updateState?.resetMessagesAndLoading()
+        this._deleteState?.resetMessagesAndLoading()
     }
 
     //-------------------------------------//
