@@ -47,13 +47,33 @@ jest.mock('@angular/core/rxjs-interop', () => ({
   })
 }));
 
+// Create a mock DestroyRef class
+class MockDestroyRef implements DestroyRef {
+  private callbacks: (() => void)[] = [];
+
+  onDestroy(callback: () => void): () => void {
+    this.callbacks.push(callback);
+    // Return a function that removes this callback when called
+    return () => {
+      const index = this.callbacks.indexOf(callback);
+      if (index !== -1) {
+        this.callbacks.splice(index, 1);
+      }
+    };
+  }
+
+  // Method to manually trigger destruction
+  destroy(): void {
+    this.callbacks.forEach(callback => callback());
+    this.callbacks = [];
+  }
+}
+
 describe('MiniState', () => {
   // Mock data and functions
   const mockData = { id: 1, name: 'Test Item' };
   const mockTriggerFn = jest.fn();
-  const mockDestroyRef: DestroyRef = {
-    onDestroy: jest.fn((fn) => fn()),
-  };
+  const mockDestroyRef = new MockDestroyRef();
 
   // Helper function to create a success observable
   const createSuccessObservable = (data: any) => of(data).pipe(delay(10));
