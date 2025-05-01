@@ -11,7 +11,8 @@ MiniState is a simple yet powerful state management solution for Angular applica
 - Async operation states (loading, success, error)
 - Data fetching and updates
 - UI feedback (loading indicators, success/error messages)
-- Component-level state management without the combinedity of global state libraries
+- Component-level state management without the complexity of global state libraries
+- Signal-based state management compatible with Angular's latest features
 
 Perfect for when NgRx feels like overkill but you still want clean, reactive patterns for managing component state.
 
@@ -29,7 +30,7 @@ npm install @spider-baby/mini-state
 - 🔌 **Simple Integration**: Works with any service that returns Observables
 - 📊 **Efficient State Tracking**: Automatic handling of loading states, errors, and success messages
 - 🔗 **Reactive Triggers**: Auto-trigger operations from route params, signals, and other observables
-- 🧬 **Combinable States**: Easily combine multiple operations with `MiniStateCombined`
+- 🧬 **Combinable States**: Easily combine multiple operations with `MiniStateCombined` and `MiniStateUtility`
 
 ## Basic Usage
 
@@ -43,18 +44,28 @@ import { UserService } from './user.service';
 @Component({
   selector: 'app-user-list',
   template: `
-    <div *ngIf="loading()">Loading users...</div>
-    <div *ngIf="errorMsg()">{{ errorMsg() }}</div>
-    <div *ngFor="let user of users()">{{ user.name }}</div>
+    @if (loading()) {
+      <div>Loading users...</div>
+    }
+    
+    @if (errorMsg()) {
+      <div>{{ errorMsg() }}</div>
+    }
+    
+    @for (user of users(); track user.id) {
+      <div>{{ user.name }}</div>
+    }
+    
     <button (click)="refresh()">Refresh</button>
   `
 })
 export class UserListComponent {
   private userService = inject(UserService);
-  private destroyer = inject(DestroyRef);
+  private destroyRef = inject(DestroyRef);
   
   private state = MiniStateBuilder.Create(
     () => this.userService.getAll(),
+    this.destroyRef,
     []  // Optional initial value
   );
   
@@ -78,7 +89,8 @@ export class UserListComponent {
 
 ```typescript
 private searchState = MiniStateBuilder.CreateWithInput(
-  (term: string) => this.userService.search(term)
+  (term: string) => this.userService.search(term),
+  this.destroyRef
 );
 
 // Trigger a search
@@ -106,7 +118,8 @@ private userState = MiniStateBuilder.CreateWithObservableInput(
 
 ```typescript
 private userCrudState = MiniCrudState.Create(
-  (filter: UserFilter) => this.userService.getAll(filter)
+  (filter: UserFilter) => this.userService.getAll(filter),
+  this.destroyRef
 )
 .setAddState(
   (user: User) => this.userService.create(user),
@@ -135,10 +148,12 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 
 // Create individual states
 const getAllState = MiniStateBuilder.Create(
-  () => this.userService.getAll()
+  () => this.userService.getAll(),
+  this.destroyRef
 );
 const updateState = MiniStateBuilder.CreateWithInput(
-  (user: User) => this.userService.update(user)
+  (user: User) => this.userService.update(user),
+  this.destroyRef
 );
 
 // Combine for unified loading/error handling
@@ -148,13 +163,66 @@ const combinedState = MiniStateCombined.Combine(
 );
 
 // In template
-<loading-indicator *ngIf="combinedState.loading()"></loading-indicator>
-<error-message *ngIf="combinedState.errorMsg()">{{ combinedState.errorMsg() }}</error-message>
+@if (combinedState.loading()) {
+  <loading-indicator/>
+}
+
+@if (combinedState.errorMsg()) {
+  <error-message>{{ combinedState.errorMsg() }}</error-message>
+}
 ```
 
-## Documentation
+### Using MiniStateUtility for Complex State Combinations
 
-For detailed API documentation, see the [API docs](https://github.com/your-repo/mini-state/docs) (coming soon).
+```typescript
+import { MiniStateUtility } from '@spider-baby/mini-state/utils';
+
+// Combine loading states from multiple state instances
+const isLoading = MiniStateUtility.combineLoading(state1, state2, state3);
+
+// Combine error messages
+const combinedErrorMsgs = MiniStateUtility.combineErrorMsgs(state1, state2, state3);
+
+// Combine data
+const combinedData = MiniStateUtility.combineData(state1, state2, state3);
+
+// Use in template
+@if (isLoading()) {
+  <loading-spinner/>
+}
+
+@if (combinedErrorMsgs()) {
+  <error-alert>{{ combinedErrorMsgs() }}</error-alert>
+}
+```
+
+## API Documentation
+
+### Core Classes
+
+- **MiniState**: Base class that manages state for an async operation
+- **MiniStateBuilder**: Factory for creating MiniState instances with different configurations
+- **MiniCrudState**: Extended MiniState for CRUD operations
+- **MiniStateCombined**: Combines multiple MiniState instances for unified state management
+- **MiniStateUtility**: Utility class with static methods for combining state properties
+
+### MiniState Methods
+
+- `trigger(input)`: Starts the async operation with the given input
+- `retrigger()`: Repeats the last operation with the same input
+- `setSuccessMsgFn()`: Sets a function to generate success messages
+- `setOnSuccessFn()`: Sets a function to execute after successful operations
+- `setErrorMsgFn()`: Sets a function to generate error messages
+- `setOnErrorFn()`: Sets a function to execute when errors occur
+- `resetMessagesAndLoading()`: Manually clears all messages and resets loading state
+
+### MiniStateUtility Methods
+
+- `combineErrors`: Combines error objects from multiple states
+- `combineErrorMsgs`: Combines error messages from multiple states
+- `combineSuccessMsgs`: Combines success messages from multiple states
+- `combineLoading`: Combines loading states from multiple states
+- `combineData`: Combines data from multiple states
 
 ## Packages
 
