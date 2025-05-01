@@ -1,9 +1,41 @@
 {
   "name": "@spider-baby/mini-state",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+  "version": "1.0.0",
+  "description": "A lightweight, reactive state management library for Angular, simplifying async operations with Signals and RxJS.",
+  "author": "shanieMoonlight", 
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo.git",
+    "directory": "libs/packages/@spider-baby/mini-state"
   },
-  "sideEffects": false
+  "bugs": {
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
+  },
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/blob/master/libs/packages/@spider-baby/mini-state/README.md", 
+  "keywords": [
+    "angular",
+    "state management",
+    "rxjs",
+    "signals",
+    "async",
+    "crud",
+    "reactive"
+  ],
+  "license": "MIT", 
+  "peerDependencies": {
+    "@angular/core": "^19.2.0", 
+    "rxjs": "^7.8.0" 
+  },
+  "dependencies": {
+    "@spider-baby/dev-console": "^1.0.0"
+
+  },
+  "sideEffects": false,
+  "ngPackage": { 
+    "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../../../../dist/libs/packages/@spider-baby/mini-state",
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  }
 }
