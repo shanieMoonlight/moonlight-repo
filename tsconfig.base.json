@@ -31,6 +31,9 @@
       "@spider-baby/mat-notifications/toast": [
         "libs/ui/notifications/mat-notifications/toast/src/index.ts"
       ],
+      "@spider-baby/mat-notifications/utils": [
+        "libs/ui/notifications/mat-notifications/utils/src/index.ts"
+      ],
       "@spider-baby/material-theming": [
         "libs/packages/@spider-baby/theming/src/index.ts"
       ],

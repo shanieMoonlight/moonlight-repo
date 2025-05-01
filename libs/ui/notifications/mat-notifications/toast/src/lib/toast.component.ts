@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { MatEverythingModule } from '@spider-baby/mat-notifications/utils';
 
 @Component({
   selector: 'sb-toast-mat',

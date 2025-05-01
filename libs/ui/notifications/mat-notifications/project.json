@@ -1,5 +1,5 @@
 {
-  "name": "mat-notifications",
+  "name": "sb-mat-notifications",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/notifications/mat-notifications/src",
   "prefix": "sb",
