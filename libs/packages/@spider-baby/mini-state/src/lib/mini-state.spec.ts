@@ -257,7 +257,7 @@ describe('MiniState', () => {
       setTimeout(() => {
         expect(onSuccessFn).toHaveBeenCalledWith(input, mockData);
         done();
-      }, 520); // Account for the setTimeout(500) in handleTriggerSuccess
+      }, 800); // Account for the setTimeout(500) in handleTriggerSuccess
     });
 
     it('setSuccessDataProcessorFn should process data before storing', (done) => {

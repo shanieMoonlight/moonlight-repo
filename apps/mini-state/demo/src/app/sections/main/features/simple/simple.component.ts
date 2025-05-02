@@ -84,6 +84,7 @@ export class MainDemoSimpleComponent {
 
   //- - - - - - - - - - - - - //
 
+
   protected _failureRate = signal(MainConstants.API_FAILURE_RATE * 100);
   protected _displayColumns = signal(['id', 'userId', 'title']);
 

@@ -3,7 +3,7 @@ import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 
-@Injectable() //Not provided in the root. We only wantit in MainDemoCrudWithSeparateStateComponent
+@Injectable() //Not provided in the root. We only want it in MainDemoCrudWithSeparateStateComponent
 export class CrudStateService {
 
   private _ioService = inject(DummyAlbumIoService)
@@ -59,7 +59,7 @@ import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 
-@Injectable() //Not provided in the root. We only wantit in MainDemoCrudWithSeparateStateComponent
+@Injectable() //Not provided in the root. We only want it in MainDemoCrudWithSeparateStateComponent
 export class CrudStateService {
 
     private _ioService = inject(DummyAlbumIoService)
