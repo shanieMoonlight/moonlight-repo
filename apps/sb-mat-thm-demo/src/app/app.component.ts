@@ -1,11 +1,9 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { StructuredDataService } from './shared/services/structured-data.service';
-import { SeoService } from './shared/services/seo.service';
 import { PerformanceService } from './shared/services/performance.service';
-import { AppConstants } from './config/constants';
+import { SeoService } from './shared/services/seo.service';
+import { StructuredDataService } from './shared/services/structured-data.service';
 import { UrlService } from './shared/utils/urls/url.service';
 
 @Component({

@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HomeComponent } from './home.component';
+import { ApiHomeComponent } from './home.component';
+import { RouterModule } from '@angular/router';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('ApiHomeComponent', () => {
+  let component: ApiHomeComponent;
+  let fixture: ComponentFixture<ApiHomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent],
+      imports: [ApiHomeComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(ApiHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

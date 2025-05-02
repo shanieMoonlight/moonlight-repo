@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SbMatApiNavCardComponent, ApiRouteData } from '@spider-baby/ui-cards/api';
+import { ApiRouteData, SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
 
 @Component({
   selector: 'sb-api-home',
@@ -47,7 +46,7 @@ export class ApiHomeComponent {
       route: '/api/ms-utility',
       color: 'secondary'
     }
-  ];
+  ]
 
 }
 
