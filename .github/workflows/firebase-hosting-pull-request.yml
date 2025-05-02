@@ -29,16 +29,27 @@ jobs:
           npm ci # Or npm install if you don't have a lock file
           cd ..
 
+      - name: Check for changes in theming library
+        id: changed_theming_files
+        uses: tj-actions/changed-files@v46.0.5 # Use a specific version
+        with:
+          path: |
+            libs/packages/@spider-baby/theming/**
+
       - name: Build Angular app
+        if: steps.changed_theming_files.outputs.any_changed == 'true'
         run: npx nx run spider-baby-mat-theming:build --configuration=production
 
       - name: Rename index.csr.html to index.html
+        if: steps.changed_theming_files.outputs.any_changed == 'true'
         run: npm run postbuild:spider-baby-mat-theming
 
       - name: List files in deploy directory
+        if: steps.changed_theming_files.outputs.any_changed == 'true'
         run: ls -alR dist/apps/sb-mat-thm-demo/browser
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy MaterialTheming to Firebase Hosting
+        if: steps.changed_theming_files.outputs.any_changed == 'true'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
