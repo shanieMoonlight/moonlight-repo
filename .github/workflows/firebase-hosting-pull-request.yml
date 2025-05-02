@@ -34,7 +34,7 @@ jobs:
         uses: tj-actions/changed-files@v46.0.5 # Use a specific version
         with:
           path: |
-            libs/packages/@spider-baby/theming
+            apps/sb-mat-thm-demo
 
       - name: Build Angular app
         if: steps.changed_theming_files.outputs.any_changed == 'true'
