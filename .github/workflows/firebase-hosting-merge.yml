@@ -32,7 +32,7 @@ jobs:
         uses: tj-actions/changed-files@v46.0.5 # Use a specific version
         with:
           path: |
-            libs/packages/@spider-baby/theming/**
+            libs/packages/@spider-baby/theming
 
       - name: Build Angular app
         if: steps.changed_theming_files.outputs.any_changed == 'true'
