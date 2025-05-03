@@ -25,6 +25,7 @@
     "@material/material-color-utilities": "^0.3.0",
     "@ng-matero/extensions": "^19.3.2",
     "express": "^4.21.2",
+    "firebase-tools": "^14.2.2",
     "lunr": "^2.3.9",
     "ngx-highlightjs": "^14.0.0",
     "npm-name": "^8.0.0",

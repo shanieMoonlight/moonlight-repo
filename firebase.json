@@ -37,7 +37,7 @@
       ]
     },
     {
-      "target": "spider-baby-mini-state-demo",
+      "target": "spider-baby-mini-state",
       "public": "dist/apps/mini-state/demo/browser",
       "ignore": [
         "firebase.json",
