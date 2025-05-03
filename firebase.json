@@ -20,11 +20,9 @@
       ]
     }
   ],
-  "hosting": [ 
-  {
-    "target": "spider-baby-mat-theming", 
+  "hosting": {
     "public": "dist/apps/sb-mat-thm-demo/browser",
-    "ignore": [ 
+    "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
@@ -35,21 +33,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  {
-    "target": "spider-baby-mini-state",
-    "public": "dist/apps/mini-state/demo/browser",
-    "ignore": [ 
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [ 
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
   }
-]
 }

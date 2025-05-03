@@ -55,5 +55,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
           channelId: live
-          target: spider-baby-mat-theming
+          # target: spider-baby-mat-theming
           projectId: spiderbabymaterialtheming # Keep this projectId for this workflow (SpiderBabyMaterialTheming)
