@@ -20,12 +20,10 @@
       ]
     }
   ],
-  "hosting": [ 
-  {
-    "target": "spider-baby-mat-theming", 
+  "hosting": {
+    
     "public": "dist/apps/sb-mat-thm-demo/browser",
-    "site": "spiderbabymaterialtheming", 
-    "ignore": [ 
+    "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
@@ -36,22 +34,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  {
-    "target": "spider-baby-mini-state",
-    "public": "dist/apps/mini-state/demo/browser",
-    "site": "spider-baby-mini-state", 
-    "ignore": [ 
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [ 
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
   }
-]
 }
