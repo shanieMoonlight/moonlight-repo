@@ -25,13 +25,7 @@ jobs:
         uses: actions/checkout@v3
 
       # --- Use your custom setup action here! ---
-      # This single step replaces:
-      # - Set up Node.js
-      # - Cache root node_modules
-      # - Cache functions node_modules
-      # - Cache Nx cache
-      # - Install Dependencies (root)
-      # - Install Dependencies (functions)
+
       - name: Setup Build Environment with Caching
         # Use the path to your composite action relative to the repository root
         # Using @main is simple for development, for stability consider using a tag like @v1

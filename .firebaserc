@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "spiderbabymaterialtheming"
-  }
+  },
+  "targets": {
+    "default": {
+      "hosting": {
+        "spider-baby-mat-theming": [
+          "spiderbabymaterialtheming"   
+        ],
+        "spider-baby-mini-state": [
+          "spider-baby-mini-state"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
