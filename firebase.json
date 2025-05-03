@@ -35,6 +35,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "spider-baby-mini-state-demo",
+      "public": "dist/apps/mini-state/demo/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
