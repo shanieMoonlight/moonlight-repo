@@ -10,11 +10,6 @@ export const appRoutes: Route[] = [
       path: '',
       loadChildren: () => import('./sections/main/main.routes').then((m) => m.mainRoutes)
     },
-    // {
-    //   path: '',
-    //   redirectTo: 'main',
-    //   pathMatch: 'full',
-    // },
     {
       path: '**',
       loadComponent: () => import('./shared/features/not-found.component').then((m) => m.NotFoundComponent),

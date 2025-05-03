@@ -4,7 +4,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MainConstants } from '../../config/constants';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
-import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
+import { SbCodeTabsTsHtmlComponentCodeComponent } from '@spider-baby/ui-code-samples';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
@@ -72,7 +72,7 @@ const HTML_CODE = `
     DataTableComponent,
     SbMatNotificationsModalComponent,
     MainDemoHeaderComponent,
-    MainDemoComponentCodeComponent
+    SbCodeTabsTsHtmlComponentCodeComponent
   ],
   templateUrl: './simple.component.html',
   styleUrl: './simple.component.scss',

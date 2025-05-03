@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appRoutes } from './app.routes';
@@ -10,7 +10,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes,
+      // Use withInMemoryScrolling for scroll options
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled' // Or 'top'
+      }),
+      withRouterConfig({})),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,

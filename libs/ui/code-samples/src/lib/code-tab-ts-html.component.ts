@@ -3,7 +3,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'sb-main-demo-code',
+  selector: 'sb-code-tabs-ts-html',
   imports: [
     MatEverythingModule,
     HighlightModule
@@ -46,7 +46,7 @@ import { HighlightModule } from 'ngx-highlightjs';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainDemoComponentCodeComponent {
+export class SbCodeTabsTsHtmlComponentCodeComponent {
 
   _htmlCode = input.required<string>({ alias: 'html' });
   _tsCode = input.required<string>({ alias: 'typescript' });

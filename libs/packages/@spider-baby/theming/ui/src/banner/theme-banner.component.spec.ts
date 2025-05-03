@@ -3,12 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { MlThemeBannerComponent } from './theme-banner.component';
+import { SbThemeBannerComponent } from './theme-banner.component';
 
 // Create a test host component to properly set the input
 @Component({
   template: `<sb-theme-banner [theme]="theme"></sb-theme-banner>`,
-  imports: [MlThemeBannerComponent],
+  imports: [SbThemeBannerComponent],
   standalone: true
 })
 class TestHostComponent {
@@ -36,9 +36,9 @@ function hexToRgb(hex: string): string {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-describe('MlThemeBannerComponent', () => {
+describe('SbThemeBannerComponent', () => {
   let hostComponent: TestHostComponent;
-  let component: MlThemeBannerComponent;
+  let component: SbThemeBannerComponent;
   let fixture: ComponentFixture<TestHostComponent>;
 
   const mockTheme: ThemeOption = {
@@ -52,12 +52,12 @@ describe('MlThemeBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestHostComponent, MlThemeBannerComponent, MatTooltipModule]
+      imports: [TestHostComponent, SbThemeBannerComponent, MatTooltipModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
     hostComponent = fixture.componentInstance;
-    component = fixture.debugElement.query(By.directive(MlThemeBannerComponent)).componentInstance;
+    component = fixture.debugElement.query(By.directive(SbThemeBannerComponent)).componentInstance;
 
     // Make sure to use the host component's theme
     hostComponent.theme = mockTheme;

@@ -32,7 +32,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
   styleUrl: './theme-showcase-mat.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MlThemeShowcaseMatComponent {
+export class SbThemeShowcaseMatComponent {
 
   /** The theme service that provides the current theme */
   private _service = inject(ThemeService)

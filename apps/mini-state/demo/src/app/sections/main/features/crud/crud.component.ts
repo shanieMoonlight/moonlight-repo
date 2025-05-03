@@ -4,11 +4,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
+import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
-import { MainDemoComponentWithSeparateStateCodeComponent } from '../../ui/demo-code/demo-code-state-service.component';
-import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 import { TS_CRUD_STATE_COMPONENT_CODE } from '../crud-state/crud-state.component';
@@ -149,8 +148,8 @@ const HTML_CODE = `
     SbMatNotificationsModalComponent,
     MainDemoHeaderComponent,
     ReactiveFormsModule,
-    MainDemoComponentCodeComponent,
-    MainDemoComponentWithSeparateStateCodeComponent
+    SbCodeTabsTsHtmlComponentCodeComponent,
+    SbCodeTabsTsHtmlWithStateComponent
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CustomizationComponent as CustomizationComponent } from './customization.component';
+import { MainDemoCustomizationComponent as MainDemoCustomizationComponent } from './customization.component';
 
 describe('ThemingComponent', () => {
-  let component: CustomizationComponent;
-  let fixture: ComponentFixture<CustomizationComponent>;
+  let component: MainDemoCustomizationComponent;
+  let fixture: ComponentFixture<MainDemoCustomizationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomizationComponent],
+      imports: [MainDemoCustomizationComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomizationComponent);
+    fixture = TestBed.createComponent(MainDemoCustomizationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

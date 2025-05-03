@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\""
+    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
+    "generate:customization-code": "node ./scripts/mini-state/generate-customization-code.js",
+    "build:sb-mat-thm-demo": "npm run generate:customization-code && ng build sb-mat-thm-demo",
+    "serve:sb-mat-thm-demo": "npm run generate:customization-code && ng serve sb-mat-thm-demo"
   },
   "private": true,
   "dependencies": {

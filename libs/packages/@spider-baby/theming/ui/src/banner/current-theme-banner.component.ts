@@ -38,7 +38,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlCurrentThemeBannerComponent {
+export class SbCurrentThemeBannerComponent {
 
   _withTooltips = input(false, {alias: 'withTooltips'}) 
 

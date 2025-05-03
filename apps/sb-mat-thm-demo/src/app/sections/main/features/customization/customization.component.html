@@ -1,28 +1,33 @@
-<mat-expansion-panel [expanded]="true">
 
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <mat-icon>palette</mat-icon>
-      <span class="icon-spacing">Theme Configuration</span>
-    </mat-panel-title>
-    <!-- <mat-panel-description>
-    </mat-panel-description>     -->
-  </mat-expansion-panel-header>
-  
- <div class="centered-content">
-    <sb-theme-selector />
+<div class="customization-container">
+  <button mat-fab 
+    class="secondary code-fab-button" 
+    aria-label="Show component code" 
+    matTooltip="Show component code"
+    (click)="openCodeDialog()">
+    <mat-icon>code</mat-icon>
+  </button>
+
+  <!-- Existing Content -->
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>palette</mat-icon>
+        <span class="icon-spacing">Theme Configuration</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+   <div class="centered-content">
+      <sb-theme-selector />   <!-- Select Custom Themes -->
+    </div>
+  </mat-expansion-panel>
+
+  <mat-divider />
+
+  <div class="applied-theme-display">
+    <sb-theme-showcase-mat />   <!-- Demo Active Themes -->
   </div>
 
-</mat-expansion-panel>
+  <mat-divider />
 
-
-
-
-<mat-divider />
-
-<div class="applied-theme-display">
-  <sb-theme-showcase-mat />
 </div>
-
-<mat-divider />
-

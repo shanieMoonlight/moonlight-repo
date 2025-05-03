@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MlThemeShowcaseMatComponent } from './theme-showcase-mat.component';
+import { SbThemeShowcaseMatComponent } from './theme-showcase-mat.component';
 
 
 describe('ThemeShowcaseMatComponent', () => {
-  let component: MlThemeShowcaseMatComponent;
-  let fixture: ComponentFixture<MlThemeShowcaseMatComponent>;
+  let component: SbThemeShowcaseMatComponent;
+  let fixture: ComponentFixture<SbThemeShowcaseMatComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MlThemeShowcaseMatComponent]
+      imports: [SbThemeShowcaseMatComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MlThemeShowcaseMatComponent);
+    fixture = TestBed.createComponent(SbThemeShowcaseMatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

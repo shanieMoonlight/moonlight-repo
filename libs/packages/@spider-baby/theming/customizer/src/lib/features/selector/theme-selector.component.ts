@@ -12,6 +12,7 @@ import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
+import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 
 //#########################################//
 
@@ -52,7 +53,8 @@ interface IThemeForm
     ReactiveFormsModule,
     MatEverythingModule,
     TitleCasePipe,
-    ColorInputComponent
+    ColorInputComponent,
+    SbCurrentThemeBannerComponent
   ],
   providers: [
     {
@@ -67,7 +69,7 @@ interface IThemeForm
   styleUrl: './theme-selector.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlThemeSelectorComponent implements OnDestroy {
+export class SbThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
   private _themeService = inject(ThemeService)

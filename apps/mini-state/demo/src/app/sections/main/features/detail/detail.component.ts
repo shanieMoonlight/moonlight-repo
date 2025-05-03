@@ -9,7 +9,7 @@ import { filter, map } from 'rxjs';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormComponent } from '../../ui/album/form/album-form.component';
-import { MainDemoComponentCodeComponent } from '../../ui/demo-code/demo-code.component';
+import { SbCodeTabsTsHtmlComponentCodeComponent } from '@spider-baby/ui-code-samples';
 import { MainDemoHeaderComponent } from "../../ui/demo-header/demo-header.component";
 
 
@@ -128,7 +128,7 @@ const HTML_CODE = `
     SbMatNotificationsModalComponent,
     ReactiveFormsModule,
     AlbumFormComponent,
-    MainDemoComponentCodeComponent,
+    SbCodeTabsTsHtmlComponentCodeComponent,
     MainDemoHeaderComponent
   ],
   templateUrl: './detail.component.html',

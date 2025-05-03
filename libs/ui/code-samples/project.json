@@ -1,0 +1,50 @@
+{
+  "name": "sb-ui-code-samples",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/code-samples/src",
+  "prefix": "sb",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag",
+        "fallbackCurrentVersionResolver": "disk"
+      }
+    }
+  },
+  "tags": ["lib ui code-sample"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/ui/code-samples/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ui/code-samples/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ui/code-samples/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/ui/code-samples/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

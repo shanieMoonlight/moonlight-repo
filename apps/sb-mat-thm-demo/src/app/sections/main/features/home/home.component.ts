@@ -5,8 +5,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
-import { MlThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
-import { MlCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
+import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
+import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
 import { AppConstants } from '../.././../../config/constants';
@@ -33,8 +33,8 @@ import { UrlService } from '../../../../shared/utils/urls/url.service';
     MatTooltipModule,
     RouterModule,
     NavigateNewWindowDirective,
-    MlThemeShowcaseMatComponent,
-    MlCurrentThemeBannerComponent,
+    SbThemeShowcaseMatComponent,
+    SbCurrentThemeBannerComponent,
     HomeGettingStartedComponent,
     HomePerformanceComponent,
     HomeColorVarsComponent,
@@ -49,7 +49,7 @@ import { UrlService } from '../../../../shared/utils/urls/url.service';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class MainHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)

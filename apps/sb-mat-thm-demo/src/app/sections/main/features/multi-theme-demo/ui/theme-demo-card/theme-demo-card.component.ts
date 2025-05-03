@@ -13,7 +13,7 @@ import { defaultThemeOption, ThemeOption } from '@spider-baby/material-theming/c
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { devLog } from '@spider-baby/utils-rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
-import { MlCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
+import { SbCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
 import { LightDarkToggleComponent } from '../../../../../../shared/ui/light-dark-toggle/light-dark-toggle.component';
 import { ThemePickerComponent } from '../../../../../../shared/ui/theme-picker/theme-picker.component';
 
@@ -45,7 +45,7 @@ export interface ThemeDemoConfig {
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    MlCurrentThemeBannerComponent,
+    SbCurrentThemeBannerComponent,
     MatTooltipModule,
     LightDarkToggleComponent,
     ThemePickerComponent

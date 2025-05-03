@@ -20,6 +20,10 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
                 <p>The library is designed for optimal performance and reduced bundle size:</p>
                 <ul class="feature-list">
                     <li>
+                        <mat-icon color="primary">palette</mat-icon>
+                        <span><strong>Automatic Palette Generation</strong> - Eliminates the need to manually define extensive Material color palettes; just provide seed colors.</span>
+                    </li>
+                    <li>
                         <mat-icon color="primary">speed</mat-icon>
                         <span><strong>Smaller bundle sizes</strong> - Color palettes are generated at runtime instead of shipping pre-compiled CSS for
                             each theme</span>

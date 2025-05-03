@@ -3,7 +3,7 @@
 #
 # Updated to use a custom action for environment setup and caching
 
-name: Deploy SpiderBabyMaterial to Firebase Hosting on merge # Keep this name for this specific app
+name: Deploy SpiderBabyMaterialTheming to Firebase Hosting on merge # Keep this name for this specific app
 on:
   push:
     branches:

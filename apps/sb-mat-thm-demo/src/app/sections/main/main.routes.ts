@@ -9,12 +9,12 @@ export const mainRoutes: Route[] = [
             {
                 path: 'home',
                 title: 'Home - SpiderBaby Material Theming',
-                loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+                loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },
             {
                 path: 'custom-theming',
                 title: 'Custom Theming - SpiderBaby Material Theming',
-                loadComponent: () => import('./features/customization/customization.component').then(m => m.CustomizationComponent),
+                loadComponent: () => import('./features/customization/customization.component').then(m => m.MainDemoCustomizationComponent),
             },
             {
                 path: 'multi-demo',
@@ -24,7 +24,7 @@ export const mainRoutes: Route[] = [
             {
                 path: '',
                 title: 'SpiderBaby Material Theming - Enhanced Angular Material Design',
-                loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+                loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },
             {
                 path: '**',

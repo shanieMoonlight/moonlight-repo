@@ -1,27 +1,61 @@
+@use '@angular/material' as mat;
+
+
 :host {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 0 1rem;
 }
 
-.icon-spacing {
-  margin-left: 16px;
+.customization-container {
+  position: relative; // Needed for absolute positioning of the FAB
+  padding-top: 1rem; // Add some padding if the FAB overlaps content
+  width: 96%;
+  max-width: 1600px;
 }
+
+.code-fab-button {
+  position: fixed !important; // Use !important if needed to override Material styles
+  top: 72px; // Adjust as needed
+  right: 16px; // Adjust as needed
+  z-index: 20; // Ensure it's above other content
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); 
+}
+
 .centered-content {
   display: flex;
   justify-content: center;
-  width: 100%;
+  padding: 16px 0;
 }
 
-sb-theme-selector {
-  width: 96%;
-  max-width: 1000px;
+.applied-theme-display {
+  padding: 24px 0;
 }
 
+.icon-spacing {
+  margin-left: 8px;
+}
 
 mat-divider {
-  margin: 2rem 0;
-  width: 90%;
+  margin: 16px 0;
+}
+
+.secondary {
+  @include mat.fab-overrides(
+    (
+      // Container properties
+      container-color: var(--mat-sys-secondary-container),
+      small-container-color: var(--mat-sys-secondary-container),
+      
+      // Foreground (text and icon)
+      foreground-color: var(--mat-sys-on-secondary-container),
+      small-foreground-color: var(--mat-sys-on-secondary-container),
+      
+      // State layers and ripple
+      state-layer-color: var(--mat-sys-on-secondary-container),
+      small-state-layer-color: var(--mat-sys-on-secondary-container),
+      ripple-color: var(--mat-sys-secondary-container),
+      small-ripple-color: var(--mat-sys-secondary-container)
+    )
+  );
 }

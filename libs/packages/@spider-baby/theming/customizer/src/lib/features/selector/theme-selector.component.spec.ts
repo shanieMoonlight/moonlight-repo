@@ -8,10 +8,10 @@ import { of } from 'rxjs';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
-import { MlThemeSelectorComponent } from './theme-selector.component';
+import { SbThemeSelectorComponent } from './theme-selector.component';
 
-describe('MlThemeSelectorComponent', () => {
-  let component: MlThemeSelectorComponent;
+describe('SbThemeSelectorComponent', () => {
+  let component: SbThemeSelectorComponent;
   let themeServiceMock: jest.Mocked<ThemeService>;
   let dialogMock: jest.Mocked<MatDialog>;
 
@@ -51,7 +51,7 @@ describe('MlThemeSelectorComponent', () => {
       } as unknown as jest.Mocked<MatDialog>;
       // Use MockBuilder to properly handle module imports 
       // and override providers from imported modules
-      return MockBuilder(MlThemeSelectorComponent)
+      return MockBuilder(SbThemeSelectorComponent)
         // Keep ReactiveFormsModule real
         .keep(ReactiveFormsModule)
         // Mock everything else but provide our mocks
@@ -64,7 +64,7 @@ describe('MlThemeSelectorComponent', () => {
 
 
   beforeEach(() => {
-    const fixture = MockRender(MlThemeSelectorComponent);
+    const fixture = MockRender(SbThemeSelectorComponent);
     component = fixture.point.componentInstance;
   });
 

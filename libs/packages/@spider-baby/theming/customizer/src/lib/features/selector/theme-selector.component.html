@@ -77,14 +77,13 @@
           }
 
           @if(_anyCustomThemes(); as hasCustomThemes) {
-            <button mat-button class="primary btn-mng-custom-themes" 
-              [class.show]="hasCustomThemes" 
-              type="button" 
-              (click)="manageCustomThemes()">
-              <mat-icon>manage_accounts</mat-icon>
-              Manage Themes
-            </button>
+          <button mat-button class="primary btn-mng-custom-themes" [class.show]="hasCustomThemes" type="button" (click)="manageCustomThemes()">
+            <mat-icon>manage_accounts</mat-icon>
+            Manage Themes
+          </button>
           }
+
+          <sb-current-theme-banner />
 
         </div>
       </div>

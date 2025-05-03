@@ -31,7 +31,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlThemeBannerComponent {
+export class SbThemeBannerComponent {
 
   _theme = input.required<ThemeOption>( {alias: 'theme'})
 

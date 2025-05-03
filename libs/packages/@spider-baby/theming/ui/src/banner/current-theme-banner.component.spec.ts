@@ -2,31 +2,31 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
-import { MlCurrentThemeBannerComponent } from './current-theme-banner.component';
+import { SbCurrentThemeBannerComponent } from './current-theme-banner.component';
 
 // Create a test host component to properly set the input
 @Component({
   template: `<sb-current-theme-banner [withTooltips]="showTooltips"></sb-current-theme-banner>`,
-  imports: [MlCurrentThemeBannerComponent],
+  imports: [SbCurrentThemeBannerComponent],
   standalone: true
 })
 class TestHostComponent {
   showTooltips = false;
 }
 
-describe('MlCurrentThemeBannerComponent', () => {
+describe('SbCurrentThemeBannerComponent', () => {
   let hostComponent: TestHostComponent;
-  let component: MlCurrentThemeBannerComponent;
+  let component: SbCurrentThemeBannerComponent;
   let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestHostComponent, MlCurrentThemeBannerComponent, MatTooltipModule]
+      imports: [TestHostComponent, SbCurrentThemeBannerComponent, MatTooltipModule]
     }).compileComponents();
     
     fixture = TestBed.createComponent(TestHostComponent);
     hostComponent = fixture.componentInstance;
-    component = fixture.debugElement.query(By.directive(MlCurrentThemeBannerComponent)).componentInstance;
+    component = fixture.debugElement.query(By.directive(SbCurrentThemeBannerComponent)).componentInstance;
     fixture.detectChanges();
   });
 

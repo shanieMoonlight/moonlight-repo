@@ -8,7 +8,7 @@ import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
-import { MainDemoComponentCodeComponent } from "../../ui/demo-code/demo-code.component";
+import { SbCodeTabsTsHtmlComponentCodeComponent } from '@spider-baby/ui-code-samples';
 
 
 ///#############################################//
@@ -187,7 +187,7 @@ const HTML_CODE = `
     MainDemoHeaderComponent,
     RouterModule,
     ReactiveFormsModule,
-    MainDemoComponentCodeComponent
+    SbCodeTabsTsHtmlComponentCodeComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',

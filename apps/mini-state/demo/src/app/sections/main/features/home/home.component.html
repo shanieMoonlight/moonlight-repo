@@ -1,5 +1,5 @@
 <div class="home-container">
-  <header class="hero">
+  <!-- <header class="hero">
     <div class="hero-content">
         <img class="hero-image" src="images/tranparent/spider-baby-6.png" alt="SpiderBaby Material" />
       <h1 class="title">{{ title }}</h1>
@@ -15,7 +15,20 @@
         </a>
       </div>
     </div>
-  </header>
+  </header> -->
+
+  <sb-hero-banner
+    [title]="title"
+    [subtitle]="subtitle"
+    [description]="description"
+    [imageUrl]="heroImageUrl"
+    [imageAlt]="heroImageAlt"
+    primaryButtonText="Try Examples"
+    primaryButtonLink="/simple"
+    primaryButtonIcon="play_arrow"
+    secondaryButtonText="View on GitHub"
+    secondaryButtonLink="https://github.com/your-repo/mini-state"
+    secondaryButtonIcon="code"/>
 
   <section class="features-section">
     <h2 class="section-title">Examples</h2>

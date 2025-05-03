@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
-import { MlThemeBannerComponent } from '@spider-baby/material-theming/ui';
+import { SbThemeBannerComponent } from '@spider-baby/material-theming/ui';
 
 export interface SeasonCardData {
   title: string;
@@ -23,7 +23,7 @@ export interface SeasonCardData {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MlThemeBannerComponent
+    SbThemeBannerComponent
   ],
   template: `
     <mat-card class="season-card">
