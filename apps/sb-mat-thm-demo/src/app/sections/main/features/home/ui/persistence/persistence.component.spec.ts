@@ -12,6 +12,7 @@ describe('PersistenceComponent', () => {
 
     fixture = TestBed.createComponent(PersistenceComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('sectionNumber', 1);
     fixture.detectChanges();
   });
 

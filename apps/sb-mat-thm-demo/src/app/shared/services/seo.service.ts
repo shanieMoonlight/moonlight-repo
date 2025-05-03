@@ -63,6 +63,8 @@ export class SeoService {
     //-----------------------------//
 
     addCanonicalLink(url: string) {
+        console.log('Adding canonical link:', url);
+        
         const link: HTMLLinkElement = this._document.querySelector('link[rel="canonical"]') || this._document.createElement('link');
         link.setAttribute('rel', 'canonical');
         link.setAttribute('href', url);

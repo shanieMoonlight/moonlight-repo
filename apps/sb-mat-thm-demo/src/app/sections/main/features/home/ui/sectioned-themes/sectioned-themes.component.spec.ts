@@ -12,6 +12,7 @@ describe('SectionedThemesComponent', () => {
 
     fixture = TestBed.createComponent(SectionedThemesComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('sectionNumber', 2);
     fixture.detectChanges();
   });
 

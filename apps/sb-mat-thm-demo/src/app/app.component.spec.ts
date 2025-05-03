@@ -79,12 +79,14 @@ describe('AppComponent', () => {
   });
 
   it('should update canonical URL on route change', () => {
+    Object.defineProperty(router, 'url', { get: () => '/current' });
     component.ngOnInit()
 
     expect(seoService.addCanonicalLink).toHaveBeenCalledWith('https://example.com/current');
   });
 
   it('should call UrlService to combine the base URL with the current route', () => {
+    Object.defineProperty(router, 'url', { get: () => '/current' });
     component.ngOnInit();
 
     expect(urlService.combineWithBase).toHaveBeenCalledWith('/current');

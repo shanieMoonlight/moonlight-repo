@@ -23,6 +23,8 @@ export class UrlService {
      * @returns The combined URL
      */
     combine(base: string, path?: string): string {
+        console.log('combine called with:', base, path);
+        
         if (!path) {
             return base;
         }

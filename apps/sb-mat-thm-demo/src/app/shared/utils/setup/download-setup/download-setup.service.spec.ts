@@ -1,12 +1,10 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing'; // Use this for standalone
 import { provideHttpClient } from '@angular/common/http'; // Use this for standalone
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { DownloadSetupFilesService, SetupFile } from './download-setup.service';
 import { BlobDownloadService } from '@spider-baby/utils-download';
-import { firstValueFrom, lastValueFrom, skip } from 'rxjs';
-import { signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { DownloadSetupFilesService, SetupFile } from './download-setup.service';
 
 // Mock BlobDownloadService
 class MockBlobDownloadService {

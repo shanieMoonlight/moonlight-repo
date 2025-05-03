@@ -1,5 +1,5 @@
 export default {
-  displayName: 'spider-baby-mat-theming',
+  displayName: 'spider-baby-mat-theming-demo',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../coverage/apps/sb-mat-thm-demo',

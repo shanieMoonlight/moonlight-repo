@@ -1,0 +1,3 @@
+REquired input: 
+    fixture.componentRef.setInput('sectionNumber', 'value');
+

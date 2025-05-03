@@ -42,6 +42,8 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       // Update canonical URL based on current route
+      console.log('Router URL:', this._router.url);
+      
       this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
     });
   }

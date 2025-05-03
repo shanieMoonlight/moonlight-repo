@@ -12,6 +12,8 @@ describe('SectionHdrComponent', () => {
 
     fixture = TestBed.createComponent(HomeSectionHdrComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('sectionNumber', 1);
+    fixture.componentRef.setInput('title', "Test Title");
     fixture.detectChanges();
   });
 

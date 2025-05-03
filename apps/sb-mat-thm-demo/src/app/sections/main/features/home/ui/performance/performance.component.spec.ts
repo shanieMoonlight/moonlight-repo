@@ -12,6 +12,7 @@ describe('PerformanceComponent', () => {
 
     fixture = TestBed.createComponent(HomePerformanceComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('sectionNumber', 1);
     fixture.detectChanges();
   });
 
