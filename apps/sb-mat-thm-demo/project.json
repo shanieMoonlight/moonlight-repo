@@ -62,10 +62,10 @@
       },
       "configurations": {
         "production": {
-          "buildTarget": "spider-baby-mat-theming:build:production"
+          "buildTarget": "spider-baby-mat-theming-demo:build:production"
         },
         "development": {
-          "buildTarget": "spider-baby-mat-theming:build:development"
+          "buildTarget": "spider-baby-mat-theming-demo:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "spider-baby-mat-theming:build"
+        "buildTarget": "spider-baby-mat-theming-demo:build"
       }
     },
     "lint": {
@@ -89,7 +89,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "spider-baby-mat-theming:build",
+        "buildTarget": "spider-baby-mat-theming-demo:build",
         "port": 4201,
         "staticFilePath": "dist/apps/sb-mat-thm-demo/browser",
         "spa": true

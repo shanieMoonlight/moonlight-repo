@@ -1,0 +1,8 @@
+- name: Rename index.csr.html to index.html if not already present
+  run: |
+    if [ ! -f dist/apps/sb-mat-thm-demo/browser/index.html ]; then
+      echo "index.html not found – running postbuild rename script..."
+      npm run postbuild:spider-baby-mat-theming
+    else
+      echo "index.html already exists – skipping rename."
+    fi
