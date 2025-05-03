@@ -41,7 +41,7 @@ interface Benefit {
 export class MainHomeComponent {
   
   title = 'Mini-State Demo';
-  subtitle = 'A lightweight, signals-based state management library for Angular!!';
+  subtitle = 'A lightweight, signals-based state management library for Angular';
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
   asynchronous operations while leveraging Angular's signals for reactivity.`;
