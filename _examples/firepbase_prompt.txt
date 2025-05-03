@@ -1,0 +1,2 @@
+
+I have an nx mono repo with 2 apps (call the app_1 and app_2)  that i want to deploy to 2 corresponding firebase projects ( call them prj_1 and prj_2 ). The build files for the apps will end up in dist/app_1/browser  and dist/app_2/browser. How do i configure the firebase.json, .firebaserc and each git_action so that when a push happens the apps get built , and the files from dist/app_1/browser are deployed to prj_1  and the files in dist/app_2/browser are published to prj_2 ?

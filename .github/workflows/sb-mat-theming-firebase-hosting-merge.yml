@@ -8,8 +8,7 @@ on:
   push:
     branches:
       - master
-    # Recommended: Add path filtering here for efficiency in a monorepo
-    # if this workflow should ONLY run when SpiderBabyMaterialTheming code changes:
+    # This workflow should ONLY run when SpiderBabyMaterialTheming code changes:
     paths:
       - 'apps/sb-mat-thm-demo/**' # Adjust path to your project's code
       - 'libs/packages/@spider-baby/theming/**' # Include paths to shared libraries it depends on
@@ -24,24 +23,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # --- Use your custom setup action here! ---
-
-      - name: Setup Build Environment with Caching
-        # Use the path to your composite action relative to the repository root
-        # Using @main is simple for development, for stability consider using a tag like @v1
+      # --- Use your custom setup action ---
+      - name: Setup Build Environment with Caching      
         uses: ./.github/actions/setup-build-env # Or replace @main with a tag like @v1 if you've tagged your action
-
         # Optional: Pass inputs if you want to override the defaults in action.yml
         with:
           node-version: '22' # Explicitly set the Node.js version
-
       # --- The custom action has now set up Node.js, restored caches, and installed dependencies ---
 
-
-      # Keep the remaining steps as they rely on the environment and dependencies
-      # set up by the custom action.
       - name: Build Angular app
-        run: npx nx run spider-baby-mat-theming:build --configuration=production
+        run: npx nx run spider-baby-mat-theming-demo:build --configuration=production
 
       - name: Rename index.csr.html to index.html
         run: npm run postbuild:spider-baby-mat-theming

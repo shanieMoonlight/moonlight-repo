@@ -1,9 +1,9 @@
 {
-  "name": "spider-baby-mat-theming-e2e",
+  "name": "spider-baby-mat-theming-demo-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/sb-mat-thm-demo-e2e/src",
-  "implicitDependencies": ["spider-baby-mat-theming"],
+  "implicitDependencies": ["spider-baby-mat-theming-demo"],
   "// targets": "to see all targets run: nx show project spider-baby-mat-theming-e2e --web",
   "targets": {}
 }
