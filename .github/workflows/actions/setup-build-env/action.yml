@@ -1,0 +1,76 @@
+# .github/actions/setup-build-env/action.yml
+name: 'Setup Build Environment with Caching'
+description: 'Sets up Node.js, restores caches for node_modules and Nx, and installs dependencies.'
+
+# Define inputs if you want to make parts configurable (e.g., node version, lock file paths)
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '22' # Default Node.js version
+
+  root-lock-file:
+    description: 'Path to the root package lock file'
+    required: false
+    default: 'package-lock.json'
+
+  functions-lock-file:
+    description: 'Path to the functions package lock file (if applicable)'
+    required: false
+    default: 'functions/package-lock.json' # Update this if your functions lock file is elsewhere
+
+  nx-cache-path:
+    description: 'Path to the Nx cache directory'
+    required: false
+    default: '~/.nx/cache' # Default Nx cache path
+
+  # Add more inputs if needed, e.g., for different package managers (yarn, pnpm)
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        # If using npm version >= 7, you can also specify cache: 'npm' here
+
+    # --- Caching Steps ---
+
+    - name: Cache root node_modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles(inputs.root-lock-file) }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
+
+    - name: Cache functions node_modules
+      uses: actions/cache@v3
+      with:
+        path: functions/node_modules
+        key: ${{ runner.os }}-functions-node-modules-${{ hashFiles(inputs.functions-lock-file) }}
+        restore-keys: |
+          ${{ runner.os }}-functions-node-modules-
+
+    - name: Cache Nx cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.nx-cache-path }}
+        key: ${{ runner.os }}-nx-cache-${{ hashFiles(inputs.root-lock-file) }} # Nx cache often depends on root lock file
+        restore-keys: |
+          ${{ runner.os }}-nx-cache-
+
+    # --- End Caching Steps ---
+
+    - name: Install Dependencies (root)
+      # This step will be fast if root cache was restored
+      run: npm ci
+      shell: bash # Specify shell if needed
+
+    - name: Install Dependencies (functions)
+      # This step will be fast if functions cache was restored
+      run: |
+        cd functions
+        npm ci
+      shell: bash # Specify shell if needed

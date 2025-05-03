@@ -48,6 +48,8 @@ export default async (): Promise<Config> => ({
     '<rootDir>/.nx/cache',
     '<rootDir>/dist',
     '<rootDir>/_examples/',
-    '_examples/' // Add this line to ignore the _examples directory
+    '_examples/',
+    '<rootDir>/apps/mini-state/demo-e2e/',
+    '<rootDir>/apps/sb-mat-thm-demo-e2e/',
   ],
 });
