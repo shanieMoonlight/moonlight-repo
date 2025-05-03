@@ -35,7 +35,7 @@ jobs:
       - name: Setup Build Environment with Caching
         # Use the path to your composite action relative to the repository root
         # Using @main is simple for development, for stability consider using a tag like @v1
-        uses: ./.github/actions/setup-build-env@main # Or replace @main with a tag like @v1 if you've tagged your action
+        uses: ./.github/actions/setup-build-env # Or replace @main with a tag like @v1 if you've tagged your action
 
         # Optional: Pass inputs if you want to override the defaults in action.yml
         with:
