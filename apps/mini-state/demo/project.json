@@ -1,5 +1,5 @@
 {
-  "name": "mini-state-demo",
+  "name": "spider-baby-mini-state-demo",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "sb",
@@ -61,10 +61,10 @@
       },
       "configurations": {
         "production": {
-          "buildTarget": "mini-state-demo:build:production"
+          "buildTarget": "spider-baby-mini-state-demo:build:production"
         },
         "development": {
-          "buildTarget": "mini-state-demo:build:development"
+          "buildTarget": "spider-baby-mini-state-demo:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "mini-state-demo:build"
+        "buildTarget": "spider-baby-mini-state-demo:build"
       }
     },
     "lint": {
@@ -88,7 +88,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "mini-state-demo:build",
+        "buildTarget": "spider-baby-mini-state-demo:build",
         "port": 4202,
         "staticFilePath": "dist/apps/mini-state/demo/browser",
         "spa": true

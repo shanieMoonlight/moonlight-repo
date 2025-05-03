@@ -11,9 +11,9 @@ describe('AppComponent', () => {
 
 
 
-  it(`should have as title 'mini-state-demo'`, () => {
+  it(`should have as title 'spider-baby-mini-state-demo'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('mini-state-demo');
+    expect(app.title).toEqual('spider-baby-mini-state-demo');
   });
 });

@@ -68,7 +68,7 @@ jobs:
 
       - name: Build Angular app  (SpiderBabyMatTheming)
         if: steps.changed_theming_files.outputs.any_changed == 'true'
-        run: npx nx run mini-state-demo:build  --configuration=production
+        run: npx nx run spider-baby-mini-state-demo:build  --configuration=production
 
       - name: Rename index.csr.html to index.html 
         if: steps.changed_theming_files.outputs.any_changed == 'true'

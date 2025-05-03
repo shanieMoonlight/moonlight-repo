@@ -8,5 +8,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'mini-state-demo';
+  title = 'spider-baby-mini-state-demo';
 }

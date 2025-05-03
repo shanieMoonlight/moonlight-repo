@@ -83,7 +83,7 @@ cd moonlight-repo
 npm install
 
 # Start a demo application
-npm run start:mini-state-demo
+npm run start:spider-baby-mini-state-demo
 # or
 npm run start:sb-mat-thm-demo
 ```

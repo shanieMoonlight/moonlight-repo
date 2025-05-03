@@ -24,7 +24,7 @@ export default defineConfig({
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx nx run mini-state-demo:serve',
+    command: 'npx nx run spider-baby-mini-state-demo:serve',
     url: 'http://localhost:4202',
     reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,

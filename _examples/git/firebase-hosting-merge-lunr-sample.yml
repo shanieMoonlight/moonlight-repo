@@ -19,7 +19,7 @@ jobs:
           CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
           if [[ "$CHANGED_FILES" == *"/material-theming-demo/"* ]]; then
             echo "::set-output name=site::material-theming"
-          elif [[ "$CHANGED_FILES" == *"/mini-state-demo/"* ]]; then
+          elif [[ "$CHANGED_FILES" == *"/spider-baby-mini-state-demo/"* ]]; then
             echo "::set-output name=site::mini-state"
           else
             echo "::set-output name=site::none" # No relevant changes

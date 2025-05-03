@@ -39,7 +39,7 @@ jobs:
       # Keep the remaining steps as they rely on the environment and dependencies
       # set up by the custom action.
       - name: Build Angular app
-        run: npx nx run mini-state-demo:build --configuration=production
+        run: npx nx run spider-baby-mini-state-demo:build --configuration=production
 
       - name: List files in deploy directory
         run: ls -alR dist/apps/mini-state/demo/browser

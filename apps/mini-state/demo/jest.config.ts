@@ -1,5 +1,5 @@
 export default {
-  displayName: 'mini-state-demo',
+  displayName: 'spider-baby-mini-state-demo',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/apps/mini-state/demo',
