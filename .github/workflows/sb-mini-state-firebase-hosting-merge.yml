@@ -50,5 +50,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABY_MINI_STATE }}
           channelId: live
-          entryPoint: dist/apps/mini-state/demo/browser # <-- Specify the correct build output directory
+          public: dist/apps/mini-state/demo/browser # <-- This input is supported by this action
           projectId: spider-baby-mini-state 
