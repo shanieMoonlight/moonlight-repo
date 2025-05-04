@@ -60,6 +60,7 @@ export class SeoService {
         const title = options.title ?? this._config.appName
         const description = options.description ?? this._config.appDescription;
         const image = options.image ?? this._config.defaultLogoFilePath;
+        const ogImage = options.image ?? this._config.defaultOgImageUrl;
         const url = options.url ?? this._config.baseUrl;
         
 
@@ -73,7 +74,7 @@ export class SeoService {
             { property: 'og:title', content: title },
             { property: 'og:description', content: description },
             { property: 'og:url', content: url },
-            { property: 'og:image', content: image },
+            { property: 'og:image', content: ogImage },
             { property: 'og:type', content: 'website' },
             { name: 'twitter:card', content: 'summary_large_image' },
             { name: 'twitter:title', content: title },
@@ -81,6 +82,9 @@ export class SeoService {
             { name: 'twitter:image', content: image },
             { name: 'keywords', content: this._config.keywords.join(', ') || 'Angular Material, Material Design, theming, CSS variables, dark mode, theme customization, Angular library' },
         ]
+
+        console.log('tags', tags);
+        
 
         // Update each meta tag
         tags.forEach(tag => {

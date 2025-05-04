@@ -24,7 +24,7 @@ describe('SeoService', () => {
   let metaMock: jest.Mocked<Meta>;
   let titleMock: jest.Mocked<Title>;
   let documentMock: Document;
-  let seoConfigMock: SeoConfig;
+  // let seoConfigMock: SeoConfig;
 
   const mockHeadElement = {
     querySelector: jest.fn(),
@@ -60,19 +60,19 @@ describe('SeoService', () => {
       head: { ...mockHeadElement } as unknown as HTMLElement, // Return a fresh copy of mockHeadElement
     } as unknown as Document;
   
-    seoConfigMock = {
-      appName: 'Test App',
-      appDescription: 'Test Description',
-      organization: 'Test Org',
-      baseUrl: 'https://test.com/',
-      defaultLogoFilePath: 'https://test.com/logo.png',
-      publishedDate: '2023-01-01',
-      keywords: ['test', 'app'],
-      socialLinks: ['https://example.com'],
-      defaultOgImageUrl: 'https://test.com/og-image.png',
-      twitterHandle: '@testapp',
-      titleSuffix: ' | Test App',
-    } as SeoConfig;
+    // seoConfigMock = {
+    //   appName: 'Test App',
+    //   appDescription: 'Test Description',
+    //   organization: 'Test Org',
+    //   baseUrl: 'https://test.com/',
+    //   defaultLogoFilePath: 'https://test.com/logo.png',
+    //   publishedDate: '2023-01-01',
+    //   keywords: ['test', 'app'],
+    //   socialLinks: ['https://example.com'],
+    //   defaultOgImageUrl: 'https://test.com/og-image.png',
+    //   twitterHandle: '@testapp',
+    //   titleSuffix: ' | Test App',
+    // } as SeoConfig;
   
     TestBed.configureTestingModule({
       providers: [
@@ -143,29 +143,44 @@ describe('SeoService', () => {
 
       // Check description defaults to config value
       expect(metaMock.updateTag).toHaveBeenCalledWith({
-        name: 'description', 
-        content: 'Test Description'
+        name: 'description',
+        content: mockSeoConfig.appDescription // Use config property
       });
 
-      // Check image defaults to config value
+      // Check image defaults to config value (baseUrl + defaultOgImageUrl)
+      const expectedImageUrl = mockSeoConfig.defaultOgImageUrl // Remove leading '/' if baseUrl has trailing '/'
+      console.log('expectedImageUrl', expectedImageUrl, mockSeoConfig.defaultOgImageUrl);
+      
       expect(metaMock.updateTag).toHaveBeenCalledWith({
         property: 'og:image',
-        content: 'https://test.com/logo.png'
+        content: expectedImageUrl // Use calculated value from config properties
       });
 
-      // Check URL defaults to config value
+      // Check URL defaults to config value (baseUrl after validation)
       expect(metaMock.updateTag).toHaveBeenCalledWith({
         property: 'og:url',
-        content: 'https://test.com/'
+        content: mockSeoConfig.baseUrl // Use config property (assuming it has trailing slash after validation)
+      });
+
+      // Check og:title defaults to appName
+      expect(metaMock.updateTag).toHaveBeenCalledWith({
+        property: 'og:title',
+        content: mockSeoConfig.appName // Use config property
+      });
+
+      // Check og:description defaults to appDescription
+      expect(metaMock.updateTag).toHaveBeenCalledWith({
+        property: 'og:description',
+        content: mockSeoConfig.appDescription // Use config property
       });
     });
 
     it('should include keywords from config', () => {
       service.updateMetadata({});
-      
+
       expect(metaMock.updateTag).toHaveBeenCalledWith({
         name: 'keywords',
-        content: 'test, app'
+        content: mockSeoConfig.keywords.join(', ') // Use config property and join
       });
     });
   });
@@ -219,7 +234,7 @@ describe('SeoService', () => {
           { provide: Meta, useValue: metaMock },
           { provide: Title, useValue: titleMock },
           { provide: DOCUMENT, useValue: documentWithoutHead },
-          { provide: SeoConfig, useValue: seoConfigMock },
+          { provide: SeoConfigService, useValue: mockSeoConfig }
         ],
       });
 

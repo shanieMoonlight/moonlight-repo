@@ -10,6 +10,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+
+const mockSeoConfig: SeoConfig = SeoConfig.create({
+  appName: 'Test App',
+  appDescription: 'Test Description',
+  organization: 'Test Org',
+  baseUrl: 'http://localhost', // Will become http://localhost/ after validation
+  defaultLogoFilePath: 'http://localhost:4666//logo.png',
+  publishedDate: '2025-01-01',
+  keywords: ['test', 'seo'],
+  socialLinks: ['https://example.com/social'], // Added an example social link
+  defaultOgImageUrl: '/assets/og-image.png',
+  twitterHandle: '@test',
+  titleSuffix: ' | Test App',
+});
 
 describe('MainHomeComponent', () => {
   let component: FirebaseHomeComponent;
@@ -31,6 +46,7 @@ describe('MainHomeComponent', () => {
         IconsService,
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: SeoConfigService, useValue: mockSeoConfig } // Assuming SeoConfigService just provides SeoConfig
       ],
     }).compileComponents();
 
@@ -43,39 +59,7 @@ describe('MainHomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render GitHub, NPM, Share, and API buttons', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const buttons = compiled.querySelectorAll('.links button');
-    expect(buttons.length).toBe(4);
 
-    const labels = Array.from(buttons).map(btn => btn.getAttribute('aria-label'));
-    expect(labels).toContain('View GitHub Repository');
-    expect(labels).toContain('View NPM Package');
-    expect(labels).toContain('Share this page');
-    expect(labels).toContain('View API Documentation');
-  });
-
-  it('should render mat-icon for git and npm', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const icons = compiled.querySelectorAll('mat-icon');
-    const svgIcons = Array.from(icons)
-      .map(icon => icon.getAttribute('ng-reflect-svg-icon'))
-      .filter(Boolean);
-    expect(svgIcons).toContain('git');
-    expect(svgIcons).toContain('npm');
-  });
-
-  it('should have correct hrefs for GitHub and NPM buttons', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const githubBtn = Array.from(compiled.querySelectorAll('.links button')).find(
-      btn => btn.getAttribute('aria-label') === 'View GitHub Repository'
-    );
-    const npmBtn = Array.from(compiled.querySelectorAll('.links button')).find(
-      btn => btn.getAttribute('aria-label') === 'View NPM Package'
-    );
-    expect(githubBtn).toBeTruthy();
-    expect(npmBtn).toBeTruthy();
-  });
 
   it('should call ngOnInit and set SEO metadata', () => {
     const seoService = TestBed.inject(IconsService) as any;

@@ -26,6 +26,7 @@ export class MyFirebaseService {
   //-----------------------------//
 
   constructor() {
+    console.log('MyFirebaseService: constructor called', this._platformId, isPlatformBrowser(this._platformId));
     if (!isPlatformBrowser(this._platformId))
       return
     this._app = getApp();

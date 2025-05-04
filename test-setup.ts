@@ -1,6 +1,12 @@
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 import '@testing-library/jest-dom';
-// import 'jest-preset-angular/setup-jest';
+import fetch , { Headers, Request, Response } from 'node-fetch';
+
+global.fetch = fetch as any; // Make node-fetch available globally
+global.Headers = Headers as any;
+global.Request = Request as any;
+global.Response = Response as any; // Add this line
+
 
 console.log('>>> test-setup.ts: Running setup...'); // Check if file runs
 // --- Add this section to ignore JSDOM CSS parsing errors ---
