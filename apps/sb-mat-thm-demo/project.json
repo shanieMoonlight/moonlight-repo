@@ -45,6 +45,12 @@
               "maximumError": "50kb"
             }
           ],
+          "fileReplacements": [
+            {
+              "replace": "apps/sb-mat-thm-demo/src/environments/environment.ts",
+              "with": "apps/sb-mat-thm-demo/src/environments/environment.prod.ts"
+            }
+          ],
           "outputHashing": "all"
         },
         "development": {
