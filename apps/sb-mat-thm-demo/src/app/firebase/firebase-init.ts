@@ -12,8 +12,8 @@ export class FirebaseProviders {
         provideAnalytics(() => getAnalytics()),
     ]
 
-    static readonly app = provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
+    // static readonly app = provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 
-    static readonly analytics = provideAnalytics(() => getAnalytics())
+    // static readonly analytics = provideAnalytics(() => getAnalytics())
 
 }
