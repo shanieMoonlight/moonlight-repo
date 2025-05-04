@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 
 //################################################//
@@ -78,7 +79,10 @@ provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
 
 @Component({
   selector: 'sb-tutorials-firebase-git-secrets',
-  imports: [HighlightModule],
+  imports: [
+    HighlightModule,
+    MatEverythingModule
+  ],
   templateUrl: './git-secrets.component.html',
   styleUrl: './git-secrets.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

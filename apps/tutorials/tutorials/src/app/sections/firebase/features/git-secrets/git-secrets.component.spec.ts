@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GitSecretsComponent } from './git-secrets.component';
+import { FirebaseGitSecretsComponent } from './git-secrets.component';
 
-describe('GitSecretsComponent', () => {
-  let component: GitSecretsComponent;
-  let fixture: ComponentFixture<GitSecretsComponent>;
+describe('FirebaseGitSecretsComponent', () => {
+  let component: FirebaseGitSecretsComponent;
+  let fixture: ComponentFixture<FirebaseGitSecretsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GitSecretsComponent],
+      imports: [FirebaseGitSecretsComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GitSecretsComponent);
+    fixture = TestBed.createComponent(FirebaseGitSecretsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

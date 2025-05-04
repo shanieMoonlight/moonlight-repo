@@ -26,7 +26,8 @@ export const appConfig: ApplicationConfig = {
           html: () => import('highlight.js/lib/languages/xml'),
           scss: () => import('highlight.js/lib/languages/scss'),
           css: () => import('highlight.js/lib/languages/css'),
-          json: () => import('highlight.js/lib/languages/json')
+          json: () => import('highlight.js/lib/languages/json'),
+          yaml: () => import('highlight.js/lib/languages/yaml')
         }
       }
     }
