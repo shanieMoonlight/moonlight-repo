@@ -10,7 +10,7 @@ inputs:
   project_id:
     required: true
   storage_bucket:
-    required: false
+    required: true
   messaging_sender_id:
     required: true
   app_id:
