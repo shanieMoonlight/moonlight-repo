@@ -38,3 +38,4 @@ export const appConfig: ApplicationConfig = {
     }
   ],
 };
+// MAT_THEME_

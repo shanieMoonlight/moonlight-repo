@@ -8,8 +8,7 @@ import { FirebaseApp, getApp } from 'firebase/app';
   providedIn: 'root'
 })
 export class MyFirebaseService {
-
-  // Initialize Firebase
+  
   private _analytics = inject(Analytics);
   private _platformId = inject(PLATFORM_ID)
 
@@ -35,33 +34,38 @@ export class MyFirebaseService {
   //-----------------------------//
 
   logEvent = (event: string, params = {}) =>
-    this.executeAnalyticsAction(() => logEvent(this._analytics, event, params))
+    this.executeAnalyticsAction(
+      'logEvent', 
+      () => logEvent(this._analytics, event, params))
 
   //- - - - - - - - - - - - - - -//
 
 
   logPageView = (pageTitle: string, pagePath: string) =>
-    this.executeAnalyticsAction(() => logEvent(this._analytics, 'page_view', { page_title: pageTitle, page_path: pagePath }))
+    this.executeAnalyticsAction(
+      'logPageView', 
+      () => logEvent(this._analytics, 'page_view', { page_title: pageTitle, page_path: pagePath }))
 
   //- - - - - - - - - - - - - - -//
 
   logButtonClick = (buttonName: string) =>
-    this.executeAnalyticsAction(() => logEvent(this._analytics, 'button_click', { button_name: buttonName }))
+    this.executeAnalyticsAction(
+      'logButtonClick', 
+      () => logEvent(this._analytics, 'button_click', { button_name: buttonName }))
 
   //- - - - - - - - - - - - - - -//
 
   logConnectionTest = () =>
-    this.executeAnalyticsAction(() => logEvent(this._analytics, 'firebase_connection_test', { status: 'attempted' }))
+    this.executeAnalyticsAction(
+      'logConnectionTest', 
+      () => logEvent(this._analytics, 'firebase_connection_test', { status: 'attempted' }))
 
   //-----------------------------//
 
-  private executeAnalyticsAction<T>(action: () => T): T | void {
+  private executeAnalyticsAction<T>(actionName: string, action: () => T): T | void {
 
     if (!this.isBrowser())
       return undefined
-
-    // Extract action name from the function
-    const actionName = action.name || this.getFunctionName(action);
 
     try {
       const result = action();
@@ -71,15 +75,6 @@ export class MyFirebaseService {
       devConsole.error(`Error executing ${actionName}:`, error);
       return undefined;
     }
-  }
-
-  //- - - - - - - - - - - - - - -//
-
-  private getFunctionName(func: (...args: unknown[]) => unknown): string {
-    const funcStr = func.toString();
-    // Try to extract function name from arrow or traditional function
-    const match = funcStr.match(/(?:function\s+([^(]+))|(?:(\w+)\s*=>)/) || [];
-    return match[1] || match[2] || 'anonymous function';
   }
 
   //- - - - - - - - - - - - - - -//

@@ -2,17 +2,17 @@
 import { provideFirebaseApp } from '@angular/fire/app';
 import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
 import { initializeApp } from "firebase/app";
-import { AppSecrets } from "../secrets/firebase-config";
+import { environment } from "../../environments/environment";
 
 
 export class FirebaseProviders {
 
     static readonly all = [
-        provideFirebaseApp(() => initializeApp(AppSecrets.FirebaseConfig)),
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAnalytics(() => getAnalytics()),
     ]
 
-    static readonly app = provideFirebaseApp(() => initializeApp(AppSecrets.FirebaseConfig))
+    static readonly app = provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 
     static readonly analytics = provideAnalytics(() => getAnalytics())
 
