@@ -1,12 +1,27 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { SeoConfig } from '@spider-baby/utils-seo/config';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import {  ArticleSchema,
   CodeSchema,
   FAQPageSchema,
   OrganizationSchema,
   SoftwareApplicationSchema, StructuredDataSchema, StructuredDataService
 } from './structured-data.service';
+
+// Create a mock SeoConfig object
+const mockSeoConfig: SeoConfig = SeoConfig.create({
+  appName: 'Test App',
+  appDescription: 'Test Description',
+  organization: 'Test Org',
+  baseUrl: 'http://localhost',
+  defaultLogoFilePath: 'http://localhost:4666//logo.png',
+  publishedDate: '2025-01-01',
+  keywords: ['test', 'seo'],
+  socialLinks: [],
+  defaultOgImageUrl: '/assets/og-image.png',
+  twitterHandle: '@test',
+  titleSuffix: ' | Test App',
+});
 
 describe('StructuredDataService', () => {
   let service: StructuredDataService;
@@ -64,7 +79,8 @@ describe('StructuredDataService', () => {
       providers: [
         StructuredDataService,
         { provide: DOCUMENT, useValue: documentMock },
-        { provide: SeoConfig, useValue: seoConfigMock },
+        { provide: SeoConfig, useValue: mockSeoConfig },
+        { provide: SeoConfigService, useValue: mockSeoConfig }
       ],
     });
   

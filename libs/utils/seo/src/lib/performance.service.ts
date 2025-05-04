@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { filter } from 'rxjs/operators';
 
 /**
@@ -30,6 +31,7 @@ export class PerformanceService {
 
     private _platformId = inject(PLATFORM_ID)
     private _router = inject(Router)
+    private _config: SeoConfig = inject(SeoConfigService)
 
     //-----------------------------//
 

@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import { devConsole } from '@spider-baby/dev-console';
 
 //##################################################//
 
@@ -132,6 +133,7 @@ export class SeoConfig {
    * @returns True if valid
    */
   private static isValidUrl(url: string): boolean {
+    devConsole.log('Validating URL:', url);
     // Accept absolute URLs
     if (url.match(/^https?:\/\/.+/)) {
       return true;

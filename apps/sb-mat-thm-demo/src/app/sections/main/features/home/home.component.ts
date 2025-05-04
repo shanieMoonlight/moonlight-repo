@@ -44,7 +44,8 @@ import { UrlService } from '../../../../shared/utils/urls/url.service';
     GitComponent,
     CardsComponent,
     ShareCurrentPageDirective
-],
+  ],
+  standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,10 +58,10 @@ export class MainHomeComponent implements OnInit {
   private _structuredDataService = inject(StructuredDataService)
 
   //- - - - - - - - - - - - - - -//
-  
+
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO);
   protected _npmUrl = signal(AppConstants.NPM_PKG);
-  
+
   //-----------------------------//
 
   ngOnInit() {

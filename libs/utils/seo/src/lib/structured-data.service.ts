@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
-import { SeoConfig } from '@spider-baby/utils-seo/config';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 
 //################################################//
 
@@ -190,7 +190,7 @@ export interface OrganizationSchema extends StructuredDataSchema {
 export class StructuredDataService {
 
   private document: Document = inject(DOCUMENT)
-  private _config = inject(SeoConfig)
+  private _config: SeoConfig = inject(SeoConfigService)
 
   //--------------------------------//
 

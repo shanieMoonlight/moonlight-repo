@@ -69,7 +69,7 @@ export class MyFirebaseService {
 
     try {
       const result = action();
-      console.log(`Successfully executed ${actionName}`);
+      devConsole.log(`Successfully executed ${actionName}`);
       return result;
     } catch (error) {
       devConsole.error(`Error executing ${actionName}:`, error);

@@ -1,0 +1,12 @@
+
+@use "scss/mat/material-theme.scss" as *;
+@import 'highlight.js/styles/github.css';
+@import 'highlight.js/styles/vs2015.css'; // Dark theme
+
+
+
+code{
+    overflow-x: auto;
+    // width: 100%;
+    // display: block;
+}

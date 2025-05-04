@@ -6,6 +6,7 @@ import { environment } from "../../../environments/environment";
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
 import { MyFirebaseService } from '../../firebase/my-firebase/my-firebase.service';
+import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
   imports: [
@@ -27,10 +28,9 @@ export class MainComponent {
 
   constructor() {
     this.myFirebase.logConnectionTest()
-    console.log('test:firebaseAppName:',  this.myFirebase.appName);
-    console.log('test:environment:', environment);
-    console.log('test:firebaseConfig:', environment.firebaseConfig);
-    
+    devConsole.log('test:firebaseAppName:',  this.myFirebase.appName);
+    devConsole.log('test:environment:', environment);
+    devConsole.log('test:firebaseConfig:', environment.firebaseConfig)    
   }
 
 }//Cls

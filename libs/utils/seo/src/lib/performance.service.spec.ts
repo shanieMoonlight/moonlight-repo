@@ -1,15 +1,30 @@
-import { TestBed } from '@angular/core/testing';
-import { PerformanceService } from './performance.service';
-import { PLATFORM_ID } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { filter } from 'rxjs/operators';
+import { PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { NavigationEnd, Router } from '@angular/router';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { Subject } from 'rxjs';
+import { PerformanceService } from './performance.service';
 
 jest.mock('@angular/common', () => ({
   ...jest.requireActual('@angular/common'),
   isPlatformBrowser: jest.fn(),
 }));
+
+// Create a mock SeoConfig object
+const mockSeoConfig: SeoConfig = SeoConfig.create({
+  appName: 'Test App',
+  appDescription: 'Test Description',
+  organization: 'Test Org',
+  baseUrl: 'http://localhost',
+  defaultLogoFilePath: 'http://localhost:4666//logo.png',
+  publishedDate: '2025-01-01',
+  keywords: ['test', 'seo'],
+  socialLinks: [],
+  defaultOgImageUrl: '/assets/og-image.png',
+  twitterHandle: '@test',
+  titleSuffix: ' | Test App',
+});
 
 describe('PerformanceService', () => {
   let service: PerformanceService;
@@ -24,6 +39,7 @@ describe('PerformanceService', () => {
         PerformanceService,
         { provide: Router, useValue: { events: routerEventsSubject.asObservable() } },
         { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: SeoConfigService, useValue: mockSeoConfig }
       ],
     });
 

@@ -37,6 +37,4 @@ export class UrlService {
         return `${baseWithSlash}${cleanPath}`;
     }
 
-    //-----------------------------//
-
 }

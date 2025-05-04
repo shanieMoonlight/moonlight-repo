@@ -1,0 +1,43 @@
+<div class="container">
+    <header class="header">
+        <img class="hero-image" [src]="_fireBaseLogoUrl()" alt="SpiderBaby Material Theming Logo" />
+        <h1>Firebase Tutorials</h1>
+        
+        <div class="links">
+            <button mat-raised-button [mlNavigateNewWindow]="_gitRepoUrl()" aria-label="View GitHub Repository">
+                <mat-icon svgIcon="git"/>
+                GitHub
+            </button>
+            <button mat-raised-button sbShareCurrentPage aria-label="Share this page">
+                <mat-icon>share</mat-icon>
+                Share
+            </button>
+        </div>
+
+    </header>
+
+    <mat-divider />
+    
+    <section class="features" aria-labelledby="features-heading">
+        <div class="api-cards-grid">
+            @for (route of _apiRoutes(); track route.route) {
+              <sb-ui-cards-api-nav [data]="route"/>
+            }
+          </div>
+
+    </section>
+
+
+    <mat-divider />
+
+
+
+    <footer>
+        <p>&copy; <span id="current-year">2024</span> SpiderBaby Material Theming. Licensed under MIT.</p>
+        <p>
+            <a href="https://github.com/paultrygs/angular-material-theming" rel="noopener" target="_blank">GitHub</a> | 
+            <a href="https://www.npmjs.com/package/@spider-baby/material-theming" rel="noopener" target="_blank">NPM</a>
+        </p>
+        <script>document.getElementById('current-year').textContent = new Date().getFullYear().toString();</script>
+    </footer>
+</div>

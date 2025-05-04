@@ -1,7 +1,12 @@
 <mat-card class="api-nav-card" [ngClass]="_data().color || 'primary'">
   <mat-card-header>
     <div mat-card-avatar class="card-icon">
-      <mat-icon>{{_data().icon}}</mat-icon>
+      @if (_data().isSvgIcon) {
+        <mat-icon [svgIcon]="_data().icon" />
+      }
+      @else {
+        <mat-icon>{{_data().icon}}</mat-icon>
+      }
     </div>
     <mat-card-title>{{_data().title}}</mat-card-title>
   </mat-card-header>

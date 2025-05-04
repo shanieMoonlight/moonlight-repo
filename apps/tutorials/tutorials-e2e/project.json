@@ -1,0 +1,9 @@
+{
+  "name": "spider-baby-tutorials-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/tutorials/tutorials-e2e/src",
+  "implicitDependencies": ["spider-baby-tutorials"],
+  "// targets": "to see all targets run: nx show project spider-baby-tutorials-e2e --web",
+  "targets": {}
+}

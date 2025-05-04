@@ -1,0 +1,98 @@
+{
+  "name": "spider-baby-tutorials",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/tutorials/tutorials/src",
+  "tags": ["app tutorial education"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/tutorials/tutorials",
+        "index": "apps/tutorials/tutorials/src/index.html",
+        "browser": "apps/tutorials/tutorials/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/tutorials/tutorials/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/tutorials/tutorials/public"
+          }
+        ],
+        "styles": ["apps/tutorials/tutorials/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/tutorials/tutorials/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/tutorials/tutorials/src/server.ts"
+        },
+        "prerender": true
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4666
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "spider-baby-tutorials:build:production"
+        },
+        "development": {
+          "buildTarget": "spider-baby-tutorials:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "spider-baby-tutorials:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/tutorials/tutorials/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "spider-baby-tutorials:build",
+        "port": 4666,
+        "staticFilePath": "dist/apps/tutorials/tutorials/browser",
+        "spa": true
+      }
+    }
+  }
+}

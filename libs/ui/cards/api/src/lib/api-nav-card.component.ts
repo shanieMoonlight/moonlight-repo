@@ -9,6 +9,7 @@ export interface ApiRouteData {
   title: string;
   description: string;
   icon: string;
+  isSvgIcon?: boolean
   route: string;
   color?: string; // Optional: Primary, secondary, tertiary, etc.
 }

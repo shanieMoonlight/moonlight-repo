@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { SeoConfig } from '@spider-baby/utils-seo/config';
+import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 
 //################################################//
 
@@ -45,7 +45,7 @@ export class SeoService {
     private _document = inject(DOCUMENT)
     private _meta = inject(Meta)
     private _title = inject(Title)
-    private _config = inject(SeoConfig)
+    private _config: SeoConfig = inject(SeoConfigService)
 
     //-----------------------------//
 
