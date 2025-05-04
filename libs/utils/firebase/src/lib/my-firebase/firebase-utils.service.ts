@@ -1,13 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Analytics, logEvent } from '@angular/fire/analytics'; // Import
+import { Analytics, logEvent } from '@angular/fire/analytics'; 
 import { devConsole } from '@spider-baby/dev-console';
 import { FirebaseApp, getApp } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MyFirebaseService {
+export class FirebaseUtilsService {
   
   private _analytics = inject(Analytics);
   private _platformId = inject(PLATFORM_ID)
@@ -26,7 +26,6 @@ export class MyFirebaseService {
   //-----------------------------//
 
   constructor() {
-    console.log('MyFirebaseService: constructor called', this._platformId, isPlatformBrowser(this._platformId));
     if (!isPlatformBrowser(this._platformId))
       return
     this._app = getApp();

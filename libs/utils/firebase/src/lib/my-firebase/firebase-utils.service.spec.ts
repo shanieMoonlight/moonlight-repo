@@ -2,7 +2,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 // Import logEvent function to use in assertion
 import { Analytics, logEvent } from '@angular/fire/analytics';
-import { MyFirebaseService } from './my-firebase.service';
+import { FirebaseUtilsService } from './firebase-utils.service';
 // Import getApp to assert its mock call if needed
 import { getApp } from '@firebase/app';
 
@@ -31,13 +31,13 @@ jest.mock('@angular/fire/analytics', () => {
 
 
 describe('MyFirebaseService', () => {
-  let service: MyFirebaseService;
+  let service: FirebaseUtilsService;
   let analyticsInstance: Analytics; // To get the injected instance
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        MyFirebaseService,
+        FirebaseUtilsService,
         // Provide the *real* Analytics token, AngularFire will handle its creation internally
         // but our mock above intercepts the actual 'logEvent' function call.
         // We still need *something* for the injection to work. A minimal mock is okay here too.
@@ -45,7 +45,7 @@ describe('MyFirebaseService', () => {
         { provide: PLATFORM_ID, useValue: 'browser' }
       ]
     });
-    service = TestBed.inject(MyFirebaseService);
+    service = TestBed.inject(FirebaseUtilsService);
     analyticsInstance = TestBed.inject(Analytics); // Get the injected (mocked) instance
 
     // Clear mocks before each test

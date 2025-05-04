@@ -5,7 +5,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { environment } from "../../../environments/environment";
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
-import { MyFirebaseService } from '../../firebase/my-firebase/my-firebase.service';
+import { FirebaseUtilsService } from '@spider-baby/utils-firebase';
 import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
@@ -24,7 +24,7 @@ import { devConsole } from '@spider-baby/dev-console';
 export class MainComponent {
 
   iconsService = inject(IconsService)
-  myFirebase = inject(MyFirebaseService)
+  myFirebase = inject(FirebaseUtilsService)
 
   constructor() {
     this.myFirebase.logConnectionTest()

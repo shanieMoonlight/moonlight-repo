@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http'; // Use this for standa
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { MyFirebaseService } from '../../firebase/my-firebase/my-firebase.service';
+import { FirebaseUtilsService } from '@spider-baby/utils-firebase';
 import { MainComponent } from './main.component';
 import { IconsService } from './utils/icons/icons.service';
 import { Analytics } from '@angular/fire/analytics';
@@ -29,7 +29,7 @@ describe('MainComponent', () => {
       imports: [MainComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
-        MyFirebaseService,
+        FirebaseUtilsService,
         provideHttpClient(), // Provide HttpClient
         provideHttpClientTesting(), // Provide testing support
         // Provide the mock Analytics service

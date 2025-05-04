@@ -77,6 +77,7 @@
       "@spider-baby/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
       "@spider-baby/utils-download": ["libs/utils/download/src/index.ts"],
+      "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
       "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
       "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
       "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
