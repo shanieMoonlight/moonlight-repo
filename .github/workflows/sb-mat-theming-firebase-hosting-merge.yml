@@ -32,8 +32,6 @@ jobs:
           node-version: '22' # Explicitly set the Node.js version
       # --- The custom action has now set up Node.js, restored caches, and installed dependencies ---
 
-      - name: List Environment Variables
-        run: env | grep MAT_THEME_FIREBASE_
       - name: Create environments directory
         run: mkdir -p apps/sb-mat-thm-demo/src/environments
       - name: Create environment.ts from secrets
