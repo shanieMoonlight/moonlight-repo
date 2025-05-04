@@ -33,7 +33,7 @@ jobs:
 
 
       - name: Create firebase ready environment.ts from secrets
-        uses: ./.github/actions/create-angular-env # Reference the new action
+        uses: ./.github/actions/create_firebase_env # Reference the new action
         with:
           environment-path: 'apps/sb-mat-thm-demo/src/environments'
           firebase-api-key: ${{ secrets.MAT_THEME_FIREBASE_API_KEY }}
