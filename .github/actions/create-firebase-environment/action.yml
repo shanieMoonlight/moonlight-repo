@@ -32,6 +32,7 @@ runs:
                 apiKey: "${{ inputs.api_key }}",
                 authDomain: "${{ inputs.auth_domain }}",
                 projectId: "${{ inputs.project_id }}",
+                storageBucket: "${{ inputs.storage_bucket }}",
                 messagingSenderId: "${{ inputs.messaging_sender_id }}",
                 appId: "${{ inputs.app_id }}",
                 measurementId: "${{ inputs.measurement_id }}"
