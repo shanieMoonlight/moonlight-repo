@@ -8,7 +8,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 const GIT_ACTION = `jobs:
 build:
 runs-on: ubuntu-latest
-environment: production # <---------- If you are targeting a specific environment
+environment: production # <---------- Must match the GIT environment
 steps:
   - uses: actions/checkout@v3
   - name: Set up Node.js

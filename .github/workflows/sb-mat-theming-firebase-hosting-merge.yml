@@ -30,43 +30,23 @@ jobs:
         # Optional: Pass inputs if you want to override the defaults in action.yml
         with:
           node-version: '22' # Explicitly set the Node.js version
-      # --- The custom action has now set up Node.js, restored caches, and installed dependencies ---
 
-      - name: Create environments directory
-        run: mkdir -p apps/sb-mat-thm-demo/src/environments
-      - name: Create environment.ts from secrets
-        env:
-          ENVIRONMENT_PATH: 'apps/sb-mat-thm-demo/src/environments'
-        run: |
-            # Create or update environment.ts
-            echo "export const environment = {" > $ENVIRONMENT_PATH/environment.ts
-            echo "  production: false," >> $ENVIRONMENT_PATH/environment.ts
-            echo "  testVariable: 456," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "  firebaseConfig: {" >> $ENVIRONMENT_PATH/environment.ts
-            echo "    apiKey: '${{ secrets.MAT_THEME_FIREBASE_API_KEY }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    authDomain: '${{ secrets.MAT_THEME_FIREBASE_AUTH_DOMAIN }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    projectId: '${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    storageBucket: '${{ secrets.MAT_THEME_FIREBASE_STORAGE_BUCKET }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    messagingSenderId: '${{ secrets.MAT_THEME_FIREBASE_MESSAGING_SENDER_ID }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    appId: '${{ secrets.MAT_THEME_FIREBASE_APP_ID }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "    measurementId: '${{ secrets.MAT_THEME_FIREBASE_MEASUREMENT_ID }}'," >> $ENVIRONMENT_PATH/environment.ts
-            echo "  }" >> $ENVIRONMENT_PATH/environment.ts
-            echo "};" >> $ENVIRONMENT_PATH/environment.ts
 
-            # Create or update environment.prod.ts
-            echo "export const environment = {" > $ENVIRONMENT_PATH/environment.prod.ts
-            echo "  production: true," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "  testVariable: 123," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "  firebaseConfig: {" >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    apiKey: '${{ secrets.MAT_THEME_FIREBASE_API_KEY }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    authDomain: '${{ secrets.MAT_THEME_FIREBASE_AUTH_DOMAIN }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    projectId: '${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    storageBucket: '${{ secrets.MAT_THEME_FIREBASE_STORAGE_BUCKET }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    messagingSenderId: '${{ secrets.MAT_THEME_FIREBASE_MESSAGING_SENDER_ID }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    appId: '${{ secrets.MAT_THEME_FIREBASE_APP_ID }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "    measurementId: '${{ secrets.MAT_THEME_FIREBASE_MEASUREMENT_ID }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "  }" >> $ENVIRONMENT_PATH/environment.prod.ts
-            echo "};" >> $ENVIRONMENT_PATH/environment.prod.ts
+      - name: Create firebase ready environment.ts from secrets
+        uses: ./.github/actions/create-angular-env # Reference the new action
+        with:
+          environment-path: 'apps/sb-mat-thm-demo/src/environments'
+          firebase-api-key: ${{ secrets.MAT_THEME_FIREBASE_API_KEY }}
+          firebase-auth-domain: ${{ secrets.MAT_THEME_FIREBASE_AUTH_DOMAIN }}
+          firebase-project-id: ${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }}
+          firebase-storage-bucket: ${{ secrets.MAT_THEME_FIREBASE_STORAGE_BUCKET }}
+          firebase-messaging-sender-id: ${{ secrets.MAT_THEME_FIREBASE_MESSAGING_SENDER_ID }}
+          firebase-app-id: ${{ secrets.MAT_THEME_FIREBASE_APP_ID }}
+          firebase-measurement-id: ${{ secrets.MAT_THEME_FIREBASE_MEASUREMENT_ID }}
+          
+
+      - name: Build Angular app
+        run: npx nx run spider-baby-mat-theming-demo:build --configuration=production
       
       - name: Build Angular app
         run: npx nx run spider-baby-mat-theming-demo:build --configuration=production
