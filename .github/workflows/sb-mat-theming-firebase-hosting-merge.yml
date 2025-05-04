@@ -19,7 +19,7 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    environment: production 
+    environment: production #<-- Important for the secrets to work
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

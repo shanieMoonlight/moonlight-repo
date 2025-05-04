@@ -5,6 +5,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { environment } from "../../../environments/environment";
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
+import { MyFirebaseService } from '../../firebase/my-firebase/my-firebase.service';
 
 @Component({
   imports: [
@@ -22,12 +23,13 @@ import { IconsService } from './utils/icons/icons.service';
 export class MainComponent {
 
   iconsService = inject(IconsService)
-  // myFirebase = inject(MyFirebaseService)
+  myFirebase = inject(MyFirebaseService)
 
   constructor() {
-    // this.myFirebase.logConnectionTest()
-    console.log('environment:', environment);
-    console.log('firebaseConfig:', environment.firebaseConfig);
+    this.myFirebase.logConnectionTest()
+    console.log('test:firebaseAppName:',  this.myFirebase.appName);
+    console.log('test:environment:', environment);
+    console.log('test:firebaseConfig:', environment.firebaseConfig);
     
   }
 
