@@ -1,12 +1,11 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
-import { appRoutes } from './app.routes';
-import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
-import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
-import { THEME_CONFIG } from './config/app-theme.config';
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { FirebaseProviders } from './firebase/firebase-init';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { appRoutes } from './app.routes';
+import { THEME_CONFIG } from './config/app-theme.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +18,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})),
     provideHttpClient(withFetch()),
-    ...FirebaseProviders.all,
+    // ...FirebaseProviders.all,
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
