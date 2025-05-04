@@ -3,12 +3,6 @@ import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from './utils/icons/icons.service';
 
-// describe('MainComponent', () => {
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [MainComponent, RouterModule.forRoot([])],
-//     }).compileComponents();
-//   });
 
 
 // });

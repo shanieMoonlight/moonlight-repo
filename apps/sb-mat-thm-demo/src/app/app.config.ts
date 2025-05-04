@@ -6,6 +6,7 @@ import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { FirebaseProviders } from './firebase/firebase-init';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})),
     provideHttpClient(withFetch()),
+    ...FirebaseProviders.all,
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,

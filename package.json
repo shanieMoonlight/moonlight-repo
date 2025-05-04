@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
-    "generate:customization-code": "node ./scripts/mini-state/generate-customization-code.js",
-    "build:sb-mat-thm-demo": "npm run generate:customization-code && ng build sb-mat-thm-demo",
-    "serve:sb-mat-thm-demo": "npm run generate:customization-code && ng serve sb-mat-thm-demo"
+    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\""
   },
   "private": true,
   "dependencies": {
@@ -15,6 +12,7 @@
     "@angular/common": "~19.2.0",
     "@angular/compiler": "~19.2.0",
     "@angular/core": "~19.2.0",
+    "@angular/fire": "^19.1.0",
     "@angular/forms": "~19.2.0",
     "@angular/material": "^19.2.9",
     "@angular/platform-browser": "~19.2.0",
@@ -25,7 +23,8 @@
     "@material/material-color-utilities": "^0.3.0",
     "@ng-matero/extensions": "^19.3.2",
     "express": "^4.21.2",
-    "firebase-tools": "^14.2.2",
+    "firebase": "^11.6.1",
+    "firebase-tools": "^13.0.0",
     "lunr": "^2.3.9",
     "ngx-highlightjs": "^14.0.0",
     "npm-name": "^8.0.0",
