@@ -40,6 +40,7 @@ jobs:
             # Create or update environment.ts
             echo "export const environment = {" > $ENVIRONMENT_PATH/environment.ts
             echo "  production: false," >> $ENVIRONMENT_PATH/environment.ts
+            echo "  testVariable: 456," >> $ENVIRONMENT_PATH/environment.prod.ts
             echo "  firebaseConfig: {" >> $ENVIRONMENT_PATH/environment.ts
             echo "    apiKey: '${{ secrets.MAT_THEME_FIREBASE_API_KEY }}'," >> $ENVIRONMENT_PATH/environment.ts
             echo "    authDomain: '${{ secrets.MAT_THEME_FIREBASE_AUTH_DOMAIN }}'," >> $ENVIRONMENT_PATH/environment.ts
@@ -54,6 +55,7 @@ jobs:
             # Create or update environment.prod.ts
             echo "export const environment = {" > $ENVIRONMENT_PATH/environment.prod.ts
             echo "  production: true," >> $ENVIRONMENT_PATH/environment.prod.ts
+            echo "  testVariable: 123," >> $ENVIRONMENT_PATH/environment.prod.ts
             echo "  firebaseConfig: {" >> $ENVIRONMENT_PATH/environment.prod.ts
             echo "    apiKey: '${{ secrets.MAT_THEME_FIREBASE_API_KEY }}'," >> $ENVIRONMENT_PATH/environment.prod.ts
             echo "    authDomain: '${{ secrets.MAT_THEME_FIREBASE_AUTH_DOMAIN }}'," >> $ENVIRONMENT_PATH/environment.prod.ts

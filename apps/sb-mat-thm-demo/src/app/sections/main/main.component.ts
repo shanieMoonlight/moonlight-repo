@@ -26,8 +26,8 @@ export class MainComponent {
 
   constructor() {
     // this.myFirebase.logConnectionTest()
-    console.log('Firebase App Name:', environment);
-    console.log('Firebase App Name:', environment.firebaseConfig);
+    console.log('environment:', environment);
+    console.log('firebaseConfig:', environment.firebaseConfig);
     
   }
 
