@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { SbThemeSelectorComponent } from "@spider-baby/material-theming/customizer";
-import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
-import { CustomizationCodeBehindComponent } from './ui/code-behind.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SbThemeSelectorComponent } from "@spider-baby/material-theming/customizer";
+import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { CustomizationCodeBehindComponent } from './ui/code-behind.component';
 
 @Component({
   selector: 'sb-customization',
@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
     MatEverythingModule,
     SbThemeSelectorComponent,  //<--- Select Custom Themes
     SbThemeShowcaseMatComponent, //<--- Showcase Custom Themes
-    CustomizationCodeBehindComponent
   ],
   templateUrl: './customization.component.html',
   styleUrl: './customization.component.scss',
