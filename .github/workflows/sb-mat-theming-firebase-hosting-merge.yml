@@ -54,6 +54,13 @@ jobs:
       - name: List files in deploy directory
         run: ls -alR dist/apps/sb-mat-thm-demo/browser
 
+      - name: Apply Firebase Hosting Target
+        run: |
+          npm install -g firebase-tools
+          firebase use ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }} --token "${{ secrets.FIREBASE_CLI_TOKEN }}"
+          firebase target:apply hosting spider-baby-mat-theming-demo ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }}
+
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -61,4 +68,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
           channelId: live
           target: spider-baby-mat-theming-demo
-          projectId: spider_baby_mat_theming_demo_alias # Using the alias
+          projectId: spiderbabymaterialtheming # Using the alias
