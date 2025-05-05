@@ -54,11 +54,11 @@ jobs:
       - name: List files in deploy directory
         run: ls -alR dist/apps/sb-mat-thm-demo/browser
 
-      - name: Apply Firebase Hosting Target
-        run: |
-          npm install -g firebase-tools
-          firebase use ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }} --token "${{ secrets.FIREBASE_CLI_TOKEN }}"
-          firebase target:apply hosting spider-baby-mat-theming-demo ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }}
+      # - name: Apply Firebase Hosting Target
+      #   run: |
+      #     npm install -g firebase-tools
+      #     firebase use ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }} --token "${{ secrets.FIREBASE_CLI_TOKEN }}"
+      #     firebase target:apply hosting spider-baby-mat-theming-demo ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }}
 
 
       - name: Deploy to Firebase Hosting
