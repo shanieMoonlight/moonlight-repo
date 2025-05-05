@@ -9,6 +9,7 @@ describe('ApiComponent', () => {
   let structuredDataService: StructuredDataService;
   let urlService: UrlUtilsService;
   let router: Router;
+  const routerUrl = '/api'
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,7 +19,7 @@ describe('ApiComponent', () => {
           provide: SeoService,
           useValue: {
             updateMetadata: jest.fn(),
-            addCanonicalLink: jest.fn(),
+            addCanonicalLinkRelative : jest.fn(),
           },
         },
         {
@@ -44,7 +45,7 @@ describe('ApiComponent', () => {
     urlService = TestBed.inject(UrlUtilsService);
     router = TestBed.inject(Router);
 
-    jest.spyOn(router, 'url', 'get').mockReturnValue('/api');
+    jest.spyOn(router, 'url', 'get').mockReturnValue(routerUrl);
   });
 
   it('should create', () => {
@@ -72,7 +73,7 @@ describe('ApiComponent', () => {
   it('should add a canonical link on initialization', () => {
     component.ngOnInit();
 
-    expect(seoService.addCanonicalLink).toHaveBeenCalledWith('https://example.com/api');
+    expect(seoService.addCanonicalLinkRelative ).toHaveBeenCalledWith(routerUrl);
   });
 
   it('should add structured data on initialization', () => {

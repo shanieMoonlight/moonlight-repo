@@ -22,6 +22,7 @@ const mockSeoConfig: SeoConfig = SeoConfig.create({
 const mockSeoService = {
   updateMetadata: jest.fn(),
   addCanonicalLink: jest.fn(),
+  addCanonicalLinkRelative: jest.fn(),
 };
 
 describe('HomeComponent', () => {

@@ -10,7 +10,6 @@ describe('AppComponent', () => {
   let seoService: SeoService;
   let structuredDataService: StructuredDataService;
   let performanceService: PerformanceService;
-  let urlService: UrlUtilsService;
   let router: Router;
 
   beforeEach(async () => {
@@ -21,6 +20,7 @@ describe('AppComponent', () => {
           provide: SeoService,
           useValue: {
             addCanonicalLink: jest.fn(),
+            addCanonicalLinkRelative: jest.fn(),
           },
         },
         {
@@ -54,7 +54,6 @@ describe('AppComponent', () => {
     seoService = TestBed.inject(SeoService);
     structuredDataService = TestBed.inject(StructuredDataService);
     performanceService = TestBed.inject(PerformanceService);
-    urlService = TestBed.inject(UrlUtilsService);
     router = TestBed.inject(Router);
 
     jest.spyOn(router.events, 'pipe').mockReturnValue(of(new NavigationEnd(1, '/previous', '/current')));
@@ -80,13 +79,7 @@ describe('AppComponent', () => {
     Object.defineProperty(router, 'url', { get: () => '/current' });
     component.ngOnInit()
 
-    expect(seoService.addCanonicalLink).toHaveBeenCalledWith('https://example.com/current');
+    expect(seoService.addCanonicalLinkRelative).toHaveBeenCalledWith('/current');
   });
 
-  it('should call UrlService to combine the base URL with the current route', () => {
-    Object.defineProperty(router, 'url', { get: () => '/current' });
-    component.ngOnInit();
-
-    expect(urlService.combineWithBase).toHaveBeenCalledWith('/current');
-  });
 });

@@ -32,6 +32,6 @@ export class CompleteColorListComponent implements OnInit {
     });
 
     // Add canonical link
-    this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
+      this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 }

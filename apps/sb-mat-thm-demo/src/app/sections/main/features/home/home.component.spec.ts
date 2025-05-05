@@ -33,6 +33,7 @@ const mockSeoConfig: SeoConfig = SeoConfig.create({
 const mockSeoService = {
   updateMetadata: jest.fn(),
   addCanonicalLink: jest.fn(),
+  addCanonicalLinkRelative: jest.fn(),
 };
 
 const mockStructuredDataService = {
@@ -46,11 +47,11 @@ describe('MainHomeComponent', () => {
   let component: MainHomeComponent;
   let fixture: ComponentFixture<MainHomeComponent>;
   let seoService: SeoService;
-  let structuredDataService: StructuredDataService;
 
   beforeEach(async () => {
     mockSeoService.updateMetadata.mockClear();
     mockSeoService.addCanonicalLink.mockClear();
+    mockSeoService.addCanonicalLinkRelative.mockClear();
     mockStructuredDataService.addOrganizationStructuredData.mockClear();
 
     await TestBed.configureTestingModule({
@@ -94,7 +95,6 @@ describe('MainHomeComponent', () => {
     component = fixture.componentInstance;
 
     seoService = TestBed.inject(SeoService);
-    structuredDataService = TestBed.inject(StructuredDataService);
 
     fixture.detectChanges();
   });
@@ -140,7 +140,7 @@ describe('MainHomeComponent', () => {
   it('should set SEO metadata and structured data on init', () => {
     // Assert that the methods were called during component initialization (in beforeEach)
     expect(seoService.updateMetadata).toHaveBeenCalled();
-    expect(seoService.addCanonicalLink).toHaveBeenCalled();
+    expect(seoService.addCanonicalLinkRelative).toHaveBeenCalled();
 
    
 

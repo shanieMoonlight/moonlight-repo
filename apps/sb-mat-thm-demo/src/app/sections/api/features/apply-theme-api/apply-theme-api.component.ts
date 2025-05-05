@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { SeoService } from '@spider-baby/utils-seo';
+import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
-import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 @Component({
   selector: 'sb-apply-theme-api',
@@ -22,7 +21,7 @@ export class ApplyThemeApiComponent implements OnInit {
 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
-  private _urlService = inject(UrlService);
+  private _urlService = inject(UrlUtilsService);
 
   ngOnInit() {
     this._seoService.updateMetadata({
@@ -31,7 +30,7 @@ export class ApplyThemeApiComponent implements OnInit {
       url: this._urlService.combineWithBase(this._router.url),
     });
 
-    this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
+    this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   // Add examples and documentation content here

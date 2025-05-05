@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
-import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
 import { AppImages } from '../../../../config/images';
 import { AppConstants } from '../.././../../config/constants';
@@ -54,7 +54,6 @@ export class MainHomeComponent implements OnInit {
   private _seoService = inject(SeoService)
   private _router = inject(Router)
   private _urlService = inject(UrlUtilsService)
-  private _structuredDataService = inject(StructuredDataService)
 
   //- - - - - - - - - - - - - - -//
 
@@ -73,7 +72,7 @@ export class MainHomeComponent implements OnInit {
     });
 
     // Add canonical link
-    this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
+      this._seoService.addCanonicalLinkRelative(this._router.url)
 
   }
 }

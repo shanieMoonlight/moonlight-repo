@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     ).subscribe(() => {
       // Update canonical URL based on current route
       console.log('AppComponent-Router URL:', this._router.url);
-      this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
+      this._seoService.addCanonicalLinkRelative(this._router.url)
     });
   }
 }
