@@ -42,9 +42,6 @@ export class ApiComponent implements OnInit {
       url: this._router.url,
     });
 
-    // Add canonical link
-      this._seoService.addCanonicalLinkRelative(this._router.url)
-
     // Add structured data
     this._structuredDataService.addLibraryStructuredData();
   }

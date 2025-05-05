@@ -33,8 +33,6 @@ export class ThemeServiceApiComponent implements OnInit {
       url: this._router.url,
     });
 
-    // Add canonical link
-      this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   // Property examples

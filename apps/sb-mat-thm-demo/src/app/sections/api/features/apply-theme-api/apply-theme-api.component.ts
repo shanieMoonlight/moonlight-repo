@@ -28,8 +28,6 @@ export class ApplyThemeApiComponent implements OnInit {
       description: 'Documentation for the Apply Theme directive, including examples and usage.',
       url: this._router.url,
     });
-
-    this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   // Add examples and documentation content here

@@ -30,8 +30,6 @@ export class CustomThemeApiComponent implements OnInit {
       description: 'Documentation for the Custom Theme Selector Component including examples and usage.',
       url: this._router.url,
     });
-
-    this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   //- - - - - - - - - - - - - - -//

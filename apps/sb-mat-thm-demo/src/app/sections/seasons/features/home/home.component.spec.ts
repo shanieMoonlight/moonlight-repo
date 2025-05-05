@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SeasonalHomeComponent } from './home.component';
+import { Router } from 'express';
+import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: SeasonalHomeComponent;
@@ -7,7 +9,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SeasonalHomeComponent],
+      imports: [SeasonalHomeComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SeasonalHomeComponent);

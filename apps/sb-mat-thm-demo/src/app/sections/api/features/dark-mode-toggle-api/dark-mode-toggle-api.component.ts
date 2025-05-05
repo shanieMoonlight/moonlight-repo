@@ -28,8 +28,6 @@ export class DarkModeToggleApiComponent implements OnInit {
       description: 'Documentation for the Dark Mode Toggle component, including examples and usage.',
       url: this._router.url,
     });
-
-    this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   // Add examples and documentation content here

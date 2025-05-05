@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { PerformanceService, SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { devConsole } from '@spider-baby/dev-console';
+import { PerformanceService, SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +22,6 @@ export class AppComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlUtilsService)
   private _structuredDataService = inject(StructuredDataService)
   private _performanceService = inject(PerformanceService)
 
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       // Update canonical URL based on current route
-      console.log('AppComponent-Router URL:', this._router.url);
+      devConsole.log('AppComponent-Router URL:', this._router.url);
       this._seoService.addCanonicalLinkRelative(this._router.url)
     });
   }

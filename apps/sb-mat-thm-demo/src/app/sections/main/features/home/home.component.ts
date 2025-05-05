@@ -23,7 +23,7 @@ import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes
 
 
 @Component({
-  selector: 'sb-home',
+  selector: 'sb-main-home',
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -69,9 +69,6 @@ export class MainHomeComponent implements OnInit {
       description: 'A powerful, flexible theming system for Angular Material with dynamic theme switching, section-based theming, and Material Design 3 support.',
       url: this._router.url,
     });
-
-    // Add canonical link
-      this._seoService.addCanonicalLinkRelative(this._router.url)
 
   }
 }

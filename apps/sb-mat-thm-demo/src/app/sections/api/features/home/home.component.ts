@@ -85,8 +85,6 @@ export class ApiHomeComponent implements OnInit {
       url: this._router.url,
     });
 
-    // Add canonical link
-      this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
 }//Cls

@@ -70,11 +70,6 @@ describe('ApiComponent', () => {
     expect(args.url).toBeTruthy();
   });
 
-  it('should add a canonical link on initialization', () => {
-    component.ngOnInit();
-
-    expect(seoService.addCanonicalLinkRelative ).toHaveBeenCalledWith(routerUrl);
-  });
 
   it('should add structured data on initialization', () => {
     component.ngOnInit();

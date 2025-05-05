@@ -28,8 +28,6 @@ export class ThemePickerApiComponent implements OnInit {
       description: 'Documentation for the Theme Picker component, including examples and usage.',
       url: this._router.url,
     });
-
-    this._seoService.addCanonicalLinkRelative(this._router.url)
   }
 
   // Add examples and documentation content here

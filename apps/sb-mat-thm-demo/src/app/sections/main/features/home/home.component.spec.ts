@@ -140,7 +140,6 @@ describe('MainHomeComponent', () => {
   it('should set SEO metadata and structured data on init', () => {
     // Assert that the methods were called during component initialization (in beforeEach)
     expect(seoService.updateMetadata).toHaveBeenCalled();
-    expect(seoService.addCanonicalLinkRelative).toHaveBeenCalled();
 
    
 
