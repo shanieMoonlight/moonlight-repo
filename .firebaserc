@@ -1,9 +1,9 @@
 {
   "projects": {
-    "spider_baby_mat_theming_demo": "spiderbabymaterialtheming_FakeProjectId"
+    "spider_baby_mat_theming_demo": "spiderbabymaterialtheming"
   },
   "targets": {
-    "spiderbabymaterialtheming": {
+    "spiderbabymaterialtheming_faketarget": {
       "hosting": {
         "spider-baby-mat-theming-demo": ["spiderbabymaterialtheming"]
       }
