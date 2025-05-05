@@ -54,27 +54,11 @@ jobs:
       - name: List files in deploy directory
         run: ls -alR dist/apps/sb-mat-thm-demo/browser
 
-      # - name: Apply Firebase Hosting Target
-      #   run: |
-      #     npm install -g firebase-tools
-      #     firebase use ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }} --token "${{ secrets.FIREBASE_CLI_TOKEN }}"
-      #     firebase target:apply hosting spider-baby-mat-theming-demo ${{ secrets.FIREBASE_PROJECT_ID_SPIDERBABYMATERIALTHEMING }}
-
-
-      # - name: Deploy to Firebase Hosting
-      #   uses: FirebaseExtended/action-hosting-deploy@v0
-      #   with:
-      #     repoToken: ${{ secrets.GITHUB_TOKEN }}
-      #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
-      #     channelId: live
-      #     target: spiderbabymaterialtheming
-      #     projectId: spider_baby_mat_theming_demo # Using the alias to find the actual project ID in .firebaserc
-
-      
       - name: Deploy to Firebase Hosting
-        run: |
-          npm install -g firebase-tools
-          firebase use ${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }} --token "${{ secrets.FIREBASE_CLI_TOKEN }}"
-          firebase deploy --only hosting:${{ github.event.inputs.target || 'spiderbabymaterialtheming' }} --project ${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }}
-        env:
-          FIREBASE_PROJECT: ${{ secrets.MAT_THEME_FIREBASE_PROJECT_ID }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
+          channelId: live
+          target: spider-baby-mat-theming-demo
+          projectId: spiderbabymaterialtheming # Keep this projectId for this workflow (SpiderBabyMaterialTheming)

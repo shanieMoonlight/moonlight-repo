@@ -22,7 +22,7 @@
   ],
   "hosting": [
     {
-      "target": "spiderbabymaterialtheming",
+      "target": "spider-baby-mat-theming-demo",
       "public": "dist/apps/sb-mat-thm-demo/browser",
       "ignore": [
         "firebase.json",
