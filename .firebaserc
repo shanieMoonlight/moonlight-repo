@@ -1,7 +1,7 @@
 {
   "projects": {
     "spider_baby_mat_theming_demo": "spiderbabymaterialtheming",
-    "spider_baby_mini_state_demo": "spider-baby-mini-state",
+    "spider_baby_mini_state_demo": "spider-baby-mini-state"
   },
   "targets": {
     "spiderbabymaterialtheming": {
