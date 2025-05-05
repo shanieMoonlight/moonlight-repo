@@ -17,7 +17,7 @@ export class UrlUtilsService {
      * @returns The combined URL
      */
     combine(base: string, path?: string): string {
-        
+
         if (!path) {
             return base;
         }
@@ -32,12 +32,33 @@ export class UrlUtilsService {
     }
 
 
-        /**
-     * Combines the app's base URL with a relative path
-     * @param path The relative path to combine with the base URL
-     * @returns The complete URL
+    /**
+ * Combines the app's base URL with a relative path
+ * @param path The relative path to combine with the base URL
+ * @returns The complete URL
+ */
+    combineWithBase = (path?: string): string =>
+        this.combine(this._config.baseUrl, path)
+
+
+    //-----------------------------//
+
+    /**
+     * Resolves a potentially relative path or absolute URL to a guaranteed absolute URL.
+     * If the input is absolute, it's returned directly.
+     * If the input is relative, it's combined with the base URL.
+     * If no input is provided, the base URL is returned.
+     * @param pathOrUrl Optional relative path or absolute URL string.
+     * @returns The guaranteed absolute URL.
      */
-        combineWithBase = (path?: string): string =>
-            this.combine(this._config.baseUrl, path)
+    resolveAbsoluteUrl(pathOrUrl?: string): string {
+        if (pathOrUrl) {// Check if the provided URL is already absolute            
+            return pathOrUrl.startsWith('http') 
+                ? pathOrUrl 
+                : this.combineWithBase(pathOrUrl);
+        } else {// Default to the base URL if no specific URL is provided            
+            return this._config.baseUrl;
+        }
+    }
 
 }

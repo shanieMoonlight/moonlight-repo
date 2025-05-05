@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
@@ -21,13 +21,12 @@ export class ApplyThemeApiComponent implements OnInit {
 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
-  private _urlService = inject(UrlUtilsService);
 
   ngOnInit() {
     this._seoService.updateMetadata({
       title: 'Apply Theme Directive API - SpiderBaby Material Theming',
       description: 'Documentation for the Apply Theme directive, including examples and usage.',
-      url: this._urlService.combineWithBase(this._router.url),
+      url: this._router.url,
     });
 
     this._seoService.addCanonicalLinkRelative(this._router.url)

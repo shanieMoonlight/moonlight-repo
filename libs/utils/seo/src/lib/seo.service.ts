@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { UrlUtilsService } from './url.service';
+import { devConsole } from '@spider-baby/dev-console';
 
 //################################################//
 
@@ -63,7 +64,7 @@ export class SeoService {
         const description = options.description ?? this._config.appDescription;
         const image = options.image ?? this._config.defaultLogoFilePath;
         const ogImage = options.image ?? this._config.defaultOgImageUrl;
-        const url = options.url ?? this._config.baseUrl;
+        const url = this._urlService.resolveAbsoluteUrl(options.url);
         
 
         // Set title
@@ -85,7 +86,7 @@ export class SeoService {
             { name: 'keywords', content: this._config.keywords.join(', ') || 'SpiderBaby Angular' },
         ]
 
-        console.log('tags', tags);
+        // devConsole.log('tags', tags);
         
 
         // Update each meta tag
@@ -107,7 +108,7 @@ export class SeoService {
      * @param relativePath - The relative path (e.g., from router.url)
      */
      addCanonicalLinkRelative(relativePath: string) {
-        console.log('addCanonicalLinkRelative', relativePath);
+        // devConsole.log('addCanonicalLinkRelative', relativePath);
         
         // Use the combineUrl logic (assuming it's available)
         // and the baseUrl from the injected config
@@ -131,7 +132,7 @@ export class SeoService {
         link.setAttribute('href', url);
 
         const head = this._document.querySelector('head');
-        console.log('head', head)
+        // devConsole.log('head', head)
         // Check if head element exists before appending the link;
         
         if (head) {

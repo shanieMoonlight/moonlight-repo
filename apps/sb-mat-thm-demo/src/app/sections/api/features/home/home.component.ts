@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { ApiRouteData, SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
-import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService } from '@spider-baby/utils-seo';
 
 //###############################################//
 
@@ -70,7 +70,6 @@ export class ApiHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlUtilsService)
 
   //- - - - - - - - - - - - - - -//
 
@@ -83,7 +82,7 @@ export class ApiHomeComponent implements OnInit {
     this._seoService.updateMetadata({
       title: 'API Documentation Home - SpiderBaby Material Theming',
       description: 'Explore the API documentation for SpiderBaby Material Theming. Find CSS variables, theme service APIs, and implementation guides for Angular Material theming.',
-      url: this._urlService.combineWithBase(this._router.url),
+      url: this._router.url,
     });
 
     // Add canonical link

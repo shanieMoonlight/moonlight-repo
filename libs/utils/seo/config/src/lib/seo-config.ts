@@ -174,25 +174,17 @@ export class SeoConfig {
     this.organization = options.organization;
     this.baseUrl = options.baseUrl;
     
-    // Set optional fields with defaults // --- Process defaultLogoFilePath ---
-    if (options.defaultLogoFilePath) {
-      if (options.defaultLogoFilePath.startsWith('http')) 
-        this.defaultLogoFilePath = options.defaultLogoFilePath;
-       else 
-        this.defaultLogoFilePath = combineUrl(this.baseUrl, options.defaultLogoFilePath);      
-    } else {
-      this.defaultLogoFilePath = combineUrl(this.baseUrl, 'assets/logo.png');
-    }
+    this.defaultLogoFilePath = SeoConfig.resolveImagePath(
+      this.baseUrl,
+      options.defaultLogoFilePath,
+      'assets/logo.png'
+    );
 
-    // --- Process defaultOgImageUrl ---
-    if (options.defaultOgImageUrl) {
-      if (options.defaultOgImageUrl.startsWith('http')) 
-        this.defaultOgImageUrl = options.defaultOgImageUrl;
-       else 
-        this.defaultOgImageUrl = combineUrl(this.baseUrl, options.defaultOgImageUrl);      
-    } else {
-      this.defaultOgImageUrl = combineUrl(this.baseUrl, 'assets/og-image.png');
-    }
+    this.defaultOgImageUrl = SeoConfig.resolveImagePath(
+      this.baseUrl,
+      options.defaultOgImageUrl,
+      'assets/og-image.png'
+    );
 
     this.publishedDate = options.publishedDate || new Date().toISOString().split('T')[0];
     this.keywords = options.keywords || [];
@@ -215,4 +207,26 @@ export class SeoConfig {
       hasCustomLogo: this.defaultLogoFilePath !== `${this.baseUrl}assets/logo.png`,
     };
   }
+
+    //-----------------------------//
+
+  /**
+   * Resolves an optional input path (relative or absolute) to a guaranteed absolute URL,
+   * falling back to a default relative path if the input is not provided.
+   * @param baseUrl The base URL (ending with /).
+   * @param inputPath The optional path provided in the options (relative or absolute).
+   * @param defaultRelativePath The default relative path to use if inputPath is missing.
+   * @returns The guaranteed absolute URL.
+   */
+  private static resolveImagePath(baseUrl: string, inputPath: string | undefined, defaultRelativePath: string): string {
+    if (inputPath) {
+      return inputPath.startsWith('http')
+        ? inputPath
+        : combineUrl(baseUrl, inputPath);
+    } else {
+      return combineUrl(baseUrl, defaultRelativePath);
+    }
+  }
+
+
 } //Cls

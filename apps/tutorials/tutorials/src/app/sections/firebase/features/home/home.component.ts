@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { ApiRouteData, SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
-import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
 import { AppConstants } from '../.././../../config/constants';
 import { FirebaseImages } from '../../config/images';
@@ -49,7 +49,6 @@ export class FirebaseHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlUtilsService)
   private _structuredDataService = inject(StructuredDataService)
 
   //- - - - - - - - - - - - - - -//
@@ -65,7 +64,7 @@ export class FirebaseHomeComponent implements OnInit {
     this._seoService.updateMetadata({
       title: 'SpiderBaby Tutorials |Tutorials for Angular so we never forget again',
       description: 'Reminders...',
-      url: this._urlService.combineWithBase(this._router.url),
+      url: this._router.url,
     });
 
     // Add canonical link

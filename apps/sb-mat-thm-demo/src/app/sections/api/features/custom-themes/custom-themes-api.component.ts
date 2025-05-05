@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
@@ -21,7 +21,6 @@ export class CustomThemeApiComponent implements OnInit {
 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
-  private _urlService = inject(UrlUtilsService);
   
   //- - - - - - - - - - - - - - -//
 
@@ -29,7 +28,7 @@ export class CustomThemeApiComponent implements OnInit {
     this._seoService.updateMetadata({
       title: 'Custom Theme Selector Component API',
       description: 'Documentation for the Custom Theme Selector Component including examples and usage.',
-      url: this._urlService.combineWithBase(this._router.url),
+      url: this._router.url,
     });
 
     this._seoService.addCanonicalLinkRelative(this._router.url)

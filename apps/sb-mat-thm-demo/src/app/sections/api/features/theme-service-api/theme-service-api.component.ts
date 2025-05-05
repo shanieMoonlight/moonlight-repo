@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
@@ -22,7 +22,6 @@ export class ThemeServiceApiComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlUtilsService)
 
   //- - - - - - - - - - - - - - -//
 
@@ -31,7 +30,7 @@ export class ThemeServiceApiComponent implements OnInit {
     this._seoService.updateMetadata({
       title: 'Theme Service API - SpiderBaby Material Theming',
       description: 'Comprehensive documentation for the SpiderBaby ThemeService API. Learn how to manipulate themes, toggle dark mode, and create custom themes for Angular Material.',
-      url: this._urlService.combineWithBase(this._router.url),
+      url: this._router.url,
     });
 
     // Add canonical link
