@@ -117,7 +117,7 @@ export class SeoConfig {
     
     // Ensure baseUrl ends with a trailing slash
     if (!options.baseUrl.endsWith('/')) {
-      console.warn(`SeoConfig: baseUrl should end with a trailing slash for proper URL combining. Adding slash automatically.`);
+      devConsole.warn(`SeoConfig: baseUrl should end with a trailing slash for proper URL combining. Adding slash automatically.`);
       options.baseUrl = `${options.baseUrl}/`;
     }
     

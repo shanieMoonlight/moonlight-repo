@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { UrlUtilsService } from './url.service';
-import { devConsole } from '@spider-baby/dev-console';
 
 //################################################//
 
@@ -108,12 +107,9 @@ export class SeoService {
      * @param relativePath - The relative path (e.g., from router.url)
      */
      addCanonicalLinkRelative(relativePath: string) {
-        // devConsole.log('addCanonicalLinkRelative', relativePath);
-        
-        // Use the combineUrl logic (assuming it's available)
-        // and the baseUrl from the injected config
+        // devConsole.log('addCanonicalLinkRelative', relativePath);        
         const absoluteUrl = this._urlService.combineWithBase(relativePath);
-        this.addCanonicalLink(absoluteUrl); // Call the original method
+        this.addCanonicalLink(absoluteUrl); 
     }
 
     //-----------------------------//
