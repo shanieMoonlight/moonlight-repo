@@ -1,11 +1,17 @@
 {
   "projects": {
-    "spider_baby_mat_theming_demo": "spiderbabymaterialtheming"
+    "spider_baby_mat_theming_demo": "spiderbabymaterialtheming",
+    "spider_baby_mini_state_demo": "spider-baby-mini-state",
   },
   "targets": {
     "spiderbabymaterialtheming": {
       "hosting": {
         "spider-baby-mat-theming-demo": ["spiderbabymaterialtheming"]
+      }
+    },
+    "spider-baby-mini-state": {
+      "hosting": {
+        "spider-baby-mini-state-demo": ["spider-baby-mini-state"]
       }
     }
   },
