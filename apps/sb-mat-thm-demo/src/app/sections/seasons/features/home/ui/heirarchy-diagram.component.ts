@@ -155,7 +155,7 @@ import { SEASON_THEME_CONFIG } from '../../../config/seasonal-theme.config';
     }
     
     .seasons-box {
-      border-color: var(--color-primary-60, #f57c00);
+      border-color: var(--mat-sys-primary-60, #f57c00);
     }
     
     .box-title {

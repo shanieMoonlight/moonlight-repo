@@ -195,7 +195,7 @@ import { Router } from '@angular/router';
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--color-primary-95) 0%, var(--color-primary-99) 100%);
+      background: linear-gradient(135deg, var(--mat-sys-primary-95) 0%, var(--mat-sys-primary-99) 100%);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
@@ -219,7 +219,7 @@ import { Router } from '@angular/router';
     }
     
     .sound-card {
-      background-color: var(--color-primary-95);
+      background-color: var(--mat-sys-primary-95);
       border-radius: 12px;
       padding: 16px;
       display: flex;

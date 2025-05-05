@@ -82,10 +82,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <ul class="variable-list tone-list">
               @for (tone of tones; track $index) {
                 <li class="variable-item">
-                  <code>--color-primary-{{ tone }}</code>
+                  <code>--mat-sys-primary-{{ tone }}</code>
                   <button 
                     mat-icon-button 
-                    [cdkCopyToClipboard]="'--color-primary-' + tone"
+                    [cdkCopyToClipboard]="'--mat-sys-primary-' + tone"
                     matTooltip="Copy to clipboard">
                     <mat-icon>content_copy</mat-icon>
                   </button>
@@ -103,10 +103,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <ul class="variable-list tone-list">
               @for (tone of tones; track $index ) {
                 <li class="variable-item">
-                  <code>--color-secondary-{{ tone }}</code>
+                  <code>--mat-sys-secondary-{{ tone }}</code>
                   <button 
                     mat-icon-button 
-                    [cdkCopyToClipboard]="'--color-secondary-' + tone"
+                    [cdkCopyToClipboard]="'--mat-sys-secondary-' + tone"
                     matTooltip="Copy to clipboard">
                     <mat-icon>content_copy</mat-icon>
                   </button>

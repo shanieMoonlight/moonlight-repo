@@ -244,12 +244,12 @@ The library exposes theme colors through CSS variables following these patterns:
 ```css
 .my-element {
   /* Access any tone from 0-100 */
-  background-color: var(--color-primary-40);
-  border-color: var(--color-primary-80);
+  background-color: var(--mat-sys-primary-40);
+  border-color: var(--mat-sys-primary-80);
   
   /* Different palette types */
-  color: var(--color-secondary-50);
-  box-shadow: 0 2px 4px var(--color-neutral-0);
+  color: var(--mat-sys-secondary-50);
+  box-shadow: 0 2px 4px var(--mat-sys-neutral-0);
 }
 ```
 
@@ -650,32 +650,32 @@ This reference documents all available variables that you can use in your applic
 ## Complete Palette Tone Variables
 
 ### Primary Palette Tones
-- `--color-primary-0`
-- `--color-primary-1`
-- `--color-primary-2`
-- `--color-primary-4`
-- `--color-primary-6`
-- `--color-primary-10`
-- `--color-primary-12`
-- `--color-primary-17`
-- `--color-primary-20`
-- `--color-primary-22`
-- `--color-primary-24`
-- `--color-primary-30`
-- `--color-primary-40`
-- `--color-primary-50`
-- `--color-primary-60`
-- `--color-primary-70`
-- `--color-primary-80`
-- `--color-primary-87`
-- `--color-primary-90`
-- `--color-primary-92`
-- `--color-primary-94`
-- `--color-primary-95`
-- `--color-primary-96`
-- `--color-primary-98`
-- `--color-primary-99`
-- `--color-primary-100`
+- `--mat-sys-primary-0`
+- `--mat-sys-primary-1`
+- `--mat-sys-primary-2`
+- `--mat-sys-primary-4`
+- `--mat-sys-primary-6`
+- `--mat-sys-primary-10`
+- `--mat-sys-primary-12`
+- `--mat-sys-primary-17`
+- `--mat-sys-primary-20`
+- `--mat-sys-primary-22`
+- `--mat-sys-primary-24`
+- `--mat-sys-primary-30`
+- `--mat-sys-primary-40`
+- `--mat-sys-primary-50`
+- `--mat-sys-primary-60`
+- `--mat-sys-primary-70`
+- `--mat-sys-primary-80`
+- `--mat-sys-primary-87`
+- `--mat-sys-primary-90`
+- `--mat-sys-primary-92`
+- `--mat-sys-primary-94`
+- `--mat-sys-primary-95`
+- `--mat-sys-primary-96`
+- `--mat-sys-primary-98`
+- `--mat-sys-primary-99`
+- `--mat-sys-primary-100`
 
 ### Secondary, Tertiary, Error, Neutral, and Neutral Variant Palettes
 Each of these palettes also has the full range of tone variables from 0-100, following the same pattern as the primary palette.
@@ -694,7 +694,7 @@ Each of these palettes also has the full range of tone variables from 0-100, fol
   border: 2px solid var(--mat-sys-error-container);
   
   // Use specific tone from primary palette
-  box-shadow: 0 2px 4px var(--color-primary-40);
+  box-shadow: 0 2px 4px var(--mat-sys-primary-40);
 }
 ```
 

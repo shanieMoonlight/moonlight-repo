@@ -79,7 +79,7 @@ export const THEME_CLASS_PREFIX = 'sb-theme';
  * Prefix used for color CSS variables.
  * Color variables follow the pattern: `--${COLOR_VAR_PREFIX}-${colorName}-${toneLevel}`.
  */
-export const COLOR_VAR_PREFIX = 'color';
+export const COLOR_VAR_PREFIX = 'mat-sys';
 
 /**
  * SCSS variable name used to store the color palettes map.

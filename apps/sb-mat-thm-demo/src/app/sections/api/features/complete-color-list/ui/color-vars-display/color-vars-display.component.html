@@ -42,8 +42,8 @@
           <ul class="variable-list tone-list">
             @for (tone of _tones; track $index) {
             <li class="variable-item">
-              <code>--color-{{color}}-{{ tone }}</code>
-              <button mat-icon-button [cdkCopyToClipboard]="'--color-' + color+ '-' + tone" matTooltip="Copy to clipboard">
+              <code>--mat-sys-{{color}}-{{ tone }}</code>
+              <button mat-icon-button [cdkCopyToClipboard]="'--mat-sys-' + color+ '-' + tone" matTooltip="Copy to clipboard">
                 <mat-icon>content_copy</mat-icon>
               </button>
             </li>

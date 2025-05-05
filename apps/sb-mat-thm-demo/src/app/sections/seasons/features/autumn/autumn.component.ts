@@ -83,16 +83,16 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
         <section class="seasonal-gallery">
           <h2>Autumn Palette</h2>
           <div class="color-palette">
-            <div class="color-swatch" style="background-color: var(--color-primary-60)">
+            <div class="color-swatch" style="background-color: var(--mat-sys-primary-60)">
               <span>Pumpkin</span>
             </div>
-            <div class="color-swatch" style="background-color: var(--color-secondary-70)">
+            <div class="color-swatch" style="background-color: var(--mat-sys-secondary-70)">
               <span>Gold</span>
             </div>
-            <div class="color-swatch" style="background-color: var(--color-primary-40)">
+            <div class="color-swatch" style="background-color: var(--mat-sys-primary-40)">
               <span>Russet</span>
             </div>
-            <div class="color-swatch" style="background-color: var(--color-primary-30)">
+            <div class="color-swatch" style="background-color: var(--mat-sys-primary-30)">
               <span>Auburn</span>
             </div>
           </div>

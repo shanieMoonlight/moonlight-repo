@@ -1,6 +1,6 @@
 :host{
-  --color-title: var(--mat-seed-primary);
-  --color-subtitle: var(--color-primary-70);
+  --clr-title: var(--mat-seed-primary);
+  --clr-subtitle: var(--mat-sys-primary-70);
 }
 
 
@@ -21,7 +21,7 @@
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #1976d2;
-  color:var(--color-title);
+  color:var(--clr-title);
 }
 
 .subtitle {
@@ -29,7 +29,7 @@
   font-weight: 400;
   margin-bottom: 1rem;
   color: #455a64;
-  color:var(--color-subtitle);
+  color:var(--clr-subtitle);
 }
 
 .description {
@@ -56,7 +56,7 @@
   margin-bottom: 1rem;
   text-align: center;
   color: #455a64;
-  color:var(--color-title);
+  color:var(--clr-title);
 }
 
 .section-description {
@@ -158,8 +158,8 @@
 
 
 :host-context(.dark-mode) {
-  --color-title: var(--mat-sys-on-surface);
-  --color-subtitle: var(--mat-sys-on-surface);
+  --clr-title: var(--mat-sys-on-surface);
+  --clr-subtitle: var(--mat-sys-on-surface);
 }
 
 

@@ -51,22 +51,22 @@
                             </li>
                             <mat-divider />
                             <li>
-                                <span class="color-swatch" style="background-color: var(--color-primary-40)"></span>
-                                <code>--color-primary-40</code> - Primary color palette (40)
+                                <span class="color-swatch" style="background-color: var(--mat-sys-primary-40)"></span>
+                                <code>--mat-sys-primary-40</code> - Primary color palette (40)
                             </li>
                         </ul>
                     </ul>
 
                     <div class="tone-showcase">
                         <h4>Primary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-primary-[tone])</code></p>
+                        <p>Access any tone with <code>var(--mat-sys-primary-[tone])</code></p>
 
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
                                 <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-primary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-primary-' + tone + ')'"></div>
+                                    [matTooltip]="'var(--mat-sys-primary-' + tone + ')'"
+                                    [style.background-color]="'var(--mat-sys-primary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -74,14 +74,14 @@
                     </div>
                     <div class="tone-showcase">
                         <h4>Secondary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-secondary-[tone])</code></p>
+                        <p>Access any tone with <code>var(--mat-sys-secondary-[tone])</code></p>
 
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
                                 <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-secondary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-secondary-' + tone + ')'"></div>
+                                    [matTooltip]="'var(--mat-sys-secondary-' + tone + ')'"
+                                    [style.background-color]="'var(--mat-sys-secondary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -89,14 +89,14 @@
                     </div>
                     <div class="tone-showcase">
                         <h4>Tertiary Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-tertiary-[tone])</code></p>
+                        <p>Access any tone with <code>var(--mat-sys-tertiary-[tone])</code></p>
 
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
                                 <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-tertiary-' + tone + ')'"
-                                    [style.background-color]="'var(--color-tertiary-' + tone + ')'"></div>
+                                    [matTooltip]="'var(--mat-sys-tertiary-' + tone + ')'"
+                                    [style.background-color]="'var(--mat-sys-tertiary-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -104,14 +104,14 @@
                     </div>
                     <div class="tone-showcase">
                         <h4>Error Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-error-[tone])</code></p>
+                        <p>Access any tone with <code>var(--mat-sys-error-[tone])</code></p>
 
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
                                 <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-error-' + tone + ')'"
-                                    [style.background-color]="'var(--color-error-' + tone + ')'"></div>
+                                    [matTooltip]="'var(--mat-sys-error-' + tone + ')'"
+                                    [style.background-color]="'var(--mat-sys-error-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
@@ -119,14 +119,14 @@
                     </div>
                     <div class="tone-showcase">
                         <h4>Neutral Color Palette Tones</h4>
-                        <p>Access any tone with <code>var(--color-neutral-[tone])</code></p>
+                        <p>Access any tone with <code>var(--mat-sys-neutral-[tone])</code></p>
 
                         <div class="tone-grid">
                             @for (tone of _tones(); track $index) {
                             <div class="tone-item">
                                 <div class="tone-swatch" 
-                                    [matTooltip]="'var(--color-neutral-' + tone + ')'"
-                                    [style.background-color]="'var(--color-neutral-' + tone + ')'"></div>
+                                    [matTooltip]="'var(--mat-sys-neutral-' + tone + ')'"
+                                    [style.background-color]="'var(--mat-sys-neutral-' + tone + ')'"></div>
                                 <span class="tone-label">{{tone}}</span>
                             </div>
                             }
