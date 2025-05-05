@@ -23,7 +23,6 @@ const mockSeoConfig: SeoConfig = SeoConfig.create({
   socialLinks: [],
   defaultOgImageUrl: '/assets/og-image.png',
   twitterHandle: '@test',
-  titleSuffix: ' | Test App',
 });
 
 describe('PerformanceService', () => {

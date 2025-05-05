@@ -1,16 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
+import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { ApiComponent } from './api.component';
-import { SeoService } from '../../shared/services/seo.service';
-import { StructuredDataService } from '../../shared/services/structured-data.service';
-import { UrlService } from '../../shared/utils/urls/url.service';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ApiComponent', () => {
   let component: ApiComponent;
   let seoService: SeoService;
   let structuredDataService: StructuredDataService;
-  let urlService: UrlService;
+  let urlService: UrlUtilsService;
   let router: Router;
 
   beforeEach(async () => {
@@ -31,7 +28,7 @@ describe('ApiComponent', () => {
           },
         },
         {
-          provide: UrlService,
+          provide: UrlUtilsService,
           useValue: {
             combineWithBase: jest.fn((url: string) => `https://example.com${url}`),
           },
@@ -44,7 +41,7 @@ describe('ApiComponent', () => {
 
     seoService = TestBed.inject(SeoService);
     structuredDataService = TestBed.inject(StructuredDataService);
-    urlService = TestBed.inject(UrlService);
+    urlService = TestBed.inject(UrlUtilsService);
     router = TestBed.inject(Router);
 
     jest.spyOn(router, 'url', 'get').mockReturnValue('/api');

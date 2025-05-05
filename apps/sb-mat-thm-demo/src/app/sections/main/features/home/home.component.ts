@@ -8,10 +8,10 @@ import { Router, RouterModule } from '@angular/router';
 import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
+import { AppImages } from '../../../../config/images';
 import { AppConstants } from '../.././../../config/constants';
-import { SeoService } from '../../../../shared/services/seo.service';
-import { StructuredDataService } from '../../../../shared/services/structured-data.service';
 import { CardsComponent } from "./ui/cards/cards.component";
 import { HomeColorVarsComponent } from './ui/color-vars/color-vars.component';
 import { HomeGettingStartedComponent } from './ui/getting-started/getting-started.component';
@@ -20,7 +20,6 @@ import { HomePerformanceComponent } from "./ui/performance/performance.component
 import { PersistenceComponent } from "./ui/persistence/persistence.component";
 import { HomeSectionHdrComponent } from "./ui/section-hdr/section-hdr.component";
 import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes.component";
-import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 
 @Component({
@@ -54,13 +53,14 @@ export class MainHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlService)
+  private _urlService = inject(UrlUtilsService)
   private _structuredDataService = inject(StructuredDataService)
 
   //- - - - - - - - - - - - - - -//
 
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO);
   protected _npmUrl = signal(AppConstants.NPM_PKG);
+  protected _logo = signal(AppImages.Logo.medium)
 
   //-----------------------------//
 
@@ -75,8 +75,6 @@ export class MainHomeComponent implements OnInit {
     // Add canonical link
     this._seoService.addCanonicalLink(this._urlService.combineWithBase(this._router.url));
 
-    // Add structured data
-    this._structuredDataService.addLibraryStructuredData();
   }
 }
 

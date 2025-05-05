@@ -80,7 +80,7 @@ export class SeoService {
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: description },
             { name: 'twitter:image', content: image },
-            { name: 'keywords', content: this._config.keywords.join(', ') || 'Angular Material, Material Design, theming, CSS variables, dark mode, theme customization, Angular library' },
+            { name: 'keywords', content: this._config.keywords.join(', ') || 'SpiderBaby Angular' },
         ]
 
         console.log('tags', tags);

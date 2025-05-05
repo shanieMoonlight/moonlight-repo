@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
-import { HighlightModule } from 'ngx-highlightjs';
 import { Router } from '@angular/router';
-import { SeoService } from '../../../../shared/services/seo.service';
+import { SeoService } from '@spider-baby/utils-seo';
+import { HighlightModule } from 'ngx-highlightjs';
 import { UrlService } from '../../../../shared/utils/urls/url.service';
 
 @Component({

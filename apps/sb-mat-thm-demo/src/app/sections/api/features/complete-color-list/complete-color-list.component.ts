@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SeoService } from '../../../../shared/services/seo.service';
-import { UrlService } from '../../../../shared/utils/urls/url.service';
+import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { ThemeVariablesShowcaseComponent } from './ui/color-vars-display/color-vars-display.component';
 
 @Component({
@@ -20,7 +19,7 @@ export class CompleteColorListComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlService)
+  private _urlService = inject(UrlUtilsService)
 
   //- - - - - - - - - - - - - - -//
 

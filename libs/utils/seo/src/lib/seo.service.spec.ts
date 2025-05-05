@@ -16,7 +16,6 @@ const mockSeoConfig: SeoConfig = SeoConfig.create({
   socialLinks: [],
   defaultOgImageUrl: '/assets/og-image.png',
   twitterHandle: '@test',
-  titleSuffix: ' | Test App',
 });
 
 describe('SeoService', () => {
@@ -71,7 +70,6 @@ describe('SeoService', () => {
     //   socialLinks: ['https://example.com'],
     //   defaultOgImageUrl: 'https://test.com/og-image.png',
     //   twitterHandle: '@testapp',
-    //   titleSuffix: ' | Test App',
     // } as SeoConfig;
   
     TestBed.configureTestingModule({

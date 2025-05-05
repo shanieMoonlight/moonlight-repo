@@ -1,21 +1,58 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainHomeComponent } from './home.component';
-import { IconsService } from '../../utils/icons/icons.service';
-import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { SeoConfig, SeoConfigService, } from '@spider-baby/utils-seo/config';
+import { IconsService } from '../../utils/icons/icons.service';
+import { MainHomeComponent } from './home.component';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+
+
+// Create a mock SeoConfig object
+const mockSeoConfig: SeoConfig = SeoConfig.create({
+  appName: 'Test App',
+  appDescription: 'Test Description',
+  organization: 'Test Org',
+  baseUrl: 'http://localhost/', // Ensure trailing slash for consistency
+  defaultLogoFilePath: 'assets/logo.png', // Relative path example
+  publishedDate: '2025-01-01',
+  keywords: ['test', 'seo'],
+  socialLinks: ['https://example.com/social'],
+  defaultOgImageUrl: 'assets/og-image.png', // Relative path example
+  twitterHandle: '@test',
+});
+
+// --- Create Mocks for the SEO Services ---
+const mockSeoService = {
+  updateMetadata: jest.fn(),
+  addCanonicalLink: jest.fn(),
+};
+
+const mockStructuredDataService = {
+  addOrganizationStructuredData: jest.fn(),
+  addLibraryStructuredData: jest.fn(),
+  // Add other methods if the component calls them
+};
+
 
 describe('MainHomeComponent', () => {
   let component: MainHomeComponent;
   let fixture: ComponentFixture<MainHomeComponent>;
+  let seoService: SeoService;
+  let structuredDataService: StructuredDataService;
 
   beforeEach(async () => {
+    mockSeoService.updateMetadata.mockClear();
+    mockSeoService.addCanonicalLink.mockClear();
+    mockStructuredDataService.addOrganizationStructuredData.mockClear();
+
     await TestBed.configureTestingModule({
       imports: [
         MatCardModule,
@@ -29,13 +66,36 @@ describe('MainHomeComponent', () => {
       ],
       providers: [
         IconsService,
+        { provide: SeoConfigService, useValue: mockSeoConfig },
+        { provide: SeoService, useValue: mockSeoService },
+        { provide: StructuredDataService, useValue: mockStructuredDataService },
+        UrlUtilsService,
         provideHttpClient(),
         provideHttpClientTesting(),
+        {
+          provide: HIGHLIGHT_OPTIONS,
+          useValue: {
+            coreLibraryLoader: () => import('highlight.js/lib/core'),
+            lineNumbers: true,
+            languages: {
+              typescript: () => import('highlight.js/lib/languages/typescript'),
+              xml: () => import('highlight.js/lib/languages/xml'),
+              html: () => import('highlight.js/lib/languages/xml'),
+              scss: () => import('highlight.js/lib/languages/scss'),
+              css: () => import('highlight.js/lib/languages/css'),
+              json: () => import('highlight.js/lib/languages/json')
+            }
+          }
+        }
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainHomeComponent);
     component = fixture.componentInstance;
+
+    seoService = TestBed.inject(SeoService);
+    structuredDataService = TestBed.inject(StructuredDataService);
+
     fixture.detectChanges();
   });
 
@@ -77,10 +137,13 @@ describe('MainHomeComponent', () => {
     expect(npmBtn).toBeTruthy();
   });
 
-  it('should call ngOnInit and set SEO metadata', () => {
-    const seoService = TestBed.inject(IconsService) as any;
-    const spy = jest.spyOn(component as any, 'ngOnInit');
-    component.ngOnInit();
-    expect(spy).toHaveBeenCalled();
+  it('should set SEO metadata and structured data on init', () => {
+    // Assert that the methods were called during component initialization (in beforeEach)
+    expect(seoService.updateMetadata).toHaveBeenCalled();
+    expect(seoService.addCanonicalLink).toHaveBeenCalled();
+
+   
+
   });
+
 })

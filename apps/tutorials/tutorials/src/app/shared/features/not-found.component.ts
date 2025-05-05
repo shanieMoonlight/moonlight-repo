@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
     <div class="not-found-container">
-      <img class="spider-baby-logo" src="images/tranparent/spider-baby-6.png" alt="Spider Baby" />
+      <img class="spider-baby-logo" src="images/logo/spider-baby-6.png" alt="Spider Baby" />
       <h1>Oops! Page Not Found</h1>
       <p class="playful-text">Looks like our little spider got lost in the web! 🕸️</p>
       <p>This page seems to have scurried away or never existed in the first place.</p>

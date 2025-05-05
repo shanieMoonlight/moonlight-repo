@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AppImages } from '../../config/images';
 
 @Component({
   selector: 'sb-not-found',
@@ -9,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `
     <div class="not-found-container">
-      <img class="spider-baby-logo" src="images/tranparent/spider-baby-6.png" alt="Spider Baby" />
+      <img class="spider-baby-logo" [src]="_smlLogo()" alt="Spider Baby" />
       <h1>Oops! Page Not Found</h1>
       <p class="playful-text">Looks like our little spider got lost in the web! 🕸️</p>
       <p>This page seems to have scurried away or never existed in the first place.</p>
@@ -147,4 +148,9 @@ import { MatIconModule } from '@angular/material/icon';
     }
   `]
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+
+
+  protected _smlLogo = signal(AppImages.Logo.large)
+
+}

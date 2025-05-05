@@ -1,1 +1,1 @@
-export * from './lib/console';
+export * from './lib/dev-console';

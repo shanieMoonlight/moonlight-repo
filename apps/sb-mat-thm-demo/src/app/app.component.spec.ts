@@ -1,19 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { Router, NavigationEnd } from '@angular/router';
-import { SeoService } from './shared/services/seo.service';
-import { StructuredDataService } from './shared/services/structured-data.service';
-import { PerformanceService } from './shared/services/performance.service';
-import { UrlService } from './shared/utils/urls/url.service';
+import { NavigationEnd, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PerformanceService, SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { of } from 'rxjs';
+import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let seoService: SeoService;
   let structuredDataService: StructuredDataService;
   let performanceService: PerformanceService;
-  let urlService: UrlService;
+  let urlService: UrlUtilsService;
   let router: Router;
 
   beforeEach(async () => {
@@ -30,6 +27,7 @@ describe('AppComponent', () => {
           provide: StructuredDataService,
           useValue: {
             addLibraryStructuredData: jest.fn(),
+            addOrganizationStructuredData: jest.fn(),
           },
         },
         {
@@ -39,7 +37,7 @@ describe('AppComponent', () => {
           },
         },
         {
-          provide: UrlService,
+          provide: UrlUtilsService,
           useValue: {
             combineWithBase: jest.fn((url: string) => {
               console.log('combineWithBase called with:', url);
@@ -56,7 +54,7 @@ describe('AppComponent', () => {
     seoService = TestBed.inject(SeoService);
     structuredDataService = TestBed.inject(StructuredDataService);
     performanceService = TestBed.inject(PerformanceService);
-    urlService = TestBed.inject(UrlService);
+    urlService = TestBed.inject(UrlUtilsService);
     router = TestBed.inject(Router);
 
     jest.spyOn(router.events, 'pipe').mockReturnValue(of(new NavigationEnd(1, '/previous', '/current')));

@@ -45,7 +45,7 @@ export class MainHomeComponent {
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
   asynchronous operations while leveraging Angular's signals for reactivity.`;
-  heroImageUrl = 'images/tranparent/spider-baby-6.png'; // Path to your image
+  heroImageUrl = 'images/logo/spider-baby-6.png'; // Path to your image
   heroImageAlt = 'Mini-State Logo';
 
   features: Feature[] = [

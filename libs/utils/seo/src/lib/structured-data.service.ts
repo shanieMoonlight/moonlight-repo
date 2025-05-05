@@ -384,6 +384,5 @@ export class StructuredDataService {
     });
   }
 
-  //--------------------------------//
 
 }//Cls

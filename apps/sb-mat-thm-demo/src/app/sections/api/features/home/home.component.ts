@@ -3,8 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { ApiRouteData, SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
-import { SeoService } from '../../../../shared/services/seo.service';
-import { UrlService } from '../../../../shared/utils/urls/url.service';
+import { SeoService, UrlUtilsService } from '@spider-baby/utils-seo';
 
 //###############################################//
 
@@ -71,7 +70,7 @@ export class ApiHomeComponent implements OnInit {
 
   private _seoService = inject(SeoService)
   private _router = inject(Router)
-  private _urlService = inject(UrlService)
+  private _urlService = inject(UrlUtilsService)
 
   //- - - - - - - - - - - - - - -//
 

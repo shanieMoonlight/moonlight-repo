@@ -8,6 +8,7 @@ import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-windo
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
+import { AppImages } from '../../../../config/images';
 
 @Component({
   selector: 'sb-navbar',
@@ -34,7 +35,7 @@ export class MainNavbarComponent {
 
   protected _gitRepoUrl = signal(AppConstants.GIT_REPO)
   protected _npmPkgUrl = signal(AppConstants.NPM_PKG)
-
+  protected _smlLogo = signal(AppImages.Logo.small)
 
   isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])
     .pipe(map((state => state.matches)))

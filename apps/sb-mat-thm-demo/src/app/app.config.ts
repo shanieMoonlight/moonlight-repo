@@ -7,6 +7,8 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { FirebaseProviders } from './firebase/firebase-init';
+import { SeoSetup } from '@spider-baby/utils-seo/config';
+import { SEO_CONFIG } from './config/seo.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +22,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({})),
     provideHttpClient(withFetch()),
     ...FirebaseProviders.all,
+    SeoSetup.provideSeoModule(SEO_CONFIG),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,

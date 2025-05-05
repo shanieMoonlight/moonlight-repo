@@ -31,11 +31,25 @@ export interface SeoConfigOptions {
   defaultOgImageUrl?: string;
   /** Twitter handle */
   twitterHandle?: string;
-  /** Default page title suffix */
-  titleSuffix?: string;
 }
 
 //##################################################//
+
+/**
+ * Safely combines a base URL and a relative path.
+ * Ensures no double slashes.
+ * @param base Base URL (should ideally end with /)
+ * @param path Relative path (can start with / or not)
+ * @returns Combined absolute URL
+ */
+function combineUrl(base: string, path: string): string {
+  const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
+  const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+  return `${baseWithSlash}${cleanPath}`;
+}
+
+//##################################################//
+
 
 export class SeoConfig {
   /** Application name */
@@ -59,7 +73,6 @@ export class SeoConfig {
   /** Twitter handle */
   readonly twitterHandle: string;
   /** Default page title suffix */
-  readonly titleSuffix: string;
 
   /**
    * Creates a new SEO configuration with validation
@@ -127,25 +140,30 @@ export class SeoConfig {
     }
   }
 
+  //-----------------------------//
+
   /**
    * Simple check if a string is a valid URL or path
    * @param url The URL or path to validate
    * @returns True if valid
    */
   private static isValidUrl(url: string): boolean {
-    devConsole.log('Validating URL:', url);
+    devConsole.log('Validating URL Input:', url); // Renamed log slightly for clarity
+
     // Accept absolute URLs
-    if (url.match(/^https?:\/\/.+/)) {
+    if (url.match(/^https?:\/\/.+/)) 
       return true;
-    }
-    
-    // Accept relative paths that don't contain invalid characters
-    if (url.startsWith('/') && !url.includes(' ') && !url.includes('#')) {
-      return true;
-    }
-    
+
+    // Accept relative paths (with or without leading /) that don't contain invalid characters
+    // Basic check: doesn't contain spaces, hash, colon (outside protocol), or start with //
+    // Allows: /path/to/img.png, path/to/img.png, img.png
+    if (!url.includes(' ') && !url.includes('#') && !url.match(/[:]/) && !url.startsWith('//')) 
+       return true;
+
     return false;
   }
+
+  //-----------------------------//
 
   /**
    * Private constructor to enforce use of static create method
@@ -156,15 +174,33 @@ export class SeoConfig {
     this.organization = options.organization;
     this.baseUrl = options.baseUrl;
     
-    // Set optional fields with defaults
-    this.defaultLogoFilePath = options.defaultLogoFilePath || `${this.baseUrl}assets/logo.png`;
+    // Set optional fields with defaults // --- Process defaultLogoFilePath ---
+    if (options.defaultLogoFilePath) {
+      if (options.defaultLogoFilePath.startsWith('http')) 
+        this.defaultLogoFilePath = options.defaultLogoFilePath;
+       else 
+        this.defaultLogoFilePath = combineUrl(this.baseUrl, options.defaultLogoFilePath);      
+    } else {
+      this.defaultLogoFilePath = combineUrl(this.baseUrl, 'assets/logo.png');
+    }
+
+    // --- Process defaultOgImageUrl ---
+    if (options.defaultOgImageUrl) {
+      if (options.defaultOgImageUrl.startsWith('http')) 
+        this.defaultOgImageUrl = options.defaultOgImageUrl;
+       else 
+        this.defaultOgImageUrl = combineUrl(this.baseUrl, options.defaultOgImageUrl);      
+    } else {
+      this.defaultOgImageUrl = combineUrl(this.baseUrl, 'assets/og-image.png');
+    }
+
     this.publishedDate = options.publishedDate || new Date().toISOString().split('T')[0];
     this.keywords = options.keywords || [];
     this.socialLinks = options.socialLinks || [];
-    this.defaultOgImageUrl = options.defaultOgImageUrl || `${this.baseUrl}assets/og-image.png`;
     this.twitterHandle = options.twitterHandle || '';
-    this.titleSuffix = options.titleSuffix || ` | ${this.appName}`;
   }
+
+    //-----------------------------//
 
   /**
    * Checks if the configuration is complete for comprehensive SEO

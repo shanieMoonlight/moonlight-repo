@@ -6,9 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
-import { SeoService } from '../../shared/services/seo.service';
-import { StructuredDataService } from '../../shared/services/structured-data.service';
-import { UrlService } from '../../shared/utils/urls/url.service';
+import { SeoService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
 import { ApiNavbarComponent } from './ui/navbar/navbar.component';
 
 @Component({
@@ -33,7 +31,7 @@ export class ApiComponent implements OnInit {
   private _seoService = inject(SeoService)
   private _router = inject(Router)
   private _structuredDataService = inject(StructuredDataService)
-  private _urlService = inject(UrlService)
+  private _urlService = inject(UrlUtilsService)
 
   //-----------------------------//
 

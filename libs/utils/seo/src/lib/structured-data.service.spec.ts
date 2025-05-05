@@ -21,7 +21,6 @@ const mockSeoConfig: SeoConfig = SeoConfig.create({
   socialLinks: ['https://example.com/social'], // Added an example social link
   defaultOgImageUrl: '/assets/og-image.png',
   twitterHandle: '@test',
-  titleSuffix: ' | Test App',
 });
 
 describe('StructuredDataService', () => {
