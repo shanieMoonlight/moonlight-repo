@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 import { AppConstants } from '../../../../config/constants';
+import { AppImages } from '../../../../config/images';
 
 //##############################################//
 
@@ -91,11 +92,11 @@ export class MainHomeComponent {
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
   asynchronous operations while leveraging Angular's signals for reactivity.`;
-  heroImageUrl = 'images/logo/spider-baby-6.png'; // Path to your image
+  heroImageUrl = AppImages.Logo.default 
   heroImageAlt = 'Mini-State Logo';
 
   _features = signal(FEATURES);
-_gitUrl = signal(AppConstants.GIT_REP_URL);
+  _gitUrl = signal(AppConstants.GIT_REP_URL);
 
   benefits: Benefit[] = [
     {

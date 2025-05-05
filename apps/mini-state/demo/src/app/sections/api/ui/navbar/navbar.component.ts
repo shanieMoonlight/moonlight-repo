@@ -7,6 +7,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
+import { AppImages } from '../../../../config/images';
 
 @Component({
   selector: 'sb-api-navbar',
@@ -32,9 +33,10 @@ export class ApiNavbarComponent {
 
   protected _gitRepoUrl = signal(AppConstants.GIT_REP_URL)
   protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL)
+  protected _logoSml = signal(AppImages.Logo.small) 
 
 
-  isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])
+  private isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])
     .pipe(map((state => state.matches)))
   isSmallScreen = toSignal(this.isSmallScreen$)
 

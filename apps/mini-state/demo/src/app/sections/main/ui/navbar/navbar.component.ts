@@ -8,6 +8,7 @@ import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-windo
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
+import { AppImages } from '../../../../config/images';
 
 //##############################################################//
 
@@ -81,6 +82,8 @@ export class NavbarComponent {
   //- - - - - - - - - - - - - - -//
 
 
+  protected _logoSml = signal(AppImages.Logo.small) 
+  
   public get _randomId(): number {
     const min = 1
     const max = 1000
