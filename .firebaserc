@@ -5,7 +5,7 @@
   "targets": {
     "spiderbabymaterialtheming": {
       "hosting": {
-        "spider-baby-mat-theming-demo": [
+        "spiderbabymaterialtheming": [
           "spider_baby_mat_theming_demo"
         ]
       }

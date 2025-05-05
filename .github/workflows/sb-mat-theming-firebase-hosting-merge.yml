@@ -67,5 +67,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
           channelId: live
-          target: spider-baby-mat-theming-demo
+          target: spiderbabymaterialtheming
           projectId: spider_baby_mat_theming_demo # Using the alias to find the actual project ID in .firebaserc
