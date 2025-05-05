@@ -27,7 +27,7 @@
     primaryButtonLink="/simple"
     primaryButtonIcon="play_arrow"
     secondaryButtonText="View on GitHub"
-    secondaryButtonLink="https://github.com/your-repo/mini-state"
+    [secondaryButtonLink]="_gitUrl()"
     secondaryButtonIcon="code"/>
 
   <section class="features-section">
@@ -37,7 +37,7 @@
     </p>
 
     <div class="features-grid">
-      @for (feature of features; track feature.title) {
+      @for (feature of _features(); track feature.title) {
         <mat-card class="feature-card">
           <mat-card-header>
             <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>

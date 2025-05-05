@@ -34,10 +34,18 @@ jobs:
         with:
           node-version: '22' # Explicitly set the Node.js version
 
-      # --- The custom action has now set up Node.js, restored caches, and installed dependencies ---
+      - name: Create firebase ready environment.ts from secrets
+        uses: ./.github/actions/create_firebase_env # Reference the new action
+        with:
+          environment-path: 'apps/mini-state/demo/src/environments'
+          firebase-api-key: ${{ secrets.MINI_STATE_FIREBASE_API_KEY }}
+          firebase-auth-domain: ${{ secrets.MINI_STATE_FIREBASE_AUTH_DOMAIN }}
+          firebase-project-id: ${{ secrets.MINI_STATE_FIREBASE_PROJECT_ID }}
+          firebase-storage-bucket: ${{ secrets.MINI_STATE_FIREBASE_STORAGE_BUCKET }}
+          firebase-messaging-sender-id: ${{ secrets.MINI_STATE_FIREBASE_MESSAGING_SENDER_ID }}
+          firebase-app-id: ${{ secrets.MINI_STATE_FIREBASE_APP_ID }}
+          firebase-measurement-id: ${{ secrets.MINI_STATE_FIREBASE_MEASUREMENT_ID }}
 
-
-      # Keep the remaining steps as they rely on the environment and dependencies
       # set up by the custom action.
       - name: Build Angular app
         run: npx nx run spider-baby-mini-state-demo:build --configuration=production

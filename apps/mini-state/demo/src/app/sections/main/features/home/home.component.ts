@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -7,6 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
+import { AppConstants } from '../../../../config/constants';
+
+//##############################################//
+
 
 interface Feature {
   title: string;
@@ -15,17 +19,59 @@ interface Feature {
   icon: string;
 }
 
+
+//##############################################//
+
+
 interface Benefit {
   title: string;
   description: string;
   icon: string;
 }
 
+
+//##############################################//
+
+const FEATURES: Feature[] = [
+  {
+    title: 'Simple State',
+    description: 'Basic usage of MiniState for data fetching with automatic loading state and error handling',
+    route: '/simple',
+    icon: 'data_object'
+  },
+  {
+    title: 'Detail View',
+    description: 'Using MiniState with observable router parameters and form integration for detail pages',
+    route: '/detail/1',
+    icon: 'assignment'
+  },
+  {
+    title: 'CRUD Operations',
+    description: 'Full CRUD operations with MiniCrudState for efficient collection management',
+    route: '/crud',
+    icon: 'edit_note'
+  },
+  {
+    title: 'Combined State',
+    description: 'Build your own Custom functionality by combining multiple MiniState instances',
+    route: '/crud',
+    icon: 'build'
+  },
+  {
+    title: 'Search',
+    description: 'Use MiniState for search functionality with loading and error handling',
+    route: '/search',
+    icon: 'search'
+  }
+];
+
+//##############################################//
+
 @Component({
   selector: 'sb-home',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule,
     MatCardModule,
     MatButtonModule,
@@ -39,47 +85,17 @@ interface Benefit {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainHomeComponent {
-  
+
   title = 'Mini-State Demo';
-  subtitle = 'A lightweight, signals-based state management library for Angular applications!!';
+  subtitle = 'A lightweight, signals-based state management library for Angular applications';
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
   asynchronous operations while leveraging Angular's signals for reactivity.`;
   heroImageUrl = 'images/logo/spider-baby-6.png'; // Path to your image
   heroImageAlt = 'Mini-State Logo';
 
-  features: Feature[] = [
-    {
-      title: 'Simple State',
-      description: 'Basic usage of MiniState for data fetching with automatic loading state and error handling',
-      route: '/simple',
-      icon: 'data_object'
-    },
-    {
-      title: 'Detail View',
-      description: 'Using MiniState with observable router parameters and form integration for detail pages',
-      route: '/detail/1',
-      icon: 'assignment'
-    },
-    {
-      title: 'CRUD Operations',
-      description: 'Full CRUD operations with MiniCrudState for efficient collection management',
-      route: '/crud',
-      icon: 'edit_note'
-    },
-    {
-      title: 'Combined State',
-      description: 'Build your own Custom functionality by combining multiple MiniState instances',
-      route: '/crud',
-      icon: 'build'
-    },
-    {
-      title: 'Search',
-      description: 'Use MiniState for search functionality with loading and error handling',
-      route: '/search',
-      icon: 'search'
-    }
-  ];
+  _features = signal(FEATURES);
+_gitUrl = signal(AppConstants.GIT_REP_URL);
 
   benefits: Benefit[] = [
     {
@@ -114,3 +130,4 @@ export class MainHomeComponent {
     }
   ];
 }
+

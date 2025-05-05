@@ -30,8 +30,8 @@ export class ApiNavbarComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  protected _gitRepoUrl = signal(AppConstants.GIT_REPO)
-  protected _npmPkgUrl = signal(AppConstants.NPM_PKG)
+  protected _gitRepoUrl = signal(AppConstants.GIT_REP_URL)
+  protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL)
 
 
   isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])
