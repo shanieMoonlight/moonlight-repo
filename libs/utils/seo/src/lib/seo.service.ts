@@ -27,6 +27,8 @@ interface MetaDataOptions {
     image?: string
     /** Canonical URL for the page (defaults to base URL from config) */
     url?: string
+    /** Keywords relevant to the app */
+    keywords?: string[];
 }
 
 //################################################//
@@ -58,13 +60,13 @@ export class SeoService {
      * If any option is omitted, it will use the default from SeoConfig
      */
     updateMetadata(options: MetaDataOptions = {}) {
-        
+
         const title = options.title ?? this._config.appName
         const description = options.description ?? this._config.appDescription;
         const image = options.image ?? this._config.defaultLogoFilePath;
         const ogImage = options.image ?? this._config.defaultOgImageUrl;
         const url = this._urlService.resolveAbsoluteUrl(options.url);
-        
+        const keywords = options.keywords ?? this._config.keywords;
 
         // Set title
         this._title.setTitle(title)
@@ -82,11 +84,11 @@ export class SeoService {
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: description },
             { name: 'twitter:image', content: image },
-            { name: 'keywords', content: this._config.keywords.join(', ') || 'SpiderBaby Angular' },
+            { name: 'keywords', content: keywords.join(', ') || 'SpiderBaby Angular' },
         ]
 
         // devConsole.log('tags', tags);
-        
+
 
         // Update each meta tag
         tags.forEach(tag => {
@@ -101,15 +103,15 @@ export class SeoService {
 
     //-----------------------------//
 
-     /**
-     * Adds or updates the canonical link using a relative path.
-     * Combines the relative path with the baseUrl from SeoConfig.
-     * @param relativePath - The relative path (e.g., from router.url)
-     */
-     addCanonicalLinkRelative(relativePath: string) {
+    /**
+    * Adds or updates the canonical link using a relative path.
+    * Combines the relative path with the baseUrl from SeoConfig.
+    * @param relativePath - The relative path (e.g., from router.url)
+    */
+    addCanonicalLinkRelative(relativePath: string) {
         // devConsole.log('addCanonicalLinkRelative', relativePath);        
         const absoluteUrl = this._urlService.combineWithBase(relativePath);
-        this.addCanonicalLink(absoluteUrl); 
+        this.addCanonicalLink(absoluteUrl);
     }
 
     //-----------------------------//
@@ -130,7 +132,7 @@ export class SeoService {
         const head = this._document.querySelector('head');
         // devConsole.log('head', head)
         // Check if head element exists before appending the link;
-        
+
         if (head) {
             // Remove existing canonical if it exists
             const existingLink = head.querySelector('link[rel="canonical"]');

@@ -20,7 +20,8 @@
           {
             "glob": "**/*",
             "input": "apps/mini-state/demo/public"
-          }
+          },
+          "apps/mini-state/demo/src/ngsw-config.json"
         ],
         "styles": ["apps/mini-state/demo/src/styles.scss"],
         "scripts": [],
@@ -28,7 +29,8 @@
         "ssr": {
           "entry": "apps/mini-state/demo/src/server.ts"
         },
-        "prerender": true
+        "prerender": true,
+        "serviceWorker": "ngsw-config.json"
       },
       "configurations": {
         "production": {

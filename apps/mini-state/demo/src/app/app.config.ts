@@ -1,14 +1,19 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+// import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
+import { SEO_CONFIG } from './config/seo.config';
+import { SeoSetup } from '@spider-baby/utils-seo/config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(
+      withEventReplay()
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes,
       // Use withInMemoryScrolling for scroll options
@@ -17,6 +22,8 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    SeoSetup.provideSeoModule(SEO_CONFIG),
+    // provideServiceWorker('ngsw-config.json', { enabled: true }),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

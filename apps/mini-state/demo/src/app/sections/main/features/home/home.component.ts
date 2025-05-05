@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 
 //##############################################//
-
 
 interface Feature {
   title: string;
@@ -20,16 +20,13 @@ interface Feature {
   icon: string;
 }
 
-
 //##############################################//
-
 
 interface Benefit {
   title: string;
   description: string;
   icon: string;
 }
-
 
 //##############################################//
 
@@ -85,7 +82,9 @@ const FEATURES: Feature[] = [
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainHomeComponent {
+export class MainHomeComponent implements OnInit {
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
 
   title = 'Mini-State Demo';
   subtitle = 'A lightweight, signals-based state management library for Angular applications';
@@ -130,5 +129,15 @@ export class MainHomeComponent {
       icon: 'layers'
     }
   ];
+
+  ngOnInit() {
+    // Set SEO metadata
+    this._seoService.updateMetadata({
+      title: 'Mini-State | Lightweight Signal-Based State Management for Angular',
+      description: this.description,
+      url: this._router.url,
+      keywords: ['Angular', 'State Management', 'Signals', 'Mini-State', 'Angular library', 'Reactive State']
+    });
+  }
 }
 
