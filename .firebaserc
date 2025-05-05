@@ -3,7 +3,7 @@
     "spider_baby_mat_theming_demo": "spiderbabymaterialtheming"
   },
   "targets": {
-    "spiderbabymaterialtheming_faketarget": {
+    "spiderbabymaterialtheming": {
       "hosting": {
         "spider-baby-mat-theming-demo": ["spiderbabymaterialtheming"]
       }
