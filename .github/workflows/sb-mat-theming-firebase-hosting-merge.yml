@@ -68,4 +68,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABYMATERIALTHEMING }}
           channelId: live
           target: spider-baby-mat-theming-demo
-          projectId: spiderbabymaterialtheming # Using the alias
+          projectId: spider_baby_mat_theming_demo # Using the alias to find the actual project ID in .firebaserc
