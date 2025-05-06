@@ -1,7 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+// <reference path="../../../../../types/highlight.d.ts" />
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
-// import { provideServiceWorker } from '@angular/service-worker';
+import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appRoutes } from './app.routes';
@@ -23,7 +24,6 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({})),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
-    // provideServiceWorker('ngsw-config.json', { enabled: true }),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
@@ -38,6 +38,10 @@ export const appConfig: ApplicationConfig = {
           json: () => import('highlight.js/lib/languages/json')
         }
       }
-    }
+    },
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
 };
