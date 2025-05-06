@@ -10,7 +10,7 @@
   </p>
 
   <h2>Core Concept</h2>
-  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+  <pre><code [highlight]="conceptExample()" language="typescript"></code></pre>
 
   <h2>Constructor</h2>
   <mat-expansion-panel>
@@ -19,7 +19,7 @@
       <mat-panel-description>constructor parameters</mat-panel-description>
     </mat-expansion-panel-header>
     <p>Creates a new MiniState instance with the specified trigger function and optional parameters.</p>
-    <pre><code [highlight]="constructorExample" language="typescript"></code></pre>
+    <pre><code [highlight]="constructorExample()" language="typescript"></code></pre>
   </mat-expansion-panel>
 
   <h2>Properties</h2>
@@ -39,7 +39,7 @@
       <li><strong>errorMsg$</strong>: Observable for error messages</li>
       <li><strong>successMsg$</strong>: Observable for success messages</li>
     </ul>
-    <pre><code [highlight]="propertiesExample" language="typescript"></code></pre>
+    <pre><code [highlight]="propertiesExample()" language="typescript"></code></pre>
   </mat-expansion-panel>
 
   <h2>Methods</h2>
@@ -55,7 +55,7 @@
         <li><strong>retrigger()</strong>: Repeats the most recent operation with the same input</li>
         <li><strong>unsubscribe()</strong>: Stops all ongoing operations and cleans up resources</li>
       </ul>
-      <pre><code [highlight]="triggerExample" language="typescript"></code></pre>
+      <pre><code [highlight]="triggerExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -69,7 +69,7 @@
         <li><strong>setOnTriggerFn(fn)</strong>: Sets a function that runs when trigger() is called</li>
         <li><strong>setErrorMsgFn(fn)</strong>: Sets a function to convert errors to user-friendly messages</li>
       </ul>
-      <pre><code [highlight]="configurationExample" language="typescript"></code></pre>
+      <pre><code [highlight]="configurationExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -82,7 +82,7 @@
         <li><strong>setData(data)</strong>: Sets the data value directly</li>
         <li><strong>updateData(updateFn)</strong>: Updates data using a callback function</li>
       </ul>
-      <pre><code [highlight]="dataManipulationExample" language="typescript"></code></pre>
+      <pre><code [highlight]="dataManipulationExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -95,7 +95,7 @@
         <li><strong>setErrorMsg(msg)</strong>: Sets an error message directly</li>
         <li><strong>resetErrorMsg()</strong>: Clears the current error message</li>
       </ul>
-      <pre><code [highlight]="errorHandlingExample" language="typescript"></code></pre>
+      <pre><code [highlight]="errorHandlingExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
   </mat-accordion>
 
@@ -111,7 +111,7 @@
         <li>Will emit nothing if not set</li>
         <li>Particularly useful for operations like update or delete where user feedback is important</li>
       </ul>
-      <pre><code [highlight]="successMsgFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="successMsgFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -123,7 +123,7 @@
       <ul>
         <li>If not set, defaults to extracting message or msg property from error object</li>
       </ul>
-      <pre><code [highlight]="errorMsgFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="errorMsgFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -137,7 +137,7 @@
         <li>Gives access to input, output, previous input, and previous output values</li>
         <li>Useful for data transformation, filtering, or combining with existing data</li>
       </ul>
-      <pre><code [highlight]="successDataProcessorFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="successDataProcessorFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -150,7 +150,7 @@
         <li>Useful for triggering actions after a successful operation, such as navigation or starting another process</li>
         <li>Executes after the data and success message have been emitted</li>
       </ul>
-      <pre><code [highlight]="onSuccessFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="onSuccessFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -163,7 +163,7 @@
         <li>Useful for handling specific error conditions, such as redirecting to an error page</li>
         <li>Executes after the error message has been emitted</li>
       </ul>
-      <pre><code [highlight]="onErrorFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="onErrorFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -176,12 +176,12 @@
         <li>Useful for pre-operation setup, validation, or logging</li>
         <li>Executes immediately when trigger() is called, before the async operation starts</li>
       </ul>
-      <pre><code [highlight]="onTriggerFnExample" language="typescript"></code></pre>
+      <pre><code [highlight]="onTriggerFnExample()" language="typescript"></code></pre>
     </mat-expansion-panel>
   </mat-accordion>
 
   <h2>Complete Example</h2>
   <p>The following example demonstrates a complete user search component using MiniState:</p>
   <p>Just using if statements rather tha input triggered popups to demonstrate the functionality clearer</p>
-  <pre><code [highlight]="completeExample" language="typescript"></code></pre>
+  <pre><code [highlight]="completeExample()" language="typescript"></code></pre>
 </div>

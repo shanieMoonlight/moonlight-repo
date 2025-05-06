@@ -7,7 +7,7 @@
   </p>
 
   <h2>Overview</h2>
-  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+  <pre><code [highlight]="conceptExample()" language="typescript"></code></pre>
 
   <div class="example-note">
     <p><strong>Key Use Case:</strong> When your component performs multiple related operations 
@@ -34,7 +34,7 @@
     <p>Creates a combined state object that aggregates the state of multiple MiniState instances.
     The combined state provides signals and observables that reflect the collective state of all
     the input states.</p>
-    <pre><code [highlight]="combineExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineExample()" language="typescript"></code></pre>
   </div>
 
   <h2>Utility Methods</h2>
@@ -45,7 +45,7 @@
     </div>
     <p>Creates a signal that is true if any of the input states are currently loading.
     This is useful for showing a single loading indicator for multiple operations.</p>
-    <pre><code [highlight]="combineLoadersExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineLoadersExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -55,7 +55,7 @@
     </div>
     <p>Creates a signal that contains the most recent error message from any of the input states.
     Only one error message is displayed at a time, prioritizing the most recent.</p>
-    <pre><code [highlight]="combineErrorMsgsExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineErrorMsgsExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -65,7 +65,7 @@
     </div>
     <p>Creates a signal that contains the most recent success message from any of the input states.
     Only one success message is displayed at a time, prioritizing the most recent.</p>
-    <pre><code [highlight]="combineSuccessMsgsExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineSuccessMsgsExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -75,7 +75,7 @@
     </div>
     <p>Creates a signal that contains the most recent data from any of the input states.
     This is useful when multiple operations affect the same data model.</p>
-    <pre><code [highlight]="combineDataExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineDataExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -85,11 +85,11 @@
     </div>
     <p>Creates a signal that contains the most recent error object from any of the input states.
     This provides access to the actual error object for custom error handling.</p>
-    <pre><code [highlight]="combineErrorsExample" language="typescript"></code></pre>
+    <pre><code [highlight]="combineErrorsExample()" language="typescript"></code></pre>
   </div>
 
   <h2>Complete Usage Example</h2>
   <p>The following example demonstrates a complete user profile component using MiniStateCombined 
   to coordinate multiple user operations:</p>
-  <pre><code [highlight]="completeExample" language="typescript"></code></pre>
+  <pre><code [highlight]="completeExample()" language="typescript"></code></pre>
 </div>

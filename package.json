@@ -6,7 +6,9 @@
     "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
     "generate:sitemap:mini-state": "node scripts/mini-state/generate-sitemap.js",
     "build:mini-state": "npx nx run spider-baby-mini-state-demo:build --configuration=production && npm run generate:sitemap:mini-state",
-    "sitemap:mini-state": "npm run generate:sitemap:mini-state"
+    "sitemap:mini-state": "npm run generate:sitemap:mini-state",
+    "generate-search-index": "node scripts/mini-state/generate-lunr-search-index.js",
+    "build:with-search": "npm run prerender && npm run generate-search-index"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +28,7 @@
     "@angular/ssr": "~19.2.0",
     "@material/material-color-utilities": "^0.3.0",
     "@ng-matero/extensions": "^19.3.2",
+    "cheerio": "^1.0.0",
     "express": "^4.21.2",
     "firebase": "^11.6.1",
     "firebase-tools": "^13.0.0",
@@ -65,6 +68,7 @@
     "@types/express": "^4.17.21",
     "@types/highlight.js": "^10.1.0",
     "@types/jest": "^29.5.14",
+    "@types/lunr": "^2.3.7",
     "@types/node": "18.16.9",
     "@types/node-fetch": "^2.6.12",
     "@typescript-eslint/utils": "^8.19.0",

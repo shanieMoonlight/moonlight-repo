@@ -9,12 +9,14 @@ import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(
       withEventReplay()
     ),
+    provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes,
       // Use withInMemoryScrolling for scroll options

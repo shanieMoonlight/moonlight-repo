@@ -1,19 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
 
-@Component({
-  selector: 'sb-mini-state-docs',
-  templateUrl: './mini-state-docs.component.html',
-  styleUrls: ['./mini-state-docs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
-})
-export class MiniStateDocsComponent {
-  // Core concept
-  conceptExample = `// MiniState is the core class for managing async operations
+//##############################################//
+
+
+// Core concept
+const CONCEPT_EXAMPLE = `// MiniState is the core class for managing async operations
 import { MiniState } from '@spider-baby/mini-state';
 import { DestroyRef, inject } from '@angular/core';
 
@@ -35,8 +29,8 @@ userState.trigger('search term');
 // Retry the last operation with the same input
 userState.retrigger();`;
 
-  // Constructor
-  constructorExample = `// Basic constructor for a MiniState
+// Constructor
+const CONSTRUCTOR_EXAMPLE = `// Basic constructor for a MiniState
 
   destroyer = inject(DestroyRef); 
 
@@ -61,8 +55,8 @@ const userState = new MiniState<string, User[]>(
   }
 );`;
 
-  // Properties
-  propertiesExample = `// Access data from the state
+// Properties
+const PROPERTIES_EXAMPLE = `// Access data from the state
 const users = userState.data();        // Current value of the data signal
 const isLoading = userState.loading(); // Current loading state
 const error = userState.errorMsg();    // Current error message if any
@@ -84,8 +78,8 @@ userState.successMsg$.subscribe(msg => {
   if (msg) console.log('Success:', msg);
 });`;
 
-  // Methods
-  triggerExample = `// Trigger the operation with new input
+// Methods
+const TRIGGER_EXAMPLE = `// Trigger the operation with new input
 userState.trigger('new search term');
 
 // Re-trigger the operation with the same input as last time
@@ -99,8 +93,8 @@ userState
   .resetMessagesAndLoading()
   .trigger('new search');`;
 
-  // Configuration methods
-  configurationExample = `// Set a function to generate success messages
+// Configuration methods
+const CONFIGURATION_EXAMPLE = `// Set a function to generate success messages
 userState.setSuccessMsgFn(
   (input: string, output: User[]) => 
     \`Found \${output.length} users matching "\${input}"\`
@@ -114,8 +108,8 @@ userState.setOnTriggerFn(
   }
 );`;
 
-  // Data manipulation
-  dataManipulationExample = `// Manually set the data without triggering an operation
+// Data manipulation
+const DATA_MANIPULATION_EXAMPLE = `// Manually set the data without triggering an operation
 userState.setData([
   { id: 1, name: 'John Doe' },
   { id: 2, name: 'Jane Smith' }
@@ -126,8 +120,8 @@ userState.updateData(currentUsers => {
   return currentUsers.filter(user => user.isActive);
 });`;
 
-  // Error handling
-  errorHandlingExample = `// Set an error message manually
+// Error handling
+const ERROR_HANDLING_EXAMPLE = `// Set an error message manually
 userState.setErrorMsg('Failed to load users due to network error');
 
 // Reset just the error message
@@ -143,8 +137,8 @@ try {
   throw error;
 }`;
 
-  // Complete usage example in a component
-  completeExample = `import { Component, DestroyRef, computed, inject } from '@angular/core';
+// Complete usage example in a component
+const COMPLETE_EXAMPLE = `import { Component, DestroyRef, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MiniState } from '@spider-baby/mini-state';
 import { UserService } from './user.service';
@@ -293,8 +287,8 @@ export class MainDemoSearchComponent {
 
 }//Cls`;
 
-  // Success message function example
-  successMsgFnExample = `// Set a function to generate success messages
+// Success message function example
+const SUCCESS_MSG_FN_EXAMPLE = `// Set a function to generate success messages
 const userState = new MiniState<User, User>(
   (user: User) => userService.update(user)
 );
@@ -312,8 +306,8 @@ userState.setSuccessMsgFn((user, updatedUser) => {
   return \`User \${user.name} was updated successfully.\`;
 });`;
 
-  // Error message function example
-  errorMsgFnExample = `// Set a custom error message handler
+// Error message function example
+const ERROR_MSG_FN_EXAMPLE = `// Set a custom error message handler
 userState.setErrorMsgFn(error => {
   // Check for specific error types
   if (error.status === 401) {
@@ -327,8 +321,8 @@ userState.setErrorMsgFn(error => {
   return error.message || 'An unexpected error occurred.';
 });`;
 
-  // Success data processor function example
-  successDataProcessorFnExample = `// Process data before storing it
+// Success data processor function example
+const SUCCESS_DATA_PROCESSOR_FN_EXAMPLE = `// Process data before storing it
 userState.setSuccessDataProcessorFn(
   (input, output, prevInput, prevOutput) => {
     // Only update specific properties
@@ -357,8 +351,8 @@ searchState.setSuccessDataProcessorFn(
   }
 );`;
 
-  // On success function example
-  onSuccessFnExample = `// Navigate after successful user creation
+// On success function example
+const ON_SUCCESS_FN_EXAMPLE = `// Navigate after successful user creation
 const createUserState = new MiniState<User, User>(
   (user) => userService.create(user)
 );
@@ -382,8 +376,8 @@ loginState.setOnSuccessFn((credentials, user) => {
   }
 });`;
 
-  // On error function example
-  onErrorFnExample = `// Handle authentication failures
+// On error function example
+const ON_ERROR_FN_EXAMPLE = `// Handle authentication failures
 loginState.setOnErrorFn((credentials, error) => {
   // Track failed login attempts
   authService.recordFailedAttempt(credentials.username);
@@ -406,8 +400,8 @@ dataState.setOnErrorFn((input, error) => {
   }
 });`;
 
-  // On trigger function example
-  onTriggerFnExample = `// Log analytics before performing operation
+// On trigger function example
+const ON_TRIGGER_FN_EXAMPLE = `// Log analytics before performing operation
 userState.setOnTriggerFn(user => {
   analytics.trackEvent('user_update_started', {
     userId: user.id,
@@ -426,4 +420,41 @@ formSubmitState.setOnTriggerFn(formData => {
   // Prepare data for submission
   formData.submittedAt = new Date().toISOString();
 });`;
+
+
+
+//##############################################//
+
+
+
+
+
+@Component({
+  selector: 'sb-mini-state-docs',
+  templateUrl: './mini-state-docs.component.html',
+  styleUrls: ['./mini-state-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
+})
+export class MiniStateDocsComponent {
+  
+  conceptExample = signal(CONCEPT_EXAMPLE);
+  constructorExample = signal(CONSTRUCTOR_EXAMPLE);
+  propertiesExample = signal(PROPERTIES_EXAMPLE);
+  triggerExample = signal(TRIGGER_EXAMPLE);
+  configurationExample = signal(CONFIGURATION_EXAMPLE);
+  dataManipulationExample = signal(DATA_MANIPULATION_EXAMPLE);
+  errorHandlingExample = signal(ERROR_HANDLING_EXAMPLE);
+  completeExample = signal(COMPLETE_EXAMPLE);
+  successMsgFnExample = signal(SUCCESS_MSG_FN_EXAMPLE);
+  errorMsgFnExample = signal(ERROR_MSG_FN_EXAMPLE);
+  successDataProcessorFnExample = signal(SUCCESS_DATA_PROCESSOR_FN_EXAMPLE);
+  onSuccessFnExample = signal(ON_SUCCESS_FN_EXAMPLE);
+  onErrorFnExample = signal(ON_ERROR_FN_EXAMPLE);
+  onTriggerFnExample = signal(ON_TRIGGER_FN_EXAMPLE);
+
+
+
+  
 }

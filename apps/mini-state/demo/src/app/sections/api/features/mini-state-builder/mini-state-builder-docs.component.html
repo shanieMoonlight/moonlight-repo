@@ -6,7 +6,7 @@
   </p>
 
   <h2>Core Concept</h2>
-  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+  <pre><code [highlight]="conceptExample()" language="typescript"></code></pre>
 
   <div class="builder-diagram">
     <div class="diagram-box">
@@ -44,7 +44,7 @@
       Creates a MiniState for operations that don't require input parameters (e.g., "get all" operations).
       The trigger function takes no parameters.
     </p>
-    <pre><code [highlight]="createExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -56,7 +56,7 @@
       Creates a MiniState for operations that require input parameters (e.g., "get by id" or "filtered search").
       The trigger function takes one parameter of type Input.
     </p>
-    <pre><code [highlight]="createWithInputExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createWithInputExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -68,7 +68,7 @@
       Creates a MiniState that automatically triggers whenever the input$ Observable emits a new value.
       Ideal for reacting to router parameters, form values, or other reactive data sources.
     </p>
-    <pre><code [highlight]="createWithObservableInputExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createWithObservableInputExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -80,7 +80,7 @@
       Creates a MiniState that automatically triggers whenever the input$ Signal changes.
       Similar to CreateWithObservableInput but for Angular's Signal primitive.
     </p>
-    <pre><code [highlight]="createWithSignalInputExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createWithSignalInputExample()" language="typescript"></code></pre>
   </div>
 
   <h2>Automatic Cleanup</h2>
@@ -88,24 +88,24 @@
     MiniStateBuilder automatically injects DestroyRef and sets up proper cleanup when the component is destroyed.
     This means you don't need to manually call unsubscribe() - subscriptions are managed for you.
   </p>
-  <pre><code [highlight]="completeChainExample" language="typescript"></code></pre>
+  <pre><code [highlight]="completeChainExample()" language="typescript"></code></pre>
 
   <h2>Complete Examples</h2>
 
   <mat-tab-group>
     <mat-tab label="Basic Example">
       <p>A weather component that loads current weather data without input parameters:</p>
-      <pre><code [highlight]="basicExample" language="typescript"></code></pre>
+      <pre><code [highlight]="basicExample()" language="typescript"></code></pre>
     </mat-tab>
     
     <mat-tab label="With Manual Input">
       <p>A user profile component that loads user data based on manual input (e.g., from a search field):</p>
-      <pre><code [highlight]="manualInputExample" language="typescript"></code></pre>
+      <pre><code [highlight]="manualInputExample()" language="typescript"></code></pre>
     </mat-tab>
     
     <mat-tab label="With Observable Input">
       <p>A user detail component that automatically loads data based on route parameters:</p>
-      <pre><code [highlight]="observableInputExample" language="typescript"></code></pre>
+      <pre><code [highlight]="observableInputExample()" language="typescript"></code></pre>
     </mat-tab>
   </mat-tab-group>
 </div>

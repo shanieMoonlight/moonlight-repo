@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { PerformanceService, SeoService, StructuredDataService } from '@spider-baby/utils-seo';
-import { filter } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   imports: [
@@ -19,6 +20,8 @@ export class AppComponent implements OnInit {
   private _router = inject(Router);
   private _structuredDataService = inject(StructuredDataService);
   private _performanceService = inject(PerformanceService);
+  private _activatedRoute = inject(ActivatedRoute)
+  private _titleService = inject(Title)
 
   //- - - - - - - - - - - - - - -//
 
@@ -33,10 +36,20 @@ export class AppComponent implements OnInit {
     // Handle route changes to update canonical URLs
     this._router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    ).subscribe((event) => {      
       // Update canonical URL based on current route
       devConsole.log('AppComponent-Router URL:', this._router.url);
       this._seoService.addCanonicalLinkRelative(this._router.url);
     });
+
+    this._router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event) => {      
+      // Update canonical URL based on current route
+      devConsole.log('AppComponent-Router URL:', this._router.url);
+      this._seoService.addCanonicalLinkRelative(this._router.url);
+    });
+
+
   }
 }

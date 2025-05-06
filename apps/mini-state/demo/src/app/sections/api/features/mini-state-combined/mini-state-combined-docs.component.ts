@@ -1,19 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
 
-@Component({
-  selector: 'sb-mini-state-combined-docs',
-  templateUrl: './mini-state-combined-docs.component.html',
-  styleUrls: ['./mini-state-combined-docs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
-})
-export class MiniStateCombinedDocsComponent {
-  // Core concept
-  conceptExample = `// MiniStateCombined aggregates multiple MiniState instances
+//##############################################//
+
+// Core concept
+const CONCEPT_EXAMPLE = `// MiniStateCombined aggregates multiple MiniState instances
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 
 // Basic usage - combine multiple states into one
@@ -28,8 +21,8 @@ const loading = combinedState.loading; // Signal<boolean> - true if ANY state is
 const errorMsg = combinedState.errorMsg; // Signal<string | undefined> - latest error message
 const successMsg = combinedState.successMsg; // Signal<string | undefined> - latest success message`;
 
-  // Combine static method
-  combineExample = `// Create a combined state from multiple MiniState instances
+// Combine static method
+const COMBINE_EXAMPLE = `// Create a combined state from multiple MiniState instances
 const combinedState = MiniStateCombined.Combine(
   detailsState,
   updateState,
@@ -43,8 +36,8 @@ errorMsg = combinedState.errorMsg;       // Signal<string | undefined> - latest 
 successMsg = combinedState.successMsg;   // Signal<string | undefined> - latest success message
 data = combinedState.data;               // Signal<any> - data from the most recently updated state`;
 
-  // Combine loaders static method
-  combineLoadersExample = `// Create a signal that's true if any state is loading
+// Combine loaders static method
+const COMBINE_LOADERS_EXAMPLE = `// Create a signal that's true if any state is loading
 const isLoading = MiniStateCombined.CombineLoaders(state1, state2, state3);
 
 // Usage in templates
@@ -61,8 +54,8 @@ effect(() => {
   }
 });`;
 
-  // Combine error messages static method
-  combineErrorMsgsExample = `// Create a signal with the latest error message from any state
+// Combine error messages static method
+const COMBINE_ERROR_MSGS_EXAMPLE = `// Create a signal with the latest error message from any state
 const errorMsg = MiniStateCombined.CombineErrorMsgs(state1, state2, state3);
 
 // Usage in templates
@@ -73,8 +66,8 @@ const errorMsg = MiniStateCombined.CombineErrorMsgs(state1, state2, state3);
 // The signal will contain the most recent error message
 // If multiple errors occur, only the latest is shown`;
 
-  // Combine success messages static method
-  combineSuccessMsgsExample = `// Create a signal with the latest success message
+// Combine success messages static method
+const COMBINE_SUCCESS_MSGS_EXAMPLE = `// Create a signal with the latest success message
 const successMsg = MiniStateCombined.CombineSuccessMsgs(state1, state2, state3);
 
 // Usage in templates
@@ -84,8 +77,8 @@ const successMsg = MiniStateCombined.CombineSuccessMsgs(state1, state2, state3);
 
 // When any state produces a success message, it will be available through this signal`;
 
-  // Combine data static method
-  combineDataExample = `// Create a signal that contains the latest data
+// Combine data static method
+const COMBINE_DATA_EXAMPLE = `// Create a signal that contains the latest data
 const latestData = MiniStateCombined.CombineData(state1, state2, state3);
 
 // This signal will update whenever any state produces new data
@@ -93,8 +86,8 @@ const data = latestData();  // Will contain the most recent data from any state
 
 // Useful when multiple operations affect the same data model`;
 
-  // Combine errors static method
-  combineErrorsExample = `// Create a signal that contains the latest error object
+// Combine errors static method
+const COMBINE_ERRORS_EXAMPLE = `// Create a signal that contains the latest error object
 const error = MiniStateCombined.CombineErrors(state1, state2, state3);
 
 // This is more detailed than the error message signal
@@ -106,8 +99,8 @@ if (error()) {
   }
 }`;
 
-  // Complete usage example in a component
-  completeExample = `import { Component, DestroyRef, computed, inject } from '@angular/core';
+// Complete usage example in a component
+const COMPLETE_EXAMPLE = `import { Component, DestroyRef, computed, inject } from '@angular/core';
 import { MiniState, MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { UserService } from './user.service';
@@ -225,4 +218,25 @@ export class UserProfileComponent {
     }
   }
 }`;
+
+//##############################################//
+
+@Component({
+  selector: 'sb-mini-state-combined-docs',
+  templateUrl: './mini-state-combined-docs.component.html',
+  styleUrls: ['./mini-state-combined-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
+})
+export class MiniStateCombinedDocsComponent {
+  // Signal-based code examples derived from the constants
+  protected conceptExample = computed(() => CONCEPT_EXAMPLE);
+  protected combineExample = computed(() => COMBINE_EXAMPLE);
+  protected combineLoadersExample = computed(() => COMBINE_LOADERS_EXAMPLE);
+  protected combineErrorMsgsExample = computed(() => COMBINE_ERROR_MSGS_EXAMPLE);
+  protected combineSuccessMsgsExample = computed(() => COMBINE_SUCCESS_MSGS_EXAMPLE);
+  protected combineDataExample = computed(() => COMBINE_DATA_EXAMPLE);
+  protected combineErrorsExample = computed(() => COMBINE_ERRORS_EXAMPLE);
+  protected completeExample = computed(() => COMPLETE_EXAMPLE);
 }

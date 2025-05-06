@@ -86,6 +86,8 @@ export class MainHomeComponent implements OnInit {
   private _seoService = inject(SeoService);
   private _router = inject(Router);
 
+  //- - - - - - - - - - - - - - -//
+
   title = 'Mini-State Demo';
   subtitle = 'A lightweight, signals-based state management library for Angular applications';
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
@@ -130,13 +132,15 @@ export class MainHomeComponent implements OnInit {
     }
   ];
 
+  //- - - - - - - - - - - - - - -//
+  
   ngOnInit() {
     // Set SEO metadata
     this._seoService.updateMetadata({
       title: 'Mini-State | Lightweight Signal-Based State Management for Angular',
       description: this.description,
       url: this._router.url,
-      keywords: ['Angular', 'State Management', 'Signals', 'Mini-State', 'Angular library', 'Reactive State']
+      keywords: ['Angularzzz', 'State Management', 'Signals', 'Mini-State', 'Angular library', 'Reactive State']
     });
   }
 }

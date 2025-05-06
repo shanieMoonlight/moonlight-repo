@@ -1,19 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
 
-@Component({
-  selector: 'sb-mini-state-crud-docs',
-  templateUrl: './mini-state-crud-docs.component.html',
-  styleUrls: ['./mini-state-crud-docs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
-})
-export class MiniStateCrudDocsComponent {
-  // Core concept
-  conceptExample = `// MiniCrudState extends MiniState to handle CRUD operations
+
+//##############################################//
+
+// Core concept
+const CONCEPT_EXAMPLE = `// MiniCrudState extends MiniState to handle CRUD operations
 import { MiniCrudState } from '@spider-baby/mini-state';
 
 // Create a CRUD state for a collection of items
@@ -48,8 +42,8 @@ userCrudState.triggerAdd(newUser); // Create a user
 userCrudState.triggerUpdate(updatedUser); // Update a user
 userCrudState.triggerDelete(userToDelete); // Delete a user`;
 
-  // Create method
-  createExample = `// Create a MiniCrudState instance
+// Create method
+const CREATE_EXAMPLE = `// Create a MiniCrudState instance
 const productCrudState = MiniCrudState.Create(
   (filter: ProductFilter) => productService.getAll(filter)
 );
@@ -57,8 +51,8 @@ const productCrudState = MiniCrudState.Create(
 // The Create method returns a fully configured MiniCrudState instance
 // It initializes the collection with an empty array ([])`;
 
-  // Method examples
-  setAddStateExample = `// Configure the add operation
+// Method examples
+const SET_ADD_STATE_EXAMPLE = `// Configure the add operation
 userCrudState.setAddState(
   // Add operation function - returns the created item from the API
   (user: User) => userService.create(user),
@@ -76,7 +70,7 @@ userCrudState.setAddState(
 
 // The added item is automatically appended to the data array`;
 
-  setUpdateStateExample = `// Configure the update operation
+const SET_UPDATE_STATE_EXAMPLE = `// Configure the update operation
 userCrudState.setUpdateState(
   // Update operation function - returns the updated item
   (user: User) => userService.update(user),
@@ -94,7 +88,7 @@ userCrudState.setUpdateState(
 
 // The updated item automatically replaces the matching item in the array`;
 
-  setDeleteStateExample = `// Configure the delete operation
+const SET_DELETE_STATE_EXAMPLE = `// Configure the delete operation
 userCrudState.setDeleteState(
   // Delete operation function
   (user: User) => userService.delete(user.id),
@@ -112,7 +106,7 @@ userCrudState.setDeleteState(
 
 // The deleted item is automatically removed from the array`;
 
-  setEqualsFnExample = `// By default, items are compared by their 'id' property
+const SET_EQUALS_FN_EXAMPLE = `// By default, items are compared by their 'id' property
 // You can customize this behavior with setEqualsFn
 
 // Example: comparing items by a composite key
@@ -120,8 +114,8 @@ userCrudState.setEqualsFn((item1, item2) =>
   item1?.orgId === item2?.orgId && item1?.userId === item2?.userId
 );`;
 
-  // Complete usage example
-  completeExample = `import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+// Complete usage example
+const COMPLETE_EXAMPLE = `import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
@@ -272,4 +266,25 @@ export class UserManagementComponent {
     });
   }
 }`;
+
+
+//##############################################//
+
+@Component({
+  selector: 'sb-mini-state-crud-docs',
+  templateUrl: './mini-state-crud-docs.component.html',
+  styleUrls: ['./mini-state-crud-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
+})
+export class MiniStateCrudDocsComponent {
+  // Signal-based code examples derived from the constants
+  protected conceptExample = computed(() => CONCEPT_EXAMPLE);
+  protected createExample = computed(() => CREATE_EXAMPLE);
+  protected setAddStateExample = computed(() => SET_ADD_STATE_EXAMPLE);
+  protected setUpdateStateExample = computed(() => SET_UPDATE_STATE_EXAMPLE);
+  protected setDeleteStateExample = computed(() => SET_DELETE_STATE_EXAMPLE);
+  protected setEqualsFnExample = computed(() => SET_EQUALS_FN_EXAMPLE);
+  protected completeExample = computed(() => COMPLETE_EXAMPLE);
 }

@@ -7,7 +7,7 @@
   </p>
 
   <h2>Overview</h2>
-  <pre><code [highlight]="conceptExample" language="typescript"></code></pre>
+  <pre><code [highlight]="conceptExample()" language="typescript"></code></pre>
 
   <div class="example-note">
     <p><strong>Key Feature:</strong> MiniCrudState automatically maintains the client-side array of items 
@@ -22,7 +22,7 @@
       static Create&lt;Filter, Item&gt;(triggerFn$: (filter: Filter) => Observable&lt;Item[]&gt;)
     </div>
     <p>Creates a new MiniCrudState instance for a collection of items that can be filtered.</p>
-    <pre><code [highlight]="createExample" language="typescript"></code></pre>
+    <pre><code [highlight]="createExample()" language="typescript"></code></pre>
   </div>
 
   <h2>Configuration Methods</h2>
@@ -33,7 +33,7 @@
     </div>
     <p>Configures the add operation for the CRUD state. When an item is successfully added, 
     it will automatically be appended to the items array in the state.</p>
-    <pre><code [highlight]="setAddStateExample" language="typescript"></code></pre>
+    <pre><code [highlight]="setAddStateExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -43,7 +43,7 @@
     </div>
     <p>Configures the update operation for the CRUD state. When an item is successfully updated,
     the corresponding item in the array will be replaced with the updated version.</p>
-    <pre><code [highlight]="setUpdateStateExample" language="typescript"></code></pre>
+    <pre><code [highlight]="setUpdateStateExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -53,7 +53,7 @@
     </div>
     <p>Configures the delete operation for the CRUD state. When an item is successfully deleted,
     it will automatically be removed from the items array in the state.</p>
-    <pre><code [highlight]="setDeleteStateExample" language="typescript"></code></pre>
+    <pre><code [highlight]="setDeleteStateExample()" language="typescript"></code></pre>
   </div>
 
   <div class="method-card">
@@ -63,7 +63,7 @@
     </div>
     <p>Sets the function used to determine if two items are equal. This is used when finding 
     items to update or delete in the collection.</p>
-    <pre><code [highlight]="setEqualsFnExample" language="typescript"></code></pre>
+    <pre><code [highlight]="setEqualsFnExample()" language="typescript"></code></pre>
   </div>
 
   <h2>Operation Methods</h2>
@@ -157,5 +157,5 @@
 
   <h2>Complete Usage Example</h2>
   <p>The following example demonstrates a complete user management component using MiniCrudState:</p>
-  <pre><code [highlight]="completeExample" language="typescript"></code></pre>
+  <pre><code [highlight]="completeExample()" language="typescript"></code></pre>
 </div>

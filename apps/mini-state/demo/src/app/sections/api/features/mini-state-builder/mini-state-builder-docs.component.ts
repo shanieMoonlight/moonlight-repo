@@ -1,19 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
 
-@Component({
-  selector: 'sb-mini-state-builder-docs',
-  templateUrl: './mini-state-builder-docs.component.html',
-  styleUrls: ['./mini-state-builder-docs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
-})
-export class MiniStateBuilderDocsComponent {
-  // Core concept
-  conceptExample = `// MiniStateBuilder provides a fluent API for creating MiniState instances
+//##############################################//
+
+// Core concept example
+const CONCEPT_EXAMPLE = `// MiniStateBuilder provides a fluent API for creating MiniState instances
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 
 // Create a MiniState without input
@@ -29,8 +22,8 @@ const userState = MiniStateBuilder
 // Use later when needed
 userState.trigger('user-123');`;
 
-  // Create method
-  createExample = `// Create a MiniState for operations that don't require input
+// Create method example
+const CREATE_EXAMPLE = `// Create a MiniState for operations that don't require input
 const todosState = MiniStateBuilder
   .Create(() => todoService.getAllTodos());
 
@@ -42,8 +35,8 @@ refreshButton.addEventListener('click', () => {
   todosState.trigger();  // Fetch fresh data
 });`;
 
-  // CreateWithInput method
-  createWithInputExample = `// Create a MiniState for operations that require input
+// CreateWithInput method example
+const CREATE_WITH_INPUT_EXAMPLE = `// Create a MiniState for operations that require input
 const userState = MiniStateBuilder
   .CreateWithInput((userId: string) => userService.getUser(userId));
 
@@ -53,8 +46,8 @@ userState.trigger('user-123');  // Calls userService.getUser('user-123')
 // You can trigger with different inputs for different data
 userState.trigger('user-456');  // Now calls userService.getUser('user-456')`;
 
-  // CreateWithObservableInput method
-  createWithObservableInputExample = `// Create a MiniState that reacts to Observable inputs
+// CreateWithObservableInput method example
+const CREATE_WITH_OBSERVABLE_INPUT_EXAMPLE = `// Create a MiniState that reacts to Observable inputs
 import { ActivatedRoute } from '@angular/router';
 import { map, filter } from 'rxjs/operators';
 
@@ -72,8 +65,8 @@ const itemState = MiniStateBuilder.CreateWithObservableInput(
 
 // No need to call trigger() - it happens automatically when id$ emits!`;
 
-  // CreateWithSignalInput method
-  createWithSignalInputExample = `// Create a MiniState that reacts to Signal inputs
+// CreateWithSignalInput method example
+const CREATE_WITH_SIGNAL_INPUT_EXAMPLE = `// Create a MiniState that reacts to Signal inputs
 import { signal } from '@angular/core';
 
 // Create a signal for the filter criteria
@@ -92,8 +85,8 @@ function nextPage() {
   // State is automatically triggered with new criteria!
 }`;
 
-  // Final example (replacing build example)
-  completeChainExample = `// MiniStateBuilder returns a fully configured MiniState
+// Complete chain example
+const COMPLETE_CHAIN_EXAMPLE = `// MiniStateBuilder returns a fully configured MiniState
 // You can chain methods directly onto the Create* methods
 
 const todosState = MiniStateBuilder
@@ -106,8 +99,8 @@ const todosState = MiniStateBuilder
 // automatically in the Create* methods, so you don't need to
 // worry about calling unsubscribe manually`;
 
-  // Updated basic example
-  basicExample = `// Basic usage example with MiniStateBuilder
+// Basic example
+const BASIC_EXAMPLE = `// Basic usage example with MiniStateBuilder
 import { Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { WeatherService } from './weather.service';
@@ -161,8 +154,8 @@ export class WeatherComponent {
   }
 }`;
 
-  // Updated input example - remove build() references
-  manualInputExample = `// Example with manual input trigger
+// Manual input example
+const MANUAL_INPUT_EXAMPLE = `// Example with manual input trigger
 import { Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { UserService } from './user.service';
@@ -227,7 +220,8 @@ export class UserProfileComponent {
   }
 }`;
 
-  observableInputExample = `// Example with automatic observable input trigger
+// Observable input example
+const OBSERVABLE_INPUT_EXAMPLE = `// Example with automatic observable input trigger
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
@@ -300,4 +294,26 @@ export class UserDetailComponent {
     // No need to call trigger() - it happens automatically when route changes!
   }
 }`;
+
+//##############################################//
+
+@Component({
+  selector: 'sb-mini-state-builder-docs',
+  templateUrl: './mini-state-builder-docs.component.html',
+  styleUrls: ['./mini-state-builder-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatExpansionModule, MatTabsModule, HighlightModule]
+})
+export class MiniStateBuilderDocsComponent {
+  // Signal-based code examples derived from the constants
+  protected conceptExample = computed(() => CONCEPT_EXAMPLE);
+  protected createExample = computed(() => CREATE_EXAMPLE);
+  protected createWithInputExample = computed(() => CREATE_WITH_INPUT_EXAMPLE);
+  protected createWithObservableInputExample = computed(() => CREATE_WITH_OBSERVABLE_INPUT_EXAMPLE);
+  protected createWithSignalInputExample = computed(() => CREATE_WITH_SIGNAL_INPUT_EXAMPLE);
+  protected completeChainExample = computed(() => COMPLETE_CHAIN_EXAMPLE);
+  protected basicExample = computed(() => BASIC_EXAMPLE);
+  protected manualInputExample = computed(() => MANUAL_INPUT_EXAMPLE);
+  protected observableInputExample = computed(() => OBSERVABLE_INPUT_EXAMPLE);
 }

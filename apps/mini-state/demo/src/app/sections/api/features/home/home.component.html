@@ -3,9 +3,13 @@
       <h1>SpiderBaby Mini-State API</h1>
       <p class="subtitle">Comprehensive documentation and guides mini-state system</p>
     </header>
-  
+
+    <!-- <div class="search-container">
+      <sb-search/>
+    </div> -->
+
     <div class="api-cards-grid">
-      @for (route of apiRoutes; track route.route) {
+      @for (route of apiRoutes(); track route.route) {
         <sb-ui-cards-api-nav [data]="route"/>
       }
     </div>

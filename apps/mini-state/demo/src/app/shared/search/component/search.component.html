@@ -1,0 +1,70 @@
+<div class="search-container">
+  <div class="search-input-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search</mat-label>
+      <input 
+        matInput 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (keyup.enter)="onSearch()"
+        placeholder="Enter search term...">
+      
+      @if (searchTerm) {
+        <button 
+          matSuffix 
+          mat-icon-button 
+          aria-label="Clear" 
+          (click)="clearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="onSearch()"
+      [disabled]="!searchTerm || (isLoading())">
+      Search
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="progress-container">
+      <mat-progress-bar  mode="indeterminate"/>
+      <!-- <span>Loading search index...</span> -->
+    </div>
+  }
+  @if (error(); as error) {
+    <div class="spinner-container">
+      <h5>{{error}}</h5>
+    </div>
+  }
+
+  @if (searchResults(); as results) {
+    <div class="search-results">
+      @if (results.length) {
+        <h3>Found {{ results.length }} results</h3>
+        @for (result of results; track result.document.id) {
+          <div class="search-result-item">
+            <h4>
+              <a [routerLink]="result.document.route">
+                <span [innerHTML]="highlightMatches(result.document.title, searchTerm)"></span>
+              </a>
+            </h4>
+            @if (result.document.description) {
+              <p class="search-result-description"
+                 [innerHTML]="highlightMatches(result.document.description, searchTerm)"></p>
+            }
+            <p class="search-result-excerpt" 
+               [innerHTML]="highlightMatches(result.document.content.substring(0, 200) + '...', searchTerm)"></p>
+            <span class="search-result-score">Relevance: {{ result.score.toFixed(2) }}</span>
+          </div>
+        }
+      } @else if (searchTerm) {
+        <div class="no-results">
+          <p>No results found for "{{ searchTerm }}"</p>
+        </div>
+      }
+    </div>
+  }
+</div>
