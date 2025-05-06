@@ -5,7 +5,9 @@ import { PerformanceService, SeoService, StructuredDataService } from '@spider-b
 import { filter } from 'rxjs/operators';
 
 @Component({
-  imports: [RouterModule],
+  imports: [
+    RouterModule
+  ],
   selector: 'sb-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

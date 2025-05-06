@@ -83,6 +83,9 @@
       "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
       "@spider-baby/utils-seo": ["libs/utils/seo/src/index.ts"],
       "@spider-baby/utils-seo/config": ["libs/utils/seo/config/src/index.ts"],
+      "@spider-baby/utils-seo/sw-updater-mat": [
+        "libs/utils/seo/sw-updater-mat/src/index.ts"
+      ],
       "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
       "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
     }

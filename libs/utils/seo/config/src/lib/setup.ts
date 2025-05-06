@@ -16,7 +16,7 @@ export class SeoSetup {
       if (!(config instanceof SeoConfig)) 
         throw new Error('SeoSetup: The provided config must be created using SeoConfig.create()')
 
-      devConsole.log('SeoSetup: Initializing SEO module with config:', config)
+      // devConsole.log('SeoSetup: Initializing SEO module with config:', config)
         
         return [
           { provide: SeoConfigService, useValue: config }
