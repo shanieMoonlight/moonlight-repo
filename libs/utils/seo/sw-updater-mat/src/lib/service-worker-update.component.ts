@@ -40,8 +40,6 @@ export class ServiceWorkerUpdateMatComponent {
    * Check for service worker updates and show notification when available
    */
   private checkForUpdates(): void {
-
-    this.showUpdateNotification()
     
     if (!this.swUpdate.isEnabled) {
       console.log('Service Worker is not enabled');

@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\""
+    "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
+    "generate:sitemap:mini-state": "node scripts/mini-state/generate-sitemap.js",
+    "build:mini-state": "npx nx run spider-baby-mini-state-demo:build --configuration=production && npm run generate:sitemap:mini-state",
+    "sitemap:mini-state": "npm run generate:sitemap:mini-state"
   },
   "private": true,
   "dependencies": {
@@ -70,6 +73,7 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",
+    "glob": "^11.0.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-preset-angular": "~14.4.0",
