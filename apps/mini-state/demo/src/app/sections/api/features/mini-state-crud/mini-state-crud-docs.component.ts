@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
-
+import { SeoService } from '@spider-baby/utils-seo';
+import { Router } from '@angular/router';
 
 //##############################################//
 
@@ -278,7 +279,12 @@ export class UserManagementComponent {
   standalone: true,
   imports: [MatExpansionModule, MatTabsModule, HighlightModule]
 })
-export class MiniStateCrudDocsComponent {
+export class MiniStateCrudDocsComponent implements OnInit {
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - -//
+
   // Signal-based code examples derived from the constants
   protected conceptExample = computed(() => CONCEPT_EXAMPLE);
   protected createExample = computed(() => CREATE_EXAMPLE);
@@ -287,4 +293,16 @@ export class MiniStateCrudDocsComponent {
   protected setDeleteStateExample = computed(() => SET_DELETE_STATE_EXAMPLE);
   protected setEqualsFnExample = computed(() => SET_EQUALS_FN_EXAMPLE);
   protected completeExample = computed(() => COMPLETE_EXAMPLE);
+
+  //-----------------------------//
+
+  ngOnInit() {
+    // Set SEO metadata
+    this._seoService.updateMetadata({
+      title: 'API MiniStateCrud | CRUD Operations for Collections',
+      description: 'MiniStateCrud extends MiniState to provide specialized functionality for managing collections with Create, Read, Update, and Delete operations in Angular applications.',
+      url: this._router.url,
+      keywords: ['API', 'Angular', 'State Management', 'MiniState', 'CRUD Operations', 'Collection Management']
+    });
+  }
 }

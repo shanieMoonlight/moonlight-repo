@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SeoService } from '@spider-baby/utils-seo';
+import { Router } from '@angular/router';
 
 //##############################################//
 
@@ -229,7 +231,12 @@ export class UserProfileComponent {
   standalone: true,
   imports: [MatExpansionModule, MatTabsModule, HighlightModule]
 })
-export class MiniStateCombinedDocsComponent {
+export class MiniStateCombinedDocsComponent implements OnInit {
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - -//
+
   // Signal-based code examples derived from the constants
   protected conceptExample = computed(() => CONCEPT_EXAMPLE);
   protected combineExample = computed(() => COMBINE_EXAMPLE);
@@ -239,4 +246,16 @@ export class MiniStateCombinedDocsComponent {
   protected combineDataExample = computed(() => COMBINE_DATA_EXAMPLE);
   protected combineErrorsExample = computed(() => COMBINE_ERRORS_EXAMPLE);
   protected completeExample = computed(() => COMPLETE_EXAMPLE);
+
+  //-----------------------------//
+
+  ngOnInit() {
+    // Set SEO metadata
+    this._seoService.updateMetadata({
+      title: 'API MiniStateCombined | Aggregate Multiple State Instances',
+      description: 'MiniStateCombined aggregates multiple MiniState instances to provide unified loading, error, and success states for complex Angular application workflows.',
+      url: this._router.url,
+      keywords: ['API', 'Angular', 'State Management', 'MiniState', 'Combined States', 'State Aggregation']
+    });
+  }
 }

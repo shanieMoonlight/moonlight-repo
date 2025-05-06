@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SeoService } from '@spider-baby/utils-seo';
+import { Router } from '@angular/router';
 
 //##############################################//
 
@@ -305,7 +307,12 @@ export class UserDetailComponent {
   standalone: true,
   imports: [MatExpansionModule, MatTabsModule, HighlightModule]
 })
-export class MiniStateBuilderDocsComponent {
+export class MiniStateBuilderDocsComponent implements OnInit {
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - -//
+
   // Signal-based code examples derived from the constants
   protected conceptExample = computed(() => CONCEPT_EXAMPLE);
   protected createExample = computed(() => CREATE_EXAMPLE);
@@ -316,4 +323,16 @@ export class MiniStateBuilderDocsComponent {
   protected basicExample = computed(() => BASIC_EXAMPLE);
   protected manualInputExample = computed(() => MANUAL_INPUT_EXAMPLE);
   protected observableInputExample = computed(() => OBSERVABLE_INPUT_EXAMPLE);
+
+  //-----------------------------//
+
+  ngOnInit() {
+    // Set SEO metadata
+    this._seoService.updateMetadata({
+      title: 'API MiniStateBuilder | Fluent API for State Creation',
+      description: 'MiniStateBuilder provides a fluent API for creating and configuring MiniState instances with automatic handling of DestroyRef and resource cleanup.',
+      url: this._router.url,
+      keywords: ['API', 'Angular', 'State Management', 'MiniStateBuilder', 'Fluent API', 'Builder Pattern']
+    });
+  }
 }

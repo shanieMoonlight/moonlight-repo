@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SeoService } from '@spider-baby/utils-seo';
+import { Router } from '@angular/router';
 
 //##############################################//
 
@@ -421,13 +423,7 @@ formSubmitState.setOnTriggerFn(formData => {
   formData.submittedAt = new Date().toISOString();
 });`;
 
-
-
 //##############################################//
-
-
-
-
 
 @Component({
   selector: 'sb-mini-state-docs',
@@ -437,7 +433,11 @@ formSubmitState.setOnTriggerFn(formData => {
   standalone: true,
   imports: [MatExpansionModule, MatTabsModule, HighlightModule]
 })
-export class MiniStateDocsComponent {
+export class MiniStateDocsComponent implements OnInit {
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - -//
   
   conceptExample = signal(CONCEPT_EXAMPLE);
   constructorExample = signal(CONSTRUCTOR_EXAMPLE);
@@ -454,7 +454,16 @@ export class MiniStateDocsComponent {
   onErrorFnExample = signal(ON_ERROR_FN_EXAMPLE);
   onTriggerFnExample = signal(ON_TRIGGER_FN_EXAMPLE);
 
+  //-----------------------------//
 
-
+  ngOnInit() {
+    // Set SEO metadata
+    this._seoService.updateMetadata({
+      title: 'API MiniState | Core Class for Async State Management',
+      description: 'MiniState is the core class for managing async operations with automatic handling of loading states, errors, and success messages in Angular applications.',
+      url: this._router.url,
+      keywords: ['API', 'Angular', 'State Management', 'MiniState', 'Async Operations', 'Loading States', 'Error Handling']
+    });
+  }
   
 }
