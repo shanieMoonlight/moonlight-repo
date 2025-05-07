@@ -32,7 +32,7 @@ export const apiRoutes: Route[] = [
                 loadComponent: () => import('./features/mini-state-combined/mini-state-combined-docs.component').then(m => m.MiniStateCombinedDocsComponent),
             },
             {
-                path: 'ms-utility',
+                path: 'mini-state-utility',
                 title: 'API Utility - SpiderBaby MiniState',
                 loadComponent: () => import('./features/mini-state-utility/mini-state-utility-docs.component').then(m => m.MiniStateUtilityDocsComponent),
             },

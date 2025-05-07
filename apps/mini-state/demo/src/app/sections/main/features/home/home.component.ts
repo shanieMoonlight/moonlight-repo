@@ -140,7 +140,7 @@ export class MainHomeComponent implements OnInit {
       title: 'Mini-State | Lightweight Signal-Based State Management for Angular',
       description: this.description,
       url: this._router.url,
-      keywords: ['Angularzzz', 'State Management', 'Signals', 'Mini-State', 'Angular library', 'Reactive State']
+      keywords: ['Angular', 'State Management', 'Signals', 'Mini-State', 'Angular library', 'Reactive State']
     });
   }
 }

@@ -88,7 +88,8 @@ export class SearchService {
     }),
     tap(() => this._isLoading$.next(true)),
     map(([term, searchIndex, documents]) => this.performSearch(term, searchIndex, documents)),
-    tap(() => this._isLoading$.next(false))
+    tap(() => this._isLoading$.next(false)),
+    tap((X) => console.log(X))
   )
   searchResults = toSignal(this.searchResults$)
 
@@ -107,8 +108,11 @@ export class SearchService {
     try {
       devConsole.log('Performing search:', term, searchIndex, documents);
       const results = searchIndex.search(term);
+      console.log('Search results:', results.map(result => new SearchResult(documents[result.ref], result.score)))
       return results.map(result => new SearchResult(documents[result.ref], result.score))
-        .filter(result => result.document); // Filter out undefined documents
+        .filter(result => !!result.document); // Filter out undefined documents
+
+        
 
     } catch (e) {
       console.error('Search error:', e);

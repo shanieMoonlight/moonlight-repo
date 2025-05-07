@@ -41,7 +41,7 @@ const API_ROUTES: ApiRouteData[] = [
     title: 'MiniStateUtility',
     description: 'Helper methods for working with multiple MiniState instances and combining their signals/observables.',
     icon: 'handyman',
-    route: '/api/ms-utility',
+    route: '/api/mini-state-utility',
     color: 'secondary'
   }
 ]

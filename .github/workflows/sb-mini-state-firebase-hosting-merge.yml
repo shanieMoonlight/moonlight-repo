@@ -49,11 +49,15 @@ jobs:
       - name: Build Angular app
         run: npx nx run spider-baby-mini-state-demo:build --configuration=production
 
-      - name: Install glob package for sitemap generation
-        run: npm install glob --save-dev
+      # - name: Install glob package for sitemap generation
+      #   run: npm install glob --save-dev
 
+      # - name: Generate sitemap
+      #   run: node scripts/mini-state/generate_ministate-sitemap.js
       - name: Generate sitemap
-        run: node scripts/mini-state/generate-sitemap.js
+        uses: ./.github/actions/generate-sitemap
+        with:
+          script-path: scripts/mini-state/generate_ministate-sitemap.js
 
       - name: List files in deploy directory
         run: ls -alR dist/apps/mini-state/demo/browser
