@@ -28,6 +28,7 @@ export class ApiNavbarComponent {
   //- - - - - - - - - - - - - - -//
 
   _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
+  _lhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'lhsOutletTemplate' })
 
   //- - - - - - - - - - - - - - -//
 

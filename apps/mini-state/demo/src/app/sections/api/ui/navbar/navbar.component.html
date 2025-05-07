@@ -1,6 +1,11 @@
 <mat-toolbar >
     
     <div class="left-links">
+        <div class="lhs-outlet">
+            @if(_lhsOutletTemplate(); as template){
+            <ng-container [ngTemplateOutlet]="template" />
+            }
+        </div>
         <img class="navlink" 
             [src]="_logoSml()" 
             alt="MainPage" 

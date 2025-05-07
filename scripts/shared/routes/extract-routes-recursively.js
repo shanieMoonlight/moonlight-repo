@@ -30,7 +30,6 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
   // const appDir = path.join(config.appPath, 'src/app');
 
   const appDir = path.dirname(routeFilePath);
-  console.log('App directory:', appDir);
 
 
   // Extract path strings from route configurations
@@ -94,6 +93,8 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
   }
 }
 
+//- - - - - - - - - - - - - - -//
+
 /**
  * Resolve an import path to an actual file path
  * @param {string} sourceFilePath - Path of the file containing the import
@@ -102,20 +103,19 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
  * @returns {string|null} Resolved file path or null if can't be resolved
  */
 function resolveImportPath(sourceFilePath, importPath, appDir) {
-  // Handle relative imports
-  if (importPath.startsWith('./') || importPath.startsWith('../')) {
-    const sourceDir = path.dirname(sourceFilePath);
-    const resolvedPath = path.resolve(sourceDir, importPath);
-
-    // If import path doesn't include '.ts', add it
-    if (!resolvedPath.endsWith('.ts'))
-      return `${resolvedPath}.ts`;
-
-    return resolvedPath;
-  }
-
   // Handle absolute imports (from app root)
-  return path.join(appDir, importPath + '.ts');
+  if (!importPath.startsWith('./') && !importPath.startsWith('../')) 
+    return path.join(appDir, importPath + '.ts');
+
+  // Handle relative imports
+  const sourceDir = path.dirname(sourceFilePath);
+  const resolvedPath = path.resolve(sourceDir, importPath);
+
+  // If import path doesn't include '.ts', add it
+  if (!resolvedPath.endsWith('.ts'))
+    return `${resolvedPath}.ts`;
+
+  return resolvedPath;
 }
 
 //- - - - - - - - - - - - - - -//
@@ -128,14 +128,14 @@ function resolveImportPath(sourceFilePath, importPath, appDir) {
  */
 function buildFullPath(parentPath, routePath) {
   // Empty path means this is the default route for this level
-  if (routePath === '') {
+  if (routePath === '') 
     return parentPath;
-  }
+  
 
   // For root-level paths
-  if (parentPath === '') {
+  if (parentPath === '') 
     return routePath === '' ? '/' : `/${routePath}`;
-  }
+  
 
   // Standard nested path
   return `${parentPath}/${routePath}`.replace(/\/+/g, '/');

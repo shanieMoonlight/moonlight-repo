@@ -5,10 +5,10 @@ const thisYear = today.getFullYear();
 const xmasTime = new Date(thisYear, 11, 1);
 const halloweenTimeStart = new Date(thisYear, 10, 1);
 const halloweenTimeEnd = new Date(thisYear, 11, 1);
-// export const IS_XMAS = today >= xmasTime;
-// export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTimeEnd;
-export const IS_XMAS = true
-export const IS_HALLOWEEN = true
+export const IS_XMAS = today >= xmasTime;
+export const IS_HALLOWEEN = today >= halloweenTimeStart && today < halloweenTimeEnd;
+// export const IS_XMAS = true
+// export const IS_HALLOWEEN = true
 
 
 
