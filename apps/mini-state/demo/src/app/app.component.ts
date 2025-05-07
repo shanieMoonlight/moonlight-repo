@@ -6,6 +6,7 @@ import { PerformanceService, SeoService, StructuredDataService } from '@spider-b
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
+  standalone: true,
   imports: [
     RouterModule
   ],

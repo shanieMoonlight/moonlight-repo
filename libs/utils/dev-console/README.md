@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@spider-baby/dev-console.svg)](https://www.npmjs.com/package/@spider-baby/dev-console)
 [![license](https://img.shields.io/npm/l/@spider-baby/dev-console.svg)](LICENSE)
+[![Angular Compatibility](https://img.shields.io/badge/Angular-12%2B-brightgreen)](https://www.npmjs.com/package/@spider-baby/dev-console)
 
 A simple utility for Angular that wraps standard `console` methods (`log`, `warn`, `error`, etc.) to ensure they only execute during development mode (when `isDevMode()` from `@angular/core` is true). This helps keep production console output clean.
 
@@ -14,6 +15,8 @@ In Angular development, you often add `console.log` statements for debugging. Fo
 ```bash
 npm install @spider-baby/dev-console
 ```
+
+Compatible with Angular 12 and higher.
 
 ## Usage
 

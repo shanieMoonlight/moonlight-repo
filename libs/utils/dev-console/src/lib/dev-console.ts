@@ -11,9 +11,8 @@ export const devConsole = {
    * @param args Arguments to pass to console.log
    */
   log: (...args: any[]): void => {
-    if (isDevMode()) {
+    if (isDevMode()) 
       console.log(...args);
-    }
   },
 
   /**
@@ -21,9 +20,8 @@ export const devConsole = {
    * @param args Arguments to pass to console.warn
    */
   warn: (...args: any[]): void => {
-    if (isDevMode()) {
-      console.warn(...args);
-    }
+    if (isDevMode()) 
+      console.warn(...args);    
   },
 
   /**
@@ -31,9 +29,8 @@ export const devConsole = {
    * @param args Arguments to pass to console.error
    */
   error: (...args: any[]): void => {
-    if (isDevMode()) {
-      console.error(...args);
-    }
+    if (isDevMode()) 
+      console.error(...args);    
   },
 
   /**
@@ -41,18 +38,16 @@ export const devConsole = {
    * @param label The group label
    */
   group: (label: string): void => {
-    if (isDevMode()) {
-      console.group(label);
-    }
+    if (isDevMode()) 
+      console.group(label);    
   },
 
   /**
    * Ends the current console group in development mode only.
    */
   groupEnd: (): void => {
-    if (isDevMode()) {
-      console.groupEnd();
-    }
+    if (isDevMode()) 
+      console.groupEnd();    
   },
 
   /**
@@ -61,9 +56,8 @@ export const devConsole = {
    * @param properties Optional array of property names to include
    */
   table: (tabularData: any, properties?: string[]): void => {
-    if (isDevMode()) {
+    if (isDevMode()) 
       console.table(tabularData, properties);
-    }
   },
 
   /**
@@ -71,9 +65,8 @@ export const devConsole = {
    * @param label Timer label
    */
   time: (label: string): void => {
-    if (isDevMode()) {
+    if (isDevMode()) 
       console.time(label);
-    }
   },
 
   /**
@@ -81,9 +74,8 @@ export const devConsole = {
    * @param label Timer label
    */
   timeEnd: (label: string): void => {
-    if (isDevMode()) {
+    if (isDevMode()) 
       console.timeEnd(label);
-    }
   }
 };
 

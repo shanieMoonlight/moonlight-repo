@@ -16,6 +16,7 @@ export class NewAlbumDialogData {
 //##########################################//
 @Component({
   selector: 'sb-album-form-modal',
+  standalone: true,
   imports: [
     MatEverythingModule,
     ReactiveFormsModule,

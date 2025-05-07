@@ -51,7 +51,7 @@ Thumbs.db
 **/keystore
 
 **/@copilot/
-**/build-helpers
+# **/build-helpers
 
 # Ignore all images
 # *.png

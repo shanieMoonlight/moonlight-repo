@@ -7,6 +7,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
 
 
 @Component({
+  standalone: true,
   imports: [
     NavbarComponent,
     MlDarkModeToggleMatComponent,

@@ -4,7 +4,7 @@ C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\src\app\sections\m
 
 SEO
 
-
+18 & 19 in devConsloe & ministate
 
 
 
@@ -13,3 +13,6 @@ Redo : devLog
 
 
 SeoConfigOptions.try sanitize then validate
+
+Active styele in ministate sidenav
+Sidenave in mat-theme api

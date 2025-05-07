@@ -5,6 +5,7 @@ import { SuccessModalComponent } from '../success/success.component';
 
 @Component({
   selector: 'sb-notifications-modal',
+  standalone: true,
   imports: [
     ErrorModalComponent,
     SuccessModalComponent,

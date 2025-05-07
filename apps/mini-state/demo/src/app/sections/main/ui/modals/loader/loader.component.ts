@@ -3,6 +3,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
   selector: 'sb-loader-modal',
+  standalone: true,
   imports: [MatEverythingModule],
   template: `
   @if (isLoading()) {

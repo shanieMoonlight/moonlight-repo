@@ -182,6 +182,7 @@ const HTML_CODE = `
 // and to keep the example simple
 @Component({
   selector: 'sb-main-demo-search',
+  standalone: true,
   imports: [
     MatEverythingModule,
     MainDemoHeaderComponent,

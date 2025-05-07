@@ -3,6 +3,7 @@ import { MainConstants } from '../../config/constants';
 
 @Component({
   selector: 'sb-main-demo-header',
+  standalone: true,
   imports: [],
   template: `
   <h1 class="api-header">This Dummy IO Service geneates random data with random quantities and operates with a 

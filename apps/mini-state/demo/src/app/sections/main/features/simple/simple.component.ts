@@ -67,6 +67,7 @@ const HTML_CODE = `
 
 @Component({
   selector: 'sb-main-demo-simple',
+  standalone: true,
   imports: [
     MatEverythingModule,
     DataTableComponent,

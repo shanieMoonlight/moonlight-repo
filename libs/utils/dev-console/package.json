@@ -1,8 +1,8 @@
 {
   "name": "@spider-baby/dev-console",
-  "version": "1.0.0", 
+  "version": "1.1.0",
   "description": "A simple utility for Angular that wraps console methods to log only during development mode (isDevMode).",
-  "author": "shanieMoonlight", 
+  "author": "shanieMoonlight",
   "repository": {
     "type": "git",
     "url": "https://github.com/shanieMoonlight/moonlight-repo.git",
@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
   },
-  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/utils/dev-console#readme", 
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/utils/dev-console#readme",
   "keywords": [
     "angular",
     "console",
@@ -21,18 +21,17 @@
     "devmode",
     "utility"
   ],
-  "license": "MIT", 
+  "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "^19.2.0" 
+    "@angular/core": ">=12.0.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "sideEffects": false,
-  "ngPackage": { 
-    "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json", 
-    "dest": "../../../dist/libs/utils/dev-console", 
+  "ngPackage": {
+    "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../../../dist/libs/utils/dev-console",
     "lib": {
-      "entryFile": "src/index.ts" 
+      "entryFile": "src/index.ts"
     }
   }
 }

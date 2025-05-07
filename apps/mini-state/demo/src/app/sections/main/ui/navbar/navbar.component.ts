@@ -60,6 +60,7 @@ const rhsNavbarItems: NavbarItem[] = [
 
 @Component({
   selector: 'sb-navbar',
+  standalone: true,
   imports: [
     MatEverythingModule,
     NavigateNewWindowDirective,

@@ -11,6 +11,7 @@ import { AppImages } from '../../../../config/images';
 
 @Component({
   selector: 'sb-api-navbar',
+  standalone: true,
   imports: [
     MatEverythingModule,
     NgTemplateOutlet,

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
 import { SeoService } from '@spider-baby/utils-seo';
 import { AppImages } from '../../../../config/images';
-import { API_ROUTES } from '../../../../config/route-data';
+import { API_ROUTES } from '../../config/route-data';
 
 //##############################################//
 

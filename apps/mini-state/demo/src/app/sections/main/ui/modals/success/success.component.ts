@@ -3,6 +3,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
   selector: 'sb-success-modal',
+  standalone: true,
   imports: [MatEverythingModule],
   template: `
   

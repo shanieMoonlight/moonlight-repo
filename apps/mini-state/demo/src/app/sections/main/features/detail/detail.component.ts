@@ -123,6 +123,7 @@ const HTML_CODE = `
 
 @Component({
   selector: 'sb-main-demo-detail',
+  standalone: true,
   imports: [
     MatEverythingModule,
     SbMatNotificationsModalComponent,

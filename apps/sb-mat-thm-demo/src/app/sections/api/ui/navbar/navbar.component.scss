@@ -30,7 +30,8 @@ mat-toolbar {
   /* Center items vertically */
 }
 
-.rhs-outlet {
+.rhs-outlet,
+.lhs-outlet {
   margin-left: auto; /* Aligns the element to the right */
   display: flex; /* Ensure content inside aligns well */
   align-items: center;

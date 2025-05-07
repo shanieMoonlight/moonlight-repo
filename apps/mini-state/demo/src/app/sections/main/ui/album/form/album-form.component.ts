@@ -5,6 +5,7 @@ import { Album, IAlbumForm } from '../../../data/album';
 
 @Component({
   selector: 'sb-album-form',
+  standalone: true,
   imports: [
     MatEverythingModule,
     ReactiveFormsModule

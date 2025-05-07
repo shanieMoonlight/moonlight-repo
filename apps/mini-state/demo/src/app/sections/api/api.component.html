@@ -8,10 +8,18 @@
     </div>
     
     <mat-nav-list>
-      @for (route of apiRoutes(); track route.route) {
-        <a mat-list-item [routerLink]="[route.route]" 
+      <a mat-list-item [routerLink]="['/api/home']" 
+          routerLinkActive="active" 
           (click)="sidenav.close()">
-          <mat-icon>{{route.icon || 'article'}}</mat-icon>
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span>Home</span>
+        </a>
+      @for (route of apiRoutes(); track route.route) {
+        <a mat-list-item 
+          [routerLink]="[route.route]" 
+          routerLinkActive="active" 
+          (click)="sidenav.close()">
+          <mat-icon matListItemIcon>{{route.icon || 'article'}}</mat-icon>
           <span>{{route.title}}</span>
         </a>
       }

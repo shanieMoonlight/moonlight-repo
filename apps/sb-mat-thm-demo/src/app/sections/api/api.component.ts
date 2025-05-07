@@ -1,24 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { ApiNavbarComponent } from './ui/navbar/navbar.component';
+import { API_ROUTES } from './config/route-data';
 
 @Component({
   selector: 'sb-api',
   standalone: true,
   imports: [
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatDividerModule,
+    MatEverythingModule,
     RouterOutlet,
+    RouterModule,
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     ApiNavbarComponent
@@ -32,6 +26,10 @@ export class ApiComponent implements OnInit {
   private _router = inject(Router)
   private _structuredDataService = inject(StructuredDataService)
 
+  //- - - - - - - - - - - - - - -//
+
+  apiRoutes = signal(API_ROUTES);
+  
   //-----------------------------//
 
   ngOnInit() {

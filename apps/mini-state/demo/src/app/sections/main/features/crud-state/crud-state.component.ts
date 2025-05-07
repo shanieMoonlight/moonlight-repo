@@ -10,6 +10,7 @@ import { CrudStateService } from './crud-state.service';
 
 @Component({
   selector: 'sb-main-demo-crud-with-state',
+  standalone: true,
   imports: [
     MatEverythingModule,
     DataTableComponent,

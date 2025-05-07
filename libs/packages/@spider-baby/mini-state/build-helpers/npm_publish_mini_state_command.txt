@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File ".\libs\packages\@spider-baby\mini-state\build-helpers\npm_publish_mini_state.ps1"

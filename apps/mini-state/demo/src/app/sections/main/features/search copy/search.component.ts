@@ -73,6 +73,7 @@ const HTML_CODE = `
 
 @Component({
   selector: 'sb-main-demo-search',
+  standalone: true,
   imports: [
     MatEverythingModule,
     CommonModule,

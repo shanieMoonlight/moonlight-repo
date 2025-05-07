@@ -4,6 +4,7 @@ A lightweight, reactive state management library for Angular applications that s
 
 [![npm version](https://img.shields.io/npm/v/@spider-baby/mini-state.svg)](https://www.npmjs.com/package/@spider-baby/mini-state)
 [![license](https://img.shields.io/npm/l/@spider-baby/mini-state.svg)](LICENSE)
+[![Angular Compatibility](https://img.shields.io/badge/Angular-18%2B-brightgreen)](https://www.npmjs.com/package/@spider-baby/mini-state)
 
 ## Overview
 
@@ -21,6 +22,8 @@ Perfect for when NgRx feels like overkill but you still want clean, reactive pat
 ```bash
 npm install @spider-baby/mini-state
 ```
+
+Compatible with Angular 18 and 19.
 
 ## Key Features
 

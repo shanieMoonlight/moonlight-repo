@@ -1,0 +1,4 @@
+C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@spider-baby\mini-state\build-helpers\local_publish_mini_state.bat
+
+# Mini-state local publish command
+powershell -ExecutionPolicy Bypass -File "C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@spider-baby\mini-state\build-helpers\local_publish_mini_state.ps1"
