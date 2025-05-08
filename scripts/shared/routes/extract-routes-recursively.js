@@ -43,7 +43,7 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
 
 
   if (verbose) {
-    console.log(`Processing ${routeFilePath} with parent path: ${parentPath}`);
+    // console.log(`Processing ${routeFilePath} with parent path: ${parentPath}`);
     console.log('Route imports:', routeData);
   }
 
@@ -78,6 +78,8 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
       if (loaderType === 'loadChildren') {
         // Build the full path to the imported route file
         const importedFilePath = resolveImportPath(routeFilePath, importPath, appDir);
+        console.log(`Importing ${importedFilePath} for route: ${routePath}`);
+        
 
         if (importedFilePath) {
           // Combine parent path with the current route path for recursive call
@@ -164,7 +166,8 @@ function getImportRouteData(content) {
 
   // Look for complete route objects with both path and loader properties
   // This regex finds route objects with both path and loadChildren/loadComponent
-  const routeRegex = /{\s*path\s*:\s*['"]([^'"]*)['"]\s*,\s*(loadChildren|loadComponent)\s*:\s*\(\s*\)\s*=>\s*import\(\s*['"]([^'"]+)['"]\s*\)/g;
+  // const routeRegex = /{\s*path\s*:\s*['"]([^'"]*)['"]\s*,\s*(loadChildren|loadComponent)\s*:\s*\(\s*\)\s*=>\s*import\(\s*['"]([^'"]+)['"]\s*\)/g;
+  const routeRegex = /{\s*[^}]*path\s*:\s*['"]([^'"]+)['"][^}]*?(loadChildren|loadComponent)\s*:\s*\(\s*\)\s*=>\s*import\(\s*['"]([^'"]+)['"]\s*\)[^}]*}/g;
 
   let match;
   while ((match = routeRegex.exec(content)) !== null) {

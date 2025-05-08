@@ -1,6 +1,7 @@
 
 const sitemapGenerator = require('../shared/sitemap/generate-sitemap');
 
+
 // Configuration for mini-state demo app
 const config = {
   siteMapFilename: 'sitemap.xml',
