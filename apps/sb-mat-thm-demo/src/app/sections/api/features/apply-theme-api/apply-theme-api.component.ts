@@ -33,11 +33,11 @@ export class ApplyThemeApiComponent implements OnInit {
   // Add examples and documentation content here
 
   // Examples for Apply Theme Directive
-  basicUsageExample = `
-  <div sbApplyTheme="material-light"></div>
-  `;
+  // basicUsageExample = `
+  // <div sbApplyTheme="material-light"></div>
+  // `;
 
-  advancedUsageExample = `
+  basicUsageExample = `
   <div [sbApplyTheme]="themeObject"></div>
 
   // In your component class

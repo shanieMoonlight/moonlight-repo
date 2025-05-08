@@ -10,9 +10,62 @@ SEO
 
 Redo : devLog
 
+Improve ThemeService API examples
+
+Test sitemap
 
 
-SeoConfigOptions.try sanitize then validate
 
-Active styele in ministate sidenav
-Sidenave in mat-theme api
+  /**
+   * Sets the current theme based on the provided ThemeOption.
+   * Applies the appropriate CSS class and updates dark mode if specified in the option.
+   * If the provided theme is null or undefined, it falls back to the default theme.
+   * 
+   * 
+   * Must be a valid predefined ThemeOption, either System or Custom theme.
+   * To apply/preview a new/dynamic theme, use the applyTheme method instead.
+   *
+   * @param theme The ThemeOption to apply, or null/undefined to apply the default. 
+   * 
+   */
+  setTheme = (theme: ThemeOption | null | undefined) =>
+    {
+      console.log('Setting theme:', theme);
+      
+      return this._currentThemeBs.next(theme);
+    };
+
+  //-----------------------------//
+
+  /**
+   * Reapplies the current application theme to the document.
+   * 
+   * This is useful when temporarily previewing other themes and then needing to
+   * restore the application's actual theme. For example, when a theme selector
+   * component is destroyed, it should call this method to ensure the application
+   * returns to its proper theme.
+   * 
+   * @example
+   * ```typescript
+   * // In a component that temporarily previews themes
+   * ngOnDestroy() {
+   *   // Restore the application's theme when this component is destroyed
+   *   this.themeService.reapplyCurrentTheme();
+   * }
+   * ```
+   */
+  applyTheme = (theme: ThemeOption, targetElement?: HTMLElement) => {
+    if (!theme) return
+    this._themeGenerator.applyTheme(theme, theme.value, targetElement);
+  }
+
+  //-----------------------------//
+
+
+  //  REMOVE
+  applyThemeByValue(themeValue: ThemeValue, targetElement?: HTMLElement): boolean {
+    const theme = this.availableThemes().find(t => t.value === themeValue);
+    if (theme)
+      this._themeGenerator.applyTheme(theme, theme.value, targetElement)
+    return !!theme
+  }

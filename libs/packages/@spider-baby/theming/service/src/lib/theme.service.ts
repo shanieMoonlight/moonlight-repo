@@ -115,7 +115,6 @@ export class ThemeService {
 
   constructor() {
 
-    // Added effect to handle theme invalidation - GOOD
     effect(() => {
       consoleDev.log('This is the effect')
       const currentSystemThemes = this.systemThemes();
@@ -146,7 +145,18 @@ export class ThemeService {
 
   //-----------------------------//
 
-
+  /**
+   * Sets the  theme based on the provided ThemeValue.
+   * Applies the appropriate CSS class and updates dark mode if specified in the option.
+   * If the provided theme is null or undefined, it falls back to the default theme.
+   * 
+   * 
+   * Must be the value valid predefined ThemeOption, either System or Custom theme.
+   * To apply/preview a new/dynamic theme, use the applyTheme method instead.
+   *
+   * @param theme The ThemeOption to apply, or null/undefined to apply the default. 
+   * 
+   */
   setThemeByValue(themeValue: ThemeValue): boolean {
     const theme = this.availableThemes().find(t => t.value === themeValue);
     if (theme)
@@ -158,11 +168,16 @@ export class ThemeService {
   //-----------------------------//
 
   /**
-   * Sets the current theme based on the provided ThemeOption.
+   * Sets the  theme based on the provided ThemeOption.
    * Applies the appropriate CSS class and updates dark mode if specified in the option.
    * If the provided theme is null or undefined, it falls back to the default theme.
+   * 
+   * 
+   * Must be a valid predefined ThemeOption, either System or Custom theme.
+   * To apply/preview a new/dynamic theme, use the applyTheme method instead.
    *
-   * @param theme The ThemeOption to apply, or null/undefined to apply the default.
+   * @param theme The ThemeOption to apply, or null/undefined to apply the default. 
+   * 
    */
   setTheme = (theme: ThemeOption | null | undefined) =>
     this._currentThemeBs.next(theme);
@@ -170,12 +185,9 @@ export class ThemeService {
   //-----------------------------//
 
   /**
-   * Reapplies the current application theme to the document.
+   * Apply theme to the document. 
    * 
-   * This is useful when temporarily previewing other themes and then needing to
-   * restore the application's actual theme. For example, when a theme selector
-   * component is destroyed, it should call this method to ensure the application
-   * returns to its proper theme.
+   * This is useful when temporarily previewing other themes without having to create and store first.
    * 
    * @example
    * ```typescript
@@ -194,14 +206,20 @@ export class ThemeService {
   //-----------------------------//
 
 
-  applyThemeByValue(themeValue: ThemeValue, targetElement?: HTMLElement): boolean {
-    const theme = this.availableThemes().find(t => t.value === themeValue);
-    if (theme)
-      this._themeGenerator.applyTheme(theme, theme.value, targetElement)
-    return !!theme
-  }
+  // /**
+  //  * Apply theme to the document. 
+  //  * @param themeValue 
+  //  * @param targetElement 
+  //  * @returns 
+  //  */
+  // applyThemeByValue(themeValue: ThemeValue, targetElement?: HTMLElement): boolean {
+  //   const theme = this.availableThemes().find(t => t.value === themeValue);
+  //   if (theme)
+  //     this._themeGenerator.applyTheme(theme, theme.value, targetElement)
+  //   return !!theme
+  // }
 
-  //-----------------------------//
+  // //-----------------------------//
 
   /**
  * Exports the current theme settings as a serializable object

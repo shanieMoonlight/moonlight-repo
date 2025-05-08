@@ -299,7 +299,7 @@ export class ThemePreviewComponent {
   private generator = inject(ThemeGeneratorService);
   
   previewTheme(theme: ThemeOption) {
-    this.generator.applyTheme(theme, undefined, this.container.nativeElement);
+    this.generator.applyTheme(theme, this.container.nativeElement);
   }
 }
 ```

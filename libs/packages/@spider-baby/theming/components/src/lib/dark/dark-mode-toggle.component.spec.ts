@@ -5,12 +5,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BehaviorSubject } from 'rxjs';
 import { MlDarkModeToggleMatComponent } from './dark-mode-toggle.component';
 import { ThemeService } from '@spider-baby/material-theming/service';
+import { signal } from '@angular/core';
 
 // Remove jest.mock completely and instead create a mock class
 class MockThemeService {
   isDarkMode$ = new BehaviorSubject<boolean>(false);
+  isDarkMode = signal(false);
   setDarkMode = jest.fn((isDark: boolean) => {
     this.isDarkMode$.next(isDark);
+    this.isDarkMode.set(isDark);
   });
 }
 
@@ -56,12 +59,12 @@ describe('MlDarkModeToggleMatComponent', () => {
   //- - - - - - - - - - - - - - -//
 
   it('should initialize with correct dark mode state', () => {
-    expect((component as any)._isDark()).toBe(false);
+    expect((component as any)['_isDark']()).toBe(false);
     
-    mockThemeService.isDarkMode$.next(true);
+    mockThemeService.isDarkMode.set(true);
     fixture.detectChanges();
     
-    expect((component as any)._isDark()).toBe(true);
+    expect((component as any)['_isDark']()).toBe(true);
   });
 
   //- - - - - - - - - - - - - - -//

@@ -57,7 +57,6 @@ export class MlThemePickerMatComponent {
 
     //- - - - - - - - - - - - - - -//
 
-    // protected _options: Array<ThemeOption> = this._config.themeOptions
     protected _systemOptions = this._themeService.systemThemes
     protected _customOptions = this._themeService.customThemes
     protected _allOptions = computed(() => [...this._systemOptions(), ...this._customOptions()])

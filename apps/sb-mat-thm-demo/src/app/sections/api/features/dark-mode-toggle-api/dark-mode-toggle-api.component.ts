@@ -33,11 +33,11 @@ export class DarkModeToggleApiComponent implements OnInit {
   // Add examples and documentation content here
   // Examples for Dark Mode Toggle
   basicUsageExample = `
-  <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
+  <sb-dark-mode-toggle-mat/>
   `;
 
   advancedUsageExample = `
-  <sb-dark-mode-toggle-mat [showTooltip]="true" (toggle)="onToggleDarkMode($event)"></sb-dark-mode-toggle-mat>
+  <sb-dark-mode-toggle-mat [showTooltip]="true" (toggleIsDark)="onToggleDarkMode($event)"/>
 
   onToggleDarkMode(isDarkMode: boolean) {
     console.log('Dark mode is now:', isDarkMode ? 'enabled' : 'disabled');

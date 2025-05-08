@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -14,7 +14,8 @@ import { HighlightModule } from 'ngx-highlightjs';
   imports: [
     MatExpansionModule,
     MatTabsModule,
-    HighlightModule
+    HighlightModule,
+    RouterModule
   ]
 })
 export class CustomThemeApiComponent implements OnInit {

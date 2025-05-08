@@ -2,6 +2,8 @@
  * Sitemap Generator for Angular applications
  * 
  * This script analyzes route files in Angular apps
+ * It starts from a given route file and follws all child routes recursively.
+ * You must be using lazy routes (loadChildren, loadComponent) for this to work.
  * and generates a sitemap.xml file for better SEO.
  */
 

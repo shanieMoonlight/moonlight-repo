@@ -8,13 +8,6 @@ import { ThemeService } from '@spider-baby/material-theming/service';
  * @example
  * // Apply theme using a ThemeOption object
  * <div [sbApplyTheme]="themeObject"></div>
- * 
- * // Apply theme using a theme value (string or number)
- * <div [sbApplyTheme]="'material-light'"></div>
- * <div [sbApplyTheme]="42"></div>
- * 
- * // Apply theme using attribute syntax
- * <div sbApplyTheme="material-light"></div>
  */
 @Directive({
   selector: '[sbApplyTheme]',
@@ -34,19 +27,12 @@ export class MlApplyThemeDirective {
    * @param val - The theme to apply. Can be a ThemeOption object or a ThemeValue string/number.
    */
   @Input('sbApplyTheme')
-  set theme(val: ThemeOption | ThemeValue | undefined | null) {
+  set theme(val: ThemeOption | undefined | null) {
     if (val) {
-      if (typeof val === 'string' || typeof val === 'number') {
-        this._themeService.applyThemeByValue(
-          val,
-          this._elementRef.nativeElement
-        )
-      } else {
-        this._themeService.applyTheme(
-          val,
-          this._elementRef.nativeElement
-        )
-      }
+      this._themeService.applyTheme(
+        val,
+        this._elementRef.nativeElement
+      )
     }
   }
 

@@ -6,17 +6,19 @@ import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
+  standalone: true,
   selector: 'sb-api-theme-service-api',
   templateUrl: './theme-service-api.component.html',
   styleUrls: ['./theme-service-api.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     MatExpansionModule,
     MatTabsModule,
-    HighlightModule
+    HighlightModule,
+    // ThemeDemoBasicTesterComponent,
+    // ThemeDemoLocalTesterComponent
   ],
-  providers: []
+  providers: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeServiceApiComponent implements OnInit {
 
@@ -121,22 +123,67 @@ import { ThemeService } from '@spider-baby/material-theming/service';
 
 @Component({
   selector: 'app-theme-demo',
-  template: \`
+ template: \`
     <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
-    <button (click)="applyTheme('material-indigo')">Apply Indigo Theme</button>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Choose Component Theme</mat-label>
+      <mat-select (valueChange)="changeTheme($event)">
+        @for (theme of _dynamicThemes; track theme.value) {
+          <mat-option [value]="theme">
+            {{ theme.label }}
+          </mat-option>
+        }
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+      <mat-label>Choose System Theme</mat-label>
+      <mat-select (valueChange)="changeTheme($event)">
+        @for (theme of _allSystemThemes; track theme.value) {
+          <mat-option [value]="theme">
+            {{ theme.label }}
+          </mat-option>
+        }
+      </mat-select>
+  </mat-form-field>
+
+  Current Global Theme: {{_themeService.currentTheme().value}}
   \`
 })
-export class ThemeDemoComponent {
-  private themeService = inject(ThemeService);
-  
+export class ThemeDemoTesterComponent {
+  protected _themeService = inject(ThemeService);
+
+  _dynamicThemes = [
+    ThemeOption.create({
+      darkMode: 'system',
+      label: 'SpecialTheme1',
+      value: 'special-theme1',
+      primaryColor: '#4682B4',
+      secondaryColor: '#D2691E'
+    }),
+    ThemeOption.create({
+      darkMode: 'system',
+      label: 'SpecialTheme2',
+      value: 'special-theme2',
+      primaryColor: '#FB3640',
+      secondaryColor: '#1976D2'
+    }),
+    //..Define your custom themes here
+  ]
+
+  _allSystemThemes = this._themeService.availableThemes()
+
+
   toggleDarkMode() {
-    const isDark = this.themeService.isDarkMode();
-    this.themeService.setDarkMode(isDark ? 'light' : 'dark');
+    const isDark = this._themeService.isDarkMode();
+    this._themeService.setDarkMode(isDark ? 'light' : 'dark');
   }
-  
-  applyTheme(themeValue: string) {
-    this.themeService.setThemeByValue(themeValue);
-  }
+
+
+  changeTheme = (theme: ThemeOption) =>
+    this._themeService.applyTheme(theme) //<--- set Dynamic theme. Specify element if you don't want to apply global theme
+
 }`;
 
   localThemingExample = `import { Component, ElementRef, inject, ViewChild } from '@angular/core';
@@ -144,24 +191,87 @@ import { ThemeService } from '@spider-baby/material-theming/service';
 
 @Component({
   selector: 'app-local-theme-demo',
-  template: \`
+    template: \`
     <div class="container">
-      <div #localThemeArea class="themed-area">
-        This area has its own theme!
+      <div #localThemeArea 
+        class="themed-area" 
+        style="background-color: var(--mat-sys-surface); color: var(--mat-sys-on-primary); border:1px solid red;">
+        
+        <h1 style="background-color: var(--mat-sys-primary); color: var(--mat-sys-on-primary);">This area has its own theme!</h1>
+        
       </div>
-      <button (click)="applyLocalTheme('material-purple')">Purple</button>
-      <button (click)="applyLocalTheme('material-teal')">Teal</button>
-    </div>
+    <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Choose Component Theme</mat-label>
+      <mat-select (valueChange)="changeTheme($event)">
+        @for (theme of _dynamicThemes; track theme.value) {
+          <mat-option [value]="theme">
+            {{ theme.label }}
+          </mat-option>
+        }
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+      <mat-label>Choose System Theme</mat-label>
+      <mat-select (valueChange)="changeTheme($event)">
+        @for (theme of _allSystemThemes; track theme.value) {
+          <mat-option [value]="theme">
+            {{ theme.label }}
+          </mat-option>
+        }
+      </mat-select>
+  </mat-form-field>
+  </div>
+
+  Current Local Theme: {{_currentTheme.value}}
   \`
 })
-export class LocalThemeDemoComponent {
-  private themeService = inject(ThemeService);
-  @ViewChild('localThemeArea') themeArea!: ElementRef;
+export class ThemeDemoLocalTesterComponent {
+
+  protected _themeService = inject(ThemeService);
+  private _componentElementRef = inject(ElementRef);
+
+  _dynamicThemes = [
+    ThemeOption.create({
+      darkMode: 'light',
+      label: 'SpecialTheme1',
+      value: 'special-theme1',
+      primaryColor: '#4682B4',
+      secondaryColor: '#D2691E',
+    }),
+    ThemeOption.create({
+      darkMode: 'light',
+      label: 'SpecialTheme2',
+      value: 'special-theme2',
+      primaryColor: '#FB3640',
+      secondaryColor: '#1976D2'
+    }),
+    //..Define your custom themes here
+  ]
+
+  protected _allSystemThemes = this._themeService.availableThemes()
+
+  protected _currentTheme = this._dynamicThemes[0]
+
   
-  applyLocalTheme(themeValue: string) {
-    // Apply theme only to the specific element
-    this.themeService.applyThemeByValue(themeValue, this.themeArea.nativeElement);
+  constructor() {
+    this.changeTheme (this._currentTheme)    
   }
+
+
+  toggleDarkMode() {
+    const newDarkMode :DarkModeType= this._currentTheme.darkMode === 'dark' ? 'light' : 'dark';
+    const newTheme = { ...this._currentTheme, darkMode: newDarkMode }
+    this.changeTheme(newTheme); // Apply the theme change
+  }
+
+
+  changeTheme = (theme: ThemeOption) => {
+    this._currentTheme = theme; // Update the current theme
+    return this._themeService.applyTheme(theme, this._componentElementRef.nativeElement) //<--- Set Dynamic theme to the specific element
+  }
+
 }`;
 
   customThemesExample = `import { Component, inject } from '@angular/core';
@@ -191,8 +301,9 @@ export class CustomThemeDemoComponent {
       tertiaryColor: '#795548'
     });
     
-    this.themeService.addCustomTheme(customTheme);
+    this.themeService.addCustomTheme(customTheme); <--add to system
   }
+
   
   applyCustomTheme() {
     this.themeService.setThemeByValue('custom-sunset');

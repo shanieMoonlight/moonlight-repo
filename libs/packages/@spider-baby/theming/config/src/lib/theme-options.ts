@@ -65,7 +65,7 @@ export class ThemeOption {
     public readonly secondaryColor: string,
     public readonly tertiaryColor: string | null,
     public readonly errorColor: string,
-    public readonly darkMode: DarkModeType
+    public darkMode: DarkModeType
   ) { }
 
   //------------------------------//

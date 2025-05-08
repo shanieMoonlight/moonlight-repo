@@ -91,31 +91,7 @@ describe('MlApplyThemeDirective', () => {
     jest.clearAllMocks();
   });
 
-  it('should apply theme by value when string is provided', () => {
-    const fixture = TestBed.createComponent(TestStringComponent);
-    fixture.detectChanges();
-    
-    const element = fixture.debugElement.query(By.css('div')).nativeElement;
-    
-    expect(mockThemeService.applyThemeByValue).toHaveBeenCalledWith(
-      'material-light',
-      element
-    );
-    expect(mockThemeService.applyTheme).not.toHaveBeenCalled();
-  });
-
-  it('should apply theme by value when number is provided', () => {
-    const fixture = TestBed.createComponent(TestNumberComponent);
-    fixture.detectChanges();
-    
-    const element = fixture.debugElement.query(By.css('div')).nativeElement;
-    
-    expect(mockThemeService.applyThemeByValue).toHaveBeenCalledWith(
-      42,
-      element
-    );
-    expect(mockThemeService.applyTheme).not.toHaveBeenCalled();
-  });
+ 
 
   it('should apply theme when ThemeOption object is provided', () => {
     const fixture = TestBed.createComponent(TestObjectComponent);
@@ -131,33 +107,20 @@ describe('MlApplyThemeDirective', () => {
     expect(mockThemeService.applyThemeByValue).not.toHaveBeenCalled();
   });
 
-  it('should apply theme by value when using attribute syntax', () => {
-    const fixture = TestBed.createComponent(TestAttributeComponent);
-    fixture.detectChanges();
-    
-    const element = fixture.debugElement.query(By.css('div')).nativeElement;
-    
-    expect(mockThemeService.applyThemeByValue).toHaveBeenCalledWith(
-      'attribute-theme',
-      element
-    );
-    expect(mockThemeService.applyTheme).not.toHaveBeenCalled();
-  });
 
   it('should not call any theme methods when value is undefined', () => {
     const fixture = TestBed.createComponent(TestUndefinedComponent);
     fixture.detectChanges();
     
     expect(mockThemeService.applyTheme).not.toHaveBeenCalled();
-    expect(mockThemeService.applyThemeByValue).not.toHaveBeenCalled();
-  });
+    });
 
   it('should respond to input changes', () => {
     const fixture = TestBed.createComponent(TestStringComponent);
     fixture.detectChanges();
     
     // First call with initial value
-    expect(mockThemeService.applyThemeByValue).toHaveBeenCalledTimes(1);
+    expect(mockThemeService.applyTheme).toHaveBeenCalledTimes(1);
     
     // Change the input value
     fixture.componentInstance.themeValue = 'material-dark';
@@ -166,10 +129,6 @@ describe('MlApplyThemeDirective', () => {
     const element = fixture.debugElement.query(By.css('div')).nativeElement;
     
     // Should have been called again with new value
-    expect(mockThemeService.applyThemeByValue).toHaveBeenCalledTimes(2);
-    expect(mockThemeService.applyThemeByValue).toHaveBeenLastCalledWith(
-      'material-dark',
-      element
-    );
+    expect(mockThemeService.applyTheme).toHaveBeenCalledTimes(2);
   });
 });

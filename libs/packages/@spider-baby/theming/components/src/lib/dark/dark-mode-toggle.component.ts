@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -36,6 +36,12 @@ export class MlDarkModeToggleMatComponent {
   //- - - - - - - - - - - - - - -//
 
   /**
+   * Emits an event when the dark mode is toggled.
+   * The event payload is a boolean indicating whether dark mode is enabled or not.
+   */
+  _isDarkEvent = output<boolean>({ alias: 'toggleIsDark' })
+
+  /**
  * Controls whether to hide the switch UI element.
  * When true, only the icon will be visible wit`h cursor:pointer set.
  * @default true
@@ -45,12 +51,14 @@ export class MlDarkModeToggleMatComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  protected _isDark = toSignal(this._themeService.isDarkMode$)
+  protected _isDark = this._themeService.isDarkMode
 
   //- - - - - - - - - - - - - - -//
 
-  toggleDarkTheme = (checked: boolean) =>
-    this._themeService.setDarkMode(checked ? 'dark' : 'light')  
+  toggleDarkTheme = (isDark: boolean) =>{
+    this._themeService.setDarkMode(isDark ? 'dark' : 'light')
+    this._isDarkEvent.emit(isDark)
+  }
 
 } //Cls
 
