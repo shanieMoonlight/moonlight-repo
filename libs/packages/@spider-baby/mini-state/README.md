@@ -231,6 +231,11 @@ const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 
 - `@spider-baby/mini-state`: Core library with MiniState, MiniStateBuilder, and MiniCrudState
 - `@spider-baby/mini-state/utils`: Utilities for combining and aggregating multiple state instances
+  
+  
+
+## Changes
+[CHANGELOG.md](https://github.com/shanieMoonlight/moonlight-repo/blob/master/libs/packages/%40spider-baby/mini-state/CHANGELOG.md)
 
 ## License
 

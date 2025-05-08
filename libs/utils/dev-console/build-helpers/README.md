@@ -51,3 +51,6 @@ These scripts rely on shared utilities in the repository:
 ## Version Compatibility
 
 The current version (1.1.0) is compatible with Angular 12.0.0 and higher.
+
+## Changes
+[CHANGELOG.md](https://github.com/shanieMoonlight/moonlight-repo/blob/master/libs/utils/dev-console/CHANGELOG.md)

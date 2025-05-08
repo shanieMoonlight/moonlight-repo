@@ -14,3 +14,4 @@
 ### Added
 - Initial release
 - Support for Angular 19
+

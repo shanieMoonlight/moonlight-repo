@@ -27,7 +27,7 @@
     "rxjs": "^7.8.0" 
   },
   "dependencies": {
-    "@spider-baby/dev-console": "^1.0.0"
+    "@spider-baby/dev-console": "^1.1.0"
   },
   "sideEffects": false,
   "ngPackage": { 

@@ -7,7 +7,9 @@ $ErrorActionPreference = "Stop" # Exit script on terminating errors
 $packageName = "@spider-baby/dev-console"
 $distPackageJsonPath = "./dist/libs/utils/dev-console/package.json" # Relative to repo root
 $packageDistPath = "./dist/libs/utils/dev-console" # Relative to repo root
-$nxBuildTarget = "sb-dev-console:build:production" # Adjusted target syntax if needed
+$nxBuildTarget = "sb-dev-console:build:production" 
+
+
 
 # Initial repository root using path replacement (fallback method)
 $repositoryRoot = $PSScriptRoot -replace '\\libs\\utils\\dev-console\\build-helpers$', ''
