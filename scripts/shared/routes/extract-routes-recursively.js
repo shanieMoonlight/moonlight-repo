@@ -10,15 +10,17 @@
 const fs = require('fs');
 const path = require('path');
 
+const defaultRoutesToSkip = new Set([]);
+
 
 /**
  * Recursively extracts routes from route files
  * @param {string} routeFilePath - Path to the route file
  * @param {string} parentPath - Parent path prefix
  * @param {Set<string>} knownRoutes - Set of collected routes
- * @param {bol} verbose - Log Everything to console
+ * @param {boolean} verbose - Log Everything to console
  */
-function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbose) {
+function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, routesToSkip, verbose) {
   if (!fs.existsSync(routeFilePath)) {
     if (verbose)
       console.warn(`Route file not found: ${routeFilePath}`);
@@ -27,6 +29,8 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
   }
 
   knownRoutes ??= new Set([]);
+  routesToSkip ??= new Set([]);
+  const combinedRoutesToSkip =new Set([...defaultRoutesToSkip, ...routesToSkip]);
 
   const content = fs.readFileSync(routeFilePath, 'utf8');
   // const appDir = path.join(config.appPath, 'src/app');
@@ -38,7 +42,7 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
   const pathMatches = content.match(/path:\s*['"]([^'"]+)['"]/g);
 
   // Get import paths and route paths for child routes
-  const routeData = getImportRouteData(content);
+  const routeData = getImportRouteData(content, combinedRoutesToSkip);
   // console.log('Route data:', routeData);
 
 
@@ -79,12 +83,12 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
         // Build the full path to the imported route file
         const importedFilePath = resolveImportPath(routeFilePath, importPath, appDir);
         console.log(`Importing ${importedFilePath} for route: ${routePath}`);
-        
+
 
         if (importedFilePath) {
           // Combine parent path with the current route path for recursive call
           const newParentPath = buildFullPath(parentPath, routePath);
-          extractRoutesRecursively(importedFilePath, newParentPath, knownRoutes, verbose);
+          extractRoutesRecursively(importedFilePath, newParentPath, knownRoutes,routesToSkip, verbose);
         }
       } else if (loaderType === 'loadComponent') {
         // For components, just add the route and don't recurse
@@ -108,7 +112,7 @@ function extractRoutesRecursively(routeFilePath, parentPath, knownRoutes, verbos
  */
 function resolveImportPath(sourceFilePath, importPath, appDir) {
   // Handle absolute imports (from app root)
-  if (!importPath.startsWith('./') && !importPath.startsWith('../')) 
+  if (!importPath.startsWith('./') && !importPath.startsWith('../'))
     return path.join(appDir, importPath + '.ts');
 
   // Handle relative imports
@@ -132,14 +136,14 @@ function resolveImportPath(sourceFilePath, importPath, appDir) {
  */
 function buildFullPath(parentPath, routePath) {
   // Empty path means this is the default route for this level
-  if (routePath === '') 
+  if (routePath === '')
     return parentPath;
-  
+
 
   // For root-level paths
-  if (parentPath === '') 
+  if (parentPath === '')
     return routePath === '' ? '/' : `/${routePath}`;
-  
+
 
   // Standard nested path
   return `${parentPath}/${routePath}`.replace(/\/+/g, '/');
@@ -152,7 +156,7 @@ function buildFullPath(parentPath, routePath) {
  * @param {string} content - File content to analyze
  * @returns {Array<{loaderType: string, importPath: string, routePath: string}>} Array of loader types, import paths and route paths
  */
-function getImportRouteData(content) {
+function getImportRouteData(content, routesToSkip) {
   const routeDataList = [];
 
   // Debug - log route segments
@@ -174,6 +178,11 @@ function getImportRouteData(content) {
     const routePath = match[1];
     const loaderType = match[2];
     const importPath = match[3];
+
+    if (routesToSkip?.has(routePath)) {
+      console.debug(`Skipping route: ${routePath}`);
+      continue;
+    }
 
     routeDataList.push({
       loaderType,

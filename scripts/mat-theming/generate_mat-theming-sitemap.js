@@ -10,15 +10,16 @@ console.log('Current directory:', __dirname);
 const config = {
   siteMapFilename: 'sitemap.xml',
   baseUrl: 'https://spiderbabymaterialtheming.web.app/',
-  appPath:  path.join(repoRoot, 'apps/sb-mat-thm-demo/src/app'),
+  appPath: path.join(repoRoot, 'apps/sb-mat-thm-demo/src/app'),
   distDir: path.join(repoRoot, 'dist/apps/sb-mat-thm-demo/browser'),
-  baseRoutePath:  path.join(repoRoot, 'apps/sb-mat-thm-demo/src/app/app.routes.ts'),  // Absolute path
+  baseRoutePath: path.join(repoRoot, 'apps/sb-mat-thm-demo/src/app/app.routes.ts'),  // Absolute path
+  routesToSkip: new Set(['**']),
   priorityMap: {
     '/': 1.0,
     '/api': 0.8,
     default: 0.7
   },
-  knownRoutes: ['/'],
+  knownRoutes: new Set(['/']),
   verbose: true
 };
 
