@@ -50,6 +50,11 @@ jobs:
       
       - name: Rename index.csr.html to index.html
         run: npm run postbuild:spider-baby-mat-theming
+        
+      - name: Generate sitemap
+        uses: ./.github/actions/generate-sitemap
+        with:
+          script-path: scripts/mat-theming/generate_mat-theming-sitemap.js                              
 
       - name: List files in deploy directory
         run: ls -alR dist/apps/sb-mat-thm-demo/browser

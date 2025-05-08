@@ -205,22 +205,6 @@ export class ThemeService {
 
   //-----------------------------//
 
-
-  // /**
-  //  * Apply theme to the document. 
-  //  * @param themeValue 
-  //  * @param targetElement 
-  //  * @returns 
-  //  */
-  // applyThemeByValue(themeValue: ThemeValue, targetElement?: HTMLElement): boolean {
-  //   const theme = this.availableThemes().find(t => t.value === themeValue);
-  //   if (theme)
-  //     this._themeGenerator.applyTheme(theme, theme.value, targetElement)
-  //   return !!theme
-  // }
-
-  // //-----------------------------//
-
   /**
  * Exports the current theme settings as a serializable object
  * that can be shared or imported later

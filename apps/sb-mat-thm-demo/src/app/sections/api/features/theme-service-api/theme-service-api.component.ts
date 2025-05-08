@@ -1,125 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTabsModule } from '@angular/material/tabs';
-import { Router } from '@angular/router';
-import { SeoService } from '@spider-baby/utils-seo';
-import { HighlightModule } from 'ngx-highlightjs';
+import { ChangeDetectionStrategy, Component, inject, OnInit, computed, signal } from '@angular/core'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatTabsModule } from '@angular/material/tabs'
+import { Router } from '@angular/router'
+import { SeoService } from '@spider-baby/utils-seo'
+import { HighlightModule } from 'ngx-highlightjs'
+import { THEME_SERVICE_METHODS } from './service-methods-docs'
+import { THEME_SERVICE_PROPERTIES } from './service-props-docs'
 
-@Component({
-  standalone: true,
-  selector: 'sb-api-theme-service-api',
-  templateUrl: './theme-service-api.component.html',
-  styleUrls: ['./theme-service-api.component.scss'],
-  imports: [
-    MatExpansionModule,
-    MatTabsModule,
-    HighlightModule,
-    // ThemeDemoBasicTesterComponent,
-    // ThemeDemoLocalTesterComponent
-  ],
-  providers: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class ThemeServiceApiComponent implements OnInit {
+//##############################################//
 
-  private _seoService = inject(SeoService)
-  private _router = inject(Router)
 
-  //- - - - - - - - - - - - - - -//
-
-  ngOnInit() {
-    // Set SEO metadata specific to the Theme Service API page
-    this._seoService.updateMetadata({
-      title: 'Theme Service API - SpiderBaby Material Theming',
-      description: 'Comprehensive documentation for the SpiderBaby ThemeService API. Learn how to manipulate themes, toggle dark mode, and create custom themes for Angular Material.',
-      url: this._router.url,
-    });
-
-  }
-
-  // Property examples
-  currentThemeExample = `// Access the current theme as a signal
-const theme = themeService.currentTheme();
-console.log(theme.label); // e.g. "Material Light"`;
-
-  currentThemeObservableExample = `// Subscribe to theme changes
-themeService.currentTheme$.subscribe(theme => {
-  console.log('Theme changed:', theme.label);
-});`;
-
-  isDarkModeExample = `// Check if dark mode is active
-const isDark = themeService.isDarkMode();
-console.log('Dark mode is:', isDark ? 'on' : 'off');`;
-
-  availableThemesExample = `// Get all available themes
-const themes = themeService.availableThemes();
-console.log(\`\${themes.length} themes available\`);`;
-
-  // Method examples
-  setThemeExample = `// Set a theme using a ThemeOption object
-const myTheme = themeService.availableThemes().find(t => t.label === 'Ocean Blue');
-if (myTheme) {
-  themeService.setTheme(myTheme);
-}`;
-
-  setThemeByValueExample = `// Set a theme by its value
-const success = themeService.setThemeByValue('material-light');
-if (success) {
-  console.log('Theme applied successfully');
-} else {
-  console.warn('Theme not found');
-}`;
-
-  setDarkModeExample = `// Set dark mode explicitly
-themeService.setDarkMode('dark');
-
-// Follow system preference
-themeService.setDarkMode('system');
-
-// Set light mode
-themeService.setDarkMode('light');`;
-
-  applyThemeExample = `// Apply theme to a specific element
-const cardElement = document.querySelector('.my-card');
-const myTheme = themeService.currentTheme();
-themeService.applyTheme(myTheme, cardElement);`;
-
-  applyThemeByValueExample = `// Apply theme to a specific element by value
-const cardElement = document.querySelector('.my-card');
-themeService.applyThemeByValue('material-light', cardElement);`;
-
-  addCustomThemeExample = `// Create and add a custom theme
-import { ThemeOption } from '@spider-baby/material-theming/config';
-
-const myCustomTheme = ThemeOption.create({
-  value: 'custom-purple',
-  label: 'Purple Theme',
-  primaryColor: '#6200EA',
-  secondaryColor: '#03DAC6'
-});
-
-themeService.addCustomTheme(myCustomTheme);`;
-
-  removeCustomThemeExample = `// Remove a custom theme
-themeService.removeCustomTheme('custom-purple');`;
-
-  reapplyCurrentThemeExample = `// In a component that temporarily previews themes
-ngOnDestroy() {
-  // Restore the application's theme when this component is destroyed
-  this.themeService.reapplyCurrentTheme();
-}`;
-
-  resetToDefaultsExample = `// Reset everything to defaults
-themeService.resetToDefaults();`;
-
-  exportThemeSettingsExample = `// Export settings for sharing or saving
-const settings = themeService.exportThemeSettings();
-console.log(settings);
-// Example output: { theme: {...}, isDark: true }`;
-
-  // Complete usage examples
-  basicUsageExample = `import { Component, inject } from '@angular/core';
-import { ThemeService } from '@spider-baby/material-theming/service';
+const BASIC_USAGE_EXAMPLE = `import { Component, inject } from '@angular/core'
+import { ThemeService } from '@spider-baby/material-theming/service'
 
 @Component({
   selector: 'app-theme-demo',
@@ -129,7 +21,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
     <mat-form-field appearance="outline">
       <mat-label>Choose Component Theme</mat-label>
       <mat-select (valueChange)="changeTheme($event)">
-        @for (theme of _dynamicThemes; track theme.value) {
+        @for (theme of _dynamicThemes track theme.value) {
           <mat-option [value]="theme">
             {{ theme.label }}
           </mat-option>
@@ -140,7 +32,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
   <mat-form-field appearance="outline">
       <mat-label>Choose System Theme</mat-label>
       <mat-select (valueChange)="changeTheme($event)">
-        @for (theme of _allSystemThemes; track theme.value) {
+        @for (theme of _allSystemThemes track theme.value) {
           <mat-option [value]="theme">
             {{ theme.label }}
           </mat-option>
@@ -152,7 +44,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
   \`
 })
 export class ThemeDemoTesterComponent {
-  protected _themeService = inject(ThemeService);
+  protected _themeService = inject(ThemeService)
 
   _dynamicThemes = [
     ThemeOption.create({
@@ -176,18 +68,18 @@ export class ThemeDemoTesterComponent {
 
 
   toggleDarkMode() {
-    const isDark = this._themeService.isDarkMode();
-    this._themeService.setDarkMode(isDark ? 'light' : 'dark');
+    const isDark = this._themeService.isDarkMode()
+    this._themeService.setDarkMode(isDark ? 'light' : 'dark')
   }
 
 
   changeTheme = (theme: ThemeOption) =>
     this._themeService.applyTheme(theme) //<--- set Dynamic theme. Specify element if you don't want to apply global theme
 
-}`;
+}`
 
-  localThemingExample = `import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { ThemeService } from '@spider-baby/material-theming/service';
+const LOCAL_THEMING_EXAMPLE = `import { Component, ElementRef, inject, ViewChild } from '@angular/core'
+import { ThemeService } from '@spider-baby/material-theming/service'
 
 @Component({
   selector: 'app-local-theme-demo',
@@ -195,16 +87,16 @@ import { ThemeService } from '@spider-baby/material-theming/service';
     <div class="container">
       <div #localThemeArea 
         class="themed-area" 
-        style="background-color: var(--mat-sys-surface); color: var(--mat-sys-on-primary); border:1px solid red;">
+        style="background-color: var(--mat-sys-surface) color: var(--mat-sys-on-primary) border:1px solid red">
         
-        <h1 style="background-color: var(--mat-sys-primary); color: var(--mat-sys-on-primary);">This area has its own theme!</h1>
+        <h1 style="background-color: var(--mat-sys-primary) color: var(--mat-sys-on-primary)">This area has its own theme!</h1>
         
       </div>
     <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
     <mat-form-field appearance="outline">
       <mat-label>Choose Component Theme</mat-label>
       <mat-select (valueChange)="changeTheme($event)">
-        @for (theme of _dynamicThemes; track theme.value) {
+        @for (theme of _dynamicThemes track theme.value) {
           <mat-option [value]="theme">
             {{ theme.label }}
           </mat-option>
@@ -215,7 +107,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
   <mat-form-field appearance="outline">
       <mat-label>Choose System Theme</mat-label>
       <mat-select (valueChange)="changeTheme($event)">
-        @for (theme of _allSystemThemes; track theme.value) {
+        @for (theme of _allSystemThemes track theme.value) {
           <mat-option [value]="theme">
             {{ theme.label }}
           </mat-option>
@@ -229,8 +121,8 @@ import { ThemeService } from '@spider-baby/material-theming/service';
 })
 export class ThemeDemoLocalTesterComponent {
 
-  protected _themeService = inject(ThemeService);
-  private _componentElementRef = inject(ElementRef);
+  protected _themeService = inject(ThemeService)
+  private _componentElementRef = inject(ElementRef)
 
   _dynamicThemes = [
     ThemeOption.create({
@@ -261,22 +153,22 @@ export class ThemeDemoLocalTesterComponent {
 
 
   toggleDarkMode() {
-    const newDarkMode :DarkModeType= this._currentTheme.darkMode === 'dark' ? 'light' : 'dark';
+    const newDarkMode :DarkModeType= this._currentTheme.darkMode === 'dark' ? 'light' : 'dark'
     const newTheme = { ...this._currentTheme, darkMode: newDarkMode }
-    this.changeTheme(newTheme); // Apply the theme change
+    this.changeTheme(newTheme) // Apply the theme change
   }
 
 
   changeTheme = (theme: ThemeOption) => {
-    this._currentTheme = theme; // Update the current theme
+    this._currentTheme = theme // Update the current theme
     return this._themeService.applyTheme(theme, this._componentElementRef.nativeElement) //<--- Set Dynamic theme to the specific element
   }
 
-}`;
+}`
 
-  customThemesExample = `import { Component, inject } from '@angular/core';
-import { ThemeService } from '@spider-baby/material-theming/service';
-import { ThemeOption } from '@spider-baby/material-theming/config';
+const CUSTOM_THEMES_EXAMPLE = `import { Component, inject } from '@angular/core'
+import { ThemeService } from '@spider-baby/material-theming/service'
+import { ThemeOption } from '@spider-baby/material-theming/config'
 
 @Component({
   selector: 'app-custom-theme-demo',
@@ -286,10 +178,10 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
   \`
 })
 export class CustomThemeDemoComponent {
-  private themeService = inject(ThemeService);
+  private themeService = inject(ThemeService)
   
   get hasCustomTheme(): boolean {
-    return this.themeService.customThemes().some(t => t.value === 'custom-sunset');
+    return this.themeService.customThemes().some(t => t.value === 'custom-sunset')
   }
   
   createCustomTheme() {
@@ -299,14 +191,59 @@ export class CustomThemeDemoComponent {
       primaryColor: '#FF5722',
       secondaryColor: '#FFC107',
       tertiaryColor: '#795548'
-    });
+    })
     
-    this.themeService.addCustomTheme(customTheme); <--add to system
+    this.themeService.addCustomTheme(customTheme) //<--add to system
   }
 
   
   applyCustomTheme() {
-    this.themeService.setThemeByValue('custom-sunset');
+    this.themeService.setThemeByValue('custom-sunset')
   }
-}`;
+}`
+
+
+//##############################################//
+
+@Component({
+  standalone: true,
+  selector: 'sb-api-theme-service-api',
+  templateUrl: './theme-service-api.component.html',
+  styleUrls: ['./theme-service-api.component.scss'],
+  imports: [
+    MatExpansionModule,
+    MatTabsModule,
+    HighlightModule,
+    // ThemeDemoBasicTesterComponent,
+    // ThemeDemoLocalTesterComponent
+  ],
+  providers: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ThemeServiceApiComponent implements OnInit {
+
+  private _seoService = inject(SeoService)
+  private _router = inject(Router)
+
+  //-----------------------------//
+
+  ngOnInit() {
+    // Set SEO metadata specific to the Theme Service API page
+    this._seoService.updateMetadata({
+      title: 'Theme Service API - SpiderBaby Material Theming',
+      description: 'Comprehensive documentation for the SpiderBaby ThemeService API. Learn how to manipulate themes, toggle dark mode, and create custom themes for Angular Material.',
+      url: this._router.url,
+    })
+  }
+
+  //-----------------------------//
+
+
+  protected _serviceProperties = signal(THEME_SERVICE_PROPERTIES)
+  protected _serviceMethods = signal(THEME_SERVICE_METHODS)
+
+  // --- Signal-based code examples ---
+  protected basicUsageExample = computed(() => BASIC_USAGE_EXAMPLE)
+  protected localThemingExample = computed(() => LOCAL_THEMING_EXAMPLE)
+  protected customThemesExample = computed(() => CUSTOM_THEMES_EXAMPLE)
 }

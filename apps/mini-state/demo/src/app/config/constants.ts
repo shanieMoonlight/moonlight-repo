@@ -3,8 +3,8 @@
 
 export class AppConstants {
 
-    static readonly GIT_REP_URL = 'https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/packages/%40spider-baby/mini-state'
-    static readonly NPM_PKG_URL = 'https://www.npmjs.com/';
+    static readonly GIT_REP_URL = 'https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/packages/@spider-baby/mini-state'
+    static readonly NPM_PKG_URL = 'https://www.npmjs.com/package/@spider-baby/dev-console';
     static readonly DEMO_URL = 'https://spider-baby-mini-state.web.app';
 
 }
