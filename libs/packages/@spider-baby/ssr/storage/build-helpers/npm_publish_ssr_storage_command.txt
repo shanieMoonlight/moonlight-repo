@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File build-helpers/npm_publish_ssr_storage.ps1

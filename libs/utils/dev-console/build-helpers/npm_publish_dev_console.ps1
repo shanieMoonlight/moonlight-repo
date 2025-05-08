@@ -5,7 +5,6 @@ $ErrorActionPreference = "Stop" # Exit script on terminating errors
 
 # Package details and paths
 $packageName = "@spider-baby/dev-console"
-$distPackageJsonPath = "./dist/libs/utils/dev-console/package.json" # Relative to repo root
 $packageDistPath = "./dist/libs/utils/dev-console" # Relative to repo root
 $nxBuildTarget = "sb-dev-console:build:production" 
 
@@ -47,7 +46,6 @@ Write-Host ""
 # Call the generic publisher script with our package-specific parameters
 & "$publisherScriptPath" `
     -PackageName $packageName `
-    -DistPackageJsonPath $distPackageJsonPath `
     -PackageDistPath $packageDistPath `
     -NxBuildTarget $nxBuildTarget
 

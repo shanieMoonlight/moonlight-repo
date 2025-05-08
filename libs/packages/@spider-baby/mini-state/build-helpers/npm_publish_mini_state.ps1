@@ -5,7 +5,6 @@ $ErrorActionPreference = "Stop" # Exit script on terminating errors
 
 # Package details and paths
 $packageName = "@spider-baby/mini-state"
-$distPackageJsonPath = "./dist/libs/packages/@spider-baby/mini-state/package.json" # Relative to repo root
 $packageDistPath = "./dist/libs/packages/@spider-baby/mini-state" # Relative to repo root
 $nxBuildTarget = "sb-mini-state:build:production" # Adjusted target syntax if needed
 
@@ -45,7 +44,6 @@ Write-Host ""
 # Call the generic publisher script with our package-specific parameters
 & "$publisherScriptPath" `
     -PackageName $packageName `
-    -DistPackageJsonPath $distPackageJsonPath `
     -PackageDistPath $packageDistPath `
     -NxBuildTarget $nxBuildTarget
 

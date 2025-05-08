@@ -5,10 +5,7 @@
 param (
     [Parameter(Mandatory=$true, HelpMessage="Name of the NPM package (e.g. '@spider-baby/mini-state')")]
     [string]$PackageName,
-    
-    [Parameter(Mandatory=$true, HelpMessage="Path to the package.json in the dist folder (relative to repo root)")]
-    [string]$DistPackageJsonPath,
-    
+        
     [Parameter(Mandatory=$true, HelpMessage="Path to the package dist folder (relative to repo root)")]
     [string]$PackageDistPath,
     
@@ -20,6 +17,9 @@ param (
 )
 
 $ErrorActionPreference = "Stop" # Exit script on terminating errors
+
+# Derive $DistPackageJsonPath from $PackageDistPath
+$DistPackageJsonPath = Join-Path $PackageDistPath "package.json"
 
 Write-Host "=================================================="
 Write-Host " Publishing $PackageName to NPM (PowerShell)"

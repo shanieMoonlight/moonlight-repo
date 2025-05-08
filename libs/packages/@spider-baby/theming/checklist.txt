@@ -4,9 +4,6 @@ C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\src\app\sections\m
 
 SEO
 
-18 & 19 in devConsloe & ministate
-
-
 
 Redo : devLog
 
