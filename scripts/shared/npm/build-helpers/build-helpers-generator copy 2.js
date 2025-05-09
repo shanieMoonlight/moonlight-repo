@@ -14,48 +14,23 @@ const extractLibraryData = require('./utils/extract_data_from_library.js');
 
 
 
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//CONFIGURABLE VARIABLES
+// ---- CONFIGURABLE VARIABLES ----
 
-// const libraryRootRelative = "scripts/shared/npm/build-helpers/testing";
 const libraryRootRelative = "libs/packages/@spider-baby/ssr/storage";
+// const libraryRootRelative = "scripts/shared/npm/build-helpers/testing";
 const localNpmDir = "C:/Users/Shaneyboy/my-npm";
 const sharedScriptsRelativePath = 'scripts/shared/npm'
 
-
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//EXTRACT DATA FROM LIBRARY
 const libraryData = extractLibraryData(libraryRootRelative);
-const packageName = libraryData.packageName;
-const packageDistPath = libraryData.packageDistPath;
-const pkgVersion = libraryData.pkgVersion
-const nxBuildTarget = libraryData.nxBuildTarget;
-
-console.log(
-  `Extracted data from ${libraryRootRelative}:`,
-  `  libraryData: ${libraryData}`
-);
+console.log(libraryData);
+const packageName = "@spider-baby/ssr-storage";
+const packageDistPath = "./dist/libs/packages/@spider-baby/ssr/storage";
+const pkgVersion = '1.0.0'
+const nxBuildTarget = "spider-baby-ssr-local-storage:build:production";
 
 
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//VALIDATE EXTRACTED DATA
 
-const requiredFields = [
-  { field: 'packageName', value: packageName },
-  { field: 'packageDistPath', value: packageDistPath },
-  { field: 'pkgVersion', value: pkgVersion },
-  { field: 'nxBuildTarget', value: nxBuildTarget }
-];
-
-for (const { field, value } of requiredFields) {
-  if (!value) {
-    throw new Error(`Missing required field: ${field} from library ${libraryRootRelative}`);
-  }
-}
-
-
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//PATHS
+// ---- PATHS ----
 
 const repoRoot = findRepositoryRootPath()
 const libraryRootAbsolute = path.join(repoRoot, libraryRootRelative);
@@ -64,8 +39,7 @@ console.log('buildHelpersDir:', buildHelpersDir);
 
 
 
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//FILE NAMES AND CONTENTS 
+// ---- FILE NAMES AND CONTENTS ----
 
 const findRepoFileNameAndContent = findRepoRootPs1Generator();
 const localPublish_Ps1_FileNameAndContent = localPublish_Ps1_Generator({
@@ -129,8 +103,7 @@ const readmeMd_FileNameAndContent = readmeMd_Generator({
 })
 
 
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-//FILE CONTENTS
+// ---- FILE CONTENTS ----
 
 const files = [
   findRepoFileNameAndContent,
@@ -147,37 +120,15 @@ const files = [
   readmeMd_FileNameAndContent
 ];
 
+// ---- CREATE FOLDER AND FILES ----
 
-//####################################################//
-//CREATE FOLDER AND FILES
-
-
-try {
-
-  if (!fs.existsSync(buildHelpersDir)) {
-    console.log(`Creating build helpers directory: ${buildHelpersDir}`);
-    fs.mkdirSync(buildHelpersDir, { recursive: true });
-    console.log(`Successfully created directory: ${buildHelpersDir}`);
-  }else {
-    console.log(`Directory already exists: ${buildHelpersDir}`);
-  }
-
-} catch (error) {
-  console.error(`Failed to create build helpers directory at ${buildHelpersDir}: ${error.message}`);
-  throw new Error(`Directory creation failed: ${error.message}`);
+console.log(`Creating build helpers directory: ${buildHelpersDir}`);
+if (!fs.existsSync(buildHelpersDir)) {
+  fs.mkdirSync(buildHelpersDir, { recursive: true });
 }
 
-
 files.forEach(file => {
-
-  if (!file || !file.name || !file.content)
-    throw new Error(`Invalid file data: ${JSON.stringify(file)}`);
-
   const filePath = path.join(buildHelpersDir, file.name);
   fs.writeFileSync(filePath, file.content, 'utf8');
   console.log(`Created: ${filePath}`);
-  
 });
-
-
-//####################################################//

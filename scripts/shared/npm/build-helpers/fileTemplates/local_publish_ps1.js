@@ -1,4 +1,20 @@
+/**
+ * Generates a PowerShell script for locally publishing an npm package
+ * 
+ * @param {Object} options - Configuration options for the script generation
+ * @param {string} options.packageName - The name of the package to publish
+ * @param {string} options.packageDistPath - The path to the package's distribution files
+ * @param {string} options.nxBuildTarget - The Nx build target for the package
+ * @param {string} options.localNpmDir - The directory where the package will be published locally
+ * @param {string} options.sharedScriptsRelativePath - The relative path to shared scripts from repository root
+ * 
+ * @returns {Object} An object containing the script's name and content
+ * @returns {string} returns.name - The generated filename for the PowerShell script
+ * @returns {string} returns.content - The content of the PowerShell script
+ */
 const utils = require('../utils/build-helper-utils');
+
+
 
 module.exports = function localPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, localNpmDir, sharedScriptsRelativePath }) {
 

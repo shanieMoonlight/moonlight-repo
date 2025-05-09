@@ -1,3 +1,15 @@
+/**
+ * Generates a Windows batch file (.bat) for publishing an npm package.
+ * The batch file will execute a PowerShell script and handle error reporting.
+ * 
+ * @function npmPublish_Bat_Generator
+ * @param {Object} options - The options for generating the batch file
+ * @param {string} options.packageName - The name of the npm package to publish
+ * @param {string} options.ps1Filename - The filename of the PowerShell script to execute
+ * @returns {Object} An object containing the generated filename and content
+ * @returns {string} returns.name - The name of the generated batch file
+ * @returns {string} returns.content - The content of the generated batch file
+ */
 const utils = require('../utils/build-helper-utils.js');
 
 

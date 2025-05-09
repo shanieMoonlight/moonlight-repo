@@ -195,6 +195,9 @@ npm install --registry file:///${localNpmDir.replace(/\\/g, "/")}/${packageName}
   }
 ];
 
+
+//####################################################//
+
 // ---- CREATE FOLDER AND FILES ----
 const buildHelpersDir = path.join(repoRoot, libraryRoot, 'build-helpers');
 console.log(`Creating build helpers directory: ${buildHelpersDir}`);
@@ -203,7 +206,14 @@ if (!fs.existsSync(buildHelpersDir)) {
 }
 
 files.forEach(file => {
+  if (!file || !file.name || !file.content)
+    throw new Error(`Invalid file data: ${JSON.stringify(file)}`);
+
   const filePath = path.join(buildHelpersDir, file.name);
   fs.writeFileSync(filePath, file.content, 'utf8');
+
   console.log(`Created: ${filePath}`);
+
 });
+
+//####################################################//

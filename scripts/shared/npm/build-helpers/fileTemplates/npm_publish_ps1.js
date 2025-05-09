@@ -1,6 +1,18 @@
 const utils = require('../utils/build-helper-utils');
 
 
+/**
+ * Generates a PowerShell script for NPM package publishing
+ * 
+ * @param {Object} options - Configuration options for the script generator
+ * @param {string} options.packageName - The full name of the package to publish
+ * @param {string} options.packageDistPath - The distribution path for the package
+ * @param {string} options.nxBuildTarget - The Nx build target for the package
+ * @param {string} options.sharedScriptsRelativePath - The relative path to shared scripts from repository root
+ * @returns {Object} An object containing the script name and content
+ * @returns {string} returns.name - The generated PowerShell script filename
+ * @returns {string} returns.content - The PowerShell script content
+ */
 module.exports = function npmPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, sharedScriptsRelativePath }) {
 
     const packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
