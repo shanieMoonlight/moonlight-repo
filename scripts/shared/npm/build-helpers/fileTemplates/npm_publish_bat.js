@@ -1,12 +1,20 @@
-module.exports = function npmPublishBat({packageShortNameUnderscore}) {
-  return `@echo off
+const utils = require('../utils/build-helper-utils.js');
+
+
+
+module.exports = function npmPublish_Bat_Generator({packageName, ps1Filename}) {
+
+  const  packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
+  const name = `npm_publish_${packageShortNameUnderscore}.bat`
+  
+  const content =  `@echo off
 echo =========================================
 echo  Launching PowerShell Publisher Script
 echo =========================================
 echo.
 
 REM Pass any arguments to the PowerShell script
-powershell -ExecutionPolicy Bypass -NoProfile -File "%~dp0npm_publish_${packageShortNameUnderscore}.ps1" %*
+powershell -ExecutionPolicy Bypass -NoProfile -File "%~dp0${ps1Filename}" %*
 
 REM Check for errors
 if %ERRORLEVEL% NEQ 0 (
@@ -22,4 +30,6 @@ if %ERRORLEVEL% NEQ 0 (
     pause
 )
 `
+
+  return { name, content };
 }

@@ -1,21 +1,28 @@
-module.exports = function readmeMd({ packageName, packageShortNameUnderscore, localNpmDir }) {
-    return`# Build & Publish Helpers for ${packageName}
+module.exports = function readmeMd_Generator({
+    packageName,
+    local_Ps1_Filename,
+    npm_Ps1_Filename,
+    localNpmDir }) {
+    const name = `README.md`
+
+
+    const content = `# Build & Publish Helpers for ${packageName}
 
 This folder contains scripts to build, locally publish, and publish to NPM.
 
 ## Scripts
 
-- **local_publish_${packageShortNameUnderscore}.ps1**: Build and publish to local npm dir (${localNpmDir})
-- **npm_publish_${packageShortNameUnderscore}.ps1**: Build and publish to NPM registry
+- **${local_Ps1_Filename}**: Build and publish to local npm dir (${localNpmDir})
+- **${npm_Ps1_Filename}**: Build and publish to NPM registry
 
 ## Usage
 
 \`\`\`sh
 # Local publish (PowerShell)
-powershell -ExecutionPolicy Bypass -File build-helpers/local_publish_${packageShortNameUnderscore}.ps1
+powershell -ExecutionPolicy Bypass -File build-helpers/${local_Ps1_Filename}
 
 # NPM publish (PowerShell)
-powershell -ExecutionPolicy Bypass -File build-helpers/npm_publish_${packageShortNameUnderscore}.ps1
+powershell -ExecutionPolicy Bypass -File build-helpers/${npm_Ps1_Filename}
 \`\`\`
 
 ## Local Install
@@ -24,4 +31,7 @@ powershell -ExecutionPolicy Bypass -File build-helpers/npm_publish_${packageShor
 npm install --registry file:///${localNpmDir.replace(/\\/g, "/")}/${packageName}
 \`\`\`
 `
+
+    return { name, content };
+
 }
