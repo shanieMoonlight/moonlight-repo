@@ -12,7 +12,7 @@
     "@spider-baby/utils-download": "^0.0.1",
     "@spider-baby/utils-testing": "^0.0.1",
     "@spider-baby/utils-memoization": "^0.0.1",
-    "@spider-baby/ssr-storage": "^1.0.0",
+    "@spider-baby/ssr-storage": "^1.0.1",
     "@spider-baby/utils-rxjs": "^0.0.1",
     "rxjs": "^7.4.0"
   },

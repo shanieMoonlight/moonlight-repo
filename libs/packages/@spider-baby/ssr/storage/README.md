@@ -78,10 +78,10 @@ interface User {
 
 // Store an object
 const user: User = { id: 1, name: 'John Doe', email: 'john@example.com' };
-this.storage.setObject<User>('currentUser', user);
+this.storage.setItemObject<User>('currentUser', user);
 
 // Retrieve an object
-const storedUser = this.storage.getObject<User>('currentUser');
+const storedUser = this.storage.getItemObject<User>('currentUser');
 ```
 
 ### Error handling
@@ -115,8 +115,8 @@ try {
 
 | Method | Description | Parameters | Return |
 |--------|-------------|------------|--------|
-| `getObject<T>(key: string)` | Retrieves and parses a JSON object | `key`: Storage key | `T \| null` |
-| `setObject<T>(key: string, value: T)` | Stringifies and stores an object | `key`: Storage key<br>`value`: Object to store | `void` |
+| `getItemObject<T>(key: string)` | Retrieves and parses a JSON object | `key`: Storage key | `T \| null` |
+| `setItemObject<T>(key: string, value: T)` | Stringifies and stores an object | `key`: Storage key<br>`value`: Object to store | `void` |
 
 ## SSR Considerations
 
@@ -134,11 +134,11 @@ export class UserService {
   constructor(private storage: SsrLocalStorageService) {}
   
   saveUserPreferences(prefs: UserPreferences): void {
-    this.storage.setObject('userPreferences', prefs);
+    this.storage.setItemObject('userPreferences', prefs); //<UserPreferences> can be omitted because TypeScript infers the type from the value
   }
   
   getUserPreferences(): UserPreferences | null {
-    return this.storage.getObject('userPreferences');
+    return this.storage.getItemObject<UserPreferences>('userPreferences');
   }
 }
 ```
