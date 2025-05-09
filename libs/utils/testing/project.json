@@ -1,5 +1,5 @@
 {
-  "name": "sb-utils-testing",
+  "name": "spider-baby-utils-testing",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utils/testing/src",
   "prefix": "ml",

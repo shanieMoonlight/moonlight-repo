@@ -9,7 +9,7 @@ $nxBuildTarget = "spider-baby-ssr-local-storage:build:production"
 # Paths to locate before continuing
 $repositoryRoot = $null
 $sharedScriptsPath = $null
-$sharedScriptsRelativePath = "scripts/shared/npm"
+$sharedScriptsRelativePath = "scripts-ps1/shared/npm"
 $findRepoScriptPath = "find-repository-root.ps1"
 $npmPublishPackageScriptFile = "npm-publish-package.ps1"
 

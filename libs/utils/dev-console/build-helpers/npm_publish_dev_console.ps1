@@ -1,54 +1,71 @@
-# --- Configuration for dev-console package ---
-# This script calls the generic NPM package publisher with parameters specific to the dev-console package
+# --- Configuration for @spider-baby/dev-console package NPM publishing ---
+    
+. "$PSScriptRoot\error-reporting.ps1"
 
-$ErrorActionPreference = "Stop" # Exit script on terminating errors
+$ErrorActionPreference = "Stop"
 
 # Package details and paths
 $packageName = "@spider-baby/dev-console"
-$packageDistPath = "./dist/libs/utils/dev-console" # Relative to repo root
-$nxBuildTarget = "sb-dev-console:build:production" 
+$packageDistPath = "dist\libs\utils\dev-console"
+$nxBuildTarget = "sb-dev-console:build:production"
 
-
-
-# Initial repository root using path replacement (fallback method)
+# Paths to locate before continuing
 $repositoryRoot = $null
 $sharedScriptsPath = $null
-$sharedScriptsRelativePath = "scripts/shared/npm"
-Write-Host "Initial repository root: $repositoryRoot"
+$sharedScriptsRelativePath = "scripts-ps1/shared/npm"
+$findRepoScriptPath = "find-repository-root.ps1"
+$npmPublishPackageScriptFile = "npm-publish-package.ps1"
 
-# Try to import more robust finder script if available
-$findRepoScript = Join-Path $PSScriptRoot "find-repository-root.ps1"
-if (Test-Path $findRepoScript -PathType Leaf) {
-    # Import the function
-    . $findRepoScript
-    
-    # Get more reliable repository root
-    $robustRoot = Find-RepositoryRoot
-    if ($robustRoot) {
-        $repositoryRoot = $robustRoot
-        # Update shared scripts path to match new repository root
-        $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
-        Write-Host "Using robust repository root: $repositoryRoot"
+Write-Host "Starting NPM publishing....."
+
+
+
+try {
+    # Try to import more robust finder script if available
+    $findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
+    if (Test-Path $findRepoScript -PathType Leaf) {
+        . $findRepoScript
+        $robustRoot = Find-RepositoryRoot
+        if ($robustRoot) {
+            $repositoryRoot = $robustRoot
+            $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
+            Write-Host "Using robust repository root: $repositoryRoot"
+        } else {
+            Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
+            exit 1
+        }
+    } else {
+        Write-Error "ERROR: Cannot find Repository Root"
+        exit 1
     }
-}
 
-Write-Host "Final shared scripts path: $sharedScriptsPath"
+    Write-Host "Repository root: $repositoryRoot"
+    Write-Host "Shared scripts path: $sharedScriptsPath"
 
-# Verify path to generic publisher script
-$publisherScriptPath = Join-Path $sharedScriptsPath "npm-publish-package.ps1"
-if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
-    Write-Error "ERROR: Cannot find generic publisher script at '$publisherScriptPath'."
+
+    $publisherScriptPath = Join-Path $sharedScriptsPath $npmPublishPackageScriptFile
+    if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
+        Write-Error "ERROR: Cannot find generic NPM publisher script at '$publisherScriptPath'"
+        exit 1
+    }
+    Write-Host "INFO: Using generic NPM publisher script at '$publisherScriptPath'"
+    & "$publisherScriptPath" `
+        -PackageName $packageName `
+        -PackageDistPath $packageDistPath `
+        -NxBuildTarget $nxBuildTarget
+
+
+    Write-Host "NPM PUBLISHED!!!!!!!!!!!!!!"
+
+    exit $LASTEXITCODE
+
+
+} catch {
+    Write-Host "---" -BackgroundColor Red
+    Write-Host "---" -BackgroundColor Red
+    Write-Host "😱 ERROR: An error occurred during the publish processing! 👻" -BackgroundColor Red -ForegroundColor White
+    Write-Host "---" -BackgroundColor Red
+    Write-Host "---" -BackgroundColor Red
+    Resolve-Error $_
     exit 1
 }
-
-Write-Host "INFO: Using generic publisher script at '$publisherScriptPath'"
-Write-Host ""
-
-# Call the generic publisher script with our package-specific parameters
-& "$publisherScriptPath" `
-    -PackageName $packageName `
-    -PackageDistPath $packageDistPath `
-    -NxBuildTarget $nxBuildTarget
-
-# Exit with the same exit code as the called script
-exit $LASTEXITCODE

@@ -1,49 +1,57 @@
-# --- Configuration for mini-state package local publishing ---
+# --- Configuration for @spider-baby/mini-state package local publishing ---
 $ErrorActionPreference = "Stop"
 
 # Package details and paths
 $packageName = "@spider-baby/mini-state"
-$packageDistPath = "./dist/libs/packages/@spider-baby/mini-state"
+$packageDistPath = "dist\libs\packages\@spider-baby\mini-state"
 $nxBuildTarget = "sb-mini-state:build:production"
-$localNpmDir = "C:\Users\Shaneyboy\my-npm"
+$localNpmDir = "C:/Users/Shaneyboy/my-npm"
+$findRepoScriptPath = "find-repository-root.ps1"
+$localNpmPublishPackageScriptFile = "local-npm-publish-package.ps1"
 
-# Initial repository root using path replacement (fallback method)
-$repositoryRoot = $PSScriptRoot -replace '\\libs\\packages\\@spider-baby\\mini-state\\build-helpers$', ''
-$sharedScriptsPath = Join-Path $repositoryRoot 'scripts\shared\npm'
-Write-Host "Initial repository root: $repositoryRoot"
+# Paths to locate before continuing
+$repositoryRoot = $null
+$sharedScriptsPath = $null
+$sharedScriptsRelativePath = "scripts-ps1/shared/npm"
+
+Write-Host "Starting local publishing....."
+
 
 # Try to import more robust finder script if available
-$findRepoScript = Join-Path $sharedScriptsPath "find-repository-root.ps1"
+$findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
 if (Test-Path $findRepoScript -PathType Leaf) {
-    # Import the function
     . $findRepoScript
-    
-    # Get more reliable repository root
-    $robustRoot = Find-RepositoryRoot -StartPath $PSScriptRoot
+    $robustRoot = Find-RepositoryRoot
     if ($robustRoot) {
         $repositoryRoot = $robustRoot
-        # Update shared scripts path to match new repository root
-        $sharedScriptsPath = Join-Path $repositoryRoot 'scripts\shared\npm'
+        $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
         Write-Host "Using robust repository root: $repositoryRoot"
+    } else {
+        Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
+        exit 1
     }
+} else {
+    Write-Error "ERROR: Cannot find Repository Root"
+    exit 1
 }
 
-Write-Host "Final shared scripts path: $sharedScriptsPath"
+Write-Host "Repository root: $repositoryRoot"
+Write-Host "Shared scripts path: $sharedScriptsPath"
 
-# Verify path to generic local publisher script
-$publisherScriptPath = Join-Path $sharedScriptsPath "local-npm-publish-package.ps1"
+
+$publisherScriptPath = Join-Path $sharedScriptsPath $localNpmPublishPackageScriptFile
 if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
     Write-Error "ERROR: Cannot find generic local publisher script at '$publisherScriptPath'"
     exit 1
 }
 
 Write-Host "INFO: Using generic local publisher script at '$publisherScriptPath'"
-
-# Call the generic local publisher script
 & "$publisherScriptPath" `
     -PackageName $packageName `
     -PackageDistPath $packageDistPath `
     -NxBuildTarget $nxBuildTarget `
     -LocalNpmDir $localNpmDir
 
+
+Write-Host "PUBLISHED!!!!!!!!!!!!!!"
 exit $LASTEXITCODE

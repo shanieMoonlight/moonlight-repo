@@ -12,7 +12,7 @@ $localNpmPublishPackageScriptFile = "local-npm-publish-package.ps1"
 # Paths to locate before continuing
 $repositoryRoot = $null
 $sharedScriptsPath = $null
-$sharedScriptsRelativePath = "scripts/shared/npm"
+$sharedScriptsRelativePath = "scripts-ps1/shared/npm"
 
 Write-Host "Starting local publishing....."
 
@@ -44,8 +44,6 @@ if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
     Write-Error "ERROR: Cannot find generic local publisher script at '$publisherScriptPath'"
     exit 1
 }
-
-Write-Host "INFO: Using generic local publisher script at '$publisherScriptPath'"
 
 Write-Host "INFO: Using generic local publisher script at '$publisherScriptPath'"
 & "$publisherScriptPath" `

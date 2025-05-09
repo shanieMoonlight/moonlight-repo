@@ -1,5 +1,0 @@
-# Original batch file command
-C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\utils\dev-console\build-helpers\local_publish_dev_console.bat
-
-# PowerShell script command
-powershell -ExecutionPolicy Bypass -File "C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\utils\dev-console\build-helpers\local_publish_dev_console.ps1"

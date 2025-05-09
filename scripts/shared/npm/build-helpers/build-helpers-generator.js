@@ -10,6 +10,7 @@ const npmPublish_Bat_Generator = require('./fileTemplates/npm_publish_bat.js');
 const npmPublish_Ps1_Generator = require('./fileTemplates/npm_publish_ps1.js');
 const npmPublish_CommandTxt_Generator = require('./fileTemplates/npm_publish_command_txt.js');
 const readmeMd_Generator = require('./fileTemplates/README_md.js');
+const errorReporting_Ps1_Generator = require('./utils/error_reprorting_ps1.js');
 const findRepositoryRootPath = require('./utils/find-repo-root.js');
 const extractLibraryData = require('./utils/extract_data_from_library.js');
 
@@ -17,7 +18,8 @@ const extractLibraryData = require('./utils/extract_data_from_library.js');
 //DEFAULTS
 
 const defaultLocalNpmDir = "C:/Users/Shaneyboy/my-npm";
-const defaultSharedScriptsRelativePath = 'scripts/shared/npm'
+const errorReportingScriptRelativePath = "error-reporting.ps1";
+const defaultSharedScriptsRelativePath = 'scripts-ps1/shared/npm'
 
 
 
@@ -83,6 +85,8 @@ console.log('buildHelpersDir:', buildHelpersDir);
 const findRepoFileNameAndContent = findRepoRootPs1Generator();
 const findRepoScriptPath = findRepoFileNameAndContent.name
 
+const errorReporting_Ps1_FileNameAndContent = errorReporting_Ps1_Generator()
+
 //- - - - - - - - - - - - - - - - - - - - - - - - - - //
 
 const localPublish_Ps1_FileNameAndContent = localPublish_Ps1_Generator({
@@ -91,7 +95,8 @@ const localPublish_Ps1_FileNameAndContent = localPublish_Ps1_Generator({
   nxBuildTarget,
   localNpmDir,
   sharedScriptsRelativePath,
-  findRepoScriptPath
+  findRepoScriptPath,
+  errorReportingScriptRelativePath
 })
 const local_Ps1_Filename = localPublish_Ps1_FileNameAndContent.name
 
@@ -120,7 +125,8 @@ const npmPublish_Ps1_FileNameAndContent = npmPublish_Ps1_Generator({
   packageDistPath,
   nxBuildTarget,
   sharedScriptsRelativePath,
-  findRepoScriptPath
+  findRepoScriptPath,
+  errorReportingScriptRelativePath
 })
 const npm_Ps1_Filename = npmPublish_Ps1_FileNameAndContent.name
 
@@ -148,7 +154,8 @@ const readmeMd_FileNameAndContent = readmeMd_Generator({
 //FILE CONTENTS
 
 const files = [
-  findRepoFileNameAndContent,
+  findRepoFileNameAndContent,  
+  errorReporting_Ps1_FileNameAndContent,
 
   localPublish_Ps1_FileNameAndContent,
   localPublish_Bat_FileNameAndContent,
