@@ -7,6 +7,7 @@
  * @param {string} options.nxBuildTarget - The Nx build target for the package
  * @param {string} options.localNpmDir - The directory where the package will be published locally
  * @param {string} options.sharedScriptsRelativePath - The relative path to shared scripts from repository root
+ * @param {string} options.findRepoScriptPath - The path to the script that finds the repository root
  * 
  * @returns {Object} An object containing the script's name and content
  * @returns {string} returns.name - The generated filename for the PowerShell script
@@ -16,7 +17,7 @@ const utils = require('../utils/build-helper-utils');
 
 
 
-module.exports = function localPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, localNpmDir, sharedScriptsRelativePath }) {
+module.exports = function localPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, localNpmDir, sharedScriptsRelativePath, findRepoScriptPath }) {
 
     const packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
     const name = `local_publish_${packageShortNameUnderscore}.ps1`;
@@ -29,6 +30,7 @@ $packageName = "${packageName}"
 $packageDistPath = "${packageDistPath}"
 $nxBuildTarget = "${nxBuildTarget}"
 $localNpmDir = "${localNpmDir}"
+$findRepoScriptPath = "${findRepoScriptPath}"
 $localNpmPublishPackageScriptFile = "local-npm-publish-package.ps1"
 
 # Paths to locate before continuing
@@ -40,7 +42,7 @@ Write-Host "Starting local publishing....."
 
 
 # Try to import more robust finder script if available
-$findRepoScript = Join-Path $PSScriptRoot "find-repository-root.ps1"
+$findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
 if (Test-Path $findRepoScript -PathType Leaf) {
     . $findRepoScript
     $robustRoot = Find-RepositoryRoot
@@ -49,7 +51,7 @@ if (Test-Path $findRepoScript -PathType Leaf) {
         $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
         Write-Host "Using robust repository root: $repositoryRoot"
     } else {
-        Write-Error "ERROR: find-repository-root.ps1 did not return a valid root."
+        Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
         exit 1
     }
 } else {

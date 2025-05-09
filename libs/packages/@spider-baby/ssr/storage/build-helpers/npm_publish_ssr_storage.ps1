@@ -10,6 +10,7 @@ $nxBuildTarget = "spider-baby-ssr-local-storage:build:production"
 $repositoryRoot = $null
 $sharedScriptsPath = $null
 $sharedScriptsRelativePath = "scripts/shared/npm"
+$findRepoScriptPath = "find-repository-root.ps1"
 $npmPublishPackageScriptFile = "npm-publish-package.ps1"
 
 Write-Host "Starting NPM publishing....."
@@ -17,7 +18,7 @@ Write-Host "Starting NPM publishing....."
 
 
 # Try to import more robust finder script if available
-$findRepoScript = Join-Path $PSScriptRoot "find-repository-root.ps1"
+$findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
 if (Test-Path $findRepoScript -PathType Leaf) {
     . $findRepoScript
     $robustRoot = Find-RepositoryRoot
@@ -26,7 +27,7 @@ if (Test-Path $findRepoScript -PathType Leaf) {
         $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
         Write-Host "Using robust repository root: $repositoryRoot"
     } else {
-        Write-Error "ERROR: find-repository-root.ps1 did not return a valid root."
+        Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
         exit 1
     }
 } else {

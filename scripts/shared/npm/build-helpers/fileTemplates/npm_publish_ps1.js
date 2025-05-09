@@ -13,7 +13,7 @@ const utils = require('../utils/build-helper-utils');
  * @returns {string} returns.name - The generated PowerShell script filename
  * @returns {string} returns.content - The PowerShell script content
  */
-module.exports = function npmPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, sharedScriptsRelativePath }) {
+module.exports = function npmPublish_Ps1_Generator({ packageName, packageDistPath, nxBuildTarget, sharedScriptsRelativePath,findRepoScriptPath }) {
 
     const packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
     const name = `npm_publish_${packageShortNameUnderscore}.ps1`;
@@ -31,6 +31,7 @@ $nxBuildTarget = "${nxBuildTarget}"
 $repositoryRoot = $null
 $sharedScriptsPath = $null
 $sharedScriptsRelativePath = "${sharedScriptsRelativePath}"
+$findRepoScriptPath = "${findRepoScriptPath}"
 $npmPublishPackageScriptFile = "npm-publish-package.ps1"
 
 Write-Host "Starting NPM publishing....."
@@ -38,7 +39,7 @@ Write-Host "Starting NPM publishing....."
 
 
 # Try to import more robust finder script if available
-$findRepoScript = Join-Path $PSScriptRoot "find-repository-root.ps1"
+$findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
 if (Test-Path $findRepoScript -PathType Leaf) {
     . $findRepoScript
     $robustRoot = Find-RepositoryRoot
@@ -47,7 +48,7 @@ if (Test-Path $findRepoScript -PathType Leaf) {
         $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
         Write-Host "Using robust repository root: $repositoryRoot"
     } else {
-        Write-Error "ERROR: find-repository-root.ps1 did not return a valid root."
+        Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
         exit 1
     }
 } else {

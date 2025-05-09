@@ -19,7 +19,7 @@ if (Test-Path $findRepoScript -PathType Leaf) {
     . $findRepoScript
     
     # Get more reliable repository root
-    $robustRoot = Find-RepositoryRoot -StartPath $PSScriptRoot
+    $robustRoot = Find-RepositoryRoot
     if ($robustRoot) {
         $repositoryRoot = $robustRoot
         # Update shared scripts path to match new repository root

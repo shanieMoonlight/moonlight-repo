@@ -11,22 +11,23 @@ $nxBuildTarget = "sb-dev-console:build:production"
 
 
 # Initial repository root using path replacement (fallback method)
-$repositoryRoot = $PSScriptRoot -replace '\\libs\\utils\\dev-console\\build-helpers$', ''
-$sharedScriptsPath = Join-Path $repositoryRoot 'scripts\shared\npm'
+$repositoryRoot = $null
+$sharedScriptsPath = $null
+$sharedScriptsRelativePath = "scripts/shared/npm"
 Write-Host "Initial repository root: $repositoryRoot"
 
 # Try to import more robust finder script if available
-$findRepoScript = Join-Path $sharedScriptsPath "find-repository-root.ps1"
+$findRepoScript = Join-Path $PSScriptRoot "find-repository-root.ps1"
 if (Test-Path $findRepoScript -PathType Leaf) {
     # Import the function
     . $findRepoScript
     
     # Get more reliable repository root
-    $robustRoot = Find-RepositoryRoot -StartPath $PSScriptRoot
+    $robustRoot = Find-RepositoryRoot
     if ($robustRoot) {
         $repositoryRoot = $robustRoot
         # Update shared scripts path to match new repository root
-        $sharedScriptsPath = Join-Path $repositoryRoot 'scripts\shared\npm'
+        $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
         Write-Host "Using robust repository root: $repositoryRoot"
     }
 }

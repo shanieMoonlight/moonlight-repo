@@ -8,28 +8,44 @@ const findRepositoryRootPath = require('./find-repo-root.js');
  * @returns {object} - { packageName, pkgVersion, nxBuildTarget, packageDistPath, libraryRootAbsolute }
  */
 function extractLibraryData(libraryRootRelative) {
+
   const repoRoot = findRepositoryRootPath();
   const libraryRootAbsolute = path.join(repoRoot, libraryRootRelative);
 
   // Read package.json
   const packageJsonPath = path.join(libraryRootAbsolute, 'package.json');
-  if (!fs.existsSync(packageJsonPath)) {
+  if (!fs.existsSync(packageJsonPath)) 
     throw new Error(`package.json not found at ${packageJsonPath}`);
-  }
+  
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   const packageName = packageJson.name;
   const pkgVersion = packageJson.version;
 
+
   // Read project.json
   const projectJsonPath = path.join(libraryRootAbsolute, 'project.json');
-  if (!fs.existsSync(projectJsonPath)) {
+  if (!fs.existsSync(projectJsonPath)) 
     throw new Error(`project.json not found at ${projectJsonPath}`);
-  }
+  
   const projectJson = JSON.parse(fs.readFileSync(projectJsonPath, 'utf8'));
   const nxBuildTarget = `${projectJson.name}:build:production`;
 
+
   // Compute dist path (relative to repo root)
-  const packageDistPath = path.join('./dist', libraryRootRelative);
+  let packageDistPath;
+  const ngPackageJsonPath = path.join(libraryRootAbsolute, 'ng-package.json');
+  if (fs.existsSync(ngPackageJsonPath)) {
+    const ngPackageJson = JSON.parse(fs.readFileSync(ngPackageJsonPath, 'utf8'));
+    if (ngPackageJson.dest) {
+      // If dest is relative, resolve it from libraryRootAbsolute, then make it relative to repoRoot
+      const absDest = path.resolve(libraryRootAbsolute, ngPackageJson.dest);
+      packageDistPath = path.relative(repoRoot, absDest);
+    }
+  }
+  // Fallback if ng-package.json or dest not found
+  if (!packageDistPath) 
+    packageDistPath = path.join('dist', libraryRootRelative);
+  
 
   return {
     packageName,
@@ -41,8 +57,8 @@ function extractLibraryData(libraryRootRelative) {
   };
 }
 
-// Example usage:
-// const data = extractLibraryData('libs/packages/@spider-baby/ssr/storage');
-// console.log(data);
+//####################################################//
 
 module.exports = extractLibraryData;
+
+//####################################################//

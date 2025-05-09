@@ -1,5 +1,5 @@
 module.exports = function findRepoRootPs1Generator() {
-    const name = 'find-repo-root.ps1';
+    const name = 'find-repository-root.ps1';
     const content = `
 # --- Repository Root Finder ---
 # This script provides a function to reliably find the repository root from any location
