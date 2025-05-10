@@ -87,7 +87,8 @@
         "libs/utils/seo/sw-updater-mat/src/index.ts"
       ],
       "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
-      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
+      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"],
+      "@scripts-ts-shared-npm/*": ["scripts-ts/shared/npm/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
