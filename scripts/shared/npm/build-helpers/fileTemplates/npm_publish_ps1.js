@@ -22,7 +22,7 @@ function ensureValidInputs(inputs) {
  * 
  * @param {Object} options - Configuration options for the script generator
  * @param {string} options.packageName - The full name of the package to publish
- * @param {string} options.packageDistPath - The distribution path for the package
+ * @param {string} options.packageDistRelativePath - The distribution path for the package
  * @param {string} options.nxBuildTarget - The Nx build target for the package
  * @param {string} options.sharedScriptsRelativePath - The relative path to shared scripts from repository root
  * @returns {Object} An object containing the script name and content
@@ -31,19 +31,19 @@ function ensureValidInputs(inputs) {
  */
 function npmPublish_Ps1_Generator({
     packageName,
-    packageDistPath,
+    packageDistRelativePath,
     nxBuildTarget,
-    sharedScriptsRelativePath,
-    findRepoScriptPath,
-    errorReportingScriptRelativePath }) {
+    npmPublisherScriptRelativePath,
+    findRepoScriptFilename,
+    errorReportingScriptFilename }) {
 
     ensureValidInputs({
         packageName,
-        packageDistPath,
+        packageDistRelativePath,
         nxBuildTarget,
-        sharedScriptsRelativePath,
-        findRepoScriptPath,
-        errorReportingScriptRelativePath
+        npmPublisherScriptRelativePath,
+        findRepoScriptFilename,
+        errorReportingScriptFilename
     });
 
     const packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
@@ -52,58 +52,77 @@ function npmPublish_Ps1_Generator({
 
     const content = `# --- Configuration for ${packageName} package NPM publishing ---
     
-. "$PSScriptRoot\\${errorReportingScriptRelativePath}"
 
 $ErrorActionPreference = "Stop"
 
 # Package details and paths
 $packageName = "${packageName}"
-$packageDistPath = "${packageDistPath}"
+$packageDistRelativePath = "${packageDistRelativePath}"
 $nxBuildTarget = "${nxBuildTarget}"
+$publisherScriptRelativePath = "${npmPublisherScriptRelativePath}"
+$findRepoScriptFilename = "${findRepoScriptFilename}"
+$errorReportingScriptFilename = "${errorReportingScriptFilename}"
 
 # Paths to locate before continuing
 $repositoryRoot = $null
-$sharedScriptsPath = $null
-$sharedScriptsRelativePath = "${sharedScriptsRelativePath}"
-$findRepoScriptPath = "${findRepoScriptPath}"
-$npmPublishPackageScriptFile = "npm-publish-package.ps1"
+$publisherScriptPath = $null
+$packageDistRelativePath = $null
+$findRepoScript = $null
+$errorReportingScript = $null
 
 Write-Host "Starting NPM publishing....."
 
 
 
 try {
-    # Try to import more robust finder script if available
-    $findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
+
+    # Locate helper scripts
+    $errorReportingScript = Join-Path $PSScriptRoot $errorReportingScriptFilename
+    if (Test-Path $errorReportingScript -PathType Leaf) {
+        . $errorReportingScript
+    }
+    else {
+        Write-Error "ERROR: Cannot find error reporting script at '$errorReportingScript'"
+        exit 1
+    }
+
+    $findRepoScript = Join-Path $PSScriptRoot $findRepoScriptFilename
     if (Test-Path $findRepoScript -PathType Leaf) {
         . $findRepoScript
-        $robustRoot = Find-RepositoryRoot
-        if ($robustRoot) {
-            $repositoryRoot = $robustRoot
-            $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
-            Write-Host "Using robust repository root: $repositoryRoot"
-        } else {
-            Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
-            exit 1
-        }
-    } else {
-        Write-Error "ERROR: Cannot find Repository Root"
+    }
+    else {
+        Write-Error "ERROR: Cannot find Repository Root finder script at '$findRepoScript'"
+        exit 1
+    }
+
+    # --------------------------------- #
+    
+    $repositoryRoot = Find-RepositoryRoot
+    if ($repositoryRoot) {
+        Write-Host "Using packageDistRelativePath: $packageDistRelativePath" 
+        $publisherScriptPath = Join-Path $repositoryRoot $publisherScriptRelativePath
+        $packageDistRelativePath = Join-Path $repositoryRoot $packageDistRelativePath
+    }
+    else {
+        Write-Error "ERROR: '$findRepoScriptFilename' did not return a valid root."
         exit 1
     }
 
     Write-Host "Repository root: $repositoryRoot"
-    Write-Host "Shared scripts path: $sharedScriptsPath"
+    Write-Host "Shared scripts absolute path: $publisherScriptPath"
+    Write-Host "Dist dir absolute path: $packageDistRelativePath"
+    
+    # --------------------------------- #
 
-
-    $publisherScriptPath = Join-Path $sharedScriptsPath $npmPublishPackageScriptFile
     if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
         Write-Error "ERROR: Cannot find generic NPM publisher script at '$publisherScriptPath'"
         exit 1
     }
+
     Write-Host "INFO: Using generic NPM publisher script at '$publisherScriptPath'"
     & "$publisherScriptPath" \`
         -PackageName $packageName \`
-        -PackageDistPath $packageDistPath \`
+        -PackageDistPath $packageDistRelativePath \`
         -NxBuildTarget $nxBuildTarget
 
 

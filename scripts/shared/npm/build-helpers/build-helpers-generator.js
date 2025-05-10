@@ -18,7 +18,7 @@ const extractLibraryData = require('./utils/extract_data_from_library.js');
 //DEFAULTS
 
 const defaultLocalNpmDir = "C:/Users/Shaneyboy/my-npm";
-const errorReportingScriptRelativePath = "error-reporting.ps1";
+// const errorReportingScriptRelativePath = "error-reporting.ps1";
 const defaultSharedScriptsRelativePath = 'scripts-ps1/shared/npm'
 
 
@@ -38,6 +38,8 @@ const options = program.opts();
 const libraryRootRelative = options.libraryRootRelative;
 const localNpmDir = options.localNpmDir;
 const sharedScriptsRelativePath = options.sharedScriptsRelativePath;
+const localNpmPublisherScriptRelativePath = path.join(sharedScriptsRelativePath, 'local-npm-publish-package.ps1');
+const npmPublisherScriptRelativePath = path.join(sharedScriptsRelativePath, 'npm-publish-package.ps1');
 
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
@@ -45,7 +47,7 @@ const sharedScriptsRelativePath = options.sharedScriptsRelativePath;
 
 const libraryData = extractLibraryData(libraryRootRelative);
 const packageName = libraryData.packageName;
-const packageDistPath = libraryData.packageDistPath;
+const packageDistRelativePath = libraryData.packageDistPath;
 const pkgVersion = libraryData.pkgVersion
 const nxBuildTarget = libraryData.nxBuildTarget;
 
@@ -58,7 +60,7 @@ console.log(`  libraryData`, libraryData);
 
 const requiredFields = [
   { field: 'packageName', value: packageName },
-  { field: 'packageDistPath', value: packageDistPath },
+  { field: 'packageDistPath', value: packageDistRelativePath },
   { field: 'pkgVersion', value: pkgVersion },
   { field: 'nxBuildTarget', value: nxBuildTarget }
 ];
@@ -75,7 +77,7 @@ for (const { field, value } of requiredFields) {
 
 const repoRoot = findRepositoryRootPath()
 const libraryRootAbsolute = path.join(repoRoot, libraryRootRelative);
-const buildHelpersDir = path.join(libraryRootAbsolute, 'build-helpers');
+const buildHelpersDir = path.join(libraryRootAbsolute, '@publish-helpers'); //@ to place the folder in the top of the library
 console.log('buildHelpersDir:', buildHelpersDir);
 
 
@@ -83,20 +85,21 @@ console.log('buildHelpersDir:', buildHelpersDir);
 //FILE NAMES AND CONTENTS 
 
 const findRepoFileNameAndContent = findRepoRootPs1Generator();
-const findRepoScriptPath = findRepoFileNameAndContent.name
+const findRepoScriptFilename = findRepoFileNameAndContent.name
 
 const errorReporting_Ps1_FileNameAndContent = errorReporting_Ps1_Generator()
+const errorReportingScriptFilename = errorReporting_Ps1_FileNameAndContent.name
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - //
 
 const localPublish_Ps1_FileNameAndContent = localPublish_Ps1_Generator({
   packageName,
-  packageDistPath,
+  packageDistRelativePath,
   nxBuildTarget,
   localNpmDir,
-  sharedScriptsRelativePath,
-  findRepoScriptPath,
-  errorReportingScriptRelativePath
+  localNpmPublisherScriptRelativePath,
+  findRepoScriptFilename,
+  errorReportingScriptFilename
 })
 const local_Ps1_Filename = localPublish_Ps1_FileNameAndContent.name
 
@@ -122,11 +125,11 @@ const localInstall_CommandTxt_FileNameAndContent = localInstall_CommandTxt_Gener
 
 const npmPublish_Ps1_FileNameAndContent = npmPublish_Ps1_Generator({
   packageName,
-  packageDistPath,
+  packageDistRelativePath,
   nxBuildTarget,
-  sharedScriptsRelativePath,
-  findRepoScriptPath,
-  errorReportingScriptRelativePath
+  npmPublisherScriptRelativePath,
+  findRepoScriptFilename,
+  errorReportingScriptFilename
 })
 const npm_Ps1_Filename = npmPublish_Ps1_FileNameAndContent.name
 

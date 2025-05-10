@@ -1,0 +1,1 @@
+C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\utils\dev-console\@publish-helpers\npm_publish_dev_console.bat

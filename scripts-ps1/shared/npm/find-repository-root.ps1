@@ -2,10 +2,6 @@
 # This script provides a function to reliably find the repository root from any location
 
 function Find-RepositoryRoot {
-    param (
-        [Parameter(Mandatory=$false)]
-        [string]$StartPath = $PSScriptRoot
-    )
 
     $currentDir = $PSScriptRoot
     $foundRoot = $false

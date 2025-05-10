@@ -115,7 +115,7 @@ try {
 
 # --- Check Dependency ---
 # Ensure all dependencies are published to NPM before publishing this package
-Write-Host "INFO: Checking required dependencies..."
+Write-Host "INFO: Checking required dependencies... $DistPackageJsonPath"
 if (-not (Confirm-AllDependenciesPublished -PackageJsonToCheckPath $DistPackageJsonPath)) { 
     Write-Error "ERROR: Dependency check failed. Please ensure all dependencies are published first."
     exit 1

@@ -1,10 +1,11 @@
 # --- Generic Local NPM Package Publisher Script ---
 
+
 param (
     [Parameter(Mandatory = $true, HelpMessage = "Name of the NPM package (e.g. '@spider-baby/mini-state')")]
     [string]$PackageName,
 
-    [Parameter(Mandatory = $false, HelpMessage = "Path to the package dist folder (relative to repo root)")]
+    [Parameter(Mandatory = $false, HelpMessage = "Path to the package dist folder (Absolute path)")]
     [string]$PackageDistPath,
 
     [Parameter(Mandatory = $true, HelpMessage = "Nx build target for the package (e.g. 'sb-mini-state:build:production')")]
@@ -25,6 +26,11 @@ Write-Host "Local NPM Directory: $LocalNpmDir"
 Write-Host "=================================================="
 Write-Host ""
 
+
+# $repositoryRoot = Find-RepositoryRoot
+# $DistPackagePath_Full = Join-Path $repositoryRoot $PackageDistPath 
+
+
 # Ensure the local npm directory exists
 if (-not (Test-Path $LocalNpmDir -PathType Container)) {
     Write-Host "Creating local npm directory at $LocalNpmDir..."
@@ -43,7 +49,8 @@ try {
     }
     Write-Host "INFO: Build successful."
     Write-Host ""
-} catch {
+}
+catch {
     Write-Error "ERROR: Build command failed unexpectedly."
     Write-Error $_.Exception.Message
     exit 1
@@ -51,6 +58,11 @@ try {
 
 # --- Packaging and Moving ---
 try {
+    Write-Host "PackageDistPath $PackageDistPath"
+    Write-Host "LocalNpmDir" -not (Test-Path $PackageDistPath -PathType Container)
+
+     
+
     if (-not (Test-Path $PackageDistPath -PathType Container)) {
         Write-Error "ERROR: Distribution directory '$PackageDistPath' does not exist or is not accessible."
         exit 1
@@ -84,7 +96,8 @@ try {
     Write-Host "INFO: Moving tarball to $LocalNpmDir..."
     try {
         Move-Item -Path "*.tgz" -Destination $LocalNpmDir -Force
-    } catch {
+    }
+    catch {
         Write-Error "ERROR: Failed to move tarball to $LocalNpmDir."
         Write-Error "Details: $($_.Exception.Message)"
         exit 1
@@ -92,8 +105,8 @@ try {
 
     $packageNameClean = $PackageName -replace '@', '' -replace '/', '-'
     $tarballPath = Get-ChildItem -Path $LocalNpmDir -Filter "$packageNameClean-*.tgz" |
-        Sort-Object LastWriteTime -Descending |
-        Select-Object -First 1 -ExpandProperty FullName
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1 -ExpandProperty FullName
 
     if (-not $tarballPath) {
         Write-Error "ERROR: Could not find the moved tarball in $LocalNpmDir"
@@ -105,11 +118,13 @@ try {
     Write-Host "To install this package in a project, run:"
     Write-Host "npm install $tarballPath"
     Write-Host ""
-} catch {
+}
+catch {
     Write-Error "ERROR: An error occurred during the local publish process."
     Write-Error "Details: $($_.Exception.Message)"
     exit 1
-} finally {
+}
+finally {
     Set-Location $originalLocation
 }
 

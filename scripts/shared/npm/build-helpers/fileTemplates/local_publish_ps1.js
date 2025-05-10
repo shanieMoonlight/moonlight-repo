@@ -3,17 +3,18 @@
  * 
  * @param {Object} options - Configuration options for the script generation
  * @param {string} options.packageName - The name of the package to publish
- * @param {string} options.packageDistPath - The path to the package's distribution files
+ * @param {string} options.packageDistRelativePath - The relative path to the package's distribution files
  * @param {string} options.nxBuildTarget - The Nx build target for the package
  * @param {string} options.localNpmDir - The directory where the package will be published locally
- * @param {string} options.sharedScriptsRelativePath - The relative path to shared scripts from repository root
- * @param {string} options.findRepoScriptPath - The path to the script that finds the repository root
+ * @param {string} options.localNpmPublisherScriptRelativePath - The relative path to the local npm publisher script
+ * @param {string} options.findRepoScriptFilename - The filename of the script that finds the repository root
+ * @param {string} options.errorReportingScriptFilename - The filename of the error reporting script
  * 
  * @returns {Object} An object containing the script's name and content
  * @returns {string} returns.name - The generated filename for the PowerShell script
  * @returns {string} returns.content - The content of the PowerShell script
  */
-const e = require('express');
+
 const utils = require('../utils/build-helper-utils');
 
 //------------------------------------------//
@@ -34,71 +35,88 @@ function ensureValidInputs(inputs) {
 
  function localPublish_Ps1_Generator({
     packageName,
-    packageDistPath,
+    packageDistRelativePath,
     nxBuildTarget,
     localNpmDir,
-    sharedScriptsRelativePath,
-    findRepoScriptPath,
-    errorReportingScriptRelativePath }) {
+    localNpmPublisherScriptRelativePath,
+    findRepoScriptFilename,
+    errorReportingScriptFilename }) {
 
     ensureValidInputs({
         packageName,
-        packageDistPath,
+        packageDistRelativePath,
         nxBuildTarget,
         localNpmDir,
-        sharedScriptsRelativePath,
-        findRepoScriptPath,
-        errorReportingScriptRelativePath
+        localNpmPublisherScriptRelativePath,
+        findRepoScriptFilename,
+        errorReportingScriptFilename
     });
 
     const packageShortNameUnderscore = utils.toShortUnderscoredPackageName(packageName);
     const name = `local_publish_${packageShortNameUnderscore}.ps1`;
-
+    
     const content = `# --- Configuration for ${packageName} package local publishing ---
 
-. "$PSScriptRoot\\${errorReportingScriptRelativePath}"
 
 $ErrorActionPreference = "Stop"
 
 # Package details and paths
 $packageName = "${packageName}"
-$packageDistPath = "${packageDistPath}"
+$packageDistRelativePath = "${packageDistRelativePath}"
 $nxBuildTarget = "${nxBuildTarget}"
 $localNpmDir = "${localNpmDir}"
-$findRepoScriptPath = "${findRepoScriptPath}"
-$localNpmPublishPackageScriptFile = "local-npm-publish-package.ps1"
+$findRepoScriptFilename = "${findRepoScriptFilename}"
+$errorReportingScriptFilename = "${errorReportingScriptFilename}"
+$publisherScriptRelativePath = "${localNpmPublisherScriptRelativePath}"
 
 # Paths to locate before continuing
 $repositoryRoot = $null
-$sharedScriptsPath = $null
-$sharedScriptsRelativePath = "${sharedScriptsRelativePath}"
+$publisherScriptPath = $null
+$packageDistPath = $null
+$findRepoScript = $null
+$errorReportingScript = $null
 
 Write-Host "Starting local publishing....."
 
 try {
-    # Try to import more robust finder script if available
-    $findRepoScript = Join-Path $PSScriptRoot $findRepoScriptPath
+
+    # Locate helper scripts
+    $errorReportingScript = Join-Path $PSScriptRoot $errorReportingScriptFilename
+    if (Test-Path $errorReportingScript -PathType Leaf) {
+        . $errorReportingScript
+    }
+    else {
+        Write-Error "ERROR: Cannot find error reporting script at '$errorReportingScript'"
+        exit 1
+    }
+
+    $findRepoScript = Join-Path $PSScriptRoot $findRepoScriptFilename
     if (Test-Path $findRepoScript -PathType Leaf) {
         . $findRepoScript
-        $robustRoot = Find-RepositoryRoot
-        if ($robustRoot) {
-            $repositoryRoot = $robustRoot
-            $sharedScriptsPath = Join-Path $repositoryRoot $sharedScriptsRelativePath
-            Write-Host "Using robust repository root: $repositoryRoot"
-        } else {
-            Write-Error "ERROR: '$findRepoScriptPath' did not return a valid root."
-            exit 1
-        }
-    } else {
-        Write-Error "ERROR: Cannot find Repository Root"
+    }
+    else {
+        Write-Error "ERROR: Cannot find Repository Root finder script at '$findRepoScript'"
+        exit 1
+    }
+
+    # --------------------------------- #
+    
+    $repositoryRoot = Find-RepositoryRoot
+    if ($repositoryRoot) {
+        $publisherScriptPath = Join-Path $repositoryRoot $publisherScriptRelativePath
+        $packageDistPath = Join-Path $repositoryRoot $packageDistRelativePath
+    }
+    else {
+        Write-Error "ERROR: '$findRepoScriptFilename' did not return a valid root."
         exit 1
     }
 
     Write-Host "Repository root: $repositoryRoot"
-    Write-Host "Shared scripts path: $sharedScriptsPath"
+    Write-Host "Shared scripts absolute path: $publisherScriptPath"
+    Write-Host "Dist dir absolute path: $packageDistPath"
+    
+    # --------------------------------- #
 
-
-    $publisherScriptPath = Join-Path $sharedScriptsPath $localNpmPublishPackageScriptFile
     if (-not (Test-Path $publisherScriptPath -PathType Leaf)) {
         Write-Error "ERROR: Cannot find generic local publisher script at '$publisherScriptPath'"
         exit 1
