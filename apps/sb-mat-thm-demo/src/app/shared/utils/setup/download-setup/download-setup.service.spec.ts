@@ -1,8 +1,11 @@
 import { provideHttpClient } from '@angular/common/http'; // Use this for standalone
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { BlobDownloadService } from '@spider-baby/utils-download';
+import { BlobDownloadService } from '@spider-baby/utils-file-saver';
 import { firstValueFrom } from 'rxjs';
 import { DownloadSetupFilesService, SetupFile } from './download-setup.service';
 
@@ -13,7 +16,13 @@ class MockBlobDownloadService {
 
 const MOCK_SETUP_FILES: SetupFile[] = [
   { filename: 'file1.ts', title: 'File 1', description: 'Desc 1' },
-  { filename: 'file2.zip', title: 'File 2', description: 'Desc 2', isBinary: true, displayName: 'archive.zip' },
+  {
+    filename: 'file2.zip',
+    title: 'File 2',
+    description: 'Desc 2',
+    isBinary: true,
+    displayName: 'archive.zip',
+  },
 ];
 
 describe('DownloadSetupFilesService', () => {
@@ -35,7 +44,9 @@ describe('DownloadSetupFilesService', () => {
     service = TestBed.inject(DownloadSetupFilesService);
     httpMock = TestBed.inject(HttpTestingController);
     // Cast to the mock type to access the jest mock function
-    blobDownloadServiceMock = TestBed.inject(BlobDownloadService) as unknown as MockBlobDownloadService;
+    blobDownloadServiceMock = TestBed.inject(
+      BlobDownloadService
+    ) as unknown as MockBlobDownloadService;
 
     // Override the initial signal value for predictable tests if needed,
     // or rely on the actual constant if it's stable.
@@ -57,7 +68,7 @@ describe('DownloadSetupFilesService', () => {
     expect(files).toBeDefined();
     expect(files.length).toBeGreaterThan(0); // Check based on the actual SETUP_FILES constant
     // Example check for a specific file from the actual constant
-    expect(files.some(f => f.filename === 'theme.config.ts')).toBe(true);
+    expect(files.some((f) => f.filename === 'theme.config.ts')).toBe(true);
   });
 
   it('should initialize activeDownload signal/observable with null', async () => {
@@ -73,7 +84,9 @@ describe('DownloadSetupFilesService', () => {
       const expectedMime = 'application/typescript';
       let lastActiveDownloadValue: string | null = 'initial'; // Track observable emission
 
-      service.activeDownload$.subscribe(val => lastActiveDownloadValue = val);
+      service.activeDownload$.subscribe(
+        (val) => (lastActiveDownloadValue = val)
+      );
       service.downloadSetupFile(filename, undefined, false);
       tick(); // Allow microtasks like BehaviorSubject.next() to run
 
@@ -90,10 +103,13 @@ describe('DownloadSetupFilesService', () => {
 
       // Check blob download call
       expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledTimes(1);
-      expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(mockContent, {
-        filename: filename,
-        mimeType: expectedMime,
-      });
+      expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(
+        mockContent,
+        {
+          filename: filename,
+          mimeType: expectedMime,
+        }
+      );
 
       // Check active download state reset
       expect(service.activeDownload()).toBeNull();
@@ -101,98 +117,116 @@ describe('DownloadSetupFilesService', () => {
     }));
 
     it('should download a binary file correctly', fakeAsync(() => {
-        const filename = 'test.zip';
-        const mockBlob = new Blob(['binary data']);
-        const expectedMime = 'application/zip';
-        let lastActiveDownloadValue: string | null = 'initial';
+      const filename = 'test.zip';
+      const mockBlob = new Blob(['binary data']);
+      const expectedMime = 'application/zip';
+      let lastActiveDownloadValue: string | null = 'initial';
 
-        service.activeDownload$.subscribe(val => lastActiveDownloadValue = val);
-        service.downloadSetupFile(filename, undefined, true); // isBinary = true
-        tick();
+      service.activeDownload$.subscribe(
+        (val) => (lastActiveDownloadValue = val)
+      );
+      service.downloadSetupFile(filename, undefined, true); // isBinary = true
+      tick();
 
-        expect(service.activeDownload()).toBe(filename);
-        expect(lastActiveDownloadValue).toBe(filename);
+      expect(service.activeDownload()).toBe(filename);
+      expect(lastActiveDownloadValue).toBe(filename);
 
-        const req = httpMock.expectOne(`/setup-files/${filename}`);
-        expect(req.request.method).toBe('GET');
-        expect(req.request.responseType).toBe('blob'); // Check responseType
-        req.flush(mockBlob);
-        tick();
+      const req = httpMock.expectOne(`/setup-files/${filename}`);
+      expect(req.request.method).toBe('GET');
+      expect(req.request.responseType).toBe('blob'); // Check responseType
+      req.flush(mockBlob);
+      tick();
 
-        expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledTimes(1);
-        expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(mockBlob, {
+      expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledTimes(1);
+      expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(
+        mockBlob,
+        {
           filename: filename,
           mimeType: expectedMime,
-        });
+        }
+      );
 
-        expect(service.activeDownload()).toBeNull();
-        expect(lastActiveDownloadValue).toBeNull();
+      expect(service.activeDownload()).toBeNull();
+      expect(lastActiveDownloadValue).toBeNull();
     }));
 
     it('should use displayName when provided', fakeAsync(() => {
-        const filename = 'actual-file.txt';
-        const displayName = 'user-friendly-name.txt';
-        const mockContent = 'text content';
+      const filename = 'actual-file.txt';
+      const displayName = 'user-friendly-name.txt';
+      const mockContent = 'text content';
 
-        service.downloadSetupFile(filename, displayName, false);
-        tick();
+      service.downloadSetupFile(filename, displayName, false);
+      tick();
 
-        const req = httpMock.expectOne(`/setup-files/${filename}`);
-        req.flush(mockContent);
-        tick();
+      const req = httpMock.expectOne(`/setup-files/${filename}`);
+      req.flush(mockContent);
+      tick();
 
-        expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(mockContent, {
+      expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalledWith(
+        mockContent,
+        {
           filename: displayName, // Check that displayName is used
           mimeType: 'text/plain',
-        });
+        }
+      );
     }));
 
     it('should handle HTTP errors gracefully for text files', fakeAsync(() => {
-        const filename = 'error.txt';
-        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(); // Suppress console error during test
-        let lastActiveDownloadValue: string | null = 'initial';
+      const filename = 'error.txt';
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(); // Suppress console error during test
+      let lastActiveDownloadValue: string | null = 'initial';
 
-        service.activeDownload$.subscribe(val => lastActiveDownloadValue = val);
-        service.downloadSetupFile(filename, undefined, false);
-        tick();
+      service.activeDownload$.subscribe(
+        (val) => (lastActiveDownloadValue = val)
+      );
+      service.downloadSetupFile(filename, undefined, false);
+      tick();
 
-        expect(service.activeDownload()).toBe(filename);
-        expect(lastActiveDownloadValue).toBe(filename);
+      expect(service.activeDownload()).toBe(filename);
+      expect(lastActiveDownloadValue).toBe(filename);
 
-        const req = httpMock.expectOne(`/setup-files/${filename}`);
-        req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
-        tick();
+      const req = httpMock.expectOne(`/setup-files/${filename}`);
+      req.error(new ProgressEvent('error'), {
+        status: 404,
+        statusText: 'Not Found',
+      });
+      tick();
 
-        expect(blobDownloadServiceMock.downloadBlob).not.toHaveBeenCalled();
-        expect(consoleSpy).toHaveBeenCalled();
-        expect(service.activeDownload()).toBeNull();
-        expect(lastActiveDownloadValue).toBeNull();
+      expect(blobDownloadServiceMock.downloadBlob).not.toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(service.activeDownload()).toBeNull();
+      expect(lastActiveDownloadValue).toBeNull();
 
-        consoleSpy.mockRestore();
+      consoleSpy.mockRestore();
     }));
 
-     it('should handle HTTP errors gracefully for binary files', fakeAsync(() => {
-        const filename = 'error.zip';
-        const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-        let lastActiveDownloadValue: string | null = 'initial';
+    it('should handle HTTP errors gracefully for binary files', fakeAsync(() => {
+      const filename = 'error.zip';
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      let lastActiveDownloadValue: string | null = 'initial';
 
-        service.activeDownload$.subscribe(val => lastActiveDownloadValue = val);
-        service.downloadSetupFile(filename, undefined, true); // isBinary = true
-        tick();
+      service.activeDownload$.subscribe(
+        (val) => (lastActiveDownloadValue = val)
+      );
+      service.downloadSetupFile(filename, undefined, true); // isBinary = true
+      tick();
 
-        expect(service.activeDownload()).toBe(filename);
-        expect(lastActiveDownloadValue).toBe(filename);
+      expect(service.activeDownload()).toBe(filename);
+      expect(lastActiveDownloadValue).toBe(filename);
 
-        const req = httpMock.expectOne(`/setup-files/${filename}`);
-        req.error(new ProgressEvent('error'), { status: 500, statusText: 'Server Error' });
-        tick();
+      const req = httpMock.expectOne(`/setup-files/${filename}`);
+      req.error(new ProgressEvent('error'), {
+        status: 500,
+        statusText: 'Server Error',
+      });
+      tick();
 
-        expect(blobDownloadServiceMock.downloadBlob).not.toHaveBeenCalled();
-        expect(consoleSpy).toHaveBeenCalled();
-        expect(service.activeDownload()).toBeNull();
-        expect(lastActiveDownloadValue).toBeNull();
+      expect(blobDownloadServiceMock.downloadBlob).not.toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(service.activeDownload()).toBeNull();
+      expect(lastActiveDownloadValue).toBeNull();
 
-        consoleSpy.mockRestore();
+      consoleSpy.mockRestore();
     }));
   });
 
@@ -206,7 +240,7 @@ describe('DownloadSetupFilesService', () => {
         description: 'Desc',
         icon: 'style',
         displayName: 'my-styles.scss',
-        isBinary: false // Explicitly false
+        isBinary: false, // Explicitly false
       };
 
       service.downloadPredefinedFile(fileToDownload);
@@ -229,7 +263,6 @@ describe('DownloadSetupFilesService', () => {
       // Optional: Verify blob download was called if needed, though the spy check might be sufficient
       // expect(blobDownloadServiceMock.downloadBlob).toHaveBeenCalled();
     }));
-
 
     it('should call downloadSetupFile handling undefined isBinary as false', fakeAsync(() => {
       const downloadSetupFileSpy = jest.spyOn(service, 'downloadSetupFile');
@@ -257,13 +290,13 @@ describe('DownloadSetupFilesService', () => {
       tick();
     }));
 
-     it('should call downloadSetupFile with isBinary true when set in SetupFile object', fakeAsync(() => {
+    it('should call downloadSetupFile with isBinary true when set in SetupFile object', fakeAsync(() => {
       const downloadSetupFileSpy = jest.spyOn(service, 'downloadSetupFile');
       const fileToDownload: SetupFile = {
         filename: 'predefined.zip',
         title: 'Predefined Zip',
         description: 'Desc',
-        isBinary: true // Explicitly true
+        isBinary: true, // Explicitly true
       };
 
       service.downloadPredefinedFile(fileToDownload);

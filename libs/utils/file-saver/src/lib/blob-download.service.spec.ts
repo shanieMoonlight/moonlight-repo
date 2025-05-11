@@ -10,7 +10,6 @@ describe('BlobDownloadService', () => {
   let clickSpy: jest.Mock;
   let createElementSpy: jest.SpyInstance;
 
-
   //----------------------------------//
 
   beforeAll(() => {
@@ -18,14 +17,14 @@ describe('BlobDownloadService', () => {
     if (typeof URL.createObjectURL === 'undefined') {
       global.URL = {
         createObjectURL: jest.fn().mockReturnValue('blob:mock-url'),
-        revokeObjectURL: jest.fn()
+        revokeObjectURL: jest.fn(),
       } as unknown as typeof URL;
     }
   });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BlobDownloadService]
+      providers: [BlobDownloadService],
     });
     service = TestBed.inject(BlobDownloadService);
 
@@ -35,17 +34,23 @@ describe('BlobDownloadService', () => {
     // Setup spies on the now-available methods
     createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
     revokeObjectURLSpy = jest.spyOn(URL, 'revokeObjectURL');
-    appendChildSpy = jest.spyOn(document.body, 'appendChild').mockImplementation(() => document.body);
-    removeChildSpy = jest.spyOn(document.body, 'removeChild').mockImplementation(() => document.body);
+    appendChildSpy = jest
+      .spyOn(document.body, 'appendChild')
+      .mockImplementation(() => document.body);
+    removeChildSpy = jest
+      .spyOn(document.body, 'removeChild')
+      .mockImplementation(() => document.body);
     clickSpy = jest.fn();
 
     // Mock createElement to return an element with a click spy
     const mockAnchor = {
       href: '',
       download: '',
-      click: clickSpy
+      click: clickSpy,
     };
-    createElementSpy = jest.spyOn(document, 'createElement').mockReturnValue(mockAnchor as any);
+    createElementSpy = jest
+      .spyOn(document, 'createElement')
+      .mockReturnValue(mockAnchor as any);
   });
 
   //----------------------------------//
@@ -62,7 +67,7 @@ describe('BlobDownloadService', () => {
       const content = 'Test content';
       const options: DownloadOptions = {
         filename: 'test.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       };
 
       // Act
@@ -85,7 +90,7 @@ describe('BlobDownloadService', () => {
       const content = new Blob(['Blob content'], { type: 'text/plain' });
       const options: DownloadOptions = {
         filename: 'blob.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       };
 
       // Act
@@ -106,7 +111,7 @@ describe('BlobDownloadService', () => {
       });
       const options: DownloadOptions = {
         filename: 'error.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       };
 
       // Act
@@ -132,7 +137,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'theme.scss',
-        mimeType: 'text/scss'
+        mimeType: 'text/scss',
       });
       expect(result).toBe(true);
     });
@@ -150,7 +155,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'theme-file.scss',
-        mimeType: 'text/scss'
+        mimeType: 'text/scss',
       });
     });
 
@@ -167,7 +172,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'theme.scss',
-        mimeType: 'text/scss'
+        mimeType: 'text/scss',
       });
     });
 
@@ -184,7 +189,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'theme.SCSS',
-        mimeType: 'text/scss'
+        mimeType: 'text/scss',
       });
     });
   });
@@ -203,7 +208,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
         filename: 'data.json',
-        mimeType: 'application/json'
+        mimeType: 'application/json',
       });
       expect(result).toBe(true);
     });
@@ -221,7 +226,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'data.json',
-        mimeType: 'application/json'
+        mimeType: 'application/json',
       });
     });
 
@@ -238,7 +243,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
         filename: 'data-file.json',
-        mimeType: 'application/json'
+        mimeType: 'application/json',
       });
     });
 
@@ -255,7 +260,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(JSON.stringify(obj, null, 2), {
         filename: 'data.json',
-        mimeType: 'application/json'
+        mimeType: 'application/json',
       });
     });
   });
@@ -274,7 +279,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'data.csv',
-        mimeType: 'text/csv'
+        mimeType: 'text/csv',
       });
       expect(result).toBe(true);
     });
@@ -292,7 +297,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'export.csv',
-        mimeType: 'text/csv'
+        mimeType: 'text/csv',
       });
     });
 
@@ -309,7 +314,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'export.csv',
-        mimeType: 'text/csv'
+        mimeType: 'text/csv',
       });
     });
   });
@@ -328,7 +333,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'data.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       });
       expect(result).toBe(true);
     });
@@ -346,7 +351,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'notes.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       });
     });
 
@@ -363,7 +368,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'notes.txt',
-        mimeType: 'text/plain'
+        mimeType: 'text/plain',
       });
     });
   });
@@ -382,7 +387,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'page.html',
-        mimeType: 'text/html'
+        mimeType: 'text/html',
       });
       expect(result).toBe(true);
     });
@@ -400,7 +405,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'document.html',
-        mimeType: 'text/html'
+        mimeType: 'text/html',
       });
     });
 
@@ -417,7 +422,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'document.html',
-        mimeType: 'text/html'
+        mimeType: 'text/html',
       });
     });
 
@@ -434,7 +439,7 @@ describe('BlobDownloadService', () => {
       // Assert
       expect(spy).toHaveBeenCalledWith(content, {
         filename: 'document.htm',
-        mimeType: 'text/html'
+        mimeType: 'text/html',
       });
     });
   });

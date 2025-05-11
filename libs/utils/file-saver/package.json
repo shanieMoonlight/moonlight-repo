@@ -1,5 +1,5 @@
 {
-  "name": "@spider-baby/utils-download",
+  "name": "@spider-baby/utils-file-saver",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/core": "^19.2.0"

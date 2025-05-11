@@ -2,7 +2,7 @@ export default {
   displayName: 'ml-utils-download',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/utils/download',
+  coverageDirectory: '../../../coverage/libs/utils/file-saver',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

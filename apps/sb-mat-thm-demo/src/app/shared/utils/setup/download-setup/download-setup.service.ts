@@ -1,7 +1,15 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BlobDownloadService } from '@spider-baby/utils-download';
-import { BehaviorSubject, Observable, catchError, delay, map, of, tap } from 'rxjs';
+import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  delay,
+  map,
+  of,
+  tap,
+} from 'rxjs';
 import { consoleDev } from '@spider-baby/material-theming/utils';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -28,19 +36,19 @@ const SETUP_FILES: SetupFile[] = [
     filename: 'theme.config.ts',
     title: 'Theme Configuration',
     description: 'Basic theme configuration with sample themes',
-    icon: 'palette'
+    icon: 'palette',
   },
   {
     filename: 'material-theme.scss',
     title: 'SCSS Setup',
     description: 'Ready-to-use SCSS configuration for Material themes',
-    icon: 'style'
+    icon: 'style',
   },
   {
     filename: 'app.config.ts',
     title: 'App Configuration',
     description: 'Configuration setup for Angular providers',
-    icon: 'settings'
+    icon: 'settings',
   },
   {
     filename: 'complete-setup.zip',
@@ -48,17 +56,16 @@ const SETUP_FILES: SetupFile[] = [
     title: 'Complete Setup Package',
     description: 'All configuration files in one download',
     icon: 'folder_zip',
-    isBinary: true
-  }
+    isBinary: true,
+  },
 ];
 
 //############################################//
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DownloadSetupFilesService {
-
   private _downloadService = inject(BlobDownloadService);
   private _http = inject(HttpClient);
 
@@ -68,10 +75,10 @@ export class DownloadSetupFilesService {
   private _setupFilesBasePath = '/setup-files/';
 
   // Pre-defined setup files available for download
-  readonly setupFiles = signal(SETUP_FILES)
+  readonly setupFiles = signal(SETUP_FILES);
   private _activeDownload = new BehaviorSubject<string | null>(null);
   readonly activeDownload$ = this._activeDownload.asObservable();
-  readonly activeDownload = toSignal(this.activeDownload$)
+  readonly activeDownload = toSignal(this.activeDownload$);
 
   //-----------------------------//
 
@@ -82,7 +89,11 @@ export class DownloadSetupFilesService {
    * @param isBinary Whether the file is binary (like ZIP)
    * @returns Observable that completes when download is finished
    */
-  downloadSetupFile(filename: string, displayName?: string, isBinary = false): Observable<string | null> {
+  downloadSetupFile(
+    filename: string,
+    displayName?: string,
+    isBinary = false
+  ): Observable<string | null> {
     this._activeDownload.next(filename);
 
     // Determine file type from extension for proper MIME type
@@ -100,13 +111,13 @@ export class DownloadSetupFilesService {
     if (isBinary) {
       this.downloadBinary(filename, downloadName, mimeType).subscribe({
         error: () => this._activeDownload.next(null),
-        complete: () => this._activeDownload.next(null)
+        complete: () => this._activeDownload.next(null),
       });
     } else {
       // Handle text files
       this.downloadStandard(filename, downloadName, mimeType).subscribe({
         error: () => this._activeDownload.next(null),
-        complete: () => this._activeDownload.next(null)
+        complete: () => this._activeDownload.next(null),
       });
     }
 
@@ -123,22 +134,28 @@ export class DownloadSetupFilesService {
    * @param mimeType The MIME type of the file
    * @returns Observable that completes when download is finished
    */
-  private downloadBinary(filename: string, downloadName: string, mimeType: string): Observable<boolean> {
-    return this._http.get(`${this._setupFilesBasePath}${filename}`, {
-      responseType: 'blob'
-    }).pipe(
-      map(blobContent => {
-        this._downloadService.downloadBlob(blobContent, {
-          filename: downloadName,
-          mimeType
-        });
-        return true;
-      }),
-      catchError(error => {
-        console.error(`Error downloading binary file ${filename}:`, error);
-        return of(false);
+  private downloadBinary(
+    filename: string,
+    downloadName: string,
+    mimeType: string
+  ): Observable<boolean> {
+    return this._http
+      .get(`${this._setupFilesBasePath}${filename}`, {
+        responseType: 'blob',
       })
-    );
+      .pipe(
+        map((blobContent) => {
+          this._downloadService.downloadBlob(blobContent, {
+            filename: downloadName,
+            mimeType,
+          });
+          return true;
+        }),
+        catchError((error) => {
+          console.error(`Error downloading binary file ${filename}:`, error);
+          return of(false);
+        })
+      );
   }
 
   //-----------------------------//
@@ -150,23 +167,29 @@ export class DownloadSetupFilesService {
    * @param mimeType The MIME type of the file
    * @returns Observable that completes when download is finished
    */
-  private downloadStandard(filename: string, downloadName: string, mimeType: string): Observable<boolean> {
-    return this._http.get(`${this._setupFilesBasePath}${filename}`, {
-      responseType: 'text'
-    }).pipe(
-      // delay(5000), // Optional delay for demo purposes
-      map(textContent => {
-        this._downloadService.downloadBlob(textContent, {
-          filename: downloadName,
-          mimeType
-        });
-        return true;
-      }),
-      catchError(error => {
-        console.error(`Error downloading text file ${filename}:`, error);
-        return of(false);
+  private downloadStandard(
+    filename: string,
+    downloadName: string,
+    mimeType: string
+  ): Observable<boolean> {
+    return this._http
+      .get(`${this._setupFilesBasePath}${filename}`, {
+        responseType: 'text',
       })
-    );
+      .pipe(
+        // delay(5000), // Optional delay for demo purposes
+        map((textContent) => {
+          this._downloadService.downloadBlob(textContent, {
+            filename: downloadName,
+            mimeType,
+          });
+          return true;
+        }),
+        catchError((error) => {
+          console.error(`Error downloading text file ${filename}:`, error);
+          return of(false);
+        })
+      );
   }
 
   //-----------------------------//
@@ -176,9 +199,12 @@ export class DownloadSetupFilesService {
    * @param file The setup file configuration to download
    * @returns Observable that completes when download is finished
    */
-  downloadPredefinedFile = (file: SetupFile): Observable<string | null> => 
-    this.downloadSetupFile(file.filename, file.displayName, file.isBinary ?? false)
+  downloadPredefinedFile = (file: SetupFile): Observable<string | null> =>
+    this.downloadSetupFile(
+      file.filename,
+      file.displayName,
+      file.isBinary ?? false
+    );
 
   //-----------------------------//
-
-}//Cls
+} //Cls
