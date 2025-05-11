@@ -8,7 +8,9 @@
     "build:mini-state": "npx nx run spider-baby-mini-state-demo:build --configuration=production && npm run generate:sitemap:mini-state",
     "sitemap:mini-state": "npm run generate:sitemap:mini-state",
     "generate-search-index": "node scripts/mini-state/generate-lunr-search-index.js",
-    "build:with-search": "npm run prerender && npm run generate-search-index"
+    "build:with-search": "npm run prerender && npm run generate-search-index",
+    "run:ts-script": "ts-node -P tsconfig.scripts.json",
+    "local-npm-publish": "ts-node -P tsconfig.scripts.json scripts-ts/publishing/clis/local-npm-publish-cli.ts"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +30,7 @@
     "@angular/ssr": "~19.2.0",
     "@material/material-color-utilities": "^0.3.0",
     "@ng-matero/extensions": "^19.3.2",
+    "chalk": "^4.1.2",
     "cheerio": "^1.0.0",
     "express": "^4.21.2",
     "firebase": "^11.6.1",
@@ -72,9 +75,11 @@
     "@types/lunr": "^2.3.7",
     "@types/node": "^18.16.9",
     "@types/node-fetch": "^2.6.12",
+    "@types/prompts": "^2.4.9",
     "@typescript-eslint/utils": "^8.19.0",
     "angular-eslint": "^19.2.0",
     "autoprefixer": "^10.4.0",
+    "commander": "^13.1.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",

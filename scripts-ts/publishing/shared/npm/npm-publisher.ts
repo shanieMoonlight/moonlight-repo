@@ -1,10 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import prompts from 'prompts';
-import { CommandUtils } from '../utils/command-utils';
-import { FileUtils } from '../utils/file-utils';
+import { FsUtils } from '../../../shared/utils/fs/fs-utils';
+import { CommandUtils } from '../../../shared/utils/cmd/command-utils';
 import { BuildUtils } from '../utils/build-utils';
-import { CommandResult } from '../utils/command-models';
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
@@ -110,7 +109,7 @@ export async function publishToNpmAsync(
 
 
     // --- Check if Main Package Version Exists ---
-    if (!FileUtils.fileExists(distPackageJsonPath))
+    if (!FsUtils.fileExists(distPackageJsonPath))
         throw new Error(`Cannot find built package.json at '${distPackageJsonPath}'.`);
 
 
@@ -142,7 +141,7 @@ export async function publishToNpmAsync(
         return;
 
     // Actual publish
-    console.log(`INFO: Publishing ${npmPackageSpec} to npm...`);    
+    console.log(`INFO: Publishing ${npmPackageSpec} to npm...`);
     const publishResult = CommandUtils.npmPublishPublic(packageDistPath, false, true);
     if (publishResult.status !== 0)
         throw new Error('!!! ERROR: npm publish failed !!!\n' + publishResult.stderr);

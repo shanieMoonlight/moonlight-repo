@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { findRepositoryRootPath } from './find-repository-root';
-import { devLog } from '@spider-baby/utils-rxjs';
+import { localNpmPublishPackage } from './utils/local-npm-publish-package';
 
 const packageName = "@spider-baby/dev-console";
 const packageDistRelativePath = "dist/libs/utils/dev-console";
@@ -9,6 +9,8 @@ const localNpmDir = "C:/Users/Shaneyboy/my-npm";
 
 async function main() {
     try {
+        console.log('Strarting local NPM publish process...');
+        
         const repositoryRoot = findRepositoryRootPath(process.cwd());
         if (!repositoryRoot) {
             throw new Error("Could not find repository root (no tsconfig.base.json found).");

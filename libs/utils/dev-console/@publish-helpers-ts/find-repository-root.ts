@@ -24,11 +24,4 @@ export function findRepositoryRootPath(startPath: string = __dirname): string | 
   console.error('Could not find repository root. No tsconfig.base.json file found in parent directories.');
   return null;
 }
-
-// Example usage:
-
-//#############################################//
-
-module.exports = findRepositoryRootPath
-
-//#############################################//
+// //#############################################//

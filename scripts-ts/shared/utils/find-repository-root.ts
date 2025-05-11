@@ -3,11 +3,10 @@ import * as path from 'path';
 
 /**
  * Walks up the directory tree from startPath, looking for tsconfig.base.json.
- * @param {string} [startPath] - Directory to start searching from. Defaults to __dirname.
  * @returns {string|null} - The repository root path, or null if not found.
  */
-export function findRepositoryRootPath(startPath: string = __dirname): string | null {
-  let currentDir = path.resolve(startPath);
+export function findRepositoryRootPath(): string | null {
+  let currentDir = path.resolve(__dirname);
 
   while (true) {
     const tsconfigPath = path.join(currentDir, 'tsconfig.base.json');
@@ -24,11 +23,3 @@ export function findRepositoryRootPath(startPath: string = __dirname): string | 
   console.error('Could not find repository root. No tsconfig.base.json file found in parent directories.');
   return null;
 }
-
-// Example usage:
-
-//#############################################//
-
-module.exports = findRepositoryRootPath
-
-//#############################################//
