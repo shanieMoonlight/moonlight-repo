@@ -1,73 +1,71 @@
-import * as fs from 'fs';
+import chalk from 'chalk'; // Added chalk for consistent styling
 import * as path from 'path';
 import prompts from 'prompts';
-import { FsUtils } from '../../../shared/utils/fs/fs-utils';
+import { LibraryData, LibraryDependency } from '../../../shared/library-data/models'; // Assuming LibraryData is here
 import { CommandUtils } from '../../../shared/utils/cmd/command-utils';
 import { BuildUtils } from '../utils/build-utils';
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
-function printStartInfo(packageName: string, packageDistPath: string, nxBuildTarget: string, distPackageJsonPath: string) {
+function printStartInfo(libraryData: LibraryData) {
+    const distPackageJsonPath = path.join(libraryData.packageDistPathAbsolute, 'package.json');
 
-
-    console.log('==================================================');
-    console.log(` Publishing ${packageName} to NPM (Node.js/TS)!!!`);
-    console.log('==================================================');
-    console.log(`Package JSON Path: ${distPackageJsonPath}`);
-    console.log(`Package Dist Path: ${packageDistPath}`);
-    console.log(`Nx Build Target: ${nxBuildTarget}`);
-    console.log('==================================================\n');
+    console.log(chalk.blue('=================================================='));
+    console.log(chalk.blueBright(` Publishing ${chalk.bold(libraryData.packageName)} to NPM`));
+    console.log(chalk.blue('=================================================='));
+    console.log(chalk.gray(`Package Name:        ${libraryData.packageName}`));
+    console.log(chalk.gray(`Package Version:     ${libraryData.pkgVersion}`)); // Assuming pkgVersion is in LibraryData
+    console.log(chalk.gray(`Dist Path:           ${libraryData.packageDistPathAbsolute}`));
+    console.log(chalk.gray(`Dist package.json:   ${distPackageJsonPath}`));
+    console.log(chalk.gray(`Nx Build Target:     ${libraryData.nxBuildTarget}`));
+    console.log(chalk.blue('==================================================\n'));
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
 // Confirm all dependencies are published
-function confirmAllDependenciesPublished(packageJsonPath: string): boolean {
-    console.log(`INFO [Check-AllDependencies]: Checking dependencies in '${packageJsonPath}'...`);
-    if (!fs.existsSync(packageJsonPath)) {
-        console.error(`ERROR: Cannot find package.json at '${packageJsonPath}'`);
-        return false;
-    }
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-    const dependencies = packageJson.dependencies || {};
+function confirmAllDependenciesPublished(dependenciesToCheck: LibraryDependency[], dependencyType: string = 'dependencies'): boolean {
+    console.log(chalk.cyan(`INFO [Check-AllDependencies]: Checking ${dependencyType} from source...`));
 
-    for (const [dep, versionRange] of Object.entries(dependencies)) {
-        const npmSpec = `${dep}@${versionRange}`;
-        console.log(`DEBUG: Checking '${npmSpec}' on npm...`);
-        const { status } = CommandUtils.run(`npm view ${npmSpec} version --json`);
+    if (!dependenciesToCheck || dependenciesToCheck.length === 0) {
+        console.log(chalk.green(`INFO: No ${dependencyType} to check.`));
+        return true;
+    }
+
+    for (const dep of dependenciesToCheck) {
+        const npmSpec = `${dep.name}@${dep.version}`; // dep.version is the version range from source
+        console.log(chalk.gray(`DEBUG: Checking '${npmSpec}' on npm...`));
+        const { status } = CommandUtils.run(`npm view "${npmSpec}" version --json`); // Added quotes for safety
 
         if (status !== 0) {
-            console.error(`ERROR: Required dependency version '${npmSpec}' not found on npm!`);
+            console.error(chalk.red(`ERROR: Required ${dependencyType} version '${npmSpec}' (from source) not found on npm!`));
             return false;
-        } else {
-            console.log(`INFO: Found suitable version for '${npmSpec}' on npm.`);
         }
+
+        console.log(chalk.green(`INFO: Found suitable version for '${npmSpec}' on npm.`));
+
     }
 
-    console.log('INFO: All dependencies found successfully.');
+    console.log(chalk.green(`INFO: All ${dependencyType} from source found successfully.`));
     return true;
-}
-
-//= = = = = = = = = = = = = = = = = = = = = = = = = = //
-
-function getPackageVersion(distPackageJsonPath: string): string | null | undefined {
-    const packageJson = JSON.parse(fs.readFileSync(distPackageJsonPath, 'utf-8'));
-    return packageJson?.version;
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
 function isPackageVersionAlreadyPublished(packageName: string, packageVersion: string): boolean {
     const npmPackageSpec = `${packageName}@${packageVersion}`;
-    console.log(`INFO: Checking for ${npmPackageSpec}...`);
-    const versionCheck = CommandUtils.run(`npm view ${npmPackageSpec} version`);
-    return versionCheck.status === 0
+    console.log(chalk.cyan(`INFO: Checking if ${npmPackageSpec} is already published...`));
+    // Use --json to get structured output and avoid parsing issues with npm view's human-readable output
+    const versionCheck = CommandUtils.run(`npm view "${npmPackageSpec}" version --json`); // Added quotes
+    // If `npm view` finds the exact version, it returns the version string. If not, it errors or returns empty.
+    // A non-zero status means it's not found or an error occurred.
+    // A zero status and non-empty stdout means it's found.
+    return versionCheck.status === 0 && versionCheck.stdout.trim() !== '';
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
 async function confirmPublishPromptAsync(): Promise<boolean> {
-
     const response = await prompts({
         type: 'confirm',
         name: 'value',
@@ -76,89 +74,78 @@ async function confirmPublishPromptAsync(): Promise<boolean> {
     });
 
     if (!response.value)
-        console.log('Publish cancelled by user.');
+        console.log(chalk.yellow('Publish cancelled by user.'));
 
-    return !!response.value
-
+    return !!response.value;
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
-// Main function to export
 export async function publishToNpmAsync(
-    packageName: string,
-    packageDistPath: string,
-    nxBuildTarget: string,
-    noConfirm = false
+    libraryData: LibraryData,
+    confirmBeforePublish = true
 ): Promise<void> {
-    const distPackageJsonPath = path.join(packageDistPath, 'package.json');
+    const {
+        packageName,
+        packageDistPathAbsolute,
+        nxBuildTarget,
+        pkgVersion, // Version from source package.json
+        dependencies, // Array of LibraryDependency
+    } = libraryData;
 
-    printStartInfo(packageName, packageDistPath, nxBuildTarget, distPackageJsonPath);
+
+    printStartInfo(libraryData); // Updated to use libraryData
 
     // --- Build Step ---
-    console.log(`INFO: Building ${packageName} library for production...`);
+    console.log(chalk.cyan(`INFO: Building ${chalk.bold(packageName)} library for production...`));
     const buildResult = BuildUtils.buildLibraryForProduction(nxBuildTarget);
     if (buildResult.status !== 0)
         throw new Error(`Build failed for ${packageName}.\n${buildResult.stderr}`);
-    console.log('INFO: Build successful.\n');
+
+    console.log(chalk.green('INFO: Build successful.\n'));
+
+    // --- Get Version from Dist ---
+    // This ensures we use the version that was actually built into the dist package.json
+    const versionToPublish = pkgVersion; // Directly use the version from the input LibraryData
+    console.log(chalk.cyan(`INFO: Version to publish (from source package.json): ${chalk.bold(versionToPublish)}`));
 
 
     // --- Check Dependencies ---
-    if (!confirmAllDependenciesPublished(distPackageJsonPath))
+    if (!confirmAllDependenciesPublished(dependencies, 'dependencies'))
         throw new Error('Dependency check failed. Please ensure all dependencies are published first.');
+    console.log(chalk.green('INFO: Dependency check passed.\n'));
 
 
     // --- Check if Main Package Version Exists ---
-    if (!FsUtils.fileExists(distPackageJsonPath))
-        throw new Error(`Cannot find built package.json at '${distPackageJsonPath}'.`);
-
-
-    const packageVersion = getPackageVersion(distPackageJsonPath);
-    if (!packageVersion)
-        throw new Error(`Could not extract version from '${distPackageJsonPath}'.`);
-
-    const npmPackageSpec = `${packageName}@${packageVersion}`;
-
-    if (isPackageVersionAlreadyPublished(packageName, packageVersion)) {
-        console.log(`INFO: ${npmPackageSpec} already published, skipping.`);
+    const npmPackageSpec = `${packageName}@${versionToPublish}`;
+    if (isPackageVersionAlreadyPublished(packageName, versionToPublish)) {
+        console.log(chalk.yellow(`INFO: ${npmPackageSpec} already published, skipping.`));
         return;
     }
-
-    console.log(`INFO: Version ${packageVersion} not found on npm. Proceeding with publish...\n`);
+    console.log(chalk.green(`INFO: Version ${versionToPublish} not found on npm. Proceeding with publish...\n`));
 
 
     // --- Publish Step ---
     // Dry run
-    console.log(`INFO: Performing npm publish dry run...`);
-    const dryRun = CommandUtils.npmPublishPublic(packageDistPath, true);
+    console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
+    const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
     if (dryRun.status !== 0)
-        throw new Error('npm publish dry run failed.\n' + dryRun.stderr);
+        throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
 
-    console.log('INFO: Dry run complete. Review the files listed above.\n');
+    console.log(chalk.green('INFO: Dry run complete. Review the files listed above.\n'));
 
     // Confirmation prompt
-    if (!noConfirm && !await confirmPublishPromptAsync())
+    if (confirmBeforePublish && !(await confirmPublishPromptAsync()))
         return;
 
-    // Actual publish
-    console.log(`INFO: Publishing ${npmPackageSpec} to npm...`);
-    const publishResult = CommandUtils.npmPublishPublic(packageDistPath, false, true);
-    if (publishResult.status !== 0)
-        throw new Error('!!! ERROR: npm publish failed !!!\n' + publishResult.stderr);
 
-    console.log(`INFO: Successfully published ${npmPackageSpec}.`);
+    // Actual publish
+    console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
+    const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
+    if (publishResult.status !== 0)
+        throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
+
+    console.log(chalk.bgGreen.black.bold(` INFO: Successfully published ${npmPackageSpec}. `));
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
-
-// CLI entry point for direct execution
-if (require.main === module) {
-    // Parse CLI args
-    const [, , packageName, packageDistPath, nxBuildTarget, ...rest] = process.argv;
-    const noConfirm = rest.includes('--no-confirm');
-    publishToNpmAsync(packageName, packageDistPath, nxBuildTarget, noConfirm)
-        .catch(err => {
-            console.error('ERROR:', err);
-            process.exit(1);
-        });
-}
