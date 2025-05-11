@@ -1,9 +1,30 @@
 {
   "name": "@spider-baby/ssr-storage",
   "version": "1.0.1",
+  "description": "An Angular service that provides a Server-Side Rendering (SSR) compatible wrapper for localStorage. It safely accesses localStorage in browser environments and provides no-op implementations for server-side rendering to prevent errors.",
+  "author": "shanieMoonlight",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/packages/@spider-baby/ssr/storage"
+  },
+  "bugs": {
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
+  },
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/blob/main/libs/packages/@spider-baby/ssr/storage/README.md",
+  "keywords": [
+    "angular",
+    "ssr",
+    "localstorage",
+    "storage",
+    "universal",
+    "isomorphic"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": ">=14.0.0",
     "@angular/core": ">=14.0.0"
   },
+  "dependencies": {},
   "sideEffects": false
 }

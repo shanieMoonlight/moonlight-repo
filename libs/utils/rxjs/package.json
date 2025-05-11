@@ -1,9 +1,31 @@
 {
   "name": "@spider-baby/utils-rxjs",
   "version": "1.0.0",
-  "peerDependencies": {
-    "@angular/core": ">=12.0.0",
-    "rxjs": ">=6.0.0"
+  "description": "Utility operators for RxJS Observables, primarily for debugging during development.",
+  "author": "shanieMoonlight",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/utils/rxjs"
   },
+  "bugs": {
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
+  },
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/blob/main/libs/utils/rxjs/README.md",
+  "keywords": [
+    "angular",
+    "rxjs",
+    "utilities",
+    "operators",
+    "debug",
+    "devlog",
+    "development"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+  "@angular/core": ">=15.0.0",
+    "rxjs": "^7.5.0"
+  },
+  "dependencies": {},
   "sideEffects": false
 }

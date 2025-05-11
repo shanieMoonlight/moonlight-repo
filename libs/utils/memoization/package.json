@@ -1,8 +1,28 @@
 {
   "name": "@spider-baby/utils-memoization",
   "version": "1.0.0",
-  "peerDependencies": {
-  "@angular/core": ">=12.0.0"
+  "description": "A utility service for memoizing function calls to improve performance by caching results.",
+  "author": "shanieMoonlight",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/utils/memoization"
   },
+  "bugs": {
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
+  },
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/blob/main/libs/utils/memoization/README.md",
+  "keywords": [
+    "angular",
+    "memoization",
+    "cache",
+    "performance",
+    "utilities"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": ">=12.0.0"
+  },
+  "dependencies": {},
   "sideEffects": false
 }

@@ -1,8 +1,29 @@
 {
   "name": "@spider-baby/utils-file-saver",
   "version": "1.0.0",
+  "description": "A utility service for triggering file downloads in the browser.",
+  "author": "shanieMoonlight",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/utils/file-saver"
+  },
+  "bugs": {
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
+  },
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/blob/main/libs/utils/file-saver/README.md",
+  "keywords": [
+    "angular",
+    "file",
+    "saver",
+    "download",
+    "blob",
+    "utilities"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/core": ">=12.0.0"
   },
+  "dependencies": {},
   "sideEffects": false
 }
