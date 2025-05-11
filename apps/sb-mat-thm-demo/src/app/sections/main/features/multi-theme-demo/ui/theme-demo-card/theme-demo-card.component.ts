@@ -11,9 +11,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { defaultThemeOption, ThemeOption } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 import { devLog } from '@spider-baby/utils-rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
-import { SbCurrentThemeBannerComponent } from  '@spider-baby/material-theming/ui';
 import { LightDarkToggleComponent } from '../../../../../../shared/ui/light-dark-toggle/light-dark-toggle.component';
 import { ThemePickerComponent } from '../../../../../../shared/ui/theme-picker/theme-picker.component';
 
@@ -99,7 +99,7 @@ export class ThemeDemoCardComponent implements OnInit {
       map(([themeOption, darkMode]) => {
         const themeWithCurrentDarkMode: ThemeOption = { ...themeOption, darkMode: darkMode ? 'dark' : 'light' }
         console.log('ThemeDemoCardComponent:currentData', themeWithCurrentDarkMode);
-        
+
         return themeWithCurrentDarkMode
       })
     )

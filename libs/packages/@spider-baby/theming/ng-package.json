@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../../../dist/libs/packages/@spider-baby/theming",
-  "assets": [ 
+  "assets": [
     {
       "glob": "**/*.scss",
       "input": "src/lib/styles",
@@ -15,6 +15,11 @@
     ]
   },
   "allowedNonPeerDependencies": [
-    "@material/material-color-utilities"
+    "@material/material-color-utilities",
+    "@spider-baby/utils-testing",
+    "@spider-baby/utils-memoization",
+    "@spider-baby/utils-file-saver",
+    "@spider-baby/ssr-storage",
+    "@spider-baby/utils-rxjs"
   ]
 }

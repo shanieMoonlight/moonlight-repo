@@ -50,7 +50,7 @@ export class MultiThemeApiDemoComponent {
 
   _demoDescription = signal(`
   This demo showcases the ThemeGeneratorService API.
-  Each card applies its theme only to itself and its children—without affecting the rest of the app.
+  Each card applies its theme only to itself and its children—without affecting the rest of the app, or being affected by the rest of the app.
   You can change themes, toggle dark mode, and reset to defaults, all scoped to a single card.
     `)
   _demoSubDescription = signal(`

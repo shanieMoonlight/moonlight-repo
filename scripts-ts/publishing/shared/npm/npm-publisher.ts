@@ -127,25 +127,25 @@ export async function publishToNpmAsync(
 
     // --- Publish Step ---
     // Dry run
-    console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
-    const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
-    if (dryRun.status !== 0)
-        throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
+//     console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
+//     const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
+//     if (dryRun.status !== 0)
+//         throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
 
-    console.log(chalk.green('INFO: Dry run complete. Review the files listed above.\n'));
+//     console.log(chalk.green('INFO: Dry run complete. Review the files listed above.\n'));
 
-    // Confirmation prompt
-    if (confirmBeforePublish && !(await confirmPublishPromptAsync()))
-        return;
+//     // Confirmation prompt
+//     if (confirmBeforePublish && !(await confirmPublishPromptAsync()))
+//         return;
 
 
-    // Actual publish
-    console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
-    const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
-    if (publishResult.status !== 0)
-        throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
+//     // Actual publish
+//     console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
+//     const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
+//     if (publishResult.status !== 0)
+//         throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
 
-    console.log(chalk.bgGreen.black.bold(` INFO: Successfully published ${npmPackageSpec}. `));
+//     console.log(chalk.bgGreen.black.bold(` INFO: Successfully published ${npmPackageSpec}. `));
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //

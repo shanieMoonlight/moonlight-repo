@@ -1,33 +1,40 @@
 {
   "name": "@spider-baby/material-theming",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A flexible Material Design theming system for Angular applications with dark mode support",
-  "keywords": ["angular", "material-design", "theming", "dark-mode", "color-system"],
+  "keywords": [
+    "angular",
+    "material-design",
+    "theming",
+    "dark-mode",
+    "color-system"
+  ],
   "peerDependencies": {
-    "@angular/common": "^18.0.0 || ^19.0.0",
-    "@angular/core": "^18.0.0 || ^19.0.0",
-    "@angular/material": "^18.0.0 || ^19.0.0",
-    "@angular/forms": "^18.0.0 || ^19.0.0",
-    "@angular/cdk": "^18.0.0 || ^19.0.0",
-    "@spider-baby/utils-download": "^0.0.1",
-    "@spider-baby/utils-testing": "^0.0.1",
-    "@spider-baby/utils-memoization": "^0.0.1",
-    "@spider-baby/ssr-storage": "^1.0.1",
-    "@spider-baby/utils-rxjs": "^0.0.1",
-    "rxjs": "^7.4.0"
+    "@angular/common": ">=18.0.0",
+    "@angular/core": ">=18.0.0",
+    "@angular/material": ">=18.0.0",
+    "@angular/forms": ">=18.0.0",
+    "@angular/cdk": ">=18.0.0",
+    "rxjs": ">=7.0.0"
   },
   "dependencies": {
-    "@material/material-color-utilities": "^0.3.0"
+    "@material/material-color-utilities": "^0.3.0",
+    "@spider-baby/utils-testing": "^1.0.0",
+    "@spider-baby/utils-memoization": "^1.0.0",
+    "@spider-baby/utils-file-saver": "^1.0.0",
+    "@spider-baby/ssr-storage": "^1.0.1",
+    "@spider-baby/utils-rxjs": "^1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/spider-baby-repo"
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/packages/@spider-baby/theming"
   },
   "author": "Your Name",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yourusername/spider-baby-repo/issues"
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/issues"
   },
-  "homepage": "https://github.com/yourusername/spider-baby-repo#readme",
+  "homepage": "https://spiderbabymaterialtheming.web.app/",
   "sideEffects": false
 }
