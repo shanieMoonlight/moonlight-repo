@@ -101,7 +101,12 @@ describe('publishToNpmAsync', () => {
 
   test('should successfully build and publish package', async () => {
     const publishPromise = publishToNpmAsync(mockLibraryData, true);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "test-package@1.0.0"
+
+    // Advance each timer individually for more precise control
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
+
     await publishPromise;
 
     // Verify build was called
@@ -134,11 +139,15 @@ describe('publishToNpmAsync', () => {
       false,
       true
     );
-  });
+  }, 60000); // Increased timeout to 60 seconds
+
 
   test('should skip prompt if confirmBeforePublish is false', async () => {
     const publishPromise = publishToNpmAsync(mockLibraryData, false);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "test-package@1.0.0"
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
+
     await publishPromise;
 
     // Should not prompt
@@ -155,7 +164,7 @@ describe('publishToNpmAsync', () => {
       c => c[0] === 'npm view "test-package@1.0.0" version --json'
     );
     expect(mainPackageCalls.length).toBe(4);
-  });
+  }, 30000);
 
   test('should skip publishing if the package version is already published', async () => {
     // Mock version already exists for the main package AND dependency
@@ -201,7 +210,9 @@ describe('publishToNpmAsync', () => {
     });
 
     const publishPromise = publishToNpmAsync(mockLibraryData, true);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "dependency-1@^1.0.0"
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
 
     await expect(publishPromise).rejects.toThrow(
       'Dependency check failed'
@@ -215,7 +226,7 @@ describe('publishToNpmAsync', () => {
 
     // Should not proceed to version check or publishing
     expect(CommandUtils.npmPublishPublic).not.toHaveBeenCalled();
-  });
+  }, 45000);
 
   test('should throw an error if dry run fails', async () => {
     // Mock dry run failure
@@ -227,7 +238,9 @@ describe('publishToNpmAsync', () => {
     });
 
     const publishPromise = publishToNpmAsync(mockLibraryData, true);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "test-package@1.0.0" from default mock
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
 
     await expect(publishPromise).rejects.toThrow(
       'npm publish dry run failed'
@@ -240,14 +253,16 @@ describe('publishToNpmAsync', () => {
       false,
       true
     );
-  });
+  }, 60000);
 
   test('should cancel publishing if user rejects prompt', async () => {
     // Mock user cancellation
     (prompts as unknown as jest.Mock).mockResolvedValue({ value: false });
 
     const publishPromise = publishToNpmAsync(mockLibraryData, true);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "test-package@1.0.0"
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
     await publishPromise; // Should resolve, not reject, after cancellation
 
     // Should prompt but not publish
@@ -258,7 +273,7 @@ describe('publishToNpmAsync', () => {
       false,
       true
     );
-  });
+  }, 60000);
 
   test('should throw an error if actual publish fails', async () => {
     // Mock actual publish failure
@@ -270,28 +285,33 @@ describe('publishToNpmAsync', () => {
     });
 
     const publishPromise = publishToNpmAsync(mockLibraryData, true);
-    await jest.runOnlyPendingTimersAsync(); // For retries on "test-package@1.0.0"
+    // Advance each timer individually for more precise control
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
+
 
     await expect(publishPromise).rejects.toThrow(
       'npm publish failed'
     );
-  });
+  }, 60000); //
 
   test('should handle package with no dependencies correctly', async () => {
-  const dataWithNoDeps = {
-    ...mockLibraryData,
-    dependencies: [] // No dependencies
-  };
-  
-  // Default mock from beforeEach for "test-package@1.0.0" is "not found", so it will retry
-  const publishPromise = publishToNpmAsync(dataWithNoDeps, true);
-  
-  // Advance each timer individually by using advanceTimersByTime instead of runOnlyPendingTimers
-  await jest.advanceTimersByTimeAsync(5000); // First retry delay
-  await jest.advanceTimersByTimeAsync(5000); // Second retry delay
-  await jest.advanceTimersByTimeAsync(5000); // Third retry delay
-  
-  await publishPromise;
+
+    const dataWithNoDeps = {
+      ...mockLibraryData,
+      dependencies: [] // No dependencies
+    };
+
+    // Default mock from beforeEach for "test-package@1.0.0" is "not found", so it will retry
+    const publishPromise = publishToNpmAsync(dataWithNoDeps, true);
+
+    // Advance each timer individually by using advanceTimersByTime instead of runOnlyPendingTimers
+    await jest.advanceTimersByTimeAsync(5000); // First retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Second retry delay
+    await jest.advanceTimersByTimeAsync(5000); // Third retry delay
+
+    await publishPromise;
 
     // Should still check version and publish
     // Verify version check was performed for the main package and retried

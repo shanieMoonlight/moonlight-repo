@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { HighlightModule } from 'ngx-highlightjs';
+import { Subject, switchMap } from 'rxjs';
 import { DownloadSetupFilesService, SetupFile } from '../../../../../../shared/utils/setup/download-setup/download-setup.service';
 import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
-import { map, Subject, switchMap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'sb-home-getting-started',

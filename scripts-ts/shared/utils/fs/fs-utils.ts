@@ -192,4 +192,43 @@ export class FsUtils {
 
     //----------------------------//
 
+    /**
+     * Writes content to a file (sync). Creates the file if it doesn't exist, 
+     * or overwrites it if it does.
+     * @param filePath Path to the file to write.
+     * @param content Content to write to the file.
+     * @param encoding File encoding (default: 'utf8').
+     * @throws Error if writing fails.
+     */
+    static writeFile(filePath: string, content: string, encoding: BufferEncoding = 'utf8'): void {
+        try {
+            fs.writeFileSync(filePath, content, { encoding });
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : String(err);
+            throw new Error(`Failed to write to file ${filePath}: ${errorMessage}`);
+        }
+    }
+
+    //- - - - - - - - - - - - - - //
+
+    /**
+     * Writes content to a file (async). Creates the file if it doesn't exist, 
+     * or overwrites it if it does.
+     * @param filePath Path to the file to write.
+     * @param content Content to write to the file.
+     * @param encoding File encoding (default: 'utf8').
+     * @returns Promise that resolves when the write is complete.
+     * @throws Error if writing fails.
+     */
+    static async writeFileAsync(filePath: string, content: string, encoding: BufferEncoding = 'utf8'): Promise<void> {
+        try {
+            await fs.promises.writeFile(filePath, content, { encoding });
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : String(err);
+            throw new Error(`Failed to write to file ${filePath}: ${errorMessage}`);
+        }
+    }
+
+    //----------------------------//
+
 }//Cls

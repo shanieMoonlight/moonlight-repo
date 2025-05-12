@@ -2,6 +2,35 @@
 
 //======================= REGULAR =======================//
 
+// .primary {
+//   @include mat.button-overrides(
+//     (
+//       // Filled button (standard)
+//       filled-container-color: var(--mat-sys-primary),
+//       filled-label-text-color: var(--mat-sys-on-primary),
+//       filled-state-layer-color: var(--mat-sys-on-primary),
+//       filled-ripple-color: var(--mat-sys-primary-container),
+      
+//       // Outlined button
+//       outlined-outline-color: var(--mat-sys-primary),
+//       outlined-label-text-color: var(--mat-sys-primary),
+//       outlined-state-layer-color: var(--mat-sys-primary),
+//       outlined-ripple-color: var(--mat-sys-primary-container),
+      
+//       // Text button
+//       text-label-text-color: var(--mat-sys-primary),
+//       text-state-layer-color: var(--mat-sys-primary),
+//       text-ripple-color: var(--mat-sys-primary-container),
+      
+//       // Protected button (equivalent to "elevated" in Material 3)
+//       protected-container-color: var(--mat-sys-primary-container),
+//       protected-label-text-color: var(--mat-sys-primary-container),
+//       protected-state-layer-color: var(--mat-sys-on-primary-container),
+//       protected-ripple-color: var(--mat-sys-primary-container)
+//     )
+//   );
+// }
+
 .secondary {
   @include mat.button-overrides(
     (
@@ -9,13 +38,13 @@
       filled-container-color: var(--mat-sys-secondary),
       filled-label-text-color: var(--mat-sys-on-secondary),
       filled-state-layer-color: var(--mat-sys-on-secondary),
-      filled-ripple-color: var(--mat-sys-on-secondary),
+      filled-ripple-color: var(--mat-sys-secondary-container),
       
       // Outlined button
       outlined-outline-color: var(--mat-sys-secondary),
       outlined-label-text-color: var(--mat-sys-secondary),
       outlined-state-layer-color: var(--mat-sys-secondary),
-      outlined-ripple-color: var(--mat-sys-secondary),
+      outlined-ripple-color: var(--mat-sys-secondary-container),
       
       // Text button
       text-label-text-color: var(--mat-sys-secondary),
@@ -26,7 +55,7 @@
       protected-container-color: var(--mat-sys-secondary-container),
       protected-label-text-color: var(--mat-sys-on-secondary-container),
       protected-state-layer-color: var(--mat-sys-on-secondary-container),
-      protected-ripple-color: var(--mat-sys-on-secondary-container)
+      protected-ripple-color: var(--mat-sys-secondary-container)
     )
   );
 }
@@ -40,13 +69,13 @@
       filled-container-color: var(--mat-sys-tertiary),
       filled-label-text-color: var(--mat-sys-on-tertiary),
       filled-state-layer-color: var(--mat-sys-on-tertiary),
-      filled-ripple-color: var(--mat-sys-on-tertiary),
+      filled-ripple-color: var(--mat-sys-tertiary-container),
       
       // Outlined button
       outlined-outline-color: var(--mat-sys-tertiary),
       outlined-label-text-color: var(--mat-sys-tertiary),
       outlined-state-layer-color: var(--mat-sys-tertiary),
-      outlined-ripple-color: var(--mat-sys-tertiary),
+      outlined-ripple-color: var(--mat-sys-tertiary-container),
       
       // Text button
       text-label-text-color: var(--mat-sys-tertiary),
@@ -57,7 +86,7 @@
       protected-container-color: var(--mat-sys-tertiary-container),
       protected-label-text-color: var(--mat-sys-on-tertiary-container),
       protected-state-layer-color: var(--mat-sys-on-tertiary-container),
-      protected-ripple-color: var(--mat-sys-on-tertiary-container)
+      protected-ripple-color: var(--mat-sys-tertiary-container)
     )
   );
 }
@@ -71,13 +100,13 @@
       filled-container-color: var(--mat-sys-error),
       filled-label-text-color: var(--mat-sys-on-error),
       filled-state-layer-color: var(--mat-sys-on-error),
-      filled-ripple-color: var(--mat-sys-on-error),
+      filled-ripple-color: var(--mat-sys-on-error-container),
       
       // Outlined button
       outlined-outline-color: var(--mat-sys-error),
       outlined-label-text-color: var(--mat-sys-error),
       outlined-state-layer-color: var(--mat-sys-error),
-      outlined-ripple-color: var(--mat-sys-error),
+      outlined-ripple-color: var(--mat-sys-error-container),
       
       // Text button
       text-label-text-color: var(--mat-sys-error),

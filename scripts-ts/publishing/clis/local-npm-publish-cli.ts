@@ -1,9 +1,10 @@
-
 import chalk from 'chalk'; // Assuming chalk@4
 import { program } from 'commander';
+import * as path from 'path';
 import { extractLibraryData } from '../../shared/library-data/extract_data_from_library';
-import { LibraryDependency } from '../../shared/library-data/models';
+import { LibraryData, LibraryDependency } from '../../shared/library-data/models';
 import { localNpmPublishPackage } from '../shared/npm/local-npm-publisher';
+import { FsUtils } from '../../shared/utils/fs/fs-utils';
 import { logErrorToConsole } from './utils/error-logger';
 
 //####################################################//
@@ -36,12 +37,81 @@ const localNpmDir = options.localNpmDir;
  * Controls whether dependency publishing failures should cause the entire process to fail.
  * When true: Any dependency publish failure will throw an error and stop the process.
  * When false: Dependency failures will be logged as warnings and the main package will still be published.
- * 
- * This could be exposed as a CLI flag like '--strict-deps' in the future.
  */
 const dependencyPublishMustNotFail = false;
 
+const installationCommands: string[] = []
+
 console.log(chalk.blue(`Publish CLI options: `), options);
+
+//= = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+/**
+ * Adds a command to the installation commands array.
+ * @param command - The command to add
+ */
+const addInstallationCommand = (packagePath: string) =>
+    installationCommands.push(`npm install ${packagePath}`);
+
+//= = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+/**
+ * Prints all installation commands as a single consecutive command.
+ * Uses the appropriate shell operator to run commands one after another:
+ * - For Windows PowerShell: semicolon (;)
+ * - For CMD: ampersand (&)
+ * - For bash/sh: double ampersand (&&) for conditional execution
+ * 
+ * @returns A string containing all commands joined with the appropriate operator
+ */
+function printConsecutiveInstallCommand(): string {
+    if (installationCommands.length === 0) 
+        return '';    
+    
+    // Default to PowerShell syntax (semicolon) since we're on Windows
+    const commandOperator = '; ';
+    const consecutiveCommand = installationCommands.join(commandOperator);
+    
+    console.log(chalk.bgCyan.black('\r\n CONSECUTIVE INSTALL COMMAND: '));
+    console.log(chalk.cyan(consecutiveCommand));
+    console.log(chalk.gray('\r\nCopy and paste this command to install all packages in one go.\r\n'));
+    
+    return consecutiveCommand;
+}
+
+//= = = = = = = = = = = = = = = = = = = = = = = = = = //
+
+/**
+ * Saves the installation commands to a text file in the library's root directory.
+ * This makes it easier to run the commands later without having to copy them from the console.
+ * 
+ * @param consecutiveCommand - The concatenated installation command string
+ * @param libData - Library data containing the library's root path
+ * @returns The path to the created file
+ */
+function saveInstallationCommandsToFile(consecutiveCommand: string, libData: LibraryData): string {
+    if (!consecutiveCommand) {
+        console.log(chalk.yellow('No installation commands to save.'));
+        return '';
+    }
+    
+    // Create filename with timestamp to avoid overwriting
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `installation_cmd_${timestamp}.txt`;
+    const filePath = path.join(libData.libraryRootAbsolute, filename);
+    
+    try {
+        // Write the installation commands to the file using FsUtils
+        FsUtils.writeFile(filePath, consecutiveCommand, 'utf8');
+        
+        console.log(chalk.green(`\r\nInstallation commands saved to: ${chalk.bold(filePath)}`));
+        return filePath;
+    } catch (err) {
+        logErrorToConsole(err)
+        return '';
+    }
+}
+
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
@@ -54,10 +124,9 @@ async function localNpm_Dependency_PublishAsync(dependencyRootRelative: string, 
     console.log(chalk.cyan(`\r\nPublish CLI: publishing dependency from ${dependencyRootRelative}\r\n`));
     try {
         const libraryData = extractLibraryData(dependencyRootRelative);
-        await localNpmPublishPackage(
-            libraryData,
-            localNpmDir
-        )
+        const packagePath = await localNpmPublishPackage(libraryData, localNpmDir)
+
+        addInstallationCommand(packagePath);
         console.log(chalk.green(`   Dependency ${libraryData.packageName} published successfully!\r\n`));
 
     } catch (err) {
@@ -103,11 +172,18 @@ async function localNpmPublishCliAsync() {
         else
             console.log(chalk.yellow(`Publish CLI: Skipping dependency publish...`))
 
-        await localNpmPublishPackage(
+        const packagePath = await localNpmPublishPackage(
             mainLibraryData,
             localNpmDir
-        );
+        );        addInstallationCommand(packagePath);
         console.log(chalk.bgGreen.black.bold(" PUBLISHED!!!!!!!!!!!!!! ")); // Example with background and bold
+
+        // Print and save the consecutive installation command
+        const consecutiveCommand = printConsecutiveInstallCommand();
+        if (consecutiveCommand) {
+            saveInstallationCommandsToFile(consecutiveCommand, mainLibraryData);
+        }
+
         process.exit(0)
     } catch (err) {
         logErrorToConsole(err)

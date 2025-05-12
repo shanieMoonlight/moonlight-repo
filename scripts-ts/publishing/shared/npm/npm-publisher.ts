@@ -24,7 +24,12 @@ function printStartInfo(libraryData: LibraryData) {
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
 // Confirm all dependencies are published
-function confirmAllDependenciesPublished(dependenciesToCheck: LibraryDependency[], dependencyType: string = 'dependencies'): boolean {
+async function confirmAllDependenciesPublished(
+    dependenciesToCheck: LibraryDependency[],
+    dependencyType: string = 'dependencies',
+    retries = 3,
+    retryDelayMs = 5000
+): Promise<boolean> {
     console.log(chalk.cyan(`INFO [Check-AllDependencies]: Checking ${dependencyType} from source...`));
 
     if (!dependenciesToCheck || dependenciesToCheck.length === 0) {
@@ -33,17 +38,16 @@ function confirmAllDependenciesPublished(dependenciesToCheck: LibraryDependency[
     }
 
     for (const dep of dependenciesToCheck) {
-        const npmSpec = `${dep.name}@${dep.version}`; // dep.version is the version range from source
-        console.log(chalk.gray(`DEBUG: Checking '${npmSpec}' on npm...`));
-        const { status } = CommandUtils.run(`npm view "${npmSpec}" version --json`); // Added quotes for safety
+        const npmSpec = `${dep.name}@${dep.version}`;
+        // Use isPackageVersionAlreadyPublished which has retry logic
+        const found = await isPackageVersionAlreadyPublished(dep.name, dep.version, retries, retryDelayMs);
 
-        if (status !== 0) {
-            console.error(chalk.red(`ERROR: Required ${dependencyType} version '${npmSpec}' (from source) not found on npm!`));
+        if (!found) {
+            console.error(chalk.red(`ERROR: Required ${dependencyType} '${npmSpec}' not found on npm after ${retries + 1} attempts!`));
             return false;
         }
 
         console.log(chalk.green(`INFO: Found suitable version for '${npmSpec}' on npm.`));
-
     }
 
     console.log(chalk.green(`INFO: All ${dependencyType} from source found successfully.`));
@@ -66,14 +70,13 @@ async function isPackageVersionAlreadyPublished(
         const versionCheck = CommandUtils.run(`npm view "${npmPackageSpec}" version --json`); // REMOVED await here
         const found = versionCheck.status === 0 && versionCheck.stdout.trim() !== '';
 
-        if (found) {
+        if (found)
             return true;
-        }
 
         if (attempt <= retries) {
             console.log(chalk.yellow(`INFO: Package not found on attempt ${attempt}/${retries + 1}. Waiting ${retryDelayMs / 1000}s for NPM registry propagation...`));
             // This Promise for setTimeout still needs to be awaited to pause execution
-            await new Promise(resolve => setTimeout(resolve, retryDelayMs)); 
+            await new Promise(resolve => setTimeout(resolve, retryDelayMs));
         }
     }
 
@@ -81,6 +84,7 @@ async function isPackageVersionAlreadyPublished(
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
+
 
 async function confirmPublishPromptAsync(packageName: string): Promise<boolean> {
     const response = await prompts({
@@ -128,7 +132,7 @@ export async function publishToNpmAsync(
 
 
     // --- Check Dependencies ---
-    if (!confirmAllDependenciesPublished(dependencies, 'dependencies'))
+    if (!(await confirmAllDependenciesPublished(dependencies, 'dependencies')))
         throw new Error('Dependency check failed. Please ensure all dependencies are published first.');
     console.log(chalk.green('INFO: Dependency check passed.\n'));
 

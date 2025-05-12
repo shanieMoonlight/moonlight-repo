@@ -1,27 +1,62 @@
-
 <sb-home-section-hdr 
   [sectionNumber]="_sectionNumber()" 
   [title]="'Getting Started'"/>
 
-<div class="mat-required-blurb">
+<!-- <div class="mat-required-blurb">
     <h3>Prerequisites</h3>
-    <strong>Note:</strong> This library requires
-    <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.<br>
-    See the <a href="https://material.angular.io/guide/getting-started" target="_blank" rel="noopener">Angular Material Getting Started
-        Guide</a> for full setup instructions.
+    <strong>Important Note:</strong> This library requires
+    <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a> with a matching version to your Angular installation.<br>
+      <div class="version-note" style="margin: 1rem 0; padding: 1rem; background-color: #fff3e0; border-left: 4px solid #ff9800;">
+        <strong>Why Version Matching Matters:</strong><br>
+        Due to npm's peer dependency resolution algorithm, you must install Angular Material and CDK versions that match your Angular version. This is because:
+        <ul>
+            <li>Angular Material and CDK require exact Angular version alignment</li>
+            <li>When npm encounters a range of compatible versions like "17.x || 18.x || 19.x", it tends to select the newest version</li>
+            <li>This can lead to conflicts when the newest Material/CDK version requires a newer Angular version than what's in your project</li>
+        </ul>
+        <strong>Required Versions:</strong>
+        <ul>
+            <li>For Angular 17: Use Material/CDK 17.x</li>
+            <li>For Angular 18: Use Material/CDK 18.x</li>
+            <li>For Angular 19: Use Material/CDK 19.x</li>
+        </ul>
+    </div>
+
+    <strong>Angular Material Setup Options:</strong>
     <br>
+    <strong>Option 1 (Recommended):</strong> Using the Angular CLI schematic
     <br>
-    <strong>Angular Material Setup:</strong>
-    <br>
-    This command will install all dependencies and set up themes, fonts, and animations automatically.<br>
+    This command will install matching dependencies and set up themes, fonts, and animations automatically:
     <pre><code>ng add &#64;angular/material</code></pre>
-    or manual install
+    
+    <strong>Option 2:</strong> Manual installation with version matching
     <br>
-    <!-- <strong>Manual install:</strong> -->
-    <pre><code>npm install &#64;angular/material &#64;angular/cdk</code></pre>
+    Install Material and CDK that match your Angular version:
+    <pre><code># To default to the version that matches your current angular version (Will work if you're using Angular 17, 18 or 19)
+npm install &#64;angular/material &#64;angular/cdk
+
+# For Angular 18
+npm install &#64;angular/material&#64;18 &#64;angular/cdk&#64;18
+
+# For Angular 19
+npm install &#64;angular/material&#64;19 &#64;angular/cdk&#64;19</code></pre>
 </div>
+
 <h3>Installation</h3>
-<pre><code>{{ _npmInstallCmd() }}</code></pre>
+<div class="installation-steps">
+    <strong>Step 1:</strong> Install matching Angular Material/CDK as shown above
+    <br>
+    <strong>Step 2:</strong> Install SpiderBaby Material Theming
+    <pre><code>{{ _npmInstallCmd() }}</code></pre>    <div class="troubleshooting-note" style="margin-top: 1rem; padding: 1rem; background-color: #e8f5e9; border-left: 4px solid #4caf50;">
+        <strong>💡 Tip:</strong> If you encounter dependency conflicts, you can add overrides to your package.json before installing:    <pre><code [highlight]='`{
+  "overrides": {
+    "@angular/cdk": "18.2.13",
+    "@angular/material": "18.2.13"
+  }
+}`' language="json"></code></pre>
+        <em>Replace the version numbers with those matching your Angular version.</em>
+    </div>
+</div>
 
 <h3>Custom Theme Config</h3>
 <p>
@@ -48,8 +83,7 @@
 <p>
     This will asllow you apply your theme’s primary, secondary, tertiary, and error colors to all Material buttons, FABs and other Mat Components using CSS variables. You can
     see this in action in our <code>Theme Showcase</code> demo.
-</p>
-    <!-- <pre><code>&#64;use '&#64;spider-baby/material-theming/styles/mat-color-overrides.scss' as *;</code></pre> -->
+</p> -->
     <pre><code [highlight]="`@use '@spider-baby/material-theming/styles/mat-color-overrides.scss' as *;`" language="scss"></code></pre>
     
     <h3>Button Color Overrides: Example</h3>
@@ -65,19 +99,21 @@
     
     <div class="button-examples">
       <div class="button-example-row">
-        <!-- <pre><code>&lt;button mat-flat-button class="primary"&gt;Primary&lt;/button&gt;</code></pre> -->
-        <pre><code [highlight]='`<button mat-flat-button class="primary">Primary<&lt;>/button>`' language="html"></code></pre>
+        <pre><code [highlight]='`<button mat-flat-button class="primary">Primary</button>`' language="html"></code></pre>
         <button mat-flat-button class="primary">Primary</button>
+        <button mat-stroked-button class="primary">Primary</button>
+          <!-- <button mat-raised-button class="primary">Primary</button> -->
       </div>
       <div class="button-example-row">
-        <!-- <pre><code>&lt;button mat-flat-button class="secondary"&gt;Secondary&lt;/button&gt;</code></pre> -->
         <pre><code [highlight]='`<button mat-flat-button class="secondary">Secondary</button>`' language="html"></code></pre>
         <button mat-flat-button class="secondary">Secondary</button>
+        <button mat-stroked-button class="secondary">Secondary</button>
       </div>
       <div class="button-example-row">
-        <!-- <pre><code>&lt;button mat-flat-button class="tertiary"&gt;Tertiary&lt;/button&gt;</code></pre> -->
         <pre><code [highlight]='`<button mat-flat-button class="tertiary">Tertiary</button>`' language="html"></code></pre>
         <button mat-flat-button class="tertiary">Tertiary</button>
+        <button mat-stroked-button class="tertiary">Tertiary</button>
+        <!-- <button mat-raised-button class="tertiary">Tertiary</button> -->
       </div>
     </div>
 
@@ -140,10 +176,6 @@
     
     <br>
     If not ensure your theme variables are always generated, add <code>provideThemeInitializer()</code> to your app’s providers.<br>
-    <!-- <small> -->
-      <!-- <code>bootstrapApplication(AppComponent, &#123; providers: [provideThemeInitializer(THEME_CONFIG)] &#125;)</code> -->
-      
-    <!-- </small> -->
     Example:<br>
   </div>
   <pre><code [highlight]='`
@@ -190,7 +222,6 @@
   <p>
     For more information about the available options and API, check out the
    <span> <a [routerLink]="['/api/service-api']" class="api-link">
-      <!-- <mat-icon>code</mat-icon> -->
       Complete API Documentation
     </a>
   </span>
