@@ -1,1 +1,0 @@
-C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@spider-baby\theming\build-helpers\build-and-pack-all-local.bat

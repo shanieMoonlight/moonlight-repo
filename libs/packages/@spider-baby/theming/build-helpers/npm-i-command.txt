@@ -1,8 +1,0 @@
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-download-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-memoization-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-open-in-new-window-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-rxjs-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-share-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-utils-testing-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-ssr-storage-0.0.1.tgz
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-material-theming-0.1.0.tgz

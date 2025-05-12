@@ -1,4 +1,0 @@
-C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@spider-baby\theming\build-helpers\publish.bat
-
-
-C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\packages\@spider-baby\theming\build-helpers\publish.bat --dry-run

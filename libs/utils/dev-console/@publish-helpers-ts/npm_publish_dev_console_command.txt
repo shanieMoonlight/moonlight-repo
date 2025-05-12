@@ -1,1 +1,0 @@
-ts-node C:/Users/Shaneyboy/VsCode/moonlight-repo/libs/utils/dev-console/@publish-helpers-ts/npm_publish_dev_console.ts

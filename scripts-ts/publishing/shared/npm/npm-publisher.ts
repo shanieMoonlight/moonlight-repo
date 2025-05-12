@@ -52,24 +52,41 @@ function confirmAllDependenciesPublished(dependenciesToCheck: LibraryDependency[
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
-function isPackageVersionAlreadyPublished(packageName: string, packageVersion: string): boolean {
+async function isPackageVersionAlreadyPublished(
+    packageName: string,
+    packageVersion: string,
+    retries = 3,
+    retryDelayMs = 5000
+): Promise<boolean> {
     const npmPackageSpec = `${packageName}@${packageVersion}`;
     console.log(chalk.cyan(`INFO: Checking if ${npmPackageSpec} is already published...`));
-    // Use --json to get structured output and avoid parsing issues with npm view's human-readable output
-    const versionCheck = CommandUtils.run(`npm view "${npmPackageSpec}" version --json`); // Added quotes
-    // If `npm view` finds the exact version, it returns the version string. If not, it errors or returns empty.
-    // A non-zero status means it's not found or an error occurred.
-    // A zero status and non-empty stdout means it's found.
-    return versionCheck.status === 0 && versionCheck.stdout.trim() !== '';
+
+    for (let attempt = 1; attempt <= retries + 1; attempt++) {
+        // Use --json to get structured output and avoid parsing issues with npm view's human-readable output
+        const versionCheck = CommandUtils.run(`npm view "${npmPackageSpec}" version --json`); // REMOVED await here
+        const found = versionCheck.status === 0 && versionCheck.stdout.trim() !== '';
+
+        if (found) {
+            return true;
+        }
+
+        if (attempt <= retries) {
+            console.log(chalk.yellow(`INFO: Package not found on attempt ${attempt}/${retries + 1}. Waiting ${retryDelayMs / 1000}s for NPM registry propagation...`));
+            // This Promise for setTimeout still needs to be awaited to pause execution
+            await new Promise(resolve => setTimeout(resolve, retryDelayMs)); 
+        }
+    }
+
+    return false;
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
-async function confirmPublishPromptAsync(): Promise<boolean> {
+async function confirmPublishPromptAsync(packageName: string): Promise<boolean> {
     const response = await prompts({
         type: 'confirm',
         name: 'value',
-        message: 'If everything looks correct, publish for real?',
+        message: `If everything looks correct, publish ${packageName} for real?`,
         initial: true
     });
 
@@ -118,7 +135,10 @@ export async function publishToNpmAsync(
 
     // --- Check if Main Package Version Exists ---
     const npmPackageSpec = `${packageName}@${versionToPublish}`;
-    if (isPackageVersionAlreadyPublished(packageName, versionToPublish)) {
+
+    const found = await isPackageVersionAlreadyPublished(packageName, versionToPublish, 3, 5000);
+
+    if (found) {
         console.log(chalk.yellow(`INFO: ${npmPackageSpec} already published, skipping.`));
         return;
     }
@@ -127,25 +147,25 @@ export async function publishToNpmAsync(
 
     // --- Publish Step ---
     // Dry run
-//     console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
-//     const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
-//     if (dryRun.status !== 0)
-//         throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
+    console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
+    const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
+    if (dryRun.status !== 0)
+        throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
 
-//     console.log(chalk.green('INFO: Dry run complete. Review the files listed above.\n'));
+    console.log(chalk.green('INFO: Dry run complete. Review the files listed above.\n'));
 
-//     // Confirmation prompt
-//     if (confirmBeforePublish && !(await confirmPublishPromptAsync()))
-//         return;
+    // Confirmation prompt
+    if (confirmBeforePublish && !(await confirmPublishPromptAsync(packageName)))
+        return;
 
 
-//     // Actual publish
-//     console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
-//     const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
-//     if (publishResult.status !== 0)
-//         throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
+    // Actual publish
+    console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
+    const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
+    if (publishResult.status !== 0)
+        throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
 
-//     console.log(chalk.bgGreen.black.bold(` INFO: Successfully published ${npmPackageSpec}. `));
+    console.log(chalk.bgGreen.black.bold(` INFO: Successfully published ${npmPackageSpec}. `));
 }
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //

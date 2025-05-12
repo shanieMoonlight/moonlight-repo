@@ -1,1 +1,0 @@
-npm install C:\Users\Shaneyboy\my-npm\spider-baby-ssr-storage-1.0.1.tgz
