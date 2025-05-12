@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "demo-app": {
+      "factory": "./src/generators/demo-app",
+      "schema": "./src/generators/schema.json",
+      "description": "demo-app generator"
+    }
+  }
+}

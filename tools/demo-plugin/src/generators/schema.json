@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "demo-app",
+  "title": "Demo Application Generator",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the application",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the demo application?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Directory where the application is placed",
+      "x-prompt": "In which directory should the application be generated?"
+    }
+  },
+  "required": ["name"]
+}

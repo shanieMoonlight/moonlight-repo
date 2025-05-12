@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@moonlight/tools": ["tools/src/index.ts"],
       "@scripts-ts": ["scripts-ts"],
+      "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
