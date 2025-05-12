@@ -67,3 +67,5 @@ Thumbs.db
 # Ignore dev assets folder at the root of your project
 **/@dev-assets/
 **/secrets
+.cursor\rules\nx-rules.mdc
+.github\instructions\nx.instructions.md

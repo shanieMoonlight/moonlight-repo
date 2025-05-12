@@ -18,7 +18,25 @@
       "type": "string",
       "description": "Directory where the application is placed",
       "x-prompt": "In which directory should the application be generated?"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Title of the application",
+      "x-prompt": "What title would you like to use for the demo application?"
+    },
+    "prefix": {
+      "type": "string",
+      "format": "html-selector",
+      "description": "The prefix to apply to generated selectors.",
+      "default": "sb",
+      "alias": "p"
+    },
+    "port": {
+      "type": "number",
+      "description": "The port at which the remote application should be served.",
+      "x-prompt": "The port at which the remote application should be served.",
+      "default": 4206
     }
   },
-  "required": ["name"]
+  "required": ["name", "directory"]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "@spider-baby/utils-mat-everything",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/material": "^19.2.0"
+  },
+  "sideEffects": false
+}

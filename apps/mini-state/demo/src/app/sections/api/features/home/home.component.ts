@@ -25,7 +25,7 @@ export class ApiHomeComponent implements OnInit {
   //- - - - - - - - - - - - - - -//
 
   apiRoutes = signal(API_ROUTES);
-  title = 'Mini-State Demo';
+  title = 'Mini-State Docs';
   subtitle = 'A lightweight, signals-based state management library for Angular applications';
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 
