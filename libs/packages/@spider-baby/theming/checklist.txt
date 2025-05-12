@@ -11,5 +11,4 @@ SEO
 Redo : devLog
 
 
-Test sitemap
 

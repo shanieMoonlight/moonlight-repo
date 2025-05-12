@@ -27,6 +27,7 @@ const _themeOptions: ThemeOption[] = [
     value: 'violet-lime',
     primaryColor: '#8A2BE2',
     secondaryColor: '#32CD32',
+    tertiaryColor: '#223127',
   }),
   ThemeOption.create({
     darkMode: 'light',
@@ -34,21 +35,24 @@ const _themeOptions: ThemeOption[] = [
     value: 'pastel',
     primaryColor: '#FFB7C5', // Light pink
     secondaryColor: '#FFDA61', // Deeper pastel yellow
-  })  ,
-    ThemeOption.create({
-      darkMode: 'dark',
-      label: 'Deep Ocean',
-      value: 'deep-ocean',
-      primaryColor: '#1E3A8A', // Deep blue
-      secondaryColor: '#06B6D4', // Cyan
-    }),
-    ThemeOption.create({
-      darkMode: 'light',
-      label: 'Cherry Blossom',
-      value: 'cherry-blossom',
-      primaryColor: '#EC4899', // Pink
-      secondaryColor: '#84CC16', // Lime green
-    })
+    tertiaryColor: '#7371FC', 
+  }),
+  ThemeOption.create({
+    darkMode: 'dark',
+    label: 'Deep Ocean',
+    value: 'deep-ocean',
+    primaryColor: '#1E3A8A', // Deep blue
+    secondaryColor: '#06B6D4', // Cyan
+    tertiaryColor: '#4E6E58', 
+  }),
+  ThemeOption.create({
+    darkMode: 'light',
+    label: 'Cherry Blossom',
+    value: 'cherry-blossom',
+    primaryColor: '#EC4899', // Pink
+    secondaryColor: '#84CC16', // Lime green
+    tertiaryColor: '#9BF3F0', 
+  })
 ];
 
 export const XMAS_THEME: ThemeOption = ThemeOption.create({
