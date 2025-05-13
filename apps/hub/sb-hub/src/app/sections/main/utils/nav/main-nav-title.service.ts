@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { HubNavigationService } from '../../../../shared/utils/routing/hub-navigation.service';
+import { HubRouterUtilsService } from '../../../../shared/utils/routing/hub-navigation.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MainNavTitleService {
 
-  private _navService = inject(HubNavigationService)
+  private _navService = inject(HubRouterUtilsService)
 
   value = signal<string>('SpiderBaby Hub')
 

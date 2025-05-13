@@ -1,0 +1,10 @@
+{
+  "name": "@spider-baby/ui-git",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@spider-baby/utils-open-in-new-window": "^1.0.0",
+    "@angular/core": "^19.2.0",
+    "@angular/common": "^19.2.0"
+  },
+  "sideEffects": false
+}

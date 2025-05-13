@@ -1,0 +1,10 @@
+{
+  "name": "@sb-hub/shared-ui/hero-banner",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@spider-baby/material-theming": "*"
+  },
+  "sideEffects": false
+}

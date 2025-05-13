@@ -1,0 +1,11 @@
+{
+  "name": "@sb-hub/shared-features/not-found",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@angular/material": "^19.2.0",
+    "@sb-hub/core-config": "*"
+  },
+  "sideEffects": false
+}

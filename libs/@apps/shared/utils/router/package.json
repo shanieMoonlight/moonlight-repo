@@ -1,0 +1,11 @@
+{
+  "name": "@sb-hub/shared-utils/router",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@spider-baby/dev-console": "*",
+    "rxjs": "^7.8.0"
+  },
+  "sideEffects": false
+}

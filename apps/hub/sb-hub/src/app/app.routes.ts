@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
-  {
-    path: 'api',
-    loadChildren: () =>
-      import('./sections/api/api.routes').then((m) => m.apiRoutes),
-  },
+  // {
+  //   path: 'api',
+  //   loadChildren: () =>
+  //     import('./sections/api/api.routes').then((m) => m.apiRoutes),
+  // },
   {
     path: '',
     loadChildren: () =>

@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  margin-bottom: 16px; // Add some space between cards
+}
+
+.demo-card {
+  max-width: 400px;
+  margin: 20px;
+
+  .banner-header {
+    position: relative;
+    height: 200px; // Adjust as needed, make it medium-sized
+    overflow: hidden;
+
+    .header-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Ensures the image covers the area, might crop
+      display: block;
+    }
+
+    .banner-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); // Gradient for text readability
+      color: white;
+
+      .banner-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0 0 4px 0;
+      }
+
+      .banner-description {
+        font-size: 0.9em;
+        margin: 0;
+      }
+    }
+  }
+
+  mat-card-header {
+    padding-top: 16px; // Add some space if banner is directly above
+
+    .mat-icon {
+      font-size: 40px; // Make avatar icon a bit larger
+      width: 40px;
+      height: 40px;
+      margin-right: 16px; // Ensure space between icon and title
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.2em;
+  }
+
+  mat-card-subtitle {
+    color: #666;
+    color: var(--mat-sys-neutral-variant);
+  }
+
+  mat-card-content {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    p {
+      margin-bottom: 16px; // Space before actions
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+
+    a.mat-stroked-button {
+      .mat-icon {
+        margin-right: 8px; // Space between icon and text in button
+      }
+    }
+  }
+}

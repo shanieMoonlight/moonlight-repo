@@ -16,6 +16,55 @@
     "baseUrl": ".",
     "paths": {
       "@moonlight/tools": ["tools/src/index.ts"],
+      "@sb-hub/core-config": ["libs/@apps/hub/@core/config/src/index.ts"],
+      "@sb-hub/core-config/constants": [
+        "libs/@apps/hub/@core/config/constants/src/index.ts"
+      ],
+      "@sb-hub/core-config/demo-apps": [
+        "libs/@apps/hub/@core/config/demo-apps/src/index.ts"
+      ],
+      "@sb-hub/core-config/images": [
+        "libs/@apps/hub/@core/config/images/src/index.ts"
+      ],
+      "@sb-hub/sections-main/config": [
+        "libs/@apps/hub/sections/main/config/src/index.ts"
+      ],
+      "@sb-hub/sections-main/config/constants": [
+        "libs/@apps/hub/sections/main/config/constants/src/index.ts"
+      ],
+      "@sb-hub/sections-main/config/demo-apps": [
+        "libs/@apps/hub/sections/main/config/demo-apps/src/index.ts"
+      ],
+      "@sb-hub/sections-main/config/route-data": [
+        "libs/@apps/hub/sections/main/config/route-data/src/index.ts"
+      ],
+      "@sb-hub/sections-main/features/home": [
+        "libs/@apps/hub/sections/main/features/home/src/index.ts"
+      ],
+      "@sb-hub/sections-main/features/open-source": [
+        "libs/@apps/hub/sections/main/features/open-source/src/index.ts"
+      ],
+      "@sb-hub/sections-main/features/open-source/card": [
+        "libs/@apps/hub/sections/main/features/open-source/card/src/index.ts"
+      ],
+      "@sb-hub/sections-main/ui/nav": [
+        "libs/@apps/hub/sections/main/ui/nav/src/index.ts"
+      ],
+      "@sb-hub/sections-main/utils/title": [
+        "libs/@apps/hub/sections/main/utils/title/src/index.ts"
+      ],
+      "@sb-hub/shared-features/not-found": [
+        "libs/@apps/shared/features/not-found/src/index.ts"
+      ],
+      "@sb-hub/shared-ui/hero-banner": [
+        "libs/@apps/shared/ui/hero-banner/src/index.ts"
+      ],
+      "@sb-hub/shared-utils/icons": [
+        "libs/@apps/shared/utils/icons/src/index.ts"
+      ],
+      "@sb-hub/shared-utils/router": [
+        "libs/@apps/shared/utils/router/src/index.ts"
+      ],
       "@scripts-ts": ["scripts-ts"],
       "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
@@ -79,6 +128,8 @@
       "@spider-baby/ui-cards": ["libs/ui/cards/src/index.ts"],
       "@spider-baby/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
+      "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
+      "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
       "@spider-baby/utils-mat-everything": [

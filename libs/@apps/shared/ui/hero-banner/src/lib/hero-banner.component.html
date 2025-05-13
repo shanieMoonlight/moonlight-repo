@@ -1,0 +1,21 @@
+<div class="hero-banner">
+  <div class="banner-content">
+    @if (imageUrl()) {
+    <img class="hero-image" [src]="imageUrl()" [alt]="imageAlt()" />
+    }
+    <h1 class="title">{{ title() }}</h1>
+    <h2 class="subtitle">{{ subtitle() }}</h2>
+    <p class="description">{{ description() }}</p>
+
+    <div class="cta-buttons">
+      <a mat-raised-button color="primary" [routerLink]="primaryButtonLink()">
+        <mat-icon>{{ primaryButtonIcon() }}</mat-icon>
+        {{ primaryButtonText() }}
+      </a>
+      <a mat-stroked-button color="accent" [href]="secondaryButtonLink()" target="_blank">
+        <mat-icon>{{ secondaryButtonIcon() }}</mat-icon>
+        {{ secondaryButtonText() }}
+      </a>
+    </div>
+  </div>
+</div>
