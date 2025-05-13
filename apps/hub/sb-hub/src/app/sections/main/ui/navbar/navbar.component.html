@@ -4,19 +4,17 @@
       class="navlink"
       [src]="_logoSml()"
       alt="SpiderBaby Material"
-      [routerLink]="'home'"
+      [routerLink]="'open-source'"
       routerLinkActive="active"
       [matTooltip]="'Home'"
-      [attr.aria-label]="'home'"
-    />
+      [attr.aria-label]="'home'"/>
 
     @if(!isSmallScreen()){
     <button
       mat-icon-button
       aria-label="Git repo for project"
       [mlNavigateNewWindow]="_gitRepoUrl()"
-      [matTooltip]="'Git repo'"
-    >
+      [matTooltip]="'Git repo'">
       <mat-icon svgIcon="git" />
     </button>
 
@@ -24,8 +22,7 @@
       mat-icon-button
       aria-label="Npm Package"
       [mlNavigateNewWindow]="_npmPkgUrl()"
-      [matTooltip]="'Npm Package'"
-    >
+      [matTooltip]="'Npm Package'">
       <mat-icon svgIcon="npm" />
     </button>
 
@@ -33,11 +30,14 @@
       mat-icon-button
       aria-label="Share current page"
       (click)="share()"
-      matTooltip="Share this page"
-    >
+      matTooltip="Share this page">
       <mat-icon>share</mat-icon>
     </button>
     }
+  </div>
+
+  <div class="title-container">
+    <span class="title">{{_title()}}</span>
   </div>
 
   <div class="right-links">
@@ -49,8 +49,7 @@
         tooltip: navLink.tooltip,
         iconName: navLink.icon,
         text: navLink.text
-      }"
-    />
+      }"/>
     }
 
     <div class="rhs-outlet">
@@ -68,16 +67,14 @@
   let-routerLink="routerLink"
   let-tooltip="tooltip"
   let-iconName="iconName"
-  let-text="text"
->
+  let-text="text">
   @if(!isSmallScreen()){
   <div
     class="navlink"
     [routerLink]="routerLink"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
-    [matTooltip]="tooltip"
-  >
+    [matTooltip]="tooltip">
     {{ text }}
   </div>
   }@else {
@@ -87,8 +84,7 @@
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
     [matTooltip]="tooltip"
-    [attr.aria-label]="tooltip"
-  >
+    [attr.aria-label]="tooltip">
     <mat-icon>{{ iconName }}</mat-icon>
   </button>
   }

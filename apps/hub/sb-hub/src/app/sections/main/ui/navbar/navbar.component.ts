@@ -1,13 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  signal,
-  TemplateRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef, } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -29,36 +22,36 @@ interface NavbarItem {
 //##############################################################//
 
 const rhsNavbarItems: NavbarItem[] = [
-  {
-    routerLink: 'route1',
-    tooltip: 'Route 1',
-    icon: 'egg',
-    text: 'Route 1',
-  },
-  {
-    routerLink: 'route2',
-    tooltip: 'Route 2',
-    icon: 'join_inner',
-    text: 'Route 2',
-  },
-  {
-    routerLink: 'route3',
-    tooltip: 'Route 3',
-    icon: 'oil_barrel',
-    text: 'Route 3',
-  },
-  {
-    routerLink: '/api',
-    tooltip: 'Api Documentation',
-    icon: 'api',
-    text: 'Api',
-  },
+  // {
+  //   routerLink: 'route1',
+  //   tooltip: 'Route 1',
+  //   icon: 'egg',
+  //   text: 'Route 1',
+  // },
+  // {
+  //   routerLink: 'route2',
+  //   tooltip: 'Route 2',
+  //   icon: 'join_inner',
+  //   text: 'Route 2',
+  // },
+  // {
+  //   routerLink: 'route3',
+  //   tooltip: 'Route 3',
+  //   icon: 'oil_barrel',
+  //   text: 'Route 3',
+  // },
+  // {
+  //   routerLink: '/api',
+  //   tooltip: 'Api Documentation',
+  //   icon: 'api',
+  //   text: 'Api',
+  // },
 ];
 
 //##############################################################//
 
 @Component({
-  selector: 'sb-main-navbar',
+  selector: 'hub-main-navbar',
   standalone: true,
   imports: [
     MatEverythingModule,
@@ -79,6 +72,8 @@ export class MainNavbarComponent {
   _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, {
     alias: 'rhsOutletTemplate',
   });
+
+  _title = input<string>('SpiderBaby', { alias: 'title' });
 
   //- - - - - - - - - - - - - - -//
 

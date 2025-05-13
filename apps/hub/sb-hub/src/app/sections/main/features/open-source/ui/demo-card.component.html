@@ -1,18 +1,24 @@
 <mat-card class="demo-card">
+    <div class="banner-header">
+        <img mat-card-image [src]="_img()" alt="Header Image" class="header-image">
+        <div class="banner-content">
+            <h2 class="banner-title">{{ _name() }}</h2>
+            <!-- <p class="banner-description">{{ _description() }}</p> -->
+        </div>
+    </div>
     <mat-card-header>
-        <mat-icon mat-card-avatar [fontIcon]="_icon()"></mat-icon>
-        <mat-card-title>{{ _name() }}</mat-card-title>
-        <mat-card-subtitle>{{ _description() }}</mat-card-subtitle>
+        <mat-card-title-group>
+            <!-- <mat-card-title>{{ _name() }}</mat-card-title> -->
+            <mat-card-subtitle>{{ _description() }}</mat-card-subtitle>
+            <mat-icon mat-card-avatar  class="demo-icon">{{_icon()}}</mat-icon>
+        </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
         <p>
-            Explore the {{ _name() }} demo to see it in action.
+            Explore the {{ _name() }} application.
         </p>
     </mat-card-content>
     <mat-card-actions>
-        <a mat-stroked-button class="primary" [href]="_url()" target="_blank" rel="noopener noreferrer">
-            <mat-icon fontIcon="launch" />
-            View Demo
-        </a>
+        <a mat-button [href]="_url()" target="_blank">OPEN DEMO</a>
     </mat-card-actions>
 </mat-card>

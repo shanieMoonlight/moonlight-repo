@@ -5,6 +5,39 @@
   width: 100%;
 }
 
+.title-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; // Center the title container
+  align-items: center; // Center the title vertically
+  z-index: 1; // Ensure it appears above other elements
+  pointer-events: none;
+}
+
+.title {
+  // Flex properties to allow the title to take available space and center itself
+  flex-grow: 1; // Allows the title to expand and push other elements to the sides
+  text-align: center; // Centers the text content within its available space
+
+  // Font styling for better readability and appearance
+  font-size: 1.25rem; // A slightly larger font size for emphasis
+  font-weight: 500; // Medium font weight, common for titles
+  letter-spacing: 0.5px; // Adds a little breathing room between characters
+
+  // Optional: Prevent text from wrapping if the title is long and space is constrained
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
+
+
+}
+
 mat-toolbar {
   // Ensure items are vertically centered if needed (usually default)
   display: flex;
@@ -28,8 +61,10 @@ mat-toolbar {
 }
 
 .rhs-outlet {
-  margin-left: auto; /* Aligns the element to the right */
-  display: flex; /* Ensure content inside aligns well */
+  margin-left: auto;
+  /* Aligns the element to the right */
+  display: flex;
+  /* Ensure content inside aligns well */
   align-items: center;
 }
 
@@ -42,23 +77,33 @@ mat-toolbar {
 
 .navlink {
   cursor: pointer;
-  margin: 0 12px; /* Adjust horizontal spacing */
-  padding: 8px 4px; /* Add some vertical padding for easier clicking */
-  font-size: 0.9rem; /* Reduce font size */
-  font-weight: 500; /* Medium weight, adjust as needed (400=normal, 500=medium) */
+  margin: 0 12px;
+  /* Adjust horizontal spacing */
+  padding: 8px 4px;
+  /* Add some vertical padding for easier clicking */
+  font-size: 0.9rem;
+  /* Reduce font size */
+  font-weight: 500;
+  /* Medium weight, adjust as needed (400=normal, 500=medium) */
   text-decoration: none;
-  color: var(--mat-sys-on-surface); /* Use theme text color */
-  border-bottom: 2px solid transparent; /* Prepare for active state underline */
-  transition: color 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
+  color: var(--mat-sys-on-surface);
+  /* Use theme text color */
+  border-bottom: 2px solid transparent;
+  /* Prepare for active state underline */
+  transition: color 0.2s ease, border-color 0.2s ease;
+  /* Smooth transitions */
 
   &:hover {
-    color: var(--mat-sys-primary); /* Change color on hover */
+    color: var(--mat-sys-primary);
+    /* Change color on hover */
   }
 
   // Style for the active route link
   &.active {
-    color: var(--mat-sys-primary); /* Active link color */
-    border-bottom-color: var(--mat-sys-primary); /* Add underline for active */
+    color: var(--mat-sys-primary);
+    /* Active link color */
+    border-bottom-color: var(--mat-sys-primary);
+    /* Add underline for active */
   }
 }
 
@@ -74,6 +119,7 @@ button[mat-icon-button] {
 
 // Responsive adjustments
 @media screen and (max-width: 650px) {
+
   // Match breakpoint in TS
   button[mat-icon-button] {
     margin: 0 2px; // Slightly reduce margin on small screens

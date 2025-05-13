@@ -6,17 +6,23 @@ export const mainRoutes: Route[] = [
     path: '',
     component: MainComponent,
     children: [
-      {
-        path: 'home',
-        loadComponent: () => import('./features/home/home.component').then((m) => m.MainHomeComponent),
-      },
+      // {
+      //   path: 'home',
+      //   loadComponent: () => import('./features/home/home.component').then((m) => m.MainHomeComponent),
+      // },
       {
         path: 'open-source',
         loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
       },
+      // {
+      //   path: '',
+      //   loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
+      // },
+      
       {
         path: '',
-        loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
+        redirectTo: 'open-source', // Change loadComponent to redirectTo
+        pathMatch: 'full', // Add pathMatch: 'full' for empty path redirects
       },
       {
         path: '**',

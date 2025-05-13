@@ -1,4 +1,3 @@
-// filepath: apps/mini-state/demo/src/app/sections/main/ui/hero-banner/hero-banner.component.ts
 import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';

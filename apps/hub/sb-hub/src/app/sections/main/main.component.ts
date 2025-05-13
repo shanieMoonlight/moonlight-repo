@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   MlDarkModeToggleMatComponent,
@@ -7,6 +7,7 @@ import {
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
+import { MainNavTitleService } from './utils/nav/main-nav-title.service';
 
 @Component({
   standalone: true,
@@ -18,10 +19,21 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
     ServiceWorkerUpdateMatComponent,
   ],
   providers: [],
-  selector: 'sb-main-root',
+  selector: 'hub-main-root',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  iconsService = inject(IconsService);
+
+  protected _iconsService = inject(IconsService);
+  protected _navTitle = inject(MainNavTitleService)
+  protected _title = computed(() => this._navTitle.value() || 'SpiderBaby')
+
+  //----------------------------//
+
+  constructor() {
+
+    this._navTitle.updateOnNavigationChange()
+  }
+
 } //Cls

@@ -79,7 +79,7 @@ const BENEFITS: Benefit[] = [
 //##############################################//
 
 @Component({
-  selector: 'sb-home',
+  selector: 'hub-home',
   standalone: true,
   imports: [
     CommonModule,

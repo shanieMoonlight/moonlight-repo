@@ -17,8 +17,16 @@ export const IS_HALLOWEEN =
 const _themeOptions: ThemeOption[] = [
   ThemeOption.create({
     darkMode: 'dark',
-    label: 'Spider-Baby',
-    value: 'spider-baby-hub',
+    label: 'Mint & Coral',
+    value: 'mint-coral',
+    primaryColor: '#4ECDC4', // Mint Green
+    secondaryColor: '#FF6B6B', // Coral Red
+    tertiaryColor: '#FFE66D', // Pastel Yellow
+  }),
+  ThemeOption.create({
+    darkMode: 'dark',
+    label: 'Starry Night',
+    value: 'starry-night',
     primaryColor: '#1E3A8A',
     secondaryColor: '#F0C420',
     tertiaryColor: '#8496B0', //(optional)
@@ -31,15 +39,6 @@ const _themeOptions: ThemeOption[] = [
     primaryColor: '#9B59B6', // Amethyst Purple
     secondaryColor: '#FAD7A0', // Pale Orange/Peach
     tertiaryColor: '#AED6F1', // Light Sky Blue
-  }),
-  ThemeOption.create({
-    // --- NO CHANGE ---
-    darkMode: 'dark',
-    label: 'Mint & Coral',
-    value: 'mint-coral',
-    primaryColor: '#4ECDC4', // Mint Green
-    secondaryColor: '#FF6B6B', // Coral Red
-    tertiaryColor: '#FFE66D', // Pastel Yellow
   }),
   ThemeOption.create({
     darkMode: 'dark',
