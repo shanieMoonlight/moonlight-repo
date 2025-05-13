@@ -1,0 +1,9 @@
+{
+  "name": "@sb-hub/app/route-defs",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@sb-hub/shared-utils/routes": "^0.0.1",
+    "@sb-hub/sections-main/route-defs": "0.0.1"
+  },
+  "sideEffects": false
+}

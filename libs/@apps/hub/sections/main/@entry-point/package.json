@@ -1,0 +1,19 @@
+{
+  "name": "@sb-hub/sections-main/entry-point",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@sb-hub/shared-utils/routes": "^0.0.1",
+    "@sb-hub/sections-main/features/home": "^0.0.1",
+    "@sb-hub/sections-main/features/open-source": "^0.0.1",
+    "@sb-hub/shared-features/not-found": "^0.0.1",
+    "@spider-baby/material-theming": "^1.0.1",
+    "@spider-baby/utils-seo": "^0.0.1",
+    "@sb-hub/shared-utils/icons": "^0.0.1",
+    "@sb-hub/sections-main/ui/nav": "^0.0.1",
+    "@sb-hub/sections-main/utils/title": "^0.0.1",
+    "@sb-hub/sections-main/route-defs": "0.0.1"
+  },
+  "sideEffects": false
+}

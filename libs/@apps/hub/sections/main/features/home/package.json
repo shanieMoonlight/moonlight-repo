@@ -3,7 +3,14 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/material": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@sb-hub/core-config": "0.0.1",
+    "@sb-hub/shared-ui/hero-banner": "0.0.1",
+    "@sb-hub/sections-main/config": "0.0.1",
+    "@spider-baby/utils-seo": "0.0.1",
+    "ngx-highlightjs": "^14.0.0"
   },
   "sideEffects": false
 }

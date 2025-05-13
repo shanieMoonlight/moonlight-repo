@@ -1,7 +1,4 @@
-import {
-  ThemeOption,
-  ThemingConfig,
-} from '@spider-baby/material-theming/config';
+import { ThemeOption, ThemingConfig, } from '@spider-baby/material-theming/config';
 
 const today = new Date();
 const thisYear = today.getFullYear();

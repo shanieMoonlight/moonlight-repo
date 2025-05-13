@@ -16,6 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@moonlight/tools": ["tools/src/index.ts"],
+      "@sb-hub/app/entry-point": ["libs/@apps/hub/@entry-point/src/index.ts"],
+      "@sb-hub/app/route-defs": ["libs/@apps/hub/@route-defs/src/index.ts"],
       "@sb-hub/core-config": ["libs/@apps/hub/@core/config/src/index.ts"],
       "@sb-hub/core-config/constants": [
         "libs/@apps/hub/@core/config/constants/src/index.ts"
@@ -38,6 +40,9 @@
       "@sb-hub/sections-main/config/route-data": [
         "libs/@apps/hub/sections/main/config/route-data/src/index.ts"
       ],
+      "@sb-hub/sections-main/entry-point": [
+        "libs/@apps/hub/sections/main/@entry-point/src/index.ts"
+      ],
       "@sb-hub/sections-main/features/home": [
         "libs/@apps/hub/sections/main/features/home/src/index.ts"
       ],
@@ -46,6 +51,9 @@
       ],
       "@sb-hub/sections-main/features/open-source/card": [
         "libs/@apps/hub/sections/main/features/open-source/card/src/index.ts"
+      ],
+      "@sb-hub/sections-main/route-defs": [
+        "libs/@apps/hub/sections/main/@route-defs/src/index.ts"
       ],
       "@sb-hub/sections-main/ui/nav": [
         "libs/@apps/hub/sections/main/ui/nav/src/index.ts"
@@ -64,6 +72,12 @@
       ],
       "@sb-hub/shared-utils/router": [
         "libs/@apps/hub/shared/utils/router/src/index.ts"
+      ],
+      "@sb-hub/shared-utils/routes": [
+        "libs/@apps/hub/shared/utils/routes/src/index.ts"
+      ],
+      "@sb-hub/shared-utils/routes/builder": [
+        "libs/@apps/hub/shared/utils/routes/builder/src/index.ts"
       ],
       "@scripts-ts": ["scripts-ts"],
       "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],

@@ -1,6 +1,6 @@
+import { AppConstants } from '@sb-hub/core-config/constants';
+import { AppImages } from '@sb-hub/core-config/images';
 import { SeoConfig } from '@spider-baby/utils-seo/config';
-import { AppConstants } from './constants';
-import { AppImages } from './images';
 
 export const SEO_CONFIG = SeoConfig.create({
   appName: 'Spider-Baby',

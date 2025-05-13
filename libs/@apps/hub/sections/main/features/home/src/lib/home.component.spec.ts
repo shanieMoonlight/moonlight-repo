@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainHomeComponent } from './home.component';
+import { HubMainHomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import {
@@ -52,13 +52,13 @@ const mockPerformanceService = {
   measureCoreWebVitals: jest.fn(),
 };
 
-describe('MainHomeComponent', () => {
-  let component: MainHomeComponent;
-  let fixture: ComponentFixture<MainHomeComponent>;
+describe('HubMainHomeComponent', () => {
+  let component: HubMainHomeComponent;
+  let fixture: ComponentFixture<HubMainHomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainHomeComponent, RouterModule.forRoot([])],
+      imports: [HubMainHomeComponent, RouterModule.forRoot([])],
       providers: [
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
@@ -69,7 +69,7 @@ describe('MainHomeComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MainHomeComponent);
+    fixture = TestBed.createComponent(HubMainHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
