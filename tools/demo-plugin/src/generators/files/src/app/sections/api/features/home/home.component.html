@@ -5,12 +5,12 @@
     </header>
 
     <!-- <div class="search-container">
-      <sb-search/>
+      <<%= prefix %>-search/>
     </div> -->
 
     <div class="api-cards-grid">
       @for (route of _apiRoutes(); track route.route) {
-        <sb-ui-cards-api-nav [data]="route"/>
+        <<%= prefix %>-ui-cards-api-nav [data]="route"/>
       }
     </div>
   </div>

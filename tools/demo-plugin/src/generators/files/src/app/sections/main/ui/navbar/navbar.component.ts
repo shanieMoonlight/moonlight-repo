@@ -53,7 +53,7 @@ const rhsNavbarItems: NavbarItem[] = [
 
 
 @Component({
-  selector: 'sb-main-navbar',
+  selector: '<%= prefix %>-main-navbar',
   standalone: true,
   imports: [
     MatEverythingModule,

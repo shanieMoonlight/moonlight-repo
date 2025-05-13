@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppImages } from '../../config/images';
 
 @Component({
-  selector: 'sb-not-found',
+  selector: '<%= prefix %>-not-found',
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
   template: `

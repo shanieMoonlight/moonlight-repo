@@ -67,7 +67,7 @@ const BENEFITS: Benefit[] = [
 //##############################################//
 
 @Component({
-  selector: 'sb-home',
+  selector: '<%= prefix %>-home',
   standalone: true,
   imports: [
     CommonModule,

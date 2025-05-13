@@ -1,17 +1,17 @@
-<sb-main-navbar
+<<%= prefix %>-main-navbar
     [rhsOutletTemplate]="rhsOutletTemplate"/>
 
 <router-outlet />
 
 
-<sb-service-worker-update-mat/>
+<<%= prefix %>-service-worker-update-mat/>
 
 <!-- ======================================= -->
 
 <ng-template #rhsOutletTemplate>
     <div class="theming">        
-        <sb-theme-picker-mat/>
-        <sb-dark-mode-toggle-mat/>
+        <<%= prefix %>-theme-picker-mat/>
+        <<%= prefix %>-dark-mode-toggle-mat/>
     </div>     
 </ng-template>
 

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 
 @Component({
-  selector: 'sb-github-corner',
+  selector: '<%= prefix %>-github-corner',
   standalone: true,
   imports: [NavigateNewWindowDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,

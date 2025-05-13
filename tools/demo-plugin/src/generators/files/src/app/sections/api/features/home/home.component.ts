@@ -8,7 +8,7 @@ import { API_ROUTES } from '../../config/route-data';
 //##############################################//
 
 @Component({
-  selector: 'sb-api-home',
+  selector: '<%= prefix %>-api-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,

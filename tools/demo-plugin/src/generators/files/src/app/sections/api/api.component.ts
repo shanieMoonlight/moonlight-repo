@@ -18,7 +18,7 @@ import { ApiNavbarComponent } from './ui/navbar/navbar.component';
   ],
   providers: [
   ],
-  selector: 'sb-api-root',
+  selector: '<%= prefix %>-api-root',
   templateUrl: './api.component.html',
   styleUrl: './api.component.scss',
 })

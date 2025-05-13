@@ -17,7 +17,7 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
   ],
   providers: [
   ],
-  selector: 'sb-main-root',
+  selector: '<%= prefix %>-main-root',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })

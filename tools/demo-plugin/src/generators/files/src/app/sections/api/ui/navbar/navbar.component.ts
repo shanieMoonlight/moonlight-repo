@@ -10,7 +10,7 @@ import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 
 @Component({
-  selector: 'sb-api-navbar',
+  selector: '<%= prefix %>-api-navbar',
   standalone: true,
   imports: [
     MatEverythingModule,
