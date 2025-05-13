@@ -10,13 +10,20 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moonlight/tools": ["tools/src/index.ts"],
-      "@sb-hub/core-config": ["libs/@apps/hub/@core/config/src/index.ts"],
+      "@moonlight/tools": [
+        "tools/src/index.ts"
+      ],
+      "@sb-hub/core-config": [
+        "libs/@apps/hub/@core/config/src/index.ts"
+      ],
       "@sb-hub/core-config/constants": [
         "libs/@apps/hub/@core/config/constants/src/index.ts"
       ],
@@ -65,9 +72,15 @@
       "@sb-hub/shared-utils/router": [
         "libs/@apps/shared/utils/router/src/index.ts"
       ],
-      "@scripts-ts": ["scripts-ts"],
-      "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
-      "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
+      "@scripts-ts": [
+        "scripts-ts"
+      ],
+      "@spider-baby-repo/demo-plugin": [
+        "tools/demo-plugin/src/index.ts"
+      ],
+      "@spider-baby/dev-console": [
+        "libs/utils/dev-console/src/index.ts"
+      ],
       "@spider-baby/mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
       ],
@@ -125,27 +138,58 @@
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],
-      "@spider-baby/ui-cards": ["libs/ui/cards/src/index.ts"],
-      "@spider-baby/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
-      "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
-      "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
-      "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
-      "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
-      "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
+      "@spider-baby/ui-cards": [
+        "libs/ui/cards/src/index.ts"
+      ],
+      "@spider-baby/ui-cards/api": [
+        "libs/ui/cards/api/src/index.ts"
+      ],
+      "@spider-baby/ui-code-samples": [
+        "libs/ui/code-samples/src/index.ts"
+      ],
+      "@spider-baby/ui-git": [
+        "libs/ui/git/src/index.ts"
+      ],
+      "@spider-baby/ui-git/corner": [
+        "libs/ui/git/corner/src/index.ts"
+      ],
+      "@spider-baby/utils-file-saver": [
+        "libs/utils/file-saver/src/index.ts"
+      ],
+      "@spider-baby/utils-firebase": [
+        "libs/utils/firebase/src/index.ts"
+      ],
       "@spider-baby/utils-mat-everything": [
         "libs/utils/mat/everything/src/index.ts"
       ],
-      "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
-      "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
-      "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
-      "@spider-baby/utils-seo": ["libs/utils/seo/src/index.ts"],
-      "@spider-baby/utils-seo/config": ["libs/utils/seo/config/src/index.ts"],
+      "@spider-baby/utils-memoization": [
+        "libs/utils/memoization/src/index.ts"
+      ],
+      "@spider-baby/utils-open-in-new-window": [
+        "libs/utils/oinw/src/index.ts"
+      ],
+      "@spider-baby/utils-rxjs": [
+        "libs/utils/rxjs/src/index.ts"
+      ],
+      "@spider-baby/utils-seo": [
+        "libs/utils/seo/src/index.ts"
+      ],
+      "@spider-baby/utils-seo/config": [
+        "libs/utils/seo/config/src/index.ts"
+      ],
       "@spider-baby/utils-seo/sw-updater-mat": [
         "libs/utils/seo/sw-updater-mat/src/index.ts"
       ],
-      "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
-      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
+      "@spider-baby/utils-share": [
+        "libs/utils/share/src/index.ts"
+      ],
+      "@spider-baby/utils-testing": [
+        "libs/utils/testing/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

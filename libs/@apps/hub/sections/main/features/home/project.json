@@ -1,5 +1,5 @@
 {
-  "name": "sb-sections-main-features-home",
+  "name": "sb-hub-sections-main-features-home",
   "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/hub/sections/main/features/home/src",
   "prefix": "hub",

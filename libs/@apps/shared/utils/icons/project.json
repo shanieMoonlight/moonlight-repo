@@ -1,5 +1,5 @@
 {
-  "name": "sb-shared-utils-icons",
+  "name": "sb-hub-shared-utils-icons",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/shared/utils/icons/src",
   "prefix": "lib",

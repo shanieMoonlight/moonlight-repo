@@ -1,5 +1,5 @@
 {
-  "name": "sb-sections-main-features-open-source",
+  "name": "sb-hub-sections-main-features-open-source",
   "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/hub/sections/main/features/open-source/src",
   "prefix": "hub",

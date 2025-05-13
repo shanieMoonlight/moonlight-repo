@@ -1,5 +1,5 @@
 {
-  "name": "sb-shared-ui-hero-banner",
+  "name": "sb-hub-shared-ui-hero-banner",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/shared/ui/hero-banner/src",
   "prefix": "lib",

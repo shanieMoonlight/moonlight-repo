@@ -1,5 +1,5 @@
 {
-  "name": "sb-shared-utils-router",
+  "name": "sb-hub-shared-utils-router",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/shared/utils/router/src",
   "prefix": "lib",

@@ -1,5 +1,5 @@
 {
-  "name": "sb-sections-main-ui-nav",
+  "name": "sb-hub-sections-main-ui-nav",
   "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/hub/sections/main/ui/nav/src",
   "prefix": "lib",
