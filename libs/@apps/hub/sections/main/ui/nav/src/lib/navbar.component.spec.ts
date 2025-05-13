@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainNavbarComponent } from './navbar.component';
+import { HubMainNavbarComponent } from './navbar.component';
 import { RouterModule } from '@angular/router';
 
-describe('MainNavbarComponent', () => {
-  let component: MainNavbarComponent;
-  let fixture: ComponentFixture<MainNavbarComponent>;
+describe('HubMainNavbarComponent', () => {
+  let component: HubMainNavbarComponent;
+  let fixture: ComponentFixture<HubMainNavbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainNavbarComponent, RouterModule.forRoot([])],
+      imports: [HubMainNavbarComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MainNavbarComponent);
+    fixture = TestBed.createComponent(HubMainNavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

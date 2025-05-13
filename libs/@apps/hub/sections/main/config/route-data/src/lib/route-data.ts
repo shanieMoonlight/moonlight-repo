@@ -1,5 +1,5 @@
 import { ApiRouteData } from '@spider-baby/ui-cards/api';
-export const MAIN_ROUTES: ApiRouteData[] = [
+export const MAIN_PRINCIPAL_ROUTES: ApiRouteData[] = [
   {
     title: 'Example 1',
     description: 'Description for Example 1. Add your specific details here.',

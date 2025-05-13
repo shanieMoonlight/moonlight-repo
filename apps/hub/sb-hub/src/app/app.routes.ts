@@ -8,15 +8,11 @@ export const appRoutes: Route[] = [
   // },
   {
     path: '',
-    loadChildren: () =>
-      import('./sections/main/main.routes').then((m) => m.mainRoutes),
+    loadChildren: () => import('./sections/main/main.routes').then((m) => m.mainRoutes),
   },
   {
     path: '**',
-    loadComponent: () =>
-      import('./shared/features/not-found.component').then(
-        (m) => m.NotFoundComponent
-      ),
+    loadComponent: () => import('@sb-hub/shared-features/not-found').then((m) => m.NotFoundComponent),
     pathMatch: 'full',
   },
 ];

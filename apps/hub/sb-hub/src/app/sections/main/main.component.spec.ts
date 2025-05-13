@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
-import { IconsService } from '../../shared/utils/icons/icons.service';
+import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
 import {
   SeoService,

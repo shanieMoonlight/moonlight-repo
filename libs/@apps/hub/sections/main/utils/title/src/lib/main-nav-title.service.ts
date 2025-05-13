@@ -8,7 +8,7 @@ export class MainNavTitleService {
 
   private _navService = inject(HubRouterUtilsService)
 
-  value = signal<string>('SpiderBaby Hub')
+  title = signal<string>('SpiderBaby Hub')
 
   //-----------------------//
 
@@ -17,7 +17,7 @@ export class MainNavTitleService {
    * @param newTitle new height
    */
   changeTitle = (newTitle?: string) =>
-    this.value.set(newTitle ?? 'SpiderBaby Hub')
+    this.title.set(newTitle ?? 'SpiderBaby Hub')
 
   //-----------------------//
 

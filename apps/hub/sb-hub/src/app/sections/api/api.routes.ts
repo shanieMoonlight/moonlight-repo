@@ -9,24 +9,15 @@ export const apiRoutes: Route[] = [
       {
         path: 'home',
         title: 'API - SpiderBaby MiniState',
-        loadComponent: () =>
-          import('./features/home/home.component').then(
-            (m) => m.ApiHomeComponent
-          ),
+        loadComponent: () => import('./features/home/home.component').then((m) => m.ApiHomeComponent),
       },
       {
         path: '',
-        loadComponent: () =>
-          import('./features/home/home.component').then(
-            (m) => m.ApiHomeComponent
-          ),
+        loadComponent: () => import('./features/home/home.component').then((m) => m.ApiHomeComponent),
       },
       {
         path: '**',
-        loadComponent: () =>
-          import('../../shared/features/not-found.component').then(
-            (m) => m.NotFoundComponent
-          ),
+        loadComponent: () => import('@sb-hub/shared-features/not-found').then((m) => m.NotFoundComponent),
         pathMatch: 'full',
       },
     ],

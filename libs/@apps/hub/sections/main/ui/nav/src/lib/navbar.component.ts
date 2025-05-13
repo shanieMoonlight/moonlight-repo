@@ -63,7 +63,7 @@ const rhsNavbarItems: NavbarItem[] = [
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainNavbarComponent {
+export class HubMainNavbarComponent {
   private _shareService = inject(ShareService);
   private _breakpoints = inject(BreakpointObserver);
 

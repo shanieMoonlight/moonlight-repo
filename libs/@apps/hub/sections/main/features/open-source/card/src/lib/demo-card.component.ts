@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { DemoAppData } from '@sb-hub/core-config/demo-apps';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { DemoAppData } from '../../../../../config/demo-apps';
 
 @Component({
   selector: 'hub-open-source-demo-card',

@@ -1,1 +1,1 @@
-export * from './lib/sb-sections-main-ui-nav/sb-sections-main-ui-nav.component';
+export * from './lib/navbar.component';

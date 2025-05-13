@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { HubRouterUtilsService } from '@sb-hub/shared-utils/router';
 
-import { HubNavigationService } from '../../../../shared/utils/routing/hub-navigation.service';
 import { MainNavTitleService } from './main-nav-title.service';
 
 describe('NavTitleService', () => {
@@ -8,7 +8,7 @@ describe('NavTitleService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-       providers: [HubNavigationService]
+       providers: [HubRouterUtilsService]
     });
     service = TestBed.inject(MainNavTitleService);
   });

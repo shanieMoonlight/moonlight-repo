@@ -6,19 +6,19 @@ export const mainRoutes: Route[] = [
     path: '',
     component: MainComponent,
     children: [
-      // {
-      //   path: 'home',
-      //   loadComponent: () => import('./features/home/home.component').then((m) => m.MainHomeComponent),
-      // },
+      {
+        path: 'home',
+        loadComponent: () => import('@sb-hub/sections-main/features/home').then((m) => m.HubMainHomeComponent),
+      },
       {
         path: 'open-source',
-        loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
+        loadComponent: () => import('@sb-hub/sections-main/features/open-source').then((m) => m.HubOpenSourceDemosComponent),
       },
       // {
       //   path: '',
       //   loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
       // },
-      
+
       {
         path: '',
         redirectTo: 'open-source', // Change loadComponent to redirectTo
@@ -26,7 +26,7 @@ export const mainRoutes: Route[] = [
       },
       {
         path: '**',
-        loadComponent: () => import('../../shared/features/not-found.component').then((m) => m.NotFoundComponent),
+        loadComponent: () => import('@sb-hub/shared-features/not-found').then((m) => m.NotFoundComponent),
         pathMatch: 'full',
       },
     ],

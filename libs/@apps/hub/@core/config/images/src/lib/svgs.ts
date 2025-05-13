@@ -1,4 +1,4 @@
-export class AppSvgs {
+export class HubAppSvgs {
   public static readonly GIT_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" width="92pt" height="92pt" viewBox="0 0 92 92">
    <defs>
