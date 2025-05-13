@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   MlDarkModeToggleMatComponent,
@@ -23,14 +23,24 @@ import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
-export class HubMainComponent {
+export class HubMainComponent implements OnDestroy{
+
   protected _iconsService = inject(IconsService);
   protected _navTitle = inject(MainNavTitleService);
   protected _title = computed(() => this._navTitle.title() || 'SpiderBaby');
 
   //----------------------------//
-
+  
   constructor() {
     this._navTitle.updateOnNavigationChange();
   }
+
+  //----------------------------//
+  
+  ngOnDestroy(): void {
+    this._navTitle.unsubscribe()
+    console.log('Unsubscribed from title changes');
+    
+  }
+
 } //Cls

@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HubRouterUtilsService } from '@sb-hub/shared-utils/router';
+import { HubMainAreaRoutesDefs } from '@sb-hub/sections-main/route-defs';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +11,7 @@ export class MainNavTitleService {
   private _navService = inject(HubRouterUtilsService)
 
   title = signal<string>('SpiderBaby Hub')
+  private _titleSubscription?: Subscription;
 
   //-----------------------//
 
@@ -28,7 +31,10 @@ export class MainNavTitleService {
    * @returns The title-cased string.
    */
   private toTitleCase(str: string | undefined | null): string | undefined {
-    return str?.replace(/-/g, ' ') // Replace all hyphens with spaces
+    if (!str)
+      return undefined; 
+    
+    return str.replace(/-/g, ' ') // Replace all hyphens with spaces
       .toLowerCase() // Convert to lowercase first
       .split(' ') // Split into words
       .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
@@ -36,16 +42,42 @@ export class MainNavTitleService {
   }
 
   //-----------------------//
-
+  
   updateOnNavigationChange() {
+    
+    const mainAreaBaseSegment = HubMainAreaRoutesDefs.BASE; // e.g., 'main'
 
-    this._navService.currentRoute$
-      .subscribe(route => {
-        const firstSegment = route.split('/')?.[0]
-        const titleSegment = firstSegment?.replace('-', ' ')?.split("?")[0]?.toUpperCase()
-        const title = this.toTitleCase(titleSegment);
-        this.changeTitle(title)
-      })
+    this._titleSubscription = this._navService.currentRoute$
+    .subscribe(route => {
+      const uriSegments = route.split('/');
+      const firstUriSegment = uriSegments[0];
+      
+      let segmentForTitleProcessing: string | undefined = undefined;
+      
+      if (firstUriSegment === mainAreaBaseSegment) {
+        // Route is within the main area
+        if (uriSegments.length > 1) // There's something after the base segment (e.g., 'main/home')            
+        segmentForTitleProcessing = uriSegments[1];
+        
+      } else {
+        // Route is not within the main area (e.g., 'api/users')
+        segmentForTitleProcessing = firstUriSegment;
+      }
+      
+      // Clean the segment: remove query parameters.
+      // Hyphen replacement and capitalization are handled by toTitleCase.
+      const cleanedSegment = segmentForTitleProcessing?.split("?")[0];
+      console.log('Segment used for Title:', cleanedSegment);
+      
+      const title = this.toTitleCase(cleanedSegment);
+      this.changeTitle(title);
+    });
   }
+  
+  //-----------------------//
 
+  unsubscribe =()  => this._titleSubscription?.unsubscribe()
+
+
+  
 }//Cls

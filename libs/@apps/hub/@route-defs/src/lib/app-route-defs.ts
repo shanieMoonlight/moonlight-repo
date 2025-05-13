@@ -4,7 +4,10 @@ import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
 //#################################################//
 
 const BaseRoute = '';
-const ChildRoutes = ['login', 'main', 'not-found'] as const;
+const ChildRoutes: string[
+
+  
+] = []
 
 /** @ignore Type alias for the child routes of the application. */
 type CHILD_ROUTE = (typeof ChildRoutes)[number];

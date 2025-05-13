@@ -40,10 +40,6 @@ export const appConfig: ApplicationConfig = {
           json: () => import('highlight.js/lib/languages/json')
         }
       }
-    },
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    }
   ],
 };

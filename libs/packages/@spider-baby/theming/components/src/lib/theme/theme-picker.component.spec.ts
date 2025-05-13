@@ -7,11 +7,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltipHarness } from '@angular/material/tooltip/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BehaviorSubject } from 'rxjs';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
-import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { BehaviorSubject } from 'rxjs';
 import { MlThemePickerMatComponent } from './theme-picker.component';
 
 const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light',  darkMode: 'light', primaryColor: '#ffffff', secondaryColor: '#000000' });
