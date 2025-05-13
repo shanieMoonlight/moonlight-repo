@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  margin-bottom: 16px; // Add some space between cards
+}
+
+
+.demo-card {
+  max-width: 400px;
+  margin: 0 auto 16px; // Center card and add bottom margin
+
+  mat-card-header {
+    .mat-icon {
+      font-size: 40px; // Make avatar icon a bit larger
+      width: 40px;
+      height: 40px;
+      margin-right: 16px; // Ensure space between icon and title
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.25rem; // Slightly larger title
+  }
+
+  mat-card-subtitle {
+    color:var(--mat-sys-outline); // Softer subtitle color
+  }
+
+  mat-card-content {
+    p {
+      margin-bottom: 16px; // Space before actions
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end; // Align button to the right
+    padding: 8px 16px 16px; // Adjust padding
+
+    a.mat-stroked-button {
+      .mat-icon {
+        margin-right: 8px; // Space between icon and text in button
+      }
+    }
+  }
+}

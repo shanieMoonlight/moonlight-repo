@@ -1,0 +1,18 @@
+<mat-card class="demo-card">
+    <mat-card-header>
+        <mat-icon mat-card-avatar [fontIcon]="_icon()"></mat-icon>
+        <mat-card-title>{{ _name() }}</mat-card-title>
+        <mat-card-subtitle>{{ _description() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            Explore the {{ _name() }} demo to see it in action.
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <a mat-stroked-button class="primary" [href]="_url()" target="_blank" rel="noopener noreferrer">
+            <mat-icon fontIcon="launch" />
+            View Demo
+        </a>
+    </mat-card-actions>
+</mat-card>

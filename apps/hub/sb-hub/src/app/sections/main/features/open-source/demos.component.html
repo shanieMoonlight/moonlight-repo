@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="card-container">
+
+        @for (demoApp of _demoApps(); track $index) {
+        <hub-open-source-demo-card [demoApp]="demoApp" />
+        }
+    </div>
+</div>

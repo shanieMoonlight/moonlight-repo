@@ -22,7 +22,10 @@
     "displayName": {
       "type": "string",
       "description": "Title of the application",
-      "x-prompt": "What title would you like to use for the demo application?"
+      "x-prompt": {
+        "message": "What title would you like to use for the demo application?",
+        "type": "input"
+      }
     },
     "prefix": {
       "type": "string",
@@ -38,5 +41,7 @@
       "default": 4206
     }
   },
-  "required": ["name", "directory"]
+  "required": [
+    "name"
+  ]
 }

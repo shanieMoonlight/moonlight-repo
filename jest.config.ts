@@ -51,5 +51,6 @@ export default async (): Promise<Config> => ({
     '<rootDir>/apps/mini-state/demo-e2e/',
     '<rootDir>/apps/sb-mat-thm-demo-e2e/',
     '<rootDir>/apps/tutorials/tutorials-e2e/',
+    '<rootDir>/apps/hub/sb-hub-e2e/',
   ],
 });

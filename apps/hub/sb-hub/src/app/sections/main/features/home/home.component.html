@@ -1,0 +1,114 @@
+<div class="home-container">
+  <hub-hero-banner
+    [title]="_title"
+    [subtitle]="_subtitle"
+    [description]="_description"
+    [imageUrl]="_heroImageUrl"
+    [imageAlt]="_heroImageAlt"
+    primaryButtonText="Try Examples"
+    primaryButtonLink="/simple"
+    primaryButtonIcon="play_arrow"
+    secondaryButtonText="View on GitHub"
+    [secondaryButtonLink]="_gitUrl()"
+    secondaryButtonIcon="code"
+  />
+  <section class="features-section">
+    <h2 class="section-title">Examples</h2>
+    <p class="section-description">
+      Explore these examples to see how our solution can help with your
+      projects.
+    </p>
+
+    <div class="features-grid">
+      @for (feature of _features(); track feature.title) {
+      <mat-card class="feature-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
+          <mat-card-title>{{ feature.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button color="primary" [routerLink]="feature.route">View Example</a          >
+        </mat-card-actions>
+      </mat-card>
+      }
+    </div>
+  </section>
+
+  <mat-divider />
+  <section class="benefits-section">
+    <h2 class="section-title">Key Benefits</h2>
+    <p class="section-description">
+      Discover the advantages of using our solution for your projects.
+    </p>
+
+    <div class="benefits-grid">
+      @for (benefit of _benefits(); track benefit.title) {
+      <div class="benefit-item">
+        <mat-icon class="benefit-icon">{{ benefit.icon }}</mat-icon>
+        <div class="benefit-content">
+          <h3 class="benefit-title">{{ benefit.title }}</h3>
+          <p class="benefit-description">{{ benefit.description }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+  <section class="quick-start">
+    <h2 class="section-title">Getting Started</h2>
+    <p>Install the package in your Angular application:</p>
+
+    <div class="code-block">
+      <pre><code 
+          [highlight]="`npm install @your-org/package-name`" 
+          [language]="'typescript'" ></code></pre>
+    </div>
+
+    <p>Basic usage example:</p>
+
+    <div class="code-block">
+      <pre><code 
+        [highlight]="`
+import { SomeService } from '@your-org/package-name';
+
+// Initialize service
+const service = new SomeService(config);
+
+// Example usage
+const result = service.doSomething();
+
+// Access properties
+const data = result.data;
+const isLoading = result.loading;
+        `" 
+        [language]="'typescript'" ></code></pre>
+    </div>
+
+    <div class="code-block">
+      <pre><code 
+        [highlight]="`
+import { OtherService } from '@your-org/package-name';
+
+// Advanced configuration
+const config = {
+  apiKey: 'your-api-key',
+  endpoint: 'https://api.example.com',
+  timeout: 5000
+};
+
+// Create instance with options
+const service = new OtherService(config);
+
+// Use the service methods
+service.initialize();
+        `" 
+        [language]="'typescript'" ></code></pre>
+    </div>
+  </section>
+  <footer class="home-footer">
+    <p>Spider-Baby</p>
+    <p><small>Built with Angular</small></p>
+  </footer>
+</div>

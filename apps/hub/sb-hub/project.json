@@ -1,0 +1,109 @@
+{
+  "name": "spider-baby-hub",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "sb",
+  "sourceRoot": "apps/hub/sb-hub/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/hub/sb-hub",
+        "index": "apps/hub/sb-hub/src/index.html",
+        "browser": "apps/hub/sb-hub/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/hub/sb-hub/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/hub/sb-hub/public"
+          }
+        ],
+        "styles": [
+          "apps/hub/sb-hub/src/styles.scss"
+        ],
+        "scripts": [],
+        "server": "apps/hub/sb-hub/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/hub/sb-hub/src/server.ts"
+        },
+        "prerender": true
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all",
+          "serviceWorker": "apps/hub/sb-hub/ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4266
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "spider-baby-hub:build:production"
+        },
+        "development": {
+          "buildTarget": "spider-baby-hub:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "spider-baby-hub:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/hub/sb-hub/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "spider-baby-hub:build",
+        "port": 4266,
+        "staticFilePath": "dist/apps/hub/sb-hub/browser",
+        "spa": true
+      }
+    }
+  }
+}

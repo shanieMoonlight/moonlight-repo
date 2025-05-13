@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'sb-hero-banner', // Changed selector prefix if needed
+  selector: '<%= prefix %>'-hero-banner', // Changed selector prefix if needed
   standalone: true,
   imports: [MatButtonModule, MatIconModule, RouterModule],
   template: `

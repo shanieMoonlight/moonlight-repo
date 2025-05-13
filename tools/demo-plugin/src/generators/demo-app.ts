@@ -1,25 +1,25 @@
-import * as fs from 'fs';
-import { names, addProjectConfiguration, formatFiles, generateFiles, installPackagesTask, Tree, runExecutor, } from '@nx/devkit';
-import { plural } from 'pluralize';
-import * as path from 'path';
-import { DemoAppGeneratorSchema, NoramlizedDemoAppGeneratorSchema } from './schema';
-import { } from '@nx/js';
 import { } from '@nx/angular';
 import { applicationGenerator } from '@nx/angular/generators';
+import { formatFiles, generateFiles, names, Tree } from '@nx/devkit';
+import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
+import { } from '@nx/js';
 import { execSync } from 'child_process';
+import * as fs from 'fs';
+import * as path from 'path';
+import { DemoAppGeneratorSchema, NoramlizedDemoAppGeneratorSchema } from './schema';
 
 //##############################################//
 
 function normalizeOptions(
   options: DemoAppGeneratorSchema
 ): NoramlizedDemoAppGeneratorSchema {
+
   const name = options.name;
-  const directory = options.directory;
+  const directory = options.directory ?? name;
   const displayName = options.displayName || names(name).className;
   const displayNameShort = names(name).className;
 
   console.log(`names(name): `, names(name));
-
 
   return {
     ...options,
@@ -35,6 +35,7 @@ function normalizeOptions(
 //------------------------------//
 
 async function addPwaSupportAsync(normalizedOptions: NoramlizedDemoAppGeneratorSchema) {
+
   try {
     console.log(`Adding PWA support to ${normalizedOptions.name}...`);
     execSync(`npx nx generate @angular/pwa:pwa --project=${normalizedOptions.name}`, {
@@ -56,17 +57,13 @@ async function addPwaSupportAsync(normalizedOptions: NoramlizedDemoAppGeneratorS
  * @returns A promise that resolves when the operation is complete
  */
 async function replaceDefaultPwaIcons(appRoot: string): Promise<void> {
+
   try {
     console.log(`Replacing default PWA icons with Spider-Baby logo icons...`);
 
     // Path to the generated icons directory created by PWA schematic
     const generatedIconsDir = path.join(appRoot, 'public', 'icons');
     const originalIconsDir = path.join(appRoot, 'public', 'icons-original');
-
-    console.log(`generatedIconsDir: ${generatedIconsDir}`);
-    console.log(`originalIconsDir: ${originalIconsDir}`);
-    console.log(`appRoot: ${appRoot}`);
-    
 
     // 1. Check if generated icons folder exists
     if (!fs.existsSync(generatedIconsDir)) {
@@ -123,15 +120,18 @@ export async function demoAppGenerator(
     standalone: true,
     ssr: true,
     port: normalizedOptions.port,
-
     prefix: normalizedOptions.prefix,
   });
 
-  console.log(`normalizedOptions: ${normalizedOptions}`);
+  // get the project root in the same that nx.applicationGenerator does.
+  const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'application' });
+  console.log(`nameAndRootOptions:`, nameAndRootOptions);
 
+  console.log(`normalizedOptions:`, normalizedOptions);
+  
 
   // Now add our custom demo files
-  generateFiles(tree, path.join(__dirname, 'files'), normalizedOptions.directory, normalizedOptions);
+  generateFiles(tree, path.join(__dirname, 'files'), nameAndRootOptions.projectRoot, normalizedOptions);
 
   await formatFiles(tree);
 
