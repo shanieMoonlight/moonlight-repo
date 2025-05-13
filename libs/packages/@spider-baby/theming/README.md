@@ -21,63 +21,28 @@ A powerful, flexible theming system for Angular Material applications that enabl
 
 ## Demo
 
-```bash
-[npm install @spider-baby/material-theming](https://spiderbabymaterialtheming.web.app/)
-```
+[View the Live Demo](https://spiderbabymaterialtheming.web.app/)
 
-## Installation
 
-### Why Version Matching Matters
+## Prerequisites
+### Important Note: This library requires Angular Material and CDK.
 
-Due to npm's peer dependency resolution algorithm, you must install Angular Material and CDK versions that match your application's Angular version before installing this package. This is because:
+### Angular Material Setup Options:
 
-1. Angular Material and CDK require exact Angular version alignment
-2. When npm encounters a range of compatible versions like `"17.x || 18.x || 19.x"`, it tends to select the newest version
-3. This can lead to conflicts when the newest Material/CDK version requires a newer Angular version than what's in your project
-
-### Step 1: Install matching Angular Material/CDK versions
-
-First, install Angular Material and CDK versions that match your Angular version:
+### Option 1 (Recommended): Using the Angular CLI schematic
+This command will install matching dependencies and set up themes, fonts, and animations automatically:
 
 ```bash
-# For Angular 17
-npm install @angular/material@17 @angular/cdk@17
-
-# For Angular 18
-npm install @angular/material@18 @angular/cdk@18
-
-# For Angular 19
-npm install @angular/material@19 @angular/cdk@19
+ng add @angular/material
 ```
 
-### Step 2: Install @spider-baby/material-theming
+### Option 2: Manual installation with version matching
+Install Material and CDK that match your current Angular version:
 
 ```bash
-npm install @spider-baby/material-theming
+npm install @angular/material @angular/cdk
 ```
 
-### Alternative: Using package.json overrides
-
-If you prefer, you can add these overrides to your package.json before installing:
-
-```json
-"overrides": {
-  "@angular/cdk": "18.2.13",
-  "@angular/material": "18.2.13"
-}
-```
-
-Replace the version numbers with those matching your Angular version.
-
-### Troubleshooting
-
-If you encounter dependency conflicts, you can force installation with:
-
-```bash
-npm install @spider-baby/material-theming --legacy-peer-deps
-```
-
-However, this approach may lead to subtle compatibility issues and is not recommended for production.
 
 ## Quick Start
 
@@ -415,11 +380,11 @@ import { DynamicThemeConfigService, ThemeOption } from '@spider-baby/material-th
   templateUrl: './marketing-section.component.html'
 })
 export class MarketingSectionComponent implements OnDestroy {
-  private themeConfig = inject(DynamicThemeConfigService);
+  private dynamicThemeConfig = inject(DynamicThemeConfigService);
   
   constructor() {
     // Override available themes just for this section
-    this.themeConfig.setSystemThemes([
+    this.dynamicThemeConfig.setSystemThemes([
       ThemeOption.create({
         value: 'brand-primary',
         label: 'Brand Primary',
@@ -439,7 +404,7 @@ export class MarketingSectionComponent implements OnDestroy {
   
   ngOnDestroy() {
     // Reset to application-wide themes when leaving this section
-    this.themeConfig.resetSystemThemesToInitial();
+    this.dynamicThemeConfig.resetSystemThemesToInitial();
   }
 }
 ```
@@ -745,6 +710,64 @@ Each of these palettes also has the full range of tone variables from 0-100, fol
   box-shadow: 0 2px 4px var(--mat-sys-primary-40);
 }
 ```
+
+## Extras
+
+### Why Version Matching Matters
+
+<!-- Due to npm's peer dependency resolution algorithm, you must install Angular Material and CDK versions that match your application's Angular version before installing this package. This is because: -->
+
+1. Angular Material and CDK require exact Angular version alignment
+2. When npm encounters a range of compatible versions like `"17.x || 18.x || 19.x"`, it tends to select the newest version  (like the settings in this package)
+3. This can lead to conflicts when the newest Material/CDK version requires a newer Angular version than what's in your project
+
+### Step 1: Install matching Angular Material/CDK versions
+
+First, install Angular Material and CDK versions that match your Angular version:
+
+```bash
+# To let npm figure it out 
+npm install @angular/material @angular/cdk
+
+# For Angular 17
+npm install @angular/material@17 @angular/cdk@17
+
+# For Angular 18
+npm install @angular/material@18 @angular/cdk@18
+
+# For Angular 19
+npm install @angular/material@19 @angular/cdk@19
+```
+
+### Step 2: Install @spider-baby/material-theming
+
+```bash
+npm install @spider-baby/material-theming
+```
+
+### Alternative: Using package.json overrides
+
+If you prefer, you can add these overrides to your package.json before installing:
+
+```json
+"overrides": {
+  "@angular/cdk": "18.2.13",
+  "@angular/material": "18.2.13"
+}
+```
+
+Replace the version numbers with those matching your Angular version.
+
+### Troubleshooting
+
+If you encounter dependency conflicts, you can force installation with:
+
+```bash
+npm install @spider-baby/material-theming --legacy-peer-deps
+```
+
+However, this approach may lead to subtle compatibility issues and is not recommended for production.
+#### The simplest thing is to just make sure Material/CDK are installed first.
 
 ## License
 
