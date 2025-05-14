@@ -5,11 +5,18 @@
 }
 
 .container {
+  position: relative;
   width: 96%;
   max-width: 1250px;
   display: flex;
   flex-direction: column;
   // border: 1px solid var(--mat-sys-outline);
+  img{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 50px;
+  }
 }
 
 .card-container {

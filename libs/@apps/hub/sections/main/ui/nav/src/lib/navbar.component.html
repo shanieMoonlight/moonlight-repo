@@ -1,64 +1,66 @@
-<mat-toolbar>
-  <div class="left-links">
-    <img
-      class="navlink"
-      [src]="_logoSml()"
-      alt="SpiderBaby Material"
-      [routerLink]="'open-source'"
-      routerLinkActive="active"
-      [matTooltip]="'Home'"
-      [attr.aria-label]="'home'"/>
+@if(_isBrowser()){
+  <mat-toolbar>
+    <div class="left-links">
+      <img
+        class="navlink"
+        [src]="_logoSml()"
+        alt="SpiderBaby Material"
+        [routerLink]="'open-source'"
+        routerLinkActive="active"
+        [matTooltip]="'Home'"
+        [attr.aria-label]="'home'"/>
 
-    @if(!isSmallScreen()){
-    <button
-      mat-icon-button
-      aria-label="Git repo for project"
-      [mlNavigateNewWindow]="_gitRepoUrl()"
-      [matTooltip]="'Git repo'">
-      <mat-icon svgIcon="git" />
-    </button>
+      @if(!_isSmallScreen()){
+      <button
+        mat-icon-button
+        aria-label="Git repo for project"
+        [mlNavigateNewWindow]="_gitRepoUrl()"
+        [matTooltip]="'Git repo'">
+        <mat-icon svgIcon="git" />
+      </button>
 
-    <button
-      mat-icon-button
-      aria-label="Npm Package"
-      [mlNavigateNewWindow]="_npmPkgUrl()"
-      [matTooltip]="'Npm Package'">
-      <mat-icon svgIcon="npm" />
-    </button>
+      <button
+        mat-icon-button
+        aria-label="Npm Package"
+        [mlNavigateNewWindow]="_npmPkgUrl()"
+        [matTooltip]="'Npm Package'">
+        <mat-icon svgIcon="npm" />
+      </button>
 
-    <button
-      mat-icon-button
-      aria-label="Share current page"
-      (click)="share()"
-      matTooltip="Share this page">
-      <mat-icon>share</mat-icon>
-    </button>
-    }
-  </div>
-
-  <div class="title-container">
-    <span class="title">{{_title()}}</span>
-  </div>
-
-  <div class="right-links">
-    @for(navLink of _rhsNavItems(); track navLink) {
-    <ng-container
-      [ngTemplateOutlet]="navItem"
-      [ngTemplateOutletContext]="{
-        routerLink: navLink.routerLink,
-        tooltip: navLink.tooltip,
-        iconName: navLink.icon,
-        text: navLink.text
-      }"/>
-    }
-
-    <div class="rhs-outlet">
-      @if(_rhsOutletTemplate(); as template){
-      <ng-container [ngTemplateOutlet]="template" />
+      <button
+        mat-icon-button
+        aria-label="Share current page"
+        (click)="share()"
+        matTooltip="Share this page">
+        <mat-icon>share</mat-icon>
+      </button>
       }
     </div>
-  </div>
-</mat-toolbar>
+
+    <div class="title-container">
+      <span class="title">{{_title()}}</span>
+    </div>
+
+    <div class="right-links">
+      @for(navLink of _rhsNavItems(); track navLink) {
+      <ng-container
+        [ngTemplateOutlet]="navItem"
+        [ngTemplateOutletContext]="{
+          routerLink: navLink.routerLink,
+          tooltip: navLink.tooltip,
+          iconName: navLink.icon,
+          text: navLink.text
+        }"/>
+      }
+
+      <div class="rhs-outlet">
+        @if(_rhsOutletTemplate(); as template){
+        <ng-container [ngTemplateOutlet]="template" />
+        }
+      </div>
+    </div>
+  </mat-toolbar>
+}
 
 <!-- ---------------------------------------------- -->
 
@@ -68,25 +70,25 @@
   let-tooltip="tooltip"
   let-iconName="iconName"
   let-text="text">
-  @if(!isSmallScreen()){
-  <div
-    class="navlink"
-    [routerLink]="routerLink"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
-    [matTooltip]="tooltip">
-    {{ text }}
-  </div>
+  @if(!_isSmallScreen()){
+    <div
+      class="navlink"
+      [routerLink]="routerLink"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
+      [matTooltip]="tooltip">
+      {{ text }}
+    </div>
   }@else {
-  <button
-    mat-icon-button
-    [routerLink]="routerLink"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
-    [matTooltip]="tooltip"
-    [attr.aria-label]="tooltip">
-    <mat-icon>{{ iconName }}</mat-icon>
-  </button>
+    <button
+      mat-icon-button
+      [routerLink]="routerLink"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: routerLink === 'home' }"
+      [matTooltip]="tooltip"
+      [attr.aria-label]="tooltip">
+      <mat-icon>{{ iconName }}</mat-icon>
+    </button>
   }
 </ng-template>
 

@@ -45,24 +45,23 @@ Route definition classes (e.g., `HubAppRouteDefs`, `HubMainAreaRoutesDefs`, `Hub
 The following examples demonstrate how to use these definitions (typically accessed via `HubAppRouteDefs`):
 
 ```typescript
-// Assuming _appRouteDefs is HubAppRouteDefs
 
 // Accessing 'main' area segments and paths
-_appRouteDefs.routes.main.route()                  // Output: "main"
-_appRouteDefs.fullPaths.main.route()               // Output: "main"
+HubAppRouteDefs.routes.main.route()                  // Output: "main"
+HubAppRouteDefs.fullPaths.main.route()               // Output: "main"
 
-_appRouteDefs.routes.main.route('home')            // Output: "home"
-_appRouteDefs.fullPaths.main.route('home')         // Output: "main/home"
+HubAppRouteDefs.routes.main.route('home')            // Output: "home"
+HubAppRouteDefs.fullPaths.main.route('home')         // Output: "main/home"
 
-_appRouteDefs.routes.main.route('open-source')     // Output: "open-source"
-_appRouteDefs.fullPaths.main.route('open-source')  // Output: "main/open-source"
+HubAppRouteDefs.routes.main.route('open-source')     // Output: "open-source"
+HubAppRouteDefs.fullPaths.main.route('open-source')  // Output: "main/open-source"
 
 // Accessing 'admin' area (nested under 'main') segments and paths
-_appRouteDefs.routes.main.admin.route()            // Output: "administration"
-_appRouteDefs.fullPaths.main.admin.route()         // Output: "main/administration"
+HubAppRouteDefs.routes.main.admin.route()            // Output: "administration"
+HubAppRouteDefs.fullPaths.main.admin.route()         // Output: "main/administration"
 
-_appRouteDefs.routes.main.admin.route('users')     // Output: "users"
-_appRouteDefs.fullPaths.main.admin.route('users')  // Output: "main/administration/users"
+HubAppRouteDefs.routes.main.admin.route('users')     // Output: "users"
+HubAppRouteDefs.fullPaths.main.admin.route('users')  // Output: "main/administration/users"
 ```
 
 This pattern ensures that route construction is consistent and changes to base paths or segments can be made in a single location.

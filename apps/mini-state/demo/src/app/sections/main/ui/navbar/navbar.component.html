@@ -1,11 +1,13 @@
-@if (!_isSmallScreen()) {
-    <sb-main-navbar-lrg
+@if (_isBrowser()) {
+    @if (!_isSmallScreen()) {
+        <sb-main-navbar-lrg
         [rhsOutletTemplate]="_rhsOutletTemplate()"
         [rhsNavItems]="_rhsNavItems()"
         [randomId]="_randomId()"/>
-}@else {
-    <sb-main-navbar-sml
+    }@else {
+        <sb-main-navbar-sml
         [rhsOutletTemplate]="_rhsOutletTemplate()"
         [rhsNavItems]="_rhsNavItems()"
         [randomId]="_randomId()"/>
+    }
 }

@@ -1,4 +1,4 @@
-import { AppImages } from "@sb-hub/core-config/images";
+import { HubAppImages } from "@sb-hub/core-config/images";
 
 
 export interface DemoAppData {
@@ -18,14 +18,14 @@ export const DEMO_APPS: DemoAppData[] = [
         description: 'A powerful, flexible theming system for Angular Material',
         icon: 'palette',
         url: 'https://spiderbabymaterialtheming.web.app',
-        image: AppImages.Demos.MatTheme.medium
+        image: HubAppImages.Demos.MatTheme.medium
     },
     {
         name: 'Mini-State',
         description: 'A lightweight, signals-based state management library for Angular applications',
         icon: 'merge',
         url: 'https://spider-baby-mini-state.web.app/',
-        image: AppImages.Demos.MiniState.medium
+        image: HubAppImages.Demos.MiniState.medium
     }
 ]
 

@@ -5,8 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
-import { AppConstants } from '@sb-hub/core-config/constants';
-import { AppImages } from '@sb-hub/core-config/images';
+import { HubAppConstants } from '@sb-hub/core-config/constants';
+import { HubAppImages } from '@sb-hub/core-config/images';
 import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
 import { MAIN_PRINCIPAL_ROUTES } from '@sb-hub/sections-main/config/route-data';
 import { SeoService } from '@spider-baby/utils-seo';
@@ -100,11 +100,11 @@ export class HubMainHomeComponent implements OnInit {
   protected _description = `This is a more detailed description of your application's purpose and main features. 
   You can elaborate on key functionality, target users, or any other important information
   that helps explain what makes your application valuable.`;
-  protected _heroImageUrl = AppImages.Logo.default;
+  protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
   protected _features = signal(MAIN_PRINCIPAL_ROUTES);
-  protected _gitUrl = signal(AppConstants.GIT_REP_URL);
+  protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
   protected _benefits = signal(BENEFITS);
 
   //- - - - - - - - - - - - - - -//

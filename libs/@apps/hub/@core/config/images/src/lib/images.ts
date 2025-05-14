@@ -1,4 +1,4 @@
-export class AppImages {
+export class HubAppImages {
   static Logo = class {
     static readonly default = 'images/logo/logo.png';
     static readonly small = 'images/logo/small/logo.png';

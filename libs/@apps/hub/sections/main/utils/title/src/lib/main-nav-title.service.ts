@@ -57,7 +57,7 @@ export class MainNavTitleService {
       if (firstUriSegment === mainAreaBaseSegment) {
         // Route is within the main area
         if (uriSegments.length > 1) // There's something after the base segment (e.g., 'main/home')            
-        segmentForTitleProcessing = uriSegments[1];
+      segmentForTitleProcessing = uriSegments[1];
         
       } else {
         // Route is not within the main area (e.g., 'api/users')
@@ -70,7 +70,8 @@ export class MainNavTitleService {
       console.log('Segment used for Title:', cleanedSegment);
       
       const title = this.toTitleCase(cleanedSegment);
-      this.changeTitle(title);
+      // this.changeTitle(title);
+      this.changeTitle('Spider Baby');  //Later, use the title variable , when we have mor pages
     });
   }
   

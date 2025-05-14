@@ -1,5 +1,5 @@
-import { AppConstants } from '@sb-hub/core-config/constants';
-import { AppImages } from '@sb-hub/core-config/images';
+import { HubAppConstants } from '@sb-hub/core-config/constants';
+import { HubAppImages } from '@sb-hub/core-config/images';
 import { SeoConfig } from '@spider-baby/utils-seo/config';
 
 export const SEO_CONFIG = SeoConfig.create({
@@ -8,8 +8,8 @@ export const SEO_CONFIG = SeoConfig.create({
   You can elaborate on key functionality, target users, or any other important information
   that helps explain what makes your application valuable.`,
   organization: 'SpiderBaby',
-  baseUrl: AppConstants.DEMO_URL,
+  baseUrl: HubAppConstants.DEMO_URL,
   keywords: ['Angular', 'SpiderBaby'],
-  defaultLogoFilePath: AppImages.Logo.medium,
-  defaultOgImageUrl: AppImages.Logo.medium,
+  defaultLogoFilePath: HubAppImages.Logo.medium,
+  defaultOgImageUrl: HubAppImages.Logo.medium,
 });

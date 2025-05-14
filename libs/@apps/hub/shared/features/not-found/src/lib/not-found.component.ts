@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AppImages } from '@sb-hub/core-config/images';
+import { HubAppImages } from '@sb-hub/core-config/images';
 
 @Component({
   selector: 'hub-not-found',
@@ -178,5 +178,5 @@ import { AppImages } from '@sb-hub/core-config/images';
   ],
 })
 export class NotFoundComponent {
-  _logo = signal(AppImages.Logo.default);
+  _logo = signal(HubAppImages.Logo.default);
 }
