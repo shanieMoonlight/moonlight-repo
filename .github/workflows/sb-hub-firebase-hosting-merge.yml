@@ -2,7 +2,7 @@
 #
 # Updated to use a custom action for environment setup and caching
 
-name: Deploy SpiderBaby- MiniState to Firebase Hosting on merge # Keep this name for this specific app
+name: Deploy SpiderBaby- Hub to Firebase Hosting on merge # Keep this name for this specific app
 on:
   push:
     branches:
@@ -11,6 +11,7 @@ on:
     # if this workflow should ONLY run when SpiderBabyMaterialTheming code changes:
     paths:
       - 'apps/hub/sb-hub/**' # Adjust path to your project's code
+      - 'libs/@apps/hub/**' 
   #   - 'functions/**' # If this project uses functions and changes to functions should trigger this build/deploy
 
 jobs:
