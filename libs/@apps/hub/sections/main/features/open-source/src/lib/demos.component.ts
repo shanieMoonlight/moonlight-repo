@@ -29,7 +29,7 @@ export class HubOpenSourceDemosComponent {
    */
   constructor() {
 
-    console.log(`this._appRouteDefs.routes                 :`, this._appRouteDefs.routes);
+    // console.log(`this._appRouteDefs.routes                 :`, this._appRouteDefs.routes);
 
     console.log(`this._appRouteDefs.routes.main.route()                  :`, this._appRouteDefs.routes.main.route());
     console.log(`this._appRouteDefs.fullPaths.main.route()               :`, this._appRouteDefs.fullPaths.main.route());
