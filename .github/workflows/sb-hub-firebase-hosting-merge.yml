@@ -62,7 +62,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABY_MINI_STATE }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABY_HUB }}
           channelId: live
           target: spider-baby-hub-demo
           projectId: spider-baby-hub
