@@ -4,7 +4,7 @@ import { AppRouteDefs } from './app-route-defs';
 export const appRoutes: Route[] = [
   {
     path: AppRouteDefs.routes.admin.route(),
-    loadChildren: () => import('./sections/api/admin.routes').then((m) => m.adminRoutes),
+    loadChildren: () => import('./sections/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
     path: AppRouteDefs.routes.main.route(),

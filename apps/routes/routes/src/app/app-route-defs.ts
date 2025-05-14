@@ -2,7 +2,7 @@
 
 //#################################################//
 
-import { AdminSectionRoutesDefs } from "./sections/api/admin-route-defs";
+import { AdminSectionRoutesDefs } from "./sections/admin/admin-route-defs";
 import { MainSectionRoutesDefs } from "./sections/main/main-route-defs";
 
 /** Base route for the main application area. */
