@@ -1,0 +1,9 @@
+{
+  "name": "rd-route-defs-demo-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/routes/routes-e2e/src",
+  "implicitDependencies": ["rd-route-defs-demo"],
+  "// targets": "to see all targets run: nx show project rd-route-defs-demo-e2e --web",
+  "targets": {}
+}

@@ -1,0 +1,113 @@
+<div class="home-container">
+  
+  <rd-hero-banner 
+    [title]="_title" 
+    [subtitle]="_subtitle" 
+    [imageUrl]="_heroImageUrl" 
+    [imageAlt]="_heroImageAlt"
+    [actionsTemplate]="bannerActionsTemplate" />
+
+  <section class="features-section">
+    <h2 class="section-title">Examples</h2>
+    <p class="section-description">
+      Explore these examples to see how our solution can help with your
+      projects.
+    </p>
+
+    <div class="features-grid">
+      @for (feature of _features; track feature.title) {
+      <mat-card class="feature-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
+          <mat-card-title>{{ feature.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button color="primary" [routerLink]="feature.route">
+           {{ feature.title }}
+          </a>
+        </mat-card-actions>
+      </mat-card>
+      }
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <section class="quick-start">
+    <h2 class="section-title">Getting Started</h2>
+    <p>Install the package in your Angular application:</p>
+
+    <div class="code-block">
+      <pre><code 
+          [highlight]="`npm install @your-org/package-name`" 
+          [language]="'typescript'" ></code></pre>
+    </div>
+
+    <p>Basic usage example:</p>
+
+    <div class="code-block">
+      <pre><code 
+        [highlight]="`
+import { SomeService } from '@your-org/package-name';
+
+// Initialize service
+const service = new SomeService(config);
+
+// Example usage
+const result = service.doSomething();
+
+// Access properties
+const data = result.data;
+const isLoading = result.loading;
+        `" 
+        [language]="'typescript'" ></code></pre>
+    </div>
+
+    <div class="code-block">
+      <pre><code 
+        [highlight]="`
+import { OtherService } from '@your-org/package-name';
+
+// Advanced configuration
+const config = {
+  apiKey: 'your-api-key',
+  endpoint: 'https://api.example.com',
+  timeout: 5000
+};
+
+// Create instance with options
+const service = new OtherService(config);
+
+// Use the service methods
+service.initialize();
+        `" 
+        [language]="'typescript'" ></code></pre>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <p>Route Defs Demo</p>
+    <p><small>Built with Angular</small></p>
+  </footer>
+</div>
+
+
+<!-- ########################################### -->
+
+<ng-template #bannerActionsTemplate>
+  <div class="cta-buttons">
+    <a mat-raised-button [routerLink]="_productsRoute">
+      <mat-icon>storefront</mat-icon>
+      Products
+    </a>
+    <a mat-stroked-button color="accent" [routerLink]="_productsRoute">
+      <mat-icon>info</mat-icon>
+      About Us
+    </a>
+  </div>
+</ng-template>
+
+<!-- ########################################### -->

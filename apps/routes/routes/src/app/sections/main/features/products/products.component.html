@@ -1,0 +1,29 @@
+<div class="component-container">
+  <rd-hero-banner 
+    [title]="_title" 
+    [subtitle]="_subtitle" 
+    [description]="_description" 
+    [imageUrl]="_heroImageUrl" 
+    [imageAlt]="_heroImageAlt"
+    [actionsTemplate]="bannerActionsTemplate" />
+</div>
+
+    
+
+
+<!-- ########################################### -->
+
+<ng-template #bannerActionsTemplate>
+  <!-- <div class="cta-buttons">
+    <a mat-raised-button [routerLink]="_productsRoute">
+      <mat-icon>storefront</mat-icon>
+      Products
+    </a>
+    <a mat-stroked-button color="accent" [routerLink]="_productsRoute">
+      <mat-icon>info</mat-icon>
+      About Us
+    </a>
+  </div> -->
+</ng-template>
+
+<!-- ########################################### -->

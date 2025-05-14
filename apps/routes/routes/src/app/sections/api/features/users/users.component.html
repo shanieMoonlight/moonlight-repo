@@ -1,0 +1,22 @@
+<div class="component-container">
+    <rd-hero-banner 
+        [title]="_title" 
+        [subtitle]="_subtitle" 
+        [description]="_description" 
+        [imageUrl]="_heroImageUrl" 
+        [imageAlt]="_heroImageAlt"
+        [actionsTemplate]="bannerActionsTemplate" />
+</div>
+
+<mat-list>
+  @for (user of users; track $index) {
+    <mat-list-item lines="3" (click)="onUserClick(user.id)">
+      <div matListItemTitle>{{ user.firstname }} {{ user.lastname }}</div>
+      <div matListItemLine><strong>ID:</strong> {{ user.id }} <small>{{ user.email }}</small></div>
+    </mat-list-item>
+  }
+</mat-list>
+
+<ng-template #bannerActionsTemplate>
+  <!-- Add any call-to-action buttons or links here -->
+</ng-template>

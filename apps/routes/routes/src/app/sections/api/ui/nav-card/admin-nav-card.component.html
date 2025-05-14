@@ -1,0 +1,26 @@
+<mat-card class="api-nav-card" [ngClass]="_data().color || 'primary'">
+  <mat-card-header>
+    <div mat-card-avatar class="card-icon">
+      @if (_data().isSvgIcon) {
+        <mat-icon [svgIcon]="_data().icon" />
+      }
+      @else {
+        <mat-icon>{{_data().icon}}</mat-icon>
+      }
+    </div>
+    <mat-card-title>{{_data().title}}</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <p>{{_data().description}}</p>
+  </mat-card-content>
+  
+  <mat-card-actions>
+      <button mat-icon-button2 
+        [ngClass]="_data().color || 'primary'"
+        class="btn-follow" 
+        [routerLink]="_data().route">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+  </mat-card-actions>
+</mat-card>

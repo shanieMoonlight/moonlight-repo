@@ -1,0 +1,16 @@
+<div class="admin-home-container">
+  <header class="admin-header">
+    <h1>{{ _title }}</h1>
+    <p class="subtitle">{{ _subtitle }}</p>
+  </header>
+
+  <!-- <div class="search-container">
+      <rd-search/>
+    </div> -->
+
+  <div class="admin-cards-grid">
+    @for (route of _adminRoutes(); track route.route) {
+    <rd-ui-cards-admin-nav [data]="route" />
+    }
+  </div>
+</div>

@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+@use 'scss/mat/material-theme.scss' as *;
+@import 'highlight.js/styles/github.css';
+@import 'highlight.js/styles/vs2015.css'; // Dark theme
+
+
+.component-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}

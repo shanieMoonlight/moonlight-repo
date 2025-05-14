@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+:host {
+  display: block;
+}
+
+.component-container {
+  margin-bottom: 2rem;
+}
+
+mat-list {
+  // background: #fafbfc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(48, 44, 44, 0.04);
+  padding: 0.5rem 0;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+mat-list-item {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 1.5rem;
+  transition: background 0.2s;
+  cursor: pointer !important;
+}
+mat-list-item:last-child {
+  border-bottom: none;
+}
+
+mat-list-item:hover {
+  background: #f0f4ff9a;
+}
+
+mat-line strong {
+  color: #1976d2;
+}

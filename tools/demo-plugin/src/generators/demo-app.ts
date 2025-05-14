@@ -133,7 +133,7 @@ export async function demoAppGenerator(
   // Now add our custom demo files
   generateFiles(tree, path.join(__dirname, 'files'), nameAndRootOptions.projectRoot, normalizedOptions);
 
-  await formatFiles(tree);
+  // await formatFiles(tree);
 
   return async () => {
     // Execute the Angular app generation task

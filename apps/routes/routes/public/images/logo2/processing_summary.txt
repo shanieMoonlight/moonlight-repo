@@ -1,0 +1,7 @@
+Processing Summary - 14/05/2025 19:43:31
+Source folder: C:\Users\Shaneyboy\Desktop\Spider Babies\Logo
+Total folder types processed: 4
+- small: 6 images processed
+- medium: 6 images processed
+- large: 6 images processed
+- xlarge: 6 images processed

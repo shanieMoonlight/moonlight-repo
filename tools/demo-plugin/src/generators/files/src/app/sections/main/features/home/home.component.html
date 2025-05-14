@@ -6,12 +6,8 @@
     [description]="_description"
     [imageUrl]="_heroImageUrl"
     [imageAlt]="_heroImageAlt"
-    primaryButtonText="Try Examples"
-    primaryButtonLink="/simple"
-    primaryButtonIcon="play_arrow"
-    secondaryButtonText="View on GitHub"
-    [secondaryButtonLink]="_gitUrl()"
-    secondaryButtonIcon="code"/>
+    [actionsTemplate]="bannerActionsTemplate"/>
+    
   <section class="features-section">
     <h2 class="section-title">Examples</h2>
     <p class="section-description">
@@ -112,3 +108,27 @@ service.initialize();
     <p><small>Built with Angular</small></p>
   </footer>
 </div>
+
+
+
+
+<!-- ########################################### -->
+
+<ng-template #bannerActionsTemplate>
+  <div class="cta-buttons">
+      <a mat-raised-button [routerLink]="'/simple'">
+        <mat-icon>play_arrow</mat-icon>
+        Try Examples
+      </a>
+      <a
+      mat-stroked-button
+      color="accent"
+      [href]="_gitUrl()"
+      target="_blank">
+      <mat-icon>code</mat-icon>
+      View on GitHub
+    </a> 
+  </div>
+</ng-template>
+
+<!-- ########################################### -->
