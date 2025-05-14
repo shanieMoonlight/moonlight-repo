@@ -10,7 +10,7 @@ on:
     # Recommended: Add path filtering here for efficiency in a monorepo
     # if this workflow should ONLY run when SpiderBabyMaterialTheming code changes:
     paths:
-      - 'apps/hub/sb0-hub/**' # Adjust path to your project's code
+      - 'apps/hub/sb-hub/**' # Adjust path to your project's code
   #   - 'functions/**' # If this project uses functions and changes to functions should trigger this build/deploy
 
 jobs:
