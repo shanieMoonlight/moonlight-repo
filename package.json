@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
+    "postbuild:spider-baby-hub": "cp \"dist/apps/hub/sb-hub/browser/index.csr.html\" \"dist/apps/hub/sb-hub/browser/index.html\"",
     "generate:sitemap:mini-state": "node scripts/mini-state/generate-sitemap.js",
     "build:mini-state": "npx nx run spider-baby-mini-state-demo:build --configuration=production && npm run generate:sitemap:mini-state",
     "sitemap:mini-state": "npm run generate:sitemap:mini-state",
     "generate-search-index": "node scripts/mini-state/generate-lunr-search-index.js",
-    "build:with-search": "npm run prerender && npm run generate-search-index",
-    "run:ts-script": "ts-node -P tsconfig.scripts.json",
-    "local-npm-publish": "ts-node -P tsconfig.scripts.json scripts-ts/publishing/clis/local-npm-publish-cli.ts"
+    "build:with-search": "npm run prerender && npm run generate-search-index"
   },
   "private": true,
   "dependencies": {

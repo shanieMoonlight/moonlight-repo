@@ -1,7 +1,8 @@
 {
   "projects": {
     "spider_baby_mat_theming_demo": "spiderbabymaterialtheming",
-    "spider_baby_mini_state_demo": "spider-baby-mini-state"
+    "spider_baby_mini_state_demo": "spider-baby-mini-state",
+    "spider_baby_hub_demo": "spider-baby-hub"
   },
   "targets": {
     "spiderbabymaterialtheming": {
@@ -13,7 +14,13 @@
       "hosting": {
         "spider-baby-mini-state-demo": ["spider-baby-mini-state"]
       }
+    },
+    "spider-baby-hub": {
+      "hosting": {
+        "spider-baby-hub-demo": ["spider-baby-hub"]
+      }
     }
+
   },
   "etags": {}
 }

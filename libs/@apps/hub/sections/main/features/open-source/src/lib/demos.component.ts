@@ -22,7 +22,6 @@ export class HubOpenSourceDemosComponent {
 
   _homePath = this._appRouteDefs.fullPaths.main.route('home')
   _homePath2 = this._appRouteDefs.routes.main.route('home')
-  _homePath3 = this._appRouteDefs.routes.main.admin.route('home')
 
 
   /**
@@ -39,11 +38,11 @@ export class HubOpenSourceDemosComponent {
     console.log(`this._appRouteDefs.routes.main.route('open-source')     :`, this._appRouteDefs.routes.main.route('open-source'));
     console.log(`this._appRouteDefs.fullPaths.main.route('open-source')  :`, this._appRouteDefs.fullPaths.main.route('open-source'));
 
-    console.log(`this._appRouteDefs.routes.main.admin.route()            :`, this._appRouteDefs.routes.main.admin.route());
-    console.log(`this._appRouteDefs.fullPaths.main.admin.route()         :`, this._appRouteDefs.fullPaths.main.admin.route());
+    // console.log(`this._appRouteDefs.routes.main.admin.route()            :`, this._appRouteDefs.routes.main.admin.route());
+    // console.log(`this._appRouteDefs.fullPaths.main.admin.route()         :`, this._appRouteDefs.fullPaths.main.admin.route());
 
-    console.log(`this._appRouteDefs.routes.main.admin.route('users')     :`, this._appRouteDefs.routes.main.admin.route('users'));
-    console.log(`this._appRouteDefs.fullPaths.main.admin.route('users')  :`, this._appRouteDefs.fullPaths.main.admin.route('users'));
+    // console.log(`this._appRouteDefs.routes.main.admin.route('users')     :`, this._appRouteDefs.routes.main.admin.route('users'));
+    // console.log(`this._appRouteDefs.fullPaths.main.admin.route('users')  :`, this._appRouteDefs.fullPaths.main.admin.route('users'));
 
 
 

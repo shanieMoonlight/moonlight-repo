@@ -5,8 +5,12 @@ This document outlines the pattern used for defining and constructing URL routes
 ## Core Concepts
 
 1.  **Area-Specific Definitions**: Routes are organized into "areas" (e.g., `main`, `admin`), each with its own definition class (e.g., `HubMainAreaRoutesDefs`, `HubAdminAreaRoutesDefs`).
+     Each section or subsection get's their own route-defs class and routes are accessed using the route-defs class.  `No 'Magic Strings'`!
+
 2.  **Application Root Definition**: A top-level class (`HubAppRouteDefs`) aggregates area definitions and provides access to all routes from the application root.
+
 3.  **`BASE` Constant**: Each route definition class has a `static readonly BASE` constant representing its primary path segment (e.g., `main` for `HubMainAreaRoutesDefs`, `administration` for `HubAdminAreaRoutesDefs`). The `HubAppRouteDefs.BASE` is typically an empty string `'''`.
+
 4.  **`CHILD_ROUTE` Types**: These type aliases (e.g., `type CHILD_ROUTE = 'home' | 'open-source';`) define the valid **endpoint** segments for a specific area. They represent the final page in a route path and are **not** used to define further nested route sections. To access segments or full paths of nested sections (like `admin` within `main`), you use the `routes.areaName.route()` or `fullPaths.areaName.route()` accessor pattern.
 
 ## Key Properties and Methods

@@ -1,6 +1,6 @@
 // filepath: scripts/mini-state/generate_ministate-sitemap.js
 const path = require('path');
-const sitemapGenerator = require('../shared/sitemap/generate-sitemap');
+const sitemapGenerator = require('../shared/sitemap/generate-sitemap-from-app-routes-file');
 
 //--------------------------------//
 

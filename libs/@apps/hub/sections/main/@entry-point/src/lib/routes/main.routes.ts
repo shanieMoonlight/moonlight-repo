@@ -16,13 +16,9 @@ export const MAIN_ROUTES: Route[] = [
         path: HubMainAreaRoutesDefs.route('open-source'),
         loadComponent: () => import('@sb-hub/sections-main/features/open-source').then((m) => m.HubOpenSourceDemosComponent),
       },
-      // {
-      //   path: '',
-      //   loadComponent: () => import('./features/open-source/demos.component').then((m) => m.HubOpenSourceDemosComponent),
-      // },
       {
         path: '',
-        redirectTo: HubMainAreaRoutesDefs.route('open-source'), // Change loadComponent to redirectTo
+        redirectTo: HubMainAreaRoutesDefs.route('open-source'), 
         pathMatch: 'full', // Add pathMatch: 'full' for empty path redirects
       },
       {

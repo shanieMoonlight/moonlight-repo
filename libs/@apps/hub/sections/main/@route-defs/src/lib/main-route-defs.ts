@@ -1,5 +1,4 @@
 import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
-import { HubAdminAreaRoutesDefs } from './admin-route-defs';
 
 //#################################################//
 
@@ -47,7 +46,7 @@ export class HubMainAreaRoutesDefs {
      */
     route: (route?: CHILD_ROUTE) => route ?? HubMainAreaRoutesDefs.BASE,
     /** Relative routes for the 'admin' area, nested under 'main'. */
-    admin: HubAdminAreaRoutesDefs.routes,
+    // admin: HubAdminAreaRoutesDefs.routes,
   };
 
   //- - - - - - - - - - - - - - - - - - -//
@@ -64,7 +63,7 @@ export class HubMainAreaRoutesDefs {
      */
     route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(HubMainAreaRoutesDefs.BASE, route),
     /** Full paths for the 'admin' area, nested under 'main'. */
-    admin: HubAdminAreaRoutesDefs.fullPathFn(HubMainAreaRoutesDefs.BASE),
+    // admin: HubAdminAreaRoutesDefs.fullPathFn(HubMainAreaRoutesDefs.BASE),
   };
 
   //- - - - - - - - - - - - - - - - - - -//
@@ -84,7 +83,7 @@ export class HubMainAreaRoutesDefs {
        */
       route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
       /** Full paths for the 'admin' area, nested under 'main'. */
-      admin: HubAdminAreaRoutesDefs.fullPathFn(basePath),
+      // admin: HubAdminAreaRoutesDefs.fullPathFn(basePath),
     };
   };
 

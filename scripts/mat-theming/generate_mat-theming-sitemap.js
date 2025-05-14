@@ -1,5 +1,5 @@
 
-const sitemapGenerator = require('../shared/sitemap/generate-sitemap');
+const sitemapGenerator = require('../shared/sitemap/generate-sitemap-from-app-routes-file');
 const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '../..');

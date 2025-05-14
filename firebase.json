@@ -50,6 +50,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+     {
+      "target": "spider-baby-hub-demo",
+      "public": "dist/apps/hub/sb-hub/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
