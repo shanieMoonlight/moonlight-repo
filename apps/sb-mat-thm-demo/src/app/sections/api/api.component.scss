@@ -3,7 +3,7 @@
 :host {
     display: block;
     // padding-top: 72px;
-    min-height: calc(100vh - 72px);
+    min-height: calc(100vh);
 }
 
 sb-api-navbar {
@@ -27,6 +27,7 @@ sb-api-navbar {
 
 .sidenav-container {
     padding-top: 72px;
+    height: 100%;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -79,7 +80,7 @@ sb-api-navbar {
 
 
 .router-outlet-container {
-    padding: 16px;
+    padding: 0 16px 16px 16px ;
     // Add some margin on the left to account for the menu button
-    margin-left: 40px;
+ // margin-left: 40px;
 }

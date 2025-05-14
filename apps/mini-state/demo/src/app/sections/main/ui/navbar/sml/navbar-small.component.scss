@@ -1,0 +1,111 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  padding: 0 16px;
+  min-height: 64px;
+  position: relative; // Important for absolute positioning of .right-links
+}
+
+.left-links, .right-links {
+  display: flex;
+  align-items: center;
+}
+
+.left-links {
+  gap: 8px;
+}
+
+// Styles for right-links (always in "mobile" mode)
+.right-links {
+  position: absolute;
+  top: 64px; // Aligns with bottom of toolbar
+  right: 0;
+  flex-direction: column;
+  background-color: var(--mat-sys-primary-container);
+  align-items: flex-start;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 4px;
+  z-index: 100;
+  padding: 8px 0;
+  
+  // Hide by default
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+  
+  // Show when open class is applied
+  &.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0s;
+  }
+  
+  // Style navigation items in dropdown
+  .navlink {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 0;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+  
+  // Adjust rhs-outlet in mobile view
+  .rhs-outlet {
+    width: 100%;
+    padding: 8px 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}
+
+.rhs-outlet {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navlink {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  &.active {
+    color: var(--mat-sys-secondary);
+    font-weight: 500;
+  }
+}
+
+// Ensure icon buttons have consistent styling
+button[mat-icon-button] {
+  color: var(--mat-sys-on-surface-variant);
+  
+  &:hover {
+    color: var(--mat-sys-primary);
+  }
+}
+
+img.navlink {
+  height: 32px;
+  width: auto;
+  padding: 0;
+  margin: 0 8px;
+}

@@ -15,14 +15,14 @@
 .api-header {
   text-align: center;
   margin-bottom: 3rem;
-  
+
   h1 {
     color: var(--mat-sys-primary);
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-weight: 300;
   }
-  
+
   .subtitle {
     color: var(--mat-sys-on-surface-variant);
     font-size: 1.2rem;
@@ -44,8 +44,9 @@
   .api-header h1 {
     font-size: 2rem;
   }
-  
+
   .api-cards-grid {
-    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }

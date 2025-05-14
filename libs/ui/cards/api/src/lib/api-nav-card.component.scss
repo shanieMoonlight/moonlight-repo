@@ -1,4 +1,11 @@
 /* filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\src\app\sections\api\ui\api-nav-card\api-nav-card.component.scss */
+
+:host{
+    display: flex;
+    justify-content: center;
+
+}
+
 .api-nav-card {
   max-width: 350px;
   height: 100%;

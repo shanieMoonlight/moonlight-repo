@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal, TemplateRef } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
@@ -9,15 +9,9 @@ import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
-
-//##############################################################//
-
-interface NavbarItem {
-  routerLink: string,
-  tooltip: string,
-  iconName: string,
-  text: string
-}
+import { NavbarItem } from './@models/navbar-item';
+import { MainNavbarLargeComponent } from './lrg/navbar-large.component';
+import { MainNavbarSmlComponent } from './sml/navbar-small.component';
 
 //##############################################################//
 
@@ -63,8 +57,8 @@ const rhsNavbarItems: NavbarItem[] = [
   standalone: true,
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective,
-    NgTemplateOutlet,
+    MainNavbarSmlComponent,
+    MainNavbarLargeComponent,
     RouterModule,
   ],
   templateUrl: './navbar.component.html',
@@ -83,13 +77,13 @@ export class NavbarComponent {
   //- - - - - - - - - - - - - - -//
 
 
-  protected _logoSml = signal(AppImages.Logo.small) 
-  
-  public get _randomId(): number {
+  protected _logoSml = signal(AppImages.Logo.small)
+
+  public _randomId = computed(() => {
     const min = 1
     const max = 1000
     return Math.floor(Math.random() * (max - min + 1)) + min
-  }
+  })
 
 
 
@@ -98,9 +92,9 @@ export class NavbarComponent {
   protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems)
 
 
-  isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])
+  private _isSmallScreen$ = this._breakpoints.observe(['(max-width: 768px)'])
     .pipe(map((state => state.matches)))
-  isSmallScreen = toSignal(this.isSmallScreen$)
+  _isSmallScreen = toSignal(this._isSmallScreen$)
 
   //-----------------------------//
 
