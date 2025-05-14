@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/material-theming",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A flexible Material Design theming system for Angular applications with dark mode support",
   "keywords": [
     "angular",

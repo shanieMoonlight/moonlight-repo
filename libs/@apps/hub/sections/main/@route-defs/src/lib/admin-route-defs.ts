@@ -1,26 +1,24 @@
 import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
-import { HubAdminAreaRoutesDefs } from './admin-route-defs';
 
 //#################################################//
 
 /** Base route for the main application area. */
-const BaseRoute = 'main';
+const BaseRoute = 'administration';
 
 /** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
-type CHILD_ROUTE = 'home' | 'open-source';
-
+type CHILD_ROUTE = 'home' | 'users' | 'teams' | 'settings';
 /** Type alias for all routes (base and child) of the main application area. */
 type ROUTE = typeof BaseRoute | CHILD_ROUTE;
 
 //#################################################//
 
 /**
- * Defines routes for the main area of the Hub application.
+ * Defines routes for the admin area within the main section.
  * See `apps/hub/sb-hub/@docs/route-defs-pattern.md` for details.
  */
-export class HubMainAreaRoutesDefs {
+export class HubAdminAreaRoutesDefs {
 
-  /** Base route path for the main area (e.g., 'main'). */
+  /** Base route path for the admin area (e.g., 'administration'). */
   public static readonly BASE = BaseRoute;
 
   //- - - - - - - - - - - - - - - - - - -//
@@ -28,7 +26,7 @@ export class HubMainAreaRoutesDefs {
   /**
    * Returns the provided route segment.
    * Primarily for use in this area's Angular route configuration.
-   * @param route - The route segment (e.g., 'home', 'open-source', or 'main' itself).
+   * @param route - The route segment (e.g., 'home', 'users', or 'administration' itself).
    * @returns The route segment.
    */
   static route = (route: ROUTE) => route;
@@ -36,18 +34,16 @@ export class HubMainAreaRoutesDefs {
   //- - - - - - - - - - - - - - - - - - -//
 
   /**
-   * Access to relative route segments for this area and its children (e.g., admin).
+   * Access to relative route segments for this admin area.
    * See `apps/hub/sb-hub/@docs/route-defs-pattern.md`.
    */
   static routes = {
     /**
-     * Returns the child route segment or the base segment of this main area.
-     * @param route - Optional child route segment (e.g., 'home', 'open-source').
-     * @returns Child route segment or `HubMainAreaRoutesDefs.BASE`.
+     * Returns the child route segment or the base segment of this admin area.
+     * @param route - Optional child route segment (e.g., 'home', 'users').
+     * @returns Child route segment or `HubAdminAreaRoutesDefs.BASE`.
      */
-    route: (route?: CHILD_ROUTE) => route ?? HubMainAreaRoutesDefs.BASE,
-    /** Relative routes for the 'admin' area, nested under 'main'. */
-    admin: HubAdminAreaRoutesDefs.routes,
+    route: (route?: CHILD_ROUTE) => route ?? HubAdminAreaRoutesDefs.BASE,
   };
 
   //- - - - - - - - - - - - - - - - - - -//
@@ -62,29 +58,25 @@ export class HubMainAreaRoutesDefs {
      * @param route - Optional child route.
      * @returns The full path for the child route or the main area's base path.
      */
-    route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(HubMainAreaRoutesDefs.BASE, route),
-    /** Full paths for the 'admin' area, nested under 'main'. */
-    admin: HubAdminAreaRoutesDefs.fullPathFn(HubMainAreaRoutesDefs.BASE),
+    route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(this.BASE, route),
   };
 
   //- - - - - - - - - - - - - - - - - - -//
 
   /**
-   * Factory for creating full path functions for this area and its children, prefixed by `parentRoute`.
+   * Factory for creating full path functions for this area, prefixed by `parentRoute`.
    * See `apps/hub/sb-hub/@docs/route-defs-pattern.md`.
    * @param parentRoute - The parent route to prefix paths with.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, HubMainAreaRoutesDefs.BASE);
+    const basePath = HubRouteUtility.Combine(parentRoute, HubAdminAreaRoutesDefs.BASE);
     return {
       /**
-       * Returns the full path for a child route, or the base path of this main area, prefixed by `parentRoute`.
+       * Returns the full path for a child route, or the base path of this admin area, prefixed by `parentRoute`.
        * @param route - Optional child route segment.
        * @returns Full path.
        */
       route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
-      /** Full paths for the 'admin' area, nested under 'main'. */
-      admin: HubAdminAreaRoutesDefs.fullPathFn(basePath),
     };
   };
 

@@ -17,7 +17,9 @@
     "paths": {
       "@moonlight/tools": ["tools/src/index.ts"],
       "@sb-hub/app/entry-point": ["libs/@apps/hub/@entry-point/src/index.ts"],
-      "@sb-hub/app/route-defs": ["libs/@apps/hub/@route-defs/src/index.ts"],
+      "@sb-hub/app/route-definitions": [
+        "libs/@apps/hub/@route-defs/src/index.ts"
+      ],
       "@sb-hub/core-config": ["libs/@apps/hub/@core/config/src/index.ts"],
       "@sb-hub/core-config/constants": [
         "libs/@apps/hub/@core/config/constants/src/index.ts"

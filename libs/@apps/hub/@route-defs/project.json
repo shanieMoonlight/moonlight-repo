@@ -2,7 +2,7 @@
   "name": "sb-hub-app-route-defs",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/@apps/hub/@route-defs/src",
-  "prefix": "lib",
+  "prefix": "hub",
   "projectType": "library",
   "release": {
     "version": {
