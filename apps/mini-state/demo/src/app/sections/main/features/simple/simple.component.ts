@@ -23,6 +23,10 @@ import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 export class MainDemoSimpleComponent {
 
   private _ioService = inject(DummyAlbumIoService);
+
+  //- - - - - - - - - - - - - //
+  
+  protected _displayColumns = signal(['id', 'userId', 'title']);
   
 
   protected _state = MiniStateBuilder
@@ -30,12 +34,18 @@ export class MainDemoSimpleComponent {
     .trigger();//Trigger immediately
 
   protected _data = computed(() => this._state.data() ?? []);
+  protected _successMsg = this._state.successMsg;
+  protected _errorMsg = this._state.errorMsg;
+  protected _loading = this._state.loading;
 
+  //- - - - - - - - - - - - - //
 
   protected refresh = () =>
     this._state.trigger();
 
-}`
+}
+  
+`
 
 ///#############################################//
 
@@ -61,6 +71,8 @@ const HTML_CODE = `
     [successMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading albums...'"/>
+
+
 `
 
 ///#############################################//
@@ -85,7 +97,6 @@ export class MainDemoSimpleComponent {
 
   //- - - - - - - - - - - - - //
 
-
   protected _failureRate = signal(MainConstants.API_FAILURE_RATE * 100);
   protected _displayColumns = signal(['id', 'userId', 'title']);
 
@@ -106,5 +117,6 @@ export class MainDemoSimpleComponent {
   //--------------------------//
 
   protected _tsCode = signal(TS_CODE);
-  protected _htmlCode = signal(HTML_CODE);
+  protected _htmlCode = signal(HTML_CODE)
+  
 }

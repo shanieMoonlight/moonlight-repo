@@ -22,8 +22,8 @@ export class CrudStateService {
       (album: Album) => this._ioService.delete(album.id!),
       (album) => `Album ${album.title} deleted successfully 🗑️
       You will have to imagine that it was removed from the list.
-      This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`
-    ).trigger()
+      This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`)
+    .trigger()
 
   data = computed(() => this._crudState.data() ?? [])
   successMsg = this._crudState.successMsg
@@ -76,10 +76,8 @@ export class CrudStateService {
         (album) => \`⭐⭐⭐ \\r\\n Album \${album.title} updated successfully! \\r\\n⭐⭐⭐\`)
       .setDeleteState(
         (album: Album) => this._ioService.delete(album.id!),
-        (album) => \`Album \${album.title} deleted successfully 🗑️
-        You will have to imagine that it was removed from the list.
-        This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯\`
-      ).trigger()
+        (album) => \`Album \${album.title} deleted successfully 🗑️\`)
+      .trigger()
 
     data = computed(() => this._crudState.data() ?? [])
     successMsg = this._crudState.successMsg
