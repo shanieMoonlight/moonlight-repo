@@ -46,10 +46,10 @@ export class AdminSectionRoutesDefs {
    * @param parentRoute - The parent route to prefix paths with.
    * @returns The the full path from parentRoute.
    */
-  static fullPathFn = (parentRoute: string) => {
-    const basePath = RouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
+  static fullPathFn(parentRoute: string) {
+    const basePath = RouteUtility.combine(parentRoute, AdminSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       products: ProductAdminSectionRoutesDefs.fullPathFn(basePath),
     }
   }

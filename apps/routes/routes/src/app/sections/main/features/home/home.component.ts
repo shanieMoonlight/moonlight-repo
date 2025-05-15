@@ -51,10 +51,10 @@ check out the the Tutorial section in the main menu.
   protected _gitUrl = AppConstants.GIT_REP_URL
 
   //Calling from base main so can use relative path
-  protected _aboutRoute =    MainSectionRoutesDefs.routes.route('about')
-  protected _contactRoute =  MainSectionRoutesDefs.routes.route('contact')
-  protected _productsRoute = MainSectionRoutesDefs.routes.route('products')
-  protected _tutorialRoute = MainSectionRoutesDefs.routes.route('tutorial')
+  protected _aboutRoute =    MainSectionRoutesDefs.route('about')
+  protected _contactRoute =  MainSectionRoutesDefs.route('contact')
+  protected _productsRoute = MainSectionRoutesDefs.route('products')
+  protected _tutorialRoute = MainSectionRoutesDefs.route('tutorial')
 
 
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { AppRouteDefs } from '../../../../app-route-defs';
 import { AppImages2 } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 
@@ -24,5 +25,8 @@ export class MainAboutComponent {
   protected _description = `Founded in 2020, our company specializes in creating modern, efficient, and user-friendly web applications using the latest technologies like Angular, React, and Node.js. Our team of experienced developers is dedicated to delivering high-quality solutions for businesses of all sizes.`;
   protected _heroImageUrl = AppImages2.Logo.small;
   protected _heroImageAlt = 'Route Defs Demo Logo';
+
+  
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.main.route();
 
 }

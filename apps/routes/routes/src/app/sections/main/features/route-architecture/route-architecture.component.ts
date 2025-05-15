@@ -57,13 +57,12 @@ const BaseRoute = 'admin';
 /** Type alias for the child routes of the admin application area: 'home' | 'dashboard'. */
 type CHILD_ROUTE = 'home' | 'dashboard' | 'users' | 'reports' | 'settings' | 'content';
 // CHILD_ROUTE will allow us to use the route in the IDE and use intellisense to get auto-completion.
-//When you add a new route to the admin area, you can add it here and it will be available in the IDE. 
-//Nothing else needs to change.
+// When you add a new route to the admin area, you add the path here and it will be available in the IDE. 
 
 //#################################################//
     
     
-    export class AdminSectionRoutesDefs {
+export class AdminSectionRoutesDefs {
   /** Base route path for the admin area (e.g., 'admin'). */
   public static readonly BASE = 'admin';
 
@@ -106,8 +105,7 @@ const BaseRoute = 'product-admin';
 /** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
 type CHILD_ROUTE = 'home' | 'new-product' | 'categories';
 // CHILD_ROUTE will allow us to use the route in the IDE and use intellisense to get auto-completion.
-// When you add a new route to the admin area, you can add it here and it will be available in the IDE. 
-// Nothing else needs to change.
+// When you add a new route to the admin area, you add the path here and it will be available in the IDE. 
 
 //#################################################//
 
@@ -151,12 +149,12 @@ export class ProductAdminSectionRoutesDefs {
     component: MainComponent,
     children: [
       {
-        path: MainSectionRoutesDefs.routes.route('about'),
+        path: MainSectionRoutesDefs.route('about'),
         loadComponent: () => import('./features/about/about.component')
           .then((m) => m.MainAboutComponent),
       },
       {
-        path: MainSectionRoutesDefs.routes.route('contact'),
+        path: MainSectionRoutesDefs.route('contact'),
         loadComponent: () => import('./features/contact/contact.component')
           .then((m) => m.MainContactComponent),
       },
@@ -168,7 +166,7 @@ export class ProductAdminSectionRoutesDefs {
       },
       // Redirect 'home' to the default route ('')
       {
-        path: MainSectionRoutesDefs.routes.route('home'),
+        path: MainSectionRoutesDefs.route('home'),
         redirectTo: '',
         pathMatch: 'full',
       },
@@ -200,7 +198,7 @@ export class ProductAdminSectionRoutesDefs {
 
   getRouteUsageExamples(): string {
     return `// Basic route segment. Use when nvaigating form MainSection base or home
-const aboutRoute = MainSectionRoutesDefs.routes.route('about');
+const aboutRoute = MainSectionRoutesDefs.route('about');
 // Result: "about"
 
 // Full path from app root
@@ -231,7 +229,7 @@ const newProductPath = AppRouteDefs.routes.admin.products.route('new-product');
 },
 // 2. Redirect explicit 'home' route to the empty path
 {
-  path: MainSectionRoutesDefs.routes.route('home'),
+  path: MainSectionRoutesDefs.route('home'),
   redirectTo: '',
   pathMatch: 'full',
 },`;

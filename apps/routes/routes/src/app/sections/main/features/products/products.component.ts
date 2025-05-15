@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { AppRouteDefs } from '../../../../app-route-defs';
 import { AppImages3 } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'rd-main-products',
@@ -23,5 +24,7 @@ export class MainProductsComponent {
   protected _description = `Browse our comprehensive catalog of products designed to meet your needs. From enterprise solutions to personal tools, we offer high-quality software with cutting-edge features and outstanding support.`;
   protected _heroImageUrl = AppImages3.Logo.small;
   protected _heroImageAlt = 'Route Defs Demo Logo';
+  
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.main.route();
 
 }

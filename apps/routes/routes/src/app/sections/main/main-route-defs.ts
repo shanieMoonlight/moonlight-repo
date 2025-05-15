@@ -18,8 +18,6 @@ export class MainSectionRoutesDefs {
   /** Base route path for the main area (e.g., 'main'). */
   public static readonly BASE = BaseRoute;
 
-  //- - - - - - - - - - - - - - - - - - -//
-
   /**
    * Returns the provided route segment.
    * Primarily for use in this area's Angular route configuration.
@@ -47,9 +45,9 @@ export class MainSectionRoutesDefs {
    * @returns The the full path from parentRoute.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = RouteUtility.Combine(parentRoute, MainSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.combine(parentRoute, MainSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       // Child sections go here....
     };
   };

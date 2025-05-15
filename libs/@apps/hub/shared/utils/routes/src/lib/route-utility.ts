@@ -1,11 +1,13 @@
 
 export class RouteUtility {
 
+    static combine(...paths: Array<string | null | undefined>): string {
 
-    static Combine(...paths: Array<string | null | undefined>): string {
         const validSegments = paths
-            .filter((segment): segment is string => typeof segment === 'string' && segment.trim() !== '') // Filter out null, undefined, and empty/whitespace-only strings
-            .map(segment => segment.trim()); // Trim whitespace from valid segments
+            // Filter out null, undefined, and empty/whitespace-only strings
+            .filter((segment): segment is string => typeof segment === 'string' && segment.trim() !== '') 
+            // Trim whitespace from valid segments
+            .map(segment => segment.trim()); 
 
         if (validSegments.length === 0)
             return ''

@@ -13,16 +13,16 @@
 <!-- ########################################### -->
 
 <ng-template #bannerActionsTemplate>
-  <!-- <div class="cta-buttons">
-    <a mat-raised-button [routerLink]="_productsRoute">
-      <mat-icon>storefront</mat-icon>
-      Products
-    </a>
-    <a mat-stroked-button color="accent" [routerLink]="_productsRoute">
-      <mat-icon>info</mat-icon>
-      About Us
-    </a>
-  </div> -->
+  <div class="banner-actions">
+    <div class="cta-buttons">
+      <a mat-raised-button [routerLink]="_homeRoute"
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route()`">
+        <mat-icon>home</mat-icon>
+        Home
+      </a>
+    </div>
+  </div>
 </ng-template>
 
 <!-- ########################################### -->
+

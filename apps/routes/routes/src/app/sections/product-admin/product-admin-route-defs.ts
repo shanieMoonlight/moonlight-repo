@@ -46,9 +46,9 @@ export class ProductAdminSectionRoutesDefs {
      * @param parentRoute - The parent route to prefix paths with.
      */
     static fullPathFn = (parentRoute: string) => {
-        const basePath = RouteUtility.Combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
+        const basePath = RouteUtility.combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
         return {
-            route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
+            route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
             // Child sections go here....
         };
     };

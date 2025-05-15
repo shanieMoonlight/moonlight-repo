@@ -38,8 +38,8 @@ export class ConceptDemoComponent implements OnInit {
   routeExamples: RouteExample[] = [
     {
       description: 'Getting a relative route segment (Main section)',
-      code: `MainSectionRoutesDefs.route('about') //(Since we're using it from the main section)`,
-      result: MainSectionRoutesDefs.routes.route('about'),
+      code: `MainSectionRoutesDefs.route('about') //(Use when navigating from the main section)`,
+      result: MainSectionRoutesDefs.route('about'),
       path: MainSectionRoutesDefs.route('about')
     },
     {
@@ -97,20 +97,68 @@ export class ConceptDemoComponent implements OnInit {
   
   patterns = [
     {
+      title: 'Route Utility Class',
+      description: 'Safely combines multiple path segments into a single path string. Use it in **.route-defs.ts.',  
+      code: `export class RouteUtility {
+
+    static combine(...paths: Array<string | null | undefined>): string {
+
+        const validSegments = paths
+            // Filter out null, undefined, and empty/whitespace-only strings
+            .filter((segment): segment is string => typeof segment === 'string' && segment.trim() !== '') 
+            // Trim whitespace from valid segments
+            .map(segment => segment.trim()); 
+
+        if (validSegments.length === 0)
+            return ''
+
+        // Join segments, then normalize slashes
+        let combinedPath = validSegments.join('/');
+
+        // Replace multiple consecutive slashes with a single slash
+        combinedPath = combinedPath.replace(/\\/{2,}/g, '/');
+
+        // Optional: Remove a trailing slash if the path is not just "/"
+        if (combinedPath !== '/' && combinedPath.endsWith('/'))
+            combinedPath = combinedPath.slice(0, -1);
+
+        return combinedPath;
+    }
+
+}`
+    },
+    {
       title: 'Route Definition Class',
       description: 'Basic pattern for defining route segments and full paths',
-      code: `export class SectionRoutesDefs {
-  static readonly BASE = 'section-name';
+      code: `//#################################################//
+
+/** Base route for the admin application area. */
+const BaseRoute = 'admin';
+
+/** Type alias for the child routes of the admin application area: 'home' | 'dashboard'. */
+type CHILD_ROUTE = 'home' | 'users' | 'settings' | 'other-route';
+
+//#################################################//
+
+export class SectionRoutesDefs {
+
+  static readonly BASE = BaseRoute;
   
+  static route = (route?: CHILD_ROUTE) => route ?? SectionRoutesDefs.BASE
+
   static routes = {
-    route: (child?: CHILD_ROUTE) => child ?? this.BASE
+    route: (child?: CHILD_ROUTE) => SectionRoutesDefs.route,
   };
   
-  static fullPathFn = (parentPath: string) => 
-    (route?: CHILD_ROUTE) => {
-      const base = parentPath ? \`\${parentPath}/\${this.BASE}\` : this.BASE;
-      return route ? \`\${base}/\${route}\` : base;
-    };
+  static fullPathFn(parentRoute: string) {
+    const basePath = RouteUtility.combine(parentRoute, AdminSectionRoutesDefs.BASE);
+    return {
+      route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
+      subSection: SectionRoutesDefs.fullPathFn(basePath),
+      // Add more nested sections as needed
+    }
+  }
+
 }`
     },
     {
@@ -135,7 +183,9 @@ static routes = {
 
 // Usage
 AdminSectionRoutesDefs.routes.products.route('new-product');
-// Result: "new-product"`
+// Result: "new-product"
+AppRoutesDefs.fullPaths.admin.products.route('new-product');
+// Result: "admin/product-admin/new-product"`
     }
   ];
   
@@ -143,6 +193,5 @@ AdminSectionRoutesDefs.routes.products.route('new-product');
   ngOnInit() {
     console.log('ConceptDemoComponent initialized');
     
-    // You could load real route data dynamically here if needed
   }
 }

@@ -8,23 +8,23 @@ export const mainRoutes: Route[] = [
     component: MainComponent,
     children: [
       {
-        path: MainSectionRoutesDefs.routes.route('about'),
+        path: MainSectionRoutesDefs.route('about'),
         loadComponent: () => import('./features/about/about.component').then((m) => m.MainAboutComponent),
       },
       {
-        path: MainSectionRoutesDefs.routes.route('contact'),
+        path: MainSectionRoutesDefs.route('contact'),
         loadComponent: () => import('./features/contact/contact.component').then((m) => m.MainContactComponent),
       },
       {
-        path: MainSectionRoutesDefs.routes.route('products'),
+        path: MainSectionRoutesDefs.route('products'),
         loadComponent: () => import('./features/products/products.component').then((m) => m.MainProductsComponent),
       },      
       {
-        path: MainSectionRoutesDefs.routes.route('categories'),
+        path: MainSectionRoutesDefs.route('categories'),
         loadComponent: () => import('./features/categories/categories.component').then((m) => m.MainCategoriesComponent),
       },
       {
-        path: MainSectionRoutesDefs.routes.route('tutorial'),
+        path: MainSectionRoutesDefs.route('tutorial'),
         loadComponent: () => import('./features/route-architecture/route-architecture.component').then((m) => m.RouteArchitectureComponent),
       },
       // This route is the default route for the product-admin area 
@@ -36,7 +36,7 @@ export const mainRoutes: Route[] = [
       // This route redirects the 'home' route to ''.
       // We want the base/entry route to be '' so that routing will happen relative to MainSectionRoutesDefs.BASE not 'home'
       {
-        path: MainSectionRoutesDefs.routes.route('home'),
+        path: MainSectionRoutesDefs.route('home'),
         redirectTo: '',
         pathMatch: 'full',
       },

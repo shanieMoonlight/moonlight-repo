@@ -41,7 +41,7 @@ export const AdminMainRoutes: NavCardData[] = [
     description: 'Manage website or application content efficiently.',
     icon: 'content_paste',
     route: AdminSectionRoutesDefs.route('content'),
-    tooltip: `${AdminSectionRoutesDefs.route('content')}`,
+    tooltip: `AdminSectionRoutesDefs.route('content')`,
     color: 'secondary',
   },
   {

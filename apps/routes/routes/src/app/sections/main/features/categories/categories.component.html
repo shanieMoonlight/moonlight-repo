@@ -13,18 +13,15 @@
 
 <ng-template #bannerActionsTemplate>
   <div class="banner-actions">
-    <h3>View changes</h3>
     <div class="cta-buttons">
-      <a mat-raised-button [routerLink]="_mainAboutRoute">
-        <mat-icon>info</mat-icon>
-        Main About
-      </a>
-      <a mat-stroked-button color="accent" [routerLink]="_mainContactRoute">
-        <mat-icon>phone</mat-icon>
-        Main Contact
+      <a mat-raised-button [routerLink]="_homeRoute"
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route()`">
+        <mat-icon>home</mat-icon>
+        Home
       </a>
     </div>
   </div>
 </ng-template>
 
 <!-- ########################################### -->
+

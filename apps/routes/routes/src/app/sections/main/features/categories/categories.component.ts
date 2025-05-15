@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
-import { AppImages3 } from '../../../../config/images';
 import { AppRouteDefs } from '../../../../app-route-defs';
+import { AppImages3 } from '../../../../config/images';
+import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 
 @Component({
   selector: 'rd-main-categories',
@@ -26,7 +26,8 @@ export class MainCategoriesComponent {
   protected _heroImageAlt = 'Product Management';
 
   
-  protected _mainAboutRoute=   `/${AppRouteDefs.fullPaths.main.route('about')}`;
-  protected _mainContactRoute= `/${AppRouteDefs.fullPaths.main.route('contact')}`;
+  protected _mainAboutRoute=   AppRouteDefs.fullPathsWithSlash.main.route('about')
+  protected _mainContactRoute= AppRouteDefs.fullPathsWithSlash.main.route('contact')
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.main.route();
 
 }
