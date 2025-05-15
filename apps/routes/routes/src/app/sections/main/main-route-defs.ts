@@ -6,7 +6,7 @@ import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
 const BaseRoute = 'main';
 
 /** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
-type CHILD_ROUTE = 'home' | 'about'  | 'contact'| 'products';
+type CHILD_ROUTE = 'home' | 'about'  | 'contact'| 'products'|'categories';
 
 /** Type alias for all routes (base and child) of the main application area. */
 type ROUTE = typeof BaseRoute | CHILD_ROUTE;

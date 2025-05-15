@@ -8,6 +8,28 @@
         [actionsTemplate]="bannerActionsTemplate" />
 </div>
 
+
+
+<!-- ########################################### -->
+
 <ng-template #bannerActionsTemplate>
-  <!-- Add any call-to-action buttons or links here -->
+  <div class="banner-actions">
+    <h3>View changes</h3>
+    <div class="cta-buttons">      
+      <a mat-raised-button [routerLink]="_homeRoute">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin Home
+      </a>
+      <a mat-raised-button [routerLink]="_mainAboutRoute">
+        <mat-icon>info</mat-icon>
+        Main About
+      </a>
+      <a mat-stroked-button color="accent" [routerLink]="_mainContactRoute">
+        <mat-icon>phone</mat-icon>
+        Main Contact
+      </a>
+    </div>
+  </div>
 </ng-template>
+
+<!-- ########################################### -->

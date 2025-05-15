@@ -9,16 +9,20 @@ export const prodAdminRoutes: Route[] = [
     children: [
       {
         path: ProductAdminSectionRoutesDefs.routes.route('categories'),
-        loadComponent: () => import('./features/categories/categories.component').then((m) => m.ProductCategoriesComponent),
+        loadComponent: () => import('./features/categories/categories.component').then((m) => m.ProductAdminCategoriesComponent),
       },
       {
         path: ProductAdminSectionRoutesDefs.routes.route('new'),
-        loadComponent: () => import('./features/new-product/new-product.component').then((m) => m.NewProductComponent),
+        loadComponent: () => import('./features/new-product/new-product.component').then((m) => m.ProductAdminNewProductComponent),
       },
+      // This route is the default route for the product-admin area 
+      // We want the base/entry route to be '' so that routing will happen relative to ProductAdminSectionRoutesDefs.BASE not 'home'
       {
         path: '',
         loadComponent: () => import('./features/home/home.component').then((m) => m.ProductAdminHomeComponent),
       },
+      // This route redirects the 'home' route to ''.
+      // We want the base/entry route to be '' so that routing will happen relative to ProductAdminSectionRoutesDefs.BASE not 'home'
       {
         path: ProductAdminSectionRoutesDefs.routes.route('home'),
         redirectTo: '',

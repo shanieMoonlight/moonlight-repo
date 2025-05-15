@@ -5,7 +5,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'rd-products',
+  selector: 'rd-main-products',
   standalone: true,
   imports: [
     HeroBannerComponent,

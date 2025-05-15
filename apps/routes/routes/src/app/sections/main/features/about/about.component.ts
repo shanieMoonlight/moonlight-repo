@@ -5,7 +5,7 @@ import { AppImages2 } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 
 @Component({
-  selector: 'rd-about',
+  selector: 'rd-main-about',
   standalone: true,
   imports: [
     MatEverythingModule,
@@ -16,7 +16,7 @@ import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.co
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutComponent {
+export class MainAboutComponent {
 
 
   protected _title = 'About Us';

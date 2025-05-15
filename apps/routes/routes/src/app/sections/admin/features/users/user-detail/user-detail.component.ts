@@ -6,7 +6,7 @@ import { AppImages1 } from '../../../../../config/images';
 import { HeroBannerComponent } from '../../../../../shared/ui/banner/hero-banner.component';
 
 @Component({
-    selector: 'rd-user-detail',
+    selector: 'rd-admin-user-detail',
     standalone: true,
     imports: [
         MatEverythingModule,
@@ -17,7 +17,7 @@ import { HeroBannerComponent } from '../../../../../shared/ui/banner/hero-banner
     styleUrl: './user-detail.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailComponent {
+export class AdminUserDetailComponent {
 
     private _router = inject(Router);
 

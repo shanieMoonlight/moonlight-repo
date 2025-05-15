@@ -7,21 +7,12 @@ import { AppRouteDefs } from '../../../../app-route-defs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
-import { MAIN_ROUTES } from '../../config/route-data';
-
-//##############################################//
-
-interface Feature {
-  title: string;
-  description: string;
-  route: string;
-  icon: string;
-}
+import { MainRoutes } from '../../config/route-data';
 
 //##############################################//
 
 @Component({
-  selector: 'rd-home',
+  selector: 'rd-main-home',
   standalone: true,
   imports: [
     CommonModule,
@@ -46,11 +37,11 @@ export class MainHomeComponent {
   protected _heroImageUrl = AppImages.Logo.default;
   protected _heroImageAlt = 'Route Defs Demo Logo';
 
-  protected _features = MAIN_ROUTES
+  protected _features = MainRoutes
   protected _gitUrl = AppConstants.GIT_REP_URL
 
-  protected _aboutRoute = `/${AppRouteDefs.fullPaths.main.route('about')}`;
-  protected _contactRoute = `/${AppRouteDefs.fullPaths.main.route('contact')}`;
+  protected _aboutRoute =    `/${AppRouteDefs.fullPaths.main.route('about')}`;
+  protected _contactRoute =  `/${AppRouteDefs.fullPaths.main.route('contact')}`;
   protected _productsRoute = `/${AppRouteDefs.fullPaths.main.route('products')}`;
 
 

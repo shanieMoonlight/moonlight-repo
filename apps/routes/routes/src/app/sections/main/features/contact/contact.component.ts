@@ -5,7 +5,7 @@ import { AppImages1 } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 
 @Component({
-  selector: 'rd-contact',
+  selector: 'rd-main-contact',
   standalone: true,
   imports: [
     MatEverythingModule,
@@ -15,7 +15,7 @@ import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.co
   styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactComponent {
+export class MainContactComponent {
 
 
   protected _title = 'Contact us';protected _subtitle = 'Get in touch with our team';

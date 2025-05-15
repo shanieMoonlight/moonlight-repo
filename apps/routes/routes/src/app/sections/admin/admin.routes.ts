@@ -9,7 +9,7 @@ export const adminRoutes: Route[] = [
     children: [
       {
         path: AdminSectionRoutesDefs.routes.route('reports'),
-        loadComponent: () => import('./features/reports/reports.component').then((m) => m.ReportsComponent),
+        loadComponent: () => import('./features/reports/reports.component').then((m) => m.AdminReportsComponent),
       },
       {
         path: AdminSectionRoutesDefs.routes.route('settings'),
@@ -17,28 +17,32 @@ export const adminRoutes: Route[] = [
       },
       {
         path: AdminSectionRoutesDefs.routes.route('content'),
-        loadComponent: () => import('./features/content/content.component').then((m) => m.ContentComponent),
+        loadComponent: () => import('./features/content/content.component').then((m) => m.AdminContentComponent),
       },
       {
         path: AdminSectionRoutesDefs.routes.route('dashboard'),
-        loadComponent: () => import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+        loadComponent: () => import('./features/dashboard/dashboard.component').then((m) => m.AdminDashboardComponent),
       },
       {
         path: AdminSectionRoutesDefs.routes.route('users'),
-        loadComponent: () => import('./features/users/users.component').then((m) => m.UsersComponent),
+        loadComponent: () => import('./features/users/users.component').then((m) => m.AdminUsersComponent),
       },
       {
         path: `${AdminSectionRoutesDefs.routes.route('users')}/:id`,
-        loadComponent: () => import('./features/users/user-detail/user-detail.component').then((m) => m.UserDetailComponent),
+        loadComponent: () => import('./features/users/user-detail/user-detail.component').then((m) => m.AdminUserDetailComponent),
       },
       {
         path: AdminSectionRoutesDefs.routes.products.route(),
         loadChildren: () => import('../product-admin/product-admin.routes').then((m) => m.prodAdminRoutes),
       },
+      // This route is the default route for the admin area 
+      //We want the base/entry route to be '' so that routing will happen relative to AdminSectionRoutesDefs.BASE not 'home'
       {
         path: '',
         loadComponent: () => import('./features/home/home.component').then((m) => m.AdminHomeComponent),
       },
+      // This route redirects the 'home' route to ''.
+      // We want the base/entry route to be '' so that routing will happen relative to AdminSectionRoutesDefs.BASE not 'home'
       {
         path: AdminSectionRoutesDefs.routes.route('home'),
         redirectTo: '',

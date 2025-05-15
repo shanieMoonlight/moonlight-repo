@@ -8,6 +8,23 @@
         [actionsTemplate]="bannerActionsTemplate" />
 </div>
 
+
+<!-- ########################################### -->
+
 <ng-template #bannerActionsTemplate>
-  <!-- Add any call-to-action buttons or links here -->
+  <div class="banner-actions">
+    <h3>View changes</h3>
+    <div class="cta-buttons">
+      <a mat-raised-button [routerLink]="_prodAdminHomeRoute">
+        <mat-icon>storefront</mat-icon>
+        Admin Products Home
+      </a>
+      <a mat-raised-button [routerLink]="_mainProductsRoute">
+        <mat-icon>dashboard</mat-icon>
+        Main Products
+      </a>
+    </div>
+  </div>
 </ng-template>
+
+<!-- ########################################### -->

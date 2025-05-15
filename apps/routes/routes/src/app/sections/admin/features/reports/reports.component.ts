@@ -3,9 +3,10 @@ import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 import { AppImages4 } from '../../../../config/images';
+import { AppRouteDefs } from '../../../../app-route-defs';
 
 @Component({
-  selector: 'rd-reports',
+  selector: 'rd-admin-reports',
   standalone: true,
   imports: [
     MatEverythingModule,
@@ -16,7 +17,7 @@ import { AppImages4 } from '../../../../config/images';
   styleUrl: './reports.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportsComponent {
+export class AdminReportsComponent {
 
   protected _title = 'Reports';
   protected _subtitle = 'View analytics and generate reports';
@@ -24,4 +25,8 @@ export class ReportsComponent {
   protected _heroImageUrl = AppImages4.Logo.small
   protected _heroImageAlt = 'Reports and Analytics';
 
+  //Not calling from base admin so need to use full path
+  protected _homeRoute = `/${AppRouteDefs.fullPaths.admin.route('home')}`;
+
 }
+

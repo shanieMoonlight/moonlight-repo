@@ -6,26 +6,27 @@ import { AppImages3 } from '../../../../config/images';
 import { AppRouteDefs } from '../../../../app-route-defs';
 
 @Component({
-  selector: 'rd-prod-admin-new-product',
+  selector: 'rd-main-categories',
   standalone: true,
   imports: [
     MatEverythingModule,
     RouterModule,
     HeroBannerComponent
   ],
-  templateUrl: './new-product.component.html',
-  styleUrl: './new-product.component.scss',
+  templateUrl: './categories.component.html',
+  styleUrl: './categories.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductAdminNewProductComponent {
+export class MainCategoriesComponent {
 
-  protected _title = 'New Product';
-  protected _subtitle = 'Create and manage new products';
-  protected _description = `This section allows you to create and manage new products efficiently.`;
+  protected _title = 'Product Categories';
+  protected _subtitle = 'Checkout our product categories';
+  protected _description = `This section allows the public to view our products categories.`;
   protected _heroImageUrl = AppImages3.Logo.small
   protected _heroImageAlt = 'Product Management';
 
-  protected _mainProductsRoute = `/${AppRouteDefs.fullPaths.main.route('products')}`;
-  //Not calling from base products-admin so Not needto use full path
-  protected _prodAdminHomeRoute = `/${AppRouteDefs.fullPaths.admin.products.route('home')}`;
+  
+  protected _mainAboutRoute=   `/${AppRouteDefs.fullPaths.main.route('about')}`;
+  protected _mainContactRoute= `/${AppRouteDefs.fullPaths.main.route('contact')}`;
+
 }

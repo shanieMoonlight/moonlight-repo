@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { AdminRoutes } from './config/admin-route-data';
+import { AdminMainRoutes } from './config/admin-route-data';
 import { ADMIN_THEME_CONFIG } from './config/admin-theme.config';
 import { AdminNavbarComponent } from './ui/navbar/navbar.component';
 
@@ -27,7 +27,7 @@ export class AdminComponent implements OnDestroy {
 
   //- - - - - - - - - - - - - - -//
 
-  adminRoutes = AdminRoutes;
+  adminRoutes = AdminMainRoutes;
 
   description = `Mini-State provides a simple, flexible API for managing state in a decalartive way in Angular applications. 
   It handles loading states, error messages, success notifications, and simplifies working with 

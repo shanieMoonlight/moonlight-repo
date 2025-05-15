@@ -30,13 +30,12 @@ export class ProductAdminSectionRoutesDefs {
      * @param route - The route segment (e.g., 'home', 'open-source', or 'main' itself).
      * @returns The route segment.
      */
-    static route = (route: ROUTE) => route;
+    static route = (route?: ROUTE) => route ?? ProductAdminSectionRoutesDefs.BASE;
 
     //- - - - - - - - - - - - - - - - - - -//
 
     /**
      * Access to relative route segments for this area and its children (e.g., admin).
-     * See `apps/hub/rd-hub/@docs/route-defs-pattern.md`.
      */
     static routes = {
         /**
@@ -44,7 +43,7 @@ export class ProductAdminSectionRoutesDefs {
          * @param route - Optional child route segment (e.g., 'home', 'open-source').
          * @returns Child route segment or `ProductAdminSectionRoutesDefs.BASE`.
          */
-        route: (route?: CHILD_ROUTE) => route ?? ProductAdminSectionRoutesDefs.BASE,
+        route: (route?: ROUTE) => route ?? ProductAdminSectionRoutesDefs.BASE,
     };
 
     //- - - - - - - - - - - - - - - - - - -//

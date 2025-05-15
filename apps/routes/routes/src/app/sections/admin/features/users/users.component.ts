@@ -6,7 +6,7 @@ import { AppImages1 } from '../../../../config/images';
 import { AppRouteDefs } from '../../../../app-route-defs';
 
 @Component({
-  selector: 'rd-users',
+  selector: 'rd-admin-users',
   standalone: true,
   imports: [
     MatEverythingModule,
@@ -17,7 +17,7 @@ import { AppRouteDefs } from '../../../../app-route-defs';
   styleUrl: './users.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersComponent {
+export class AdminUsersComponent {
 
   private _router = inject(Router);
 
@@ -28,6 +28,10 @@ export class UsersComponent {
   protected _description = `This section allows you to manage users, including creating, editing, and deleting accounts.`;
   protected _heroImageUrl = AppImages1.Logo.small
   protected _heroImageAlt = 'User Management';
+
+  
+  //Not calling from base admin so need to use full path
+  protected _homeRoute = `/${AppRouteDefs.fullPaths.admin.route('home')}`;
 
   protected users = [
     { id: 1, firstname: 'Alice', lastname: 'Smith', email: 'alice.smith@example.com' },

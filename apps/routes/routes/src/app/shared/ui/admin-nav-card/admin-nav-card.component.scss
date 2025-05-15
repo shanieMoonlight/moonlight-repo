@@ -1,4 +1,4 @@
-/* filepath: c:\Users\Shaneyboy\VsCode\moonlight-repo\apps\sb-mat-thm-demo\src\app\sections\api\ui\api-nav-card\api-nav-card.component.scss */
+
 
 :host {
   display: flex;
@@ -6,9 +6,10 @@
 
 }
 
-.api-nav-card {
+.admin-nav-card {
   max-width: 350px;
   height: 100%;
+      width: 100%;
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -61,6 +62,7 @@
 mat-card-content {
   flex: 1;
   padding: 16px;
+  white-space: pre-line;
 }
 
 mat-card-actions {
@@ -94,7 +96,7 @@ mat-card-actions {
     justify-content: center;
   }
 
- .btn-follow.primary {
+  .btn-follow.primary {
     background-color: var(--mat-sys-primary);
     color: var(--mat-sys-on-primary);
   }
@@ -107,7 +109,7 @@ mat-card-actions {
   .btn-follow.tertiary {
     background-color: var(--mat-sys-tertiary);
     color: var(--mat-sys-on-tertiary);
-  } 
+  }
 
 
 }
