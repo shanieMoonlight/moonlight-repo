@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
-import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { MatEverythingModule } from '@spider-baby/material-theming/utils'; 
 import { Subject, merge, tap } from 'rxjs';
 
 /**

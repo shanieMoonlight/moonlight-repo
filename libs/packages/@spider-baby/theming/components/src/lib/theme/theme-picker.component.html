@@ -8,7 +8,7 @@
 </button>
 
 <mat-menu #menu="matMenu">
-  @for (option of _systemOptions(); track option) {
+  @for (option of _systemOptions(); track $index) {
     <button
       mat-menu-item
       [class.selected]="option.value === _selectedOption()?.value"

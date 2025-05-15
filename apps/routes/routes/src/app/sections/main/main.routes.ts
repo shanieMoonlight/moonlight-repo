@@ -8,10 +8,6 @@ export const mainRoutes: Route[] = [
     component: MainComponent,
     children: [
       {
-        path: MainSectionRoutesDefs.routes.route('home'),
-        loadComponent: () => import('./features/home/home.component').then((m) => m.MainHomeComponent),
-      },
-      {
         path: MainSectionRoutesDefs.routes.route('about'),
         loadComponent: () => import('./features/about/about.component').then((m) => m.AboutComponent),
       },
@@ -26,6 +22,11 @@ export const mainRoutes: Route[] = [
       {
         path: '',
         loadComponent: () => import('./features/home/home.component').then((m) => m.MainHomeComponent),
+      },
+      {
+        path: MainSectionRoutesDefs.routes.route('home'),
+        redirectTo: '',
+        pathMatch: 'full',
       },
       {
         path: '**',

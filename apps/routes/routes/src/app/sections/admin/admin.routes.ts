@@ -8,10 +8,6 @@ export const adminRoutes: Route[] = [
     component: AdminComponent,
     children: [
       {
-        path: AdminSectionRoutesDefs.routes.route('home'),
-        loadComponent: () => import('./features/home/home.component').then((m) => m.AdminHomeComponent),
-      },
-      {
         path: AdminSectionRoutesDefs.routes.route('reports'),
         loadComponent: () => import('./features/reports/reports.component').then((m) => m.ReportsComponent),
       },
@@ -36,12 +32,17 @@ export const adminRoutes: Route[] = [
         loadComponent: () => import('./features/users/user-detail/user-detail.component').then((m) => m.UserDetailComponent),
       },
       {
-        path: AdminSectionRoutesDefs.routes.products.route(), 
+        path: AdminSectionRoutesDefs.routes.products.route(),
         loadChildren: () => import('../product-admin/product-admin.routes').then((m) => m.prodAdminRoutes),
       },
       {
         path: '',
         loadComponent: () => import('./features/home/home.component').then((m) => m.AdminHomeComponent),
+      },
+      {
+        path: AdminSectionRoutesDefs.routes.route('home'),
+        redirectTo: '',
+        pathMatch: 'full',
       },
       {
         path: '**',

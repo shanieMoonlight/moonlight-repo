@@ -8,10 +8,6 @@ export const prodAdminRoutes: Route[] = [
     component: ProductAdminComponent,
     children: [
       {
-        path: ProductAdminSectionRoutesDefs.routes.route('home'),
-        loadComponent: () => import('./features/home/home.component').then((m) => m.ProductAdminHomeComponent),
-      },
-      {
         path: ProductAdminSectionRoutesDefs.routes.route('categories'),
         loadComponent: () => import('./features/categories/categories.component').then((m) => m.ProductCategoriesComponent),
       },
@@ -22,6 +18,11 @@ export const prodAdminRoutes: Route[] = [
       {
         path: '',
         loadComponent: () => import('./features/home/home.component').then((m) => m.ProductAdminHomeComponent),
+      },
+      {
+        path: ProductAdminSectionRoutesDefs.routes.route('home'),
+        redirectTo: '',
+        pathMatch: 'full',
       },
       {
         path: '**',
