@@ -1,48 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
-import { IconsService } from '../../shared/utils/icons/icons.service';
 import { SwUpdate } from '@angular/service-worker';
-import {
-  SeoService,
-  StructuredDataService,
-  PerformanceService,
-  UrlUtilsService,
-} from '@spider-baby/utils-seo';
-import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { PerformanceService, StructuredDataService, UrlUtilsService } from '@spider-baby/utils-seo';
+import { IconsService } from '../../shared/utils/icons/icons.service';
+import { MainComponent } from './main.component';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
   isEnabled: false,
   versionUpdates: {
     pipe: () => ({
-      subscribe: () => {},
+      subscribe: () => { },
     }),
   },
   checkForUpdate: () => Promise.resolve(false),
   activateUpdate: () => Promise.resolve(true),
 };
 
-// Create a mock SeoConfig object
-const mockSeoConfig: SeoConfig = SeoConfig.create({
-  appName: 'Test App',
-  appDescription: 'Test Description',
-  organization: 'Test Org',
-  baseUrl: 'http://localhost/',
-  defaultLogoFilePath: 'assets/logo.png',
-  publishedDate: '2025-01-01',
-  keywords: ['test', 'seo'],
-  socialLinks: ['https://example.com/social'],
-  defaultOgImageUrl: 'assets/og-image.png',
-  twitterHandle: '@test',
-});
 
-// Create Mocks for the SEO Services
-const mockSeoService = {
-  updateMetadata: jest.fn(),
-  addCanonicalLink: jest.fn(),
-  addCanonicalLinkRelative: jest.fn(),
-};
 
 const mockStructuredDataService = {
   addLibraryStructuredData: jest.fn(),
@@ -61,8 +36,6 @@ describe('MainComponent', () => {
       imports: [MainComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
-        { provide: SeoConfigService, useValue: mockSeoConfig },
-        { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },
         { provide: StructuredDataService, useValue: mockStructuredDataService },
         { provide: PerformanceService, useValue: mockPerformanceService },

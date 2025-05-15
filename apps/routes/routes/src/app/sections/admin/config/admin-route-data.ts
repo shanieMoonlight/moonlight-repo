@@ -1,6 +1,6 @@
 import { AppRouteDefs } from '../../../app-route-defs';
 import { StringUtils } from '../../../shared/utils/strings/string-utils';
-import { AdminRouteData } from '../ui/nav-card/admin-nav-card.component';
+import { AdminRouteData } from '../../../shared/ui/admin-nav-card/admin-nav-card.component';
 
 export const AdminRoutes: AdminRouteData[] = [
   {
@@ -37,5 +37,12 @@ export const AdminRoutes: AdminRouteData[] = [
     icon: 'content_paste',
     route: `/${AppRouteDefs.fullPaths.admin.route('content')}`,
     color: 'secondary',
+  },
+  {
+    title: StringUtils.toTitleCase(AppRouteDefs.routes.admin.products.route()),
+    description: 'Manage products, including adding, editing, and deleting items.',
+    icon: 'inventory_2',
+    route: `/${AppRouteDefs.fullPaths.admin.products.route()}`,
+    color: 'tertiary',
   },
 ];

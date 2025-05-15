@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal, } from '@angular/core';
-import { Router } from '@angular/router';
-import { SeoService } from '@spider-baby/utils-seo';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AppImages } from '../../../../config/images';
-import { AdminNavCardComponent } from '../../ui/nav-card/admin-nav-card.component';
+import { AdminNavCardComponent } from '../../../../shared/ui/admin-nav-card/admin-nav-card.component';
 import { AdminRoutes } from '../../config/admin-route-data';
+import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
+import { ADMIN_THEME_CONFIG } from '../../config/admin-theme.config';
 
 //##############################################//
 
@@ -15,31 +15,28 @@ import { AdminRoutes } from '../../config/admin-route-data';
   imports: [AdminNavCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminHomeComponent implements OnInit {
-  private _seoService = inject(SeoService);
-  private _router = inject(Router);
+export class AdminHomeComponent {
+
+  private _dynamicConfigService= inject( DynamicThemeConfigService)
 
   //- - - - - - - - - - - - - - -//
 
-  _adminRoutes = signal(AdminRoutes);
+  _adminRoutes = AdminRoutes
 
-  _title = 'SpiderBaby SbRouteDefsDemo Docs';
-  _subtitle = 'Comprehensive documentation and guides SbRouteDefsDemo system';
+  _title = 'SpiderBaby Route Defs Demo';
+  _subtitle = 'Comprehensive documentation and guides Route Defs Demo system';
   _description = `This is a more detailed description of your application's purpose and main features. 
   You can elaborate on key functionality, target users, or any other important information
   that helps explain what makes your application valuable.`;
   _heroImageUrl = AppImages.Logo.default;
-  _heroImageAlt = 'SbRouteDefsDemo Logo';
-
+  _heroImageAlt = 'SpiderBaby Route Defs Logo';
+  
   //- - - - - - - - - - - - - - -//
-
-  ngOnInit() {
-    // Set SEO metadata
-    this._seoService.updateMetadata({
-      title: 'API SbRouteDefsDemo | more information about the API',
-      description: this._description,
-      url: this._router.url,
-      keywords: ['API', 'Angular', 'Angular library'],
-    });
+  
+  constructor() {    
+    this._dynamicConfigService.setSystemThemes(ADMIN_THEME_CONFIG.themeOptions);
   }
+
+
+
 }

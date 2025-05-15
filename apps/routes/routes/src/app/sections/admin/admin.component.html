@@ -17,7 +17,7 @@
         <mat-icon matListItemIcon>home</mat-icon>
         <span>Home</span>
       </a>
-      @for (route of adminRoutes(); track route.route) {
+      @for (route of adminRoutes; track $index) {
       <a
         mat-list-item
         [routerLink]="[route.route]"

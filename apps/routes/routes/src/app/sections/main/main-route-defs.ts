@@ -2,7 +2,7 @@ import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
 
 //#################################################//
 
-/** Base route for the main application area. */
+/** Base route for the Main application area. */
 const BaseRoute = 'main';
 
 /** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
@@ -47,23 +47,6 @@ export class MainSectionRoutesDefs {
     route: (route?: CHILD_ROUTE) => route ?? MainSectionRoutesDefs.BASE,
     /** Relative routes for the 'admin' area, nested under 'main'. */
     // admin: HubAdminAreaRoutesDefs.routes,
-  };
-
-  //- - - - - - - - - - - - - - - - - - -//
-
-  /**
-   * Provides methods for constructing full paths starting from the main area's base route.
-   */
-  static fullPath = {
-    /**
-     * Returns the full path for a given child route, prefixed with the main area's base route.
-     * If no route is provided, it returns the main area's base path.
-     * @param route - Optional child route.
-     * @returns The full path for the child route or the main area's base path.
-     */
-    route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(MainSectionRoutesDefs.BASE, route),
-    /** Full paths for the 'admin' area, nested under 'main'. */
-    // admin: HubAdminAreaRoutesDefs.fullPathFn(HubMainAreaRoutesDefs.BASE),
   };
 
   //- - - - - - - - - - - - - - - - - - -//

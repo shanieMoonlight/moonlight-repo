@@ -1,18 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { SeoService } from '@spider-baby/utils-seo';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { HighlightModule } from 'ngx-highlightjs';
 import { AppRouteDefs } from '../../../../app-route-defs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 import { MAIN_ROUTES } from '../../config/route-data';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
 //##############################################//
 
@@ -39,8 +34,8 @@ interface Feature {
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainHomeComponent implements OnInit {
-  private _seoService = inject(SeoService);
+export class MainHomeComponent {
+
   private _router = inject(Router);
 
   //- - - - - - - - - - - - - - -//
@@ -54,20 +49,10 @@ export class MainHomeComponent implements OnInit {
   protected _features = MAIN_ROUTES
   protected _gitUrl = AppConstants.GIT_REP_URL
 
-  protected _aboutRoute =    `/${AppRouteDefs.fullPaths.main.route('about')}`;
-  protected _contactRoute =  `/${AppRouteDefs.fullPaths.main.route('contact')}`;
+  protected _aboutRoute = `/${AppRouteDefs.fullPaths.main.route('about')}`;
+  protected _contactRoute = `/${AppRouteDefs.fullPaths.main.route('contact')}`;
   protected _productsRoute = `/${AppRouteDefs.fullPaths.main.route('products')}`;
-  
+
 
   //- - - - - - - - - - - - - - -//
-
-  ngOnInit() {
-    // Set SEO metadata
-    this._seoService.updateMetadata({
-      title: 'Route Defs Demo | Demonstarating Complex Angular Routing',
-      description: this._description,
-      url: this._router.url,
-      keywords: ['Angular', 'Routing', 'Angular library'],
-    });
-  }
 }

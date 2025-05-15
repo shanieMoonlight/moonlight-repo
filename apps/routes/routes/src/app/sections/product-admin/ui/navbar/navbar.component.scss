@@ -1,0 +1,114 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+mat-toolbar {
+  // Ensure items are vertically centered if needed (usually default)
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: red;
+
+  // Optional: Set a background color using theme variables if you don't want the default surface
+  // background-color: var(--mat-sys-surface-container);
+
+  background-color: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+}
+
+.left-links,
+.right-links {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.rhs-outlet {
+  margin-left: auto;
+  /* Aligns the element to the right */
+  display: flex;
+  /* Ensure content inside aligns well */
+  align-items: center;
+}
+
+.spacer {
+  // Use flex-grow instead of fixed width for better flexibility
+  flex: 1 1 auto;
+  // Or keep width if preferred, maybe adjust slightly
+  // width: 24px;
+}
+
+.navlink {
+  cursor: pointer;
+  margin: 0 12px;
+  /* Adjust horizontal spacing */
+  padding: 8px 4px;
+  /* Add some vertical padding for easier clicking */
+  font-size: 0.9rem;
+  /* Reduce font size */
+  font-weight: 500;
+  /* Medium weight, adjust as needed (400=normal, 500=medium) */
+  text-decoration: none;
+  color: var(--mat-sys-on-surface);
+  /* Use theme text color */
+  border-bottom: 2px solid transparent;
+  /* Prepare for active state underline */
+  transition: color 0.2s ease, border-color 0.2s ease;
+  /* Smooth transitions */
+
+  &:hover {
+    color: var(--mat-sys-primary);
+    /* Change color on hover */
+  }
+
+  // Style for the active route link
+  &.active {
+    color: var(--mat-sys-secondary);
+    /* Active link color */
+    border-bottom-color: var(--mat-sys-secondary);
+    /* Add underline for active */
+  }
+}
+
+// Ensure icon buttons have consistent spacing and color
+button[mat-icon-button] {
+  color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
+  margin: 0 4px; // Add small horizontal margin
+
+  &:hover {
+    color: var(--mat-sys-primary); // Highlight on hover
+  }
+
+  &.active {
+    color: var(--mat-sys-secondary);
+    /* Active link color */
+    border-bottom-color: var(--mat-sys-secondary);
+    /* Add underline for active */
+  }
+}
+
+mat-divider {
+    height: 35%;
+}
+
+
+
+
+
+
+// Responsive adjustments
+@media screen and (max-width: 650px) {
+
+  // Match breakpoint in TS
+  button[mat-icon-button] {
+    margin: 0 2px; // Slightly reduce margin on small screens
+  }
+}
+
+img {
+  width: auto;
+  height: 32px;
+}

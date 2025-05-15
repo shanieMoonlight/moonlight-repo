@@ -1,14 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainHomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import {
-  SeoService,
-  StructuredDataService,
   PerformanceService,
-  UrlUtilsService,
+  StructuredDataService,
+  UrlUtilsService
 } from '@spider-baby/utils-seo';
-import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { MainHomeComponent } from './home.component';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -22,26 +20,6 @@ const mockSwUpdate = {
   activateUpdate: () => Promise.resolve(true),
 };
 
-// Create a mock SeoConfig object
-const mockSeoConfig: SeoConfig = SeoConfig.create({
-  appName: 'Test App',
-  appDescription: 'Test Description',
-  organization: 'Test Org',
-  baseUrl: 'http://localhost/',
-  defaultLogoFilePath: 'assets/logo.png',
-  publishedDate: '2025-01-01',
-  keywords: ['test', 'seo'],
-  socialLinks: ['https://example.com/social'],
-  defaultOgImageUrl: 'assets/og-image.png',
-  twitterHandle: '@test',
-});
-
-// Create Mocks for the SEO Services
-const mockSeoService = {
-  updateMetadata: jest.fn(),
-  addCanonicalLink: jest.fn(),
-  addCanonicalLinkRelative: jest.fn(),
-};
 
 const mockStructuredDataService = {
   addLibraryStructuredData: jest.fn(),
@@ -60,8 +38,6 @@ describe('MainHomeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MainHomeComponent, RouterModule.forRoot([])],
       providers: [
-        { provide: SeoConfigService, useValue: mockSeoConfig },
-        { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },
         { provide: StructuredDataService, useValue: mockStructuredDataService },
         { provide: PerformanceService, useValue: mockPerformanceService },

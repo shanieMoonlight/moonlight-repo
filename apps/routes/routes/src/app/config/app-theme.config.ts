@@ -17,7 +17,7 @@ export const IS_HALLOWEEN =
 const _themeOptions: ThemeOption[] = [
   ThemeOption.create({
     darkMode: 'dark',
-    label: 'SbRouteDefsDemo',
+    label: 'Route Defs Demo',
     value: 'rd-route-defs-demo',
     primaryColor: '#1E3A8A',
     secondaryColor: '#F0C420',

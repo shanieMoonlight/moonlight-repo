@@ -15,7 +15,7 @@
     </p>
 
     <div class="features-grid">
-      @for (feature of _features; track feature.title) {
+      @for (feature of _features; track $index) {
       <mat-card class="feature-card">
         <mat-card-header>
           <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>

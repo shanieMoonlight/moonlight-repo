@@ -4,13 +4,9 @@
     <p class="subtitle">{{ _subtitle }}</p>
   </header>
 
-  <!-- <div class="search-container">
-      <rd-search/>
-    </div> -->
-
   <div class="admin-cards-grid">
-    @for (route of _adminRoutes; track $index) {
-    <rd-ui-cards-admin-nav [data]="route" />
+    @for (route of _prodAdminRoutes; track $index) {
+      <rd-ui-cards-admin-nav [data]="route" />
     }
   </div>
 </div>

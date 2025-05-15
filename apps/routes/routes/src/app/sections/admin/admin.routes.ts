@@ -28,12 +28,16 @@ export const adminRoutes: Route[] = [
         loadComponent: () => import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
-        path: AdminSectionRoutesDefs.routes.route('users'), 
+        path: AdminSectionRoutesDefs.routes.route('users'),
         loadComponent: () => import('./features/users/users.component').then((m) => m.UsersComponent),
       },
       {
-        path: `${AdminSectionRoutesDefs.routes.route('users')}/:id`, 
+        path: `${AdminSectionRoutesDefs.routes.route('users')}/:id`,
         loadComponent: () => import('./features/users/user-detail/user-detail.component').then((m) => m.UserDetailComponent),
+      },
+      {
+        path: AdminSectionRoutesDefs.routes.products.route(), 
+        loadChildren: () => import('../product-admin/product-admin.routes').then((m) => m.prodAdminRoutes),
       },
       {
         path: '',
