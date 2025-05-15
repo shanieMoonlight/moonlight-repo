@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HighlightModule } from 'ngx-highlightjs';
+import { AppRouteDefs } from '../../../../app-route-defs';
+console.log(AppRouteDefs.routes.admin.products.route('new-product'));
 
 @Component({
   selector: 'rd-route-architecture',
@@ -42,12 +44,26 @@ export class RouteArchitectureComponent {
    * Access to full, absolute route paths from the application root.
    * Will prepend a leading slash to the path. Use for routing relative to base
    */
-  static fullPathsWithSlash = wrapWithLeadingSlash(AppRouteDefs.fullPaths);
+  static fullPathsWithSlash = wrapWithLeadingSlash(AppRouteDefs.fullPaths); //Description of wrapWithLeadingSlash function below
 }`;
   }
 
   getAdminRouteDefs(): string {
-    return `export class AdminSectionRoutesDefs {
+    return `//#################################################//
+
+/** Base route for the admin application area. */
+const BaseRoute = 'admin';
+
+/** Type alias for the child routes of the admin application area: 'home' | 'dashboard'. */
+type CHILD_ROUTE = 'home' | 'dashboard' | 'users' | 'reports' | 'settings' | 'content';
+// CHILD_ROUTE will allow us to use the route in the IDE and use intellisense to get auto-completion.
+//When you add a new route to the admin area, you can add it here and it will be available in the IDE. 
+//Nothing else needs to change.
+
+//#################################################//
+    
+    
+    export class AdminSectionRoutesDefs {
   /** Base route path for the admin area (e.g., 'admin'). */
   public static readonly BASE = 'admin';
 
@@ -68,12 +84,13 @@ export class RouteArchitectureComponent {
 
   /**
    * Factory for creating full path functions for this area and its children.
+   * This will be used by parent routeDefs
    * @param parentRoute - The parent route to prefix paths with.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
       products: ProductAdminSectionRoutesDefs.fullPathFn(basePath),
     }
   }
@@ -81,7 +98,21 @@ export class RouteArchitectureComponent {
   }
 
   getProductAdminRouteDefs(): string {
-    return `export class ProductAdminSectionRoutesDefs {
+    return `//#################################################//
+
+/** Base route for the main application area. */
+const BaseRoute = 'product-admin';
+
+/** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
+type CHILD_ROUTE = 'home' | 'new-product' | 'categories';
+// CHILD_ROUTE will allow us to use the route in the IDE and use intellisense to get auto-completion.
+// When you add a new route to the admin area, you can add it here and it will be available in the IDE. 
+// Nothing else needs to change.
+
+//#################################################//
+
+
+export class ProductAdminSectionRoutesDefs {
   /** Base route path for the product-admin area */
   public static readonly BASE = 'product-admin';
 
@@ -104,9 +135,9 @@ export class RouteArchitectureComponent {
    * @param parentRoute - The parent route to prefix paths with.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.Combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
       // Child sections would go here...
     };
   };
@@ -168,7 +199,7 @@ export class RouteArchitectureComponent {
   }
 
   getRouteUsageExamples(): string {
-    return `// Basic route segment
+    return `// Basic route segment. Use when nvaigating form MainSection base or home
 const aboutRoute = MainSectionRoutesDefs.routes.route('about');
 // Result: "about"
 
@@ -176,13 +207,18 @@ const aboutRoute = MainSectionRoutesDefs.routes.route('about');
 const adminUsersPath = AppRouteDefs.fullPaths.admin.route('users');
 // Result: "admin/users"
 
-// Full path with leading slash
+// Full path with leading slash.  Use to navigate from anywhere in the app relative to the base
 const productsPathWithSlash = AppRouteDefs.fullPathsWithSlash.main.route('products');
 // Result: "/main/products"
 
-// Nested route (Product Admin within Admin)
+// Nested route full path (Product Admin within Admin)
 const newProductPath = AppRouteDefs.fullPaths.admin.products.route('new-product');
-// Result: "admin/product-admin/new-product"`;
+// Result: "admin/product-admin/new-product"
+
+// Nested route (Product Admin within Admin). Use to to display the route in a tooltip or similar. (Gets the final segment in the path)
+const newProductPath = AppRouteDefs.routes.admin.products.route('new-product');
+// Result: new-product"`;
+
   }
 
   getDefaultRoutePattern(): string {

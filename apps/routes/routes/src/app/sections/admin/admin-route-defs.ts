@@ -1,4 +1,4 @@
-import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@sb-hub/shared-utils/routes';
 import { ProductAdminSectionRoutesDefs } from '../product-admin/product-admin-route-defs';
 
 //#################################################//
@@ -35,7 +35,7 @@ export class AdminSectionRoutesDefs {
    * @returns The last route segment.
    */
   static routes = {
-    route: (route?: CHILD_ROUTE) => route ?? AdminSectionRoutesDefs.BASE,
+    route: AdminSectionRoutesDefs.route,
     products: ProductAdminSectionRoutesDefs.routes,
   };
 
@@ -47,9 +47,9 @@ export class AdminSectionRoutesDefs {
    * @returns The the full path from parentRoute.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
       products: ProductAdminSectionRoutesDefs.fullPathFn(basePath),
     }
   }

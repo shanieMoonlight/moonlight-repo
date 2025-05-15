@@ -1,4 +1,4 @@
-import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@sb-hub/shared-utils/routes';
 
 //#################################################//
 
@@ -36,7 +36,7 @@ export class ProductAdminSectionRoutesDefs {
    * @returns The last route segment.
      */
     static routes = {
-        route: (route?: CHILD_ROUTE) => route ?? ProductAdminSectionRoutesDefs.BASE,
+        route: ProductAdminSectionRoutesDefs.route,
         // Child sections go here....
     };
 
@@ -46,9 +46,9 @@ export class ProductAdminSectionRoutesDefs {
      * @param parentRoute - The parent route to prefix paths with.
      */
     static fullPathFn = (parentRoute: string) => {
-        const basePath = HubRouteUtility.Combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
+        const basePath = RouteUtility.Combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
         return {
-            route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+            route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
             // Child sections go here....
         };
     };

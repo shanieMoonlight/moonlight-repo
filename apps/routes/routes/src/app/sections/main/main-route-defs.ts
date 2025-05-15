@@ -1,4 +1,4 @@
-import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@sb-hub/shared-utils/routes';
 
 //#################################################//
 
@@ -36,7 +36,7 @@ export class MainSectionRoutesDefs {
    * @returns The last route segment.
    */
   static routes = {
-    route: (route?: CHILD_ROUTE) => route ?? MainSectionRoutesDefs.BASE,
+    route: MainSectionRoutesDefs.route,
     // Child sections go here....
   };
 
@@ -47,9 +47,9 @@ export class MainSectionRoutesDefs {
    * @returns The the full path from parentRoute.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, MainSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.Combine(parentRoute, MainSectionRoutesDefs.BASE);
     return {
-      route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.Combine(basePath, route),
       // Child sections go here....
     };
   };

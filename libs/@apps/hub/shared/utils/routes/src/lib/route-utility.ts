@@ -1,5 +1,5 @@
 
-export class HubRouteUtility {
+export class RouteUtility {
 
 
     static Combine(...paths: Array<string | null | undefined>): string {
