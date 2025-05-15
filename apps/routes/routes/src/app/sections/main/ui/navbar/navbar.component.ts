@@ -37,7 +37,7 @@ export class MainNavbarComponent {
   protected _logoSml = AppImages.Logo.small
 
   protected _gitRepoUrl = AppConstants.GIT_REP_URL
-  protected _npmPkgUrl = AppConstants.NPM_PKG_URL
+  // protected _npmPkgUrl = AppConstants.NPM_PKG_URL
   protected _rhsNavItems = MainNavRoutes
 
   isSmallScreen$ = this._breakpoints

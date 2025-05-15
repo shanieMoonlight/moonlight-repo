@@ -33,7 +33,7 @@ export class AdminNavbarComponent {
   //- - - - - - - - - - - - - - -//
 
   protected _gitRepoUrl = signal(AppConstants.GIT_REP_URL);
-  protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL);
+  // protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL);
   protected _logoSml = signal(AppImages.Logo.small);
 
   private isSmallScreen$ = this._breakpoints

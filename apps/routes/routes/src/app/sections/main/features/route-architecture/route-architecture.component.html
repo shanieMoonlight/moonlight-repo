@@ -1,0 +1,192 @@
+<div class="container">
+  <h1>Angular Route Definition Architecture</h1>
+  
+  <p class="description">
+    This application demonstrates a type-safe, hierarchical approach to defining routes in Angular. 
+    It eliminates "magic strings" and provides a structured way to define and navigate routes in large applications.
+  </p>
+
+  <mat-tab-group>
+    <!-- Route Definition Classes Tab -->
+    <mat-tab label="Route Definition Classes">
+      <div class="tab-content">
+        <h2>The Hierarchy of Route Definitions</h2>
+        
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title>App Route Defs (Base/Entry Point)</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="class-description">
+            <p>
+              <strong>AppRouteDefs</strong> is the top-level entry point for the application's route structure.
+              It is unique because:
+            </p>
+            <ul>
+              <li>It has a BASE property which is typically an empty string</li>
+              <li>It provides access to sections of the app via the <code>routes</code> object</li>
+              <li>It has <code>fullPaths</code> and <code>fullPathsWithSlash</code> objects (only at this level)</li>
+              <li>It does not have individual child routes, only section routes</li>
+            </ul>
+          </div>
+          
+          <pre><code [highlight]="getAppRouteDefs()" language="typescript"></code></pre>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Admin Section Route Defs (Child)</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="class-description">
+            <p>
+              <strong>AdminSectionRoutesDefs</strong> is a child route definition class that:
+            </p>
+            <ul>
+              <li>Has its own <code>BASE</code> value ('admin')</li>
+              <li>Provides a <code>route</code> function to get the final segments</li>
+              <li>Has a <code>routes</code> object with both its own routes and child section routes</li>
+              <li>Provides a <code>fullPathFn</code> factory for the parent to use for path construction</li>
+            </ul>
+          </div>
+          
+          <pre><code [highlight]="getAdminRouteDefs()" language="typescript"></code></pre>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Product Admin Route Defs (Nested Child)</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="class-description">
+            <p>
+              <strong>ProductAdminSectionRoutesDefs</strong> follows the same pattern as other child route definitions.
+              This demonstrates the consistent pattern that can be nested to any depth.
+            </p>
+          </div>
+          
+          <pre><code [highlight]="getProductAdminRouteDefs()" language="typescript"></code></pre>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>The wrapWithLeadingSlash Utility</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="class-description">
+            <p>
+              This recursive utility wraps all path-returning functions to ensure they always prepend a leading slash.
+              It's used exclusively by <code>AppRouteDefs.fullPathsWithSlash</code>.
+            </p>
+          </div>
+          
+          <pre><code [highlight]="getWrapWithLeadingSlash()" language="typescript"></code></pre>
+        </mat-expansion-panel>
+      </div>
+    </mat-tab>
+
+    <!-- Usage Patterns Tab -->
+    <mat-tab label="Usage Patterns">
+      <div class="tab-content">
+        <h2>How Route Definitions Are Used</h2>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Configuring Angular Routes</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Route definitions are used in Angular route configurations to ensure type safety and consistency.
+              Here's how they're used in <code>mainRoutes</code>:
+            </p>
+            <pre><code [highlight]="getMainRoutes()" language="typescript"></code></pre>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-divider class="section-divider"></mat-divider>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Default Route Pattern</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              A common pattern in the application is having a default route (empty path) with
+              a redirect from an explicit 'home' route:
+            </p>
+            <pre><code [highlight]="getDefaultRoutePattern()" language="typescript"></code></pre>
+            <p>
+              This pattern ensures that:
+            </p>
+            <ul>
+              <li>The base URL of each section displays the default content</li>
+              <li>Explicit '/home' routes redirect to the base URL</li>
+              <li>Routing happens relative to the section's BASE, not to 'home'</li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-divider class="section-divider"></mat-divider>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Route Path Examples</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Here are examples of how to use the route definitions to get path segments:
+            </p>
+            <pre><code [highlight]="getRouteUsageExamples()" language="typescript"></code></pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Key Benefits Tab -->
+    <mat-tab label="Key Benefits">
+      <div class="tab-content">
+        <h2>Benefits of This Route Architecture</h2>
+        
+        <div class="benefit-card">
+          <h3>Type Safety</h3>
+          <p>
+            Route paths are type-checked, preventing typos and ensuring only valid routes are used.
+            TypeScript will show errors if an invalid route is used.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>Single Source of Truth</h3>
+          <p>
+            Routes are defined in one place, making updates and refactoring easier and safer.
+            Change a route once, and it's updated everywhere it's used.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>Hierarchical Structure</h3>
+          <p>
+            The route definitions mirror the application's structure, making navigation intuitive.
+            Sections can be nested to any depth with consistent patterns.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>IDE Support</h3>
+          <p>
+            Auto-completion and IntelliSense help developers discover available routes.
+            This improves productivity and reduces errors.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>Flexible Path Formatting</h3>
+          <p>
+            Choose between regular paths or paths with leading slashes using <code>fullPaths</code>
+            or <code>fullPathsWithSlash</code>.
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

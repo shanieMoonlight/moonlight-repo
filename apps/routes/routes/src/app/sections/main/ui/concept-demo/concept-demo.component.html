@@ -1,0 +1,133 @@
+<div class="container">
+      <h1>Route Definitions Architecture Demo</h1>
+      
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Application Structure</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="route-structure">
+            <div class="app-level node">
+              <div class="node-content">
+                <strong>App Level</strong>
+                <p>AppRouteDefs</p>
+                <code>BASE = ''</code>
+              </div>
+              <div class="children">
+                <div class="section-level node">
+                  <div class="node-content">
+                    <strong>Main Section</strong>
+                    <p>MainSectionRoutesDefs</p>
+                    <code>BASE = 'main'</code>
+                  </div>
+                  <div class="routes">
+                    <ul>
+                        @for (route of mainRoutes; track $index) {
+                            <li >{{ route }}</li>
+                        }
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="section-level node">
+                  <div class="node-content">
+                    <strong>Admin Section</strong>
+                    <p>AdminSectionRoutesDefs</p>
+                    <code>BASE = 'admin'</code>
+                  </div>
+                  <div class="routes">
+                    <ul>
+                        @for (route of adminRoutes; track $index) {
+                            <li >{{ route }}</li>
+                        }
+                    </ul>
+                  </div>
+                  <div class="children">
+                    <div class="subsection-level node">
+                      <div class="node-content">
+                        <strong>Product Admin</strong>
+                        <p>ProductAdminSectionRoutesDefs</p>
+                        <code>BASE = 'product-admin'</code>
+                      </div>
+                      <div class="routes">
+                        <ul>
+                        @for (route of productAdminRoutes; track $index) {
+                            <li >{{ route }}</li>
+                        }
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-divider class="my-3"></mat-divider>
+      
+      <mat-tab-group>
+        <mat-tab label="Route Examples">
+          <div class="examples-container">
+            <h2>How to Use Route Definitions</h2>
+            
+            @for (example of routeExamples; track $index) {
+                <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{ example.description }}</mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="example-content">
+                    <div class="code-block">
+                    <pre><code [highlight]="example.code" language="typescript"></code></pre>
+                    </div>
+                    <div class="result-block">
+                    <div>Result:</div>
+                    <code>{{ example.result }}</code>
+                    @if (example.path; as path) {
+                    <a [routerLink]="path" mat-button color="primary">
+                        <mat-icon>open_in_new</mat-icon> Navigate
+                    </a>
+                    }
+                    </div>
+                </div>
+                </mat-expansion-panel>
+            }
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Benefits">
+          <div class="p-3">
+            <h2>Benefits of This Routing Architecture</h2>
+            <mat-list>
+                @for (benefit of benefits; track $index) {
+                <mat-list-item>
+                    <mat-icon matListItemIcon>check_circle</mat-icon>
+                    <div matListItemTitle>{{ benefit.title }}</div>
+                    <div matListItemLine>{{ benefit.description }}</div>
+                </mat-list-item>
+                }
+            </mat-list>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Code Patterns">
+          <div class="p-3">
+            <h2>Common Route Definition Patterns</h2>
+            
+            @for (pattern of patterns; track $index) {
+                <mat-card class="mb-3">
+                <mat-card-header>
+                    <mat-card-title>{{ pattern.title }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{ pattern.description }}</p>
+                    <pre><code  [highlight]="pattern.code" language="typescript"></code></pre>
+                </mat-card-content>
+                </mat-card>
+            }
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>

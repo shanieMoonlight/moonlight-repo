@@ -18,14 +18,13 @@ export const PROD_ADMIN_2_THEME = ThemeOption.create({
   darkMode: 'light',
   label: 'Violet',
   value: 'violet',
-  primaryColor: '#3F51B5', // Indigo
-  secondaryColor: '#FF9800', // Orange
-  tertiaryColor: '#4CAF50', // Green
+  primaryColor: '#FDE74C', // Indigo
+  secondaryColor: '#3D5467', // Orange
+  tertiaryColor: '#57C4E5', // Green
 });
 
 const _themeOptions: ThemeOption[] = [
   PROD_ADMIN_DEFAULT_THEME,
-  PROD_ADMIN_2_THEME,
   PROD_ADMIN_2_THEME,
 ];
 

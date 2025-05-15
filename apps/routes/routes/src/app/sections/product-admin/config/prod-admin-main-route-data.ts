@@ -21,10 +21,10 @@ export const ProdAdminMainRoutes: NavCardData[] = [
     color: 'primary',
   },
   {
-    title: StringUtils.toTitleCase(AppRouteDefs.routes.admin.products.route('new')),
+    title: StringUtils.toTitleCase(AppRouteDefs.routes.admin.products.route('new-product')),
     description: 'Create and manage new product listings.', 
     icon: 'add_circle',
-    route: ProductAdminSectionRoutesDefs.route('new'),
+    route: ProductAdminSectionRoutesDefs.route('new-product'),
     tooltip: `ProductAdminSectionRoutesDefs.route('new')`,
     color: 'secondary',
   },  

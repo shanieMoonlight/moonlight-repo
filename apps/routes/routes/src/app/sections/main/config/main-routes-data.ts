@@ -8,11 +8,24 @@ import { MainSectionRoutesDefs } from '../main-route-defs';
  * This data is used to generate navigation cards for the main section.
  * Routes are relative to main seciton so can be used in MainComponent and MainHomeComponent (and their navs or sidenavs etc.)
  * If you need to use this outside of Main Base then use the full path
- * e.g. `/${AppRouteDefs.fullPaths.main.route('about')}`
+ * e.g. `/${AppRouteDefs.fullPaths.main.route('about')}`<ImageView ...
+ android:src="@drawable/psychology_alt_24"
+/>
  */
 export const MainRoutes: NavCardData[] = [
   {
-    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('about')),
+    title: StringUtils.toTitleCase(MainSectionRoutesDefs.route('tutorial')),
+    description: `Learn about the route architecture of the application.
+  (This is a real component, not a demo)
+
+    - MainSectionRoutesDefs.route('tutorial').`,
+    route: MainSectionRoutesDefs.route('tutorial'),
+    tooltip: `MainSectionRoutesDefs.route('tutorial')`,
+    icon: 'psychology_alt',
+    color: 'tertiary',
+  },
+  {
+    title: StringUtils.toTitleCase(MainSectionRoutesDefs.route('about')),
     description: `Learn about us.
 
     - MainSectionRoutesDefs.route('about').`,
@@ -22,7 +35,7 @@ export const MainRoutes: NavCardData[] = [
     color: 'primary',
   },
   {
-    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('products')),
+    title: StringUtils.toTitleCase(MainSectionRoutesDefs.route('products')),
     description: `Checkout our product range
 
     - MainSectionRoutesDefs.route('products').`,
@@ -32,7 +45,7 @@ export const MainRoutes: NavCardData[] = [
     color: 'secondary',
   },
   {
-    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('categories')),
+    title: StringUtils.toTitleCase(MainSectionRoutesDefs.route('categories')),
     description: `Checkout our product categories.
 
     - MainSectionRoutesDefs.route('categories').`,
@@ -42,7 +55,7 @@ export const MainRoutes: NavCardData[] = [
     color: 'secondary',
   },
   {
-    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('contact')),
+    title: StringUtils.toTitleCase(MainSectionRoutesDefs.route('contact')),
     description: `Contact us.
 
     - MainSectionRoutesDefs.route('contact').`,

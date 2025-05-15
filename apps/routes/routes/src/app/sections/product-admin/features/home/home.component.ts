@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppImages } from '../../../../config/images';
-import { ProdAdminMainRoutes } from '../../config/prod-admin-route-data';
+import { ProdAdminMainRoutes } from '../../config/prod-admin-main-route-data';
 import { NavCardComponent } from '../../../../shared/ui/nav-card/nav-card.component';
 
 //##############################################//

@@ -19,9 +19,9 @@ const _themeOptions: ThemeOption[] = [
     darkMode: 'dark',
     label: 'Route Defs Demo',
     value: 'rd-route-defs-demo',
-    primaryColor: '#1E3A8A',
-    secondaryColor: '#F0C420',
-    tertiaryColor: '#8496B0', //(optional)
+    primaryColor: '#3F51B5',
+    secondaryColor: '#F97068',
+    tertiaryColor: '#57C4E5', //(optional)
     errorColor: '#FF0000', //(optional)
   }),
   ThemeOption.create({
@@ -33,30 +33,12 @@ const _themeOptions: ThemeOption[] = [
     tertiaryColor: '#AED6F1', // Light Sky Blue
   }),
   ThemeOption.create({
-    // --- NO CHANGE ---
-    darkMode: 'dark',
-    label: 'Mint & Coral',
-    value: 'mint-coral',
-    primaryColor: '#4ECDC4', // Mint Green
-    secondaryColor: '#FF6B6B', // Coral Red
-    tertiaryColor: '#FFE66D', // Pastel Yellow
-  }),
-  ThemeOption.create({
     darkMode: 'dark',
     label: 'Forest Canopy', // Updated Label
     value: 'forest-canopy', // Updated Value
     primaryColor: '#1E4D2B', // Dark Forest Green
     secondaryColor: '#C8A951', // Old Gold
     tertiaryColor: '#D7CEC7', // Light Gray/Off-white
-  }),
-  ThemeOption.create({
-    // --- NO CHANGE ---
-    darkMode: 'system',
-    label: 'Sunset Glow',
-    value: 'sunset-glow',
-    primaryColor: '#FF4500', // Tangerine
-    secondaryColor: '#FFD700', // Light Orange/Yellow
-    tertiaryColor: '#FF69B4', // Watermelon Pink
   }),
 ];
 

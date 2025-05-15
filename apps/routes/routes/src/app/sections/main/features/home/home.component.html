@@ -1,6 +1,11 @@
 <div class="home-container">
 
-  <rd-hero-banner [title]="_title" [subtitle]="_subtitle" [imageUrl]="_heroImageUrl" [imageAlt]="_heroImageAlt"
+  <rd-hero-banner 
+    [title]="_title" 
+    [subtitle]="_subtitle" 
+    [description]="_description" 
+    [imageUrl]="_heroImageUrl" 
+    [imageAlt]="_heroImageAlt"
     [actionsTemplate]="bannerActionsTemplate" />
 
   <section class="features-section">
@@ -12,60 +17,11 @@
       }
     </div>
   </section>
-
+  
   <mat-divider />
 
-  <!-- <section class="quick-start">
-    <h2 class="section-title">Getting Started</h2>
-    <p>Install the package in your Angular application:</p>
+  <rd-concept-demo/>
 
-    <div class="code-block">
-      <pre><code 
-          [highlight]="`npm install @your-org/package-name`" 
-          [language]="'typescript'" ></code></pre>
-    </div>
-
-    <p>Basic usage example:</p>
-
-    <div class="code-block">
-      <pre><code 
-        [highlight]="`
-import { SomeService } from '@your-org/package-name';
-
-// Initialize service
-const service = new SomeService(config);
-
-// Example usage
-const result = service.doSomething();
-
-// Access properties
-const data = result.data;
-const isLoading = result.loading;
-        `" 
-        [language]="'typescript'" ></code></pre>
-    </div>
-
-    <div class="code-block">
-      <pre><code 
-        [highlight]="`
-import { OtherService } from '@your-org/package-name';
-
-// Advanced configuration
-const config = {
-  apiKey: 'your-api-key',
-  endpoint: 'https://api.example.com',
-  timeout: 5000
-};
-
-// Create instance with options
-const service = new OtherService(config);
-
-// Use the service methods
-service.initialize();
-        `" 
-        [language]="'typescript'" ></code></pre>
-    </div>
-  </section> -->
 
   <footer class="home-footer">
     <p>Route Defs Demo</p>
@@ -77,8 +33,15 @@ service.initialize();
 <!-- ########################################### -->
 
 <ng-template #bannerActionsTemplate>
-  <div class="cta-buttons">
-    <a mat-raised-button [routerLink]="_productsRoute" [matTooltip]="`MainSectionRoutesDefs.route('products')`">
+  <div class="banner-actions">
+      <a mat-raised-button class="secondary"
+        [routerLink]="_tutorialRoute" [matTooltip]="`Learn the system`">
+      <mat-icon>psychology_alt</mat-icon>
+      Full Tutorial
+    </a>
+
+    <div class="cta-buttons">
+      <a mat-raised-button [routerLink]="_productsRoute" [matTooltip]="`MainSectionRoutesDefs.route('products')`">
       <mat-icon>storefront</mat-icon>
       Products
     </a>
@@ -87,6 +50,7 @@ service.initialize();
       About Us
     </a>
   </div>
+</div>
 </ng-template>
 
 <!-- ########################################### -->

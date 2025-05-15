@@ -8,5 +8,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'tester';
+  title = 'Route Defs Demo';
 }

@@ -12,7 +12,7 @@ export const prodAdminRoutes: Route[] = [
         loadComponent: () => import('./features/categories/categories.component').then((m) => m.ProductAdminCategoriesComponent),
       },
       {
-        path: ProductAdminSectionRoutesDefs.routes.route('new'),
+        path: ProductAdminSectionRoutesDefs.routes.route('new-product'),
         loadComponent: () => import('./features/new-product/new-product.component').then((m) => m.ProductAdminNewProductComponent),
       },
       // This route is the default route for the product-admin area 
