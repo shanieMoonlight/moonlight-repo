@@ -19,6 +19,7 @@
       <button mat-icon-button2 
         [ngClass]="_data().color || 'primary'"
         class="btn-follow" 
+        [matTooltip]="_data().tooltip"
         [routerLink]="_data().route">
         <mat-icon>arrow_forward</mat-icon>
       </button>

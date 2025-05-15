@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AppImages } from '../../../../config/images';
-import { AdminNavCardComponent } from '../../../../shared/ui/admin-nav-card/admin-nav-card.component';
+import { NavCardComponent } from '../../../../shared/ui/nav-card/nav-card.component';
 import { AdminMainRoutes } from '../../config/admin-route-data';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { ADMIN_THEME_CONFIG } from '../../config/admin-theme.config';
@@ -12,7 +12,7 @@ import { ADMIN_THEME_CONFIG } from '../../config/admin-theme.config';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [AdminNavCardComponent],
+  imports: [NavCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminHomeComponent {

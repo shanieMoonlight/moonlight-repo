@@ -16,15 +16,18 @@
   <div class="banner-actions">
     <h3>View changes</h3>
     <div class="cta-buttons">      
-      <a mat-raised-button [routerLink]="_homeRoute">
+      <a mat-raised-button [routerLink]="_homeRoute" 
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.admin.route('home')`">
         <mat-icon>admin_panel_settings</mat-icon>
         Admin Home
       </a>
-      <a mat-raised-button [routerLink]="_mainAboutRoute">
+      <a mat-raised-button [routerLink]="_mainAboutRoute" 
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route('about')`">
         <mat-icon>info</mat-icon>
         Main About
       </a>
-      <a mat-stroked-button color="accent" [routerLink]="_mainContactRoute">
+      <a mat-stroked-button color="accent" [routerLink]="_mainContactRoute" 
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route('contact')`">
         <mat-icon>phone</mat-icon>
         Main Contact
       </a>

@@ -1,5 +1,5 @@
-import { ApiRouteData } from '@spider-baby/ui-cards/api';
 import { AppRouteDefs } from '../../../app-route-defs';
+import { NavCardData } from '../../../shared/ui/nav-card/nav-card.component';
 import { StringUtils } from '../../../shared/utils/strings/string-utils';
 import { MainSectionRoutesDefs } from '../main-route-defs';
 
@@ -10,39 +10,54 @@ import { MainSectionRoutesDefs } from '../main-route-defs';
  * If you need to use this outside of Main Base then use the full path
  * e.g. `/${AppRouteDefs.fullPaths.main.route('about')}`
  */
-export const MainRoutes: ApiRouteData[] = [
+export const MainRoutes: NavCardData[] = [
   {
     title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('about')),
-    description: 'Learn about us.',
+    description: `Learn about us.
+
+    - MainSectionRoutesDefs.route('about').`,
     route: MainSectionRoutesDefs.route('about'),
+    tooltip: `MainSectionRoutesDefs.route('about')`,
     icon: 'info',
     color: 'primary',
   },
   {
-    title:  StringUtils.toTitleCase(AppRouteDefs.routes.main.route('products')),
-    description: 'Checkout our product range.',
+    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('products')),
+    description: `Checkout our product range
+
+    - MainSectionRoutesDefs.route('products').`,
     route: MainSectionRoutesDefs.route('products'),
+    tooltip: `MainSectionRoutesDefs.route('products')`,
     icon: 'shopfront',
     color: 'secondary',
   },
   {
-    title:  StringUtils.toTitleCase(AppRouteDefs.routes.main.route('categories')),
-    description: 'Checkout our product categories.',
+    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('categories')),
+    description: `Checkout our product categories.
+
+    - MainSectionRoutesDefs.route('categories').`,
     route: MainSectionRoutesDefs.route('categories'),
+    tooltip: `MainSectionRoutesDefs.route('categories')`,
     icon: 'dashboard',
     color: 'secondary',
   },
   {
-    title:  StringUtils.toTitleCase(AppRouteDefs.routes.main.route('contact')),
-    description: 'Contact us.',
+    title: StringUtils.toTitleCase(AppRouteDefs.routes.main.route('contact')),
+    description: `Contact us.
+
+    - MainSectionRoutesDefs.route('contact').`,
     route: MainSectionRoutesDefs.route('contact'),
+    tooltip: `MainSectionRoutesDefs.route('contact')`,
     icon: 'email',
     color: 'tertiary',
-  },  
+  },
   {
-    title:  StringUtils.toTitleCase(AppRouteDefs.fullPaths.admin.route()),
-    description: 'Seciont for admins only',
-    route: `/${AppRouteDefs.fullPaths.admin.route()}`, //Routing to separate section so using full path
+    title: StringUtils.toTitleCase(AppRouteDefs.fullPaths.admin.route()),
+    description: `Section for admins only.
+
+    - AppRouteDefs.fullPathsWithSlash.admin.route()`,
+    route: AppRouteDefs.fullPathsWithSlash.admin.route(), //Routing to separate section so using full path
+    tooltip: `AppRouteDefs.fullPathsWithSlash.admin.route()`, //Routing to separate section so using full path
     icon: 'admin_panel_settings',
     color: 'tertiary',
   },

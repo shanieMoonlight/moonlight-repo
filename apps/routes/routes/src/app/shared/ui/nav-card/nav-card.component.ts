@@ -3,13 +3,14 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
-export interface AdminRouteData {
+export interface NavCardData {
   title: string;
   description: string;
   icon: string;
   isSvgIcon?: boolean
   route: string;
   color?: string; // Optional: Primary, secondary, tertiary, etc.
+  tooltip?:string
 }
 
 @Component({
@@ -20,12 +21,12 @@ export interface AdminRouteData {
     RouterLink,
     NgClass
   ],
-  templateUrl: './admin-nav-card.component.html',
-  styleUrls: ['./admin-nav-card.component.scss'],
+  templateUrl: './nav-card.component.html',
+  styleUrls: ['./nav-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminNavCardComponent {
+export class NavCardComponent {
 
-  _data = input.required<AdminRouteData>({ alias: 'data' });
+  _data = input.required<NavCardData>({ alias: 'data' });
 
 }

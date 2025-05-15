@@ -15,15 +15,19 @@
   <div class="banner-actions">
     <h3>View changes</h3>
     <div class="cta-buttons">
-      <a mat-raised-button [routerLink]="_prodAdminHomeRoute">
+      <a mat-raised-button [routerLink]="_prodAdminHomeRoute"
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.admin.products.route('home')`">
         <mat-icon>storefront</mat-icon>
         Admin Products Home
       </a>
-      <a mat-raised-button [routerLink]="_mainProductsRoute">
+      <a mat-raised-button [routerLink]="_mainProductsRoute"
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route('products')`">
+      
         <mat-icon>dashboard</mat-icon>
         Main Products
       </a>
-      <a mat-stroked-button color="accent" [routerLink]="_mainCategoriesRoute">
+      <a mat-stroked-button color="accent" [routerLink]="_mainCategoriesRoute"
+        [matTooltip]="`AppRouteDefs.fullPathsWithSlash.main.route('categories')`">
         <mat-icon>dashboard</mat-icon>
         Main Categories
       </a>

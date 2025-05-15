@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppImages } from '../../../../config/images';
 import { ProdAdminMainRoutes } from '../../config/prod-admin-route-data';
-import { AdminNavCardComponent } from '../../../../shared/ui/admin-nav-card/admin-nav-card.component';
+import { NavCardComponent } from '../../../../shared/ui/nav-card/nav-card.component';
 
 //##############################################//
 
@@ -10,7 +10,7 @@ import { AdminNavCardComponent } from '../../../../shared/ui/admin-nav-card/admi
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [AdminNavCardComponent],
+  imports: [NavCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductAdminHomeComponent  {

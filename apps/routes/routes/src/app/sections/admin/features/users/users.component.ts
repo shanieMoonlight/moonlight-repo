@@ -31,7 +31,7 @@ export class AdminUsersComponent {
 
   
   //Not calling from base admin so need to use full path
-  protected _homeRoute = `/${AppRouteDefs.fullPaths.admin.route('home')}`;
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.admin.route('home')
 
   protected users = [
     { id: 1, firstname: 'Alice', lastname: 'Smith', email: 'alice.smith@example.com' },

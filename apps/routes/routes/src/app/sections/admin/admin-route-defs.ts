@@ -9,9 +9,6 @@ const BaseRoute = 'admin';
 /** Type alias for the child routes of the admin application area: 'home' | 'dashboard'. */
 type CHILD_ROUTE = 'home' | 'dashboard' | 'users' | 'reports' | 'settings' | 'content';
 
-/** Type alias for all routes (base and child) of the admin application area. */
-type ROUTE = typeof BaseRoute | CHILD_ROUTE;
-
 //#################################################//
 
 /**
@@ -22,51 +19,40 @@ export class AdminSectionRoutesDefs {
   /** Base route path for the admin area (e.g., 'admin'). */
   public static readonly BASE = BaseRoute;
 
-  //- - - - - - - - - - - - - - - - - - -//
-
   /**
    * Returns the provided route segment.
    * Primarily for use in this area's Angular route configuration.
    * @param route - The route segment (e.g., 'home', 'dashboard', or 'admin' itself).
    * @returns The route segment.
    */
-  static route = (route: ROUTE) => route;
+  static route = (route?: CHILD_ROUTE) => route ?? AdminSectionRoutesDefs.BASE
 
-  //- - - - - - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - -//
 
   /**
-   * Access to relative route segments for this area and its children (e.g., proucts).
+   * Access to relative route segments for this area and its child sections/areas.
+   * Will be used by parent routeDefs
+   * @returns The last route segment.
    */
   static routes = {
-    /**
-     * Returns the child route segment or the base segment of this admin area.
-     * @param route - Optional child route segment (e.g., 'home', 'dashboard').
-     * @returns Child route segment or `AdminSectionRoutesDefs.BASE`.
-     */
     route: (route?: CHILD_ROUTE) => route ?? AdminSectionRoutesDefs.BASE,
-    /** Relative routes for the 'admin' area, nested under 'admin'. */
     products: ProductAdminSectionRoutesDefs.routes,
   };
 
-  //- - - - - - - - - - - - - - - - - - -//
 
   /**
    * Factory for creating full path functions for this area and its children, prefixed by `parentRoute`.
+   * 'route' is the main routes for this area not subsections.
    * @param parentRoute - The parent route to prefix paths with.
+   * @returns The the full path from parentRoute.
    */
   static fullPathFn = (parentRoute: string) => {
     const basePath = HubRouteUtility.Combine(parentRoute, AdminSectionRoutesDefs.BASE);
     return {
-      /**
-       * Returns the full path for a child route, or the base path of this admin area, prefixed by `parentRoute`.
-       * @param route - Optional child route segment.
-       * @returns Full path.
-       */
       route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
-      /** Full paths for the 'admin' area, nested under 'admin'. */
       products: ProductAdminSectionRoutesDefs.fullPathFn(basePath),
-    };
-  };
+    }
+  }
 
 } //Cls
 

@@ -1,42 +1,21 @@
 <div class="home-container">
-  
-  <rd-hero-banner 
-    [title]="_title" 
-    [subtitle]="_subtitle" 
-    [imageUrl]="_heroImageUrl" 
-    [imageAlt]="_heroImageAlt"
+
+  <rd-hero-banner [title]="_title" [subtitle]="_subtitle" [imageUrl]="_heroImageUrl" [imageAlt]="_heroImageAlt"
     [actionsTemplate]="bannerActionsTemplate" />
 
   <section class="features-section">
-    <h2 class="section-title">Examples</h2>
-    <p class="section-description">
-      Explore these examples to see how our solution can help with your
-      projects.
-    </p>
+    <h2 class="section-title">Navigation</h2>
 
     <div class="features-grid">
-      @for (feature of _features; track $index) {
-      <mat-card class="feature-card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
-          <mat-card-title>{{ feature.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ feature.description }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button color="primary" [routerLink]="feature.route">
-           {{ feature.title }}
-          </a>
-        </mat-card-actions>
-      </mat-card>
+      @for (route of _mainRoutes; track $index) {
+      <rd-ui-cards-admin-nav [data]="route" />
       }
     </div>
   </section>
 
   <mat-divider />
 
-  <section class="quick-start">
+  <!-- <section class="quick-start">
     <h2 class="section-title">Getting Started</h2>
     <p>Install the package in your Angular application:</p>
 
@@ -86,7 +65,7 @@ service.initialize();
         `" 
         [language]="'typescript'" ></code></pre>
     </div>
-  </section>
+  </section> -->
 
   <footer class="home-footer">
     <p>Route Defs Demo</p>
@@ -99,11 +78,11 @@ service.initialize();
 
 <ng-template #bannerActionsTemplate>
   <div class="cta-buttons">
-    <a mat-raised-button [routerLink]="_productsRoute">
+    <a mat-raised-button [routerLink]="_productsRoute" [matTooltip]="`MainSectionRoutesDefs.route('products')`">
       <mat-icon>storefront</mat-icon>
       Products
     </a>
-    <a mat-stroked-button color="accent" [routerLink]="_productsRoute">
+    <a mat-stroked-button color="accent" [routerLink]="_aboutRoute" [matTooltip]="`MainSectionRoutesDefs.route('about')`">
       <mat-icon>info</mat-icon>
       About Us
     </a>

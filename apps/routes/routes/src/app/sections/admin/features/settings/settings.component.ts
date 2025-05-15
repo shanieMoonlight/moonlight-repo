@@ -25,10 +25,9 @@ export class SettingsComponent {
   protected _heroImageUrl = AppImages2.Logo.small
   protected _heroImageAlt = 'Application Settings';
 
-  protected _mainAboutRoute = `/${AppRouteDefs.fullPaths.main.route('about')}`;
-  protected _mainContactRoute = `/${AppRouteDefs.fullPaths.main.route('contact')}`;
-  
+  protected _mainAboutRoute = AppRouteDefs.fullPathsWithSlash.main.route('about')
+  protected _mainContactRoute = AppRouteDefs.fullPathsWithSlash.main.route('contact')
   //Not calling from base admin so need to use full path
-  protected _homeRoute = `/${AppRouteDefs.fullPaths.admin.route('home')}`;
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.admin.route('home')
 
 }

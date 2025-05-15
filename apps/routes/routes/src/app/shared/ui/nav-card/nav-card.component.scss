@@ -61,14 +61,14 @@
 
 mat-card-content {
   flex: 1;
-  padding: 16px;
+  // padding: 16px;
   white-space: pre-line;
 }
 
 mat-card-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 8px 16px 16px;
+  padding: 0 16px 16px 0;
 
   button {
     font-weight: 500;

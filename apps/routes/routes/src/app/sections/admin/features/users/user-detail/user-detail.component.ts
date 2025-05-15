@@ -36,7 +36,7 @@ export class AdminUserDetailComponent {
     //-----------------------------//
 
     backToUsers() {
-        this._router.navigateByUrl(AppRouteDefs.fullPaths.admin.route('users'));
+        this._router.navigate([AppRouteDefs.fullPaths.admin.route('users')]);
     }
 
     

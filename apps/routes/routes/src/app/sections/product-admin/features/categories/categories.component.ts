@@ -26,9 +26,9 @@ export class ProductAdminCategoriesComponent {
   protected _heroImageAlt = 'Product Management';
 
   
-  protected _mainProductsRoute=   `/${AppRouteDefs.fullPaths.main.route('products')}`;
-  protected _mainCategoriesRoute= `/${AppRouteDefs.fullPaths.main.route('categories')}`;
+  protected _mainProductsRoute=   AppRouteDefs.fullPathsWithSlash.main.route('products')
+  protected _mainCategoriesRoute=  AppRouteDefs.fullPathsWithSlash.main.route('categories')
   //Not calling from base products-admin so Not needto use full path
-  protected _prodAdminHomeRoute = `/${AppRouteDefs.fullPaths.admin.products.route('home')}`;
+  protected _prodAdminHomeRoute = AppRouteDefs.fullPathsWithSlash.admin.products.route('home')
 
 }

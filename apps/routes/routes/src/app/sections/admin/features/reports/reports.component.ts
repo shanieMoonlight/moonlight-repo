@@ -26,7 +26,7 @@ export class AdminReportsComponent {
   protected _heroImageAlt = 'Reports and Analytics';
 
   //Not calling from base admin so need to use full path
-  protected _homeRoute = `/${AppRouteDefs.fullPaths.admin.route('home')}`;
+  protected _homeRoute = AppRouteDefs.fullPathsWithSlash.admin.route('home')
 
 }
 
