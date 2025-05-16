@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HubOpenSourceDemoCardComponent } from './demo-card.component';
-import { AppImages } from "@sb-hub/core-config/images";
 import { DemoAppData } from '@sb-hub/core-config/demo-apps';
+import { HubAppImages } from '@sb-hub/core-config/images';
 
 
 describe('OpenSourceDemoCardComponent', () => {
@@ -14,7 +14,7 @@ describe('OpenSourceDemoCardComponent', () => {
     description: 'A powerful, flexible theming system for Angular Material',
     icon: 'palette',
     url: 'https://spiderbabymaterialtheming.web.app',
-    image: AppImages.Demos.MatTheme.medium
+    image: HubAppImages.Demos.MatTheme.medium
   }
 
   beforeEach(async () => {

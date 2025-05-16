@@ -10,7 +10,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubOpenSourceDemoCardComponent {
-
+  
   _demoApp = input.required<DemoAppData>({alias: 'demoApp'});
 
   protected _name = computed(() => this._demoApp().name);
