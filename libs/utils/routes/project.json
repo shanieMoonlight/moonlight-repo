@@ -1,7 +1,7 @@
 {
-  "name": "sb-hub-shared-utils-routes",
-  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/@apps/hub/shared/utils/routes/src",
+  "name": "sb-shared-utils-routes",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utils/routes/src",
   "prefix": "lib",
   "projectType": "library",
   "release": {
@@ -17,14 +17,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/@apps/hub/shared/utils/routes/ng-package.json"
+        "project": "libs/utils/routes/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/@apps/hub/shared/utils/routes/tsconfig.lib.prod.json"
+          "tsConfig": "libs/utils/routes/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/@apps/hub/shared/utils/routes/tsconfig.lib.json"
+          "tsConfig": "libs/utils/routes/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -38,7 +38,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/@apps/hub/shared/utils/routes/jest.config.ts"
+        "jestConfig": "libs/utils/routes/jest.config.ts"
       }
     },
     "lint": {

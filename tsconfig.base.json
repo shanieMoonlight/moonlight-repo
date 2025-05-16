@@ -75,12 +75,6 @@
       "@sb-hub/shared-utils/router": [
         "libs/@apps/hub/shared/utils/router/src/index.ts"
       ],
-      "@sb-hub/shared-utils/routes": [
-        "libs/@apps/hub/shared/utils/routes/src/index.ts"
-      ],
-      "@sb-hub/shared-utils/routes/builder": [
-        "libs/@apps/hub/shared/utils/routes/builder/src/index.ts"
-      ],
       "@scripts-ts": ["scripts-ts"],
       "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
@@ -153,6 +147,10 @@
       ],
       "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
       "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
+      "@spider-baby/utils-routes": ["libs/utils/routes/src/index.ts"],
+      "@spider-baby/utils-routes/builder": [
+        "libs/utils/routes/builder/src/index.ts"
+      ],
       "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
       "@spider-baby/utils-seo": ["libs/utils/seo/src/index.ts"],
       "@spider-baby/utils-seo/config": ["libs/utils/seo/config/src/index.ts"],

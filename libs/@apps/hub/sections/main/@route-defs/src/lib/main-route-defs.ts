@@ -1,4 +1,4 @@
-import { HubRouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@spider-baby/utils-routes';
 
 //#################################################//
 
@@ -18,7 +18,6 @@ type ROUTE = typeof BaseRoute | CHILD_ROUTE;
  * See `apps/hub/sb-hub/@docs/route-defs-pattern.md` for details.
  */
 export class HubMainAreaRoutesDefs {
-
   /** Base route path for the main area (e.g., 'main'). */
   public static readonly BASE = BaseRoute;
 
@@ -61,7 +60,8 @@ export class HubMainAreaRoutesDefs {
      * @param route - Optional child route.
      * @returns The full path for the child route or the main area's base path.
      */
-    route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(HubMainAreaRoutesDefs.BASE, route),
+    route: (route?: CHILD_ROUTE) =>
+      RouteUtility.combine(HubMainAreaRoutesDefs.BASE, route),
     /** Full paths for the 'admin' area, nested under 'main'. */
     // admin: HubAdminAreaRoutesDefs.fullPathFn(HubMainAreaRoutesDefs.BASE),
   };
@@ -74,18 +74,19 @@ export class HubMainAreaRoutesDefs {
    * @param parentRoute - The parent route to prefix paths with.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = HubRouteUtility.Combine(parentRoute, HubMainAreaRoutesDefs.BASE);
+    const basePath = RouteUtility.combine(
+      parentRoute,
+      HubMainAreaRoutesDefs.BASE
+    );
     return {
       /**
        * Returns the full path for a child route, or the base path of this main area, prefixed by `parentRoute`.
        * @param route - Optional child route segment.
        * @returns Full path.
        */
-      route: (route?: CHILD_ROUTE) => HubRouteUtility.Combine(basePath, route),
+      route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       /** Full paths for the 'admin' area, nested under 'main'. */
       // admin: HubAdminAreaRoutesDefs.fullPathFn(basePath),
     };
   };
-
 } //Cls
-

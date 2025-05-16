@@ -1,6 +1,11 @@
-import { Type } from "@angular/core";
-import { CanActivateFn, DefaultExport, LoadChildren, Routes } from "@angular/router";
-import { Observable } from "rxjs";
+import { Type } from '@angular/core';
+import {
+  CanActivateFn,
+  DefaultExport,
+  LoadChildren,
+  Routes,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
 //#################################################//
 
@@ -25,22 +30,23 @@ import { Observable } from "rxjs";
  * ];
  */
 export function routeBuilderComponent(
-    path: string,
-    routeLoader: () => Type<unknown> | Observable<Type<unknown> | DefaultExport<Type<unknown>>> | Promise<Type<unknown> | DefaultExport<Type<unknown>>>,
+  path: string,
+  routeLoader: () =>
+    | Type<unknown>
+    | Observable<Type<unknown> | DefaultExport<Type<unknown>>>
+    | Promise<Type<unknown> | DefaultExport<Type<unknown>>>
 ) {
-
-    return (data?: any, canActivate?: Array<CanActivateFn>): Routes =>
-        [
-            {
-                path: path,
-                loadComponent: routeLoader,
-                canActivate: canActivate,
-                data: {
-                    ...data,
-                    animation: data?.animation ?? path
-                },
-            },
-        ]
+  return (data?: any, canActivate?: Array<CanActivateFn>): Routes => [
+    {
+      path: path,
+      loadComponent: routeLoader,
+      canActivate: canActivate,
+      data: {
+        ...data,
+        animation: data?.animation ?? path,
+      },
+    },
+  ];
 }
 
 //#################################################//
@@ -68,19 +74,17 @@ export function routeBuilderComponent(
  * ];
  */
 export function routeBuilderChildren(path: string, routeLoader: LoadChildren) {
-
-    return (data?: any, canActivate?: Array<CanActivateFn>): Routes =>
-        [
-            {
-                path: path,
-                loadChildren: routeLoader,
-                canActivate: canActivate,
-                data: {
-                    ...data,
-                    animation: data?.animation ?? path
-                },
-            },
-        ]
+  return (data?: any, canActivate?: Array<CanActivateFn>): Routes => [
+    {
+      path: path,
+      loadChildren: routeLoader,
+      canActivate: canActivate,
+      data: {
+        ...data,
+        animation: data?.animation ?? path,
+      },
+    },
+  ];
 }
 
 //#################################################//

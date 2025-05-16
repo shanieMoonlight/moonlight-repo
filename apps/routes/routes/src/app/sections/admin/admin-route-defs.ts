@@ -1,4 +1,4 @@
-import { RouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@spider-baby/utils-routes';
 import { ProductAdminSectionRoutesDefs } from '../product-admin/product-admin-route-defs';
 
 //#################################################//
@@ -7,7 +7,13 @@ import { ProductAdminSectionRoutesDefs } from '../product-admin/product-admin-ro
 const BaseRoute = 'admin';
 
 /** Type alias for the child routes of the admin application area: 'home' | 'dashboard'. */
-type CHILD_ROUTE = 'home' | 'dashboard' | 'users' | 'reports' | 'settings' | 'content';
+type CHILD_ROUTE =
+  | 'home'
+  | 'dashboard'
+  | 'users'
+  | 'reports'
+  | 'settings'
+  | 'content';
 
 //#################################################//
 
@@ -15,7 +21,6 @@ type CHILD_ROUTE = 'home' | 'dashboard' | 'users' | 'reports' | 'settings' | 'co
  * Defines routes for the Admin area of the Hub application.
  */
 export class AdminSectionRoutesDefs {
-
   /** Base route path for the admin area (e.g., 'admin'). */
   public static readonly BASE = BaseRoute;
 
@@ -25,7 +30,7 @@ export class AdminSectionRoutesDefs {
    * @param route - The route segment (e.g., 'home', 'dashboard', or 'admin' itself).
    * @returns The route segment.
    */
-  static route = (route?: CHILD_ROUTE) => route ?? AdminSectionRoutesDefs.BASE
+  static route = (route?: CHILD_ROUTE) => route ?? AdminSectionRoutesDefs.BASE;
 
   //- - - - - - - - - - - - - -//
 
@@ -39,7 +44,6 @@ export class AdminSectionRoutesDefs {
     products: ProductAdminSectionRoutesDefs.routes,
   };
 
-
   /**
    * Factory for creating full path functions for this area and its children, prefixed by `parentRoute`.
    * 'route' is the main routes for this area not subsections.
@@ -47,12 +51,13 @@ export class AdminSectionRoutesDefs {
    * @returns The the full path from parentRoute.
    */
   static fullPathFn(parentRoute: string) {
-    const basePath = RouteUtility.combine(parentRoute, AdminSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.combine(
+      parentRoute,
+      AdminSectionRoutesDefs.BASE
+    );
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       products: ProductAdminSectionRoutesDefs.fullPathFn(basePath),
-    }
+    };
   }
-
 } //Cls
-

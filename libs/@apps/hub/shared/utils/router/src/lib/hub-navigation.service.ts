@@ -11,7 +11,10 @@ import { filter, map, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class HubRouterUtilsService {
+
   private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - //
 
   currentRoute$ = this._router.events // Access the router events
     .pipe(
@@ -21,5 +24,6 @@ export class HubRouterUtilsService {
       map((r) => r.replace(/^\/+/g, '')) // Remove leading slashes
     );
 
-  currentRoute = toSignal(this.currentRoute$);
+  currentRoute = toSignal(this.currentRoute$)
+  
 } //Cls

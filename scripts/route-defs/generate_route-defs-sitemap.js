@@ -7,24 +7,23 @@ const repoRoot = rootFinder.findRepositoryRootPath();
 console.log('Current directory:', __dirname);
 console.log('Repo root:', repoRoot);
 
-const baseRoute = path.join(repoRoot, 'dist/apps/hub/sb-hub/browser');
+const baseRoute = path.join(repoRoot, 'dist/apps/routes/routes/browser');
 
-const entryPoints = ['main']
+const entryPoints = ['/', 'main', 'admin']
 console.log('baseRoute:', baseRoute);
 console.log('entryPoints:', entryPoints);
-
 
 
 // Configuration for mini-state demo app
 const config = {
   siteMapFilename: 'sitemap.xml',
-  baseUrl: 'https://spider-baby-hub.web.app/',
+  baseUrl: 'https://spider-baby-route-defs.web.app/',
   baseRoute: baseRoute,
-  appPath: path.join(repoRoot, 'apps/sb-mat-thm-demo/src/app'),
-  distDir: path.join(repoRoot, 'dist/apps/hub/sb-hub/browser'),
+  distDir: path.join(repoRoot, 'dist/apps/routes/routes/browser'),
   priorityMap: {
     '/': 1.0,
-    '/api': 0.8,
+    '/main/tutorial': 0.9,
+    // '/admin': 0.8,
     default: 0.7
   },
   entryPoints: entryPoints,

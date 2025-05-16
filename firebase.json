@@ -65,6 +65,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+     {
+      "target": "spider-baby-routes-defs-demo",
+      "public": "dist/apps/routes/routes/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }

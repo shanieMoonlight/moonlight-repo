@@ -1,5 +1,5 @@
 {
-  "name": "@sb-hub/shared-utils/routes",
+  "name": "@spider-baby/utils-routes",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/core": "^19.2.0",

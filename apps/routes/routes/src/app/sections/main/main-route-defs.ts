@@ -1,4 +1,4 @@
-import { RouteUtility } from '@sb-hub/shared-utils/routes';
+import { RouteUtility } from '@spider-baby/utils-routes';
 
 //#################################################//
 
@@ -6,7 +6,13 @@ import { RouteUtility } from '@sb-hub/shared-utils/routes';
 const BaseRoute = 'main';
 
 /** Type alias for the child routes of the main application area: 'home' | 'about'. */
-type CHILD_ROUTE = 'home' | 'about' | 'contact' | 'products' | 'categories'|'tutorial';
+type CHILD_ROUTE =
+  | 'home'
+  | 'about'
+  | 'contact'
+  | 'products'
+  | 'categories'
+  | 'tutorial';
 
 //#################################################//
 
@@ -14,7 +20,6 @@ type CHILD_ROUTE = 'home' | 'about' | 'contact' | 'products' | 'categories'|'tut
  * Defines routes for the main area of the Hub application.
  */
 export class MainSectionRoutesDefs {
-
   /** Base route path for the main area (e.g., 'main'). */
   public static readonly BASE = BaseRoute;
 
@@ -24,7 +29,7 @@ export class MainSectionRoutesDefs {
    * @param route - The route segment (e.g., 'home', 'about', or 'main' itself).
    * @returns The route segment.
    */
-  static route = (route?: CHILD_ROUTE) => route ?? MainSectionRoutesDefs.BASE
+  static route = (route?: CHILD_ROUTE) => route ?? MainSectionRoutesDefs.BASE;
 
   //- - - - - - - - - - - - - - - - - - -//
 
@@ -38,19 +43,19 @@ export class MainSectionRoutesDefs {
     // Child sections go here....
   };
 
-
   /**
    * Factory for creating full path functions for this area and its children, prefixed by `parentRoute`.
    * @param parentRoute - The parent route to prefix paths with.
    * @returns The the full path from parentRoute.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = RouteUtility.combine(parentRoute, MainSectionRoutesDefs.BASE);
+    const basePath = RouteUtility.combine(
+      parentRoute,
+      MainSectionRoutesDefs.BASE
+    );
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       // Child sections go here....
     };
   };
-
 } //Cls
-

@@ -1,9 +1,8 @@
 export default {
-  displayName: 'sb-hub-shared-utils-routes',
-  preset: '../../../../../../jest.preset.js',
+  displayName: 'sb-shared-utils-routes',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory:
-    '../../../../../../coverage/libs/@apps/hub/shared/utils/routes',
+  coverageDirectory: '../../../coverage/libs/utils/routes',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

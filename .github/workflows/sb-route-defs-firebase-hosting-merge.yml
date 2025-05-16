@@ -1,0 +1,67 @@
+# https://github.com/firebase/firebase-tools
+#
+# Updated to use a custom action for environment setup and caching
+
+name: Deploy SpiderBaby- Hub to Firebase Hosting on merge # Keep this name for this specific app
+on:
+  push:
+    branches:
+      - master
+    # Recommended: Add path filtering here for efficiency in a monorepo
+    # if this workflow should ONLY run when SpiderBabyMaterialTheming code changes:
+    paths:
+      - 'apps/routes/routes/**' # Adjust path to your project's code
+  #   - 'functions/**' # If this project uses functions and changes to functions should trigger this build/deploy
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    environment: production #<-- Important for the secrets to work
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # --- Use your custom setup action here! ---
+      - name: Setup Build Environment with Caching
+        uses: ./.github/actions/setup-build-env 
+
+        # Optional: Pass inputs if you want to override the defaults in action.yml
+        with:
+          node-version: '22' # Explicitly set the Node.js version
+
+      # - name: Create firebase ready environment.ts from secrets
+      #   uses: ./.github/actions/create_firebase_env # Reference the new action
+      #   with:
+      #     environment-path: 'apps/hub/sb-hub/src/environments'
+      #     firebase-api-key: ${{ secrets.MINI_STATE_FIREBASE_API_KEY }}
+      #     firebase-auth-domain: ${{ secrets.MINI_STATE_FIREBASE_AUTH_DOMAIN }}
+      #     firebase-project-id: ${{ secrets.MINI_STATE_FIREBASE_PROJECT_ID }}
+      #     firebase-storage-bucket: ${{ secrets.MINI_STATE_FIREBASE_STORAGE_BUCKET }}
+      #     firebase-messaging-sender-id: ${{ secrets.MINI_STATE_FIREBASE_MESSAGING_SENDER_ID }}
+      #     firebase-app-id: ${{ secrets.MINI_STATE_FIREBASE_APP_ID }}
+      #     firebase-measurement-id: ${{ secrets.MINI_STATE_FIREBASE_MEASUREMENT_ID }}
+
+      # set up by the custom action.
+      - name: Build Angular app
+        run: npx nx run rd-route-defs-demo:build  --configuration=production
+
+        
+      - name: Rename index.csr.html to index.html
+        run: npm run postbuild:spider-baby-routes-defs
+
+      - name: Generate sitemap
+        uses: ./.github/actions/generate-sitemap
+        with:
+          script-path: scripts/hub/generate-route-defs-sitemap.js
+
+      - name: List files in deploy directory
+        run: ls -alR dist/apps/routes/routes/browser
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABY_ROUTE_DEFS }}
+          channelId: live
+          target: spider-baby-routes-defs-demo
+          projectId: spider-baby-routes-defs
