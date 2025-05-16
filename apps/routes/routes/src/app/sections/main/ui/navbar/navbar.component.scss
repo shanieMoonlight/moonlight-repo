@@ -41,7 +41,7 @@ mat-toolbar {
   // width: 24px;
 }
 
-.navlink {
+.navlink.text {
   cursor: pointer;
   margin: 0 12px;
   /* Adjust horizontal spacing */
@@ -64,13 +64,13 @@ mat-toolbar {
     /* Change color on hover */
   }
 
-  // Style for the active route link
-  &.active {
-    color: var(--mat-sys-secondary);
-    /* Active link color */
-    border-bottom-color: var(--mat-sys-secondary);
-    /* Add underline for active */
-  }
+
+}
+
+.navlink.text.active {
+  color: var(--mat-sys-secondary);
+  border-bottom-color: var(--mat-sys-secondary);
+
 }
 
 // Ensure icon buttons have consistent spacing and color
@@ -84,19 +84,22 @@ button[mat-icon-button] {
 
   &.active {
     color: var(--mat-sys-secondary);
-    /* Active link color */
     border-bottom-color: var(--mat-sys-secondary);
-    /* Add underline for active */
   }
 }
 
-mat-divider {
-    height: 35%;
+.navlink.btn.active {
+  button {
+    color: var(--mat-sys-secondary);
+    border-bottom-color: var(--mat-sys-secondary);
+  }
 }
 
 
 
-
+mat-divider {
+  height: 35%;
+}  
 
 
 // Responsive adjustments

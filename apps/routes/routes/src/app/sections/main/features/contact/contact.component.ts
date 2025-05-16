@@ -11,7 +11,8 @@ import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.co
   imports: [
     MatEverythingModule,
     RouterModule,
-    HeroBannerComponent],
+    HeroBannerComponent
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

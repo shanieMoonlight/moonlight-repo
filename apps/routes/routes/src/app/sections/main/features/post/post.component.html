@@ -1,1 +1,247 @@
-<p>post works!</p>
+<div class="component-container">
+     <button mat-mini-fab aria-label="Download Code Samples" 
+        class="download-code-samples secondary"
+        [class.downloading]="_isDownloading()"
+        [class.primary]="_isDownloading()"
+        [matTooltip]="'Download Code Samples'"
+        (click)="downloadCodeSamples()">
+            <mat-icon>code</mat-icon>
+        </button>
+
+    <p>
+        I come across the following problem when I'm handling routing and navigation in Angular applications:
+        <br>
+        We define routes in a <code>**.routes.ts</code> file. In a small application this is usually <code> app.routes.ts</code>.
+        <br>
+        In a larger application, we may have multiple route files, one for each section/module of the application, that may be nested multiple levels
+        deep.
+        <br>
+        In a larger NX style mono-repo we can have separate libraries each with their own routes and subroutes.
+    </p>
+
+    <p>
+        How do I remember what each route is named?
+        <br>
+        How do i avoid typos?
+        <br>
+        What happens if route names are changed?
+        <br>
+        What happens if it's a nested route and the entire component/model section is moved and now the whole route path is different?
+        <br>
+        How do i figure out the exact full path to a route, so I can navigate by the full path to avoid appending to the current route?
+        <br>
+        If we move a section/module to a different library, or move a route to a different file, how do I remember what each route is named what it
+        points
+        to?
+    </p>
+
+    <p>
+        Example:
+        Say I had a main section, admin section, a products section (Customers), a products-admin section (Administration) and 
+        a NewProductComponent with path: 'new-product'.
+        <br>
+        So we have: 
+        <br>
+        <code>appBase -> main -> products</code>
+        <br>
+        and: 
+        <br>
+        <code> appBase -> admin -> products-admin</code>
+        <rd-app-structure-diagram [swapRoutes]="false" />
+        <br>
+        ...but maybe later on, moving products-admin to be a subset of products feels like a better idea.
+        <br>
+        So now twe have: 
+        <br>
+        <code>appBase -> main -> products -> products-admin</code>
+        <br>
+        and: 
+        <br>
+        <code> appBase -> admin</code>
+        <br>
+        <rd-app-structure-diagram [swapRoutes]="true" />
+        How do I handle the new path in any links?
+        <br> 
+        How do I make sure I didn't miss any links, or mistype them?
+        <br> 
+        In a small application with all the routes in app.routes.ts and no nesting this problem won't really exist but 'Magic Strings' and typo's are still a
+        problem.
+    </p>
+
+    <h4>For a small application...:</h4>
+    We could define a ROUTES type
+    <pre>
+            <code [highlight]="`type ROUTE = 'home' | 'contact' | 'about' | 'products' | etc...`" language="typescript"></code>
+        </pre>
+    Then use those types in the route definitions in the app.routes.ts file and any where else we need to use the route names.
+    <pre>
+        <code [highlight]="_simpleAppRoutesWitRoutesTypeCode.appRoutesAndType" language="typescript"></code>
+        <code [highlight]="_simpleAppRoutesWitRoutesTypeCode.usageTs" language="typescript"></code>
+        <code [highlight]="_simpleAppRoutesWitRoutesTypeCode.usageHtml" language="html"></code>
+    </pre>
+
+    So that solves the typo problem, but what happens if the app expands and AboutComponent is moved to a separate module and its new path is now
+
+    <code> /info/about</code> or <code>/company/about</code>?
+    <br>
+    We'd need to update all references to that route throughout the application.
+    If we have multiple developers working on the application, how do we make sure they all know about the new path?
+    
+    <mat-divider/>
+    <br>
+    <h2>So here is the solution!</h2>
+    <p>Each subsection/module gets it's own **.route-defs file. Place the file next to **.routes.ts (product-admin.routes.ts in this case)</p>
+    <pre>
+        <code [highlight]="_subSetionRouteDefsCode.subsectionTs" language="typescript"></code>
+    </pre>
+    <h3>How the **RouteDefs class works</h3>
+    <ol>
+        <li>
+            <h4>Route types</h4>
+            At the top of the file we define types that represent the route names.
+            <pre>
+            <code [highlight]="_subSetionRouteDefsCode.typeDefintions" language="typescript"></code>
+        </pre>
+            This helps create type-safe route definitions that can be used by the IDE for intellisense and compile-time checking.
+            <br>
+            Let's use them!
+            <br>
+            We want users to be able to access the route names for this section so we define a static method:
+            <pre>
+                <code [highlight]="_subSetionRouteDefsCode.routeMethod" language="typescript"></code>
+            </pre>
+            Which can be used when setting up the routes in <code>product-admin.routes.ts</code> for type-safe route names.
+            <pre>
+                <code [highlight]="_subSetionRouteDefsCode.usageInRoutesTs" language="typescript"></code>
+            </pre>
+        </li>
+
+        <li>
+            <h4>Define a routes object to allow parent section to access final segment (route)</h4>
+
+            <pre>
+                <code [highlight]="_subSetionRouteDefsCode.routesObject" language="typescript"></code>
+            </pre>
+            <code> route: ProductAdminSectionRoutesDefs.route</code> is for the parent section to access the final segment of the route.
+            <br>
+            If there are subsections to this section they go below so the parent section can follow the route to the final segment of the subsection,
+            and so on...
+            <br>
+            This is helpful for button text, nav-item text, tooltips, etc
+            <code [highlight]="`const newProductPath = AppRouteDefs.routes.admin.products.route('new-product') //Full description to follow.`"
+                language="typescript"></code>
+        </li>
+
+        <li>
+            <h4>Define 'fullPathFn' method/function to allow parent section to create full paths to on of this sections routes</h4>
+
+            <pre>
+                <code [highlight]="_subSetionRouteDefsCode.fullPathFn" language="typescript"></code>
+            </pre>
+            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> is for the parent section to build the full path to one
+            of the ProductAdminRoutes.
+            <br>
+            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
+            and so on...
+            <br>
+            This will be used for absoloute navigation (from application base). Example: the routerLink in the template.
+        </li>
+
+
+        <li>
+            <h4>Usage of ProductAdminSectionRoutesDefs in parent subection</h4>
+            This follows the exact same pattern as the ProductAdminSectionRoutesDefs class, but you can see how the nesting works. See
+            <code>routes</code> and <code>fullPathFn</code>.
+
+            <pre>
+                <code [highlight]="_adminSubSetionRouteDefsCode.subsectionTs" language="typescript"></code>
+            </pre>
+            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> is for the parent section to build the full path to one
+            of the ProductAdminRoutes.
+            <br>
+            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
+            and so on...
+            <br>
+            This will be used for absoloute navigation (from application base). Example: the routerLink in the template.
+        </li>
+
+        <li>
+            <h4>Create the Base RouteDefs file </h4>
+            Now we need to create a base entry point for the routes defintions. This is app-route-defs.ts which will live in the same folder as the
+            app.routes.ts file.
+            <pre>
+                <code [highlight]="_appRouteDefsCode.subsectionTs" language="typescript"></code>  
+            </pre>
+
+            This class will be use all around the application to access the routes for the any sections and any subsections.
+
+            <ol>
+                <li>
+                    <code>BaseRoute</code>: Usually an empty string ''.
+                </li>
+                <li>
+                    <code>routes</code>: This is how we follow the chain of subsection to get the final segment (route name).
+                    When you add a subsection to the base route (appRoutes), you need to add it's corresponding route-defs class here to the routes
+                    object.
+                </li>
+                <li>
+                    <code>fullPaths</code>: This is how we follow the chain of subsection to get the full path to the desired route.
+                    When you add a subsection to the base route (appRoutes), you need to add it's corresponding route-defs class here to the routes
+                    object.
+                </li>
+                <li>
+                    <code>fullPathsWithSlash</code>: Utility method that prepends a slash to the fullPath. Use for absolute navigation (from
+                    application base).
+                </li>
+            </ol>
+        </li>
+
+        <li>
+            <h4>How to use the system</h4>
+            <pre>
+                <code [highlight]="_appRouteUsageCode.example"  language="typescript"></code>
+            </pre>
+            <p>
+                So now you can always find the routes and paths for any section or subsection of the application, in a strongly typed way.
+                No more magic strings, no more typos, no more searching through the code to find the route name or path.
+                <br>
+                If you change the structure of the application you just change the route defs and all the code will be 'notified' of the change by the
+                IDE.
+                <br>
+                <br>
+
+                For Example:
+                If you decide to move the products-admin section from the Admin section to the Main section, you just change the route-defs.
+                Delete <code>products: ProductAdminSectionRoutesDefs.routes</code> from the <code>routes</code> object in
+                <code>AdminSectionRoutesDefs</code>
+                and add it to the <code>routes</code> object in <code>MainSectionRoutesDefs</code>.
+                <br>
+                Delete <code>products: ProductAdminSectionRoutesDefs.fullPathFn(basePath)</code> from the <code>fullPaths</code> object in
+                <code>AdminSectionRoutesDefs</code> and add it to the <code>fullPaths</code> object in <code>MainSectionRoutesDefs</code>.
+
+                <br>
+                <strong> Boom!</strong>
+
+
+            </p>
+        </li>
+
+        <li>
+            <h4>Utility functions/classes</h4>
+            <p>
+                <code>RouteUtility</code>: Combines paths in a safe way.
+            <pre>
+                    <code [highlight]="_routeUtilsCode.classTs" language="typescript"></code>
+            </pre>
+            
+            <p>
+                <code>WithSlash function</code>: Prepends a slash to a path.
+            <pre>
+                    <code [highlight]="_appRouteDefsCode.withSlashFunction" language="typescript"></code>
+            </pre>
+        </li>
+
+    </ol>
+
+</div>
+

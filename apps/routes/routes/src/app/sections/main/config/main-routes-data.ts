@@ -6,7 +6,7 @@ import { MainSectionRoutesDefs } from '../main-route-defs';
 /**
  * Route data for the main section of the application.
  * This data is used to generate navigation cards for the main section.
- * Routes are relative to main seciton so can be used in MainComponent and MainHomeComponent (and their navs or sidenavs etc.)
+ * Routes are relative to main section so can be used in MainComponent and MainHomeComponent (and their navs or sidenavs etc.)
  * If you need to use this outside of Main Base then use the full path
  * e.g. `/${AppRouteDefs.fullPaths.main.route('about')}`<ImageView ...
  android:src="@drawable/psychology_alt_24"

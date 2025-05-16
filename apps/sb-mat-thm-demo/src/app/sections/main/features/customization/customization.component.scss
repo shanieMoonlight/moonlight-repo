@@ -20,6 +20,7 @@
   right: 16px; // Adjust as needed
   z-index: 20; // Ensure it's above other content
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); 
+  --mdc-fab-focus-container-elevation-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); 
 }
 
 .centered-content {

@@ -51,4 +51,9 @@ export class MainNavbarComponent {
   //-----------------------------//
 
   protected share = () => this._shareService.shareCurrentPage();
+
+protected urlMatcher = (url: string) => {
+  return url.toString() === '/' || url.toString() === '/home'
+}
+
 } //Cls

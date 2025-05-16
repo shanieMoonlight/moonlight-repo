@@ -20,7 +20,7 @@ export class ProductAdminSectionRoutesDefs {
   /**
    * Returns the provided route segment.
    * Primarily for use in this area's Angular route configuration.
-   * @param route - The route segment (e.g., 'home', 'open-source', or 'main' itself).
+   * @param route - The route segment (e.g., 'home', 'new-product', or 'main' itself).
    * @returns The route segment.
    */
   static route = (route?: CHILD_ROUTE) =>
@@ -41,14 +41,11 @@ export class ProductAdminSectionRoutesDefs {
    * Factory for creating full path functions for this area and its children, prefixed by `parentRoute`.
    * @param parentRoute - The parent route to prefix paths with.
    */
-  static fullPathFn = (parentRoute: string) => {
-    const basePath = RouteUtility.combine(
-      parentRoute,
-      ProductAdminSectionRoutesDefs.BASE
-    );
+  static fullPathFn(parentRoute: string) {
+    const basePath = RouteUtility.combine(parentRoute, ProductAdminSectionRoutesDefs.BASE);
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
       // Child sections go here....
     };
-  };
+  }
 } //Cls

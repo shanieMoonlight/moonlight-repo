@@ -1,0 +1,112 @@
+<div class="route-structure">
+    <div class="app-level node">
+        <div class="node-content">
+            <strong>App Level</strong>
+                     <br>
+            <code>BASE = ''</code>
+        </div>
+        <div class="children">
+            <div class="section-level node">
+                <div class="node-content">
+                    <strong>Main Section</strong>
+                     <br>
+                    <code>BASE = 'main'</code>
+                </div>
+                <ng-container 
+                    [ngTemplateOutlet]="routesTemplate" 
+                    [ngTemplateOutletContext]="{routes: _mainRoutes()}" />
+                    @if(_swapRoutes()){
+                        <ng-container 
+                            [ngTemplateOutlet]="sectionChildrenTemplate" 
+                            [ngTemplateOutletContext]="{
+                                routes: _productRoutes(),
+                                base: 'products',
+                                title: 'Products',
+                                bgColor: '#e0f7fa',
+                                innerChildrenTemplate: sectionChildrenTemplate,
+                                innerContext: {
+                                    routes: _productAdminRoutes(),
+                                    base: 'product-admin',
+                                    title: 'Product Admin',
+                                    bgColor: '#ffdad6'
+                                }
+                            }" />
+                    }@else {
+                       <ng-container 
+                            [ngTemplateOutlet]="sectionChildrenTemplate" 
+                            [ngTemplateOutletContext]="{
+                                routes: _productRoutes(),
+                                base: 'products',
+                                title: 'Products',
+                                bgColor: '#e0f7fa',
+                            }" />
+                    }
+            </div>
+
+            <div class="section-level node">
+                <div class="node-content">
+                    <strong>Admin Section</strong>
+                     <br>
+                    <code>BASE = 'admin'</code>
+                </div>
+                <ng-container 
+                    [ngTemplateOutlet]="routesTemplate" 
+                    [ngTemplateOutletContext]="{routes: _adminRoutes()}" />
+                    @if(!_swapRoutes()){
+                        <ng-container 
+                            [ngTemplateOutlet]="sectionChildrenTemplate" 
+                            [ngTemplateOutletContext]="{
+                                routes: _productAdminRoutes(),
+                                base: 'product-admin',
+                                title: 'Product Admin',
+                                bgColor: '#ffdad6'
+                            }" />
+                    }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- #################################### -->
+
+<ng-template #routesTemplate let-routes="routes">
+    <div class="routes">
+        <ul>
+            @for (route of routes; track $index) {
+            <li>'{{ route }}'</li>
+            }
+        </ul>
+    </div>
+</ng-template>
+
+<!-- #################################### -->
+
+<ng-template #sectionChildrenTemplate 
+    let-routes="routes" 
+    let-base="base" 
+    let-title="title" 
+    let-bgColor="bgColor" 
+    let-innerChildrenTemplate="innerChildrenTemplate"
+    let-innerContext="innerContext">
+    <div class="children">
+        <div class="subsection-level node" [style.backgroundColor]="bgColor">
+            <div class="node-content">
+                <strong>{{title}}</strong>  
+                <br>
+                <code>BASE = '{{base}}'</code>
+            </div>
+            <ng-container 
+                [ngTemplateOutlet]="routesTemplate" 
+                [ngTemplateOutletContext]="{routes: routes}" />
+
+            @if(innerChildrenTemplate){
+                <ng-container 
+                    [ngTemplateOutlet]="innerChildrenTemplate" 
+                    [ngTemplateOutletContext]="innerContext" />
+            }
+        </div>
+    </div>
+</ng-template>
+
+<!-- #################################### -->

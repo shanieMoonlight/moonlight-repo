@@ -13,22 +13,17 @@ mat-toolbar {
   // background-color: red;
 
   // Optional: Set a background color using theme variables if you don't want the default surface
-  // background-color: var(--mat-sys-surface-container); 
+  // background-color: var(--mat-sys-surface-container);
 
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
-
-
-
 }
-
 
 .left-links,
 .right-links {
   display: flex;
-  /* Use flexbox for alignment */
+  height: 100%;
   align-items: center;
-  /* Center items vertically */
 }
 
 .rhs-outlet {
@@ -43,10 +38,10 @@ mat-toolbar {
   // Use flex-grow instead of fixed width for better flexibility
   flex: 1 1 auto;
   // Or keep width if preferred, maybe adjust slightly
-  // width: 24px; 
+  // width: 24px;
 }
 
-.navlink {
+.navlink.text {
   cursor: pointer;
   margin: 0 12px;
   /* Adjust horizontal spacing */
@@ -70,12 +65,12 @@ mat-toolbar {
   }
 
 
-  &.active {
-    color: var(--mat-sys-secondary);
-    /* Active link color */
-    border-bottom-color: var(--mat-sys-secondary);
-    /* Add underline for active */
-  }
+}
+
+.navlink.text.active {
+  color: var(--mat-sys-secondary);
+  border-bottom-color: var(--mat-sys-secondary);
+
 }
 
 // Ensure icon buttons have consistent spacing and color
@@ -89,11 +84,24 @@ button[mat-icon-button] {
 
   &.active {
     color: var(--mat-sys-secondary);
-    /* Active link color */
     border-bottom-color: var(--mat-sys-secondary);
-    /* Add underline for active */
   }
 }
+
+.navlink.btn.active {
+  button {
+    color: var(--mat-sys-secondary);
+    border-bottom-color: var(--mat-sys-secondary);
+  }
+}
+
+
+
+mat-divider {
+  height: 35%;
+}  
+
+
 
 
 // Responsive adjustments

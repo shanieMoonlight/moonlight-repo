@@ -1,17 +1,8 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  delay,
-  map,
-  of,
-  tap,
-} from 'rxjs';
-import { consoleDev } from '@spider-baby/material-theming/utils';
+import { Injectable, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 
 //############################################//
 export interface SetupFile {

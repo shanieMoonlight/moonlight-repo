@@ -1,3 +1,52 @@
 :host {
   display: block;
+  line-height: 1.5rem;
+  position: relative;
+}
+
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0 0.5rem;
+}
+
+
+
+.download-code-samples {
+
+
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  --mdc-fab-focus-container-elevation-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+
+
+  &.downloading {
+    cursor: not-allowed;
+    pointer-events: none;
+    animation: pulse 2s infinite ease-in-out;
+  }
+}
+
+mat-divider {
+  margin: 2rem;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
