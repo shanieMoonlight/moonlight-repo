@@ -5,7 +5,7 @@
   "scripts": {
     "postbuild:spider-baby-mat-theming": "cp \"dist/apps/sb-mat-thm-demo/browser/index.csr.html\" \"dist/apps/sb-mat-thm-demo/browser/index.html\"",
     "postbuild:spider-baby-hub": "cp \"dist/apps/hub/sb-hub/browser/index.csr.html\" \"dist/apps/hub/sb-hub/browser/index.html\"",
-    "postbuild:spider-baby-routes-defs": "cp \"dist/apps/routes/routes/browser/index.csr.html\" \"dist/apps/routes/routes/browser/index.html\"",
+    "postbuild:spider-baby-route-defs": "cp \"dist/apps/routes/routes/browser/index.csr.html\" \"dist/apps/routes/routes/browser/index.html\"",
     "generate:sitemap:mini-state": "node scripts/mini-state/generate-sitemap.js",
     "build:mini-state": "npx nx run spider-baby-mini-state-demo:build --configuration=production && npm run generate:sitemap:mini-state",
     "sitemap:mini-state": "npm run generate:sitemap:mini-state",
