@@ -4,7 +4,6 @@
   "peerDependencies": {
     "@angular/core": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@sb-hub/shared-utils/routes": "^0.0.1",
     "@sb-hub/sections-main/features/home": "^0.0.1",
     "@sb-hub/sections-main/features/open-source": "^0.0.1",
     "@sb-hub/shared-features/not-found": "^0.0.1",
