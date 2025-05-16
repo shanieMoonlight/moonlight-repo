@@ -45,7 +45,7 @@ export class MainNavbarComponent {
     .pipe(map((state) => state.matches));
   isSmallScreen = toSignal(this.isSmallScreen$);
 
-  protected _adminRoute = `/${AppRouteDefs.fullPaths.admin.route()}`;
+  protected _adminRoute = AppRouteDefs.fullPathsWithSlash.admin.route();
 
 
   //-----------------------------//

@@ -6,9 +6,21 @@ export class AppImages {
     static readonly large = 'images/logo/large/logo.png';
   };
 
-  //==========================================//
+
+  static Post = class {
+    static Banner = class {
+      static readonly default = 'images/post/route-defs-post.jpg';
+      static readonly small = 'images/post/small/route-defs-post.jpg';
+      static readonly medium = 'images/post/medium/route-defs-post.jpg';
+      static readonly large = 'images/post/large/route-defs-post.jpg';
+      static readonly xlarge = 'images/post/xlarge/route-defs-post.jpg';
+    };
+
+  } 
+
 } //Cls
 
+//==========================================//
 
 export class AppImages1 {
   static Logo = class {
@@ -18,9 +30,9 @@ export class AppImages1 {
     static readonly large = 'images/logo2/large/logo1.png';
   };
 
-  //==========================================//
 } //Cls
 
+//==========================================//
 
 export class AppImages2 {
   static Logo = class {
@@ -30,9 +42,9 @@ export class AppImages2 {
     static readonly large = 'images/logo2/large/logo2.png';
   };
 
-  //==========================================//
 } //Cls
 
+//==========================================//
 
 export class AppImages3 {
   static Logo = class {
@@ -42,9 +54,9 @@ export class AppImages3 {
     static readonly large = 'images/logo2/large/logo3.png';
   };
 
-  //==========================================//
 } //Cls
 
+//==========================================//
 
 export class AppImages4 {
   static Logo = class {
@@ -54,9 +66,9 @@ export class AppImages4 {
     static readonly large = 'images/logo2/large/logo4.png';
   };
 
-  //==========================================//
 } //Cls
 
+//==========================================//
 
 export class AppImages5 {
   static Logo = class {
@@ -66,6 +78,6 @@ export class AppImages5 {
     static readonly large = 'images/logo2/large/logo5.png';
   };
 
-  //==========================================//
-
 } //Cls
+
+//==========================================//

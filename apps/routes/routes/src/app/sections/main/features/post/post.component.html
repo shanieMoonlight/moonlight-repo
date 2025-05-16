@@ -1,19 +1,17 @@
-<div class="component-container">
-     <button mat-mini-fab aria-label="Download Code Samples" 
-        class="download-code-samples secondary"
-        [class.downloading]="_isDownloading()"
-        [class.primary]="_isDownloading()"
-        [matTooltip]="'Download Code Samples'"
-        (click)="downloadCodeSamples()">
-            <mat-icon>code</mat-icon>
-        </button>
 
+<div class="component-container">
+  <div class="banner">
+    <img [src]="_bannerImg" alt="Angular routing banner">
+    <div class="banner-overlay">
+      <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
+    </div>
+  </div>
 <p>
     I come across the following problem when I'm handling routing and navigation in Angular applications:
 </p>
 
 <ul class="route-problems">
-    <li>We define routes in a <code>**.routes.ts</code> file. In a small application this is usually <code>app.routes.ts</code>.</li>
+    <li>We define routes in a <code>**.routes.ts</code> file. In a small application this is usually just one file:  <code>app.routes.ts</code>.</li>
     
     <li>In a larger application, we may have multiple route files, one for each section/module of the application, that may be nested multiple levels
     deep.</li>
@@ -26,7 +24,7 @@
     
     <li>What happens if route names are changed?</li>
     
-    <li>What happens if it's a nested route and the entire component/model section is moved and now the whole route path is different?</li>
+    <li>What happens if it's a nested route and the entire component/module/section is moved and now the whole route path is different?</li>
     
     <li>How do i figure out the exact full path to a route, so I can navigate by the full path to avoid appending to the current route?</li>
     
@@ -36,6 +34,7 @@
 
     <p>
         Example:
+        <br>
         Say I had a main section, admin section, a products section (Customers), a products-admin section (Administration) and 
         a NewProductComponent with path: 'new-product'.
         <br>
@@ -48,7 +47,7 @@
         <code> appBase -> admin -> products-admin</code>
         <rd-app-structure-diagram [swapRoutes]="false" />
         <br>
-        ...but maybe later on, moving products-admin to be a subset of products feels like a better idea.
+        ...but maybe later on, moving <strong>Product Admin</strong> to be a subset of products feels like a better idea.
         <br>
         So now we have: 
         <br>
@@ -63,7 +62,7 @@
         <br> 
         How do I make sure I didn't miss any links, or mistype them?
         <br> 
-        In a small application with all the routes in app.routes.ts and no nesting this problem won't really exist but 'Magic Strings' and typo's are still a
+        In a small application with all the routes in app.routes.ts and no nesting this problem won't really exist but 'Magic Strings' and typos are still a
         problem.
     </p>
 
@@ -89,6 +88,23 @@
     <mat-divider/>
     <br>
     <h2>So here is the solution!</h2>
+    <h3>Solution Overview</h3>
+    <p>
+        This route definition system provides type-safe, hierarchical routing by:
+    </p>
+    <ol>
+        <li>Creating route definition classes for each section of your app</li>
+        <li>Using TypeScript types to define valid route names</li>
+        <li>Building a hierarchy that mirrors your application structure</li>
+        <li>Providing utility methods for accessing route segments and full paths</li>
+    </ol>
+
+    Then use it:
+    <pre>
+        <code [highlight]="_appRouteUsageCode.inComponents" language="typescript"></code>
+    </pre>
+
+    <h3>Let's begin...</h3>
     <p>Each subsection/module gets it's own **.route-defs file. Place the file next to **.routes.ts (product-admin.routes.ts in this case)</p>
     <pre>
         <code [highlight]="_subSetionRouteDefsCode.subsectionTs" language="typescript"></code>
@@ -139,13 +155,13 @@
             <pre>
                 <code [highlight]="_subSetionRouteDefsCode.fullPathFn" language="typescript"></code>
             </pre>
-            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> is for the parent section to build the full path to one
-            of the <code>ProductAdminRoutes</code>.
+            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> 
+            works the same way as explained earlier, but in this context for the parent  <code> AdminSectionRoutesDefs</code>.
             <br>
             If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
             and so on...
             <br>
-            This will be used for absoloute navigation (from application base). Example: the routerLink in the template.
+            This will be used for absolute navigation (from application base). Example: the routerLink in the template.
         </li>
 
 
@@ -163,7 +179,7 @@
             If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
             and so on...
             <br>
-            This will be used for absoloute navigation (from application base). Example: the routerLink in the template.
+            This will be used for absolute navigation (from application base). Example: the routerLink in the template.
         </li>
 
         <li>
@@ -202,6 +218,10 @@
             <pre>
                 <code [highlight]="_appRouteUsageCode.example"  language="typescript"></code>
             </pre>
+            <p>In your component:</p>
+            <pre>
+                <code [highlight]="_appRouteUsageCode.inComponents"  language="typescript"></code>
+            </pre>
             <p>
                 So now you can always find the routes and paths for any section or subsection of the application, in a strongly typed way.
                 <br>
@@ -232,10 +252,10 @@
         <li>
             <h4>Utility functions/classes</h4>
             <p>
-                <code>RouteUtility</code>: Combines paths in a safe way.
-            <pre>
-                    <code [highlight]="_routeUtilsCode.classTs" language="typescript"></code>
-            </pre>
+                <code>RouteUtility.combine</code> safely joins path segments to avoid double slashes or missing separators. 
+                <pre>
+                        <code [highlight]="_routeUtilsCode.classTs" language="typescript"></code>
+                </pre>
             
             <p>
                 <code>WithSlash function</code>: Prepends a slash to a path.
@@ -248,3 +268,17 @@
 
 </div>
 
+<!-- ################################### -->
+
+<div class="btn-container" [class.show]="_showButton()">
+
+    <button mat-mini-fab aria-label="Download Code Samples" 
+        class="download-code-samples secondary"    
+        [class.downloading]="_isDownloading()"
+        [class.primary]="_isDownloading()"
+        [matTooltip]="'Download Code Samples'"
+        (click)="downloadCodeSamples()">
+        <mat-icon>code</mat-icon>
+    </button>
+</div>
+<!-- ################################### -->

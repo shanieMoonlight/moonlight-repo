@@ -25,7 +25,7 @@ export const mainRoutes: Route[] = [
       },
       {
         path: MainSectionRoutesDefs.route('tutorial'),
-        loadComponent: () => import('./features/tutorial/tutorial.component').then((m) => m.TutorialComponent),
+        loadComponent: () => import('./features/post/post.component').then((m) => m.PostComponent),
       },
       {
         path: MainSectionRoutesDefs.route('post'),

@@ -17,14 +17,6 @@
       [matTooltip]="'Git repo'">
       <mat-icon svgIcon="git" />
     </button>
-<!-- 
-    <button
-      mat-icon-button
-      aria-label="Npm Package"
-      [mlNavigateNewWindow]="_npmPkgUrl"
-      [matTooltip]="'Npm Package'">
-      <mat-icon svgIcon="npm" />
-    </button> -->
 
     <button
       mat-icon-button
@@ -55,7 +47,7 @@
     [ngTemplateOutlet]="navItem"
     [ngTemplateOutletContext]="{
       routerLink: _adminRoute,
-      tooltip: 'Admin Section',
+      tooltip: 'AppRouteDefs.fullPathsWithSlash.admin.route()',
       iconName: 'admin_panel_settings',
       text: 'Admin'
     }"
