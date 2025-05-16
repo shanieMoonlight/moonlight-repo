@@ -2,7 +2,7 @@
 #
 # Updated to use a custom action for environment setup and caching
 
-name: Deploy SpiderBaby- Hub to Firebase Hosting on merge # Keep this name for this specific app
+name: Deploy SpiderBaby- Route Defs to Firebase Hosting on merge # Keep this name for this specific app
 on:
   push:
     branches:
