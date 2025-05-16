@@ -67,7 +67,7 @@
       ]
     },
      {
-      "target": "spider-baby-routes-defs-demo",
+      "target": "spider-baby-route-defs-demo",
       "public": "dist/apps/routes/routes/browser",
       "ignore": [
         "firebase.json",

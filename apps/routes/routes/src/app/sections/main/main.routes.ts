@@ -25,7 +25,7 @@ export const mainRoutes: Route[] = [
       },
       {
         path: MainSectionRoutesDefs.route('tutorial'),
-        loadComponent: () => import('./features/route-architecture/route-architecture.component').then((m) => m.RouteArchitectureComponent),
+        loadComponent: () => import('./features/tutorial/tutorial.component').then((m) => m.TutorialComponent),
       },
       // This route is the default route for the product-admin area 
       // We want the base/entry route to be '' so that routing will happen relative to MainSectionRoutesDefs.BASE not 'home'

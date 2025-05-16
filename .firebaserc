@@ -3,7 +3,7 @@
     "spider_baby_mat_theming_demo": "spiderbabymaterialtheming",
     "spider_baby_mini_state_demo": "spider-baby-mini-state",
     "spider_baby_hub_demo": "spider-baby-hub",
-    "spider_baby_routes_defs_demo": "spider-baby-routes-defs"
+    "spider_baby_routes_defs_demo": "spider-baby-route-defs"
   },
   "targets": {
     "spiderbabymaterialtheming": {
@@ -21,9 +21,9 @@
         "spider-baby-hub-demo": ["spider-baby-hub"]
       }
     },
-    "spider-baby-routes-defs": {
+    "spider-baby-route-defs": {
       "hosting": {
-        "spider-baby-routes-defs-demo": ["spider-baby-routes-defs"]
+        "spider-baby-route-defs-demo": ["spider-baby-route-defs"]
       }
     }
 

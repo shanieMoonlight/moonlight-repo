@@ -7,8 +7,8 @@ console.log(AppRouteDefs.routes.admin.products.route('new-product'));
 
 @Component({
   selector: 'rd-route-architecture',
-  templateUrl: './route-architecture.component.html',
-  styleUrls: ['./route-architecture.component.scss'],
+  templateUrl: './tutorial.component.html',
+  styleUrls: [ './tutorial.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -16,7 +16,7 @@ console.log(AppRouteDefs.routes.admin.products.route('new-product'));
     MatEverythingModule
   ],
 })
-export class RouteArchitectureComponent {
+export class TutorialComponent {
   
   getAppRouteDefs(): string {
     return `export class AppRouteDefs {

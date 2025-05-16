@@ -47,7 +47,7 @@ jobs:
 
         
       - name: Rename index.csr.html to index.html
-        run: npm run postbuild:spider-baby-routes-defs
+        run: npm run postbuild:spider-baby-route-defs
 
       # - name: Generate sitemap
       #   uses: ./.github/actions/generate-sitemap
@@ -63,5 +63,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPIDERBABY_ROUTE_DEFS }}
           channelId: live
-          target: spider-baby-routes-defs-demo
-          projectId: spider-baby-routes-defs
+          target: spider-baby-route-defs-demo
+          projectId: spider-baby-route-defs

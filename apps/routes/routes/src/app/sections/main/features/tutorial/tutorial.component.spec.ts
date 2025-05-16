@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouteArchitectureComponent } from './route-architecture.component';
+import { TutorialComponent } from './tutorial.component';
 
 describe('RouteArchitectureComponent', () => {
-  let component: RouteArchitectureComponent;
-  let fixture: ComponentFixture<RouteArchitectureComponent>;
+  let component: TutorialComponent;
+  let fixture: ComponentFixture<TutorialComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouteArchitectureComponent],
+      imports: [TutorialComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RouteArchitectureComponent);
+    fixture = TestBed.createComponent(TutorialComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
