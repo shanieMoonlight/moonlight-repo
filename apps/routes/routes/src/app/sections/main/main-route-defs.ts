@@ -12,7 +12,8 @@ type CHILD_ROUTE =
   | 'contact'
   | 'products'
   | 'categories'
-  | 'tutorial';
+  | 'tutorial'
+  | 'post'
 
 //#################################################//
 
