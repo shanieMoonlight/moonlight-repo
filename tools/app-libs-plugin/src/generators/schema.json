@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "Section",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the application",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the demo application?"
+    },
+    "application": {
+      "type": "string",
+      "description": "Application will this Sectio be used for.",
+      "x-prompt": "Which application will this Sectio be used for?",
+      "x-dropdown": "projects"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Directory where the application is placed",
+      "x-prompt": "In which directory should the application be generated?"
+    }
+  },
+  "required": [
+    "name", "application"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "section": {
+      "factory": "./src/generators/section",
+      "schema": "./src/generators/schema.json",
+      "description": "section generator"
+    }
+  }
+}

@@ -76,6 +76,9 @@
         "libs/@apps/hub/shared/utils/router/src/index.ts"
       ],
       "@scripts-ts": ["scripts-ts"],
+      "@spider-baby-repo/app-libs-plugin": [
+        "tools/app-libs-plugin/src/index.ts"
+      ],
       "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/mat-notifications": [
