@@ -47,7 +47,7 @@ export class DownloadCodeSampleService {
         responseType: 'blob',
       })
       .pipe(
-        delay(1000),
+        delay(500),
         map((blobContent) => {
           const options = { filename: downloadName, mimeType }
           this._downloadService.downloadBlob(blobContent, options);
