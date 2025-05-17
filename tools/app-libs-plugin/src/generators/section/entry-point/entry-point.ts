@@ -37,10 +37,11 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
 
 //------------------------------//
 
-export async function generator(tree: Tree, options: SectionGeneratorSchema) {
+export async function sectionEntryPointGenerator(tree: Tree, options: SectionGeneratorSchema) {
 
   const normalizedOptions = await normalizeOptionsAsync(tree, options);
-  console.log(`normalizedOptions:`, normalizedOptions);
+  
+  console.log(`Generating EntryPoint:`, normalizedOptions);
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const sectionRoot = nameAndRootOptions.projectRoot;
@@ -54,13 +55,9 @@ export async function generator(tree: Tree, options: SectionGeneratorSchema) {
 
 //##############################################//
 
-export default generator;
+export default sectionEntryPointGenerator;
 
 //##############################################//
 
 
 
-
-//npx nx generate @nx/workspace:remove --projectName=spider-baby-hub-entry-point --no-interactive
-//npx nx generate @nx/workspace:remove --projectName=sb-hub-route-defs --no-interactive
-//npx nx generate @nx/workspace:remove --projectName=spider-baby-hub-entry-point --no-interactive  && npx nx generate @nx/workspace:remove --projectName=spider-baby-hub-route-defs --no-interactive 

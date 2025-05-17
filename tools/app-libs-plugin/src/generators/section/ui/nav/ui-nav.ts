@@ -12,11 +12,11 @@ import path = require('path');
 
 //##############################################//
 
-async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
+async function generateUiNavLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
 
-  const directory = PathUtils.combine(options.sectionRoot,'features', 'home')
-  const importPath = PathUtils.combine(options.importPrefix, 'features-home')
-  const entryPointLibName = options.libraryNamePrefix + '-features-home'
+  const directory = PathUtils.combine(options.sectionRoot,'ui', 'nav')
+  const importPath = PathUtils.combine(options.importPrefix, 'ui-nav')
+  const entryPointLibName = options.libraryNamePrefix + '-ui-nav'
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -37,16 +37,16 @@ async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGenerat
 
 //------------------------------//
 
-export async function sectionFeatureHomeGenerator(tree: Tree, options: SectionGeneratorSchema) {
-  
+export async function sectionUiNavGenerator(tree: Tree, options: SectionGeneratorSchema) {
+
   const normalizedOptions = await normalizeOptionsAsync(tree, options);
   
-  console.log(`Generating Home:`, normalizedOptions);
+  console.log(`Generating UiNav:`, normalizedOptions);
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const sectionRoot = nameAndRootOptions.projectRoot;
 
-  await generateHomeLibrary(tree, normalizedOptions);
+  await generateUiNavLibrary(tree, normalizedOptions);
 
 
   generateFiles(tree, path.join(__dirname, 'files'), sectionRoot, normalizedOptions);
@@ -55,11 +55,11 @@ export async function sectionFeatureHomeGenerator(tree: Tree, options: SectionGe
 
 //##############################################//
 
-export default sectionFeatureHomeGenerator;
+export default sectionUiNavGenerator;
 
 //##############################################//
 
 
 
 
-// npx nx generate @nx/workspace:remove --projectName=sb-hub-blog-features-home --no-interactive 
+// npx nx generate @nx/workspace:remove --projectName=sb-hub-blog-ui-nav --no-interactive 

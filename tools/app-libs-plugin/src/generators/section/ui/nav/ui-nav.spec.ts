@@ -1,15 +1,15 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nx/devkit';
+import { SectionGeneratorSchema } from '../../../@shared/schema/schema';
+import { generator } from './feature-home';
 
-import { sectionRouteDefsGenerator } from './route-defs';
-import { SectionGeneratorSchema } from '../../@shared/schema/schema';
 
 describe('section generator', () => {
   let tree: Tree;
   const options: SectionGeneratorSchema = {
     name: 'test',
-    application: '',
-    classNamePrefix: ''
+    application: 'sb-tester',
+    classNamePrefix: 'test'
   };
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('section generator', () => {
   });
 
   it('should run successfully', async () => {
-    await sectionRouteDefsGenerator(tree, options);
+    await generator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });

@@ -26,7 +26,7 @@ export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
    * @param route - The route segment (e.g., 'home', or '<%= name %>' itself).
    * @returns The route segment.
    */
-  static route = (route: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE,
+  static route = (route: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE
 
   //- - - - - - - - - - - - - - - - - - -//
 
@@ -39,7 +39,7 @@ export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
      * @param route - Optional child route segment (e.g., 'home').
      * @returns Child route segment or `<%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE`.
      */
-    route: (route?: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE,
+    route: (route?: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE
     /** Relative routes for the 'admin' area, nested under '<%= name %>'. */
     // childSection: ChildSectionRoutesDefs.routes,
   };

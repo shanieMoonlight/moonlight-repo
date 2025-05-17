@@ -3,17 +3,32 @@
     "section-entry-point": {
       "factory": "./src/generators/section/entry-point/entry-point",
       "schema": "./src/generators/@shared/schema/schema.json",
-      "description": "section generator"
+      "description": "section entry-point generator"
     },
     "section-route-defs": {
       "factory": "./src/generators/section/route-defs/route-defs",
       "schema": "./src/generators/@shared/schema/schema.json",
-      "description": "section generator"
+      "description": "section route-defs generator"
     },
     "section-features-home": {
       "factory": "./src/generators/section/features/home/feature-home",
       "schema": "./src/generators/@shared/schema/schema.json",
-      "description": "section generator"
+      "description": "section features/home generator"
+    },
+    "section-ui-nav": {
+      "factory": "./src/generators/section/ui/nav/ui-nav",
+      "schema": "./src/generators/@shared/schema/schema.json",
+      "description": "section ui/navbar generator"
+    },
+    "section-config": {
+      "factory": "./src/generators/section/config/config",
+      "schema": "./src/generators/@shared/schema/schema.json",
+      "description": "section config generator"
+    },
+    "section-everything": {
+      "factory": "./src/generators/section/@everything/everything",
+      "schema": "./src/generators/@shared/schema/schema.json",
+      "description": "section config generator"
     }
   }
 }

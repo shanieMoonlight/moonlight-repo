@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { <%= classNamePrefix %>AppConstants } from '@sb-hub/core-config/constants';
 import { <%= classNamePrefix %>AppImages } from '@sb-hub/core-config/images';
 import { <%= classNamePrefix %>HeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
+import { <%= classNamePrefix %><%= className %>Constants } from '<%= prefix %>/sections-<%= name %>/config/route-data';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 
@@ -34,7 +35,7 @@ export class <%= classNamePrefix %><%= className %>HomeComponent implements OnIn
   protected _heroImageUrl = <%= classNamePrefix %>AppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
-  protected _features = signal([]);
+  protected _features = signal(HubBlogPrincipalRoutes);
   protected _gitUrl = signal(<%= classNamePrefix %>AppConstants.GIT_REP_URL);
 
   //- - - - - - - - - - - - - - -//

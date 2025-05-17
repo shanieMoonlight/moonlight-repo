@@ -1,21 +1,25 @@
 import { names, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { SectionGeneratorSchema, NoramlizedSectionGeneratorSchema } from '../schema/schema';
+import { PathUtils } from './path-utils';
 
+function removeMultipleDashes(text:string){
+  return text.replace(/-+/g, '-');
+}
 
-
+//------------------------------//
 
 export async function normalizeOptionsAsync(tree: Tree, options: SectionGeneratorSchema): Promise<NoramlizedSectionGeneratorSchema> {
-
-  console.log(`options:`, options);
 
 
   const name = options.name;
   const directory = options.directory ?? name;
   const applicationName = options.importPrefix ?? options.application;
-  const libraryNamePrefix = `${applicationName}-${name}`.replace(/-+/g, '-');
+  const libraryNamePrefix = removeMultipleDashes(`${applicationName}-${name}`);
+
   const prefix = names(applicationName).fileName;
-  const importPrefix = '@' + prefix;
+  const importPrefix = `@${PathUtils.combine(prefix, name)}`;
+  
   const classNamePrefixNames = names(options.classNamePrefix ?? options.application);
   const classNamePrefix = classNamePrefixNames.className
 
@@ -26,10 +30,6 @@ export async function normalizeOptionsAsync(tree: Tree, options: SectionGenerato
   })
 
   const sectionRoot = nameAndRootOptions.projectRoot;
-
-  console.log(`names(name): `, names(name));
-  console.log(`classNamePrefix: `, classNamePrefix);
-  console.log(`names(applicationName): `, names(applicationName));
 
   return {
     ...options,
@@ -43,3 +43,5 @@ export async function normalizeOptionsAsync(tree: Tree, options: SectionGenerato
   }
 
 }
+
+//------------------------------//

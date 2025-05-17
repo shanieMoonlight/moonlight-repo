@@ -1,0 +1,115 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.title-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  z-index: 1; 
+  pointer-events: none;
+}
+
+.title {
+  // Flex properties to allow the title to take available space and center itself
+  flex-grow: 1; // Allows the title to expand and push other elements to the sides
+  text-align: center; 
+
+  // Font styling for better readability and appearance
+  font-size: 1.25rem; // A slightly larger font size for emphasis
+  font-weight: 500;   // Medium font weight, common for titles
+  letter-spacing: 0.5px; // Adds a little breathing room between characters
+
+  //Prevent text from wrapping if the title is long and space is constrained
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+mat-toolbar {
+  // Ensure items are vertically centered if needed (usually default)
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // Optional: Set a background color using theme variables if you don't want the default surface
+  // background-color: var(--mat-sys-surface-container);
+
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+.left-links,
+.right-links {
+  display: flex;
+  align-items: center;
+}
+
+.rhs-outlet {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  // Use flex-grow instead of fixed width for better flexibility
+  flex: 1 1 auto;
+  // Or keep width if preferred, maybe adjust slightly
+  // width: 24px;
+}
+
+.navlink {
+  cursor: pointer;
+  margin: 0 12px;
+  padding: 8px 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  /* Medium weight, adjust as needed (400=normal, 500=medium) */
+  text-decoration: none;
+  color: var(--mat-sys-on-surface);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    color: var(--mat-sys-primary);
+  }
+
+  &.active {
+    color: var(--mat-sys-primary);
+    border-bottom-color: var(--mat-sys-primary);
+  }
+}
+
+button[mat-icon-button] {
+  color: var(--mat-sys-on-surface-variant); 
+  margin: 0 4px; 
+
+  &:hover {
+    color: var(--mat-sys-primary); 
+  }
+}
+
+
+
+img {
+  width: auto;
+  height: 32px;
+}
+
+// ------------------------------------ //
+
+@media screen and (max-width: 650px) {
+
+  // Match breakpoint in TS
+  button[mat-icon-button] {
+    margin: 0 2px; // Slightly reduce margin on small screens
+  }
+}

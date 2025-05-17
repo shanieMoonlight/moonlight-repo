@@ -1,8 +1,7 @@
 import { } from '@nx/angular';
-import { libraryGenerator } from '@nx/angular/generators';
+import { libraryGenerator, librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
-import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
 import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
 import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
@@ -12,11 +11,11 @@ import path = require('path');
 
 //##############################################//
 
-async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
+async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
 
-  const directory = PathUtils.combine(options.sectionRoot, '@route-defs')
-  const importPath = PathUtils.combine(options.importPrefix, 'route-defs')
-  const entryPointLibName = options.libraryNamePrefix +'-route-defs'
+  const directory = PathUtils.combine(options.sectionRoot, 'config')
+  const importPath = PathUtils.combine(options.importPrefix, 'config')
+  const libraryName = options.libraryNamePrefix + '-config'
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -24,26 +23,35 @@ async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGe
     ...options,
     directory,
     importPath,
-    name: entryPointLibName,
+    name: libraryName,
   }
-  
+
+
   await libraryGenerator(tree, entryPointLibOptions);
-  removeDefaultLibraryComponentFiles(tree, directory, entryPointLibName);
+  await librarySecondaryEntryPointGenerator(tree, {
+    library: libraryName,
+    name: 'constants',
+    skipModule: true,
+    skipFormat: true
+
+  })
+
+  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
 
 }
 
 //------------------------------//
 
-export async function sectionRouteDefsGenerator(tree: Tree, options: SectionGeneratorSchema) {
+export async function sectionConfigGenerator(tree: Tree, options: SectionGeneratorSchema) {
 
   const normalizedOptions = await normalizeOptionsAsync(tree, options);
-  
+
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const sectionRoot = nameAndRootOptions.projectRoot;
   
-  console.log(`Generating RouteDefs:`, normalizedOptions);
-
-  await generateRouteDefsLibrary(tree, normalizedOptions);
+  console.log(`Generating Config:`, normalizedOptions);
+  
+  await generateConfigLibrary(tree, normalizedOptions);
 
 
   generateFiles(tree, path.join(__dirname, 'files'), sectionRoot, normalizedOptions);
@@ -52,8 +60,8 @@ export async function sectionRouteDefsGenerator(tree: Tree, options: SectionGene
 
 //##############################################//
 
-export default sectionRouteDefsGenerator;
+export default sectionConfigGenerator;
 
 //##############################################//
 
-// npx nx generate @nx/workspace:remove --projectName=sb-hub-blog-route-defs --no-interactive 
+// npx nx generate @nx/workspace:remove --projectName=sb-hub-blog-config --no-interactive 

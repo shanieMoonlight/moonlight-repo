@@ -1,7 +1,7 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nx/devkit';
 import { SectionGeneratorSchema } from '../../../@shared/schema/schema';
-import { generator } from './feature-home';
+import { sectionFeatureHomeGenerator } from './feature-home';
 
 
 describe('section generator', () => {
@@ -17,7 +17,7 @@ describe('section generator', () => {
   });
 
   it('should run successfully', async () => {
-    await generator(tree, options);
+    await sectionFeatureHomeGenerator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });
