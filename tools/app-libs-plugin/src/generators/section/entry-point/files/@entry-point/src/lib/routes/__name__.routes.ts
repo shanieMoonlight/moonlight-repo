@@ -3,17 +3,23 @@ import { <%= classNamePrefix %><%= className %>SectionRoutesDefs } from '@<%= pr
 import { routeBuilderChildren } from '@spider-baby/utils-routes/builder';
 import { <%= classNamePrefix %><%= className %>Component } from '../<%= name %>.component';
 
-export const MAIN_ROUTES: Route[] = [
+export const <%= name %>Routes: Route[] = [
   {
     path: '',
     component: <%= classNamePrefix %><%= className %>Component,
     children: [
+      // This route is the default route for the product-admin area 
+      // We want the base/entry route to be '' so that routing will happen relative to <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE not 'home'
       {
-        path: <%= classNamePrefix %><%= className %>AreaRoutesDefs.route('home'),
-        loadComponent: () =>
-          import('@<%= prefix %>/sections-<%= name %>/features/home').then(
-            (m) => m.<%= classNamePrefix %><%= className %>HomeComponent
-          ),
+        path: '',
+        loadComponent: () => import('@<%= prefix %>/sections-<%= name %>/features-home').then((m) => m.<%= classNamePrefix %><%= className %>HomeComponent),
+      },
+      // This route redirects the 'home' route to ''.
+      // We want the base/entry route to be '' so that routing will happen relative to <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE not 'home'
+      {
+        path: <%= classNamePrefix %><%= className %>SectionRoutesDefs.route('home'),
+        redirectTo: '',
+        pathMatch: 'full',
       },
       {
         path: '**',
@@ -23,7 +29,7 @@ export const MAIN_ROUTES: Route[] = [
           ),
         pathMatch: 'full',
       },
-    ],
+  ],
   },
 ];
 
@@ -31,7 +37,7 @@ export const MAIN_ROUTES: Route[] = [
 
 export const <%= classNamePrefix %><%= className %>Routes = routeBuilderChildren(
   `${<%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE}`,
-  () => MAIN_ROUTES
+  () => <%= name %>Routes
 );
 
 //#################################################//

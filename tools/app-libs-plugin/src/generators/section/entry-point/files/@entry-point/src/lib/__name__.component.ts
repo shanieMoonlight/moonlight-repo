@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { <%= classNamePrefix %>NavbarComponent } from '<%= importPrefix %>/sections-<%= name %>/ui/nav';
+import { <%= classNamePrefix %><%= className %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { SeoService } from '@spider-baby/utils-seo';
 import { from } from 'rxjs';
@@ -8,7 +8,7 @@ import { from } from 'rxjs';
 @Component({
   standalone: true,
   imports: [
-    <%= classNamePrefix %>NavbarComponent,
+    <%= classNamePrefix %><%= className %>NavbarComponent,
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     RouterModule
@@ -20,7 +20,7 @@ import { from } from 'rxjs';
 })
 export class <%= classNamePrefix %><%= className %>Component {
  
-  
+  //  protected _iconsService = inject(IconsService); 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
 
@@ -38,6 +38,7 @@ export class <%= classNamePrefix %><%= className %>Component {
 
   constructor() {
     console.log('constructor');
+    // this._iconsService.registerIcons();
     this._seoService.updateMetadata({
       title: 'Spider-Baby | Descriptions of your application',
       description: this._description,

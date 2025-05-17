@@ -7,7 +7,7 @@ import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../
 import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
 import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { removeDefaultLibraryComponentFiles } from '../../@shared/utils/utilityFunctions';
+import { removeDefaultLibraryComponentFiles } from '../../@shared/utils/utility-functions';
 import path = require('path');
 
 //##############################################//
@@ -16,7 +16,7 @@ async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGe
 
   const directory = PathUtils.combine(options.sectionRoot, '@route-defs')
   const importPath = PathUtils.combine(options.importPrefix, 'route-defs')
-  const entryPointLibName = options.libraryNamePrefix +'-route-defs'
+  const libraryName = options.libraryNamePrefix +'-route-defs'
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -24,11 +24,11 @@ async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGe
     ...options,
     directory,
     importPath,
-    name: entryPointLibName,
+    name: libraryName,
   }
   
   await libraryGenerator(tree, entryPointLibOptions);
-  removeDefaultLibraryComponentFiles(tree, directory, entryPointLibName);
+  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
 
 }
 

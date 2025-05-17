@@ -18,7 +18,9 @@ export async function normalizeOptionsAsync(tree: Tree, options: SectionGenerato
   const libraryNamePrefix = removeMultipleDashes(`${applicationName}-${name}`);
 
   const prefix = names(applicationName).fileName;
-  const importPrefix = `@${PathUtils.combine(prefix, name)}`;
+  const atImportPrefix = `@${prefix}`;
+  const sectionImportSegment = `sections-${name}`;
+  const importPrefix = PathUtils.combine(atImportPrefix, sectionImportSegment)
   
   const classNamePrefixNames = names(options.classNamePrefix ?? options.application);
   const classNamePrefix = classNamePrefixNames.className

@@ -6,7 +6,7 @@ import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../
 import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
 import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { removeDefaultLibraryComponentFiles } from '../../@shared/utils/utilityFunctions';
+import { addCustomEslintRules, removeDefaultLibraryComponentFiles } from '../../@shared/utils/utility-functions';
 import path = require('path');
 
 //##############################################//
@@ -33,10 +33,17 @@ async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGener
     name: 'constants',
     skipModule: true,
     skipFormat: true
-
+  })
+  await librarySecondaryEntryPointGenerator(tree, {
+    library: libraryName,
+    name: 'route-data',
+    skipModule: true,
+    skipFormat: true
   })
 
+  // Clean up and edit
   removeDefaultLibraryComponentFiles(tree, directory, libraryName);
+  addCustomEslintRules(tree, directory);
 
 }
 

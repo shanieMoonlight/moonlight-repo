@@ -1,14 +1,14 @@
 import { } from '@nx/angular';
-import { addProjectConfiguration, formatFiles, generateFiles, names, Tree, } from '@nx/devkit';
+import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
+import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
-import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
 import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
-import { PathUtils } from '../../@shared/utils/path-utils';
-import path = require('path');
 import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
-import { removeDefaultLibraryComponentFiles } from '../../@shared/utils/utilityFunctions';
+import { PathUtils } from '../../@shared/utils/path-utils';
+import { addCustomEslintRules, removeDefaultLibraryComponentFiles } from '../../@shared/utils/utility-functions';
+import path = require('path');
 
 //##############################################//
 
@@ -16,7 +16,7 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
 
   const directory = PathUtils.combine(options.sectionRoot, '@entry-point')
   const importPath = PathUtils.combine(options.importPrefix, 'entry-point')
-  const entryPointLibName = options.libraryNamePrefix + '-entry-point'
+  const libraryName = options.libraryNamePrefix + '-entry-point'
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -24,14 +24,16 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
     ...options,
     directory,
     importPath,
-    name: entryPointLibName,
+    name: libraryName,
   }
 
   await ngLibGenerator(tree, entryPointLibOptions);
 
 
   // Clean up unwanted component files
-  removeDefaultLibraryComponentFiles(tree, directory, entryPointLibName);
+  // Clean up and edit
+  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
+  addCustomEslintRules(tree, directory);
 
 }
 

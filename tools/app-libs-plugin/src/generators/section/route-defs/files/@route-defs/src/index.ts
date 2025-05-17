@@ -1,2 +1,1 @@
-export * from './lib/<%= name %>.component';
-export * from './lib/routes/<%= name %>.routes';
+export * from './lib/<%= name %>-route-defs';

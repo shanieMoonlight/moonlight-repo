@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
-  selector: 'hub-hero-banner', // Changed selector prefix if needed
+  selector: 'sb-hub-hero-banner', // Changed selector prefix if needed
   standalone: true,
   imports: [MatEverythingModule, RouterModule],
   templateUrl: './hero-banner.component.html',

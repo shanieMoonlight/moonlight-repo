@@ -1,4 +1,5 @@
 import { HubMainAreaRoutesDefs } from '@sb-hub/sections-main/route-defs';
+import { HubBlogSectionRoutesDefs } from '@sb-hub/sections-blog/route-defs';
 
 //#################################################//
 
@@ -27,6 +28,7 @@ export class HubAppRouteDefs {
     static routes = {
         /** Relative routes for the 'main' application area. */
         main: HubMainAreaRoutesDefs.routes,
+        blog:HubBlogSectionRoutesDefs.routes,
     };
 
     //- - - - - - - - - - - - - - - - - - -//
@@ -38,6 +40,7 @@ export class HubAppRouteDefs {
     static fullPaths = {
         /** Full paths for the 'main' application area. */
         main: HubMainAreaRoutesDefs.fullPathFn(this.BASE),
+        blog:HubBlogSectionRoutesDefs.fullPathFn(this.BASE),
     };
 
 } //Cls

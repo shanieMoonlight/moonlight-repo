@@ -1,9 +1,6 @@
 import { Component, computed, inject, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  MlDarkModeToggleMatComponent,
-  MlThemePickerMatComponent,
-} from '@spider-baby/material-theming/components';
+import {  MlDarkModeToggleMatComponent,  MlThemePickerMatComponent,} from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { HubMainNavbarComponent } from '@sb-hub/sections-main/ui/nav';
@@ -39,8 +36,8 @@ export class HubMainComponent implements OnDestroy{
   
   ngOnDestroy(): void {
     this._navTitle.unsubscribe()
-    console.log('Unsubscribed from title changes');
-    
+    console.log('Unsubscribed from title changes');    
   }
+  
 
 } //Cls

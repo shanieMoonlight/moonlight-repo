@@ -30,6 +30,27 @@
       "@sb-hub/core-config/images": [
         "libs/@apps/hub/@core/config/images/src/index.ts"
       ],
+      "@sb-hub/sections-blog/config": [
+        "libs/@apps/hub/sections/blog/config/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/config/constants": [
+        "libs/@apps/hub/sections/blog/config/constants/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/config/route-data": [
+        "libs/@apps/hub/sections/blog/config/route-data/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/entry-point": [
+        "libs/@apps/hub/sections/blog/@entry-point/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/features-home": [
+        "libs/@apps/hub/sections/blog/features/home/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/route-defs": [
+        "libs/@apps/hub/sections/blog/@route-defs/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/ui-nav": [
+        "libs/@apps/hub/sections/blog/ui/nav/src/index.ts"
+      ],
       "@sb-hub/sections-main/config": [
         "libs/@apps/hub/sections/main/config/src/index.ts"
       ],

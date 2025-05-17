@@ -7,16 +7,22 @@ import { HubAppSvgs } from '@sb-hub/core-config/images';
   providedIn: 'root',
 })
 export class IconsService {
+  private _iconRegistry = inject(MatIconRegistry);
+  private _sanitizer = inject(DomSanitizer);
+
+  //----------------------------//
+
   constructor() {
-    const iconRegistry = inject(MatIconRegistry);
-    const sanitizer = inject(DomSanitizer);
-    iconRegistry.addSvgIconLiteral(
-      'git',
-      sanitizer.bypassSecurityTrustHtml(HubAppSvgs.GIT_ICON)
-    );
-    iconRegistry.addSvgIconLiteral(
-      'npm',
-      sanitizer.bypassSecurityTrustHtml(HubAppSvgs.NPM_ICON)
-    );
+    this.registerIcons()
   }
+
+  //----------------------------//
+
+  registerIcons() {
+    this._iconRegistry.addSvgIconLiteral('git', this._sanitizer.bypassSecurityTrustHtml(HubAppSvgs.GIT_ICON));
+    this._iconRegistry.addSvgIconLiteral('npm', this._sanitizer.bypassSecurityTrustHtml(HubAppSvgs.NPM_ICON));
+    console.log('IconsService initialized');
+  }
+
+
 } //Cls

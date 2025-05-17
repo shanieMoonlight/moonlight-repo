@@ -7,7 +7,7 @@ import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../
 import { getDefaultOptions } from '../../../@shared/utils/default-lib-options';
 import { normalizeOptionsAsync } from '../../../@shared/utils/options-utils';
 import { PathUtils } from '../../../@shared/utils/path-utils';
-import { removeDefaultLibraryComponentFiles } from '../../../@shared/utils/utilityFunctions';
+import { addCustomEslintRules, removeDefaultLibraryComponentFiles } from '../../../@shared/utils/utility-functions';
 import path = require('path');
 
 //##############################################//
@@ -16,7 +16,7 @@ async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGenerat
 
   const directory = PathUtils.combine(options.sectionRoot,'features', 'home')
   const importPath = PathUtils.combine(options.importPrefix, 'features-home')
-  const entryPointLibName = options.libraryNamePrefix + '-features-home'
+  const libraryName = options.libraryNamePrefix + '-features-home'
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -24,14 +24,15 @@ async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGenerat
     ...options,
     directory,
     importPath,
-    name: entryPointLibName,
+    name: libraryName,
   }
 
   await ngLibGenerator(tree, entryPointLibOptions);
 
 
-  // Clean up unwanted component files
-  removeDefaultLibraryComponentFiles(tree, directory, entryPointLibName);
+  // Clean up and edit
+  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
+  addCustomEslintRules(tree, directory);
 
 }
 
@@ -40,7 +41,7 @@ async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGenerat
 export async function sectionFeatureHomeGenerator(tree: Tree, options: SectionGeneratorSchema) {
   
   const normalizedOptions = await normalizeOptionsAsync(tree, options);
-  
+
   console.log(`Generating Home:`, normalizedOptions);
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
