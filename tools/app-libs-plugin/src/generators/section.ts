@@ -4,7 +4,7 @@ import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/pr
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from './schema';
 import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
-// import { libraryGenerator as jsLibGenerator } from '@nx/js';
+import { libraryGenerator as jsLibGenerator } from '@nx/js';
 import { getDefaultOptions } from './utils/default-lib-options';
 import { PathUtils } from './utils/path-utils';
 import path = require('path');
@@ -71,6 +71,27 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
 
 //------------------------------//
 
+async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
+
+  const directory = PathUtils.combine(options.sectionRoot, '@route-defs')
+  const importPath = PathUtils.combine(options.baseImportPath, 'route-defs')
+  const entryPointLibName = options.application +'-route-defs'
+  const defaultOptions = getDefaultOptions()
+
+  const entryPointLibOptions = {
+    ...defaultOptions,
+    ...options,
+    directory,
+    importPath,
+    name: entryPointLibName,
+  }
+
+  await jsLibGenerator(tree, entryPointLibOptions);
+
+}
+
+//------------------------------//
+
 export async function sectionGenerator(tree: Tree, options: SectionGeneratorSchema) {
 
   const normalizedOptions = await normalizeOptionsAsync(tree, options);
@@ -79,6 +100,7 @@ export async function sectionGenerator(tree: Tree, options: SectionGeneratorSche
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const sectionRoot = nameAndRootOptions.projectRoot;
 
+  await generateRouteDefsLibrary(tree, normalizedOptions);
   await generateEntryPointLibrary(tree, normalizedOptions);
 
 
