@@ -30,6 +30,9 @@
       "@sb-hub/core-config/images": [
         "libs/@apps/hub/@core/config/images/src/index.ts"
       ],
+      "@sb-hub/route-defs": [
+        "libs/@apps/hub/sections/blog/@route-defs/src/index.ts"
+      ],
       "@sb-hub/sections-main/config": [
         "libs/@apps/hub/sections/main/config/src/index.ts"
       ],

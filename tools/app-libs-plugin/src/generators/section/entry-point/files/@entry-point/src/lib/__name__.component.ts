@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { <%= classNamePrefix %>NavbarComponent } from '<%= baseImportPath %>/sections-<%= name %>/ui/nav';
+import { <%= classNamePrefix %>NavbarComponent } from '<%= importPrefix %>/sections-<%= name %>/ui/nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 
 @Component({

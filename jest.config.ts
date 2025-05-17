@@ -54,5 +54,7 @@ export default async (): Promise<Config> => ({
     '<rootDir>/apps/hub/sb-hub-e2e/',
     '<rootDir>/apps/routes/routes-e2e/',
     '<rootDir>/tools/demo-plugin/src/generators/files/',
+    '<rootDir>/tools/tools/app-libs-plugin/src/generators/section/entry-point/files/',
+    '<rootDir>/tools/tools/app-libs-plugin/src/generators/section/route-defs/files/',
   ],
 });

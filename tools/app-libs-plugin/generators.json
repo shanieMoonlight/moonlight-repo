@@ -1,8 +1,13 @@
 {
   "generators": {
-    "section": {
-      "factory": "./src/generators/section",
-      "schema": "./src/generators/schema.json",
+    "section-entry-point": {
+      "factory": "./src/generators/section/entry-point/entry-point",
+      "schema": "./src/generators/@shared/schema/schema.json",
+      "description": "section generator"
+    },
+    "section-route-defs": {
+      "factory": "./src/generators/section/route-defs/route-defs",
+      "schema": "./src/generators/@shared/schema/schema.json",
       "description": "section generator"
     }
   }

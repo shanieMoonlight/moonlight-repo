@@ -4,8 +4,8 @@ export interface SectionGeneratorSchema {
   name: string;
   directory?: string;
   application: string;
-  applicationNameShort: string;
-  applicationName?: string;
+  classNamePrefix: string;
+  importPrefix?: string;
 
 }
 
@@ -14,12 +14,13 @@ export interface SectionGeneratorSchema {
 export interface NoramlizedSectionGeneratorSchema extends SectionGeneratorSchema {
   className: string,
   classNamePrefix: string,
-  baseImportPath: string,
   propertyName: string,
   constantName: string,
   fileName: string,
   directory: string;
   sectionRoot: string;
+  importPrefix:string;
+  libraryNamePrefix: string;
   prefix: string;
   // applicationName: string;
 }
