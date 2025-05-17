@@ -15,9 +15,23 @@
     },
     "application": {
       "type": "string",
-      "description": "Application will this Sectio be used for.",
-      "x-prompt": "Which application will this Sectio be used for?",
+      "description": "Application will this Section be used for.",
+      "x-prompt": "Which application will this Section be used for?",
       "x-dropdown": "projects"
+    },
+    "applicationName": {
+      "type": "string",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "description": "Override the applicationName from application input.",
+      "x-prompt": "Used for prefixing names?"
+    },
+    "applicationNameShort": {
+      "type": "string",
+      "description": "Will be used prefix class names to avoid importing the wrong files.",
+      "x-prompt": "How to prefix class names so we know what app ther're connected to?"
     },
     "directory": {
       "type": "string",
@@ -26,6 +40,6 @@
     }
   },
   "required": [
-    "name", "application"
+    "name", "application", "applicationNameShort"
   ]
 }

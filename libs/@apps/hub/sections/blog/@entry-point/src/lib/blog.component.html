@@ -1,0 +1,15 @@
+<sb-hub-blog-navbar [rhsOutletTemplate]="rhsOutletTemplate" [title]="_title()" />
+
+<router-outlet />
+
+
+<!-- ======================================= -->
+
+<ng-template #rhsOutletTemplate>
+  <div class="theming">
+    <sb-theme-picker-mat />
+    <sb-dark-mode-toggle-mat />
+  </div>
+</ng-template>
+
+<!-- ======================================= -->
