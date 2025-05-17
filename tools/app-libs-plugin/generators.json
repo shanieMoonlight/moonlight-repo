@@ -9,6 +9,11 @@
       "factory": "./src/generators/section/route-defs/route-defs",
       "schema": "./src/generators/@shared/schema/schema.json",
       "description": "section generator"
+    },
+    "section-features-home": {
+      "factory": "./src/generators/section/features/home/feature-home",
+      "schema": "./src/generators/@shared/schema/schema.json",
+      "description": "section generator"
     }
   }
 }

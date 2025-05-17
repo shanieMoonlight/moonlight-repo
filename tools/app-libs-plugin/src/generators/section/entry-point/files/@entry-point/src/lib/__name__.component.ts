@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { <%= classNamePrefix %>NavbarComponent } from '<%= importPrefix %>/sections-<%= name %>/ui/nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
+import { SeoService } from '@spider-baby/utils-seo';
+import { from } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -17,12 +19,31 @@ import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spide
   styleUrl: './<%= name %>.component.scss',
 })
 export class <%= classNamePrefix %><%= className %>Component {
+ 
+  
+  private _seoService = inject(SeoService);
+  private _router = inject(Router);
+
+  //- - - - - - - - - - - - - - -//
+  
+  protected _title = 'Spider-Baby ';
+  protected _subtitle = 'Concise description of what this application does';
+  protected _description = `This is a more detailed description of your application's purpose and main features. 
+  You can elaborate on key functionality, target users, or any other important information
+  that helps explain what makes your application valuable.`;
+
 
 
   //----------------------------//
 
   constructor() {
     console.log('constructor');
+    this._seoService.updateMetadata({
+      title: 'Spider-Baby | Descriptions of your application',
+      description: this._description,
+      url: this._router.url,
+      keywords: ['Angular', 'Angular library'],
+    });
   }
 
   //----------------------------//
