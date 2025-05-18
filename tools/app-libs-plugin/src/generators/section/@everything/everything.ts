@@ -27,6 +27,7 @@ export default sectionEverythingGenerator;
 
 //##############################################//
 
+//npx nx generate @spider-baby-repo/app-libs-plugin:section-everything --name=admin --application=spider-baby-hub --classNamePrefix=hub --importPrefix=sb-hub --parentEntryPoint=sb-hub-app-entry-point --no-interactive --dry-run 
 
 
 // npx nx generate @nx/workspace:remove --projectName=sb-hub-admin-entry-point --no-interactive 

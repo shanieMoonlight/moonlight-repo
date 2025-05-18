@@ -18,6 +18,8 @@ export class GeneratorUtils {
    * Removes auto-generated component files from a library
    */
   static removeDefaultLibraryComponentFiles(tree: Tree, rootDirectory: string, libName: string): void {
+    console.log('removeDefaultLibraryComponentFiles', rootDirectory, libName);
+    
     // Extract the component name from the library name (convert to camelCase)
     const componentName = libName;
 

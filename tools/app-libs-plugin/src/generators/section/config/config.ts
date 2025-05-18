@@ -14,9 +14,9 @@ import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 
 async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema) {
 
-  const directory = PathUtils.combine(options.sectionRoot, 'config')
+  const directory =  PathUtils.combine(options.sectionRoot, 'config')
   const importPath = PathUtils.combine(options.importPrefix, 'config')
-  const libraryName = options.libraryNamePrefix + '-config'
+  const libraryName = `${options.libraryNamePrefix}-config`
   const defaultOptions = getDefaultOptions()
 
   const entryPointLibOptions = {
@@ -43,6 +43,7 @@ async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGener
   })
 
   // Clean up and edit
+console.log(`Cleaning up and editing library files...`, directory, libraryName);
 
 GeneratorUtils.removeDefaultLibraryComponentFiles(tree, directory, libraryName);
 GeneratorUtils.addCustomEslintRules(tree, directory);

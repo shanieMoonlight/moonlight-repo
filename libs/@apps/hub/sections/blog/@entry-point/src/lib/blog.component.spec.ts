@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HubBlogComponent } from './blog.component';
 import { RouterModule } from '@angular/router';
-import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
-import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService, } from '@spider-baby/utils-seo';
+import { IconsService } from '@sb-hub/shared-utils/icons';
+import { PerformanceService, SeoService, StructuredDataService, UrlUtilsService, } from '@spider-baby/utils-seo';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { HubBlogComponent } from './blog.component';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -68,5 +68,9 @@ describe('HubBlogComponent', () => {
     const fixture = TestBed.createComponent(HubBlogComponent);
     component = fixture.componentInstance;
   });
+
+    it('should inject IconsService', () => {
+    expect(component['_iconsService']).toBeInstanceOf(IconsService);
+  })
 
 });

@@ -25,7 +25,7 @@ export class OptionsUtils {
     const libraryNamePrefix = OptionsUtils.removeMultipleDashes(`${applicationName}-${name}`);
 
     const prefix = names(applicationName).fileName;
-    const atImportPrefix = `@${prefix}`;
+    const atImportPrefix = !prefix.startsWith('@') ? `@${prefix}` : prefix;
     const sectionImportSegment = `sections-${name}`;
     const importPrefix = PathUtils.combine(atImportPrefix, sectionImportSegment)
 

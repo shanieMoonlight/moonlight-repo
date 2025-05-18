@@ -29,6 +29,9 @@ function getLibrarySettings(options: NoramlizedSectionGeneratorSchema): LibraryS
 
 function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, element: string) {
 
+  console.log('addToRoutesArray called with ', parentRouteDefsPathRelative, element);
+  
+
   if (!tree.exists(parentRouteDefsPathRelative)) {
     console.error(`File not found: ${parentRouteDefsPathRelative}`);
     return;
@@ -38,11 +41,12 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
     element += ',';
 
 
-  let updatedContent = '';
+  let updatedContent: string = undefined;
   const parentRouteDefsContent = tree.read(parentRouteDefsPathRelative, 'utf-8');
 
   // Find the routes array definition
-  const routesArrayRegex = /export\s+const\s+\w+Routes\s*:\s*Route\[\]\s*=\s*\[([^]*?)\];/s;
+  // const routesArrayRegex = /export\s+const\s+\w+Routes\s*:\s*Route\[\]\s*=\s*\[([^]*?)\];/s;
+  const routesArrayRegex = /export\s+const\s+\w+Routes\s*:\s*Route\[\]\s*=\s*\[([\s\S]*?)\];/;
   const routesMatch = routesArrayRegex.exec(parentRouteDefsContent);
 
   if (!routesMatch) {
@@ -54,7 +58,8 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
   const arrayStartPos = routesMatch.index + routesMatch[0].indexOf('[') + 1;
 
   // Find the first object literal in the routes array (not a spread)
-  const firstObjectRegex = /\s*{[^}]*path\s*:/s;
+  // const firstObjectRegex = /\s*{[^}]*path\s*:/s;
+  const firstObjectRegex = /\s*{[\s\S]*?path\s*:/;
   const objectMatch = firstObjectRegex.exec(routesMatch[1])
 
 
@@ -136,13 +141,15 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
 
 
     console.log(`Adding import statement:  ${importStatement}`);
+    
     let updatedParentEntryPointRoutesContent = ParentLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
     console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
-
-
+    
+    
     const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
+    console.log('TEST@',  parentEntryPointPath, routesArrayElement);
     updatedParentEntryPointRoutesContent = addToRoutesArray(tree, parentEntryPointPath, routesArrayElement);
-    console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
+    console.log(`*Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
 
 
   } catch (error) {
@@ -203,6 +210,13 @@ export async function sectionEntryPointGenerator(tree: Tree, options: SectionGen
 }
 
 //##############################################//
+
+export {
+  getLibrarySettings,
+  addToRoutesArray,
+  updateParentEntryPointRoutes,
+  generateEntryPointLibrary
+};
 
 export default sectionEntryPointGenerator;
 
