@@ -85,7 +85,6 @@ export class GeneratorUtils {
   //----------------------------//
 
 
-
   /**
    * Find files that match a pattern in a directory (including subdirectories)
    */

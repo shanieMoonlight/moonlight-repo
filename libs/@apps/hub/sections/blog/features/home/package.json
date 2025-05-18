@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/router": "19.2.9",
+    "@sb-hub/core-config": "0.0.1",
+    "@sb-hub/sections-blog/config": "0.0.1",
+    "@sb-hub/shared-ui/hero-banner": "0.0.1",
+    "@spider-baby/material-theming": "1.0.2",
+    "@spider-baby/utils-seo": "0.0.1"
   },
   "sideEffects": false
 }

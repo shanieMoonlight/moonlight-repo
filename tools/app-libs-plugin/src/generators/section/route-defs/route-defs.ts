@@ -8,7 +8,7 @@ import { getDefaultOptions } from '../../@shared/utils/options/default-lib-optio
 import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { GeneratorUtils } from '../../@shared/utils/utility-functions';
+import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import path = require('path');
 import { ParentLibUtils } from '../../@shared/utils/parent-lib-utils';
 

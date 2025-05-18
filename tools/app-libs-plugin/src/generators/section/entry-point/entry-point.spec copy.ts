@@ -2,7 +2,7 @@ import { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { NoramlizedSectionGeneratorSchema } from '../../@shared/schema/schema';
 import { ParentLibUtils } from '../../@shared/utils/parent-lib-utils';
-import { GeneratorUtils } from '../../@shared/utils/utility-functions';
+import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import * as entryPointModule from './entry-point';
 import { addToRoutesArray, getLibrarySettings, updateParentEntryPointRoutes } from './entry-point';
 

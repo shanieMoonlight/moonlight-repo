@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "NewFeature",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "sectionEntryPoint": {
+      "type": "string",
+      "description": "The project that this will be a sub-section of.",
+      "x-prompt": "Which library/project will this Section be used in?",
+      "x-dropdown": "projects"
+    },
+    "sectionRouteDefs": {
+      "type": "string",
+      "description": "The Route-Defs project that this will be a sub-section of.",
+      "x-prompt": "Which Route-Defs library/project will this Section be used in?",
+      "x-dropdown": "projects"
+    }
+  },
+  "required": ["name", "sectionEntryPoint", "sectionRouteDefs"]
+}

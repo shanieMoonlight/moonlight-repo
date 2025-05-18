@@ -2,8 +2,17 @@
   "name": "@sb-hub/sections-blog/entry-point",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/router": "19.2.9",
+    "@sb-hub/sections-blog/ui-nav": "0.0.1",
+    "@sb-hub/shared-utils/icons": "0.0.1",
+    "@spider-baby/material-theming": "1.0.2",
+    "@spider-baby/utils-seo": "0.0.1",
+    "@sb-hub/sections-blog/route-defs": "0.0.1",
+    "@spider-baby/utils-routes": "0.0.1",
+    "@spider-baby/posts-route-defs-tutorial": "0.0.1",
+    "@sb-hub/sections-blog/features-home": "0.0.1",
+    "@sb-hub/shared-features/not-found": "0.0.1"
   },
   "sideEffects": false
 }
