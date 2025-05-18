@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  line-height: 1.5rem;
+  position: relative;
+}
+
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0 0.5rem;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top
+  }
+
+  .banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.6);
+
+    .banner-title {
+      color: white;
+      margin: 0;
+      font-size: 2rem;
+    }
+  }
+}
+
+
+mat-divider {
+  margin: 2rem;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.btn-container {
+  position: fixed;
+  top: 85px;
+  right: 16px;
+  border-radius: 12px;
+  transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  transform: translateY(-185px);
+  --mdc-fab-focus-container-elevation-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+
+  &.downloading {
+    cursor: not-allowed;
+    pointer-events: none;
+    animation: pulse 2s infinite ease-in-out;
+  }
+}
+
+.btn-container.show {
+  animation: drop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  z-index: 10;
+  opacity: 1; // Explicitly set this to override the base class
+  transform: translateY(85px);
+
+  button {
+    animation: spin 3.5s ease-in-out forwards;
+  }
+}
+
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  90% {
+    box-shadow: none;
+  }
+
+  100% {
+    transform: rotate(2880deg);
+    opacity: 1;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+}
+
+
+
+
+@keyframes drop {
+  0% {
+    transform: translateY(-185px)
+  }
+
+  100% {
+    transform: translateY(0)
+  }
+}
+
+
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

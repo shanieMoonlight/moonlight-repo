@@ -156,6 +156,9 @@
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
       ],
+      "@spider-baby/posts-route-defs-tutorial": [
+        "libs/posts/route-defs-tutorial/src/index.ts"
+      ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],

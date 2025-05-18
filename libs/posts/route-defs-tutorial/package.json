@@ -1,0 +1,15 @@
+{
+  "name": "@spider-baby/posts-route-defs-tutorial",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@spider-baby/utils-file-saver": "1.0.1",
+    "@spider-baby/utils-routes": "0.0.1",
+    "rxjs": "~7.8.0",
+    "@angular/router": "19.2.9",
+    "@spider-baby/utils-mat-everything": "0.0.1",
+    "ngx-highlightjs": "^14.0.0"
+  },
+  "sideEffects": false
+}

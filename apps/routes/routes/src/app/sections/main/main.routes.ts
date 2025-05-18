@@ -25,7 +25,8 @@ export const mainRoutes: Route[] = [
       },
       {
         path: MainSectionRoutesDefs.route('tutorial'),
-        loadComponent: () => import('./features/post/post.component').then((m) => m.PostComponent),
+        loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
+        // loadComponent: () => import('./features/post/post.component').then((m) => m.PostComponent),
       },
       {
         path: MainSectionRoutesDefs.route('post'),
