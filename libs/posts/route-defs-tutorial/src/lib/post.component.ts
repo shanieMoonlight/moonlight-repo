@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { HighlightModule } from 'ngx-highlightjs';
 import { AdminSubSetionRouteDefsCode } from './code/admin-sub-section';
@@ -39,6 +39,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
   private _codeSampleDownloader = inject(DownloadCodeSampleService);
   private _seoService = inject(SeoService);
+  private route = inject(ActivatedRoute);
 
   //----------------------------//
 
@@ -49,14 +50,16 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _appRouteDefsCode = AppRouteDefsCode
   protected _appRouteUsageCode = AppRoutesExamplesTs
 
+  //- - - - - - - - - - - - - - //
 
   protected readonly _codeSamplesZip = AppConstants.Downloads.CodeSampleZipFile
   protected readonly _bannerImg = LibImages.Post.Banner.xlarge
-
-
-  protected _isDownloading = this._codeSampleDownloader.activeDownload
-
   protected _showButton = signal(false)
+  protected _showDemoLink = signal(false)
+  protected _demoLink ='https://spider-baby-route-defs.web.app/'
+
+  //- - - - - - - - - - - - - - //
+
 
   protected _dlClick$ = new Subject<void>()
   private _dlState = MiniStateBuilder.CreateWithObservableInput(
@@ -67,6 +70,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _errorMsg = this._dlState.error
   protected _successMsg = this._dlState.successMsg
   protected _dlResult = this._dlState.data
+  protected _isLoading = this._dlState.loading
 
 
   //----------------------------//
@@ -81,6 +85,14 @@ export class PostRouteDefsTutorialComponent implements OnInit {
       description: 'Learn how to define and manage routes in your Angular application using the Spider-Baby library.',
       image: LibImages.Post.Banner.medium,
     })
+
+    
+    // Access static data
+    const staticData = this.route.snapshot.data;
+    console.log('Static data:', staticData);
+    console.log('Page Title (Snapshot):', staticData['pageTitle']);
+    console.log('Show Author (Snapshot):', staticData['showDemoLink']);
+    this._showDemoLink.set(staticData['showDemoLink']);
 
   }
 

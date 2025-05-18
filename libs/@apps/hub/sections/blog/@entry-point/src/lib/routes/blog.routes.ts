@@ -11,6 +11,7 @@ export const blogRoutes: Route[] = [
     {
         path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
         loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
+        data: { pageTitle: 'Route Definitions Tutorial', showDemoLink: true } // Example data
       },
 
       // This route is the default route for the product-admin area 

@@ -5,8 +5,14 @@
             <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
         </div>
         <!-- {{_bannerImg}} -->
-        <!-- Result:{{_isDownloading()}} -->
     </div>
+    @if(_showDemoLink()){
+        <a mat-button class="demo-link" [href]="_demoLink" target="_blank">
+            <mat-icon>play_circle</mat-icon>
+            <span>Demo</span>
+        </a>
+
+    }
     <p>
         I come across the following problem when I'm handling routing and navigation in Angular applications:
     </p>
@@ -283,9 +289,9 @@
 
     <button mat-mini-fab aria-label="Download Code Samples" 
         id="btn-download" 
-        [class.secondary]="!_isDownloading()" 
-        [class.primary]="_isDownloading()" 
-        [class.downloading]="_isDownloading()"
+        [class.secondary]="!_isLoading()" 
+        [class.primary]="_isLoading()" 
+        [class.downloading]="_isLoading()"
         [matTooltip]="'Download Code Samples'" 
         (click)="_dlClick$.next()">
         <mat-icon>code</mat-icon>

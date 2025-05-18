@@ -12,10 +12,23 @@
   max-width: 1200px;
 }
 
+.demo-link{
+  // margin: 1rem 0;
+}
 
 code {
   font-family: 'Courier New', Courier, monospace;
   margin: 0 0.5rem;
+
+  &:not(pre > code) {
+    overflow-wrap: break-word; /* Standard property: allows unbreakable strings to be broken */
+    word-wrap: break-word;     /* Alias for overflow-wrap for older browser compatibility */
+    
+    // Optional: If `overflow-wrap` isn't sufficient for some very long
+    // non-breakable strings, `word-break: break-all` is a more aggressive
+    // option, but it can break words in undesirable places.
+    // word-break: break-all;
+  }
 }
 
 .banner {
@@ -131,4 +144,13 @@ mat-divider {
   100% {
     opacity: 1;
   }
+}
+
+
+
+@media screen and (max-width: 768px) {
+ol{
+  padding-inline-start: 20px;
+}
+  
 }
