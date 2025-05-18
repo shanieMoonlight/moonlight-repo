@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { <%= classNamePrefix %><%= className %>HomeComponent } from './home.component';
+import { <%= sectionClassNamePrefix %>HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import {
@@ -53,12 +53,12 @@ const mockPerformanceService = {
 };
 
 describe('<%= classNamePrefix %><%= classNamePrefix %>HomeComponent', () => {
-  let component: <%= classNamePrefix %><%= className %>HomeComponent;
-  let fixture: ComponentFixture<<%= classNamePrefix %><%= className %>HomeComponent>;
+  let component: <%= sectionClassNamePrefix %>HomeComponent;
+  let fixture: ComponentFixture<<%= sectionClassNamePrefix %>HomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [<%= classNamePrefix %><%= className %>HomeComponent, RouterModule.forRoot([])],
+      imports: [<%= sectionClassNamePrefix %>HomeComponent, RouterModule.forRoot([])],
       providers: [
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
@@ -69,7 +69,7 @@ describe('<%= classNamePrefix %><%= classNamePrefix %>HomeComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(<%= classNamePrefix %><%= className %>HomeComponent);
+    fixture = TestBed.createComponent(<%= sectionClassNamePrefix %>HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

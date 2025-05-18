@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { <%= classNamePrefix %><%= className %>Component } from './<%= name %>.component';
+import { <%= sectionClassNamePrefix %>Component } from './<%= name %>.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
@@ -48,12 +48,12 @@ const mockPerformanceService = {
   measureCoreWebVitals: jest.fn(),
 };
 
-describe('<%= classNamePrefix %><%= className %>Component', () => {
-  let component: <%= classNamePrefix %><%= className %>Component;
+describe('<%= sectionClassNamePrefix %>Component', () => {
+  let component: <%= sectionClassNamePrefix %>Component;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [<%= classNamePrefix %><%= className %>Component, RouterModule.forRoot([])],
+      imports: [<%= sectionClassNamePrefix %>Component, RouterModule.forRoot([])],
       providers: [
         IconsService,
         { provide: SeoConfigService, useValue: mockSeoConfig },
@@ -65,7 +65,7 @@ describe('<%= classNamePrefix %><%= className %>Component', () => {
       ], // Provide the IconsService
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(<%= classNamePrefix %><%= className %>Component);
+    const fixture = TestBed.createComponent(<%= sectionClassNamePrefix %>Component);
     component = fixture.componentInstance;
   });
 

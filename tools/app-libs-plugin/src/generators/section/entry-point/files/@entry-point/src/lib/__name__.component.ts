@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { <%= classNamePrefix %><%= className %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
+import { <%= sectionClassNamePrefix %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { SeoService } from '@spider-baby/utils-seo';
-import { from } from 'rxjs';
+// import { IconsService } from '<%= importPrefix %>/shared-utils/icons';
 
 @Component({
   standalone: true,
   imports: [
-    <%= classNamePrefix %><%= className %>NavbarComponent,
+    <%= sectionClassNamePrefix %>NavbarComponent,
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     RouterModule
@@ -18,7 +18,7 @@ import { from } from 'rxjs';
   templateUrl: './<%= name %>.component.html',
   styleUrl: './<%= name %>.component.scss',
 })
-export class <%= classNamePrefix %><%= className %>Component {
+export class <%= sectionClassNamePrefix %>Component {
  
   //  protected _iconsService = inject(IconsService); 
   private _seoService = inject(SeoService);

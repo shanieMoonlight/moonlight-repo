@@ -11,8 +11,11 @@ function removeMultipleDashes(text:string){
 
 export async function normalizeOptionsAsync(tree: Tree, options: SectionGeneratorSchema): Promise<NoramlizedSectionGeneratorSchema> {
 
+  console.log('options', options);
+  
 
   const name = options.name;
+  const namesOptions = names(name);
   const directory = options.directory ?? name;
   const applicationName = options.importPrefix ?? options.application;
   const libraryNamePrefix = removeMultipleDashes(`${applicationName}-${name}`);
@@ -24,6 +27,7 @@ export async function normalizeOptionsAsync(tree: Tree, options: SectionGenerato
   
   const classNamePrefixNames = names(options.classNamePrefix ?? options.application);
   const classNamePrefix = classNamePrefixNames.className
+  const sectionClassNamePrefix =  `${classNamePrefixNames.className}${namesOptions.className}`
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, {
     ...options,
@@ -35,13 +39,14 @@ export async function normalizeOptionsAsync(tree: Tree, options: SectionGenerato
 
   return {
     ...options,
-    ...names(name),
+    ...namesOptions,
     sectionRoot,
     directory,
     prefix,
     importPrefix,
     classNamePrefix,
-    libraryNamePrefix
+    libraryNamePrefix,
+    sectionClassNamePrefix
   }
 
 }

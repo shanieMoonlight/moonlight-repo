@@ -1,2 +1,2 @@
-export class <%= classNamePrefix %><%= className %>Constants {
+export class <%= sectionClassNamePrefix %>Constants {
 }

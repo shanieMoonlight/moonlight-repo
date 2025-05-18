@@ -63,7 +63,7 @@ const rhsNavbarItems: NavbarItem[] = [
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class <%= classNamePrefix %><%= className %>NavbarComponent {
+export class <%= sectionClassNamePrefix %>NavbarComponent {
   private _shareService = inject(ShareService);
   private _breakpoints = inject(BreakpointObserver);
   private platformId = inject(PLATFORM_ID);

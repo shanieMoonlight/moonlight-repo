@@ -1,23 +1,23 @@
 import { Route } from '@angular/router';
-import { <%= classNamePrefix %><%= className %>SectionRoutesDefs } from '@<%= prefix %>/sections-<%= name %>/route-defs';
+import { <%= sectionClassNamePrefix %>SectionRoutesDefs } from '@<%= prefix %>/sections-<%= name %>/route-defs';
 import { routeBuilderChildren } from '@spider-baby/utils-routes/builder';
-import { <%= classNamePrefix %><%= className %>Component } from '../<%= name %>.component';
+import { <%= sectionClassNamePrefix %>Component } from '../<%= name %>.component';
 
 export const <%= name %>Routes: Route[] = [
   {
     path: '',
-    component: <%= classNamePrefix %><%= className %>Component,
+    component: <%= sectionClassNamePrefix %>Component,
     children: [
       // This route is the default route for the product-admin area 
-      // We want the base/entry route to be '' so that routing will happen relative to <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE not 'home'
+      // We want the base/entry route to be '' so that routing will happen relative to <%= sectionClassNamePrefix %>SectionRoutesDefs.BASE not 'home'
       {
         path: '',
-        loadComponent: () => import('@<%= prefix %>/sections-<%= name %>/features-home').then((m) => m.<%= classNamePrefix %><%= className %>HomeComponent),
+        loadComponent: () => import('@<%= prefix %>/sections-<%= name %>/features-home').then((m) => m.<%= sectionClassNamePrefix %>HomeComponent),
       },
       // This route redirects the 'home' route to ''.
-      // We want the base/entry route to be '' so that routing will happen relative to <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE not 'home'
+      // We want the base/entry route to be '' so that routing will happen relative to <%= sectionClassNamePrefix %>SectionRoutesDefs.BASE not 'home'
       {
-        path: <%= classNamePrefix %><%= className %>SectionRoutesDefs.route('home'),
+        path: <%= sectionClassNamePrefix %>SectionRoutesDefs.route('home'),
         redirectTo: '',
         pathMatch: 'full',
       },
@@ -35,8 +35,8 @@ export const <%= name %>Routes: Route[] = [
 
 //#################################################//
 
-export const <%= classNamePrefix %><%= className %>Routes = routeBuilderChildren(
-  `${<%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE}`,
+export const <%= sectionClassNamePrefix %>Routes = routeBuilderChildren(
+  `${<%= sectionClassNamePrefix %>SectionRoutesDefs.BASE}`,
   () => <%= name %>Routes
 );
 

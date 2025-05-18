@@ -22,6 +22,7 @@ export interface NoramlizedSectionGeneratorSchema extends SectionGeneratorSchema
   importPrefix:string;
   libraryNamePrefix: string;
   prefix: string;
+  sectionClassNamePrefix: string;
   // applicationName: string;
 }
 

@@ -1,5 +1,5 @@
 import { ApiRouteData } from '@spider-baby/ui-cards/api';
-export const <%= classNamePrefix %><%= className %>PrincipalRoutes: ApiRouteData[] = [
+export const <%= sectionClassNamePrefix %>PrincipalRoutes: ApiRouteData[] = [
   {
     title: 'Example 1',
     description: 'Description for Example 1. Add your specific details here.',

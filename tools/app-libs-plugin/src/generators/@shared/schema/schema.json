@@ -19,18 +19,30 @@
       "x-prompt": "Which application will this Section be used for?",
       "x-dropdown": "projects"
     },
+    "parentEntryPoint": {
+      "type": "string",
+      "description": "The project that this will be a sub-section of.",
+      "x-prompt": "Which library/project will this Section be used in?",
+      "x-dropdown": "projects"
+    },
+    "parentRouteDefs": {
+      "type": "string",
+      "description": "The Route-Defs project that this will be a sub-section of.",
+      "x-prompt": "Which Route-Defs library/project will this Section be used in?",
+      "x-dropdown": "projects"
+    },
     "classNamePrefix": {
       "type": "string",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "description": "Override the applicationName from application input. Used in the generated class names.",
+      "description": "Used in the generated TS class names. Defaults to application name.",
       "x-prompt": "Used for prefixing names?"
     },
     "importPrefix": {
       "type": "string",
-      "description": "Will be used prefix class names to avoid importing the wrong files.",
+      "description": "Will be used prefix class names to avoid importing the wrong files. Defaults to application name.",
       "x-prompt": "How to prefix class names so we know what app ther're connected to?"
     },
     "directory": {

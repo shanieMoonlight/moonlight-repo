@@ -13,7 +13,7 @@ type CHILD_ROUTE = 'home' ;
 /**
  * Defines routes for the <%= name %> area of the Hub application.
  */
-export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
+export class <%= sectionClassNamePrefix %>SectionRoutesDefs {
   
   /** Base route path for the <%= name %> area (e.g., '<%= name %>'). */
   public static readonly BASE = BaseRoute;
@@ -26,7 +26,7 @@ export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
    * @param route - The route segment (e.g., 'home', or '<%= name %>' itself).
    * @returns The route segment.
    */
-  static route = (route: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE
+  static route = (route: CHILD_ROUTE) => route ?? <%= sectionClassNamePrefix %>SectionRoutesDefs.BASE
 
   //- - - - - - - - - - - - - - - - - - -//
 
@@ -37,9 +37,9 @@ export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
     /**
      * Returns the child route segment or the base segment of this <%= name %> area.
      * @param route - Optional child route segment (e.g., 'home').
-     * @returns Child route segment or `<%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE`.
+     * @returns Child route segment or `<%= sectionClassNamePrefix %>SectionRoutesDefs.BASE`.
      */
-    route: (route?: CHILD_ROUTE) => route ?? <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE
+    route: (route?: CHILD_ROUTE) => route ?? <%= sectionClassNamePrefix %>SectionRoutesDefs.BASE
     /** Relative routes for the 'admin' area, nested under '<%= name %>'. */
     // childSection: ChildSectionRoutesDefs.routes,
   };
@@ -50,7 +50,7 @@ export class <%= classNamePrefix %><%= className %>SectionRoutesDefs {
    * @param parentRoute - The parent route to prefix paths with.
    */
   static fullPathFn = (parentRoute: string) => {
-    const basePath = RouteUtility.combine(parentRoute, <%= classNamePrefix %><%= className %>SectionRoutesDefs.BASE);
+    const basePath = RouteUtility.combine(parentRoute, <%= sectionClassNamePrefix %>SectionRoutesDefs.BASE);
     return {
       /**
        * Returns the full path for a child route, or the base path of this <%= name %> area, prefixed by `parentRoute`.

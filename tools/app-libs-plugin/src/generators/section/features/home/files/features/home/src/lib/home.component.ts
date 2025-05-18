@@ -3,8 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { <%= classNamePrefix %>AppConstants } from '@sb-hub/core-config/constants';
 import { <%= classNamePrefix %>AppImages } from '@sb-hub/core-config/images';
 import { <%= classNamePrefix %>HeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
-import { <%= classNamePrefix %><%= className %>Constants } from '<%= importPrefix %>/config/constants';
-import { <%= classNamePrefix %><%= className %>PrincipalRoutes } from '<%= importPrefix %>/config/route-data';
+import { <%= sectionClassNamePrefix %>Constants } from '<%= importPrefix %>/config/constants';
+import { <%= sectionClassNamePrefix %>PrincipalRoutes } from '<%= importPrefix %>/config/route-data';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 
@@ -21,7 +21,7 @@ import { SeoService } from '@spider-baby/utils-seo';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class <%= classNamePrefix %><%= className %>HomeComponent implements OnInit {
+export class <%= sectionClassNamePrefix %>HomeComponent implements OnInit {
 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
@@ -36,7 +36,7 @@ export class <%= classNamePrefix %><%= className %>HomeComponent implements OnIn
   protected _heroImageUrl = <%= classNamePrefix %>AppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
-  protected _features = signal(<%= classNamePrefix %><%= className %>PrincipalRoutes);
+  protected _features = signal(<%= sectionClassNamePrefix %>PrincipalRoutes);
   protected _gitUrl = signal(<%= classNamePrefix %>AppConstants.GIT_REP_URL);
 
   //- - - - - - - - - - - - - - -//
