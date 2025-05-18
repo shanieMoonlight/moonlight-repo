@@ -1,12 +1,19 @@
 :host {
-  --clr-title: var(--mat-seed-primary);
+  --clr-title: var(--mat-sys-primary);
   --clr-subtitle: var(--mat-sys-primary-70);
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .component-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .cta-buttons {
@@ -39,6 +46,7 @@
 .features-section {
   margin: 3rem 0;
   padding: 1rem 0;
+  flex: 1;
 }
 
 .features-grid {
@@ -50,6 +58,7 @@
 .feature-card {
   height: 100%;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  max-width: 400px;
 
   &:hover {
     transform: translateY(-5px);

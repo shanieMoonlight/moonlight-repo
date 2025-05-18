@@ -24,6 +24,11 @@
           {
             "glob": "**/*",
             "input": "apps/hub/sb-hub/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/posts/route-defs-tutorial/src/assets",
+            "output": "route-defs-tutorial"
           }
         ],
         "styles": [

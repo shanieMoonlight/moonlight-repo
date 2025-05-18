@@ -14,13 +14,16 @@ import { MatEverythingModule } from '@spider-baby/mat-notifications/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbMatToastModalComponent {
+  
   private _snackBar = inject(MatSnackBar);
 
 
   @Input()
   public set toastMsg(msg: string | null | undefined) {
     if (!msg) return;
-    this._snackBar.open(msg, 'OK');
+    this._snackBar.open(msg, 'OK', {
+      duration: 5000
+    });
   }
 
 }

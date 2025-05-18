@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,64 +14,6 @@ import { HighlightModule } from 'ngx-highlightjs';
 
 //##############################################//
 
-interface Feature {
-  title: string;
-  description: string;
-  route: string;
-  icon: string;
-}
-
-//##############################################//
-
-interface Benefit {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-//##############################################//
-
-const BENEFITS: Benefit[] = [
-  {
-    title: 'Feature One',
-    description:
-      'Brief description of the first key feature and its primary benefit',
-    icon: 'code',
-  },
-  {
-    title: 'Feature Two',
-    description:
-      'Brief description of the second key feature and its primary benefit',
-    icon: 'bolt',
-  },
-  {
-    title: 'Feature Three',
-    description:
-      'Brief description of the third key feature and its primary benefit',
-    icon: 'compress',
-  },
-  {
-    title: 'Feature Four',
-    description:
-      'Brief description of the fourth key feature and its primary benefit',
-    icon: 'extension',
-  },
-  {
-    title: 'Feature Five',
-    description:
-      'Brief description of the fifth key feature and its primary benefit',
-    icon: 'terminal',
-  },
-  {
-    title: 'Feature Six',
-    description:
-      'Brief description of the sixth key feature and its primary benefit',
-    icon: 'layers',
-  },
-];
-
-//##############################################//
-
 @Component({
   selector: 'hub-home',
   standalone: true,
@@ -84,6 +26,7 @@ const BENEFITS: Benefit[] = [
     MatIconModule,
     HubHeroBannerComponent,
     HighlightModule,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -105,7 +48,6 @@ export class HubMainHomeComponent implements OnInit {
 
   protected _features = signal(MAIN_PRINCIPAL_ROUTES);
   protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
-  protected _benefits = signal(BENEFITS);
 
   //- - - - - - - - - - - - - - -//
 

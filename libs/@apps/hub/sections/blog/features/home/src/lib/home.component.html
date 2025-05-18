@@ -13,26 +13,26 @@
     secondaryButtonIcon="code"/> -->
 
   <section class="features-section">
-    <h2 class="section-title">Examples</h2>
-    <p class="section-description">
+    <h2 class="section-title">Blog Posts</h2>
+    <!-- <p class="section-description">
       Explore these examples to see how our solution can help with your
       projects.
-    </p>
+    </p> -->
 
     <div class="features-grid">
       @for (feature of _features(); track feature.title) {
       <mat-card class="feature-card">
         <mat-card-header>
-          <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
+          <mat-icon  [ngClass]="feature.color"  mat-card-avatar>{{ feature.icon }}</mat-icon>
           <mat-card-title>{{ feature.title }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>{{ feature.description }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <a mat-button color="primary" [routerLink]="feature.route"
-            >View Example</a
-          >
+          <a mat-button  [ngClass]="feature.color"  [routerLink]="feature.route">
+            View Post
+          </a>
         </mat-card-actions>
       </mat-card>
       }

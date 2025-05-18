@@ -1,23 +1,22 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
-import { HubBlogConstants } from '@sb-hub/sections-blog/config/constants';
 import { HubBlogPrincipalRoutes } from '@sb-hub/sections-blog/config/route-data';
+import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 
 @Component({
   selector: 'sb-hub-blog-home',
   standalone: true,
-  imports: [RouterModule, MatEverythingModule, HubHeroBannerComponent],
+  imports: [
+    RouterModule,
+    MatEverythingModule,
+    HubHeroBannerComponent,
+    NgClass
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

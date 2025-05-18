@@ -1,68 +1,73 @@
-
-<div class="component-container">   
-  <div class="banner">
-    <img [src]="_bannerImg" alt="Angular routing banner">
-    <div class="banner-overlay">
-      <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
+<div class="component-container">
+    <div class="banner">
+        <img [src]="_bannerImg" alt="Angular routing banner">
+        <div class="banner-overlay">
+            <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
+        </div>
+        <!-- {{_bannerImg}} -->
+        <!-- Result:{{_isDownloading()}} -->
     </div>
-  </div>
-<p>
-    I come across the following problem when I'm handling routing and navigation in Angular applications:
-</p>
+    <p>
+        I come across the following problem when I'm handling routing and navigation in Angular applications:
+    </p>
 
-<ul class="route-problems">
-    <li>We define routes in a <code>**.routes.ts</code> file. In a small application this is usually just one file:  <code>app.routes.ts</code>.</li>
-    
-    <li>In a larger application, we may have multiple route files, one for each section/module of the application, that may be nested multiple levels
-    deep.</li>
-    
-    <li>In a larger NX style mono-repo we can have separate libraries each with their own routes and subroutes.</li>
-    
-    <br>
-    <li>How do I remember what each route is named?</li>
-    <li>How do i avoid typos?</li>
-    
-    <li>What happens if route names are changed?</li>
-    
-    <li>What happens if it's a nested route and the entire component/module/section is moved and now the whole route path is different?</li>
-    
-    <li>How do i figure out the exact full path to a route, so I can navigate by the full path to avoid appending to the current route?</li>
-    
-    <li>If we move a section/module to a different library, or move a route to a different file, how do I remember what each route is named what it
-    points to?</li>
-</ul>
+    <ul class="route-problems">
+        <li>We define routes in a <code>**.routes.ts</code> file. In a small application this is usually just one file: <code>app.routes.ts</code>.
+        </li>
+
+        <li>In a larger application, we may have multiple route files, one for each section/module of the application, that may be nested multiple
+            levels
+            deep.</li>
+
+        <li>In a larger NX style mono-repo we can have separate libraries each with their own routes and subroutes.</li>
+
+        <br>
+        <li>How do I remember what each route is named?</li>
+        <li>How do i avoid typos?</li>
+
+        <li>What happens if route names are changed?</li>
+
+        <li>What happens if it's a nested route and the entire component/module/section is moved and now the whole route path is different?</li>
+
+        <li>How do i figure out the exact full path to a route, so I can navigate by the full path to avoid appending to the current route?</li>
+
+        <li>If we move a section/module to a different library, or move a route to a different file, how do I remember what each route is named what
+            it
+            points to?</li>
+    </ul>
 
     <p>
         Example:
         <br>
-        Say I had a main section, admin section, a products section (Customers), a products-admin section (Administration) and 
+        Say I had a main section, admin section, a products section (Customers), a products-admin section (Administration) and
         a NewProductComponent with path: 'new-product'.
         <br>
-        So we have: 
+        So we have:
         <br>
         <code>appBase -> main -> products</code>
         <br>
-        and: 
+        and:
         <br>
         <code> appBase -> admin -> products-admin</code>
         <rd-app-structure-diagram [swapRoutes]="false" />
         <br>
         ...but maybe later on, moving <strong>Product Admin</strong> to be a subset of products feels like a better idea.
         <br>
-        So now we have: 
+        So now we have:
         <br>
         <code>appBase -> main -> products -> products-admin</code>
         <br>
-        and: 
+        and:
         <br>
         <code> appBase -> admin</code>
         <br>
         <rd-app-structure-diagram [swapRoutes]="true" />
         How do I handle the new path in any links?
-        <br> 
+        <br>
         How do I make sure I didn't miss any links, or mistype them?
-        <br> 
-        In a small application with all the routes in app.routes.ts and no nesting this problem won't really exist but 'Magic Strings' and typos are still a
+        <br>
+        In a small application with all the routes in app.routes.ts and no nesting this problem won't really exist but 'Magic Strings' and typos are
+        still a
         problem.
     </p>
 
@@ -84,8 +89,8 @@
     <br>
     We'd need to update all references to that route throughout the application.
     If we have multiple developers working on the application, how do we make sure they all know about the new path?
-    
-    <mat-divider/>
+
+    <mat-divider />
     <br>
     <h2>So here is the solution!</h2>
     <h3>Solution Overview</h3>
@@ -155,10 +160,11 @@
             <pre>
                 <code [highlight]="_subSetionRouteDefsCode.fullPathFn" language="typescript"></code>
             </pre>
-            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> 
-            works the same way as explained earlier, but in this context for the parent  <code> AdminSectionRoutesDefs</code>.
+            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code>
+            works the same way as explained earlier, but in this context for the parent <code> AdminSectionRoutesDefs</code>.
             <br>
-            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
+            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the
+            subsection,
             and so on...
             <br>
             This will be used for absolute navigation (from application base). Example: the routerLink in the template.
@@ -173,10 +179,12 @@
             <pre>
                 <code [highlight]="_adminSubSetionRouteDefsCode.subsectionTs" language="typescript"></code>
             </pre>
-            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> is for the parent section to build the full path to one
+            <code> route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route)</code> is for the parent section to build the full path to
+            one
             of the ProductAdminRoutes.
             <br>
-            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the subsection,
+            If there are subsections to this section they go below so the parent section can follow the route to build the full path to the
+            subsection,
             and so on...
             <br>
             This will be used for absolute navigation (from application base). Example: the routerLink in the template.
@@ -252,11 +260,11 @@
         <li>
             <h4>Utility functions/classes</h4>
             <p>
-                <code>RouteUtility.combine</code> safely joins path segments to avoid double slashes or missing separators. 
-                <pre>
+                <code>RouteUtility.combine</code> safely joins path segments to avoid double slashes or missing separators.
+            <pre>
                         <code [highlight]="_routeUtilsCode.classTs" language="typescript"></code>
                 </pre>
-            
+
             <p>
                 <code>WithSlash function</code>: Prepends a slash to a path.
             <pre>
@@ -270,20 +278,24 @@
 
 <!-- ################################### -->
 
-<div class="btn-container" [class.show]="_showButton()">
-    
+<div class="btn-container" 
+    [class.show]="_showButton()">
+
     <button mat-mini-fab aria-label="Download Code Samples" 
-    class="download-code-samples secondary"    
-    [class.downloading]="_isDownloading()"
-    [class.primary]="_isDownloading()"
-    [matTooltip]="'Download Code Samples'"
-    (click)="downloadCodeSamples()">
-    <mat-icon>code</mat-icon>
-</button>
+        id="btn-download" 
+        [class.secondary]="!_isDownloading()" 
+        [class.primary]="_isDownloading()" 
+        [class.downloading]="_isDownloading()"
+        [matTooltip]="'Download Code Samples'" 
+        (click)="_dlClick$.next()">
+        <mat-icon>code</mat-icon>
+    </button>
 </div>
 <!-- ################################### -->
 
-<sb-error-modal-mat [errorMsg]="_errorMsg()"/>
+<sb-notifications-modal-mat 
+    [toastMsg]="_successMsg()" 
+    [errorMsg]="_errorMsg()" />
 
 
 <!-- ################################### -->

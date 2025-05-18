@@ -1,10 +1,32 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, isDevMode } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
 
 //##################################################//
 
 //No default or fallback. THis should error if not provided
-export const SeoConfigService = new InjectionToken<SeoConfig>('SeoConfig')
+export const SeoConfigService = new InjectionToken<SeoConfig>('SeoConfig',
+  {
+    factory: () => {
+
+      if (isDevMode()) {
+        console.warn('SeoConfigService: No SEO configuration provided. Using default values.');
+      }
+
+      return SeoConfig.create({
+        appName: 'Spider Baby',
+        appDescription: 'A collection of tools and utilities for Angular developers.',
+        organization: 'Spider Baby',
+        baseUrl: 'https://spider-baby-hub.web.app/',
+        defaultLogoFilePath: 'assets/logo.png',
+        publishedDate: new Date().toISOString(),
+        keywords: ['Angular', 'SEO', 'Spider Baby'],
+        defaultOgImageUrl: 'assets/og-image.png',
+      })
+    }
+  }
+)
+
+
 
 
 //##################################################//
@@ -82,10 +104,10 @@ export class SeoConfig {
   static create(options: SeoConfigOptions): SeoConfig {
     // Validate required fields
     this.validateRequiredFields(options);
-    
+
     // Validate URL format
     this.validateUrls(options);
-    
+
     return new SeoConfig(options);
   }
 
@@ -96,7 +118,7 @@ export class SeoConfig {
    */
   private static validateRequiredFields(options: SeoConfigOptions): void {
     const requiredFields: (keyof SeoConfigOptions)[] = ['appName', 'appDescription', 'organization', 'baseUrl'];
-    
+
     for (const field of requiredFields) {
       if (!options[field]) {
         throw new Error(`SeoConfig: ${field} is required but was not provided`);
@@ -114,22 +136,22 @@ export class SeoConfig {
     if (!options.baseUrl.match(/^https?:\/\/.+/)) {
       throw new Error(`SeoConfig: baseUrl must be a valid URL starting with http:// or https://`);
     }
-    
+
     // Ensure baseUrl ends with a trailing slash
     if (!options.baseUrl.endsWith('/')) {
       devConsole.warn(`SeoConfig: baseUrl should end with a trailing slash for proper URL combining. Adding slash automatically.`);
       options.baseUrl = `${options.baseUrl}/`;
     }
-    
+
     // Validate optional URLs
     if (options.defaultLogoFilePath && !this.isValidUrl(options.defaultLogoFilePath)) {
       throw new Error(`SeoConfig: defaultLogoFilePath must be a valid URL or path`);
     }
-    
+
     if (options.defaultOgImageUrl && !this.isValidUrl(options.defaultOgImageUrl)) {
       throw new Error(`SeoConfig: defaultOgImageUrl must be a valid URL`);
     }
-    
+
     // Validate social links
     if (options.socialLinks) {
       options.socialLinks.forEach((link, index) => {
@@ -151,14 +173,14 @@ export class SeoConfig {
     devConsole.log('Validating URL Input:', url); // Renamed log slightly for clarity
 
     // Accept absolute URLs
-    if (url.match(/^https?:\/\/.+/)) 
+    if (url.match(/^https?:\/\/.+/))
       return true;
 
     // Accept relative paths (with or without leading /) that don't contain invalid characters
     // Basic check: doesn't contain spaces, hash, colon (outside protocol), or start with //
     // Allows: /path/to/img.png, path/to/img.png, img.png
-    if (!url.includes(' ') && !url.includes('#') && !url.match(/[:]/) && !url.startsWith('//')) 
-       return true;
+    if (!url.includes(' ') && !url.includes('#') && !url.match(/[:]/) && !url.startsWith('//'))
+      return true;
 
     return false;
   }
@@ -173,7 +195,7 @@ export class SeoConfig {
     this.appDescription = options.appDescription;
     this.organization = options.organization;
     this.baseUrl = options.baseUrl;
-    
+
     this.defaultLogoFilePath = SeoConfig.resolveImagePath(
       this.baseUrl,
       options.defaultLogoFilePath,
@@ -192,7 +214,7 @@ export class SeoConfig {
     this.twitterHandle = options.twitterHandle || '';
   }
 
-    //-----------------------------//
+  //-----------------------------//
 
   /**
    * Checks if the configuration is complete for comprehensive SEO
@@ -208,7 +230,7 @@ export class SeoConfig {
     };
   }
 
-    //-----------------------------//
+  //-----------------------------//
 
   /**
    * Resolves an optional input path (relative or absolute) to a guaranteed absolute URL,

@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { PerformanceService, SeoService, StructuredDataService } from '@spider-baby/utils-seo';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 @Component({
   standalone: true,

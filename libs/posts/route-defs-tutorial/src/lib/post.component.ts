@@ -13,7 +13,10 @@ import { DownloadCodeSampleService } from './download-setup/download-setup.servi
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
 import { AppConstants } from './config/constants';
 import { LibImages } from './config/images';
-import {ErrorModalComponent} from '@spider-baby/mat-notifications/error';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { Subject } from 'rxjs';
+import { SeoService } from '@spider-baby/utils-seo';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -24,8 +27,9 @@ import {ErrorModalComponent} from '@spider-baby/mat-notifications/error';
     CommonModule,
     AppStructureDiagramComponent,
     HighlightModule,
-    ErrorModalComponent
+    SbMatNotificationsModalComponent
   ],
+  providers: [DownloadCodeSampleService],
   host: { ngSkipHydration: 'true' },
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
@@ -34,6 +38,7 @@ import {ErrorModalComponent} from '@spider-baby/mat-notifications/error';
 export class PostRouteDefsTutorialComponent implements OnInit {
 
   private _codeSampleDownloader = inject(DownloadCodeSampleService);
+  private _seoService = inject(SeoService);
 
   //----------------------------//
 
@@ -48,31 +53,37 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected readonly _codeSamplesZip = AppConstants.Downloads.CodeSampleZipFile
   protected readonly _bannerImg = LibImages.Post.Banner.xlarge
 
+
   protected _isDownloading = this._codeSampleDownloader.activeDownload
-  protected _errorMsg = this._codeSampleDownloader.error
 
   protected _showButton = signal(false)
+
+  protected _dlClick$ = new Subject<void>()
+  private _dlState = MiniStateBuilder.CreateWithObservableInput(
+    this._dlClick$,
+    () => this._codeSampleDownloader.downloadBinary$(this._codeSamplesZip, this._codeSamplesZip))
+    .setSuccessMsgFn(() => '✅ Download complete!')
+
+  protected _errorMsg = this._dlState.error
+  protected _successMsg = this._dlState.successMsg
+  protected _dlResult = this._dlState.data
+
 
   //----------------------------//
 
   ngOnInit() {
     setTimeout(() => {
       this._showButton.set(true);
-    }, 1000); 
-  }
+    }, 2000);
 
+    this._seoService.updateMetadata({
+      title: 'Spider-Baby | Route Definitions Tutorial',
+      description: 'Learn how to define and manage routes in your Angular application using the Spider-Baby library.',
+      image: LibImages.Post.Banner.medium,
+    })
+
+  }
 
   //----------------------------//
-
-  
-  protected downloadCodeSamples() {
-
-    // this._codeSampleDownloader.downloadBinary('tester.txt', 'tester.txt', 'text/plain')
-    this._codeSampleDownloader.downloadBinary(this._codeSamplesZip, this._codeSamplesZip)
-      .subscribe((result) => {
-        console.log('Download result:', result);
-      });
-  }
-
 
 }//Cls

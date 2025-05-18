@@ -3,6 +3,28 @@ import { HubBlogSectionRoutesDefs } from '@sb-hub/sections-blog/route-defs';
 
 //#################################################//
 
+function wrapWithLeadingSlash<T>(fullPathsObj: T): T {
+
+    if (typeof fullPathsObj === 'function') {
+        return ((...args: any[]) => {
+            const path = (fullPathsObj as any)(...args);
+            return typeof path === 'string' && !path.startsWith('/') ? '/' + path : path;
+        }) as any as T;
+    }
+
+    if (!fullPathsObj)
+        return fullPathsObj;
+
+    const wrapped: any = Array.isArray(fullPathsObj) ? [] : {};
+    for (const key of Object.keys(fullPathsObj)) {
+        wrapped[key] = wrapWithLeadingSlash((fullPathsObj as any)[key]);
+    }
+
+    return wrapped;
+}
+
+//#################################################//
+
 /** Base route for the main application area. */
 const BaseRoute = '';
 
@@ -42,5 +64,12 @@ export class HubAppRouteDefs {
         main: HubMainAreaRoutesDefs.fullPathFn(this.BASE),
         blog: HubBlogSectionRoutesDefs.fullPathFn(this.BASE),
     };
+
+    
+    /**
+     * Access to full, absolute route paths from the application root.
+     * Will prepend a leading slash to the path. Use for routing relative to base
+     */
+    static fullPathsWithSlash = wrapWithLeadingSlash(HubAppRouteDefs.fullPaths);
 
 } //Cls

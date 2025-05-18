@@ -1,0 +1,35 @@
+@use "@angular/material" as mat;
+
+//======================= SPIN ========================//
+
+.primary {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+.tertiary {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+.error {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-error)
+    )
+  );
+}
