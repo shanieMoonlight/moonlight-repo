@@ -6,6 +6,8 @@ export interface SectionGeneratorSchema {
   application: string;
   classNamePrefix: string;
   importPrefix?: string;
+  parentEntryPoint?: string;
+  parentRouteDefs?: string;
 
 }
 

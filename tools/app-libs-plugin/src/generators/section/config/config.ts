@@ -3,11 +3,12 @@ import { libraryGenerator, librarySecondaryEntryPointGenerator } from '@nx/angul
 import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
-import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
-import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
+
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { addCustomEslintRules, removeDefaultLibraryComponentFiles } from '../../@shared/utils/utility-functions';
+import { GeneratorUtils } from '../../@shared/utils/utility-functions';
 import path = require('path');
+import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
+import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 
 //##############################################//
 
@@ -42,8 +43,9 @@ async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGener
   })
 
   // Clean up and edit
-  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
-  addCustomEslintRules(tree, directory);
+
+GeneratorUtils.removeDefaultLibraryComponentFiles(tree, directory, libraryName);
+GeneratorUtils.addCustomEslintRules(tree, directory);
 
 }
 
@@ -51,7 +53,7 @@ async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGener
 
 export async function sectionConfigGenerator(tree: Tree, options: SectionGeneratorSchema) {
 
-  const normalizedOptions = await normalizeOptionsAsync(tree, options);
+  const normalizedOptions = await OptionsUtils.normalizeOptionsAsync(tree, options);
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const sectionRoot = nameAndRootOptions.projectRoot;

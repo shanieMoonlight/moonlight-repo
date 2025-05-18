@@ -4,11 +4,13 @@ import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
-import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
-import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
+// import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
+// import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { addCustomEslintRules, removeDefaultLibraryComponentFiles } from '../../@shared/utils/utility-functions';
+import { GeneratorUtils } from '../../@shared/utils/utility-functions';
 import path = require('path');
+import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
+import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 
 //##############################################//
 
@@ -19,7 +21,7 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
   const libraryName = options.libraryNamePrefix + '-entry-point'
   const defaultOptions = getDefaultOptions()
 
-  const entryPointLibOptions = {
+  const libOptions = {
     ...defaultOptions,
     ...options,
     directory,
@@ -27,13 +29,12 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
     name: libraryName,
   }
 
-  await ngLibGenerator(tree, entryPointLibOptions);
+  await ngLibGenerator(tree, libOptions);
 
 
   // Clean up unwanted component files
-  // Clean up and edit
-  removeDefaultLibraryComponentFiles(tree, directory, libraryName);
-  addCustomEslintRules(tree, directory);
+  GeneratorUtils.removeDefaultLibraryComponentFiles(tree, directory, libraryName);
+  GeneratorUtils.addCustomEslintRules(tree, directory);
 
 }
 
@@ -41,8 +42,8 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
 
 export async function sectionEntryPointGenerator(tree: Tree, options: SectionGeneratorSchema) {
 
-  const normalizedOptions = await normalizeOptionsAsync(tree, options);
-  
+  const normalizedOptions = await OptionsUtils.normalizeOptionsAsync(tree, options);
+
   console.log(`Generating EntryPoint:`, normalizedOptions);
 
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
