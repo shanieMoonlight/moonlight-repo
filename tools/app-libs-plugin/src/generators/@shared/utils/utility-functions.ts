@@ -90,6 +90,7 @@ export class GeneratorUtils {
   static findFilesByPattern(tree: Tree, directory: string, pattern: string): string[] {
     const matchingFiles: string[] = [];
 
+    console.log(`Searching in directory: ${directory} for pattern: ${pattern}`);
     // Skip if directory doesn't exist
     if (!tree.exists(directory))
       return matchingFiles;

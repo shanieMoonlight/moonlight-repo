@@ -117,14 +117,15 @@ function updateParentRouteDefs(tree: Tree, options: NoramlizedSectionGeneratorSc
     const routeDefsClassName = `${options.sectionClassNamePrefix}SectionRoutesDefs`;
     const importStatement = `import { ${routeDefsClassName} } from '${importPath}';`;
 
+
     console.log(`Adding import statement:  ${importStatement}`);
     let updatedParentRouteDefsContent = ParentLibUtils.addImportToClass(tree, parentRouteDefsPath, importStatement);
     console.log(`Updated parent ${parentRouteDefsPath} content: `, updatedParentRouteDefsContent);
 
+
     const routesObjectProperty = `${options.name}: ${options.sectionClassNamePrefix}SectionRoutesDefs.routes,`;
     updatedParentRouteDefsContent = addToClassObjectObject(tree, parentRouteDefsPath, 'routes', routesObjectProperty);
     console.log(`Updated parent ${parentRouteDefsPath} content: `, updatedParentRouteDefsContent);
-
 
 
     const routesFullPathFnProperty = `${options.name}: ${options.sectionClassNamePrefix}SectionRoutesDefs.fullPathFn(this.BASE),`;
@@ -132,10 +133,6 @@ function updateParentRouteDefs(tree: Tree, options: NoramlizedSectionGeneratorSc
     console.log(`Updated parent ${parentRouteDefsPath} content: `, updatedParentRouteDefsContent);
 
 
-
-
-
-    // Continue with your generation...
   } catch (error) {
     console.error(`Project ${options.application} not found in the workspace`);
     throw error;
@@ -148,26 +145,25 @@ function updateParentRouteDefs(tree: Tree, options: NoramlizedSectionGeneratorSc
 
 async function generateRouteDefsLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema): Promise<LibrarySettings> {
 
-  const librarSettings = getLibrarySettings(options);
+  const librarySettings = getLibrarySettings(options);
   const defaultOptions = getDefaultOptions()
 
   const libOptions = {
     ...defaultOptions,
     ...options,
-    directory: librarSettings.directory,
-    importPath: librarSettings.importPath,
-    name: librarSettings.libraryName,
+    directory: librarySettings.directory,
+    importPath: librarySettings.importPath,
+    name: librarySettings.libraryName,
   }
 
   await libraryGenerator(tree, libOptions);
 
   // Clean up and edit
-  GeneratorUtils.removeDefaultLibraryComponentFiles(tree, librarSettings.directory, librarSettings.libraryName);
-  GeneratorUtils.addCustomEslintRules(tree, librarSettings.directory);
+  GeneratorUtils.removeDefaultLibraryComponentFiles(tree, librarySettings.directory, librarySettings.libraryName);
+  GeneratorUtils.addCustomEslintRules(tree, librarySettings.directory);
 
-  updateParentRouteDefs(tree, options);
 
-  return librarSettings;
+  return librarySettings;
 
 }
 
@@ -182,7 +178,10 @@ export async function sectionRouteDefsGenerator(tree: Tree, options: SectionGene
 
   console.log(`Generating RouteDefs:`, normalizedOptions);
 
-  await generateRouteDefsLibrary(tree, normalizedOptions);
+  const libSettings = await generateRouteDefsLibrary(tree, normalizedOptions);
+  console.log(`RouteDefs library settings:`, libSettings);
+
+  updateParentRouteDefs(tree, normalizedOptions);
 
 
   generateFiles(tree, path.join(__dirname, 'files'), sectionRoot, normalizedOptions);

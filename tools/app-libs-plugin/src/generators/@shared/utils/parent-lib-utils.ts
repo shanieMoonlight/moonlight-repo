@@ -26,6 +26,7 @@ export class ParentLibUtils {
       lastImportEndPosition = match.index + match[0].length;
     }
 
+    
     if (lastImportEndPosition < 1) {
       console.error('Could not find import statements in the file');
       return updatedContent;
