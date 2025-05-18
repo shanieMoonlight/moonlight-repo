@@ -25,6 +25,74 @@ function getLibrarySettings(options: NoramlizedSectionGeneratorSchema): LibraryS
   }
 }
 
+//------------------------------//
+
+function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, element: string) {
+
+  if (!tree.exists(parentRouteDefsPathRelative)) {
+    console.error(`File not found: ${parentRouteDefsPathRelative}`);
+    return;
+  }
+
+  if (!element.endsWith(','))
+    element += ',';
+
+
+  let updatedContent = '';
+  const parentRouteDefsContent = tree.read(parentRouteDefsPathRelative, 'utf-8');
+
+  // Find the routes array definition
+  const routesArrayRegex = /export\s+const\s+\w+Routes\s*:\s*Route\[\]\s*=\s*\[([^]*?)\];/s;
+  const routesMatch = routesArrayRegex.exec(parentRouteDefsContent);
+
+  if (!routesMatch) {
+    console.error(`Could not find routes array in ${parentRouteDefsPathRelative}`);
+    return '';
+  }
+
+  // Calculate the start position of the array content
+  const arrayStartPos = routesMatch.index + routesMatch[0].indexOf('[') + 1;
+
+  // Find the first object literal in the routes array (not a spread)
+  const firstObjectRegex = /\s*{[^}]*path\s*:/s;
+  const objectMatch = firstObjectRegex.exec(routesMatch[1])
+
+
+  if (!objectMatch) {
+    console.error(`Could not find any route objects in the routes array`);
+    return '';
+  }
+
+  console.log(`Found first object: ${objectMatch[0]}`);
+
+
+  // Find the position of the first '{'
+  const openBracePosition = objectMatch[0].indexOf('{');
+  if (openBracePosition === -1) {
+    console.error(`Could not find opening brace in object match`);
+    return '';
+  }
+
+  // Insert our element before the first object (after all spreads)
+  // The absolute position is array start + relative position of the object
+  const insertPos = arrayStartPos + objectMatch.index + openBracePosition + 1;
+
+  // Extract the indentation from the existing object
+  const indentationMatch = /\n(\s*)/.exec(objectMatch[0]);
+  const indentation = indentationMatch ? indentationMatch[1] : '  ';
+
+  updatedContent =
+    parentRouteDefsContent.substring(0, insertPos) +
+    `\n${indentation}${element}\n` +
+    parentRouteDefsContent.substring(insertPos);
+
+
+  // Write the updated content back to the file
+  tree.write(parentRouteDefsPathRelative, updatedContent);
+  console.log(`Added '${element}' to routes array in ${parentRouteDefsPathRelative}`);
+
+  return updatedContent;
+}
 
 //------------------------------//
 
@@ -40,7 +108,7 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
     const projectConfig = readProjectConfiguration(tree, parentEntryPoint);
     const parentEntryPointLib = path.join(projectConfig.sourceRoot, 'lib', 'routes');
     console.log(`Parent entry-point library path: ${parentEntryPointLib}`);
-    
+
 
     // Find all entry-point.ts files in the directory
     const routeDefsFiles = GeneratorUtils.findFilesByPattern(tree, parentEntryPointLib, 'routes.ts');
@@ -68,18 +136,13 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
 
 
     console.log(`Adding import statement:  ${importStatement}`);
-    const updatedParentEntryPointContent = ParentLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
-    console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointContent);
+    let updatedParentEntryPointRoutesContent = ParentLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
+    console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
 
 
-    // const routesObjectProperty = `${options.name}: ${options.sectionClassNamePrefix}SectionRoutesDefs.routes,`;
-    // updatedParentEntryPointContent = addToClassObjectObject(tree, parentEntryPointPath, 'routes', routesObjectProperty);
-    // console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointContent);
-
-
-    // const routesFullPathFnProperty = `${options.name}: ${options.sectionClassNamePrefix}SectionRoutesDefs.fullPathFn(this.BASE),`;
-    // updatedParentEntryPointContent = addToClassObjectObject(tree, parentEntryPointPath, 'fullPaths', routesFullPathFnProperty);
-    // console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointContent);
+    const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
+    updatedParentEntryPointRoutesContent = addToRoutesArray(tree, parentEntryPointPath, routesArrayElement);
+    console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
 
 
   } catch (error) {

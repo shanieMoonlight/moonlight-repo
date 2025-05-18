@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { <%= sectionClassNamePrefix %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { SeoService } from '@spider-baby/utils-seo';
-// import { IconsService } from '<%= importPrefix %>/shared-utils/icons';
+// import { IconsService } from '@<%= prefix %>/shared-utils/icons';
 
 @Component({
   standalone: true,
