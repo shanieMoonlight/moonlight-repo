@@ -44,7 +44,7 @@ export class <%= sectionClassNamePrefix %>HomeComponent implements OnInit {
   ngOnInit() {
     // Set SEO metadata
     this._seoService.updateMetadata({
-      title: 'Spider-Baby | Descriptions of your application',
+      title: this._title,
       description: this._description,
       url: this._router.url,
       keywords: ['Angular', 'Signals', 'Angular library', 'Reactive State'],

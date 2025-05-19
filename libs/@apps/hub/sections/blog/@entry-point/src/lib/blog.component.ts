@@ -26,11 +26,10 @@ export class HubBlogComponent {
 
   //- - - - - - - - - - - - - - -//
   
-  protected _title = 'Spider-Baby ';
-  protected _subtitle = 'Concise description of what this application does';
-  protected _description = `This is a more detailed description of your application's purpose and main features. 
-  You can elaborate on key functionality, target users, or any other important information
-  that helps explain what makes your application valuable.`;
+ protected _title = 'Spider-Baby | Blog';
+  protected _subtitle = 'Thoughts, Tutorials, and Musings on All Things Tech';
+  protected _description = `Dive into my latest articles where I explore web development, share coding tips, and discuss new technologies. A place for learning, sharing, and sparking new ideas.`;
+ 
 
 
 
@@ -40,7 +39,7 @@ export class HubBlogComponent {
     console.log('constructor');
     // this._iconsService.registerIcons();
     this._seoService.updateMetadata({
-      title: 'Spider-Baby | Descriptions of your application',
+      title: this._title,
       description: this._description,
       url: this._router.url,
       keywords: ['Angular', 'Angular library'],

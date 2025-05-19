@@ -7,6 +7,9 @@
   flex-direction: column;
   background-color: var(--mat-sys-surface); // Added a subtle background
 }
+.hero-banner{
+margin-bottom: 3rem;
+}
 
 .home-page-wrapper {
   display: flex;
@@ -87,7 +90,7 @@
   flex-grow: 1; // Ensures this section takes available space
 }
 
-.stylish-features-grid {
+.features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Slightly larger minmax
   gap: 2.5rem; // Increased gap
@@ -137,7 +140,7 @@
     font-size: 1.1rem;
   }
 
-  .stylish-features-grid {
+  .features-grid {
     grid-template-columns: 1fr; // Single column on smaller screens
     gap: 1.5rem;
   }

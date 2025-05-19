@@ -40,7 +40,7 @@ export class <%= sectionClassNamePrefix %>Component {
     console.log('constructor');
     // this._iconsService.registerIcons();
     this._seoService.updateMetadata({
-      title: 'Spider-Baby | Descriptions of your application',
+      title: this._title,
       description: this._description,
       url: this._router.url,
       keywords: ['Angular', 'Angular library'],

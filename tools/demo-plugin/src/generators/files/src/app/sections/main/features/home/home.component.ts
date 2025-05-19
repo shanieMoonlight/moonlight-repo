@@ -106,7 +106,7 @@ export class MainHomeComponent implements OnInit {
   ngOnInit() {
     // Set SEO metadata
     this._seoService.updateMetadata({
-      title: '<%= displayName %> | Descriptions of your application',
+      title: this._title,
       description: this._description,
       url: this._router.url,
       keywords: ['Angular', 'Signals', 'Angular library', 'Reactive State']

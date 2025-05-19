@@ -1,20 +1,21 @@
 <div class="home-page-wrapper">
    
-  <sb-hub-hero-banner-2
+  <sb-hub-hero-banner-2 
+    class="hero-banner"
     [title]="_title"
     [subtitle]="_subtitle"
     [description]="_description"
     [actionsTemplate]="heroActions"/>
 
   <section class="dynamic-features-section">
-    <div class="section-header">
+    <!-- <div class="section-header">
       <h2 class="section-title-modern">Discover Our Capabilities</h2>
       <p class="section-intro-text">
         Explore interactive examples and see how our innovative solutions can elevate your projects.
       </p>
-    </div>
+    </div> -->
     
-    <div class="stylish-features-grid">
+    <div class="features-grid">
       @for (feature of _features(); track feature.title) {
         <sb-hub-fancy-nav-card 
           [icon]="feature.icon" 

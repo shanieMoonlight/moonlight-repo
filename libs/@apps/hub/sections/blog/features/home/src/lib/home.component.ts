@@ -9,7 +9,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
-import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; 
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 
 @Component({
   selector: 'sb-hub-blog-home',
@@ -17,11 +17,8 @@ import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
   imports: [
     RouterModule,
     MatEverythingModule,
-    HubHeroBannerComponent,
     HubHeroBanner2Component,
-    HubSharedUiFooterComponent,
-    HubUiFancyNavCardComponent, 
-    NgClass
+    HubUiFancyNavCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -33,11 +30,11 @@ export class HubBlogHomeComponent implements OnInit {
 
   //- - - - - - - - - - - - - - -//
 
-// ...existing code...
+  // ...existing code...
   protected _title = 'Spider-Baby Blog';
   protected _subtitle = 'Thoughts, Tutorials, and Musings on All Things Tech';
   protected _description = `Dive into my latest articles where I explore web development, share coding tips, and discuss new technologies. A place for learning, sharing, and sparking new ideas.`;
-// ...existing code...
+  // ...existing code...
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
@@ -49,7 +46,7 @@ export class HubBlogHomeComponent implements OnInit {
   ngOnInit() {
     // Set SEO metadata
     this._seoService.updateMetadata({
-      title: 'Spider-Baby | Descriptions of your application',
+      title: this._title,
       description: this._description,
       url: this._router.url,
       keywords: ['Angular', 'Signals', 'Angular library', 'Reactive State'],
