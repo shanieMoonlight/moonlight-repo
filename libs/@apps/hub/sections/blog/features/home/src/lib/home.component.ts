@@ -1,15 +1,12 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { HubBlogPrincipalRoutes } from '@sb-hub/sections-blog/config/route-data';
-import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
-import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
-import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
-import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 
 @Component({
   selector: 'sb-hub-blog-home',

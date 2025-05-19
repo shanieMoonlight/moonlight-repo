@@ -32,6 +32,7 @@ export class HubHeroBanner2Component {
       return value ? `url(${value})` : null;
     }
   });
+  
 
   // _webSvg = HubAppSvgs.WEB
 
