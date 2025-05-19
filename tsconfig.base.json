@@ -42,6 +42,9 @@
       "@sb-hub/sections-blog/entry-point": [
         "libs/@apps/hub/sections/blog/@entry-point/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-hash": [
+        "libs/@apps/hub/sections/blog/features/hash/src/index.ts"
+      ],
       "@sb-hub/sections-blog/features-home": [
         "libs/@apps/hub/sections/blog/features/home/src/index.ts"
       ],

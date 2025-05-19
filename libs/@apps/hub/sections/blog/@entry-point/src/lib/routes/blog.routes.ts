@@ -8,6 +8,11 @@ export const blogRoutes: Route[] = [
     path: '',
     component: HubBlogComponent,
     children: [
+      {
+      path: HubBlogSectionRoutesDefs.route('hash'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-hash')
+        .then((m) => m.HubBlogHashComponent),
+    },
     {
         path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
         loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
