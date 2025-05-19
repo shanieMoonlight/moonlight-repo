@@ -18,7 +18,7 @@ export const DEMO_APPS: DemoAppData[] = [
         description: 'A powerful, flexible theming system for Angular Material',
         icon: 'palette',
         url: 'https://spiderbabymaterialtheming.web.app',
-        image: HubAppImages.Demos.MatTheme.medium
+        image: HubAppImages.Demos.MatTheme.medium,
     },
     {
         name: 'Mini-State',

@@ -4,12 +4,14 @@ import { DEMO_APPS } from '@sb-hub/core-config/demo-apps';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { HubOpenSourceDemoCardComponent } from '@sb-hub/sections-main/features/open-source/card';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 
 @Component({
   selector: 'hub-open-source-demos',
   imports: [
     MatEverythingModule,
-    HubOpenSourceDemoCardComponent
+    HubOpenSourceDemoCardComponent,
+    HubUiFancyNavCardComponent
   ],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.scss',

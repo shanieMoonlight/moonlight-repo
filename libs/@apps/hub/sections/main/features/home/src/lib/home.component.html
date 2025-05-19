@@ -1,36 +1,10 @@
 <div class="home-page-wrapper">
-  <!-- Custom Hero Section -->
-  <section class="custom-hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">{{ _title }}</h1>
-      <p class="hero-subtitle">{{ _subtitle }}</p>
-      <p class="hero-description">{{ _description }}</p>
-      <div class="hero-actions">
-        <a mat-raised-button color="primary" 
-          [href]="_npmUrl()" 
-          class="hero-button primary-action" 
-          target="_blank" 
-          rel="noopener noreferrer">
-          <mat-icon svgIcon="npm"/> 
-           NPM Packages
-        </a>
-        <a mat-stroked-button class="hero-button secondary-action" 
-          [href]="_gitUrl()" 
-          target="_blank" 
-          rel="noopener noreferrer">
-          <mat-icon svgIcon="git"/> 
-          View on GitHub
-        </a>
-      </div>
-    </div>
-    <div class="hero-background-shapes">
-      <!-- Decorative shapes for visual appeal -->
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-  </section>
-  <!-- End Custom Hero Section -->
+   
+  <sb-hub-hero-banner-2
+    [title]="_title"
+    [subtitle]="_subtitle"
+    [description]="_description"
+    [actionsTemplate]="heroActions"/>
 
   <section class="dynamic-features-section">
     <div class="section-header">
@@ -50,6 +24,13 @@
           [color]="feature.color"
           [img]="feature.img" />
       }
+           <!-- <sb-hub-fancy-nav-card 
+          [icon]="'home'" 
+          [title]="'title'" 
+          [description]="'description'" 
+          [route]="'feature.route'" 
+          [color]="'feature.color'"
+          [img]="'feature.img'" /> -->
     </div>
   </section>
 
@@ -58,3 +39,27 @@
     <p><small>Crafted with Angular & Love</small></p>
   </footer>
 </div>
+
+<!-- ################################## -->
+
+<ng-template #heroActions>
+  <div class="hero-actions">
+        <a mat-raised-button color="primary" 
+          [href]="_npmUrl()" 
+          class="hero-button primary-action" 
+          target="_blank" 
+          rel="noopener noreferrer">
+          <mat-icon svgIcon="npm"/> 
+           NPM Packages
+        </a>
+        <a mat-stroked-button class="hero-button secondary-action" 
+          [href]="_gitUrl()" 
+          target="_blank" 
+          rel="noopener noreferrer">
+          <mat-icon svgIcon="git"/> 
+          View on GitHub
+        </a>
+      </div>
+</ng-template>
+
+<!-- ################################## -->

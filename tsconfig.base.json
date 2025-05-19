@@ -93,12 +93,18 @@
       "@sb-hub/shared-ui/hero-banner": [
         "libs/@apps/hub/shared/ui/hero-banner/src/index.ts"
       ],
+      "@sb-hub/shared-ui/hero-banner/banner-2": [
+        "libs/@apps/hub/shared/ui/hero-banner/banner-2/src/index.ts"
+      ],
       "@sb-hub/shared-utils/icons": [
         "libs/@apps/hub/shared/utils/icons/src/index.ts"
       ],
       "@sb-hub/shared-utils/router": [
         "libs/@apps/hub/shared/utils/router/src/index.ts"
       ],
+      "@sb-hub/ui-cards": ["libs/ui/cards/src/index.ts"],
+      "@sb-hub/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
+      "@sb-hub/ui-cards/fancy-nav": ["libs/ui/cards/fancy-nav/src/index.ts"],
       "@scripts-ts": ["scripts-ts"],
       "@spider-baby-repo/app-libs-plugin": [
         "tools/app-libs-plugin/src/index.ts"
@@ -164,11 +170,6 @@
       ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
-      ],
-      "@sb-hub/ui-cards": ["libs/ui/cards/src/index.ts"],
-      "@sb-hub/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
-      "@sb-hub/ui-cards/fancy-nav": [
-        "libs/ui/cards/fancy-nav/src/index.ts"
       ],
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
       "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],

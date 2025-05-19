@@ -1,4 +1,4 @@
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -8,9 +8,10 @@ import { Router, RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
-import { SbHubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 
 //##############################################//
 
@@ -25,8 +26,8 @@ import { SbHubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Im
     MatDividerModule,
     MatIconModule,
     HighlightModule,
-    NgClass,
-    SbHubUiFancyNavCardComponent // Add the new card component to imports
+    HubHeroBanner2Component,
+    HubUiFancyNavCardComponent // Add the new card component to imports
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

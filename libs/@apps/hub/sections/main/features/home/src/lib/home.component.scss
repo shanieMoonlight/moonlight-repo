@@ -14,142 +14,44 @@
   flex-grow: 1; // Allows footer to stick to bottom if content is short
 }
 
-// Hero Banner Styling (Placeholder - customize as needed)
-// .modern-hero {
-  // Add styles for your hero banner here if it's a custom component
-  // or if you want to override its internal styles.
-  // Example:
-  // background: linear-gradient(135deg, var(--mat-sys-primary-container), var(--mat-sys-tertiary-container));
-  // padding: 4rem 2rem;
-  // text-align: center;
-  // color: var(--mat-sys-on-primary-container);
-// }
 
-// Custom Hero Section Styles
-.custom-hero-section {
-  position: relative;
-  padding: 4rem 2rem; // Generous padding
-  background: linear-gradient(135deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-secondary-container) 100%);
-  color: var(--mat-sys-on-primary-container);
-  text-align: center;
-  overflow: hidden; // To contain the shapes
-  border-bottom: 5px solid var(--mat-sys-primary);
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
 
-  .hero-content {
-    position: relative; // Ensure content is above shapes
-    z-index: 1;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+  .hero-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 25px; // Rounded buttons
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 
-  .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--mat-sys-primary);
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  }
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
 
-  .hero-subtitle {
-    font-size: 1.8rem;
-    font-weight: 400;
-    margin-bottom: 1.5rem;
-    color: var(--mat-sys-on-secondary-container);
-    opacity: 0.9;
-  }
+    &.primary-action {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
 
-  .hero-description {
-    font-size: 1.1rem;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-    color: var(--mat-sys-on-secondary-container);
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    align-items: center;
-
-    .hero-button {
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 25px; // Rounded buttons
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    &.secondary-action {
+      background-color: transparent;
+      border-color: var(--mat-sys-primary); // Use primary color for border
+      color: var(--mat-sys-primary);
 
       &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-      }
-
-      &.primary-action {
-        background-color: var(--mat-sys-primary);
-        color: var(--mat-sys-on-primary);
-      }
-
-      &.secondary-action {
-        background-color: transparent;
-        border-color: var(--mat-sys-primary); // Use primary color for border
-        color: var(--mat-sys-primary);
-
-        &:hover {
-          background-color: var(--mat-sys-primary-container); // Subtle hover for secondary
-        }
-      }
-
-      mat-icon {
-        margin-right: 0.5rem;
+        background-color: var(--mat-sys-primary-container); // Subtle hover for secondary
       }
     }
-  }
 
-  // Decorative background shapes
-  .hero-background-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.1;
-      animation: float 20s infinite ease-in-out alternate;
-    }
-
-    .shape-1 {
-      width: 200px;
-      height: 200px;
-      background-color: var(--mat-sys-tertiary);
-      top: 10%;
-      left: 5%;
-      animation-duration: 22s;
-    }
-
-    .shape-2 {
-      width: 150px;
-      height: 150px;
-      background-color: var(--mat-sys-secondary);
-      bottom: 15%;
-      right: 10%;
-      animation-duration: 18s;
-      animation-delay: -5s; // Offset animation
-    }
-
-    .shape-3 {
-      width: 100px;
-      height: 100px;
-      background-color: var(--mat-sys-primary);
-      top: 30%;
-      right: 20%;
-      animation-duration: 25s;
-      animation-delay: -10s; // Offset animation
+    mat-icon {
+      margin-right: 0.5rem;
     }
   }
 }
@@ -159,9 +61,11 @@
   0% {
     transform: translateY(0px) translateX(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-20px) translateX(15px) rotate(180deg);
   }
+
   100% {
     transform: translateY(0px) translateX(0px) rotate(360deg);
   }
@@ -203,6 +107,7 @@
   gap: 2.5rem; // Increased gap
   max-width: 1200px;
   margin: 0 auto;
+  justify-items: center;
 }
 
 
@@ -230,10 +135,6 @@
   --clr-title: var(--mat-sys-on-surface);
   --clr-subtitle: var(--mat-sys-on-surface-variant); // Adjusted for dark mode
 
-  .stylish-feature-card {
-    background-color: var(--mat-sys-surface-container); // Darker card background
-  }
-
   .modern-footer {
     background-color: var(--mat-sys-surface-container-low);
     border-top: 1px solid var(--mat-sys-outline);
@@ -253,37 +154,6 @@
   .stylish-features-grid {
     grid-template-columns: 1fr; // Single column on smaller screens
     gap: 1.5rem;
-  }
-
-  .feature-card-header-custom {
-    padding: 1rem;
-  }
-
-  .icon-background {
-    width: 50px;
-    height: 50px;
-  }
-
-  .feature-icon-large {
-    font-size: 1.8rem;
-  }
-
-  .feature-title-emphasis {
-    font-size: 1.2rem;
-  }
-
-  .feature-description-enhanced,
-  .feature-actions-centered {
-    padding: 1rem;
-  }
-
-  .cta-button {
-    width: 100%; // Full width buttons on mobile
-    margin-top: 0.5rem;
-  }
-
-  .feature-actions-centered {
-    text-align: center;
   }
 }
 
