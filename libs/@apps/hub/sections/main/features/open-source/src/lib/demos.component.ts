@@ -4,14 +4,15 @@ import { DEMO_APPS } from '@sb-hub/core-config/demo-apps';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { HubOpenSourceDemoCardComponent } from '@sb-hub/sections-main/features/open-source/card';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
-
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; 
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 @Component({
   selector: 'hub-open-source-demos',
   imports: [
     MatEverythingModule,
     HubOpenSourceDemoCardComponent,
-    HubUiFancyNavCardComponent
+    HubUiFancyNavCardComponent,
+    HubHeroBanner2Component
   ],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.scss',
@@ -19,36 +20,20 @@ import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Impo
 })
 export class HubOpenSourceDemosComponent {
 
-  protected _demoApps = signal(DEMO_APPS)
 
-  protected _logo = signal(HubAppImages.Logo.small)
+  
+  protected _title = 'Open Source';
+  protected _subtitle = 'Explore our collection of demo applications for our open source projects and packages';
+  protected _description = ``;
 
 
-  /**
-   *
-   */
-  constructor() {
+  protected _demoApps = DEMO_APPS
 
-    // console.log(`HubAppRouteDefs.routes                 :`, HubAppRouteDefs.routes);
-
-    console.log(`HubAppRouteDefs.routes.main.route()                 :`, HubAppRouteDefs.routes.main.route());
-    console.log(`HubAppRouteDefs.fullPaths.main.route()              :`, HubAppRouteDefs.fullPaths.main.route());
-
-    console.log(`HubAppRouteDefs.routes.main.route('home')           :`, HubAppRouteDefs.routes.main.route('home'));
-    console.log(`HubAppRouteDefs.fullPaths.main.route('home')        :`, HubAppRouteDefs.fullPaths.main.route('home'));
-
-    console.log(`HubAppRouteDefs.routes.main.route('open-source')    :`, HubAppRouteDefs.routes.main.route('open-source'));
-    console.log(`HubAppRouteDefs.fullPaths.main.route('open-source') :`, HubAppRouteDefs.fullPaths.main.route('open-source'));
-
-    // console.log(`HubAppRouteDefs.routes.main.admin.route()            :`, HubAppRouteDefs.routes.main.admin.route());
-    // console.log(`HubAppRouteDefs.fullPaths.main.admin.route()         :`, HubAppRouteDefs.fullPaths.main.admin.route());
-
-    // console.log(`HubAppRouteDefs.routes.main.admin.route('users')     :`, HubAppRouteDefs.routes.main.admin.route('users'));
-    // console.log(`HubAppRouteDefs.fullPaths.main.admin.route('users')  :`, HubAppRouteDefs.fullPaths.main.admin.route('users'));
+  protected _logo = HubAppImages.Logo.small
+  protected _openSourceImg = HubAppImages.Main.OpenSource.xLarge
 
 
 
-  }
 
 
 

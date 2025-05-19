@@ -1,0 +1,24 @@
+:host {
+  
+  display: block;
+}
+
+
+// Modern Footer Styling
+.hub-footer {
+  text-align: center;
+  padding: 2.5rem 1rem; // Increased padding
+  background-color: var(--mat-sys-surface-container); // Slightly different background for footer
+  color: var(--mat-sys-on-surface-variant);
+  margin-top: auto; // Pushes footer to the bottom
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+  }
+
+  small {
+    font-size: 0.8rem;
+  }
+}

@@ -35,6 +35,7 @@ export class HubAppImages {
       static readonly small =   'images/main/open-source/small/open-source.jpeg';
       static readonly medium =  'images/main/open-source/medium/open-source.jpeg';
       static readonly large =   'images/main/open-source/large/open-source.jpeg';
+      static readonly xLarge =   'images/main/open-source/xlarge/open-source.jpeg';
     };
 
     static Posts = class {
@@ -42,6 +43,7 @@ export class HubAppImages {
       static readonly small =   'images/main/posts/small/posts.jpeg';
       static readonly medium =  'images/main/posts/medium/posts.jpeg';
       static readonly large =   'images/main/posts/large/posts.jpeg';
+      static readonly xLarge =   'images/main/posts/xlarge/posts.jpeg';
     };
 
   };

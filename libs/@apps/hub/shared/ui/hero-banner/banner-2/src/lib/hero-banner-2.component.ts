@@ -16,12 +16,19 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 })
 export class HubHeroBanner2Component {
 
-  _title = input<string>('Title', { alias: 'title' });
-  _subtitle = input<string>('Subtitle', { alias: 'subtitle' });
+  _title = input<string>('', { alias: 'title' });
+  _subtitle = input<string>('', { alias: 'subtitle' });
   _description = input<string>('', { alias: 'description' });
   // _imageUrl = input<string | null>(null);
   // _imageAlt = input<string>('Hero Image');
   _actionsTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'actionsTemplate' });
+  _bgImg = input<string | null, string | undefined>(null, { // Changed type to string | null for the signal
+    alias: 'backgroundImage',
+    transform: (value: string | undefined): string | null => {
+      return value ? `url(${value})` : null;
+    }
+  });
+
 
 
 }

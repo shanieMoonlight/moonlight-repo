@@ -25,7 +25,8 @@ export class HubUiFancyNavCardComponent {
     _icon = input.required<string>({ alias: 'icon' });
     _title = input.required<string>({ alias: 'title' });
     _description = input.required<string>({ alias: 'description' });
-    _route = input.required<string | string[]>({ alias: 'route' });
+    _route = input<string | string[] | undefined>(undefined, { alias: 'route' });
+    _url = input<string | undefined>(undefined, { alias: 'url' });
     _color = input<string | undefined>('primary', { alias: 'color' });
     _img = input<string | undefined>(HubAppImages.Logo.medium, { alias: 'img' });
 

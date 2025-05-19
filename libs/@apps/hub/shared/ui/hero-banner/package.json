@@ -4,7 +4,8 @@
   "peerDependencies": {
     "@angular/core": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@spider-baby/material-theming": "*"
+    "@spider-baby/material-theming": "*",
+    "@angular/common": "19.2.9"
   },
   "sideEffects": false
 }

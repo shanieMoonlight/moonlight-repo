@@ -56,20 +56,6 @@
   }
 }
 
-// Keyframes for floating animation
-@keyframes float {
-  0% {
-    transform: translateY(0px) translateX(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-20px) translateX(15px) rotate(180deg);
-  }
-
-  100% {
-    transform: translateY(0px) translateX(0px) rotate(360deg);
-  }
-}
 
 // Section Header Styling
 .section-header {
@@ -112,7 +98,7 @@
 
 
 // Modern Footer Styling
-.modern-footer {
+.hub-footer {
   text-align: center;
   padding: 2.5rem 1rem; // Increased padding
   background-color: var(--mat-sys-surface-container); // Slightly different background for footer
@@ -135,7 +121,7 @@
   --clr-title: var(--mat-sys-on-surface);
   --clr-subtitle: var(--mat-sys-on-surface-variant); // Adjusted for dark mode
 
-  .modern-footer {
+  .hub-footer {
     background-color: var(--mat-sys-surface-container-low);
     border-top: 1px solid var(--mat-sys-outline);
   }
@@ -156,105 +142,3 @@
     gap: 1.5rem;
   }
 }
-
-// Remove old styles that are no longer used or have been replaced
-/*
-.home-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1976d2;
-  color: var(--clr-title);
-}
-
-.subtitle {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: #455a64;
-  color: var(--clr-subtitle);
-}
-
-.description {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-
-  a {
-    min-width: 150px;
-  }
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #455a64;
-  color: var(--clr-title);
-}
-
-.section-description {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  font-size: 1.1rem;
-}
-
-.features-section {
-  margin: 3rem 0;
-  padding: 1rem 0;
-  flex: 1;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.feature-card {
-  height: 100%;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-
-  mat-card-content {
-    padding: 1rem;
-  }
-}
-
-.home-footer {
-  text-align: center;
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e0e0e0;
-  color: #757575;
-}
-
-img {
-  max-width: 125px;
-  height: auto;
-}
-*/

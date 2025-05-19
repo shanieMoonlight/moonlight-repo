@@ -10,21 +10,24 @@
   max-width: 1250px;
   display: flex;
   flex-direction: column;
-  // border: 1px solid var(--mat-sys-outline);
-  img{
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 50px;
-  }
+  // background-color: aliceblue;
+  flex-grow: 1; // Ensures this section takes available space
+
 }
 
-.card-container {
+.container {
+  padding: 3rem 1rem; // Adjusted padding
   display: flex;
   flex-wrap: wrap;
   justify-content: center; // Space between cards
   align-items: center; // Space between cards
   gap: 1.5rem; // Space between cards
+  padding: 1rem;
+}
+
+sb-hub-hero-banner-2{
+  margin-bottom: 3rem;
+
 }
 
 .page-header {
@@ -50,5 +53,32 @@
     // color: var(--mat-sys-on-surface-variant);
     max-width: 600px;
     margin: 0 auto;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Slightly larger minmax
+  gap: 2.5rem; // Increased gap
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .section-title-modern {
+    font-size: 2.2rem; // Adjusted for smaller screens
+  }
+
+  .section-intro-text {
+    font-size: 1.1rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr; // Single column on smaller screens
+    gap: 1.5rem;
   }
 }

@@ -90,6 +90,9 @@
       "@sb-hub/shared-features/not-found": [
         "libs/@apps/hub/shared/features/not-found/src/index.ts"
       ],
+      "@sb-hub/shared-ui/footer": [
+        "libs/@apps/hub/shared/ui/footer/src/index.ts"
+      ],
       "@sb-hub/shared-ui/hero-banner": [
         "libs/@apps/hub/shared/ui/hero-banner/src/index.ts"
       ],

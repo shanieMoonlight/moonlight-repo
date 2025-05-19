@@ -9,6 +9,7 @@ import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -27,6 +28,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     MatIconModule,
     HighlightModule,
     HubHeroBanner2Component,
+    HubSharedUiFooterComponent,
     HubUiFancyNavCardComponent // Add the new card component to imports
   ],
   templateUrl: './home.component.html',

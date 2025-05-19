@@ -1,12 +1,14 @@
- <section class="custom-hero-section">
+ <section class="custom-hero-section" 
+ [style.background]="_bgImg()"
+ [class.custom-img]="_bgImg()">
     <div class="hero-content">
       <h1 class="hero-title">{{ _title() }}</h1>
       <p class="hero-subtitle">{{ _subtitle() }}</p>
       <p class="hero-description">{{ _description() }}</p>
       <div class="hero-actions">
-      @if(_actionsTemplate(); as template) {
-        <ng-container [ngTemplateOutlet]="template"/>
-      }
+        @if(_actionsTemplate(); as template) {
+          <ng-container [ngTemplateOutlet]="template"/>
+        }
       </div>
     </div>
     <div class="hero-background-shapes">

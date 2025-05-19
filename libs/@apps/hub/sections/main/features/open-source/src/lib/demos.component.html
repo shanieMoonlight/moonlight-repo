@@ -1,12 +1,20 @@
 
+<sb-hub-hero-banner-2
+  [title]="_title"
+  [subtitle]="_subtitle"
+  [description]="_description"
+  [backgroundImage]="_openSourceImg"
+  />
+  <!-- <div class="card-container"> -->
+    
 <div class="container">
-  <div class="page-header">
+  <!-- <div class="page-header">
     <img [src]="_logo()" alt="Logo" class="logo" />
     <h1>Open Source</h1>
     <p>Explore our collection of demo applications for our open source projects and packages.</p>
-  </div>
+  </div> -->
 
-    <div class="card-container">
+  
 
         <!-- @for (demoApp of _demoApps(); track $index) {
         <hub-open-source-demo-card [demoApp]="demoApp" />
@@ -14,15 +22,15 @@
 
         
     
-    <!-- <div class="stylish-features-grid"> -->
-      @for (feature of _demoApps(); track feature.name) {
+    <div class="features-grid">
+      @for (feature of _demoApps; track feature.name) {
         <sb-hub-fancy-nav-card 
           [icon]="feature.icon" 
           [title]="feature.name" 
           [description]="feature.description" 
-          [route]="feature.url" 
+          [url]="feature.url" 
           [img]="feature.image" />
       }
-    <!-- </div> -->
-    </div>
-</div>
+  </div>
+
+      </div>

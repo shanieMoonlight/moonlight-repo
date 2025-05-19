@@ -49,40 +49,6 @@
     gap: 1.5rem;
     justify-content: center;
     align-items: center;
-
-    .hero-button {
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 25px; // Rounded buttons
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      &.primary-action {
-        background-color: var(--mat-sys-primary);
-        color: var(--mat-sys-on-primary);
-      }
-
-      &.secondary-action {
-        background-color: transparent;
-        border-color: var(--mat-sys-primary); // Use primary color for border
-        color: var(--mat-sys-primary);
-
-        &:hover {
-          background-color: var(--mat-sys-primary-container); // Subtle hover for secondary
-        }
-      }
-
-      mat-icon {
-        margin-right: 0.5rem;
-      }
-    }
   }
 
   // Decorative background shapes
@@ -130,5 +96,37 @@
       animation-duration: 25s;
       animation-delay: -10s; // Offset animation
     }
+  }
+
+
+}
+
+.custom-hero-section.custom-img {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+  }
+
+  .hero-title {
+    color: #FFFFFF;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
+  }
+
+  .hero-description {
+    color: rgba(255, 255, 255, 0.85);
   }
 }
