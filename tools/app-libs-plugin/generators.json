@@ -30,7 +30,7 @@
       "schema": "./src/generators/@shared/schema/schema.json",
       "description": "section config generator"
     },
-    "new-feature": {
+    "section-new-feature": {
       "factory": "./src/generators/section/features/new/new-feature",
       "schema": "./src/generators/section/features/new/schema.json",
       "description": "new-feature generator"

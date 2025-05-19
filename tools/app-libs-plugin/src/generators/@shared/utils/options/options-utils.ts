@@ -7,11 +7,6 @@ import { PathUtils } from '../path-utils';
 export class OptionsUtils {
 
 
-  private static removeMultipleDashes(text: string) {
-    return text.replace(/-+/g, '-');
-  }
-
-  //------------------------------//
 
   static async normalizeOptionsAsync(tree: Tree, options: SectionGeneratorSchema): Promise<NoramlizedSectionGeneratorSchema> {
 
@@ -56,23 +51,10 @@ export class OptionsUtils {
   }
 
   //------------------------------//
-
-  // static getLibrarySettings(options: NoramlizedSectionGeneratorSchema, libName: string, path: string[] = []): LibrarySettings {
-
-  //   const pathHyphenated = path
-  //     .map((p) => p.trim())
-  //     .filter((p) => p.length > 0)
-  //     .join('-')
-
-  //   const libNameFull = pathHyphenated.length > 0 ? `${libName}-${pathHyphenated}` : libName
-
-  //   return {
-  //     directory: PathUtils.combine(options.sectionRoot, ...path, `${libName}`),
-  //     importPath: PathUtils.combine(options.importPrefix, libNameFull),
-  //     libraryName: `${options.libraryNamePrefix}-${libNameFull}`
-  //   }
-
-  // }
+  
+  private static removeMultipleDashes(text: string) {
+    return text.replace(/-+/g, '-');
+  }
 
   //------------------------------//
 

@@ -1,6 +1,6 @@
 import { Tree } from "@nx/devkit";
 
-export class ParentLibUtils {
+export class ParentRouteDefsLibUtils {
 
   static addImportToClass(tree: Tree, parentRouteDefsPathRelative: string, importStatement: string,): string {
 
@@ -26,7 +26,7 @@ export class ParentLibUtils {
       lastImportEndPosition = match.index + match[0].length;
     }
 
-    
+
     if (lastImportEndPosition < 1) {
       console.error('Could not find import statements in the file');
       return updatedContent;
@@ -45,5 +45,7 @@ export class ParentLibUtils {
     return updatedContent;
   }
 
+
+  //------------------------------//
 
 }//Cls

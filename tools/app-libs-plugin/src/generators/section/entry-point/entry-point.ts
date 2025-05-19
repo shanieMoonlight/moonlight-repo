@@ -11,7 +11,7 @@ import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import path = require('path');
 import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';
-import { ParentLibUtils } from '../../@shared/utils/parent-lib-utils';
+import { ParentRouteDefsLibUtils } from '../../@shared/utils/parent-route-defs-lib-utils';
 import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
 
 //##############################################//
@@ -30,7 +30,7 @@ function getLibrarySettings(options: NoramlizedSectionGeneratorSchema): LibraryS
 function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, element: string) {
 
   console.log('addToRoutesArray called with ', parentRouteDefsPathRelative, element);
-  
+
 
   if (!tree.exists(parentRouteDefsPathRelative)) {
     console.error(`File not found: ${parentRouteDefsPathRelative}`);
@@ -51,7 +51,7 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
 
   if (!routesMatch) {
     console.error(`Could not find routes array in ${parentRouteDefsPathRelative}`);
-    return '';
+    return ''
   }
 
   // Calculate the start position of the array content
@@ -141,13 +141,13 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
 
 
     console.log(`Adding import statement:  ${importStatement}`);
-    
-    let updatedParentEntryPointRoutesContent = ParentLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
+
+    let updatedParentEntryPointRoutesContent = ParentRouteDefsLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
     console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
-    
-    
+
+
     const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
-    console.log('TEST@',  parentEntryPointPath, routesArrayElement);
+    console.log('TEST@', parentEntryPointPath, routesArrayElement);
     updatedParentEntryPointRoutesContent = addToRoutesArray(tree, parentEntryPointPath, routesArrayElement);
     console.log(`*Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
 
