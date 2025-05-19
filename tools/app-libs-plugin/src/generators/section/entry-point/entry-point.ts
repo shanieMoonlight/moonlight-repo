@@ -1,5 +1,5 @@
 import { } from '@nx/angular';
-import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
+import { libraryGenerator } from '@nx/angular/generators';
 import { generateFiles, readProjectConfiguration, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
@@ -11,7 +11,7 @@ import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import path = require('path');
 import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';
-import { ParentRouteDefsLibUtils } from '../../@shared/utils/parent-route-defs-lib-utils';
+import { ClassImportUtils } from '../../@shared/utils/class-import-utils';
 import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
 
 //##############################################//
@@ -27,13 +27,13 @@ function getLibrarySettings(options: NoramlizedSectionGeneratorSchema): LibraryS
 
 //------------------------------//
 
-function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, element: string) {
+function addToRoutesArray(tree: Tree, routeDefsPathRelative: string, element: string) {
 
-  console.log('addToRoutesArray called with ', parentRouteDefsPathRelative, element);
+  console.log('addToRoutesArray called with ', routeDefsPathRelative, element);
 
 
-  if (!tree.exists(parentRouteDefsPathRelative)) {
-    console.error(`File not found: ${parentRouteDefsPathRelative}`);
+  if (!tree.exists(routeDefsPathRelative)) {
+    console.error(`File not found: ${routeDefsPathRelative}`);
     return;
   }
 
@@ -42,7 +42,7 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
 
 
   let updatedContent: string = undefined;
-  const parentRouteDefsContent = tree.read(parentRouteDefsPathRelative, 'utf-8');
+  const parentRouteDefsContent = tree.read(routeDefsPathRelative, 'utf-8');
 
   // Find the routes array definition
   // const routesArrayRegex = /export\s+const\s+\w+Routes\s*:\s*Route\[\]\s*=\s*\[([^]*?)\];/s;
@@ -50,7 +50,7 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
   const routesMatch = routesArrayRegex.exec(parentRouteDefsContent);
 
   if (!routesMatch) {
-    console.error(`Could not find routes array in ${parentRouteDefsPathRelative}`);
+    console.error(`Could not find routes array in ${routeDefsPathRelative}`);
     return ''
   }
 
@@ -93,8 +93,8 @@ function addToRoutesArray(tree: Tree, parentRouteDefsPathRelative: string, eleme
 
 
   // Write the updated content back to the file
-  tree.write(parentRouteDefsPathRelative, updatedContent);
-  console.log(`Added '${element}' to routes array in ${parentRouteDefsPathRelative}`);
+  tree.write(routeDefsPathRelative, updatedContent);
+  console.log(`Added '${element}' to routes array in ${routeDefsPathRelative}`);
 
   return updatedContent;
 }
@@ -111,26 +111,26 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
   try {
 
     const projectConfig = readProjectConfiguration(tree, parentEntryPoint);
-    const parentEntryPointLib = path.join(projectConfig.sourceRoot, 'lib', 'routes');
-    console.log(`Parent entry-point library path: ${parentEntryPointLib}`);
+    const parentEntryPointRoutesPath = path.join(projectConfig.sourceRoot, 'lib', 'routes');
+    console.log(`Parent entry-point library path: ${parentEntryPointRoutesPath}`);
 
 
     // Find all entry-point.ts files in the directory
-    const routeDefsFiles = GeneratorUtils.findFilesByPattern(tree, parentEntryPointLib, 'routes.ts');
+    const routesFiles = GeneratorUtils.findFilesByPattern(tree, parentEntryPointRoutesPath, 'routes.ts');
 
 
-    if (routeDefsFiles.length === 0) {
-      console.error(`No route.ts files found in ${parentEntryPointLib}`);
+    if (routesFiles.length === 0) {
+      console.error(`No route.ts files found in ${parentEntryPointRoutesPath}`);
       return;
     }
 
     // Use the first matching file or choose based on some criteria
-    const parentEntryPointPath = routeDefsFiles[0];
-    console.log(`Found routes file: ${parentEntryPointPath}`);
+    const routesFilesPath = routesFiles[0];
+    console.log(`Found routes file: ${routesFilesPath}`);
 
 
-    if (!tree.exists(parentEntryPointPath)) {
-      console.error(`File ${parentEntryPointPath} does not exist in the project`);
+    if (!tree.exists(routesFilesPath)) {
+      console.error(`File ${routesFilesPath} does not exist in the project`);
       return;
     }
 
@@ -140,21 +140,24 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
     const importStatement = `import { ${routeDefsClassName} } from '${importPath}';`;
 
 
-    console.log(`Adding import statement:  ${importStatement}`);
+    console.log(`Adding import statement:  ${importStatement}`)
 
-    let updatedParentEntryPointRoutesContent = ParentRouteDefsLibUtils.addImportToClass(tree, parentEntryPointPath, importStatement);
-    console.log(`Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
+
+    let updatedParentEntryPointRoutesContent = ClassImportUtils.addImportToClass(tree, routesFilesPath, importStatement);
+    console.log(`Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
 
 
     const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
-    console.log('TEST@', parentEntryPointPath, routesArrayElement);
-    updatedParentEntryPointRoutesContent = addToRoutesArray(tree, parentEntryPointPath, routesArrayElement);
-    console.log(`*Updated parent ${parentEntryPointPath} content: `, updatedParentEntryPointRoutesContent);
+    updatedParentEntryPointRoutesContent = addToRoutesArray(tree, routesFilesPath, routesArrayElement);
+    console.log(`*Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
+   
 
 
   } catch (error) {
+
     console.error(`Project ${options.application} not found in the workspace`);
-    throw error;
+    throw error
+
   }
 
 }
@@ -175,7 +178,7 @@ async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionG
     name: librarySettings.libraryName,
   }
 
-  await ngLibGenerator(tree, libOptions);
+  await libraryGenerator(tree, libOptions);
 
 
   // Clean up unwanted component files

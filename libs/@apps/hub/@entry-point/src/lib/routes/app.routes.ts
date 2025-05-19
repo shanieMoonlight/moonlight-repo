@@ -14,8 +14,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '**',
-    loadComponent: () =>
-      import('@sb-hub/shared-features/not-found').then((m) => m.NotFoundComponent),
+    loadComponent: () => import('@sb-hub/shared-features/not-found').then((m) => m.NotFoundComponent),
     pathMatch: 'full',
   },
 ];

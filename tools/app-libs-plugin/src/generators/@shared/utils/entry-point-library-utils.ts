@@ -12,8 +12,6 @@ export class ParentEntryPointLibUtils {
     // Read the file content
     const routeFileContent = tree.read(entryPointRoutesFilePath, 'utf-8');
 
-    // console.log(`entryPointRoutesFilePath: `, routeFileContent);
-
     // Regex 1: Find the Route[] array and capture the first element (object literal) as a string.
     // This regex looks for '... : Route[] = [ { /* first object content */ } ... ]'
     // Group 1 captures the first object: { /* content */ }
@@ -27,7 +25,6 @@ export class ParentEntryPointLibUtils {
     }
 
     const firstObjectString = firstElementMatch[1];
-    // console.log(`First object string found: \n`, firstObjectString);
 
     // Regex 2: Extract the component name from the captured firstObjectString.
     // This regex looks for 'component: ComponentName'

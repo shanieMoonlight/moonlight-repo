@@ -1,6 +1,6 @@
 import { Tree } from "@nx/devkit";
 
-export class ParentRouteDefsLibUtils {
+export class ClassImportUtils {
 
   static addImportToClass(tree: Tree, parentRouteDefsPathRelative: string, importStatement: string,): string {
 
@@ -12,9 +12,6 @@ export class ParentRouteDefsLibUtils {
     // Read the file content
     let updatedContent = ''
     const parentRouteDefsContent = tree.read(parentRouteDefsPathRelative, 'utf-8');
-
-    console.log(`parentRouteDefsContent: `, parentRouteDefsContent);
-
 
     // Find the last import statement
     const importRegex = /^import .+ from .+;(\r?\n)/gm;

@@ -4,7 +4,7 @@ import { PathUtils } from '../../../@shared/utils/path-utils';
 import { SectionNewFeatureGeneratorSchema, NoramlizedSectionNewFeatureGeneratorSchema } from './schema';
 import { PackageJsonUtils } from '../../../@shared/utils/package-json-utils';
 import { ProjectJsonUtils } from '../../../@shared/utils/project-json-utils';
-import { ParentEntryPointLibUtils } from '../../../@shared/utils/parent-entry-point-lib-utils';
+import { ParentEntryPointLibUtils } from '../../../@shared/utils/entry-point-library-utils';
 import path = require('path');
 import { GeneratorUtils } from '../../../@shared/utils/generator-utils';
 
@@ -28,8 +28,10 @@ export class NewFeatureOptionsUtils {
     console.log(`importPath`, importPath);
 
     // const packageJsonPath = path.join(entryPointConfig.root, 'package.json');
-    const componentClassName = this.getComponentClassName(tree,options, entryPointConfig);
+    const componentClassName = this.getComponentClassName(tree, options, entryPointConfig);
     console.log(`componentClassName`, componentClassName);
+
+    const classNamePrefix = this.getComponentClassNamePrefix(tree, entryPointConfig);
 
 
     const directory = namesOptions.fileName;
@@ -52,6 +54,7 @@ export class NewFeatureOptionsUtils {
       prefix,
       libraryName,
       libraryRoot,
+      classNamePrefix,
       componentClassName
     }
 
@@ -62,7 +65,7 @@ export class NewFeatureOptionsUtils {
   static getLibName(tree: Tree, entryPointConfig: any, options: SectionNewFeatureGeneratorSchema) {
     const namesOptions = names(options.name);
     const libNamePrefix = this.getLibNamePrefix(tree, entryPointConfig);
-    return `${libNamePrefix}-features-${namesOptions.fileName}`
+    return this.removeMultipleDashes(`${libNamePrefix}-features-${namesOptions.fileName}`)
   }
 
   //------------------------------//
@@ -116,17 +119,17 @@ export class NewFeatureOptionsUtils {
   //------------------------------//
 
   static getComponentClassName(tree: Tree, options: SectionNewFeatureGeneratorSchema, entryPointRoutesConfig: any) {
-    const entryPointRoutesPath = this.getEntryPointRoutesFilesPath(tree, entryPointRoutesConfig);
-    const classNamePrefix = this.getComponentClassNamePrefix(tree, entryPointRoutesPath);
+    const classNamePrefix = this.getComponentClassNamePrefix(tree, entryPointRoutesConfig);
     console.log(`classNamePrefix`, classNamePrefix);
-    
+
     return `${classNamePrefix}${names(options.name).className}Component`
 
   }
 
   //------------------------------//
 
-  static getComponentClassNamePrefix(tree: Tree, entryPointRoutesFilePath: string) {
+  static getComponentClassNamePrefix(tree: Tree, entryPointRoutesConfig: any) {
+    const entryPointRoutesFilePath = this.getEntryPointRoutesFilesPath(tree, entryPointRoutesConfig);
 
     console.log(`getEntryPointComponent:`);
     // We need to extract the component class name prefix by removing the last "Component" suffix

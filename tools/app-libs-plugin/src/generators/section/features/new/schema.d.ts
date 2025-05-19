@@ -9,7 +9,6 @@ export interface SectionNewFeatureGeneratorSchema {
 
 export interface NoramlizedSectionNewFeatureGeneratorSchema extends SectionNewFeatureGeneratorSchema {
   className: string,
-  // classNamePrefix: string,
   propertyName: string,
   constantName: string,
   fileName: string,
@@ -17,10 +16,8 @@ export interface NoramlizedSectionNewFeatureGeneratorSchema extends SectionNewFe
   libraryRoot: string;
   libraryName: string;
   importPath:string;
-  // libraryNamePrefix: string;
   prefix: string;
-  // sectionClassNamePrefix: string;
+  classNamePrefix: string,
   componentClassName: string;
-  // applicationName: string;
 }
 

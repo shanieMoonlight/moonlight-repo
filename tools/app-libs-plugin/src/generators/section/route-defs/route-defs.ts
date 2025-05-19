@@ -10,7 +10,7 @@ import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
 import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import path = require('path');
-import { ParentRouteDefsLibUtils } from '../../@shared/utils/parent-route-defs-lib-utils';
+import { ClassImportUtils } from '../../@shared/utils/class-import-utils';
 
 //##############################################//
 
@@ -119,7 +119,7 @@ function updateParentRouteDefs(tree: Tree, options: NoramlizedSectionGeneratorSc
 
 
     console.log(`Adding import statement:  ${importStatement}`);
-    let updatedParentRouteDefsContent = ParentRouteDefsLibUtils.addImportToClass(tree, parentRouteDefsPath, importStatement);
+    let updatedParentRouteDefsContent = ClassImportUtils.addImportToClass(tree, parentRouteDefsPath, importStatement);
     console.log(`Updated parent ${parentRouteDefsPath} content: `, updatedParentRouteDefsContent);
 
 
