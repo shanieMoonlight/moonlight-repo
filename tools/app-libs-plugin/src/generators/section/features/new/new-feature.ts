@@ -34,7 +34,7 @@ function updateEntryPointRoutes(tree: Tree, options: NoramlizedSectionNewFeature
   // console.log(`routeElement`, routeElement);
 
 
- const updatedFileContent =  EntryPointRoutesUtils.addChildRoutes(tree, options.sectionEntryPoint, importStatement, routeElement);
+ const updatedFileContent =  EntryPointRoutesUtils.findFileAndAddChildRoutes(tree, options.sectionEntryPoint, importStatement, routeElement);
  console.log(`updatedFileContent`, updatedFileContent);
 
 

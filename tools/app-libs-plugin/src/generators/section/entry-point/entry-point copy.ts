@@ -1,18 +1,17 @@
 import { } from '@nx/angular';
 import { libraryGenerator } from '@nx/angular/generators';
-import { generateFiles, Tree } from '@nx/devkit';
+import { generateFiles, readProjectConfiguration, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
-// import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
-// import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
-import { EntryPointRoutesUtils } from '../../@shared/utils/entry-point-routes-utils';
-import { GeneratorUtils } from '../../@shared/utils/generator-utils';
-import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
-import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
-import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../@shared/utils/path-utils';
+import { GeneratorUtils } from '../../@shared/utils/generator-utils';
 import path = require('path');
+import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
+import { OptionsUtils } from '../../@shared/utils/options/options-utils';
+import { ClassImportUtils } from '../../@shared/utils/class-import-utils';
+import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
+import { EntryPointRoutesUtils } from '../../@shared/utils/entry-point-routes-utils';
 
 //##############################################//
 
@@ -33,16 +32,58 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
   if (!parentEntryPoint)
     return;
 
-  const importPath = PathUtils.combine(options.importPrefix, 'entry-point');
-  const routeDefsClassName = `${options.sectionClassNamePrefix}Routes`;
-  const importStatement = `import { ${routeDefsClassName} } from '${importPath}';`;
+  // Access the project by name
+  try {
+
+    const projectConfig = readProjectConfiguration(tree, parentEntryPoint);
+    const parentEntryPointRoutesPath = path.join(projectConfig.sourceRoot, 'lib', 'routes');
+    console.log(`Parent entry-point library path: ${parentEntryPointRoutesPath}`);
 
 
-  const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
+    // Find all entry-point.ts files in the directory
+    const routesFiles = GeneratorUtils.findFilesByPattern(tree, parentEntryPointRoutesPath, 'routes.ts');
 
-  const updatedContent = EntryPointRoutesUtils.findFileAddToRoutesArray(tree, parentEntryPoint, importStatement, routesArrayElement);
 
-  console.log(`updatedContent:`, updatedContent);
+    if (routesFiles.length === 0) {
+      console.error(`No route.ts files found in ${parentEntryPointRoutesPath}`);
+      return;
+    }
+
+    // Use the first matching file or choose based on some criteria
+    const routesFilesPath = routesFiles[0];
+    console.log(`Found routes file: ${routesFilesPath}`);
+
+
+    if (!tree.exists(routesFilesPath)) {
+      console.error(`File ${routesFilesPath} does not exist in the project`);
+      return;
+    }
+
+
+    const importPath = PathUtils.combine(options.importPrefix, 'entry-point');
+    const routeDefsClassName = `${options.sectionClassNamePrefix}Routes`;
+    const importStatement = `import { ${routeDefsClassName} } from '${importPath}';`;
+
+
+    console.log(`Adding import statement:  ${importStatement}`)
+
+
+    let updatedParentEntryPointRoutesContent = ClassImportUtils.addImportToClass(tree, routesFilesPath, importStatement);
+    console.log(`Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
+
+
+    const routesArrayElement = `...${options.sectionClassNamePrefix}Routes(),`;
+    updatedParentEntryPointRoutesContent = EntryPointRoutesUtils.addToRoutesArray(tree, routesFilesPath, routesArrayElement);
+    console.log(`*Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
+   
+
+
+  } catch (error) {
+
+    console.error(`Project ${options.application} not found in the workspace`);
+    throw error
+
+  }
 
 }
 
@@ -99,8 +140,9 @@ export async function sectionEntryPointGenerator(tree: Tree, options: SectionGen
 //##############################################//
 
 export {
-  generateEntryPointLibrary, getLibrarySettings,
-  updateParentEntryPointRoutes
+  getLibrarySettings,
+  updateParentEntryPointRoutes,
+  generateEntryPointLibrary
 };
 
 export default sectionEntryPointGenerator;

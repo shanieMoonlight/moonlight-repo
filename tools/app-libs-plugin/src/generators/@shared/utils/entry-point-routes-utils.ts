@@ -1,6 +1,7 @@
 import { readProjectConfiguration, Tree } from "@nx/devkit";
 import { GeneratorUtils } from "./generator-utils";
 import path = require("path");
+import { ClassImportUtils } from "./class-import-utils";
 
 //##############################################//
 
@@ -84,7 +85,67 @@ export class EntryPointRoutesUtils {
 
     //------------------------------//
 
-    static addChildRoutes(tree: Tree, entryPointRootPath: string, importStatement: string, routesArrayElement: string) {
+    static findFileAddToRoutesArray(tree: Tree, entryPointRootPath: string, importStatement: string, routesArrayElement: string) {
+
+        if (!entryPointRootPath)
+            return;
+
+        // Access the project by name
+        try {
+
+            const projectConfig = readProjectConfiguration(tree, entryPointRootPath);
+            const parentEntryPointRoutesPath = path.join(projectConfig.sourceRoot, 'lib', 'routes');
+            console.log(`Parent entry-point library path: ${parentEntryPointRoutesPath}`);
+
+
+            // Find all entry-point.ts files in the directory
+            const routesFiles = GeneratorUtils.findFilesByPattern(tree, parentEntryPointRoutesPath, 'routes.ts');
+
+
+            if (routesFiles.length === 0) {
+                console.error(`No route.ts files found in ${parentEntryPointRoutesPath}`);
+                return;
+            }
+
+            // Use the first matching file or choose based on some criteria
+            const routesFilesPath = routesFiles[0];
+            console.log(`Found routes file: ${routesFilesPath}`);
+
+
+            if (!tree.exists(routesFilesPath)) {
+                console.error(`File ${routesFilesPath} does not exist in the project`);
+                return;
+            }
+
+
+
+            console.log(`Adding import statement:  ${importStatement}`)
+            let updatedParentEntryPointRoutesContent = undefined;
+            if (importStatement) {
+                updatedParentEntryPointRoutesContent = ClassImportUtils.addImportToClass(tree, routesFilesPath, importStatement);
+                console.log(`Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
+            }
+
+
+            updatedParentEntryPointRoutesContent = EntryPointRoutesUtils.addToRoutesArray(tree, routesFilesPath, routesArrayElement);
+            console.log(`*Updated parent ${routesFilesPath} content: `, updatedParentEntryPointRoutesContent);
+
+            return updatedParentEntryPointRoutesContent;
+
+
+        } catch (error) {
+
+            console.error(`Project ${entryPointRootPath} not found in the workspace`);
+            throw error
+
+        }
+
+
+    }
+
+    //------------------------------//
+
+    static findFileAndAddChildRoutes(tree: Tree, entryPointRootPath: string, importStatement: string, routesArrayElement: string) {
 
         // const parentEntryPoint = options.parentEntryPoint;
         if (!entryPointRootPath)
@@ -234,10 +295,7 @@ export class EntryPointRoutesUtils {
 
     //------------------------------//
 
-    private static handleNewChildren(
-        firstObjectString: string,
-        element: string
-    ): string | undefined {
+    private static handleNewChildren(firstObjectString: string, element: string): string | undefined {
 
         let newElementIndentation = DefaultNewElementIndentation;
         const lastPropertyMatch = /,\s*\n(\s*)}/.exec(firstObjectString);
