@@ -1,0 +1,187 @@
+// Individual Feature Card Styling
+.stylish-feature-card {
+    background-color: var(--mat-sys-surface-container-low); // Subtle card background
+    border-radius: 12px; // More rounded corners
+    overflow: hidden; // Ensures content respects border-radius
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid transparent; // For hover effect
+    height: 100%; // Ensure cards in a grid take full height of their row
+
+    &:hover {
+        transform: translateY(-8px) scale(1.02); // More pronounced hover effect
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); // Enhanced shadow
+    }
+
+    // Accent colors for cards (add more as needed)
+    &.card-accent-blue {
+        border-left: 5px solid var(--mat-sys-primary);
+
+        .icon-background.blue-bg {
+            background-color: var(--mat-sys-primary-container);
+        }
+
+        .cta-button.blue-button {
+            background-color: var(--mat-sys-primary);
+            color: var(--mat-sys-on-primary);
+        }
+    }
+
+    &.card-accent-green {
+        border-left: 5px solid var(--mat-sys-tertiary);
+
+        .icon-background.green-bg {
+            background-color: var(--mat-sys-tertiary-container);
+        }
+
+        .cta-button.green-button {
+            background-color: var(--mat-sys-tertiary);
+            color: var(--mat-sys-on-tertiary);
+        }
+    }
+
+    &.card-accent-red {
+        // Example for another color
+        border-left: 5px solid var(--mat-sys-error);
+
+        .icon-background.red-bg {
+            background-color: var(--mat-sys-error-container);
+        }
+
+        .cta-button.red-button {
+            background-color: var(--mat-sys-error);
+            color: var(--mat-sys-on-error);
+        }
+    }
+
+    &.card-accent-orange {
+        // Example for another color
+        border-left: 5px solid var(--mat-color-orange-500); // Assuming you have such a variable
+
+        .icon-background.orange-bg {
+            background-color: var(--mat-color-orange-100);
+        }
+
+        // Assuming you have such a variable
+        .cta-button.orange-button {
+            background-color: var(--mat-color-orange-500);
+            color: var(--mat-color-white);
+        }
+
+        // Assuming you have such a variable
+    }
+
+    // Add other colors as needed
+}
+
+.feature-card-header-custom {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem; // Increased padding
+}
+
+.icon-background {
+    width: 60px; // Larger icon background
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+
+    .stylish-feature-card:hover & {
+        transform: scale(1.1); // Icon background scales on card hover
+    }
+}
+
+.feature-icon-large {
+    font-size: 2rem; // Larger icon
+    // Default icon color can be set here if not overridden by specific bg classes
+}
+
+// Specific background colors for icons (match with feature.color)
+.blue-bg .feature-icon-large {
+    color: var(--mat-sys-primary);
+}
+
+.green-bg .feature-icon-large {
+    color: var(--mat-sys-tertiary);
+}
+
+.red-bg .feature-icon-large {
+    color: var(--mat-sys-error);
+}
+
+.orange-bg .feature-icon-large {
+    color: var(--mat-color-orange-700);
+}
+
+// Assuming variable
+// Add more .<color>-bg .feature-icon-large rules
+
+.feature-title-emphasis {
+    font-size: 1.4rem; // Bolder title
+    font-weight: 600;
+    color: var(--mat-sys-on-surface-variant);
+}
+
+.feature-description-enhanced {
+    padding: 0 1.5rem 1.5rem; // Adjusted padding
+
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--mat-sys-on-surface-variant);
+        margin-bottom: 1rem; // Add some space before actions
+    }
+}
+
+.feature-actions-centered {
+    padding: 0 1.5rem 1.5rem; // Consistent padding
+    text-align: right; // Align button to the right, or center if preferred
+    margin-top: auto; // Pushes actions to the bottom of the card
+}
+
+.cta-button {
+    border-radius: 20px; // Pill-shaped buttons
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    mat-icon {
+        margin-left: 0.5rem;
+    }
+}
+
+
+
+.card-img {
+    width: 100%;
+    height: 200px; // Fixed height for images
+    object-fit: cover; // Ensures the image covers the area without distortion
+    // border-radius: 12px 12px 0 0; // Rounded top corners to match card
+    // margin-bottom: 1rem; // Space between image and content
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  background-size: cover;
+}
+
+
+
+// Dark Mode Adjustments for card-specific elements if needed
+:host-context(.dark-mode) {
+    .stylish-feature-card {
+        background-color: var(--mat-sys-surface-container); // Darker card background
+    }
+
+    .feature-title-emphasis {
+        color: var(--mat-sys-on-surface);
+    }
+
+    .feature-description-enhanced p {
+        color: var(--mat-sys-on-surface-variant);
+    }
+}

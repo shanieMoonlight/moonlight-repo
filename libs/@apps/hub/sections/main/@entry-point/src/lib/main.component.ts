@@ -30,6 +30,7 @@ export class HubMainComponent implements OnDestroy{
   
   constructor() {
     this._navTitle.updateOnNavigationChange();
+    this._iconsService.registerIcons()
   }
 
   //----------------------------//

@@ -21,7 +21,7 @@ export class IconsService {
   registerIcons() {
     this._iconRegistry.addSvgIconLiteral('git', this._sanitizer.bypassSecurityTrustHtml(HubAppSvgs.GIT_ICON));
     this._iconRegistry.addSvgIconLiteral('npm', this._sanitizer.bypassSecurityTrustHtml(HubAppSvgs.NPM_ICON));
-    console.log('IconsService initialized');
+    console.log('IconsService initialized', this._iconRegistry.getNamedSvgIcon('git'));
   }
 
 

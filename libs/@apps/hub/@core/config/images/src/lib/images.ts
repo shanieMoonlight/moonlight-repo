@@ -28,4 +28,24 @@ export class HubAppImages {
   
   //==========================================//
 
+  static Main = class {
+    
+    static OpenSource = class {
+      static readonly default = 'images/main/open-source/open-source.jpeg';
+      static readonly small =   'images/main/open-source/small/open-source.jpeg';
+      static readonly medium =  'images/main/open-source/medium/open-source.jpeg';
+      static readonly large =   'images/main/open-source/large/open-source.jpeg';
+    };
+
+    static Posts = class {
+      static readonly default = 'images/main/posts/posts.jpeg';
+      static readonly small =   'images/main/posts/small/posts.jpeg';
+      static readonly medium =  'images/main/posts/medium/posts.jpeg';
+      static readonly large =   'images/main/posts/large/posts.jpeg';
+    };
+
+  };
+  
+  //==========================================//
+
 } //Cls

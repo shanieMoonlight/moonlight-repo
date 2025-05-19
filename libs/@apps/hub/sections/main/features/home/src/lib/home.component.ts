@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
-import { MAIN_PRINCIPAL_ROUTES } from '@sb-hub/sections-main/config/route-data';
+import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
+import { FeatureCardComponent } from './ui/card/card.component'; // Import the new card component
 
 //##############################################//
 
@@ -24,9 +24,9 @@ import { HighlightModule } from 'ngx-highlightjs';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
-    HubHeroBannerComponent,
     HighlightModule,
-    NgClass
+    NgClass,
+    FeatureCardComponent // Add the new card component to imports
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -46,8 +46,11 @@ export class HubMainHomeComponent implements OnInit {
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
-  protected _features = signal(MAIN_PRINCIPAL_ROUTES);
+  protected _features = signal(MainPrincipalRoutes);
   protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
+  protected _npmUrl = signal(HubAppConstants.NPM_PKG_URL);
+
+  protected _currentYear = new Date().getFullYear()
 
   //- - - - - - - - - - - - - - -//
 

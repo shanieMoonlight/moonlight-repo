@@ -2,8 +2,6 @@
   "name": "@sb-hub/core-config",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
     "@spider-baby/material-theming": "^1.0.0",
     "@spider-baby/utils-seo": "^0.0.1"
   },

@@ -1,0 +1,7 @@
+Processing Summary - 19/05/2025 15:09:46
+Source folder: C:\Users\Shaneyboy\Desktop\imgs\posts
+Total folder types processed: 4
+- small: 2 images processed
+- medium: 2 images processed
+- large: 2 images processed
+- xlarge: 2 images processed

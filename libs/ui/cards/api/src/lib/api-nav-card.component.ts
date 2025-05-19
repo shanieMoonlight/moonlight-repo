@@ -1,9 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
 
 export interface ApiRouteData {
   title: string;
@@ -12,6 +12,7 @@ export interface ApiRouteData {
   isSvgIcon?: boolean
   route: string;
   color?: string; // Optional: Primary, secondary, tertiary, etc.
+  img?: string; // Optional: image URL
 }
 
 @Component({

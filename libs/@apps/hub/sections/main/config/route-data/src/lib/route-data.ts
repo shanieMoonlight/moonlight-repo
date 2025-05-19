@@ -1,7 +1,8 @@
 import { ApiRouteData } from '@spider-baby/ui-cards/api';
 import { HubAppRouteDefs } from '@sb-hub/app/route-definitions';
+import { HubAppImages } from '@sb-hub/core-config/images';
 
-export const MAIN_PRINCIPAL_ROUTES: ApiRouteData[] = [
+export const MainPrincipalRoutes: ApiRouteData[] = [
   {
     title: 'Open Source',
     description:
@@ -9,6 +10,7 @@ export const MAIN_PRINCIPAL_ROUTES: ApiRouteData[] = [
     route: HubAppRouteDefs.fullPathsWithSlash.main.route('open-source'),
     icon: 'code',
     color: 'primary',
+    img:HubAppImages.Main.OpenSource.default,
   },
   {
     title: 'Posts',
@@ -17,5 +19,6 @@ export const MAIN_PRINCIPAL_ROUTES: ApiRouteData[] = [
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route(),
     icon: 'school',
     color: 'secondary',
+    img:HubAppImages.Main.Posts.default,
   }
 ];

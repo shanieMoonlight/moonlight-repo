@@ -1,0 +1,29 @@
+<mat-card class="stylish-feature-card" [ngClass]="'card-accent-' + _color()">
+  
+    <mat-card-header >
+            <mat-icon mat-card-avatar 
+                [ngClass]="_color()"  
+                class="feature-icon-large">
+                {{ _icon() }}
+            </mat-icon>
+        <mat-card-title class="feature-title-emphasis">{{ _title() }}</mat-card-title>
+  </mat-card-header>
+  
+    <img mat-card-image class="card-img" 
+        [src]="_img()" 
+        [alt]="_title()">
+        
+  <mat-card-content class="feature-description-enhanced">
+    <p>{{ _description() }}</p>
+  </mat-card-content>
+  
+  <mat-card-actions class="feature-actions-centered">
+    <a mat-raised-button class="cta-button" 
+        [ngClass]="_color()" 
+        [routerLink]="_route()">
+        Explore {{ _title() }}
+      <mat-icon>arrow_forward</mat-icon>
+    </a>
+  </mat-card-actions>
+
+</mat-card>
