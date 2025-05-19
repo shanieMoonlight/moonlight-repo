@@ -12,6 +12,16 @@ export const IS_HALLOWEEN =
 // export const IS_HALLOWEEN = true
 
 const _themeOptions: ThemeOption[] = [
+
+  ThemeOption.create({
+    // --- NO CHANGE ---
+    darkMode: 'system',
+    label: 'Sunset Glow',
+    value: 'sunset-glow',
+    primaryColor: '#FF4500', // Tangerine
+    secondaryColor: '#FFD700', // Light Orange/Yellow
+    tertiaryColor: '#FF69B4', // Watermelon Pink
+  }), 
   ThemeOption.create({
     darkMode: 'dark',
     label: 'Mint & Coral',
@@ -44,15 +54,6 @@ const _themeOptions: ThemeOption[] = [
     primaryColor: '#1E4D2B', // Dark Forest Green
     secondaryColor: '#C8A951', // Old Gold
     tertiaryColor: '#D7CEC7', // Light Gray/Off-white
-  }),
-  ThemeOption.create({
-    // --- NO CHANGE ---
-    darkMode: 'system',
-    label: 'Sunset Glow',
-    value: 'sunset-glow',
-    primaryColor: '#FF4500', // Tangerine
-    secondaryColor: '#FFD700', // Light Orange/Yellow
-    tertiaryColor: '#FF69B4', // Watermelon Pink
   }),
 ];
 

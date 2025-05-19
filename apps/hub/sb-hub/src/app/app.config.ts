@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       appRoutes,
       // Use withInMemoryScrolling for scroll options
       withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled', // Or 'top'
+        scrollPositionRestoration: 'top', // Or 'top'
       }),
       withRouterConfig({})
     ),

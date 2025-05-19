@@ -1,5 +1,6 @@
 import { HubBlogSectionRoutesDefs } from '@sb-hub/sections-blog/route-defs';
 import { ApiRouteData } from '@sb-hub/ui-cards/api';
+import { HubAppImages } from '@sb-hub/core-config/images';
 
 
 
@@ -10,5 +11,7 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     route: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
     icon: 'follow_the_signs_',
     color: 'secondary',
+    img: HubAppImages.Blog.RouteDefsTutorial.default,
+
   },
 ];

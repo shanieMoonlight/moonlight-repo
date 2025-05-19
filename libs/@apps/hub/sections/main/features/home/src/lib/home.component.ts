@@ -41,11 +41,11 @@ export class HubMainHomeComponent implements OnInit {
 
   //- - - - - - - - - - - - - - -//
 
-  protected _title = 'Spider-Baby ';
-  protected _subtitle = 'Concise description of what this application does';
-  protected _description = `This is a more detailed description of your application's purpose and main features. 
-  You can elaborate on key functionality, target users, or any other important information
-  that helps explain what makes your application valuable.`;
+// ...existing code...
+  protected _title = 'Spider-Baby';
+  protected _subtitle = 'A Journey Through Code, Content, and Open Source';
+  protected _description = `Hi, I'm Spider-Baby. This space is dedicated to my passion for development and sharing knowledge. You'll find my blog articles, project showcases, and various open-source contributions. Feel free to look around and get inspired!`;
+// ...existing code...
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 

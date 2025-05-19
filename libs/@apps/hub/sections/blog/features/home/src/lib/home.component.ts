@@ -7,6 +7,9 @@ import { HubBlogPrincipalRoutes } from '@sb-hub/sections-blog/config/route-data'
 import { HubHeroBannerComponent } from '@sb-hub/shared-ui/hero-banner';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; 
 
 @Component({
   selector: 'sb-hub-blog-home',
@@ -15,6 +18,9 @@ import { SeoService } from '@spider-baby/utils-seo';
     RouterModule,
     MatEverythingModule,
     HubHeroBannerComponent,
+    HubHeroBanner2Component,
+    HubSharedUiFooterComponent,
+    HubUiFancyNavCardComponent, 
     NgClass
   ],
   templateUrl: './home.component.html',
@@ -27,11 +33,11 @@ export class HubBlogHomeComponent implements OnInit {
 
   //- - - - - - - - - - - - - - -//
 
-  protected _title = 'Spider-Baby ';
-  protected _subtitle = 'Concise description of what this application does';
-  protected _description = `This is a more detailed description of your application's purpose and main features. 
-  You can elaborate on key functionality, target users, or any other important information
-  that helps explain what makes your application valuable.`;
+// ...existing code...
+  protected _title = 'Spider-Baby Blog';
+  protected _subtitle = 'Thoughts, Tutorials, and Musings on All Things Tech';
+  protected _description = `Dive into my latest articles where I explore web development, share coding tips, and discuss new technologies. A place for learning, sharing, and sparking new ideas.`;
+// ...existing code...
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 

@@ -50,4 +50,28 @@ export class HubAppImages {
   
   //==========================================//
 
+  static Blog = class {
+    
+    static RouteDefsTutorial = class {
+      static readonly default = 'images/blog/route-defs/route-defs-post.jpg';
+      static readonly small =   'images/blog/route-defs/small/route-defs-post.jpg';
+      static readonly medium =  'images/blog/route-defs/medium/route-defs-post.jpg';
+      static readonly large =   'images/blog/route-defs/large/route-defs-post.jpg';
+      static readonly xLarge =  'images/blog/route-defs/xlarge/route-defs-post.jpg';
+    };
+  };
+  
+  //==========================================//
+
+
+  static Svgs = class {
+    
+      static readonly spiderWeb = 'images/svgs/spider-web.svg';
+      static readonly spiderWebWonky = 'images/svgs/spider-web-wonky.svg';
+      static readonly spiderWebWonky2 = 'images/svgs/spider-web-wonky-2.svg';
+      
+  };
+  
+  //==========================================//
+
 } //Cls

@@ -1,3 +1,8 @@
+<sb-hub-hero-banner-2
+  [title]="_title"
+  [subtitle]="_subtitle"
+  [description]="_description"/>
+
 <div class="component-container">
   <!-- <sb-hub-hero-banner
     [title]="_title"
@@ -11,9 +16,10 @@
     secondaryButtonText="View on GitHub"
     [secondaryButtonLink]="_gitUrl()"
     secondaryButtonIcon="code"/> -->
+    
 
   <section class="features-section">
-    <h2 class="section-title">Blog Posts</h2>
+    <!-- <h2 class="section-title">Blog Posts</h2> -->
     <!-- <p class="section-description">
       Explore these examples to see how our solution can help with your
       projects.
@@ -21,6 +27,15 @@
 
     <div class="features-grid">
       @for (feature of _features(); track feature.title) {
+        <sb-hub-fancy-nav-card 
+          [icon]="feature.icon" 
+          [title]="feature.title" 
+          [description]="feature.description" 
+          [route]="feature.route" 
+          [color]="feature.color"
+          [img]="feature.img" />
+      }
+      <!-- @for (feature of _features(); track feature.title) {
       <mat-card class="feature-card">
         <mat-card-header>
           <mat-icon  [ngClass]="feature.color"  mat-card-avatar>{{ feature.icon }}</mat-icon>
@@ -35,12 +50,12 @@
           </a>
         </mat-card-actions>
       </mat-card>
-      }
+      } -->
     </div>
   </section>
 
-  <footer class="home-footer">
-    <p>Spider-Baby</p>
-    <p><small>Built with Angular</small></p>
-  </footer>
 </div>
+<footer class="home-footer">
+  <p>Spider-Baby</p>
+  <p><small>Built with Angular</small></p>
+</footer>

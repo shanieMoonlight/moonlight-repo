@@ -6,13 +6,15 @@ import { HubOpenSourceDemoCardComponent } from '@sb-hub/sections-main/features/o
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; 
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 @Component({
   selector: 'hub-open-source-demos',
   imports: [
     MatEverythingModule,
     HubOpenSourceDemoCardComponent,
     HubUiFancyNavCardComponent,
-    HubHeroBanner2Component
+    HubHeroBanner2Component,
+    HubSharedUiFooterComponent
   ],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.scss',

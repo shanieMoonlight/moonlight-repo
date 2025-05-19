@@ -66,6 +66,19 @@
       border-radius: 50%;
       opacity: 0.1;
       animation: float 20s infinite ease-in-out alternate;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      filter: blur(5px);
+      filter: blur(10px);
+
+      .shape-svg {
+        width: 80%;
+        height: 80%;
+        // color: var(--mat-sys-primary); // Or any other color
+        fill: currentColor; // This would be in the SVG file itself
+      }
+
     }
 
     .shape-1 {
@@ -128,5 +141,22 @@
 
   .hero-description {
     color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+
+//  Animations
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) translateX(10px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
   }
 }
