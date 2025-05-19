@@ -1,5 +1,5 @@
 {
-  "name": "spider-baby-ui-cards",
+  "name": "sb-hub-ui-cards",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/cards/src",
   "prefix": "sb",

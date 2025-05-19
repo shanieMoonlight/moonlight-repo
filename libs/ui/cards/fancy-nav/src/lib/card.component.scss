@@ -15,109 +15,37 @@
     // Accent colors for cards (add more as needed)
     &.card-accent-blue {
         border-left: 5px solid var(--mat-sys-primary);
-
-        .icon-background.blue-bg {
-            background-color: var(--mat-sys-primary-container);
-        }
-
-        .cta-button.blue-button {
-            background-color: var(--mat-sys-primary);
-            color: var(--mat-sys-on-primary);
-        }
     }
 
     &.card-accent-green {
         border-left: 5px solid var(--mat-sys-tertiary);
-
-        .icon-background.green-bg {
-            background-color: var(--mat-sys-tertiary-container);
-        }
-
-        .cta-button.green-button {
-            background-color: var(--mat-sys-tertiary);
-            color: var(--mat-sys-on-tertiary);
-        }
     }
 
     &.card-accent-red {
         // Example for another color
         border-left: 5px solid var(--mat-sys-error);
-
-        .icon-background.red-bg {
-            background-color: var(--mat-sys-error-container);
-        }
-
-        .cta-button.red-button {
-            background-color: var(--mat-sys-error);
-            color: var(--mat-sys-on-error);
-        }
     }
 
     &.card-accent-orange {
         // Example for another color
         border-left: 5px solid var(--mat-color-orange-500); // Assuming you have such a variable
-
-        .icon-background.orange-bg {
-            background-color: var(--mat-color-orange-100);
-        }
-
-        // Assuming you have such a variable
-        .cta-button.orange-button {
-            background-color: var(--mat-color-orange-500);
-            color: var(--mat-color-white);
-        }
-
-        // Assuming you have such a variable
     }
 
     // Add other colors as needed
 }
 
-.feature-card-header-custom {
+.title {
     display: flex;
-    align-items: center;
-    padding: 1.5rem; // Increased padding
-}
-
-.icon-background {
-    width: 60px; // Larger icon background
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-    transition: transform 0.3s ease;
-
-    .stylish-feature-card:hover & {
-        transform: scale(1.1); // Icon background scales on card hover
-    }
 }
 
 .feature-icon-large {
     font-size: 2rem; // Larger icon
-    // Default icon color can be set here if not overridden by specific bg classes
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
 }
-
-// Specific background colors for icons (match with feature.color)
-.blue-bg .feature-icon-large {
-    color: var(--mat-sys-primary);
-}
-
-.green-bg .feature-icon-large {
-    color: var(--mat-sys-tertiary);
-}
-
-.red-bg .feature-icon-large {
-    color: var(--mat-sys-error);
-}
-
-.orange-bg .feature-icon-large {
-    color: var(--mat-color-orange-700);
-}
-
-// Assuming variable
-// Add more .<color>-bg .feature-icon-large rules
 
 .feature-title-emphasis {
     font-size: 1.4rem; // Bolder title
@@ -157,18 +85,41 @@
     }
 }
 
-
-
-.card-img {
+.card-image-container {
     width: 100%;
-    height: 200px; // Fixed height for images
-    object-fit: cover; // Ensures the image covers the area without distortion
-    // border-radius: 12px 12px 0 0; // Rounded top corners to match card
-    // margin-bottom: 1rem; // Space between image and content
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
-  background-size: cover;
+    height: 200px; // Or your desired height
+    background-size: cover;
+    background-position: center;
+    position: relative; // For positioning the title overlay
+    display: flex; // To help center the title, if needed
+    align-items: flex-end; // Aligns title to the bottom
+    padding: 1rem; // Padding for the title overlay
+    box-sizing: border-box; // Ensures padding doesn't add to height/width
+
+    &::before {
+        // Optional: adds a subtle gradient overlay for better text readability
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 70%); // Changed gradient direction
+        z-index: 1;
+    }
 }
 
+.card-title-overlay {
+    position: relative; // Ensure it's above the ::before pseudo-element
+    z-index: 2;
+    color: white; // Or a color that contrasts well with your images
+    font-size: 1.5rem; // Adjust as needed
+    font-weight: 600;
+    margin: 0; // Remove default margin
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); // Text shadow for readability
+    //   display: flex;
+    //   align-self: flex-end;
+}
 
 
 // Dark Mode Adjustments for card-specific elements if needed

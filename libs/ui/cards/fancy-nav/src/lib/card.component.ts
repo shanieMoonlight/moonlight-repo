@@ -7,10 +7,9 @@ import { RouterModule } from '@angular/router';
 import { HubAppImages } from '@sb-hub/core-config/images';
 
 @Component({
-    selector: 'hub-feature-card',
+    selector: 'sb-hub-fancy-nav-card',
     standalone: true,
     imports: [
-        // CommonModule,
         NgClass,
         RouterModule,
         MatCardModule,
@@ -21,7 +20,7 @@ import { HubAppImages } from '@sb-hub/core-config/images';
     styleUrl: './card.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FeatureCardComponent {
+export class SbHubUiFancyNavCardComponent {
 
     _icon = input.required<string>({ alias: 'icon' });
     _title = input.required<string>({ alias: 'title' });

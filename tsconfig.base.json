@@ -167,6 +167,9 @@
       ],
       "@spider-baby/ui-cards": ["libs/ui/cards/src/index.ts"],
       "@spider-baby/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
+      "@spider-baby/ui-cards/fancy-nav": [
+        "libs/ui/cards/fancy-nav/src/index.ts"
+      ],
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
       "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
       "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],

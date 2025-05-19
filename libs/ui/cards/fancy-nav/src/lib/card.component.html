@@ -1,17 +1,24 @@
 <mat-card class="stylish-feature-card" [ngClass]="'card-accent-' + _color()">
   
-    <mat-card-header >
+    <!-- <mat-card-header >
             <mat-icon mat-card-avatar 
                 [ngClass]="_color()"  
                 class="feature-icon-large">
                 {{ _icon() }}
             </mat-icon>
         <mat-card-title class="feature-title-emphasis">{{ _title() }}</mat-card-title>
-  </mat-card-header>
-  
-    <img mat-card-image class="card-img" 
-        [src]="_img()" 
-        [alt]="_title()">
+  </mat-card-header> -->
+
+  <div class="card-image-container" [style.background-image]="'url(' + _img() + ')'">
+    <div class="card-title-overlay">
+        <div class="title">
+            <mat-icon class="feature-icon-large">
+                {{ _icon() }}
+            </mat-icon>    
+            {{ _title() }}
+        </div>
+    </div>
+  </div>
         
   <mat-card-content class="feature-description-enhanced">
     <p>{{ _description() }}</p>

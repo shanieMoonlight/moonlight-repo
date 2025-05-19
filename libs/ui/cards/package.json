@@ -5,7 +5,8 @@
     "@angular/core": "^19.2.0",
     "@angular/material": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@angular/common": "^19.2.0"
+    "@angular/common": "^19.2.0",
+    "@sb-hub/core-config": "0.0.1"
   },
   "sideEffects": false
 }
