@@ -1,5 +1,5 @@
 import nx from '@nx/eslint-plugin';
-import baseConfig from '../../../../../../../eslint.config.mjs';
+import baseConfig from '../../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'sbHub',
+          prefix: 'sb',
           style: 'camelCase',
         },
       ],
@@ -34,7 +34,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'sb-hub',
+          prefix: 'sb',
           style: 'kebab-case',
         },
       ],

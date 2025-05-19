@@ -1,11 +1,13 @@
-<div class="component-container">
-    <div class="banner">
-        <img [src]="_bannerImg" alt="Angular routing banner">
-        <div class="banner-overlay">
-            <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
-        </div>
-        <!-- {{_bannerImg}} -->
+<div class="banner">
+    <img sbProgImgLoader 
+        [src]="_bannerPlaceholder" 
+        [lrgUrl]="_bannerImg" alt="Angular routing banner">
+    <div class="banner-overlay">
+        <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
     </div>
+    <!-- {{_bannerImg}} -->
+</div>
+<div class="component-container">
     @if(_showDemoLink()){
         <a mat-button class="demo-link" [href]="_demoLink" target="_blank">
             <mat-icon>play_circle</mat-icon>

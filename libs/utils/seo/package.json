@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@spider-baby/dev-console": "1.1.1",
+    "@angular/router": "19.2.9",
+    "rxjs": "~7.8.0",
+    "@angular/platform-browser": "19.2.9",
+    "@angular/material": "^19.2.9",
+    "@angular/service-worker": "19.2.9"
   },
   "sideEffects": false
 }

@@ -12,11 +12,12 @@ import { AppRoutesExamplesTs } from './code/using-app-route-defs';
 import { DownloadCodeSampleService } from './download-setup/download-setup.service';
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
 import { AppConstants } from './config/constants';
-import { LibImages } from './config/images';
+import { LibImages, PlaceholderUtils } from './config/images';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { Subject } from 'rxjs';
 import { SeoService } from '@spider-baby/utils-seo';
+import { ProgressiveImageLoaderDirective } from '@spider-baby/utils-img/progressive';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -27,7 +28,8 @@ import { SeoService } from '@spider-baby/utils-seo';
     CommonModule,
     AppStructureDiagramComponent,
     HighlightModule,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    ProgressiveImageLoaderDirective
   ],
   providers: [DownloadCodeSampleService],
   host: { ngSkipHydration: 'true' },
@@ -53,10 +55,12 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   //- - - - - - - - - - - - - - //
 
   protected readonly _codeSamplesZip = AppConstants.Downloads.CodeSampleZipFile
-  protected readonly _bannerImg = LibImages.Post.Banner.xlarge
   protected _showButton = signal(false)
   protected _showDemoLink = signal(false)
-  protected _demoLink ='https://spider-baby-route-defs.web.app/'
+  protected _demoLink = 'https://spider-baby-route-defs.web.app/'
+
+  protected readonly _bannerImg = LibImages.Post.Banner.xlarge
+  protected readonly _bannerPlaceholder = LibImages.Post.Banner.placeholder
 
   //- - - - - - - - - - - - - - //
 
@@ -76,9 +80,11 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   //----------------------------//
 
   ngOnInit() {
-    setTimeout(() => {
-      this._showButton.set(true);
-    }, 2000);
+    
+    setTimeout(() =>
+      this._showButton.set(true),
+      2000
+    )
 
     this._seoService.updateMetadata({
       title: 'Spider-Baby | Route Definitions Tutorial',
@@ -86,7 +92,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
       image: LibImages.Post.Banner.medium,
     })
 
-    
+
     // Access static data
     const staticData = this.route.snapshot.data;
     console.log('Static data:', staticData);

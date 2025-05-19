@@ -179,6 +179,10 @@
       "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
+      "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
+      "@spider-baby/utils-img/progressive": [
+        "libs/utils/imgs/progressive/src/index.ts"
+      ],
       "@spider-baby/utils-mat-everything": [
         "libs/utils/mat/everything/src/index.ts"
       ],
