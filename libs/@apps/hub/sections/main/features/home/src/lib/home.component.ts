@@ -10,7 +10,7 @@ import { HubAppImages } from '@sb-hub/core-config/images';
 import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
-import { SbHubUiFancyNavCardComponent } from '@spider-baby/ui-cards/fancy-nav'; // Import the new card component
+import { SbHubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 
 //##############################################//
 

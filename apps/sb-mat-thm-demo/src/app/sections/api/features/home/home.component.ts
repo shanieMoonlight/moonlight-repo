@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
-import { SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
+import { SbMatApiNavCardComponent } from '@sb-hub/ui-cards/api';
 import { SeoService } from '@spider-baby/utils-seo';
 import { API_ROUTES } from '../../config/route-data';
 

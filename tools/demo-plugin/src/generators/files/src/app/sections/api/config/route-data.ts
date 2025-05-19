@@ -1,4 +1,4 @@
-import { ApiRouteData } from "@spider-baby/ui-cards/api";
+import { ApiRouteData } from "@sb-hub/ui-cards/api";
 
 export const API_ROUTES: ApiRouteData[] = [
   {

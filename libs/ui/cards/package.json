@@ -1,5 +1,5 @@
 {
-  "name": "@spider-baby/ui-cards",
+  "name": "@sb-hub/ui-cards",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/core": "^19.2.0",

@@ -5,7 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
-import { ApiRouteData, SbMatApiNavCardComponent } from '@spider-baby/ui-cards/api';
+import { ApiRouteData, SbMatApiNavCardComponent } from '@sb-hub/ui-cards/api';
 import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';

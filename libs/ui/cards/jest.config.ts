@@ -1,5 +1,5 @@
 export default {
-  displayName: '@spider-baby/ui-cards',
+  displayName: '@sb-hub/ui-cards',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/libs/ui/cards',

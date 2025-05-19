@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
-    "@spider-baby/ui-cards": "0.0.1"
+    "@sb-hub/ui-cards": "0.0.1"
   },
   "sideEffects": false
 }

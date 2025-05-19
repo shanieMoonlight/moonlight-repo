@@ -1,5 +1,5 @@
 import { HubBlogSectionRoutesDefs } from '@sb-hub/sections-blog/route-defs';
-import { ApiRouteData } from '@spider-baby/ui-cards/api';
+import { ApiRouteData } from '@sb-hub/ui-cards/api';
 
 
 

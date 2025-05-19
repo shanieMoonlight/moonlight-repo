@@ -1,4 +1,4 @@
-import { ApiRouteData } from '@spider-baby/ui-cards/api';
+import { ApiRouteData } from '@sb-hub/ui-cards/api';
 import { HubAppRouteDefs } from '@sb-hub/app/route-definitions';
 import { HubAppImages } from '@sb-hub/core-config/images';
 
