@@ -33,3 +33,37 @@
     )
   );
 }
+
+// Styles for mat-icon when its parent [mat-icon-button] has a specific color class
+// and we want to use the "on-" color variant for the icon.
+
+[mat-icon-button].primary {
+  .mat-icon {
+    color: var(--mat-sys-on-primary);
+    // Add any other optional styles for an icon within a 'primary' mat-icon-button
+  }
+}
+
+[mat-icon-button].secondary {
+  .mat-icon {
+    color: var(--mat-sys-on-secondary);
+    // Optional: other styles
+  }
+}
+
+[mat-icon-button].tertiary {
+  .mat-icon {
+    color: var(--mat-sys-on-tertiary);
+    // Optional: other styles
+  }
+}
+
+[mat-icon-button].error {
+  .mat-icon {
+    // Assuming you have a --mat-sys-on-error, otherwise adjust as needed
+    // For example, it might be --mat-sys-on-error-container or a specific contrast color
+    color: var(--mat-sys-on-error);
+    // Optional: other styles
+  }
+
+}
