@@ -22,6 +22,14 @@ export const API_ROUTES: ApiRouteData[] = [
     isSvgIcon: true,
     route: '/firebase/git-secrets',
     color: 'primary'
+  },
+  {
+    title: 'GIT Secrets',
+    description: 'Deploying your app to Firebase Hosting is a breeze.',
+    icon: 'rocket_launch',
+    isSvgIcon: false,
+    route: '/firebase/deploy',
+    color: 'secondary'
   }
 ]
 

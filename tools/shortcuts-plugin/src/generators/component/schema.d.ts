@@ -12,4 +12,3 @@ export interface NoramlizedComponentGeneratorSchema extends ComponentGeneratorSc
   directory: string;
   prefix:string
 }
-

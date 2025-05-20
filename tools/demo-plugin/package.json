@@ -7,7 +7,26 @@
   "types": "./src/index.d.ts",
   "dependencies": {
     "@nx/devkit": "21.0.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@nx/angular": "21.0.0",
+    "@nx/js": "21.0.0",
+    "@nx/eslint-plugin": "21.0.0",
+    "@angular/core": "19.2.9",
+    "@angular/router": "19.2.9",
+    "@angular/common": "19.2.9",
+    "@angular/service-worker": "19.2.9",
+    "@spider-baby/material-theming": "1.0.2",
+    "@spider-baby/utils-seo": "0.0.1",
+    "ngx-highlightjs": "^14.0.0",
+    "@angular/platform-browser": "19.2.9",
+    "highlight.js": "10.7.3",
+    "@spider-baby/utils-mat-everything": "0.0.1",
+    "@sb-hub/ui-cards": "0.0.1",
+    "@angular/cdk": "^19.2.9",
+    "@spider-baby/utils-share": "0.0.1",
+    "rxjs": "~7.8.0",
+    "@angular/material": "^19.2.9",
+    "@spider-baby/utils-open-in-new-window": "1.0.0"
   },
   "generators": "./generators.json"
 }

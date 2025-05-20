@@ -17,6 +17,11 @@ export const firebaseRoutes: Route[] = [
                 loadComponent: () => import('./features/git-secrets/git-secrets.component').then(m => m.FirebaseGitSecretsComponent),
             },
             {
+                path: 'deploy',
+                title: 'SpiderBaby Firebase Tutorials - How to Deploy to Firebase Hosting',
+                loadComponent: () => import('./features/deploy/deploy.component').then(m => m.FirebaseDeployComponent),
+            },
+            {
                 path: '',
                 title: 'SpiderBaby Material Theming - Enhanced Angular Material Design',
                 loadComponent: () => import('./features/home/home.component').then(m => m.FirebaseHomeComponent),
