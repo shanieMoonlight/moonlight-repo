@@ -1,4 +1,3 @@
-
 import { isPlatformBrowser } from '@angular/common';
 import { devConsole } from '@spider-baby/dev-console';
 import { AfterContentInit, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID, Renderer2, input, output, effect } from '@angular/core';
@@ -20,9 +19,11 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   private _el = inject(ElementRef);
   private _renderer = inject(Renderer2);
 
-  //- - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-  fallbackUrl = input<string>(fallBackSvgDataUri);
+  fallbackUrl = input(fallBackSvgDataUri, {
+    transform: (value) => value ?? fallBackSvgDataUri,
+  });
 
   /**
    * Function to convert the inital small image url to the large image url.
@@ -170,7 +171,7 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   private loadFallback() {
 
 
-    this._renderer.setAttribute(this._nativeElement, 'src', this.fallbackUrl())
+    this._renderer.setAttribute(this._nativeElement, 'src', this.fallbackUrl() as string)
     this._renderer.setStyle(this._nativeElement, 'object-fit', 'contain');
     this.error.emit()
 

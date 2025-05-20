@@ -14,12 +14,12 @@ class MockProgressiveImageLoaderDirective {
   lrgUrl = input<string | null | undefined>();
   retryTimeoutMs = input<number>();
   retryCount = input<number>();
-  // Use a different name to avoid linting issues
-  errorOccurred = output<void>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
+  error = output<void>(); // Changed from errorOccurred to error
 
   // Method to trigger error emission for testing
   triggerError() {
-    this.errorOccurred.emit();
+    this.error.emit(); // Changed from errorOccurred to error
   }
 }
 

@@ -19,7 +19,9 @@ type ObjectFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
 export class ProgressiveImageComponent {
 
     //- - - - - - Inputs - - - - - - - - //
+
     placeholder = input.required<string>();
+    alt = input<string>('Progressive Image');
     fallbackUrl = input<string | undefined>(undefined);
     smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(undefined);
     lrgUrl = input<string | null | undefined>('');

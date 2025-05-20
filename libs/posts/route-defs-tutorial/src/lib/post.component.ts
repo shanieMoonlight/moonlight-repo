@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { ProgressiveImageLoaderDirective, ProgImgLoaderFunctions } from '@spider-baby/utils-img/progressive';
+import { ProgressiveImageLoaderDirective, ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -29,7 +29,8 @@ import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-d
     AppStructureDiagramComponent,
     HighlightModule,
     SbMatNotificationsModalComponent,
-    ProgressiveImageLoaderDirective
+    ProgressiveImageLoaderDirective,
+    ProgressiveImageComponent
   ],
   providers: [DownloadCodeSampleService],
   host: { ngSkipHydration: 'true' },

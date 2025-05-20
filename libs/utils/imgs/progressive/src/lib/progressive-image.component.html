@@ -1,5 +1,6 @@
 <img
   [src]="placeholder()"
+  [alt]="alt()"
   sbProgImgLoader
   [fallbackUrl]="fallbackUrl()"
   [smlToLrgFn]="smlToLrgFn()"
@@ -7,5 +8,6 @@
   [retryTimeoutMs]="retryTimeoutMs()"
   [retryCount]="retryCount()"
   (error)="imgError.emit()"
-  alt="Progressive Image"
+  [style.objectFit]="objectFit()"
+  [style.objectPosition]="objectPosition()"
 >

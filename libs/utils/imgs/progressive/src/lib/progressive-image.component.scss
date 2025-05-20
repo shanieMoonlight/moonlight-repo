@@ -1,16 +1,13 @@
-
 :host {
-  display: inline-block; /* Default display, can be overridden */
-  line-height: 0; /* Avoids extra space below the image */
-  vertical-align: middle; /* Better alignment with text if inline-block */
+    display: inline-block;
+    line-height: 0;
+    vertical-align: middle;
+    /* Better alignment with text if inline-block */
+    width: 100%;
+    height: 100%;
 }
 
 img {
-  width: 100%;
-  height: 100%;
-  /*
-    object-fit can be styled by the user, e.g.,
-    my-selector sb-progressive-image img { object-fit: cover; }
-    The component will set 'object-fit: contain' for the fallback SVG.
-  */
+    width: 100%;
+    height: 100%;
 }
