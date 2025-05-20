@@ -1,13 +1,4 @@
-export class PlaceholderUtils {
 
- static getPlaceholder(url: string): string {
-    const parts = url.split('/');
-    if (parts.length >= 1)  // Ensure there's at least one part to avoid issues with empty or root URLs
-      parts.splice(parts.length - 1, 0, 'placeholder')
-    return parts.join('/');
-  }
-
-}
 
 export class LibImages {
 

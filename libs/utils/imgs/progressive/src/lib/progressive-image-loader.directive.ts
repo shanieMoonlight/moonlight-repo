@@ -20,7 +20,7 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   private _el = inject(ElementRef);
   private _renderer = inject(Renderer2);
 
-  //- - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - - - - //
 
   fallbackUrl = input<string>(fallBackSvgDataUri);
 
@@ -43,10 +43,11 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   retryCount = input<number>(3);
 
   //- - - - - - - - - - - - - - - //
+
   // eslint-disable-next-line @angular-eslint/no-output-native
   error = output<void>();
 
-  //- - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - - - - //
 
   private _nativeElement: HTMLElement = this._el.nativeElement;
   private _cancelOnError?: () => void;

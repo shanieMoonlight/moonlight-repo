@@ -18,7 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HubHeroBanner2Component {
 
-  private sanitizer= inject (DomSanitizer)
+  private sanitizer = inject(DomSanitizer)
 
   _title = input<string>('', { alias: 'title' });
   _subtitle = input<string>('', { alias: 'subtitle' });
@@ -26,25 +26,20 @@ export class HubHeroBanner2Component {
   // _imageUrl = input<string | null>(null);
   // _imageAlt = input<string>('Hero Image');
   _actionsTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'actionsTemplate' });
-  _bgImg = input<string | null, string | undefined>(null, { // Changed type to string | null for the signal
-    alias: 'backgroundImage',
-    transform: (value: string | undefined): string | null => {
-      return value ? `url(${value})` : null;
-    }
-  });
-  
+  _bgImg = input<string | undefined>(undefined, { alias: 'backgroundImage' });
+
 
   // _webSvg = HubAppSvgs.WEB
 
 
-     rawSvgString = HubAppSvgs.WEB;
-    // Create a data URI from the SVG string
-     svgDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(this.rawSvgString)}`;
-    // Sanitize the URL to prevent XSS vulnerabilities
-    _webSvg = this.sanitizer.bypassSecurityTrustUrl(this.svgDataUri);
+  rawSvgString = HubAppSvgs.WEB;
+  // Create a data URI from the SVG string
+  svgDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(this.rawSvgString)}`;
+  // Sanitize the URL to prevent XSS vulnerabilities
+  _webSvg = this.sanitizer.bypassSecurityTrustUrl(this.svgDataUri);
 
-    _spiderWeb = HubAppImages.Svgs.spiderWeb
-    _spiderWeb2 = HubAppImages.Svgs.spiderWebWonky
-    _spiderWeb3 = HubAppImages.Svgs.spiderWebWonky2
+  _spiderWeb = HubAppImages.Svgs.spiderWeb
+  _spiderWeb2 = HubAppImages.Svgs.spiderWebWonky
+  _spiderWeb3 = HubAppImages.Svgs.spiderWebWonky2
 
 }

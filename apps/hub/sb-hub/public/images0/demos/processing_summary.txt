@@ -1,0 +1,7 @@
+Processing Summary - 13/05/2025 14:51:50
+Source folder: C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\hub\sb-hub\public\images\demos
+Total folder types processed: 4
+- small: 4 images processed
+- medium: 4 images processed
+- large: 4 images processed
+- xlarge: 4 images processed

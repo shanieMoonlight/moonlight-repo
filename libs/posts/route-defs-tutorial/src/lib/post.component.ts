@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { ProgressiveImageLoaderDirective, ProgImgLoaderFunctions } from '@spider-baby/utils-img/progressive';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
+import { Subject } from 'rxjs';
 import { AdminSubSetionRouteDefsCode } from './code/admin-sub-section';
 import { AppRouteDefsCode } from './code/app-route-defs';
 import { ProdAdminSubSetionRouteDefsCode } from './code/prod-admin-sub-section';
 import { RouteUtilsCode } from './code/route-utils';
 import { SimpleAppRoutesWitRoutesTypeCode } from './code/simple-routes-with-types';
 import { AppRoutesExamplesTs } from './code/using-app-route-defs';
+import { AppConstants } from './config/constants';
+import { LibImages } from './config/images';
 import { DownloadCodeSampleService } from './download-setup/download-setup.service';
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
-import { AppConstants } from './config/constants';
-import { LibImages, PlaceholderUtils } from './config/images';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { Subject } from 'rxjs';
-import { SeoService } from '@spider-baby/utils-seo';
-import { ProgressiveImageLoaderDirective } from '@spider-baby/utils-img/progressive';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -59,8 +59,9 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _showDemoLink = signal(false)
   protected _demoLink = 'https://spider-baby-route-defs.web.app/'
 
-  protected readonly _bannerImg = LibImages.Post.Banner.xlarge
+  // protected readonly _bannerImg = LibImages.Post.Banner.xlarge
   protected readonly _bannerPlaceholder = LibImages.Post.Banner.placeholder
+    protected readonly _imgLoaderFn =  ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge')
 
   //- - - - - - - - - - - - - - //
 

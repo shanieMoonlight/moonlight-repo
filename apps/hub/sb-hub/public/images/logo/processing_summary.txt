@@ -1,0 +1,8 @@
+Processing Summary - 20/05/2025 11:00:16
+Source folder: C:\Users\Shaneyboy\Desktop\images\logo
+Total folder types processed: 5
+- placeholder: 1 images processed
+- small: 1 images processed
+- medium: 1 images processed
+- large: 1 images processed
+- xlarge: 1 images processed

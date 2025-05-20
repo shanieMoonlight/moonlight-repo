@@ -1,0 +1,11 @@
+<img
+  [src]="placeholder()"
+  sbProgImgLoader
+  [fallbackUrl]="fallbackUrl()"
+  [smlToLrgFn]="smlToLrgFn()"
+  [lrgUrl]="lrgUrl()"
+  [retryTimeoutMs]="retryTimeoutMs()"
+  [retryCount]="retryCount()"
+  (error)="imgError.emit()"
+  alt="Progressive Image"
+>

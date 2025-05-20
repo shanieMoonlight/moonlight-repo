@@ -118,6 +118,19 @@
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
+  position: relative;
+  z-index: -1;
+
+  img.custom-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+  }
 
   &::before {
     content: '';
@@ -142,6 +155,7 @@
   .hero-description {
     color: rgba(255, 255, 255, 0.85);
   }
+
 }
 
 
@@ -153,7 +167,7 @@
   }
 
   50% {
-    transform: translateY(-20px) translateX(10px) rotate(5deg);
+    transform: translateY(-50px) translateX(10px) rotate(25deg);
   }
 
   100% {

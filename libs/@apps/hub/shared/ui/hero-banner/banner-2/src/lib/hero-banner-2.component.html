@@ -1,6 +1,9 @@
  <section class="custom-hero-section" 
  [style.background]="_bgImg()"
  [class.custom-img]="_bgImg()">
+ @if (_bgImg();as img) {
+   <img class="custom-img" [src]="img" alt="">
+ }
     <div class="hero-content">
       <h1 class="hero-title">{{ _title() }}</h1>
       <p class="hero-subtitle">{{ _subtitle() }}</p>
@@ -16,18 +19,6 @@
       <div class="shape shape-2"></div>
       <div class="shape shape-3"></div>
     </div>
-<!-- 
-     <div class="hero-background-shapes">
-      <div class="shape shape-1" >
-        <img [src]="_spiderWeb" alt="Web Shape" class="shape-svg"/>
-      </div>
-      <div class="shape shape-2">
-        <img [src]="_spiderWeb2" alt="Web Shape" class="shape-svg"/>
-      </div>
-      <div class="shape shape-3">
-        <img [src]="_spiderWeb3" alt="Web Shape" class="shape-svg"/>
-      </div>
-    </div> -->
 
     
   </section>
