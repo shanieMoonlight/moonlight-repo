@@ -42,6 +42,9 @@
       "@sb-hub/sections-blog/entry-point": [
         "libs/@apps/hub/sections/blog/@entry-point/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-firebase-deploy": [
+        "libs/@apps/hub/sections/blog/features/firebase-deploy/src/index.ts"
+      ],
       "@sb-hub/sections-blog/features-hash": [
         "libs/@apps/hub/sections/blog/features/hash/src/index.ts"
       ],

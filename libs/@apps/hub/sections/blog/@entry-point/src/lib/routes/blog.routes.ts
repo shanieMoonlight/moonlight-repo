@@ -9,6 +9,11 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('firebase-deploy'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-firebase-deploy')
+        .then((m) => m.HubBlogFirebaseDeployComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('hash'),
       loadComponent: () => import('@sb-hub/sections-blog/features-hash')
         .then((m) => m.HubBlogHashComponent),

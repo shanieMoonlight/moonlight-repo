@@ -3,14 +3,17 @@
   font-family: sans-serif;
   line-height: 1.6;
   margin: 20px;
-  background-color: #f4f4f4;
-  color: #333;
+  // background-color: #f4f4f4;
+  // color: #333;
 }
 
 .container {
-  max-width: 800px;
+  width: 96%;
+  max-width: 1200px;
   margin: auto;
-  background: #fff;
+  // background: #fff;
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-surface-on-container);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -20,11 +23,12 @@ h1,
 h2,
 h3 {
   color: #023b54;
+  color: var(--mat-sys-primary);
   /* A Firebase-like blue */
 }
 
 pre {
-  background-color: #eee;
+  // background-color: #eee;
   padding: 10px;
   border-radius: 4px;
   overflow-x: auto;
@@ -39,5 +43,6 @@ code {
 
 strong {
   color: #e0710f;
+  color: var(--mat-sys-secondary);
   /* A Firebase-like orange */
 }
