@@ -11,7 +11,8 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     route: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
     icon: 'follow_the_signs_',
     color: 'secondary',
-    img: HubAppImages.Blog.RouteDefsTutorial.default,
+    img: HubAppImages.Blog.RouteDefsTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.RouteDefsTutorial.placeholder,
 
   },
 ];

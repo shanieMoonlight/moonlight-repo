@@ -33,7 +33,7 @@
           [description]="feature.description" 
           [route]="feature.route" 
           [color]="feature.color"
-          [img]="feature.img" />
+          [img]="feature.imgPlaceholder ?? feature.img" />
       }
       <!-- @for (feature of _features(); track feature.title) {
       <mat-card class="feature-card">

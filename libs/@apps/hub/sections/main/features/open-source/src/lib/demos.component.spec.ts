@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HubOpenSourceDemosComponent } from './demos.component';
+import { RouterModule } from '@angular/router';
 
 describe('OpenSourceDemosComponent', () => {
   let component: HubOpenSourceDemosComponent;
@@ -7,7 +8,7 @@ describe('OpenSourceDemosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HubOpenSourceDemosComponent],
+      imports: [HubOpenSourceDemosComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HubOpenSourceDemosComponent);
