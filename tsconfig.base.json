@@ -90,6 +90,12 @@
       "@sb-hub/shared-features/not-found": [
         "libs/@apps/hub/shared/features/not-found/src/index.ts"
       ],
+      "@sb-hub/shared-ui/animations": [
+        "libs/@apps/hub/shared/ui/animations/src/index.ts"
+      ],
+      "@sb-hub/shared-ui/animations/routes": [
+        "libs/@apps/hub/shared/ui/animations/routes/src/index.ts"
+      ],
       "@sb-hub/shared-ui/footer": [
         "libs/@apps/hub/shared/ui/footer/src/index.ts"
       ],

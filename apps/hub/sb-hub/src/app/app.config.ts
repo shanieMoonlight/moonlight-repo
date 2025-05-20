@@ -1,25 +1,26 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection, } from '@angular/core';
+import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withInMemoryScrolling, withRouterConfig, } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
+import { appRoutes } from '@sb-hub/app/entry-point';
+import { SEO_CONFIG, THEME_CONFIG } from '@sb-hub/core-config';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { appRoutes } from '@sb-hub/app/entry-point';
-import { SEO_CONFIG , THEME_CONFIG} from '@sb-hub/core-config';
-import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideHttpClient(),
+    provideAnimationsAsync (),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideRouter(
       appRoutes,
-      // Use withInMemoryScrolling for scroll options
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top', // Or 'top'
+        scrollPositionRestoration: 'top',
       }),
       withRouterConfig({})
     ),

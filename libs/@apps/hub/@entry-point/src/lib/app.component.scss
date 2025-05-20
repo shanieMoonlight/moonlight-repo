@@ -1,0 +1,20 @@
+:host {
+  display: block
+}
+
+main {
+    position: relative;
+    overflow-x: hidden; // Prevents horizontal scrollbars during transitions
+    display: block;
+    min-height: 100vh; // Ensures the container has height even with fixed navbars
+
+    router-outlet {
+        display: block;
+    }
+
+    //   ::ng-deep router-outlet + * {
+    //     // This selects the component that comes after the router-outlet
+    //     display: block;
+    //     width: 100%;
+    //   }
+}
