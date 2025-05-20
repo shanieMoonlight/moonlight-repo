@@ -10,7 +10,7 @@ import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/
 
 //##########################################################//
 
-const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placeholder', 'medium')
+const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placeholder', 'large')
 
 //##########################################################//
 

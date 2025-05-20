@@ -204,10 +204,10 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   private getLargeUrl(url: string): string | null {
 
     const currentSmlToLrgFn = this.smlToLrgFn();
-      devConsole.log('currentSmlToLrgFn img load: ', currentSmlToLrgFn)
-    
+
     if (currentSmlToLrgFn) {
       const derivedUrl = currentSmlToLrgFn(url);
+      devConsole.log('derivedUrl img load: ', derivedUrl)
       if (derivedUrl) return derivedUrl; // Ensure the function returns a truthy value
     }
 

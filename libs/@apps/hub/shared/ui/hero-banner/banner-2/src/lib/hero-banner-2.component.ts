@@ -65,4 +65,7 @@ export class HubHeroBanner2Component {
   _spiderWeb2 = HubAppImages.Svgs.spiderWebWonky
   _spiderWeb3 = HubAppImages.Svgs.spiderWebWonky2
 
+  // _logo = HubAppImages.Logo.medium
+  _logo = HubAppImages.LogoAlternates.Logo2.small
+
 }

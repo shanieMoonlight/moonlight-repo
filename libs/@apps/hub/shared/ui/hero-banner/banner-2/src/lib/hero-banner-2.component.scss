@@ -112,6 +112,21 @@
     }
   }
 
+  .hero-image {
+    position: absolute;
+    max-height: 80px;
+    top: 0.5rem;
+    right: 1rem;
+    /* Adjust size */
+    // margin-bottom: 24px;
+    z-index: 3;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    cursor: pointer;
+    // opacity: 0.8;
+    opacity: 0; // Start fully transparent
+    transform: translateY(-150px) scale(0.8) rotateZ(-15deg); // Start above, smaller, and slightly rotated
+    animation: spiderDrop 5s ease-out 0s forwards; // name, duration, easing, delay, fill-mode
+  }
 
 }
 
@@ -120,7 +135,7 @@
   background-position: center center !important;
   background-repeat: no-repeat !important;
   position: relative;
-  z-index: -1;
+  z-index: 0;
 
   sb-progressive-image.custom-img,
   img.custom-img {
@@ -188,5 +203,42 @@
 
   100% {
     transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+}
+
+
+
+// New animation for the hero image
+@keyframes spiderDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-150px) scale(0.8) rotateZ(-15deg); // Initial off-screen and transformed state
+  }
+
+  20% {
+    opacity: 0.8; // Start becoming visible
+    transform: translateY(-100px) scale(0.9) rotateZ(10deg); // Dropping, slightly over-rotating
+  }
+
+  40% {
+    transform: translateY(-50px) scale(0.95) rotateZ(-7deg); // Continuing drop, correcting rotation
+  }
+
+  60% {
+    opacity: 1; // Fully visible
+    transform: translateY(10px) scale(1.05) rotateZ(5deg); // Overshoot final position slightly and scale up
+  }
+
+  80% {
+    transform: translateY(-5px) scale(0.98) rotateZ(-3deg); // Bounce back
+  }
+
+  90% {
+    transform: translateY(2px) scale(1.01) rotateZ(1deg); // Settle
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateZ(0deg); // Final resting position
   }
 }

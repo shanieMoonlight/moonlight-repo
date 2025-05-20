@@ -1,6 +1,7 @@
  <section class="hero-section" 
  [style.background]="_bgImg()"
  [class.custom-img]="_bgImg()">
+
  @if (_bgImg();as img) {
    <!-- <img class="custom-img" [src]="img" alt="">    -->
     <sb-progressive-image
@@ -25,5 +26,10 @@
       <div class="shape shape-3"></div>
     </div>
 
-    
+ 
+ <img class="hero-image" 
+  [routerLink]="'/'"
+  [src]="_logo" 
+  [alt]="'spider-baby'" />
+     
   </section>
