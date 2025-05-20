@@ -86,10 +86,29 @@ describe('ProgressiveImageComponent', () => {
     expect(directiveInstance.retryCount()).toBe(5);
   });
 
+  it('should apply style inputs to the img element', () => {
+    const testObjectFit = 'contain';
+    const testObjectPosition = 'center';
+    const testImgWidth = '100px';
+    const testImgHeight = '150px';
+
+    fixture.componentRef.setInput('objectFit', testObjectFit);
+    fixture.componentRef.setInput('objectPosition', testObjectPosition);
+    fixture.componentRef.setInput('imgWidth', testImgWidth);
+    fixture.componentRef.setInput('imgHeight', testImgHeight);
+    fixture.detectChanges();
+
+    const imgElement = imgDebugElement.nativeElement as HTMLImageElement;
+    expect(imgElement.style.objectFit).toBe(testObjectFit);
+    expect(imgElement.style.objectPosition).toBe(testObjectPosition);
+    expect(imgElement.style.width).toBe(testImgWidth);
+    expect(imgElement.style.height).toBe(testImgHeight);
+  });
+
   it('should emit error output from ProgressiveImageLoaderDirective', () => {
   // Replace jasmine.createSpy with Jest's jest.fn()
   const errorSpy = jest.fn();
-  component.imgError.subscribe(errorSpy);
+  component._imgError.subscribe(errorSpy);
 
     // Trigger the directive's error output
     const directiveInstance = directiveEl.injector.get(MockProgressiveImageLoaderDirective);

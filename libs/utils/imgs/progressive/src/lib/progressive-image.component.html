@@ -1,13 +1,14 @@
 <img
-  [src]="placeholder()"
-  [alt]="alt()"
+  [src]="_placeholder()"
+  [alt]="_alt()"
   sbProgImgLoader
-  [fallbackUrl]="fallbackUrl()"
-  [smlToLrgFn]="smlToLrgFn()"
-  [lrgUrl]="lrgUrl()"
-  [retryTimeoutMs]="retryTimeoutMs()"
-  [retryCount]="retryCount()"
-  (error)="imgError.emit()"
-  [style.objectFit]="objectFit()"
-  [style.objectPosition]="objectPosition()"
->
+  [fallbackUrl]="_fallbackUrl()"
+  [smlToLrgFn]="_smlToLrgFn()"
+  [lrgUrl]="_lrgUrl()"
+  [retryTimeoutMs]="_retryTimeoutMs()"
+  [retryCount]="_retryCount()"
+  (error)="_imgError.emit()"
+  [style.objectFit]="_objectFit()"
+  [style.objectPosition]="_objectPosition()"
+  [style.height]="_imgHeight()"
+  [style.width]="_imgWidth()">
