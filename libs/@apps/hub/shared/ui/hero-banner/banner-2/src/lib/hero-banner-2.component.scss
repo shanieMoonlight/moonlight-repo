@@ -7,7 +7,7 @@
 // Custom Hero Section Styles
 .hero-section {
   position: relative;
-  padding: 4rem 2rem; // Generous padding
+  padding: 2rem 2rem 3rem 2rem;
   background: linear-gradient(135deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-secondary-container) 100%);
   color: var(--mat-sys-on-primary-container);
   text-align: center;
@@ -104,11 +104,11 @@
       width: 100px;
       height: 100px;
       background-color: var(--mat-sys-primary);
-      top: 30%;
+      top: 25%;
       right: 20%;
       animation-duration: 25s;
       animation-delay: -10s; // Offset animation
-      animation: float2 20s infinite ease-in-out alternate;
+      animation-name: float2;
     }
   }
 
@@ -169,7 +169,7 @@
   }
 
   50% {
-    transform: translateY(-50px) translateX(20px) rotate(25deg);
+    transform: translateY(50px) translateX(20px) rotate(25deg);
   }
 
   100% {
@@ -183,7 +183,7 @@
   }
 
   50% {
-    transform: translateY(50px) translateX(25px) rotate(25deg);
+    transform: translateY(-50px) translateX(-25px) rotate(25deg);
   }
 
   100% {
