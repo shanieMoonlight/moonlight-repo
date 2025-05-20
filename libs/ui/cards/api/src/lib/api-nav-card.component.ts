@@ -13,6 +13,7 @@ export interface ApiRouteData {
   route: string;
   color?: string; // Optional: Primary, secondary, tertiary, etc.
   img?: string; // Optional: image URL
+  imgPlaceholder?: string; // Optional: image URL
 }
 
 @Component({

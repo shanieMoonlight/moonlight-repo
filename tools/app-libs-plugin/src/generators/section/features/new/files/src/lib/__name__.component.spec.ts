@@ -69,4 +69,9 @@ describe('<%= componentClassName %>', () => {
     component = fixture.componentInstance;
   });
 
+  
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
 });

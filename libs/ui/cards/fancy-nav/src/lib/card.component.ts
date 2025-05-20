@@ -5,6 +5,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HubAppImages } from '@sb-hub/core-config/images';
+import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+
+
+//##########################################################//
+
+const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placeholder', 'medium')
+
+//##########################################################//
+
 
 @Component({
     selector: 'sb-hub-fancy-nav-card',
@@ -14,6 +23,7 @@ import { HubAppImages } from '@sb-hub/core-config/images';
         RouterModule,
         MatCardModule,
         MatIconModule,
+        ProgressiveImageComponent,
         MatButtonModule
     ],
     templateUrl: './card.component.html',
@@ -29,6 +39,18 @@ export class HubUiFancyNavCardComponent {
     _url = input<string | undefined>(undefined, { alias: 'url' });
     _color = input<string | undefined>('primary', { alias: 'color' });
     _img = input<string | undefined>(HubAppImages.Logo.medium, { alias: 'img' });
+
+    
+  /**
+   * A function that converts a small image URL to a large image URL.
+   * This property allows for progressive image loading by providing a smaller placeholder image initially
+   * and using this function to replace it with a larger, higher quality image after loading.
+   * 
+   * @param smlImgUrl - The URL of the small/placeholder image
+   * @returns The URL of the corresponding large/high-quality image
+   * @default defaultSmallToLargeImgFn - A default function that replaces small image URLs with large ones (ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge'))
+   */
+  _smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn, { alias: 'smlToLrgFn' });
 
 
 

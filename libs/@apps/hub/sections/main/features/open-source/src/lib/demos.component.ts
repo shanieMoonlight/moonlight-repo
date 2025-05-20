@@ -1,17 +1,14 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { HubAppRouteDefs } from "@sb-hub/app/route-definitions";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DEMO_APPS } from '@sb-hub/core-config/demo-apps';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { HubOpenSourceDemoCardComponent } from '@sb-hub/sections-main/features/open-source/card';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; 
-import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 @Component({
   selector: 'hub-open-source-demos',
   imports: [
     MatEverythingModule,
-    HubOpenSourceDemoCardComponent,
     HubUiFancyNavCardComponent,
     HubHeroBanner2Component,
     HubSharedUiFooterComponent
@@ -33,6 +30,7 @@ export class HubOpenSourceDemosComponent {
 
   protected _logo = HubAppImages.Logo.small
   protected _openSourceImg = HubAppImages.Main.OpenSource.xLarge
+  protected _openSourceImgPlaceholder = HubAppImages.Main.OpenSource.placeholder
 
 
 

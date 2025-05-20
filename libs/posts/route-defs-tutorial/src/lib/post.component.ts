@@ -29,7 +29,6 @@ import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-d
     AppStructureDiagramComponent,
     HighlightModule,
     SbMatNotificationsModalComponent,
-    ProgressiveImageLoaderDirective,
     ProgressiveImageComponent
   ],
   providers: [DownloadCodeSampleService],

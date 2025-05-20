@@ -7,6 +7,7 @@ export interface DemoAppData {
     icon: string;
     url: string;
     image: string;
+    imagePlaceHolder: string;
 }
 
 //###################################//
@@ -18,6 +19,7 @@ export const DEMO_APPS: DemoAppData[] = [
         description: 'A powerful, flexible theming system for Angular Material',
         icon: 'palette',
         url: 'https://spiderbabymaterialtheming.web.app',
+        imagePlaceHolder: HubAppImages.Demos.MatTheme.placeholder,
         image: HubAppImages.Demos.MatTheme.medium,
     },
     {
@@ -25,6 +27,7 @@ export const DEMO_APPS: DemoAppData[] = [
         description: 'A lightweight, signals-based state management library for Angular applications',
         icon: 'merge',
         url: 'https://spider-baby-mini-state.web.app/',
+        imagePlaceHolder: HubAppImages.Demos.MiniState.placeholder,
         image: HubAppImages.Demos.MiniState.medium
     }
 ]

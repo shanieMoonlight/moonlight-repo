@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SbHubSharedUiFooterComponent } from './footer.component';
+import { HubSharedUiFooterComponent } from './footer.component';
 
-describe('SbHubSharedUiFooterComponent', () => {
-  let component: SbHubSharedUiFooterComponent;
-  let fixture: ComponentFixture<SbHubSharedUiFooterComponent>;
+describe('HubSharedUiFooterComponent', () => {
+  let component: HubSharedUiFooterComponent;
+  let fixture: ComponentFixture<HubSharedUiFooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SbHubSharedUiFooterComponent],
+      imports: [HubSharedUiFooterComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SbHubSharedUiFooterComponent);
+    fixture = TestBed.createComponent(HubSharedUiFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

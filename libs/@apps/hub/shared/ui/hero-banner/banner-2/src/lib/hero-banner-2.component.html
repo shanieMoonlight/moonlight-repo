@@ -2,7 +2,12 @@
  [style.background]="_bgImg()"
  [class.custom-img]="_bgImg()">
  @if (_bgImg();as img) {
-   <img class="custom-img" [src]="img" alt="">
+   <!-- <img class="custom-img" [src]="img" alt="">    -->
+    <sb-progressive-image
+        class="custom-img"
+        [placeholder]="img"
+        [smlToLrgFn]="_smlToLrgFn()"
+        [alt]="'Angular routing banner'"/>
  }
     <div class="hero-content">
       <h1 class="hero-title">{{ _title() }}</h1>

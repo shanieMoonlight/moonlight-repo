@@ -3,22 +3,9 @@
   [title]="_title"
   [subtitle]="_subtitle"
   [description]="_description"
-  [backgroundImage]="_openSourceImg"
-  />
-  <!-- <div class="card-container"> -->
+  [backgroundImage]="_openSourceImgPlaceholder"/>
     
 <div class="container">
-  <!-- <div class="page-header">
-    <img [src]="_logo()" alt="Logo" class="logo" />
-    <h1>Open Source</h1>
-    <p>Explore our collection of demo applications for our open source projects and packages.</p>
-  </div> -->
-
-  
-
-        <!-- @for (demoApp of _demoApps(); track $index) {
-        <hub-open-source-demo-card [demoApp]="demoApp" />
-        } -->
 
         
     
@@ -29,7 +16,7 @@
           [title]="feature.name" 
           [description]="feature.description" 
           [url]="feature.url" 
-          [img]="feature.image" />
+          [img]="feature.imagePlaceHolder" />
       }
   </div>
 

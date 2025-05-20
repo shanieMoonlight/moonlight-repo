@@ -11,6 +11,7 @@ export const MainPrincipalRoutes: ApiRouteData[] = [
     icon: 'code',
     color: 'primary',
     img:HubAppImages.Main.OpenSource.default,
+    imgPlaceholder: HubAppImages.Main.OpenSource.placeholder
   },
   {
     title: 'Posts',
@@ -20,5 +21,6 @@ export const MainPrincipalRoutes: ApiRouteData[] = [
     icon: 'school',
     color: 'secondary',
     img:HubAppImages.Main.Posts.default,
+    imgPlaceholder: HubAppImages.Main.Posts.placeholder
   }
 ];

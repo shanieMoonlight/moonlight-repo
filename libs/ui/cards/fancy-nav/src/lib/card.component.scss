@@ -77,6 +77,16 @@
     padding: 1rem; // Padding for the title overlay
     box-sizing: border-box; // Ensures padding doesn't add to height/width
 
+    sb-progressive-image,
+    img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // Ensures the image covers the entire area
+    }
+
     &::before {
         // Optional: adds a subtle gradient overlay for better text readability
         content: '';

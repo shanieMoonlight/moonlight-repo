@@ -1,6 +1,12 @@
 <mat-card class="stylish-feature-card" [ngClass]="'card-accent-' + _color()">
   
-  <div class="card-image-container" [style.background-image]="'url(' + _img() + ')'">
+  <div class="card-image-container">
+        <sb-progressive-image
+          class="custom-img"
+          [placeholder]="_img()??''"
+          [smlToLrgFn]="_smlToLrgFn()"
+          [alt]="'Angular routing banner'"/>
+          <!-- <img [src]="_img()" [alt]="_title()"> -->
     <div class="card-title-overlay">
         <div class="title">
             <mat-icon class="feature-icon-large">
