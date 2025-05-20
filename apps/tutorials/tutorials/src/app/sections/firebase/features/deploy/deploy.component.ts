@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HighlightModule } from 'ngx-highlightjs';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
 @Component({
   selector: 'sb-firebase-deploy',
-  imports: [HighlightModule],
+  imports: [HighlightModule, MatEverythingModule],
   templateUrl: './deploy.component.html',
   styleUrl: './deploy.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,8 +59,6 @@ _gitActions = `
     channelId: live
     target: spider-baby-hub-demo # &lt;--- This parameter is key!
     projectId: spider-baby-hub   # &lt;--- And this one!
-\`\`\`
-
 `
 
 }

@@ -1,53 +1,105 @@
-
 <div class="container">
 
     <h1>Demystifying Firebase Hosting Deploy Targets</h1>
 
-    <p>Hey there! You asked about how Firebase knows which Hosting target to use when you have multiple defined in your <code>firebase.json</code>, especially when deploying via a GitHub Action. It's a fantastic question that gets to the core of managing multi-site projects!</p>
+    <section>
+        <p>Hey there! You asked about how Firebase knows which Hosting target to use when you have multiple defined in your
+            <code>firebase.json</code>,
+            especially when deploying via a GitHub Action. It's a fantastic question that gets to the core of managing multi-site projects!</p>
 
-    <p>You're working with a setup involving:</p>
+        <p>You're working with a setup involving:</p>
 
-    <ul>
-        <li><strong><code>firebase.json</code>:</strong> Defines the configurations for your different deployment targets (like `public` directory, `rewrites`, etc.) using the <code>target</code> property within the <code>hosting</code> array.</li>
-        <li><strong><code>.firebaserc</code>:</strong> Acts as the "address book" mapping your friendly target names to the actual Firebase resource IDs (like Hosting Site IDs) within a specific project.</li>
-        <li><strong>GitHub Action:</strong> The automation that triggers the Firebase CLI deployment.</li>
-    </ul>
+        <mat-list role="list">
+            <mat-list-item role="listitem">
+                <strong><code>firebase.json</code>:</strong> Defines the configurations for your different deployment targets (like `public`
+                directory,
+                `rewrites`, etc.) using the <code>target</code> property within the <code>hosting</code> array.
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <strong><code>.firebaserc</code>:</strong> Acts as the "address book" mapping your friendly target names to the actual Firebase
+                resource
+                IDs (like Hosting Site IDs) within a specific project.
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <strong>GitHub Action:</strong> The automation that triggers the Firebase CLI deployment.
+            </mat-list-item>
+        </mat-list>
+    </section>
 
-    <h2>The Key Players and Their Roles</h2>
+    <mat-divider/>
 
-    <h3><code>firebase.json</code>: The Configuration Blueprint</h3>
-    <p>This file specifies *how* to deploy different parts of your project. For Hosting, when you have multiple sites, you list them in the <code>hosting</code> array. Each entry is a distinct configuration for a particular site. The <code>"target"</code> property in each entry gives that specific configuration a friendly, memorable name (like "spider-baby-hub-demo").</p>
-    <pre><code [highlight]="_firebaseDotJson" language="json"></code></pre>
+    <section>
 
-    <h3><code>.firebaserc</code>: The Address Book / Mapper</h3>
-    <p>This file is crucial for connecting your local configuration to your Firebase projects and resources in the cloud. It maps the friendly <code>target</code> names you use in <code>firebase.json</code> (and your deploy commands/actions) to the actual Firebase **Resource IDs** (like the unique ID of your Hosting site). This mapping is nested under the specific Firebase **Project ID**.</p>
-     <pre><code [highlight]="_firebaserc" language="json"></code></pre>
-    <p>Regarding your point about the Site ID being the project name if you didn't assign one: Yes, when you enable Firebase Hosting for the first time in a project, Firebase automatically creates a <strong>default Hosting site</strong> whose ID is the same as your Firebase Project ID. So, for the `spider-baby-hub` project, the default Hosting Site ID is `spider-baby-hub`. If you create *additional* sites within that *same* project later, they will get different IDs. The <code>firebase target:apply</code> command is what explicitly creates these mappings in <code>.firebaserc</code>, connecting your chosen target name (like "spider-baby-hub-demo") to the specific Site ID (like "spider-baby-hub").</p>
+        <h2>The Key Players and Their Roles</h2>
+
+        <h3><code>firebase.json</code>: The Configuration Blueprint</h3>
+        <p>This file specifies *how* to deploy different parts of your project. For Hosting, when you have multiple sites, you list them in the
+            <code>hosting</code> array. Each entry is a distinct configuration for a particular site. The <code>"target"</code> property in each entry
+            gives that specific configuration a friendly, memorable name (like "spider-baby-hub-demo").
+        </p>
+        <pre><code [highlight]="_firebaseDotJson" language="json"></code></pre>
+
+        <h3><code>.firebaserc</code>: The Address Book / Mapper</h3>
+        <p>This file is crucial for connecting your local configuration to your Firebase projects and resources in the cloud. It maps the friendly
+            <code>target</code> names you use in <code>firebase.json</code> (and your deploy commands/actions) to the actual Firebase **Resource IDs**
+            (like the unique ID of your Hosting site). This mapping is nested under the specific Firebase **Project ID**.
+        </p>
+        <pre><code [highlight]="_firebaserc" language="json"></code></pre>
+        <p>Regarding your point about the Site ID being the project name if you didn't assign one: Yes, when you enable Firebase Hosting for the first
+            time in a project, Firebase automatically creates a <strong>default Hosting site</strong> whose ID is the same as your Firebase Project
+            ID. So, for the `spider-baby-hub` project, the default Hosting Site ID is `spider-baby-hub`. If you create *additional* sites within that
+            *same* project later, they will get different IDs. The <code>firebase target:apply</code> command is what explicitly creates these
+            mappings in <code>.firebaserc</code>, connecting your chosen target name (like "spider-baby-hub-demo") to the specific Site ID (like
+            "spider-baby-hub").</p>
 
 
-    <h3>GitHub Action Configuration: The Trigger with Instructions</h3>
-    <p>Your GitHub Action uses the <code>FirebaseExtended/action-hosting-deploy&v0</code>, which under the hood, runs Firebase CLI commands. The parameters you provide tell the action (and thus the CLI) exactly what to do.</p>
-    <pre><code [highlight]="_gitActions" language="yaml"></code></pre>
-    <p>The <code>projectId</code> parameter tells the action/CLI which Firebase Project (e.g., `spider-baby-hub`) in the cloud to interact with. The <code>target</code> parameter tells the action/CLI which *named configuration* from your `firebase.json` you want to deploy.</p>
+        <h3>GitHub Action Configuration: The Trigger with Instructions</h3>
+        <p>Your GitHub Action uses the <code>FirebaseExtended/action-hosting-deploy&v0</code>, which under the hood, runs Firebase CLI commands. The
+            parameters you provide tell the action (and thus the CLI) exactly what to do.</p>
+        <pre><code [highlight]="_gitActions" language="yaml"></code></pre>
+        <p>The <code>projectId</code> parameter tells the action/CLI which Firebase Project (e.g., `spider-baby-hub`) in the cloud to interact with.
+            The <code>target</code> parameter tells the action/CLI which *named configuration* from your `firebase.json` you want to deploy.</p>
+    </section>
 
-    <h2>The Deployment Flow (Putting it all Together)</h2>
+    <mat-divider/>
+    
+    <section>
+        <h2>The Deployment Flow (Putting it all Together)</h2>
 
-    <p>Here's the sequence of events when the GitHub Action runs:</p>
-    <ol>
-        <li>The GitHub Action starts and effectively tells the Firebase CLI to deploy. It passes along the <code>projectId</code> (e.g., `spider-baby-hub`) and the <code>target</code> name (e.g., `spider-baby-hub-demo`). The command it runs is similar to <code>firebase deploy --project spider-baby-hub --only hosting:spider-baby-hub-demo</code>.</li>
-        <li>The Firebase CLI first sets its operational context to the specified Firebase <strong>Project ID</strong> (`spider-baby-hub`).</li>
-        <li>Because you specified a Hosting `target` name (`spider-baby-hub-demo`), the CLI consults your local <code>.firebaserc</code> file.</li>
-        <li>It navigates to the <code>targets</code> section within the configuration for the specified <strong>Project ID</strong> (`spider-baby-hub`).</li>
-        <li>Within that project's targets, it looks at the `hosting` section.</li>
-        <li>It finds the entry that matches the <code>target</code> name provided in the action (`spider-baby-hub-demo`) and retrieves the associated Hosting **Site ID** (which is `spider-baby-hub` in your example's <code>.firebaserc</code>). This is the specific destination within the project.</li>
-        <li>Finally, the CLI goes back to your <code>firebase.json</code> file. It finds the specific configuration object within the <code>hosting</code> array that has a matching <code>"target": "spider-baby-hub-demo"</code>.</li>
-        <li>It then uses the details defined in *that specific configuration block* (like the <code>public</code> directory, `rewrites`, `ignore` rules, etc.) to deploy your built files to the Hosting Site identified by the Site ID (`spider-baby-hub`) within the Firebase Project (`spider-baby-hub`).</li>
-    </ol>
+        <p>Here's the sequence of events when the GitHub Action runs:</p>
+        <mat-list role="list">
+            <mat-list-item role="listitem">1. The GitHub Action starts and effectively tells the Firebase CLI to deploy. It passes along the
+                <code>projectId</code> (e.g., `spider-baby-hub`) and the <code>target</code> name (e.g., `spider-baby-hub-demo`). The command it runs
+                is
+                similar to <code>firebase deploy --project spider-baby-hub --only hosting:spider-baby-hub-demo</code>.</mat-list-item>
+            <mat-list-item role="listitem">2. The Firebase CLI first sets its operational context to the specified Firebase <strong>Project
+                    ID</strong>
+                (`spider-baby-hub`).</mat-list-item>
+            <mat-list-item role="listitem">3. Because you specified a Hosting `target` name (`spider-baby-hub-demo`), the CLI consults your local
+                <code>.firebaserc</code> file.</mat-list-item>
+            <mat-list-item role="listitem">4. It navigates to the <code>targets</code> section within the configuration for the specified
+                <strong>Project
+                    ID</strong> (`spider-baby-hub`).</mat-list-item>
+            <mat-list-item role="listitem">5. Within that project's targets, it looks at the `hosting` section.</mat-list-item>
+            <mat-list-item role="listitem">6. It finds the entry that matches the <code>target</code> name provided in the action
+                (`spider-baby-hub-demo`)
+                and retrieves the associated Hosting **Site ID** (which is `spider-baby-hub` in your example's <code>.firebaserc</code>). This is the
+                specific destination within the project.</mat-list-item>
+            <mat-list-item role="listitem">7. Finally, the CLI goes back to your <code>firebase.json</code> file. It finds the specific configuration
+                object within the <code>hosting</code> array that has a matching <code>"target": "spider-baby-hub-demo"</code>.</mat-list-item>
+            <mat-list-item role="listitem">8. It then uses the details defined in *that specific configuration block* (like the <code>public</code>
+                directory, `rewrites`, `ignore` rules, etc.) to deploy your built files to the Hosting Site identified by the Site ID
+                (`spider-baby-hub`)
+                within the Firebase Project (`spider-baby-hub`).</mat-list-item>
+        </mat-list>
 
-    <p>So, your summary was spot on! The <code>projectId</code> tells it *which overall project* to go to, and the combination of the <code>target</code> name in the action and the mapping in <code>.firebaserc</code> tells it *which specific Hosting Site within that project* to deploy using the configuration defined for that target in <code>firebase.json</code>.</p>
+        <p>So, your summary was spot on! The <code>projectId</code> tells it *which overall project* to go to, and the combination of the
+            <code>target</code> name in the action and the mapping in <code>.firebaserc</code> tells it *which specific Hosting Site within that
+            project*
+            to deploy using the configuration defined for that target in <code>firebase.json</code>.
+        </p>
 
-    <p>It works exactly because all these pieces are connected and correctly configured!</p>
-
+        <p>It works exactly because all these pieces are connected and correctly configured!</p>
+    </section>
 
 </div>
-
