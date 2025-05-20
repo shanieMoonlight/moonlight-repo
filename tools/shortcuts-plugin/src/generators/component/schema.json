@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "Component",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Directory where the application is placed",
+      "x-prompt": "In which directory should the application be generated?"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Will be used prefix the selector.",
+      "x-prompt": "What prefix should be used for the selector?"
+    }
+  },
+  "required": ["name"]
+}

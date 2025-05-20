@@ -1,6 +1,6 @@
 import { } from '@nx/angular';
-import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
+import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../../@shared/schema/schema';

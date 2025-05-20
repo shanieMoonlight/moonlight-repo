@@ -1,0 +1,14 @@
+{
+  "generators": {
+    "component": {
+      "factory": "./src/generators/component/component",
+      "schema": "./src/generators/component/schema.json",
+      "description": "component generator"
+    },
+    "library-generator": {
+      "factory": "./src/generators/library/library-generator",
+      "schema": "./src/generators/library/schema.json",
+      "description": "library-generator generator"
+    }
+  }
+}

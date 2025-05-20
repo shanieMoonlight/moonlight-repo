@@ -119,6 +119,9 @@
         "tools/app-libs-plugin/src/index.ts"
       ],
       "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
+      "@spider-baby-repo/shortcuts-plugin": [
+        "tools/shortcuts-plugin/src/index.ts"
+      ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
