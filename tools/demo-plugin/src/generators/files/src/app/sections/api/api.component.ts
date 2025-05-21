@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -21,6 +21,7 @@ import { ApiNavbarComponent } from './ui/navbar/navbar.component';
   selector: '<%= prefix %>-api-root',
   templateUrl: './api.component.html',
   styleUrl: './api.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApiComponent {
 

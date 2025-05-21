@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, inject, input, TemplateRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, computed, inject, input, TemplateRef } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HubAppImages, HubAppSvgs } from '@sb-hub/core-config/images';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -27,6 +27,9 @@ const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placehol
 export class HubHeroBanner2Component {
 
   private sanitizer = inject(DomSanitizer)
+  private router = inject(Router);
+  
+  //- - - - - - - - - - - - - - //
 
   _title = input<string>('', { alias: 'title' });
   _subtitle = input<string>('', { alias: 'subtitle' });
@@ -67,5 +70,9 @@ export class HubHeroBanner2Component {
 
   // _logo = HubAppImages.Logo.medium
   _logo = HubAppImages.LogoAlternates.Logo2.small
+
+  
+  _transitionId = computed(() => this.router.url);
+
 
 }

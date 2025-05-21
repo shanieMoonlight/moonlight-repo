@@ -1,4 +1,4 @@
-import { Component, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ShareService } from './share.service';
@@ -14,7 +14,8 @@ const mockShareService = {
   selector: 'sb-test-share-component',
   standalone: true,
   imports: [ShareCurrentPageDirective],
-  template: `<button sbShareCurrentPage>Share</button>`
+  template: `<button sbShareCurrentPage>Share</button>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestShareComponent {}
 

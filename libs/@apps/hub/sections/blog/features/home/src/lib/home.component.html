@@ -4,18 +4,6 @@
   [description]="_description"/>
 
 <div class="component-container">
-  <!-- <sb-hub-hero-banner
-    [title]="_title"
-    [subtitle]="_subtitle"
-    [description]="_description"
-    [imageUrl]="_heroImageUrl"
-    [imageAlt]="_heroImageAlt"
-    primaryButtonText="Try Examples"
-    primaryButtonLink="/simple"
-    primaryButtonIcon="play_arrow"
-    secondaryButtonText="View on GitHub"
-    [secondaryButtonLink]="_gitUrl()"
-    secondaryButtonIcon="code"/> -->
     
 
   <section class="features-section">
@@ -35,22 +23,6 @@
           [color]="feature.color"
           [img]="feature.imgPlaceholder ?? feature.img" />
       }
-      <!-- @for (feature of _features(); track feature.title) {
-      <mat-card class="feature-card">
-        <mat-card-header>
-          <mat-icon  [ngClass]="feature.color"  mat-card-avatar>{{ feature.icon }}</mat-icon>
-          <mat-card-title>{{ feature.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ feature.description }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button  [ngClass]="feature.color"  [routerLink]="feature.route">
-            View Post
-          </a>
-        </mat-card-actions>
-      </mat-card>
-      } -->
     </div>
   </section>
 

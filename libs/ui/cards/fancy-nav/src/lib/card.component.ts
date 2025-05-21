@@ -35,22 +35,23 @@ export class HubUiFancyNavCardComponent {
     _icon = input.required<string>({ alias: 'icon' });
     _title = input.required<string>({ alias: 'title' });
     _description = input.required<string>({ alias: 'description' });
-    _route = input<string | string[] | undefined>(undefined, { alias: 'route' });
+    _route = input<string | undefined>(undefined, { alias: 'route' });
     _url = input<string | undefined>(undefined, { alias: 'url' });
     _color = input<string | undefined>('primary', { alias: 'color' });
     _img = input<string | undefined>(HubAppImages.Logo.medium, { alias: 'img' });
 
-    
-  /**
-   * A function that converts a small image URL to a large image URL.
-   * This property allows for progressive image loading by providing a smaller placeholder image initially
-   * and using this function to replace it with a larger, higher quality image after loading.
-   * 
-   * @param smlImgUrl - The URL of the small/placeholder image
-   * @returns The URL of the corresponding large/high-quality image
-   * @default defaultSmallToLargeImgFn - A default function that replaces small image URLs with large ones (ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge'))
-   */
-  _smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn, { alias: 'smlToLrgFn' });
+
+
+    /**
+     * A function that converts a small image URL to a large image URL.
+     * This property allows for progressive image loading by providing a smaller placeholder image initially
+     * and using this function to replace it with a larger, higher quality image after loading.
+     * 
+     * @param smlImgUrl - The URL of the small/placeholder image
+     * @returns The URL of the corresponding large/high-quality image
+     * @default defaultSmallToLargeImgFn - A default function that replaces small image URLs with large ones (ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge'))
+     */
+    _smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn, { alias: 'smlToLrgFn' });
 
 
 

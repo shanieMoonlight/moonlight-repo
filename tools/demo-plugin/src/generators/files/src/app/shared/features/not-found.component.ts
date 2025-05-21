@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { AppImages } from '../../config/images';
   selector: '<%= prefix %>-not-found',
   standalone: true,
   imports: [RouterLink, MatButtonModule, MatIconModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="not-found-container">
       <img class="spider-baby-logo" [src]="_logo()" alt="Spider Baby" />

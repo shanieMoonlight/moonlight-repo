@@ -49,6 +49,8 @@ export async function componentGenerator(tree: Tree, options: ComponentGenerator
 
   const normalizedOptions = normalizeOptions(tree, options);
   const generateSchema = generateComponentSchema(tree, normalizedOptions);
+  console.log('generateSchema', generateSchema);
+  
 
 
   await ngComponentGenerator(tree, generateSchema);

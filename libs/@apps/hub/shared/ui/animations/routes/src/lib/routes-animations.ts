@@ -291,7 +291,7 @@ export const rotateAndFadeAnimation = trigger('routeAnimations', [
         left: 0,
         width: '100%',
         backfaceVisibility: 'hidden',
-        transformOrigin: 'center center'
+        transformOrigin: 'center center',
       })
     ], { optional: true }),
     query(':enter', [

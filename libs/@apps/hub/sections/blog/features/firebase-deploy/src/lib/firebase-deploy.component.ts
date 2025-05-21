@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
 // import { IconsService } from '@sb-hub-blog-features-firebase-deploy/shared-utils/icons';
@@ -11,6 +11,7 @@ import { SeoService } from '@spider-baby/utils-seo';
   selector: 'sb-hub-blog-features-firebase-deploy',
   templateUrl: './firebase-deploy.component.html',
   styleUrl: './firebase-deploy.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubBlogFirebaseDeployComponent {
  

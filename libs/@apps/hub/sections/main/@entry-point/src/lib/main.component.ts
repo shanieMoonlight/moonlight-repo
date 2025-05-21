@@ -1,10 +1,11 @@
-import { Component, computed, inject, OnDestroy } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {  MlDarkModeToggleMatComponent,  MlThemePickerMatComponent,} from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { HubMainNavbarComponent } from '@sb-hub/sections-main/ui/nav';
 import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -20,10 +21,11 @@ import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
-export class HubMainComponent implements OnDestroy{
+export class HubMainComponent implements OnInit, OnDestroy{
 
   protected _iconsService = inject(IconsService);
   protected _navTitle = inject(MainNavTitleService);
+  private _document = inject(DOCUMENT);
   protected _title = computed(() => this._navTitle.title() || 'SpiderBaby');
 
   //----------------------------//
@@ -35,9 +37,13 @@ export class HubMainComponent implements OnDestroy{
 
   //----------------------------//
   
+  ngOnInit(): void {
+    this._document.body.classList.add('use-slide-transition');
+  }
+
   ngOnDestroy(): void {
     this._navTitle.unsubscribe()
-    console.log('Unsubscribed from title changes');    
+    this._document.body.classList.remove('use-slide-transition'); 
   }
   
 

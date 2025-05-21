@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
 // import { IconsService } from '@<%= prefix %>/shared-utils/icons';
@@ -11,6 +11,7 @@ import { SeoService } from '@spider-baby/utils-seo';
   selector: '<%= libraryName %>',
   templateUrl: './<%= fileName %>.component.html',
   styleUrl: './<%= fileName %>.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= componentClassName %> {
  

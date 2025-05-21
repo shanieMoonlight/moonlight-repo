@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HubBlogNavbarComponent } from '@sb-hub/sections-blog/ui-nav';
 import { IconsService } from '@sb-hub/shared-utils/icons';
@@ -18,18 +19,18 @@ import { SeoService } from '@spider-baby/utils-seo';
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss',
 })
-export class HubBlogComponent {
- 
-   protected _iconsService = inject(IconsService); 
+export class HubBlogComponent implements OnInit, OnDestroy {
+
+  protected _iconsService = inject(IconsService);
   private _seoService = inject(SeoService);
   private _router = inject(Router);
+  private _document = inject(DOCUMENT);
 
   //- - - - - - - - - - - - - - -//
-  
- protected _title = 'Spider-Baby | Blog';
+
+  protected _title = 'Spider-Baby | Blog';
   protected _subtitle = 'Thoughts, Tutorials, and Musings on All Things Tech';
   protected _description = `Dive into my latest articles where I explore web development, share coding tips, and discuss new technologies. A place for learning, sharing, and sparking new ideas.`;
- 
 
 
 
@@ -47,6 +48,16 @@ export class HubBlogComponent {
   }
 
   //----------------------------//
+
+
+  ngOnInit(): void {
+    this._document.body.classList.add('use-slide-transition');
+  }
+
+  ngOnDestroy(): void {
+    this._document.body.classList.remove('use-slide-transition');
+  }
+
 
 
 } //Cls

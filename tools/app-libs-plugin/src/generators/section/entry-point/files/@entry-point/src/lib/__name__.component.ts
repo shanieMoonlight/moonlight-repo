@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { <%= sectionClassNamePrefix %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
@@ -17,6 +17,7 @@ import { SeoService } from '@spider-baby/utils-seo';
   selector: '<%= prefix %>-<%= name %>-root',
   templateUrl: './<%= name %>.component.html',
   styleUrl: './<%= name %>.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= sectionClassNamePrefix %>Component {
  

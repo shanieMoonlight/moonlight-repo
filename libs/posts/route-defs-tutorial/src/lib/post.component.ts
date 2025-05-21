@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { ProgressiveImageLoaderDirective, ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -18,6 +18,7 @@ import { AppConstants } from './config/constants';
 import { LibImages } from './config/images';
 import { DownloadCodeSampleService } from './download-setup/download-setup.service';
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
+import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -42,8 +43,9 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   private _codeSampleDownloader = inject(DownloadCodeSampleService);
   private _seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  //----------------------------//
+  //- - - - - - - - - - - - - - //
 
   protected _simpleAppRoutesWitRoutesTypeCode = SimpleAppRoutesWitRoutesTypeCode
   protected _subSetionRouteDefsCode = ProdAdminSubSetionRouteDefsCode
@@ -61,7 +63,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
   // protected readonly _bannerImg = LibImages.Post.Banner.xlarge
   protected readonly _bannerPlaceholder = LibImages.Post.Banner.placeholder
-    protected readonly _imgLoaderFn =  ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge')
+  protected readonly _imgLoaderFn = ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge')
 
   //- - - - - - - - - - - - - - //
 
@@ -78,10 +80,13 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _isLoading = this._dlState.loading
 
 
+  _transitionId = computed(() => this.router.url);
+
+
   //----------------------------//
 
   ngOnInit() {
-    
+
     setTimeout(() =>
       this._showButton.set(true),
       2000
@@ -96,9 +101,9 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
     // Access static data
     const staticData = this.route.snapshot.data;
-    console.log('Static data:', staticData);
-    console.log('Page Title (Snapshot):', staticData['pageTitle']);
-    console.log('Show Author (Snapshot):', staticData['showDemoLink']);
+    // devConsole.log('Static data:', staticData);
+    // devConsole.log('Page Title (Snapshot):', staticData['pageTitle']);
+    // devConsole.log('Show Author (Snapshot):', staticData['showDemoLink']);
     this._showDemoLink.set(staticData['showDemoLink']);
 
   }

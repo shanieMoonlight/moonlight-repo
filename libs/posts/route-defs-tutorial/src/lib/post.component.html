@@ -2,11 +2,13 @@
     <sb-progressive-image
         [placeholder]="_bannerPlaceholder"
         [smlToLrgFn]="_imgLoaderFn"
-        [alt]="'Angular routing banner'"/>
+        [alt]="'Angular routing banner'"
+        [transitionId]="_transitionId()"/>
+        
     <div class="banner-overlay">
         <h1 class="banner-title">Type-Safe Hierarchical Routing for Angular</h1>
     </div>
-    <!-- {{_bannerImg}} -->
+    
 </div>
 <div class="component-container">
     @if(_showDemoLink()){
