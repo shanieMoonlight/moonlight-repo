@@ -60,7 +60,8 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
 
   constructor() {
     effect(() => {
-      this.lrgUrl(); // establish dependency on lrgUrl
+      this.lrgUrl(); // establish dependency on lrgUrl 
+      this.smlToLrgFn(); // establish dependency on smlToLrgFn
       if (this._afterContentInitRun && isPlatformBrowser(this._platformId)) {
         // This effect runs when lrgUrl changes, after ngAfterContentInit has run at least once.
         this.registerEvents();
@@ -121,8 +122,8 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
     this.removeListeners()
     const src = this._nativeElement.getAttribute('src')
     this.loadLargeImage(
-      src ?? '#', 
-      () => this.loadFallback(), 
+      src ?? '#',
+      () => this.loadFallback(),
       this.retryCount()
     );
 

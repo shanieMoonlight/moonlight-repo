@@ -1,26 +1,29 @@
-export const UsageExampleCode = `// Component class
-export class MyComponent {
-  readonly placeholderImg = 'assets/images/small-placeholder.jpg';
-  readonly largeImg = 'assets/images/large-image.jpg';
-  
-  // Or use a function to transform the URL
-  readonly imgTransformFn = (smallUrl: string) => {
-    return smallUrl.replace('/small/', '/large/');
-  };
-}
-
-// Template usage
+export const UsageExampleCode = `// Basic usage with direct URLs
 <sb-progressive-image
-  [placeholder]="placeholderImg"
-  [lrgUrl]="largeImg"  
-  alt="My progressive image"
-  objectFit="cover"
-  [transitionId]="'unique-id-' + imageId">
+  [placeholder]="'assets/images/small-placeholder.jpg'"
+  [lrgUrl]="'assets/images/large-image.jpg'"  
+  alt="My progressive image">
 </sb-progressive-image>
 
-// Alternative with transform function
+// With URL transformation function
 <sb-progressive-image
-  [placeholder]="placeholderImg"
-  [smlToLrgFn]="imgTransformFn"  
-  alt="My progressive image">
+  [placeholder]="'assets/images/thumbnails/product-123.jpg'"
+  [smlToLrgFn]="(url) => url.replace('/thumbnails/', '/highres/')"  
+  alt="Product image">
+</sb-progressive-image>
+
+// With view transitions API support
+<sb-progressive-image
+  [placeholder]="product.thumbnailUrl"
+  [lrgUrl]="product.fullImageUrl"
+  [transitionId]="'product-' + product.id"
+  objectFit="cover"
+  alt="{{product.name}}">
+</sb-progressive-image>
+
+// With fallback image and specific object-fit
+<sb-progressive-image
+  [placeholder]="product.thumbnailUrl"
+  [lrgUrl]="product.fullImageUrl"
+  [fallbackUrl]="'assets/images/product-not-found.jpg'">
 </sb-progressive-image>`

@@ -16,7 +16,18 @@ import { ComponentStyleCode } from './code/component-style';
 import { UsageExampleCode } from './code/usage-example';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { BlogConstants } from './config/constants';
-import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+// Commented out as it's not used in the template currently
+// import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { FallBackConstsTsCode } from './code/fallback-consts';
+import { 
+  BasicUsageExample,
+  TransformFunctionExample,
+  ViewTransitionsExample,
+  FallbackImageExample,
+  ObjectFitExample,
+  PredefinedFunctionsExample,
+  PredefinedFunctionsTemplateExample
+} from './code/html-examples';
 
 @Component({
   standalone: true,
@@ -24,8 +35,9 @@ import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2'
     CommonModule,
     MatEverythingModule,
     RouterModule,
-    HighlightModule,
-    HubHeroBanner2Component
+    HighlightModule
+    // Commented out as it's not used in the template currently
+    // HubHeroBanner2Component
   ],
   providers: [],
   selector: 'sb-hub-blog-features-prog-img-tutorial',
@@ -46,7 +58,7 @@ export class HubBlogProgImgTutorialComponent {
   protected _subtitle = BlogConstants.ProgImgTutorial.Subtitle;
   protected _description = BlogConstants.ProgImgTutorial.Description;
 
-  // Code samples for displaying in the tutorial
+  // Code samples for displaying in the tutorial  // Code samples from Typescript files
   protected readonly _directiveBasicCode = DirectiveBasicCode;
   protected readonly _directiveImplementationCode = DirectiveImplementationCode;
   protected readonly _imageLoadingCode = ImageLoadingCode;
@@ -55,6 +67,16 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _componentStyleCode = ComponentStyleCode;
   protected readonly _usageExampleCode = UsageExampleCode;
   protected readonly _predefinedFunctionsCode = PredefinedFunctionsCode;
+  protected readonly _fallbackConsts = FallBackConstsTsCode;
+  
+  // HTML code examples (extracted from the template)
+  protected readonly _basicUsageExample = BasicUsageExample;
+  protected readonly _transformFunctionExample = TransformFunctionExample;
+  protected readonly _viewTransitionsExample = ViewTransitionsExample;
+  protected readonly _fallbackImageExample = FallbackImageExample;
+  protected readonly _objectFitExample = ObjectFitExample;
+  protected readonly _predefinedFunctionsExample = PredefinedFunctionsExample;
+  protected readonly _predefinedFunctionsTemplateExample = PredefinedFunctionsTemplateExample;
 
   protected readonly _bannerImg =  HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
 

@@ -2,12 +2,12 @@
   <h1 class="title">{{ _title }}</h1>
   <h2 class="subtitle">{{ _subtitle }}</h2>
 </div> -->
-<sb-hub-hero-banner-2
+<!-- <sb-hub-hero-banner-2
   [title]="_title"
   [subtitle]="_subtitle"
   [description]="_description"
-  [objectPosition]="'0% 80%'"
-  [backgroundImage]="_bannerImg"/>
+  [objectPosition]="'0% 85%'"
+  [backgroundImage]="_bannerImg"/> -->
 
 <div class="component-container">
   <p class="intro">
@@ -18,7 +18,7 @@
 
   <h2>What We're Building</h2>
   <p>
-    In this tutorial, we'll build an Angular component for progressive image loading with these features:
+    In this tutorial, we'll build an Angular directive and a component that wraps the directive for progressive image loading with these features:
   </p>
   <ul class="features-list">
     <li>Start with a low-quality placeholder that loads quickly</li>
@@ -72,6 +72,9 @@
   <p>
     This implementation:
   </p>
+
+
+  
   <ul>
     <li>Sets up event listeners for the image's <code>load</code> and <code>error</code> events</li>
     <li>Handles both successful placeholder loading and error cases</li>
@@ -98,9 +101,85 @@
   </p>
   <ul>
     <li>Multiple attempts to load the high-quality image with configurable retry count and timeout</li>
+    <li>First we try use the smlToLrgFn, if it exists</li>
+    <li>If it doesn't esixt or generates a falsey value we attempt the lrgUrl</li>
     <li>Fallback to a default image if all attempts fail</li>
     <li>Flexibility in how the large image URL is determined (function or direct URL)</li>
   </ul>
+
+  <h2>Understanding the Progressive Image Loading Workflow</h2>
+  <p>
+    Let's walk through the complete lifecycle of how the directive works from initialization to image loading:
+  </p>
+
+  <ol class="workflow-steps">
+    <li>
+      <strong>Initialization:</strong> When the directive is initialized, it captures a reference to the native image element.
+      Angular's dependency injection system provides the ElementRef, Renderer2, and PLATFORM_ID.
+    </li>
+    <li>
+      <strong>Content Initialization:</strong> In the ngAfterContentInit lifecycle hook, the directive:
+      <ul>
+        <li>Checks if we're in a browser environment (skipping server-side rendering)</li>
+        <li>Registers event listeners for the placeholder image's load and error events</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Placeholder Image Loading:</strong> The image element initially has its src set to the placeholder URL
+      (small image). One of two things can happen:
+      <ul>
+        <li>The placeholder loads successfully, triggering the onPlaceholderLoad method</li>
+        <li>The placeholder fails to load, triggering the onPlaceholderError method</li>
+      </ul>
+    </li>
+    <li>
+      <strong>High-Quality Image Loading:</strong> In either case above, the directive:
+      <ul>
+        <li>Removes the initial event listeners (they're no longer needed)</li>
+        <li>Attempts to determine the URL for the high-quality image using getLargeUrl</li>
+        <li>Creates a new Image object to preload the high-quality image without affecting the DOM yet</li>
+      </ul>
+    </li>
+    <li>
+      <strong>URL Resolution Strategy:</strong> The getLargeUrl method uses this logic:
+      <ul>
+        <li>First tries to use the smlToLrgFn input if provided. This is a function that transforms the small URL to a large URL</li>
+        <li>If smlToLrgFn is undefined or returns a falsy value, it falls back to using the explicit lrgUrl input</li>
+        <li>If both options fail to provide a URL, it returns null, triggering the error path</li>
+      </ul>
+    </li>
+    <li>
+      <strong>High-Quality Image Success:</strong> If the high-quality image loads successfully:
+      <ul>
+        <li>The renderLargeImage method is called, which updates the src attribute of the original img element</li>
+        <li>This creates a smooth transition from the placeholder to the high-quality image</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Retry Mechanism:</strong> If the high-quality image fails to load:
+      <ul>
+        <li>The onLargeImageError method is called</li>
+        <li>If there are retries remaining, it waits for the specified timeout and attempts to load the image again</li>
+        <li>If all retries are exhausted, it calls the provided error callback function</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Fallback Handling:</strong> If all attempts to load the high-quality image fail:
+      <ul>
+        <li>The loadFallback method is called, which sets the src to the fallbackUrl</li>
+        <li>It also sets object-fit to 'contain' to ensure the fallback image displays properly</li>
+        <li>The error output is emitted, allowing the parent component to react to the failure</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Cleanup:</strong> When the directive is destroyed (ngOnDestroy), it removes all event listeners to prevent memory leaks
+    </li>
+  </ol>
+
+  <p>
+    This comprehensive approach ensures a smooth user experience by always showing something, whether it's the initial placeholder, 
+    the high-quality image, or a fallback. The system is also resilient, with configurable retry mechanisms and proper error handling.
+  </p>
 
   <mat-divider></mat-divider>
 
@@ -183,6 +262,78 @@
     </mat-card-header>
     <mat-card-content>
       <pre><code [highlight]="_usageExampleCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+  
+  <p>
+    There are several ways to use the progressive image component depending on your needs:
+  </p>
+    <h3>Basic Usage</h3>
+  <p>
+    The simplest way is to provide both placeholder and large image URLs directly:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_basicUsageExample" language="html"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>Using URL Transformation</h3>
+  <p>
+    For more dynamic scenarios, you can provide a function that converts the placeholder URL to the large image URL:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_transformFunctionExample" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>With View Transitions API</h3>
+  <p>
+    To enable smooth transitions between routes using the View Transitions API:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_viewTransitionsExample" language="html"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>With Fallback Image</h3>
+  <p>
+    Providing a fallback image ensures something is shown if both the placeholder and large image fail to load:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_fallbackImageExample" language="html"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>Using Different Object Fit Values</h3>
+  <p>
+    Control how the image fits within its container:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_objectFitExample" language="html"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h3>Working with Predefined Functions</h3>
+  <p>
+    Using our utility functions to dynamically transform URLs:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_predefinedFunctionsExample" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    Then in your template:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_predefinedFunctionsTemplateExample" language="html"></code></pre>
     </mat-card-content>
   </mat-card>
 
