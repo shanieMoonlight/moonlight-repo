@@ -28,6 +28,7 @@ import {
   PredefinedFunctionsExample,
   PredefinedFunctionsTemplateExample
 } from './code/html-examples';
+import { FallbackInputCode } from './code/fallback-input';
 
 @Component({
   standalone: true,
@@ -68,8 +69,7 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _usageExampleCode = UsageExampleCode;
   protected readonly _predefinedFunctionsCode = PredefinedFunctionsCode;
   protected readonly _fallbackConsts = FallBackConstsTsCode;
-  
-  // HTML code examples (extracted from the template)
+    // HTML code examples (extracted from the template)
   protected readonly _basicUsageExample = BasicUsageExample;
   protected readonly _transformFunctionExample = TransformFunctionExample;
   protected readonly _viewTransitionsExample = ViewTransitionsExample;
@@ -77,6 +77,7 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _objectFitExample = ObjectFitExample;
   protected readonly _predefinedFunctionsExample = PredefinedFunctionsExample;
   protected readonly _predefinedFunctionsTemplateExample = PredefinedFunctionsTemplateExample;
+  protected readonly _fallbackInputCode = FallbackInputCode;
 
   protected readonly _bannerImg =  HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
 

@@ -96,16 +96,6 @@
     </mat-card-content>
   </mat-card>
 
-  <p>
-    These methods provide:
-  </p>
-  <ul>
-    <li>Multiple attempts to load the high-quality image with configurable retry count and timeout</li>
-    <li>First we try use the smlToLrgFn, if it exists</li>
-    <li>If it doesn't esixt or generates a falsey value we attempt the lrgUrl</li>
-    <li>Fallback to a default image if all attempts fail</li>
-    <li>Flexibility in how the large image URL is determined (function or direct URL)</li>
-  </ul>
 
   <h2>Understanding the Progressive Image Loading Workflow</h2>
   <p>
@@ -297,7 +287,6 @@
       <pre><code [highlight]="_viewTransitionsExample" language="html"></code></pre>
     </mat-card-content>
   </mat-card>
-
   <h3>With Fallback Image</h3>
   <p>
     Providing a fallback image ensures something is shown if both the placeholder and large image fail to load:
@@ -307,6 +296,38 @@
       <pre><code [highlight]="_fallbackImageExample" language="html"></code></pre>
     </mat-card-content>
   </mat-card>
+
+  <h3>Built-in SVG Fallback</h3>
+  <p>
+    Our directive includes a built-in SVG fallback that's used automatically if no fallback image is specified. This ensures 
+    that users always see something visual, even when both the placeholder and high-quality images fail to load.
+  </p>
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Default Fallback SVG Definition</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_fallbackConsts" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+  <p>
+    In the directive implementation, we use this SVG as the default value for the <code>fallbackUrl</code> input:
+  </p>
+  <mat-card class="code-card">
+    <mat-card-content>
+      <pre><code [highlight]="_fallbackInputCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+  
+  <p>
+    This approach provides several benefits:
+  </p>
+  <ul>
+    <li>No network request is needed for the fallback as it's embedded as a data URI</li>
+    <li>Users always see a consistent fallback across your application</li>
+    <li>It's lightweight (just a simple SVG icon)</li>
+    <li>Developers can still override it with their own fallback if desired</li>
+  </ul>
 
   <h3>Using Different Object Fit Values</h3>
   <p>

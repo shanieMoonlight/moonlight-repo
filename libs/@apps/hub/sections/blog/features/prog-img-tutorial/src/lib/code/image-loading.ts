@@ -1,5 +1,7 @@
 export const ImageLoadingCode = `
   private loadLargeImage(url: string, onerror: () => void, retries = 3) {
+
+    //Try to get the url for the large image
     const largeUrl = this.getLargeUrl(url);
 
     if (!largeUrl) {
@@ -28,7 +30,7 @@ export const ImageLoadingCode = `
 
 
   private loadFallback() {  
-    this._renderer.setAttribute(      this._nativeElement, 'src', this.fallbackUrl() as string);
+    this._renderer.setAttribute(this._nativeElement, 'src', this.fallbackUrl() as string);
     this._renderer.setStyle(this._nativeElement, 'object-fit', 'contain');
 
     this.error.emit();

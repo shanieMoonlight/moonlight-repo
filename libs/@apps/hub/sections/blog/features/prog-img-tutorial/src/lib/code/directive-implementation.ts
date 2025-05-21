@@ -9,6 +9,7 @@ export const DirectiveImplementationCode = `
   }
 
   ngOnDestroy() {
+    //tidy up
     this.removeListeners();
   }
 
@@ -16,17 +17,17 @@ export const DirectiveImplementationCode = `
        //Clear any existing listeners
     this.removeListeners()
 
-    //Success of failure try to load the large image anyway
+    //Success or failure: try to load the large image anyway
     this._cancelOnError = this._renderer.listen(
       this._nativeElement,
       'error',
-      () => this.onPlaceholderError()
+      () => this.onPlaceholderError()  //attempt to load large image and use fallback if that fails
     )
 
     this._cancelOnLoad = this._renderer.listen(
       this._nativeElement,
       'load',
-      () => this.onPlaceholderLoad()
+      () => this.onPlaceholderLoad() //attempt to load large image and use placeholder if that fails
     )
   }
 
@@ -38,7 +39,7 @@ export const DirectiveImplementationCode = `
     
     this.loadLargeImage(
       src ?? '#', 
-      () => this.loadFallback(), 
+      () => this.loadFallback(), //On error: use fallback image since the placeholder failed
       this.retryCount()
     );;
   }
@@ -46,7 +47,12 @@ export const DirectiveImplementationCode = `
   private onPlaceholderLoad() {
     // Stop listening and try to load large image
     this.removeListeners();
+
     const src = this._nativeElement.getAttribute('src');
-    this.loadLargeImage(src ?? '#', () => console.log('Using placeholder'), this.retryCount());
+    
+    this.loadLargeImage(
+      src ?? '#', 
+      () => console.log('Using placeholder'),  //On error: do nothing and use what's already there
+      this.retryCount());
   }
 `
