@@ -66,3 +66,6 @@ describe('sectionEverythingGenerator', () => {
     expect(sectionEntryPointGenerator).toHaveBeenCalledWith(tree, options);
   });
 });
+
+
+//https://medium.com/javascript-everyday/nx-custom-generators-205a6fecdbb6

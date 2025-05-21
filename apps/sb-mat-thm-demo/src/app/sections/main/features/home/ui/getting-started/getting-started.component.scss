@@ -8,6 +8,7 @@
 
 code {
   width: auto;
+  font-size: 1rem;
 }
 
 
@@ -16,6 +17,8 @@ code {
     margin: 0 5px;
     font-size: 1rem;
     color: #7e0000;
+    font-family: 'Consolas', 'Monaco', monospace;
+    line-height: 1.5;
   }
 
 }
@@ -23,8 +26,8 @@ code {
 
 :host-context(.dark-mode) .mat-theme-warning {
   code {
-    margin: 0 5px;
-    font-size: 1rem;
+    // margin: 0 5px;
+    // font-size: 1rem;
     color: #bd7272;
   }
 }
@@ -63,12 +66,13 @@ code {
   }
 }
 
-.version-note, .troubleshooting-note {
+.version-note,
+.troubleshooting-note {
   color: #1b1b1f;
 }
 
-.button-example-row{
-  button{
+.button-example-row {
+  button {
     margin-left: 1rem;
   }
 }

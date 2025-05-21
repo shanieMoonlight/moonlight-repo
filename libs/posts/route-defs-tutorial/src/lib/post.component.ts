@@ -101,9 +101,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
     // Access static data
     const staticData = this.route.snapshot.data;
-    // devConsole.log('Static data:', staticData);
-    // devConsole.log('Page Title (Snapshot):', staticData['pageTitle']);
-    // devConsole.log('Show Author (Snapshot):', staticData['showDemoLink']);
+    devConsole.log('Static data:', staticData);
     this._showDemoLink.set(staticData['showDemoLink']);
 
   }
