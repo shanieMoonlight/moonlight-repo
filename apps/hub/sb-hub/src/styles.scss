@@ -4,57 +4,28 @@
 @import 'highlight.js/styles/vs2015.css'; // Dark theme
 
 
-// /* Custom transition */
-// @keyframes rotate-out {
-//  to {
-//    transform: rotate(90deg);
-//  }
-// }
-// @keyframes rotate-in {
-//  from {
-//    transform: rotate(-90deg);
-//  }
-// }
-// ::view-transition-old(count),
-// ::view-transition-new(count) {
-//  animation-duration: 200ms;
-//  animation-name: -ua-view-transition-fade-in, rotate-in;
-// }
-// ::view-transition-old(count) {
-//  animation-name: -ua-view-transition-fade-out, rotate-out;
-// }
 
-
-/* Add to a global stylesheet or relevant component stylesheets */
-
-/* Apply to the sb-progressive-image component or the img it renders */
-/* You might need to inspect sb-progressive-image to see how it renders the actual image */
-sb-progressive-image.custom-img, 
-sb-progressive-image[style*="view-transition-name"] {
-  display: block; /* Important for layout during transition */
-  width: 100%;
-  height: 100%; /* Ensure it fills its transition container */
-  overflow: hidden; /* Can help contain the image */
+/* Styles for ANY img tag that has a view-transition-name style attribute */
+img[style*="view-transition-name"] {
+  // display: block; /* Ensures consistent layout behavior for the transitioning image */
+  // width: 100%;    /* Makes the image fill its (already sized) parent container */
+  // height: 100%;   /* Makes the image fill its (already sized) parent container */
+  // object-fit: cover; /* Ensures the image content covers the area, maintaining aspect ratio */
 }
 
-sb-progressive-image.custom-img img, /* If sb-progressive-image has an inner img */
-sb-progressive-image[style*="view-transition-name"] img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Crucial for smooth visual transition of image content */
-}
-
-/* Target the transition group for all shared banner images */
-::view-transition-group(banner-image-*) {
-  animation-duration: 0.5s; /* Adjust as needed */
+/* Target any view transition group */
+::view-transition-group(*) {
+  animation-duration: 0.35s; /* Adjust as needed */
+  animation-timing-function: ease-in-out;
   /* You can add more specific animation properties here if needed */
 }
 
-/* Ensure the old and new images in the transition maintain their aspect ratio handling */
-::view-transition-old(banner-image-*),
-::view-transition-new(banner-image-*) {
-  width: 100%;
+/* Ensure the old and new elements in any transition maintain consistent styling */
+::view-transition-old(*),
+::view-transition-new(*) {
+  width: 100%;    // Ensure the transition element itself fills its space
   height: 100%;
-  object-fit: cover; /* Consistent object-fit */
+  // object-fit: cover; /* Consistent object-fit, primarily for images */
   /* Mix-blend-mode can sometimes cause issues if not intended for the transition */
 }
+
