@@ -1,5 +1,144 @@
 :host {
   display: block;
-  // padding-top: 72px;
+  line-height: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-banner {
+  position: relative;
+  width: 100%;
+  background-color: #1976d2;
+  color: white;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  
+  .title {
+    font-size: 2.5rem;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0;
+    opacity: 0.9;
+  }
+}
+
+.component-container {
+  width: 96%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+  
+  .intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1976d2;
+  }
+  
+  h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+  
+  ul.features-list {
+    list-style-type: none;
+    padding: 0;
+    
+    li {
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #1976d2;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .code-card {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    
+    mat-card-header {
+      margin-bottom: 1rem;
+      
+      mat-card-title {
+        font-size: 1.2rem;
+        color: #1976d2;
+      }
+    }
+    
+    pre {
+      margin: 0;
+      padding: 1rem;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+      overflow-x: auto;
+      
+      code {
+        font-family: 'Courier New', monospace;
+      }
+    }
+  }
+  
+  mat-divider {
+    margin: 2.5rem 0;
+    width: 100%;
+  }
+  
+  .demo-section {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .github-link {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    
+    a {
+      display: flex;
+      align-items: center;
+      
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-banner {
+    padding: 2rem 1rem;
+    
+    .title {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .component-container {
+    width: 92%;
+  }
 }
 

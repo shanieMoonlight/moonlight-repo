@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { devConsole } from '@spider-baby/dev-console';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
@@ -18,7 +19,6 @@ import { AppConstants } from './config/constants';
 import { LibImages } from './config/images';
 import { DownloadCodeSampleService } from './download-setup/download-setup.service';
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
-import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -34,8 +34,8 @@ import { devConsole } from '@spider-baby/dev-console';
   ],
   providers: [DownloadCodeSampleService],
   host: { ngSkipHydration: 'true' },
-  templateUrl: './post.component.html',
-  styleUrl: './post.component.scss',
+  templateUrl: './route-defs-tutorial.component.html',
+  styleUrl: './route-defs-tutorial.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostRouteDefsTutorialComponent implements OnInit {

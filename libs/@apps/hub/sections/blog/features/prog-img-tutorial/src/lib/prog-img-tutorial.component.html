@@ -1,1 +1,268 @@
-<h1>prog-img-tutorial Works!</h1>
+<div class="header-banner">
+  <h1 class="title">{{ _title }}</h1>
+  <h2 class="subtitle">{{ _subtitle }}</h2>
+</div>
+
+<div class="component-container">
+  <p class="intro">
+    In modern web applications, loading high-quality images efficiently is crucial for creating a great user experience. 
+    One effective approach is progressive image loading, where we initially load a small, low-quality placeholder image 
+    followed by the high-quality version once it's ready.
+  </p>
+
+  <h2>What We're Building</h2>
+  <p>
+    In this tutorial, we'll build an Angular component for progressive image loading with these features:
+  </p>
+  <ul class="features-list">
+    <li>Start with a low-quality placeholder that loads quickly</li>
+    <li>Smoothly transition to a high-quality image when it loads</li>
+    <li>Fallback to a default image if loading fails</li>
+    <li>Multiple ways to specify the relationship between placeholder and full images</li>
+    <li>Support for View Transitions API for even smoother transitions</li>
+    <li>Easy to use across your application</li>
+  </ul>
+
+  <mat-divider></mat-divider>
+
+  <h2>Step 1: Creating the Directive</h2>
+  <p>
+    First, let's build a directive that handles the progressive loading logic. We'll create a directive that can be applied to 
+    any image element to enhance it with progressive loading capabilities.
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>ProgressiveImageLoaderDirective Basic Structure</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_directiveBasicCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    Our directive contains:
+  </p>
+  <ul>
+    <li><strong>Inputs</strong> for configuring the loading behavior</li>
+    <li><strong>Output event</strong> for handling errors</li>
+    <li><strong>Lifecycle hooks</strong> to set up and clean up event listeners</li>
+  </ul>
+
+  <h2>Step 2: Implementing the Loading Logic</h2>
+  <p>
+    Now let's implement the lifecycle methods and event listeners that handle the image loading process:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Directive Lifecycle and Event Handling</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_directiveImplementationCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    This implementation:
+  </p>
+  <ul>
+    <li>Sets up event listeners for the image's <code>load</code> and <code>error</code> events</li>
+    <li>Handles both successful placeholder loading and error cases</li>
+    <li>Properly cleans up listeners to prevent memory leaks</li>
+    <li>Skips server-side rendering for compatibility with Angular Universal</li>
+  </ul>
+
+  <h2>Step 3: Handling the Image Transitions</h2>
+  <p>
+    Next, let's implement the methods that handle the actual loading of the high-quality image and fallback behavior:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Image Loading and Error Handling</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_imageLoadingCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    These methods provide:
+  </p>
+  <ul>
+    <li>Multiple attempts to load the high-quality image with configurable retry count and timeout</li>
+    <li>Fallback to a default image if all attempts fail</li>
+    <li>Flexibility in how the large image URL is determined (function or direct URL)</li>
+  </ul>
+
+  <mat-divider></mat-divider>
+
+  <h2>Step 4: Creating a Wrapper Component</h2>
+  <p>
+    While the directive can be used directly on any image element, we'll create a dedicated component for a more streamlined API:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>ProgressiveImageComponent Definition</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_componentBasicCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    The component provides:
+  </p>
+  <ul>
+    <li>A cleaner API with the directive logic encapsulated</li>
+    <li>Additional features like view transition support</li>
+    <li>Styling options through inputs</li>
+  </ul>
+
+  <h2>Step 5: Component Template</h2>
+  <p>
+    Let's create the template for our progressive image component:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Component Template</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_componentTemplateCode" language="html"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    The template is simple but powerful:
+  </p>
+  <ul>
+    <li>Uses our directive on a regular image element</li>
+    <li>Passes all the inputs from the component to the directive</li>
+    <li>Applies styling and view transition properties</li>
+  </ul>
+
+  <h2>Step 6: Styling the Component</h2>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Component Styles</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_componentStyleCode" language="scss"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    Our styling ensures:
+  </p>
+  <ul>
+    <li>The image fills its container properly</li>
+    <li>No line-height issues when used inline</li>
+    <li>Proper vertical alignment with surrounding content</li>
+  </ul>
+
+  <mat-divider></mat-divider>
+
+  <h2>Step 7: Usage Examples</h2>
+  <p>
+    Now let's see how to use our progressive image component in an application:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Using the Component</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_usageExampleCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <h2>Utility Functions</h2>
+  <p>
+    To make it even easier to work with common image transformation patterns, we can create utility functions:
+  </p>
+
+  <mat-card class="code-card">
+    <mat-card-header>
+      <mat-card-title>Predefined Image Transformation Functions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <pre><code [highlight]="_predefinedFunctionsCode" language="typescript"></code></pre>
+    </mat-card-content>
+  </mat-card>
+
+  <p>
+    These utility functions simplify common transformations like:
+  </p>
+  <ul>
+    <li>Replacing path segments (e.g., '/small/' to '/large/')</li>
+    <li>Replacing filename suffixes (e.g., '-small.jpg' to '-large.jpg')</li>
+    <li>Removing path segments</li>
+  </ul>
+
+  <mat-divider></mat-divider>
+
+  <h2>Best Practices</h2>
+  <h3>Optimizing Image Loading Performance</h3>
+  <ul>
+    <li>Use appropriately sized placeholder images (typically 10-20% of the full size)</li>
+    <li>Consider using modern image formats like WebP or AVIF for better compression</li>
+    <li>Apply lazy loading for images below the fold</li>
+    <li>Consider preloading critical images</li>
+  </ul>
+
+  <h3>Responsive Images</h3>
+  <ul>
+    <li>Combine with responsive image techniques (srcset, sizes) for optimal results</li>
+    <li>Use appropriate objectFit values for different contexts</li>
+    <li>Test on multiple screen sizes and devices</li>
+  </ul>
+
+  <h3>Accessibility Considerations</h3>
+  <ul>
+    <li>Always include meaningful alt text</li>
+    <li>Consider users who might have disabled images</li>
+    <li>Ensure sufficient color contrast for overlaid text</li>
+  </ul>
+
+  @if (_showDemo()) {
+    <mat-divider></mat-divider>
+    <div class="demo-section">
+      <h2>Live Demo</h2>
+      <p>Coming soon! This section will showcase a live demo of progressive images in action.</p>
+    </div>
+  }
+
+  <mat-divider></mat-divider>
+
+  <h2>Conclusion</h2>
+  <p>
+    Progressive image loading significantly improves the user experience by providing immediate visual feedback while 
+    high-quality images load. Our Angular component makes it easy to implement this pattern consistently across your application.
+  </p>
+
+  <p>
+    The key benefits of this approach are:
+  </p>
+  <ul>
+    <li>Reduces perceived loading time</li>
+    <li>Prevents layout shifts during page load</li>
+    <li>Handles error cases gracefully</li>
+    <li>Provides a consistent loading experience</li>
+  </ul>
+
+  <p>
+    Feel free to extend this component with additional features like blur-up effects, custom transition animations, or 
+    integration with Angular's loading indicators.
+  </p>
+
+  <div class="github-link">
+    <a mat-button color="primary" [href]="_githubRepo" target="_blank">
+      <mat-icon>code</mat-icon>
+      <span>View on GitHub</span>
+    </a>
+  </div>
+</div>

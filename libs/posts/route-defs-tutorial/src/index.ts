@@ -1,1 +1,1 @@
-export * from './lib/post.component';
+export * from './lib/route-defs-tutorial.component';

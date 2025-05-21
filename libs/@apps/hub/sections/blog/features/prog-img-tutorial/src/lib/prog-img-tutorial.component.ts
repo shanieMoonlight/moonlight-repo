@@ -1,11 +1,28 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
-// import { IconsService } from '@sb-hub-blog-features-prog-img-tutorial/shared-utils/icons';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { HighlightModule } from 'ngx-highlightjs';
+
+// Import code samples
+import { DirectiveBasicCode } from './code/directive-basic';
+import { DirectiveImplementationCode } from './code/directive-implementation';
+import { ImageLoadingCode } from './code/image-loading';
+import { ComponentBasicCode } from './code/component-basic';
+import { ComponentTemplateCode } from './code/component-template';
+import { ComponentStyleCode } from './code/component-style';
+import { UsageExampleCode } from './code/usage-example';
+import { PredefinedFunctionsCode } from './code/predefined-functions';
+import { BlogConstants } from './config/constants';
 
 @Component({
   standalone: true,
   imports: [
+    CommonModule,
+    MatEverythingModule,
+    RouterModule,
+    HighlightModule
   ],
   providers: [],
   selector: 'sb-hub-blog-features-prog-img-tutorial',
@@ -15,29 +32,48 @@ import { SeoService } from '@spider-baby/utils-seo';
 })
 export class HubBlogProgImgTutorialComponent {
  
-  //  protected _iconsService = inject(IconsService); 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
 
   //- - - - - - - - - - - - - - -//
   
-  protected _title = 'Spider-Baby ';
-  protected _subtitle = 'Concise description of what this application does';
-  protected _description = `This is a more detailed description of your application's purpose and main features. 
-  You can elaborate on key functionality, target users, or any other important information
-  that helps explain what makes your application valuable.`;
+  // Title and SEO properties
+  protected _title = BlogConstants.ProgImgTutorial.Title;
+  protected _subtitle = BlogConstants.ProgImgTutorial.Subtitle;
+  protected _description = BlogConstants.ProgImgTutorial.Description;
+
+  // Code samples for displaying in the tutorial
+  protected readonly _directiveBasicCode = DirectiveBasicCode;
+  protected readonly _directiveImplementationCode = DirectiveImplementationCode;
+  protected readonly _imageLoadingCode = ImageLoadingCode;
+  protected readonly _componentBasicCode = ComponentBasicCode;
+  protected readonly _componentTemplateCode = ComponentTemplateCode;
+  protected readonly _componentStyleCode = ComponentStyleCode;
+  protected readonly _usageExampleCode = UsageExampleCode;
+  protected readonly _predefinedFunctionsCode = PredefinedFunctionsCode;
+
+  // Demo state
+  protected _showDemo = signal(false);
+  protected readonly _githubRepo = BlogConstants.ProgImgTutorial.GithubRepo;
+  
+  // Create a transition ID for the component based on the current route
+  protected _transitionId = computed(() => this._router.url);
 
   //----------------------------//
-
   constructor() {
-    console.log('constructor');
-    // this._iconsService.registerIcons();
     this._seoService.updateMetadata({
       title: this._title,
       description: this._description,
       url: this._router.url,
-      keywords: ['Angular', 'Angular library'],
+      keywords: ['Angular', 'Progressive Images', 'Image Loading', 'Performance', 'User Experience'],
     });
+    
+    // Access static data from route
+    const routeData = this._route.snapshot.data;
+    if (routeData['showDemo']) {
+      setTimeout(() => this._showDemo.set(true), 1000);
+    }
   }
 
 
