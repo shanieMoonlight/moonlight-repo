@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HubAppImages, HubAppSvgs } from '@sb-hub/core-config/images';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+import { ObjectFit, ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 
 //##########################################################//
 
@@ -28,7 +28,7 @@ export class HubHeroBanner2Component {
 
   private sanitizer = inject(DomSanitizer)
   private router = inject(Router);
-  
+
   //- - - - - - - - - - - - - - //
 
   _title = input<string>('', { alias: 'title' });
@@ -58,6 +58,10 @@ export class HubHeroBanner2Component {
   _smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn, { alias: 'smlToLrgFn' });
 
 
+  _objectFit = input<ObjectFit | undefined>('cover', { alias: 'objectFit' });
+  _objectPosition = input<string | undefined>(undefined, { alias: 'objectPosition' });
+
+
   rawSvgString = HubAppSvgs.WEB;
   // Create a data URI from the SVG string
   svgDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(this.rawSvgString)}`;
@@ -71,7 +75,7 @@ export class HubHeroBanner2Component {
   // _logo = HubAppImages.Logo.medium
   _logo = HubAppImages.LogoAlternates.Logo2.small
 
-  
+
   _transitionId = computed(() => this.router.url);
 
 

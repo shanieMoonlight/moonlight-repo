@@ -3,10 +3,11 @@ import { ProgressiveImageLoaderDirective } from './progressive-image-loader.dire
 
 //##########################################################//
 
-type ObjectFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
+export type ObjectFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
 
 
 //##########################################################//
+
 
 function sanitizeTransitionId(value: string | undefined): string | undefined {
     if (!value?.trim())
@@ -25,7 +26,9 @@ function sanitizeTransitionId(value: string | undefined): string | undefined {
     return sanitized === '' ? undefined : sanitized;
 }
 
+
 //##########################################################//
+
 
 @Component({
     selector: 'sb-progressive-image',

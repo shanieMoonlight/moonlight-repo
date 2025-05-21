@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { HighlightModule } from 'ngx-highlightjs';
+import { HubAppImages } from '@sb-hub/core-config/images';
 
 // Import code samples
 import { DirectiveBasicCode } from './code/directive-basic';
@@ -15,6 +16,7 @@ import { ComponentStyleCode } from './code/component-style';
 import { UsageExampleCode } from './code/usage-example';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { BlogConstants } from './config/constants';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 
 @Component({
   standalone: true,
@@ -22,7 +24,8 @@ import { BlogConstants } from './config/constants';
     CommonModule,
     MatEverythingModule,
     RouterModule,
-    HighlightModule
+    HighlightModule,
+    HubHeroBanner2Component
   ],
   providers: [],
   selector: 'sb-hub-blog-features-prog-img-tutorial',
@@ -52,6 +55,8 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _componentStyleCode = ComponentStyleCode;
   protected readonly _usageExampleCode = UsageExampleCode;
   protected readonly _predefinedFunctionsCode = PredefinedFunctionsCode;
+
+  protected readonly _bannerImg =  HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
 
   // Demo state
   protected _showDemo = signal(false);

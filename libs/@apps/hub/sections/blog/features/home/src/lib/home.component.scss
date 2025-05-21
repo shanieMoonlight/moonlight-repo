@@ -7,13 +7,18 @@
 }
 
 .component-container {
-  max-width: 1200px;
+  max-width: 1600px;
+      width: 100%;
   margin: 0 auto;
   padding: 2rem;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+sb-hub-fancy-nav-card{
+  max-width: 450px;
 }
 
 .cta-buttons {
@@ -53,6 +58,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  justify-content: center;    // Centers columns horizontally when there's extra space
+  align-items: center;        // Centers items vertically
+  justify-items: center;   
 }
 
 .feature-card {

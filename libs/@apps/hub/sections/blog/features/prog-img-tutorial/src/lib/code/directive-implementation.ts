@@ -13,28 +13,34 @@ export const DirectiveImplementationCode = `
   }
 
   private registerEvents() {
-    // Clear existing listeners
-    this.removeListeners();
+       //Clear any existing listeners
+    this.removeListeners()
 
-    // Listen for error and load events on the image
+    //Success of failure try to load the large image anyway
     this._cancelOnError = this._renderer.listen(
-      this._nativeElement, 
-      'error', 
-      this.onPlaceholderError.bind(this)
-    );
-    
+      this._nativeElement,
+      'error',
+      () => this.onPlaceholderError()
+    )
+
     this._cancelOnLoad = this._renderer.listen(
-      this._nativeElement, 
-      'load', 
-      this.onPlaceholderLoad.bind(this)
-    );
+      this._nativeElement,
+      'load',
+      () => this.onPlaceholderLoad()
+    )
   }
 
   private onPlaceholderError() {
     // Stop listening and try to load large image
-    this.removeListeners();
-    const src = this._nativeElement.getAttribute('src');
-    this.loadLargeImage(src ?? '#', this.loadFallback.bind(this), this.retryCount());
+    this.removeListeners()
+
+    const src = this._nativeElement.getAttribute('src')
+    
+    this.loadLargeImage(
+      src ?? '#', 
+      () => this.loadFallback(), 
+      this.retryCount()
+    );;
   }
 
   private onPlaceholderLoad() {

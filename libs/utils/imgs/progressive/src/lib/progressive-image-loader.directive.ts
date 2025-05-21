@@ -96,8 +96,17 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
     this.removeListeners()
 
     //Success of failure try to load the large image anyway
-    this._cancelOnError = this._renderer.listen(this._nativeElement, 'error', this.onPlaceholderError.bind(this))
-    this._cancelOnLoad = this._renderer.listen(this._nativeElement, 'load', this.onPlaceholderLoad.bind(this))
+    this._cancelOnError = this._renderer.listen(
+      this._nativeElement,
+      'error',
+      () => this.onPlaceholderError()
+    )
+
+    this._cancelOnLoad = this._renderer.listen(
+      this._nativeElement,
+      'load',
+      () => this.onPlaceholderLoad()
+    )
 
   }
 
@@ -111,7 +120,11 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
     //stop listening
     this.removeListeners()
     const src = this._nativeElement.getAttribute('src')
-    this.loadLargeImage(src ?? '#', this.loadFallback.bind(this), this.retryCount())
+    this.loadLargeImage(
+      src ?? '#', 
+      () => this.loadFallback(), 
+      this.retryCount()
+    );
 
   }
 

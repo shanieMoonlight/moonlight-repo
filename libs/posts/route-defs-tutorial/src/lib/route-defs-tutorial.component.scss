@@ -73,7 +73,7 @@ mat-divider {
 
 .btn-container {
   position: fixed;
-  // top: 85px;
+  top: 85px;
   opacity: 0;
   right: 16px;
   border-radius: 12px;
@@ -87,7 +87,7 @@ mat-divider {
   animation: drop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   z-index: 10;
   opacity: 1; // Explicitly set this to override the base class
-  transform: translateY(85px);
+  // transform: translateY(190px);
 
   #btn-download {
     animation: spin 2.5s ease-in-out forwards;

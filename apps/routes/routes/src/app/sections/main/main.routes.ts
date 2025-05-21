@@ -27,10 +27,6 @@ export const mainRoutes: Route[] = [
         path: MainSectionRoutesDefs.route('tutorial'),
         loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
       },
-      {
-        path: MainSectionRoutesDefs.route('post'),
-        loadComponent: () => import('./features/post/post.component').then((m) => m.PostComponent),
-      },
       // This route is the default route for the product-admin area 
       // We want the base/entry route to be '' so that routing will happen relative to MainSectionRoutesDefs.BASE not 'home'
       {

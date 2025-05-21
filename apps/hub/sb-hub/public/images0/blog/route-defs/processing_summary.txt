@@ -1,7 +1,0 @@
-Processing Summary - 16/05/2025 19:13:44
-Source folder: C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\routes\routes\public\images\post
-Total folder types processed: 4
-- small: 2 images processed
-- medium: 2 images processed
-- large: 2 images processed
-- xlarge: 2 images processed

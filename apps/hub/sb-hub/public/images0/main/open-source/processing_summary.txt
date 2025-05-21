@@ -1,7 +1,0 @@
-Processing Summary - 19/05/2025 15:09:45
-Source folder: C:\Users\Shaneyboy\Desktop\imgs\open-source
-Total folder types processed: 4
-- small: 4 images processed
-- medium: 4 images processed
-- large: 4 images processed
-- xlarge: 4 images processed
