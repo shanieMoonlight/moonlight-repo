@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/no-output-native */
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { ProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
 

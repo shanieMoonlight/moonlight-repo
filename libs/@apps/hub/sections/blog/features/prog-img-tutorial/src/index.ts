@@ -1,0 +1,1 @@
+export * from './lib/prog-img-tutorial.component';
