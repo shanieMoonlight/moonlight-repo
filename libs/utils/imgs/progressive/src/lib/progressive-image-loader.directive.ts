@@ -92,9 +92,7 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
     combineLatest([this._lrgUrl$, this._smlToLrgFn$])
       .pipe(takeUntilDestroyed(this._destroyor))
       .subscribe(() => {
-        if (isPlatformBrowser(this._platformId)) {
-          this.registerEvents();
-        }
+          this.registerEvents()
       })
 
   }

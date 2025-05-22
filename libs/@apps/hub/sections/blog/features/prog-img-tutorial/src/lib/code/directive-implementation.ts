@@ -1,73 +1,77 @@
 export const DirectiveImplementationCode = `
-
-
-  constructor() {
-  //Respond to changes in the input properties
-    effect(() => {
-      this.lrgUrl(); // establish dependency on lrgUrl 
-      this.smlToLrgFn(); // establish dependency on smlToLrgFn
-      if (this._afterContentInitRun && isPlatformBrowser(this._platformId)) {
-        // This effect runs when lrgUrl or smlToLrgFn changes, after ngAfterContentInit has run at least once.
-        this.registerEvents();
-      }
-    });
-  }
-
-
   ngAfterContentInit() {
     // Skip server-side rendering
     if (!isPlatformBrowser(this._platformId))
       return;
 
     this.registerEvents();
-    this._afterContentInitRun = true;
+
+    // Listen for changes to inputs in case the user changes them after initialization
+    // Using combineLatest with takeUntilDestroyed for automatic cleanup on component destruction
+    combineLatest([this._lrgUrl$, this._smlToLrgFn$])
+      .pipe(takeUntilDestroyed(this._destroyor))
+      .subscribe(() => {
+          this.registerEvents()
+      });
   }
 
   ngOnDestroy() {
-    //tidy up
+    // Clean up all event listeners
     this.removeListeners();
   }
 
   private registerEvents() {
-       //Clear any existing listeners
-    this.removeListeners()
+    // Clear any existing listeners first to avoid duplicates
+    this.removeListeners();
 
-    //Success or failure: try to load the large image anyway
+    // Register error event for the placeholder image
     this._cancelOnError = this._renderer.listen(
       this._nativeElement,
       'error',
-      () => this.onPlaceholderError()  //attempt to load large image and use fallback if that fails
-    )
+      () => this.onPlaceholderError()  // Attempt to load large image and use fallback if that fails
+    );
 
+    // Register load event for the placeholder image
     this._cancelOnLoad = this._renderer.listen(
       this._nativeElement,
       'load',
-      () => this.onPlaceholderLoad() //attempt to load large image and use placeholder if that fails
-    )
+      () => this.onPlaceholderLoad()  // Attempt to load large image and use placeholder if that fails
+    );
   }
 
   private onPlaceholderError() {
-    // Stop listening and try to load large image
-    this.removeListeners()
+    // Stop listening since we're now handling the next phase
+    this.removeListeners();
 
-    const src = this._nativeElement.getAttribute('src')
-    
+    const src = this.getImgSrc();
     this.loadLargeImage(
       src ?? '#', 
-      () => this.loadFallback(), //On error: use fallback image since the placeholder failed
+      () => this.loadFallback(), // On error: use fallback image since the placeholder failed
       this.retryCount()
-    );;
+    );
   }
 
   private onPlaceholderLoad() {
-    // Stop listening and try to load large image
+    // Stop listening since we're now handling the next phase
     this.removeListeners();
 
-    const src = this._nativeElement.getAttribute('src');
-    
+    const src = this.getImgSrc();
     this.loadLargeImage(
       src ?? '#', 
-      () => console.log('Using placeholder'),  //On error: do nothing and use what's already there
-      this.retryCount());
+      () => devConsole.log('Using placeholder'),  // On error: stay with the placeholder
+      this.retryCount()
+    );
   }
+  
+  // Helper methods to remove event listeners
+  private removeListeners() {
+    this.removeErrorEvent();
+    this.removeOnLoadEvent();
+  }
+
+  private removeErrorEvent = () => 
+    this._cancelOnError?.();
+
+  private removeOnLoadEvent = () =>
+    this._cancelOnLoad?.();
 `

@@ -81,8 +81,30 @@
     <li>Properly cleans up listeners to prevent memory leaks</li>
     <li>Skips server-side rendering for compatibility with Angular Universal</li>
   </ul>
+  <h2>Step 3: Event Management and Cleanup</h2>
+  <p>
+    A crucial part of any directive that adds event listeners is proper cleanup to prevent memory leaks.
+    Our directive uses a clean pattern for event management:
+  </p>
 
-  <h2>Step 3: Handling the Image Transitions</h2>
+  <ul>
+    <li>
+      <strong>Event Registration:</strong> We use Angular's Renderer2 to add event listeners, which returns a cleanup function
+    </li>
+    <li>
+      <strong>Cleanup Functions:</strong> We store these cleanup functions as class properties for later use
+    </li>
+    <li>
+      <strong>Centralized Removal:</strong> We have dedicated methods to invoke these cleanup functions when needed
+    </li>
+  </ul>
+
+  <p>
+    This pattern ensures that event listeners are properly managed throughout the directive's lifecycle and
+    when input values change, preventing memory leaks and unexpected behavior.
+  </p>
+
+  <h2>Step 4: Handling the Image Transitions</h2>
   <p>
     Next, let's implement the methods that handle the actual loading of the high-quality image and fallback behavior:
   </p>
@@ -96,7 +118,6 @@
     </mat-card-content>
   </mat-card>
 
-
   <h2>Understanding the Progressive Image Loading Workflow</h2>
   <p>
     Let's walk through the complete lifecycle of how the directive works from initialization to image loading:
@@ -105,13 +126,24 @@
   <ol class="workflow-steps">
     <li>
       <strong>Initialization:</strong> When the directive is initialized, it captures a reference to the native image element.
-      Angular's dependency injection system provides the ElementRef, Renderer2, and PLATFORM_ID.
+      Angular's dependency injection system provides the ElementRef, Renderer2, DestroyRef, and PLATFORM_ID.
+    </li>
+    <li>
+      <strong>Reactive Inputs Setup:</strong> The directive sets up toObservable() on the input signals to create reactive streams
+      that can be used with RxJS operators:
+      <ul>
+        <li>private _smlToLrgFn$ = toObservable(this.smlToLrgFn);</li>
+        <li>private _lrgUrl$ = toObservable(this.lrgUrl);</li>
+      </ul>
+      This enables the directive to react to input changes even after initialization.
     </li>
     <li>
       <strong>Content Initialization:</strong> In the ngAfterContentInit lifecycle hook, the directive:
       <ul>
         <li>Checks if we're in a browser environment (skipping server-side rendering)</li>
         <li>Registers event listeners for the placeholder image's load and error events</li>
+        <li>Sets up a combineLatest subscriber that will re-register events when input values change</li>
+        <li>Uses takeUntilDestroyed with the injected DestroyRef for automatic cleanup</li>
       </ul>
     </li>
     <li>
@@ -135,13 +167,13 @@
       <ul>
         <li>First tries to use the smlToLrgFn input if provided. This is a function that transforms the small URL to a large URL</li>
         <li>If smlToLrgFn is undefined or returns a falsy value, it falls back to using the explicit lrgUrl input</li>
-        <li>If both options fail to provide a URL, it returns null, triggering the error path</li>
+        <li>If both options fail to provide a URL, it logs a warning message and returns null, triggering the error path</li>
       </ul>
     </li>
     <li>
       <strong>High-Quality Image Success:</strong> If the high-quality image loads successfully:
       <ul>
-        <li>The renderLargeImage method is called, which updates the src attribute of the original img element</li>
+        <li>The setImgSrc method is called, which updates the src attribute of the original img element</li>
         <li>This creates a smooth transition from the placeholder to the high-quality image</li>
       </ul>
     </li>
@@ -162,18 +194,65 @@
       </ul>
     </li>
     <li>
-      <strong>Cleanup:</strong> When the directive is destroyed (ngOnDestroy), it removes all event listeners to prevent memory leaks
+      <strong>Input Change Handling:</strong> If the lrgUrl or smlToLrgFn inputs change after initialization:
+      <ul>
+        <li>The combineLatest subscriber detects the changes</li>
+        <li>It calls registerEvents() which sets up the event listeners again</li>
+        <li>This ensures that the directive can adapt to dynamic changes in URLs</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Cleanup:</strong> When the directive is destroyed (ngOnDestroy):
+      <ul>
+        <li>It removes all event listeners to prevent memory leaks</li>
+        <li>The takeUntilDestroyed operator automatically unsubscribes from all RxJS subscriptions</li>
+      </ul>
     </li>
   </ol>
-
   <p>
     This comprehensive approach ensures a smooth user experience by always showing something, whether it's the initial placeholder, 
     the high-quality image, or a fallback. The system is also resilient, with configurable retry mechanisms and proper error handling.
   </p>
 
-  <mat-divider></mat-divider>
+  <h3>Reactive Input Handling with Angular Signals</h3>
+  <p>
+    One of the key features of our directive is its ability to react to changes in its inputs even after initialization.
+    This is especially useful in single-page applications where data may change without the component being destroyed and recreated.
+  </p>
 
-  <h2>Step 4: Creating a Wrapper Component</h2>
+  <p>
+    We achieve this reactivity using Angular's signals and the <code>toObservable</code> function:
+  </p>
+
+  <ul>
+    <li>
+      <strong>Input Signals:</strong> We use Angular's <code>input()</code> function to create signal-based inputs that can be observed for changes
+    </li>
+    <li>
+      <strong>Converting to Observables:</strong> We use <code>toObservable()</code> to convert these input signals into RxJS observables
+    </li>
+    <li>
+      <strong>Combining Streams:</strong> We use <code>combineLatest</code> to watch for changes to multiple inputs simultaneously
+    </li>
+    <li>
+      <strong>Automatic Cleanup:</strong> We use <code>takeUntilDestroyed()</code> with the injected <code>DestroyRef</code> to automatically 
+      unsubscribe when the directive is destroyed
+    </li>
+  </ul>
+
+  <p>
+    This reactive approach provides several benefits:
+  </p>
+
+  <ul>
+    <li>The directive automatically adapts to changes in URL patterns without needing to be reinitialized</li>
+    <li>It avoids memory leaks by properly cleaning up subscriptions</li>
+    <li>It integrates seamlessly with Angular's dependency injection and lifecycle hooks</li>
+    <li>It works well with OnPush change detection by not relying on ngOnChanges</li>
+  </ul>
+
+  <mat-divider></mat-divider>
+  <h2>Step 5: Creating a Wrapper Component</h2>
   <p>
     Setting the placeholder image URL directly on the <code>src</code> and adding a separate lrgUrl (which is the real image that we're interested in) seems backward to me.
     <br>
@@ -199,8 +278,7 @@
     <li>Additional features like view transition support</li>
     <li>Styling options through inputs</li>
   </ul>
-
-  <h2>Step 5: Component Template</h2>
+  <h2>Step 6: Component Template</h2>
   <p>
     Let's create the template for our progressive image component:
   </p>
@@ -222,8 +300,7 @@
     <li>Passes all the inputs from the component to the directive</li>
     <li>Applies styling and view transition properties</li>
   </ul>
-
-  <h2>Step 6: Styling the Component</h2>
+  <h2>Step 7: Styling the Component</h2>
 
   <mat-card class="code-card">
     <mat-card-header>
@@ -244,8 +321,7 @@
   </ul>
 
   <mat-divider></mat-divider>
-
-  <h2>Step 7: Usage Examples</h2>
+  <h2>Step 8: Usage Examples</h2>
   <p>
     Now let's see how to use our progressive image component in an application:
   </p>
@@ -419,11 +495,11 @@
   }
 
   <mat-divider></mat-divider>
-
   <h2>Conclusion</h2>
   <p>
     Progressive image loading significantly improves the user experience by providing immediate visual feedback while 
-    high-quality images load. Our Angular component makes it easy to implement this pattern consistently across your application.
+    high-quality images load. Our Angular directive and component make it easy to implement this pattern consistently 
+    across your application, with full support for reactive updates thanks to Angular's signals and RxJS integration.
   </p>
 
   <p>
@@ -434,6 +510,20 @@
     <li>Prevents layout shifts during page load</li>
     <li>Handles error cases gracefully</li>
     <li>Provides a consistent loading experience</li>
+    <li>Reacts to dynamic input changes without requiring component recreation</li>
+    <li>Integrates seamlessly with Angular's signal-based input system</li>
+    <li>Properly manages resources to prevent memory leaks</li>
+  </ul>
+
+  <p>
+    The implementation demonstrates several modern Angular patterns:
+  </p>
+  <ul>
+    <li>Signal-based inputs for reactive updates</li>
+    <li>Dependency injection with inject() function</li>
+    <li>Proper event listener management</li>
+    <li>Integration with RxJS for handling asynchronous operations</li>
+    <li>Automatic subscription cleanup with takeUntilDestroyed</li>
   </ul>
 
   <p>
