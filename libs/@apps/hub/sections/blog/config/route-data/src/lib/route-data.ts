@@ -22,8 +22,8 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route('prog-img-tutorial'),
     icon: 'image',
     color: 'secondary',
-    img: HubAppImages.Blog.ProgImgsTutorial_1.large,
-    imgPlaceholder: HubAppImages.Blog.ProgImgsTutorial_1.placeholder,
+    img: HubAppImages.Blog.ProgImgsTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.ProgImgsTutorial.placeholder,
 
   },
 ];

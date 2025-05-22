@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+import { ProgImgLoaderFunctions, SbProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 
 
 //##########################################################//
@@ -23,7 +23,7 @@ const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placehol
         RouterModule,
         MatCardModule,
         MatIconModule,
-        ProgressiveImageComponent,
+        SbProgressiveImageComponent,
         MatButtonModule
     ],
     templateUrl: './card.component.html',

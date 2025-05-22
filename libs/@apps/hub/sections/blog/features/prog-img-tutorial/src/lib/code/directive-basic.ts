@@ -1,7 +1,7 @@
 export const DirectiveBasicCode = `@Directive({
   selector: '[sbProgImgLoader]',
 })
-export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDestroy {
+export class SbProgressiveImageLoaderDirective implements AfterContentInit, OnDestroy {
 
   // Dependency injection for required services
   private _platformId = inject(PLATFORM_ID);

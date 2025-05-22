@@ -18,7 +18,7 @@ This module provides a comprehensive solution for progressive image loading in A
 
 ## Components
 
-### ProgressiveImageLoaderDirective
+### SbProgressiveImageLoaderDirective
 
 A directive that enhances standard `<img>` elements with progressive loading capabilities. It handles:
 
@@ -28,9 +28,9 @@ A directive that enhances standard `<img>` elements with progressive loading cap
 - Fallback handling
 - Event cleanup to prevent memory leaks
 
-### ProgressiveImageComponent
+###  SbProgressiveImageComponent
 
-A wrapper component with a cleaner API that internally uses the ProgressiveImageLoaderDirective. It provides:
+A wrapper component with a cleaner API that internally uses the SbProgressiveImageLoaderDirective. It provides:
 
 - A more intuitive interface with the main image as the primary input
 - Additional styling options through inputs

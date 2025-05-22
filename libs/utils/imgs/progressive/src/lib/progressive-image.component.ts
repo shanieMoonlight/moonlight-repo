@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { ProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
+import { SbProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
 
 //##########################################################//
 
@@ -35,10 +35,10 @@ function sanitizeTransitionId(value: string | undefined): string | undefined {
     templateUrl: './progressive-image.component.html',
     styleUrls: ['./progressive-image.component.scss'],
     standalone: true,
-    imports: [ProgressiveImageLoaderDirective],
+    imports: [SbProgressiveImageLoaderDirective],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProgressiveImageComponent {
+export class SbProgressiveImageComponent {
 
     //- - - - - - Inputs - - - - - - - - //
 

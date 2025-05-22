@@ -6,7 +6,7 @@ export const ComponentBasicCode = `@Component({
     imports: [ProgressiveImageLoaderDirective],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProgressiveImageComponent {
+export class  SbProgressiveImageComponent {
     // Required input for small/placeholder image
     _placeholder = input.required<string>({ alias: 'placeholder' });
     

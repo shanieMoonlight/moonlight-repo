@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, Directive, input, output } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ProgressiveImageComponent } from './progressive-image.component';
+import { SbProgressiveImageComponent } from './progressive-image.component';
 
-// Mock the ProgressiveImageLoaderDirective to isolate component tests
+// Mock the SbProgressiveImageLoaderDirective to isolate component tests
 @Directive({
   selector: '[sbProgImgLoader]',
   standalone: true,
@@ -23,9 +23,9 @@ class MockProgressiveImageLoaderDirective {
   }
 }
 
-describe('ProgressiveImageComponent', () => {
-  let component: ProgressiveImageComponent;
-  let fixture: ComponentFixture<ProgressiveImageComponent>;
+describe(' SbProgressiveImageComponent', () => {
+  let component: SbProgressiveImageComponent;
+  let fixture: ComponentFixture<SbProgressiveImageComponent>;
   let imgDebugElement: DebugElement;
   let directiveEl: DebugElement;
 
@@ -37,17 +37,17 @@ describe('ProgressiveImageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       // Import the component
-      imports: [ProgressiveImageComponent],
+      imports: [SbProgressiveImageComponent],
     })
-    .overrideComponent(ProgressiveImageComponent, {
-      // Remove the original ProgressiveImageLoaderDirective and use our mock
+    .overrideComponent(SbProgressiveImageComponent, {
+      // Remove the original SbProgressiveImageLoaderDirective and use our mock
       set: {
         imports: [MockProgressiveImageLoaderDirective]
       }
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProgressiveImageComponent);
+    fixture = TestBed.createComponent(SbProgressiveImageComponent);
     component = fixture.componentInstance;
 
     // Set required input
@@ -70,7 +70,7 @@ describe('ProgressiveImageComponent', () => {
     expect(imgDebugElement.nativeElement.getAttribute('src')).toContain(testPlaceholder);
   });
 
-  it('should pass inputs to ProgressiveImageLoaderDirective', () => {
+  it('should pass inputs to SbProgressiveImageLoaderDirective', () => {
     fixture.componentRef.setInput('fallbackUrl', testFallback);
     fixture.componentRef.setInput('smlToLrgFn', testSmlToLrgFn);
     fixture.componentRef.setInput('lrgUrl', testLargeUrl);
@@ -105,7 +105,7 @@ describe('ProgressiveImageComponent', () => {
     expect(imgElement.style.height).toBe(testImgHeight);
   });
 
-  it('should emit error output from ProgressiveImageLoaderDirective', () => {
+  it('should emit error output from SbProgressiveImageLoaderDirective', () => {
   // Replace jasmine.createSpy with Jest's jest.fn()
   const errorSpy = jest.fn();
   component._imgError.subscribe(errorSpy);
@@ -120,7 +120,7 @@ describe('ProgressiveImageComponent', () => {
   // Test for default values of optional inputs
   it('should use default values for optional inputs if not provided', () => {
     // Reset fixture to a new component instance without setting optional inputs
-    fixture = TestBed.createComponent(ProgressiveImageComponent);
+    fixture = TestBed.createComponent(SbProgressiveImageComponent);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('placeholder', 'another.jpg');
     fixture.detectChanges();
@@ -129,7 +129,7 @@ describe('ProgressiveImageComponent', () => {
     const directiveEl = fixture.debugElement.query(By.directive(MockProgressiveImageLoaderDirective));
     const directiveInstance = directiveEl.injector.get(MockProgressiveImageLoaderDirective);
 
-    // Check against default values defined in ProgressiveImageComponent
+    // Check against default values defined in  SbProgressiveImageComponent
     expect(directiveInstance.fallbackUrl()).toBeUndefined(); // Will be the default from the component
     expect(directiveInstance.smlToLrgFn()).toBeUndefined();
     expect(directiveInstance.lrgUrl()).toBe(''); // Default from component

@@ -1,23 +1,23 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, PLATFORM_ID, ElementRef, Renderer2 } from '@angular/core';
-import { ProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
+import { SbProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
 import { By } from '@angular/platform-browser';
 
 // Create a dummy component to host the directive for testing
 @Component({
   template: `<img sbProgImgLoader src="test.jpg" alt="Test image" />`,
   standalone: true,
-  imports: [ProgressiveImageLoaderDirective]
+  imports: [SbProgressiveImageLoaderDirective]
 })
 class TestHostComponent {}
 
 describe('ProgressiveImageLoaderDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
-  let directive: ProgressiveImageLoaderDirective;
+  let directive: SbProgressiveImageLoaderDirective;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ProgressiveImageLoaderDirective, TestHostComponent],
+      imports: [SbProgressiveImageLoaderDirective, TestHostComponent],
       providers: [
         // Provide mocks or actual services if needed, e.g., PLATFORM_ID
         // For PLATFORM_ID, Angular usually provides it. If not in test, mock it.
@@ -27,8 +27,8 @@ describe('ProgressiveImageLoaderDirective', () => {
 
     fixture = TestBed.createComponent(TestHostComponent);
     // The directive instance can be obtained from the img element
-    const imgElement = fixture.debugElement.query(By.directive(ProgressiveImageLoaderDirective));
-    directive = imgElement.injector.get(ProgressiveImageLoaderDirective);
+    const imgElement = fixture.debugElement.query(By.directive(SbProgressiveImageLoaderDirective));
+    directive = imgElement.injector.get(SbProgressiveImageLoaderDirective);
     fixture.detectChanges(); // Trigger ngOnInit, ngAfterContentInit, etc.
   });
 

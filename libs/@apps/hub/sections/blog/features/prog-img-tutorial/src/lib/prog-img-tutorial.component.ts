@@ -84,7 +84,7 @@ export class HubBlogProgImgTutorialComponent implements OnInit {
   protected readonly _predefinedFunctionsTemplateExample = PredefinedFunctionsTemplateExample;
   protected readonly _fallbackInputCode = FallbackInputCode;
 
-  protected readonly _bannerImg = HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
+  protected readonly _bannerImg = HubAppImages.Blog.ProgImgsTutorial.placeholder;
 
 
   protected _showDemo = signal(false);

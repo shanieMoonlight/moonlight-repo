@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HubAppImages, HubAppSvgs } from '@sb-hub/core-config/images';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ObjectFit, ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+import { ObjectFit, ProgImgLoaderFunctions, SbProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 
 //##########################################################//
 
@@ -18,7 +18,7 @@ const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placehol
   imports: [
     MatEverythingModule,
     RouterModule,
-    ProgressiveImageComponent,
+    SbProgressiveImageComponent,
     NgTemplateOutlet
   ],
   templateUrl: './hero-banner-2.component.html',

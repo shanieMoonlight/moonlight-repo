@@ -111,13 +111,13 @@ export class HubAppImages {
       static readonly xLarge = 'images/blog/route-defs/xlarge/route-defs-post.jpg';
     };
 
-     static ProgImgsTutorial_1 = class {
-      static readonly default = 'images/blog/prog-img/prog-img-tutorial-1.jpeg';
+     static ProgImgsTutorial = class {
+      static readonly default = 'images/blog/prog-img/prog-img-tutorial-2.jpeg';
       static readonly placeholder = 'images/blog/prog-img/placeholder/prog-img-tutorial-2.jpeg';
-      static readonly small = 'images/blog/prog-img/small/prog-img-tutorial-1.jpeg';
-      static readonly medium = 'images/blog/prog-img/medium/prog-img-tutorial-1.jpeg';
-      static readonly large = 'images/blog/prog-img/large/prog-img-tutorial-1.jpeg';
-      static readonly xLarge = 'images/blog/prog-img/xlarge/prog-img-tutorial-1.jpeg';
+      static readonly small = 'images/blog/prog-img/small/prog-img-tutorial-2.jpeg';
+      static readonly medium = 'images/blog/prog-img/medium/prog-img-tutorial-2.jpeg';
+      static readonly large = 'images/blog/prog-img/large/prog-img-tutorial-2.jpeg';
+      static readonly xLarge = 'images/blog/prog-img/xlarge/prog-img-tutorial-2.jpeg';
     };
   }; // End of Blog
 

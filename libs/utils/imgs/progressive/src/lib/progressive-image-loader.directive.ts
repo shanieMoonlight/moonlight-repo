@@ -16,7 +16,7 @@ const fallBackSvgDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponen
 @Directive({
   selector: '[sbProgImgLoader]',
 })
-export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDestroy {
+export class SbProgressiveImageLoaderDirective implements AfterContentInit, OnDestroy {
 
   private _platformId = inject(PLATFORM_ID);
   private _el = inject(ElementRef);

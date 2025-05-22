@@ -16,7 +16,7 @@ The library provides a robust solution for implementing progressive image loadin
 
 ### Key Components
 
-#### ProgressiveImageLoaderDirective
+#### SbProgressiveImageLoaderDirective
 
 A directive that can be applied to `<img>` elements to enable progressive image loading capabilities:
 
@@ -31,7 +31,7 @@ A directive that can be applied to `<img>` elements to enable progressive image 
 />
 ```
 
-#### ProgressiveImageComponent
+####  SbProgressiveImageComponent
 
 A wrapper component for easier implementation with a cleaner API:
 
@@ -66,11 +66,11 @@ npm install @spider-baby/utils-imgs
 ### Basic Usage
 
 ```typescript
-import { ProgressiveImageComponent } from '@spider-baby/utils-imgs/progressive';
+import {  SbProgressiveImageComponent } from '@spider-baby/utils-imgs/progressive';
 
 @Component({
   standalone: true,
-  imports: [ProgressiveImageComponent],
+  imports: [ SbProgressiveImageComponent],
   template: `
     <sb-progressive-image
       [placeholder]="'assets/images/small/image-small.jpg'"
@@ -87,11 +87,11 @@ export class MyComponent {}
 For dynamic URL transformations:
 
 ```typescript
-import { ProgressiveImageComponent, ProgImgLoaderFunctions } from '@spider-baby/utils-imgs/progressive';
+import {  SbProgressiveImageComponent, ProgImgLoaderFunctions } from '@spider-baby/utils-imgs/progressive';
 
 @Component({
   standalone: true,
-  imports: [ProgressiveImageComponent],
+  imports: [ SbProgressiveImageComponent],
   template: `
     <sb-progressive-image
       [placeholder]="'assets/images/small/image-small.jpg'"
@@ -109,11 +109,11 @@ export class MyComponent {
 For smooth transitions between routes:
 
 ```typescript
-import { ProgressiveImageComponent } from '@spider-baby/utils-imgs/progressive';
+import {  SbProgressiveImageComponent } from '@spider-baby/utils-imgs/progressive';
 
 @Component({
   standalone: true,
-  imports: [ProgressiveImageComponent],
+  imports: [ SbProgressiveImageComponent],
   template: `
     <sb-progressive-image
       [placeholder]="'assets/images/small/image-small.jpg'"
@@ -129,7 +129,7 @@ export class MyComponent {
 
 ## API Reference
 
-### ProgressiveImageLoaderDirective
+### SbProgressiveImageLoaderDirective
 
 | Input           | Type                                 | Default               | Description                                              |
 |-----------------|--------------------------------------|----------------------|----------------------------------------------------------|
@@ -143,7 +143,7 @@ export class MyComponent {
 |-----------------|--------------------------------------|----------------------------------------------------------|
 | error           | void                                 | Emitted when all loading attempts fail                   |
 
-### ProgressiveImageComponent
+###  SbProgressiveImageComponent
 
 | Input           | Type                                 | Default               | Description                                              |
 |-----------------|--------------------------------------|----------------------|----------------------------------------------------------|

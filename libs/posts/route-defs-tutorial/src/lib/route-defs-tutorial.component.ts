@@ -5,7 +5,7 @@ import { devConsole } from '@spider-baby/dev-console';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
-import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
+import { ProgImgLoaderFunctions, SbProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -31,7 +31,7 @@ import { RouteUtility } from '@spider-baby/utils-routes';
     AppStructureDiagramComponent,
     HighlightModule,
     SbMatNotificationsModalComponent,
-    ProgressiveImageComponent
+    SbProgressiveImageComponent
   ],
   providers: [LocalFileDownloadServiceService],
   host: { ngSkipHydration: 'true' },
