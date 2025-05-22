@@ -1,4 +1,19 @@
 export const DirectiveImplementationCode = `
+
+
+  constructor() {
+  //Respond to changes in the input properties
+    effect(() => {
+      this.lrgUrl(); // establish dependency on lrgUrl 
+      this.smlToLrgFn(); // establish dependency on smlToLrgFn
+      if (this._afterContentInitRun && isPlatformBrowser(this._platformId)) {
+        // This effect runs when lrgUrl or smlToLrgFn changes, after ngAfterContentInit has run at least once.
+        this.registerEvents();
+      }
+    });
+  }
+
+
   ngAfterContentInit() {
     // Skip server-side rendering
     if (!isPlatformBrowser(this._platformId))

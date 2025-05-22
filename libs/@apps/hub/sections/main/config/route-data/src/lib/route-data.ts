@@ -14,7 +14,7 @@ export const MainPrincipalRoutes: ApiRouteData[] = [
     imgPlaceholder: HubAppImages.Main.OpenSource.placeholder
   },
   {
-    title: 'Posts',
+    title: 'Blog',
     description:
       'Stay updated with our latest articles, tutorials, and insights on Angular development, best practices, and more.',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route(),

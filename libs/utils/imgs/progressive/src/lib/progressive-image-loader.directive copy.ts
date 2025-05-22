@@ -1,8 +1,7 @@
-/* eslint-disable @angular-eslint/no-output-native */
 import { isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, DestroyRef, Directive, ElementRef, inject, input, OnDestroy, output, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
+import { AfterContentInit, Directive, ElementRef, inject, OnDestroy, PLATFORM_ID, Renderer2, input, output, effect, DestroyRef, Input } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { combineLatest } from 'rxjs';
 
 //##########################################################//
@@ -21,82 +20,60 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   private _platformId = inject(PLATFORM_ID);
   private _el = inject(ElementRef);
   private _renderer = inject(Renderer2)
-  private _destroyor = inject(DestroyRef)
 
-  //- - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-  /** 
-   * What to use when placeholder and main img load fail.
-   * Default = generic image icon SVG
-   */
   fallbackUrl = input(fallBackSvgDataUri, {
-    transform: (value: string | undefined) => value ?? fallBackSvgDataUri,
+    transform: (value) => value ?? fallBackSvgDataUri,
   });
 
+  private _smlToLrgFn?: ((smlImgUrl: string) => string) | undefined;
   /**
    * Function to convert the inital small image url to the large image url.
    * Default = undefined
    * This is the first thing to try. If it's falsey 'lrgUrl' will be tried instead 
    */
-  smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(undefined);
-  //This is so we can react to  changes to smlToLrgFn in ngAfterContentInit
-  private _smlToLrgFn$ = toObservable(this.smlToLrgFn);
+  // smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(undefined);
+  @Input({ alias: 'smlToLrgFn' })
+  set smlToLrgFnSetter(value: ((smlImgUrl: string) => string) | undefined) {
+    this._smlToLrgFn = value;
+    this.registerEvents();
+  }
 
+  private _lrgUrl: string | null | undefined = '';
   /**
    * The url to use after the  inital small image url is loaded.
    * Will only be used if 'smlToLrgFn' is not provided or returns a falsy value.
    * Default = undefined
    */
-  lrgUrl = input<string | null | undefined>('');
-  //This is so we can react to  changes to lrgUrl in ngAfterContentInit
-  private _lrgUrl$ = toObservable(this.lrgUrl);
+  // lrgUrl = input<string | null | undefined>('');
+  @Input({ alias: 'lrgUrl' })
+  set lrgUrlSetter(value: string | null | undefined) {
+    this._lrgUrl = value;
+    this.registerEvents();
+  }
 
 
-  /** 
-   * How long to wait before trying again on load failure (milliseconds)
-   * Default = 3000ms
-   */
   retryTimeoutMs = input<number>(3000);
-
-  /**
-   * Max attempts at largUrl load
-   * Default = 3
-   */
   retryCount = input<number>(3);
 
   //- - - - - - - - - - - - - - - //
 
-  /** Any load error */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   error = output<void>();
 
   //- - - - - - - - - - - - - - - //
 
-  private _nativeElement: HTMLImageElement = this._el.nativeElement;
+  private _nativeElement: HTMLElement = this._el.nativeElement;
   private _cancelOnError?: () => void;
   private _cancelOnLoad?: () => void;
-  private _largeImage?: HTMLImageElement;
+  private _largeImage?: HTMLImageElement
 
   //------------------------------//
 
+  //In case the image is loaded after the inputs are set
   ngAfterContentInit() {
-
-    //Skip SSR
-    if (!isPlatformBrowser(this._platformId))
-      return
-
-
     this.registerEvents()
-
-
-    // Listen for changes to inputs in case the user changes them after init
-    combineLatest([this._lrgUrl$, this._smlToLrgFn$])
-      .pipe(takeUntilDestroyed(this._destroyor))
-      .subscribe(() => {
-        if (isPlatformBrowser(this._platformId)) {
-          this.registerEvents();
-        }
-      })
-
   }
 
   //------------------------------//
@@ -109,20 +86,26 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
 
   private registerEvents() {
 
+    // Skip server-side rendering
+    if (!isPlatformBrowser(this._platformId))
+      return
+
+
     //Clear any existing listeners
     this.removeListeners()
 
-    //Success or failure: try to load the large image anyway
+    //Success or failure try to load the large image anyway
     this._cancelOnError = this._renderer.listen(
       this._nativeElement,
       'error',
-      () => this.onPlaceholderError() //attempt to load large image and use placeholder if that fails
+      () => this.onPlaceholderError()
     )
+
 
     this._cancelOnLoad = this._renderer.listen(
       this._nativeElement,
       'load',
-      () => this.onPlaceholderLoad() //attempt to load large image and use fallbackImg if that fails
+      () => this.onPlaceholderLoad()
     )
 
   }
@@ -130,14 +113,13 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   //------------------------------//
 
   /**
-   * Load large image and use fallback if that fails
+   * Load large imasge and use fallback if that fails
    */
   private onPlaceholderError() {
 
     //stop listening
     this.removeListeners()
-
-    const src = this.getImgSrc()
+    const src = this._nativeElement.getAttribute('src')
     this.loadLargeImage(
       src ?? '#',
       () => this.loadFallback(),
@@ -155,9 +137,8 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
 
     //stop listening
     this.removeListeners()
-
-    const src = this.getImgSrc()
-    this.loadLargeImage(src ?? '#', () => devConsole.log('Using placeholder'), this.retryCount())
+    const src = this._nativeElement.getAttribute('src')
+    this.loadLargeImage(src ?? '#', () => console.log('Using placeholder'), this.retryCount())
 
   }
 
@@ -172,16 +153,9 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
       return; // Exit the function early
     }
 
-    //This create a new JavaScript Image object that isn't yet in the DOM, just in memory
     this._largeImage = new Image()
-
-    //Trigger the load event by setting the src
     this._largeImage.src = largeUrl
-
-    //If load succeeds replace the src of the img 'src' with the large image. (Add it to the DOM)
-    this._largeImage.onload = () => this.setImgSrc( largeUrl)
-
-    //If load fails, go to error handler
+    this._largeImage.onload = () => this.renderLargeImage(largeUrl)
     this._largeImage.onerror = () => this.onLargeImageError(url, onerror, retries)
 
   }
@@ -209,11 +183,17 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
 
   private loadFallback() {
 
-    this.setImgSrc( this.fallbackUrl())
+
+    this._renderer.setAttribute(this._nativeElement, 'src', this.fallbackUrl() as string)
     this._renderer.setStyle(this._nativeElement, 'object-fit', 'contain');
     this.error.emit()
 
   }
+
+  //------------------------------//  
+
+  private renderLargeImage = (largeUrl: string) =>
+    this._renderer.setAttribute(this._nativeElement, 'src', largeUrl)
 
   //------------------------------// 
 
@@ -236,32 +216,24 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
 
   private getLargeUrl(url: string): string | null {
 
-    const currentSmlToLrgFn = this.smlToLrgFn();
+    const currentSmlToLrgFn = this._smlToLrgFn
 
     if (currentSmlToLrgFn) {
       const derivedUrl = currentSmlToLrgFn(url);
       devConsole.log('derivedUrl img load: ', derivedUrl)
-      if (derivedUrl)
-        return derivedUrl
+      if (derivedUrl) return derivedUrl; // Ensure the function returns a truthy value
     }
 
-    const currentLrgUrl = this.lrgUrl();
-    if (currentLrgUrl)
+    const currentLrgUrl = this._lrgUrl;
+    if (currentLrgUrl) // Checks for truthiness (non-empty string)
       return currentLrgUrl;
 
-    // Return null and let the error handler do the rest.
+    // If neither a function nor a direct URL is provided, or they return falsy values,
+    // we cannot determine the large image URL.
     devConsole.warn('[ProgressiveImageLoader] Large image URL could not be determined. Ensure `smlToLrgFn` returns a valid URL or `lrgUrl` is set.');
     return null;
 
   }
-
-  //------------------------------// 
-
-  private setImgSrc = (src: string) =>
-    this._renderer.setAttribute(this._nativeElement, 'src', src)
-
-  private getImgSrc = () =>
-    this._nativeElement.getAttribute('src')
 
   //------------------------------// 
 

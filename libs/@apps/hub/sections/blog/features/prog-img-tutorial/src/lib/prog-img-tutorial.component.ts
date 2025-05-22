@@ -16,10 +16,9 @@ import { ComponentStyleCode } from './code/component-style';
 import { UsageExampleCode } from './code/usage-example';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { BlogConstants } from './config/constants';
-// Commented out as it's not used in the template currently
-// import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { FallBackConstsTsCode } from './code/fallback-consts';
-import { 
+import {
   BasicUsageExample,
   TransformFunctionExample,
   ViewTransitionsExample,
@@ -36,9 +35,8 @@ import { FallbackInputCode } from './code/fallback-input';
     CommonModule,
     MatEverythingModule,
     RouterModule,
-    HighlightModule
-    // Commented out as it's not used in the template currently
-    // HubHeroBanner2Component
+    HighlightModule,
+    HubHeroBanner2Component
   ],
   providers: [],
   selector: 'sb-hub-blog-features-prog-img-tutorial',
@@ -47,13 +45,13 @@ import { FallbackInputCode } from './code/fallback-input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubBlogProgImgTutorialComponent {
- 
+
   private _seoService = inject(SeoService);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
 
   //- - - - - - - - - - - - - - -//
-  
+
   // Title and SEO properties
   protected _title = BlogConstants.ProgImgTutorial.Title;
   protected _subtitle = BlogConstants.ProgImgTutorial.Subtitle;
@@ -69,7 +67,7 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _usageExampleCode = UsageExampleCode;
   protected readonly _predefinedFunctionsCode = PredefinedFunctionsCode;
   protected readonly _fallbackConsts = FallBackConstsTsCode;
-    // HTML code examples (extracted from the template)
+  // HTML code examples (extracted from the template)
   protected readonly _basicUsageExample = BasicUsageExample;
   protected readonly _transformFunctionExample = TransformFunctionExample;
   protected readonly _viewTransitionsExample = ViewTransitionsExample;
@@ -79,12 +77,12 @@ export class HubBlogProgImgTutorialComponent {
   protected readonly _predefinedFunctionsTemplateExample = PredefinedFunctionsTemplateExample;
   protected readonly _fallbackInputCode = FallbackInputCode;
 
-  protected readonly _bannerImg =  HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
+  protected readonly _bannerImg = HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
 
   // Demo state
   protected _showDemo = signal(false);
   protected readonly _githubRepo = BlogConstants.ProgImgTutorial.GithubRepo;
-  
+
   // Create a transition ID for the component based on the current route
   protected _transitionId = computed(() => this._router.url);
 
@@ -96,7 +94,7 @@ export class HubBlogProgImgTutorialComponent {
       url: this._router.url,
       keywords: ['Angular', 'Progressive Images', 'Image Loading', 'Performance', 'User Experience'],
     });
-    
+
     // Access static data from route
     const routeData = this._route.snapshot.data;
     if (routeData['showDemo']) {

@@ -24,14 +24,12 @@ export class ProgressiveImageLoaderDirective implements AfterContentInit, OnDest
   // Output event when image loading errors
   error = output<void>();
   
-  // Private properties
-  private _nativeElement: HTMLElement;
+  // The actual image element
+  private _nativeElement: HTMLElement = this._el.nativeElement;
+
+  // Event 'unlisteners' functions to clean up listeners and prevent memory leaks
   private _cancelOnError?: () => void;
   private _cancelOnLoad?: () => void;
-  
-  constructor() {
-    this._nativeElement = this._el.nativeElement;
-  }
 
   // Implementation will follow...
 }`

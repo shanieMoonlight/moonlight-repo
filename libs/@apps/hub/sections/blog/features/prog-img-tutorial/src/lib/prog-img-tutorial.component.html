@@ -2,12 +2,12 @@
   <h1 class="title">{{ _title }}</h1>
   <h2 class="subtitle">{{ _subtitle }}</h2>
 </div> -->
-<!-- <sb-hub-hero-banner-2
+<sb-hub-hero-banner-2
   [title]="_title"
   [subtitle]="_subtitle"
   [description]="_description"
   [objectPosition]="'0% 85%'"
-  [backgroundImage]="_bannerImg"/> -->
+  [backgroundImage]="_bannerImg"/>
 
 <div class="component-container">
   <p class="intro">
@@ -175,7 +175,11 @@
 
   <h2>Step 4: Creating a Wrapper Component</h2>
   <p>
-    While the directive can be used directly on any image element, we'll create a dedicated component for a more streamlined API:
+    Setting the placeholder image URL directly on the <code>src</code> and adding a separate lrgUrl (which is the real image that we're interested in) seems backward to me.
+    <br>
+    So... we'll create a dedicated component for a more streamlined API:
+    <br>
+    We're just going to wrap the directive in a component that takes care of the logic for us.
   </p>
 
   <mat-card class="code-card">
