@@ -1,3 +1,4 @@
+import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import {HubBlogProgImgTutorialComponent } from './prog-img-tutorial.component';
 import { RouterModule } from '@angular/router';
@@ -5,6 +6,8 @@ import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
 import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService, } from '@spider-baby/utils-seo';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
+import { provideHttpClient } from '@angular/common/http';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -55,7 +58,10 @@ describe('HubBlogProgImgTutorialComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HubBlogProgImgTutorialComponent, RouterModule.forRoot([])],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         IconsService,
+        LocalFileDownloadServiceService,
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },

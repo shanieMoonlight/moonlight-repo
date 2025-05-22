@@ -3,7 +3,14 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/cdk": "^19.2.9",
+    "@angular/router": "19.2.9",
+    "@sb-hub/core-config": "0.0.1",
+    "@spider-baby/utils-mat-everything": "0.0.1",
+    "@spider-baby/utils-open-in-new-window": "1.0.0",
+    "@spider-baby/utils-share": "0.0.1",
+    "rxjs": "~7.8.0"
   },
   "sideEffects": false
 }

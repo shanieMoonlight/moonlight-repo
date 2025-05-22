@@ -1,25 +1,21 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FileDownloadService } from '@spider-baby/utils-file-saver';
-import { RouteUtility } from '@spider-baby/utils-routes';
-import { BehaviorSubject, Observable, delay, map } from 'rxjs';
-import { AppConstants } from '../config/constants';
 import { devConsole } from '@spider-baby/dev-console';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
+import { FileDownloadService } from './blob-download.service';
 
-
-@Injectable()
-export class DownloadCodeSampleService {
+@Injectable({
+  providedIn: 'root'
+})
+export class LocalFileDownloadServiceService {
 
   private _downloadService = inject(FileDownloadService);
   private _http = inject(HttpClient);
 
   //-----------------------------//
 
-  // Setup file paths
-  private _setupFilesBasePath = AppConstants.Downloads.Dir;
-
-  // Pre-defined setup files available for download
+  //Current download file path
   private _activeDownload = new BehaviorSubject<string | null>(null);
   readonly activeDownload$ = this._activeDownload.asObservable();
   readonly activeDownload = toSignal(this.activeDownload$);
@@ -33,49 +29,60 @@ export class DownloadCodeSampleService {
 
   /**
    * Downloads a binary file (like ZIP) from the server
-   * @param filename The name of the file to download
+   * @param filenameFullPath The name of the file to download
    * @param downloadName The name to use for the downloaded file
    * @param mimeType The MIME type of the file
    * @returns Observable that completes when download is finished
    */
-  downloadBinary$(
-    filename: string = 'code-samples.zip',
-    downloadName: string = 'code-samples.zip',
+  download$(
+    filenameFullPath: string,
+    downloadName: string = 'data.zip',
     mimeType: string = 'application/zip'): Observable<boolean> {
-    this._activeDownload.next(filename);
 
-    const filePath = RouteUtility.combine(this._setupFilesBasePath, filename)
+    this._activeDownload.next(filenameFullPath);
 
-
-    console.log(`LIB: Downloading binary file ${filename}...`)
-    console.log(`LIB: downloadName: `, downloadName)
-    console.log(`LIB: mimeType: `, mimeType)
-    console.log(`LIB: filePath: `, filePath)
+    console.log('TESTING FILE DOWNLOAD', filenameFullPath);
+    console.log('activeDownload', this.activeDownload());
 
 
     return this._http
-      .get(filePath, {
+      .get(filenameFullPath, {
         responseType: 'blob',
-        observe: 'response' // Observe the full HttpResponse object
+        observe: 'response'
       })
       .pipe(
-        delay(1000),
         map((response: HttpResponse<Blob>) => {
+
           const contentType = response.headers.get('Content-Type');
-          console.log(`LIB: Content-Type: `, contentType);
+
+          console.log('@TESTING: esponse.ok', response.ok,);
+          console.log('@TESTING: contentType', contentType);
+          console.log('@TESTING: response.body', response.body);
 
           if (response.ok && response.body && contentType) {
             this.handleSuccess(response.body, downloadName, mimeType);
             return true
           } else {
-            this.handleError(response, filename, mimeType);
-            throw new Error(`Error downloading binary file ${filename}: ${response.status} - ${response.statusText}`);
+            this.handleError(response, filenameFullPath, mimeType);
+            throw new Error(`Error downloading binary file ${filenameFullPath}: ${response.status} - ${response.statusText}`);
           }
-
+        }),
+        catchError(error => {
+          // Handle network errors and other HTTP errors
+          const errorMsg = `Network error downloading file ${filenameFullPath}: ${error.message || 'Unknown error'}`;
+          devConsole.error(errorMsg);
+          
+          // Reset download status
+          this._activeDownload.next(null);
+          
+          // Set error message
+          this._errorBs.next(errorMsg);
+          
+          // Re-throw the error so subscribers can handle it
+          return throwError(() => new Error(errorMsg));
         })
       );
   }
-
 
   //-----------------------------//
 
@@ -86,15 +93,14 @@ export class DownloadCodeSampleService {
     const contentType = response.headers.get('Content-Type');
     const errorMsg = `Failed to download file ${filename}. Status: ${response.status} - ${response.statusText}. 
       Expected MIME type: ${mimeType}, Got: ${contentType}`
-    console.error(errorMsg);
+    devConsole.error(errorMsg);
+
     this._activeDownload.next(null);
     this._errorBs.next(errorMsg);
 
   }
 
-
   //- - - - - - - - - - - - - - -//
-
 
   private handleSuccess(blob: Blob, downloadName: string, mimeType: string): void {
 

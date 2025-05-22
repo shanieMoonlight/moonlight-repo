@@ -27,6 +27,9 @@
       "@sb-hub/core-config/demo-apps": [
         "libs/@apps/hub/@core/config/demo-apps/src/index.ts"
       ],
+      "@sb-hub/core-config/downloads": [
+        "libs/@apps/hub/@core/config/downloads/src/index.ts"
+      ],
       "@sb-hub/core-config/images": [
         "libs/@apps/hub/@core/config/images/src/index.ts"
       ],
@@ -56,6 +59,12 @@
       ],
       "@sb-hub/sections-blog/route-defs": [
         "libs/@apps/hub/sections/blog/@route-defs/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/ui-buttons": [
+        "libs/@apps/hub/sections/blog/ui/buttons/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/ui-buttons/downlaod": [
+        "libs/@apps/hub/sections/blog/ui/buttons/downlaod/src/index.ts"
       ],
       "@sb-hub/sections-blog/ui-nav": [
         "libs/@apps/hub/sections/blog/ui/nav/src/index.ts"

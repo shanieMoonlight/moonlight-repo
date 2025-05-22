@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
 import { ProgImgLoaderFunctions, ProgressiveImageComponent } from '@spider-baby/utils-img/progressive';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SeoService } from '@spider-baby/utils-seo';
@@ -17,8 +18,8 @@ import { SimpleAppRoutesWitRoutesTypeCode } from './code/simple-routes-with-type
 import { AppRoutesExamplesTs } from './code/using-app-route-defs';
 import { AppConstants } from './config/constants';
 import { LibImages } from './config/images';
-import { DownloadCodeSampleService } from './download-setup/download-setup.service';
 import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-diagram.component';
+import { RouteUtility } from '@spider-baby/utils-routes';
 
 @Component({
   selector: 'sb-post-route-defs-tutorial',
@@ -32,7 +33,7 @@ import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-d
     SbMatNotificationsModalComponent,
     ProgressiveImageComponent
   ],
-  providers: [DownloadCodeSampleService],
+  providers: [LocalFileDownloadServiceService],
   host: { ngSkipHydration: 'true' },
   templateUrl: './route-defs-tutorial.component.html',
   styleUrl: './route-defs-tutorial.component.scss',
@@ -40,7 +41,7 @@ import { AppStructureDiagramComponent } from './ui/app-structure/app-structure-d
 })
 export class PostRouteDefsTutorialComponent implements OnInit {
 
-  private _codeSampleDownloader = inject(DownloadCodeSampleService);
+  private _codeSampleDownloader = inject(LocalFileDownloadServiceService);
   private _seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -56,7 +57,10 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
   //- - - - - - - - - - - - - - //
 
-  protected readonly _codeSamplesZip = AppConstants.Downloads.CodeSampleZipFile
+  protected readonly _codeSamplesZip = RouteUtility.combine(
+      AppConstants.Downloads.Dir, 
+      AppConstants.Downloads.CodeSampleZipFile) 
+      
   protected _showButton = signal(false)
   protected _showDemoLink = signal(false)
   protected _demoLink = 'https://spider-baby-route-defs.web.app/'
@@ -71,7 +75,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _dlClick$ = new Subject<void>()
   private _dlState = MiniStateBuilder.CreateWithObservableInput(
     this._dlClick$,
-    () => this._codeSampleDownloader.downloadBinary$(this._codeSamplesZip, this._codeSamplesZip))
+    () => this._codeSampleDownloader.download$(this._codeSamplesZip, this._codeSamplesZip))
     .setSuccessMsgFn(() => '✅ Download complete!')
 
   protected _errorMsg = this._dlState.error

@@ -1,33 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SeoService } from '@spider-baby/utils-seo';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { HighlightModule } from 'ngx-highlightjs';
 import { HubAppImages } from '@sb-hub/core-config/images';
+import { HubAppDownloads } from '@sb-hub/core-config/downloads';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { SeoService } from '@spider-baby/utils-seo';
+import { HighlightModule } from 'ngx-highlightjs';
 
 // Import code samples
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
+import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
+import { Subject } from 'rxjs';
+import { ComponentBasicCode } from './code/component-basic';
+import { ComponentStyleCode } from './code/component-style';
+import { ComponentTemplateCode } from './code/component-template';
 import { DirectiveBasicCode } from './code/directive-basic';
 import { DirectiveImplementationCode } from './code/directive-implementation';
-import { ImageLoadingCode } from './code/image-loading';
-import { ComponentBasicCode } from './code/component-basic';
-import { ComponentTemplateCode } from './code/component-template';
-import { ComponentStyleCode } from './code/component-style';
-import { UsageExampleCode } from './code/usage-example';
-import { PredefinedFunctionsCode } from './code/predefined-functions';
-import { BlogConstants } from './config/constants';
-import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { FallBackConstsTsCode } from './code/fallback-consts';
+import { FallbackInputCode } from './code/fallback-input';
 import {
   BasicUsageExample,
-  TransformFunctionExample,
-  ViewTransitionsExample,
   FallbackImageExample,
   ObjectFitExample,
   PredefinedFunctionsExample,
-  PredefinedFunctionsTemplateExample
+  PredefinedFunctionsTemplateExample,
+  TransformFunctionExample,
+  ViewTransitionsExample
 } from './code/html-examples';
-import { FallbackInputCode } from './code/fallback-input';
+import { ImageLoadingCode } from './code/image-loading';
+import { PredefinedFunctionsCode } from './code/predefined-functions';
+import { UsageExampleCode } from './code/usage-example';
+import { BlogConstants } from './config/constants';
+import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
 
 @Component({
   standalone: true,
@@ -36,19 +41,21 @@ import { FallbackInputCode } from './code/fallback-input';
     MatEverythingModule,
     RouterModule,
     HighlightModule,
-    HubHeroBanner2Component
+    HubHeroBanner2Component,
+    HubUiBtnDownloadComponent
   ],
-  providers: [],
+  providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-prog-img-tutorial',
   templateUrl: './prog-img-tutorial.component.html',
   styleUrl: './prog-img-tutorial.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HubBlogProgImgTutorialComponent {
+export class HubBlogProgImgTutorialComponent implements OnInit {
 
   private _seoService = inject(SeoService);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
+  private _codeSampleDownloader = inject(LocalFileDownloadServiceService);
 
   //- - - - - - - - - - - - - - -//
 
@@ -79,15 +86,38 @@ export class HubBlogProgImgTutorialComponent {
 
   protected readonly _bannerImg = HubAppImages.Blog.ProgImgsTutorial_1.placeholder;
 
-  // Demo state
+
   protected _showDemo = signal(false);
+  protected _showButton = signal(false)
+
   protected readonly _githubRepo = BlogConstants.ProgImgTutorial.GithubRepo;
 
   // Create a transition ID for the component based on the current route
   protected _transitionId = computed(() => this._router.url);
 
   //----------------------------//
-  constructor() {
+
+
+  protected _dlClick$ = new Subject<void>()
+  private _dlState = MiniStateBuilder.CreateWithObservableInput(
+    this._dlClick$,
+    () => this._codeSampleDownloader.download$(HubAppDownloads.ProgImgTutorial.CodeSampleZipFile))
+    .setSuccessMsgFn(() => '✅ Download complete!')
+
+  protected _errorMsg = this._dlState.error
+  protected _successMsg = this._dlState.successMsg
+  protected _dlResult = this._dlState.data
+  protected _isLoading = this._dlState.loading
+
+  //----------------------------//
+
+  ngOnInit() {
+
+    setTimeout(() =>
+      this._showButton.set(true),
+      2000
+    )
+
     this._seoService.updateMetadata({
       title: this._title,
       description: this._description,
@@ -98,8 +128,12 @@ export class HubBlogProgImgTutorialComponent {
     // Access static data from route
     const routeData = this._route.snapshot.data;
     if (routeData['showDemo']) {
-      setTimeout(() => this._showDemo.set(true), 1000);
+      setTimeout(
+        () => this._showDemo.set(true),
+        1000
+      )
     }
+
   }
 
 

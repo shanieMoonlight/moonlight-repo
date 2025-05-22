@@ -3,5 +3,8 @@
   "dest": "../../../dist/libs/utils/file-saver",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@spider-baby/dev-console"
+  ]
 }

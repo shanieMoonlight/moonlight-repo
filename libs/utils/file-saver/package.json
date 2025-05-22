@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/utils-file-saver",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A utility service for triggering file downloads in the browser.",
   "author": "shanieMoonlight",
   "repository": {
@@ -22,7 +22,10 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+    "@angular/core": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "@angular/common": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "@spider-baby/dev-console": "1.1.1",
+    "rxjs": "~7.8.0"
   },
   "dependencies": {},
   "sideEffects": false

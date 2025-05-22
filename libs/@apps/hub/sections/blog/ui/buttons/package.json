@@ -1,0 +1,9 @@
+{
+  "name": "@sb-hub/sections-blog/ui-buttons",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@spider-baby/utils-mat-everything": "0.0.1"
+  },
+  "sideEffects": false
+}

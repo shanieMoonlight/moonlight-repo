@@ -1,0 +1,14 @@
+<div class="btn-container" [class.show]="_showButton()">
+  <button
+    mat-mini-fab
+    aria-label="Download Code Samples"
+    id="btn-download"
+    [class.secondary]="!_loading()"
+    [class.primary]="_loading()"
+    [class.downloading]="_loading()"
+    [matTooltip]="_tooltip()"
+    (click)="downloadClick()"
+  >
+    <mat-icon>code</mat-icon>
+  </button>
+</div>

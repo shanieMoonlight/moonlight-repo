@@ -47,7 +47,7 @@ export class FileDownloadService {
   //----------------------------------//
 
   // Convenience method for SCSS downloads
-  downloadScss(content: string, filename = 'my-download.scss'): boolean {
+  downloadScss(content: string, filename = 'page.scss'): boolean {
     // Ensure filename has .scss extension
     if (!filename.toLowerCase().endsWith('.scss')) filename += '.scss';
 

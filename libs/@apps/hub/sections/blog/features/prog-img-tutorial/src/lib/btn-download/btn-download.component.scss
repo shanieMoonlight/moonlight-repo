@@ -1,0 +1,62 @@
+:host {
+  display: block;
+}
+
+
+.btn-container {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  opacity: 0;
+}
+
+.btn-container.show {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  opacity: 1;
+
+  #btn-download {
+    animation: spin 2.5s ease-in-out forwards;
+  }
+
+  #btn-download.downloading {
+    cursor: not-allowed;
+    pointer-events: none;
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
+
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  90% {
+    box-shadow: none;
+  }
+
+  100% {
+    transform: rotate(2880deg);
+    opacity: 1;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+}
+
+
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

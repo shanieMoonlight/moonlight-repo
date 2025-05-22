@@ -1,5 +1,5 @@
 import nx from '@nx/eslint-plugin';
-import baseConfig from '../../../eslint.config.mjs';
+import baseConfig from '../../../../../../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'sb',
+          prefix: 'sbHubBlogUiBtn',
           style: 'camelCase',
         },
       ],
@@ -34,10 +34,15 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'sb',
+          prefix: 'sb-hub-blog-ui-btn',
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/no-output-rename': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-empty-interface': 'off',
     },
   },
   {

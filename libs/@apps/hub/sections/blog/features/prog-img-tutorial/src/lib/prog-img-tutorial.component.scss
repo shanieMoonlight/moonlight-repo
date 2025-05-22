@@ -34,6 +34,8 @@
   width: 96%;
   max-width: 1200px;
   margin-bottom: 2rem;
+  padding-top: 3rem;
+  position: relative;
 
   .intro {
     font-size: 1.1rem;
@@ -74,9 +76,10 @@
       }
     }
   }
-   code {
+
+  code {
     font-size: 1rem;
-   }
+  }
 
   .code-card {
     margin: 1.5rem 0;
@@ -129,6 +132,9 @@
       }
     }
   }
+
+
+
 }
 
 @media screen and (max-width: 768px) {
@@ -148,3 +154,4 @@
     width: 92%;
   }
 }
+

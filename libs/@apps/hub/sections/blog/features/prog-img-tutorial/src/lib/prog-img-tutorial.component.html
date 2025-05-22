@@ -10,6 +10,25 @@
   [backgroundImage]="_bannerImg"/>
 
 <div class="component-container">
+<!-- 
+  <div class="btn-container" 
+    [class.show]="true">
+    
+    <button mat-mini-fab aria-label="Download Code Samples" 
+      id="btn-download" 
+      [matTooltip]="'Download Code Samples'" >
+      <mat-icon>code</mat-icon>
+    </button>
+  </div> -->
+
+  <sb-hub-blog-ui-btn-download 
+    [showButton]="_showButton()"
+    [loading]="_isLoading()"
+    [tooltip]="'Download Code Samples'"
+    (downloadClick)="_dlClick$.next()"/>
+
+
+
   <p class="intro">
     In modern web applications, loading high-quality images efficiently is crucial for creating a great user experience. 
     One effective approach is progressive image loading, where we initially load a small, low-quality placeholder image 
@@ -538,3 +557,5 @@
     </a>
   </div>
 </div>
+
+
