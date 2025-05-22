@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { FileDownloadService } from '@spider-baby/utils-file-saver';
 import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 
 //############################################//
+
 export interface SetupFile {
   /** File name on the server */
   filename: string;
@@ -57,7 +58,7 @@ const SETUP_FILES: SetupFile[] = [
   providedIn: 'root',
 })
 export class DownloadSetupFilesService {
-  private _downloadService = inject(BlobDownloadService);
+  private _downloadService = inject(FileDownloadService);
   private _http = inject(HttpClient);
 
   //-----------------------------//

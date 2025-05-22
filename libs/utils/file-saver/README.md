@@ -2,23 +2,23 @@
 
 This library was generated with [Nx](https://nx.dev).
 
-This library provides a service, `BlobDownloadService`, for triggering file downloads in the browser.
+This library provides a service, `FileDownloadService`, for triggering file downloads in the browser.
 
-## BlobDownloadService
+## FileDownloadService
 
-The primary service exported by this library is `BlobDownloadService`. It allows you to download content as a file.
+The primary service exported by this library is `FileDownloadService`. It allows you to download content as a file.
 
 ### Importing the service
 
 ```typescript
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { FileDownloadService } from '@spider-baby/utils-file-saver';
 import { Component, inject } from '@angular/core';
 
 @Component({
   // ...
 })
 export class MyComponent {
-  private readonly blobDownloadService = inject(BlobDownloadService);
+  private readonly blobDownloadService = inject(FileDownloadService);
 
   downloadMyFile() {
     this.blobDownloadService.downloadText('Hello, world!', 'hello.txt');

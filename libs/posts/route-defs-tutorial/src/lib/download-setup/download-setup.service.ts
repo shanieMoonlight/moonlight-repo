@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { FileDownloadService } from '@spider-baby/utils-file-saver';
 import { RouteUtility } from '@spider-baby/utils-routes';
 import { BehaviorSubject, Observable, delay, map } from 'rxjs';
 import { AppConstants } from '../config/constants';
@@ -11,7 +11,7 @@ import { devConsole } from '@spider-baby/dev-console';
 @Injectable()
 export class DownloadCodeSampleService {
 
-  private _downloadService = inject(BlobDownloadService);
+  private _downloadService = inject(FileDownloadService);
   private _http = inject(HttpClient);
 
   //-----------------------------//
@@ -104,6 +104,5 @@ export class DownloadCodeSampleService {
 
   }
 
-  //-----------------------------//
 
 } //Cls

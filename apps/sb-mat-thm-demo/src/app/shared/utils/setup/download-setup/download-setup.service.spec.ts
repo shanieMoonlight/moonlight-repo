@@ -5,12 +5,12 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { FileDownloadService } from '@spider-baby/utils-file-saver';
 import { firstValueFrom } from 'rxjs';
 import { DownloadSetupFilesService, SetupFile } from './download-setup.service';
 
-// Mock BlobDownloadService
-class MockBlobDownloadService {
+// Mock FileDownloadService
+class MockFileDownloadService {
   downloadBlob = jest.fn();
 }
 
@@ -28,7 +28,7 @@ const MOCK_SETUP_FILES: SetupFile[] = [
 describe('DownloadSetupFilesService', () => {
   let service: DownloadSetupFilesService;
   let httpMock: HttpTestingController;
-  let blobDownloadServiceMock: MockBlobDownloadService;
+  let blobDownloadServiceMock: MockFileDownloadService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,7 +37,7 @@ describe('DownloadSetupFilesService', () => {
         DownloadSetupFilesService,
         provideHttpClient(), // Provide HttpClient
         provideHttpClientTesting(), // Provide testing support
-        { provide: BlobDownloadService, useClass: MockBlobDownloadService },
+        { provide: FileDownloadService, useClass: MockFileDownloadService },
       ],
     });
 
@@ -45,8 +45,8 @@ describe('DownloadSetupFilesService', () => {
     httpMock = TestBed.inject(HttpTestingController);
     // Cast to the mock type to access the jest mock function
     blobDownloadServiceMock = TestBed.inject(
-      BlobDownloadService
-    ) as unknown as MockBlobDownloadService;
+      FileDownloadService
+    ) as unknown as MockFileDownloadService;
 
     // Override the initial signal value for predictable tests if needed,
     // or rely on the actual constant if it's stable.

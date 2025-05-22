@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { BlobDownloadService, DownloadOptions } from './blob-download.service';
+import { FileDownloadService, DownloadOptions } from './blob-download.service';
 
-describe('BlobDownloadService', () => {
-  let service: BlobDownloadService;
+describe('FileDownloadService', () => {
+  let service: FileDownloadService;
   let createObjectURLSpy: jest.SpyInstance;
   let revokeObjectURLSpy: jest.SpyInstance;
   let appendChildSpy: jest.SpyInstance;
@@ -24,9 +24,9 @@ describe('BlobDownloadService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BlobDownloadService],
+      providers: [FileDownloadService],
     });
-    service = TestBed.inject(BlobDownloadService);
+    service = TestBed.inject(FileDownloadService);
 
     // Reset mocks between tests
     jest.clearAllMocks();

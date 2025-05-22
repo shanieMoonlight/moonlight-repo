@@ -12,7 +12,7 @@ export interface DownloadOptions {
 @Injectable({
   providedIn: 'root',
 })
-export class BlobDownloadService {
+export class FileDownloadService {
   /**
    * Triggers a file download from any content
    * @param content The content to download

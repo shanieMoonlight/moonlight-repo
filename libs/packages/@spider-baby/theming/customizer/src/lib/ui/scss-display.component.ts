@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BlobDownloadService } from '@spider-baby/utils-file-saver';
+import { FileDownloadService } from '@spider-baby/utils-file-saver';
 
 @Component({
   selector: 'sb-scss-display',
@@ -49,7 +49,7 @@ export class ScssDisplayComponent implements OnInit {
     optional: true,
   });
   private _dialogData = inject(MAT_DIALOG_DATA, { optional: true });
-  private _downloader = inject(BlobDownloadService);
+  private _downloader = inject(FileDownloadService);
 
   //- - - - - - - - - - - - - - - -//
 
