@@ -8,17 +8,18 @@
 
 .component-container {
   max-width: 1600px;
-      width: 100%;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-sb-hub-fancy-nav-card{
+sb-hub-fancy-nav-card {
   max-width: 450px;
+  height: 100%;
 }
 
 .cta-buttons {
@@ -58,9 +59,10 @@ sb-hub-fancy-nav-card{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  justify-content: center;    // Centers columns horizontally when there's extra space
-  align-items: center;        // Centers items vertically
-  justify-items: center;   
+  justify-content: center; // Centers columns horizontally when there's extra space
+  align-items: center; // Centers items vertically
+  justify-items: center;
+  padding: 1rem;
 }
 
 .feature-card {
