@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { ApiRouteData, SbMatApiNavCardComponent } from '@sb-hub/ui-cards/api';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
 import { AppConstants } from '../.././../../config/constants';
@@ -44,7 +44,7 @@ export const API_ROUTES: ApiRouteData[] = [
     MatIconModule,
     MatTooltipModule,
     RouterModule,
-    NavigateNewWindowDirective,
+    SbNavigateNewWindowDirective,
     SbMatApiNavCardComponent,
     ShareCurrentPageDirective
   ],

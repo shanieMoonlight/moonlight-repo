@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { HomeSectionHdrComponent } from '../section-hdr/section-hdr.component';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { AppConstants } from '../../../../../../config/constants';
 
 @Component({
@@ -9,7 +9,7 @@ import { AppConstants } from '../../../../../../config/constants';
   imports: [
     MatEverythingModule,
     HomeSectionHdrComponent,
-    NavigateNewWindowDirective
+    SbNavigateNewWindowDirective
     ],
   template: `
     <sb-home-section-hdr 
@@ -37,7 +37,7 @@ import { AppConstants } from '../../../../../../config/constants';
                     <span>Contribute to the project with pull requests</span>
                   </li>
                 </ul>
-                <a mat-raised-button color="primary" [mlNavigateNewWindow]="_gitRepoUrl()">
+                <a mat-raised-button color="primary" [sbNavigateNewWindow]="_gitRepoUrl()">
                   <mat-icon svgIcon="git"></mat-icon>
                   View on GitHub
                 </a>

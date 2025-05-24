@@ -2,16 +2,16 @@ import { isPlatformBrowser } from '@angular/common';
 import { Directive, HostListener, PLATFORM_ID, inject, input } from '@angular/core';
 
 @Directive({
-  selector: '[mlNavigateNewWindow]',
+  selector: '[sbNavigateNewWindow]',
   standalone: true
 })
-export class NavigateNewWindowDirective {
+export class SbNavigateNewWindowDirective {
 
   private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - - - - - - -//
 
-  link = input( '#', {alias:'mlNavigateNewWindow',transform: (val?:string) => val ?? '#'})
+  link = input( '#', {alias:'sbNavigateNewWindow',transform: (val?:string) => val ?? '#'})
 
   //- - - - - - - - - - - - - - - - - - -//
 

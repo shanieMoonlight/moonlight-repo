@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { SbThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcase';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { SeoService } from '@spider-baby/utils-seo';
 import { ShareCurrentPageDirective } from '@spider-baby/utils-share';
 import { AppImages } from '../../../../config/images';
@@ -31,7 +31,7 @@ import { SectionedThemesComponent } from "./ui/sectioned-themes/sectioned-themes
     MatIconModule,
     MatTooltipModule,
     RouterModule,
-    NavigateNewWindowDirective,
+    SbNavigateNewWindowDirective,
     SbThemeShowcaseMatComponent,
     SbCurrentThemeBannerComponent,
     HomeGettingStartedComponent,

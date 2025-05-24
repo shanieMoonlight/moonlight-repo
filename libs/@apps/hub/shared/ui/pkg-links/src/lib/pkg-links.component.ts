@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, input } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 
 @Component({
   standalone: true,
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective],
+    SbNavigateNewWindowDirective],
   providers: [],
   selector: 'sb-hub-pkg-links',
   templateUrl: './pkg-links.component.html',

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
@@ -14,7 +14,7 @@ import { AppImages } from '../../../../config/images';
   selector: 'sb-navbar',
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective,
+    SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule
   ],

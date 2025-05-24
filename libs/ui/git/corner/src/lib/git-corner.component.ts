@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 
 @Component({
   selector: 'sb-github-corner',
   standalone: true,
-  imports: [NavigateNewWindowDirective],
+  imports: [SbNavigateNewWindowDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
       class="github-corner"
-      [mlNavigateNewWindow]="repoUrl()"
+      [sbNavigateNewWindow]="repoUrl()"
       [attr.aria-label]="ariaLabel()">
       <svg
         [attr.width]="size()"

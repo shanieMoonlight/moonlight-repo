@@ -12,14 +12,14 @@
     @if(!isSmallScreen()){  
         <button mat-icon-button 
             aria-label="Git repo for project"
-            [mlNavigateNewWindow]="_gitRepoUrl()" 
+            [sbNavigateNewWindow]="_gitRepoUrl()" 
             [matTooltip]="'Git repo'">
             <mat-icon svgIcon="git" />
         </button>    
         
         <button mat-icon-button 
             aria-label="Npm Package"
-            [mlNavigateNewWindow]="_npmPkgUrl()" 
+            [sbNavigateNewWindow]="_npmPkgUrl()" 
             [matTooltip]="'Npm Package'">
             <mat-icon svgIcon="npm" />
         </button>

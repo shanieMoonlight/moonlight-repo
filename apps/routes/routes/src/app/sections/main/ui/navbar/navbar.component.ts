@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, inject, input, TemplateRef } from '
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
@@ -16,7 +16,7 @@ import { AppRouteDefs } from '../../../../app-route-defs';
   standalone: true,
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective,
+    SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
   ],

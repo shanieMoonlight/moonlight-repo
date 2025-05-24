@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { <%= classNamePrefix %>AppConstants } from "@sb-hub/core-config/constants";
 import { <%= classNamePrefix %>AppImages } from "@sb-hub/core-config/images";
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
+import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 
@@ -55,7 +55,7 @@ const rhsNavbarItems: NavbarItem[] = [
   standalone: true,
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective,
+    SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
   ],
