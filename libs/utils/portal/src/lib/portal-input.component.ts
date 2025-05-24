@@ -47,13 +47,14 @@ export class SbPortalInputComponent implements OnDestroy {
       const portal = this._portal();
       const name = this._name();
 
-      if (portal) {
-        try {
-          this._portalBridge.updatePortal(name, portal);
-        } catch (error) {
-          console.warn('Error updating portal:', error);
-        }
+
+      try {
+        if (portal)
+          this._portalBridge.updatePortal(name, portal)
+      } catch (error) {
+        console.warn('Error updating portal:', error);
       }
+
     });
   }
 
@@ -64,21 +65,17 @@ export class SbPortalInputComponent implements OnDestroy {
     if (!isPlatformBrowser(this._platformId))
       return
 
+    this._portalBridge.removePortal(this._name())
+
     try {
-      this._portalBridge.removePortal(this._name())
-    } catch (error) {
-      console.warn('Error removing portal:', error);
-    }
-    
-    const portal = this._portal();    
-    if (portal?.isAttached) {
-      try {
+      const portal = this._portal();
+      if (portal?.isAttached)
         portal.detach()
-      } catch (error) {
-        console.warn('Error detaching portal:', error);
-      }
+    } catch (error) {
+      console.warn('Error detaching portal:', error);
     }
   }
+
 
 
 }//Cls
