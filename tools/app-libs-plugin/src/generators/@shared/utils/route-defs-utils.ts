@@ -1,5 +1,5 @@
 import { readProjectConfiguration, Tree } from "@nx/devkit";
-import { GeneratorUtils } from "./generator-utils";
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 import path = require("path");
 
 //##############################################//

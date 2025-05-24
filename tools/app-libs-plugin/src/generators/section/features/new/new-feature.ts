@@ -1,7 +1,7 @@
 import { libraryGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
 import * as path from 'path';
-import { GeneratorUtils } from '../../../@shared/utils/generator-utils';
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 import { getDefaultOptions } from '../../../@shared/utils/options/default-lib-options';
 import { NewFeatureOptionsUtils } from './options-utils';
 import { NoramlizedSectionNewFeatureGeneratorSchema, SectionNewFeatureGeneratorSchema } from './schema';

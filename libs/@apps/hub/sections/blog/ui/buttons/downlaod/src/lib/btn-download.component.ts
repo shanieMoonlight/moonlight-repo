@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
 @Component({
@@ -14,6 +9,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubUiBtnDownloadComponent {
+
   _showButton = input<boolean>(false, { alias: 'showButton' });
   _loading = input<boolean>(false, { alias: 'loading' });
   _tooltip = input<string>('', { alias: 'tooltip' });
@@ -23,4 +19,5 @@ export class HubUiBtnDownloadComponent {
   downloadClick() {
     this._downloadClick.emit();
   }
+  
 }

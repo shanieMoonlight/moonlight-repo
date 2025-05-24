@@ -5,8 +5,8 @@ import { SectionNewFeatureGeneratorSchema, NoramlizedSectionNewFeatureGeneratorS
 import { PackageJsonUtils } from '../../../@shared/utils/package-json-utils';
 import { ProjectJsonUtils } from '../../../@shared/utils/project-json-utils';
 import { ParentEntryPointLibUtils } from '../../../@shared/utils/entry-point-library-utils';
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 import path = require('path');
-import { GeneratorUtils } from '../../../@shared/utils/generator-utils';
 
 
 export class NewFeatureOptionsUtils {

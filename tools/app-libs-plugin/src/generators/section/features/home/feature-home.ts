@@ -7,7 +7,7 @@ import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../
 import { getDefaultOptions } from '../../../@shared/utils/options/default-lib-options';
 import { OptionsUtils } from '../../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../../@shared/utils/path-utils';
-import { GeneratorUtils } from '../../../@shared/utils/generator-utils';
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 import path = require('path');
 
 //##############################################//

@@ -138,6 +138,9 @@
         "tools/shortcuts-plugin/src/index.ts"
       ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
+      "@spider-baby/generators-utils": [
+        "libs/tools/generators/utils/src/index.ts"
+      ],
       "@spider-baby/mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
       ],

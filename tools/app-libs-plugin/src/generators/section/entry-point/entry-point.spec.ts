@@ -2,7 +2,7 @@ import { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { NoramlizedSectionGeneratorSchema } from '../../@shared/schema/schema';
 import * as entryPointModule from './entry-point';
-import { GeneratorUtils } from '../../@shared/utils/generator-utils';
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 
 describe('Entry Point Generator Utilities', () => {
   let tree: Tree;

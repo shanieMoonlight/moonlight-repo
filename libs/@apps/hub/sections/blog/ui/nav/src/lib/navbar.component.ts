@@ -1,20 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  PLATFORM_ID,
-  signal,
-  TemplateRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, PLATFORM_ID, signal, TemplateRef, } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { NavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 
@@ -63,7 +54,6 @@ const rhsNavbarItems: NavbarItem[] = [
   standalone: true,
   imports: [
     MatEverythingModule,
-    NavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
   ],

@@ -1,2 +1,2 @@
 
-export const UseSecondaryEntryPoints = 'Use Secondary Entry Points!!';
+export * from '@spider-baby/utils-img/progressive';

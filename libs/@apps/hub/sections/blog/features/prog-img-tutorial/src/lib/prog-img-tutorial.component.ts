@@ -90,7 +90,8 @@ export class HubBlogProgImgTutorialComponent implements OnInit {
   protected _showDemo = signal(false);
   protected _showButton = signal(false)
 
-  protected readonly _githubRepo = BlogConstants.ProgImgTutorial.GithubRepo;
+  protected readonly _githubRepo = BlogConstants.ProgImgTutorial.GitHubRepo;
+  protected readonly _npmPkgUrl = BlogConstants.ProgImgTutorial.NpmPackage;
 
   // Create a transition ID for the component based on the current route
   protected _transitionId = computed(() => this._router.url);
@@ -101,7 +102,7 @@ export class HubBlogProgImgTutorialComponent implements OnInit {
   protected _dlClick$ = new Subject<void>()
   private _dlState = MiniStateBuilder.CreateWithObservableInput(
     this._dlClick$,
-    () => this._codeSampleDownloader.download$(HubAppDownloads.ProgImgTutorial.CodeSampleZipFile))
+    () => this._codeSampleDownloader.download$(HubAppDownloads.ProgImgTutorial.CodeSampleZipFile, HubAppDownloads.ProgImgTutorial.CodeSampleZipFile))
     .setSuccessMsgFn(() => '✅ Download complete!')
 
   protected _errorMsg = this._dlState.error

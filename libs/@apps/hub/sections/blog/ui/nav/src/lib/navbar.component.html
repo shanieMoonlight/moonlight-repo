@@ -12,12 +12,11 @@
     />
 
     @if(!_isSmallScreen()){
-    <button
+    <!-- <button
       mat-icon-button
       aria-label="Git repo for project"
       [mlNavigateNewWindow]="_gitRepoUrl()"
-      [matTooltip]="'Git repo'"
-    >
+      [matTooltip]="'Git repo'">
       <mat-icon svgIcon="git" />
     </button>
 
@@ -25,17 +24,15 @@
       mat-icon-button
       aria-label="Npm Package"
       [mlNavigateNewWindow]="_npmPkgUrl()"
-      [matTooltip]="'Npm Package'"
-    >
+      [matTooltip]="'Npm Package'">
       <mat-icon svgIcon="npm" />
-    </button>
+    </button> -->
 
     <button
       mat-icon-button
       aria-label="Share current page"
       (click)="share()"
-      matTooltip="Share this page"
-    >
+      matTooltip="Share this page">
       <mat-icon>share</mat-icon>
     </button>
     }

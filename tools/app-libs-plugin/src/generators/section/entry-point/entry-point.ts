@@ -7,7 +7,7 @@ import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../
 // import { getDefaultOptions } from '../../@shared/utils/default-lib-options';
 // import { normalizeOptionsAsync } from '../../@shared/utils/options-utils';
 import { EntryPointRoutesUtils } from '../../@shared/utils/entry-point-routes-utils';
-import { GeneratorUtils } from '../../@shared/utils/generator-utils';
+import { GeneratorUtils } from "@spider-baby/generators-utils";
 import { getDefaultOptions } from '../../@shared/utils/options/default-lib-options';
 import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';

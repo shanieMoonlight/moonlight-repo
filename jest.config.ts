@@ -59,5 +59,7 @@ export default async (): Promise<Config> => ({
     '<rootDir>/tools/app-libs-plugin/src/generators/section/features/home/files/',
     '<rootDir>/tools/app-libs-plugin/src/generators/section/ui/nav/files/',
     '<rootDir>/tools/app-libs-plugin/src/generators/section/features/new/files/',
+    '<rootDir>/tools/shortcuts-plugin/src/generators/library/files/',
+    '<rootDir>/tools/shortcuts-plugin/src/generators/component/files/',
   ],
 });
