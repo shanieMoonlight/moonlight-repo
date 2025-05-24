@@ -9,6 +9,11 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('portal'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-portal')
+        .then((m) => m.HubBlogPortalComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('prog-img-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-prog-img-tutorial')
         .then((m) => m.HubBlogProgImgTutorialComponent),
