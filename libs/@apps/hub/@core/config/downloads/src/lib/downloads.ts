@@ -15,5 +15,12 @@ export class HubAppDownloads {
   }
 
 
+  static PortalTutorial = class {
+    static readonly Base = 'portal-tutorial'
+    static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
+
+  }
+
+
 
 }

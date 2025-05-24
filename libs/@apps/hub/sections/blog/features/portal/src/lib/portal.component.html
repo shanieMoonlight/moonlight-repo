@@ -1,1 +1,316 @@
-<h1>portal Works!</h1>
+
+<sb-portal-input>
+  <sb-hub-pkg-links
+    [gitHubRepoUrl]="_gitHubRepoUrl"
+    [npmPackageUrl]="_npmPackageUrl"/>
+</sb-portal-input>
+
+
+<!-- Hero Banner -->
+<sb-hub-hero-banner-2 
+  [title]="_title" 
+  [subtitle]="_subtitle"
+  [description]="_description"
+  [backgroundImage]="_bannerImg"/>
+
+<!-- Introduction Section -->
+<div class="tutorial-content">
+    <sb-portal-outlet/>
+  <section class="intro-section">
+    <h2>🕷️ What You'll Learn</h2>
+    <sb-portal-outlet/>
+    <p>
+      In this comprehensive tutorial, you'll learn how to build a complete Portal system using Angular CDK.
+      Portals allow you to dynamically render content anywhere in your application - perfect for modals, 
+      tooltips, sidebars, and complex layout management.
+    </p>
+    
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>🎯 Dynamic Content Rendering</h3>
+        <p>Learn to teleport Angular content anywhere in your DOM tree</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🔄 Signal-Based Reactivity</h3>
+        <p>Build with modern Angular signals for optimal performance</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🧪 Comprehensive Testing</h3>
+        <p>Master testing strategies for portal-based components</p>
+      </div>
+      <div class="benefit-card">
+        <h3>⚡ Production Ready</h3>
+        <p>Build enterprise-grade components with proper error handling</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Package Links -->
+  <section class="package-section">
+    <h2>📦 Package Information</h2>    
+    <sb-hub-pkg-links
+      [gitHubRepoUrl]="_gitHubRepoUrl"
+      [npmPackageUrl]="_npmPackageUrl">
+    </sb-hub-pkg-links>
+  </section>
+  <!-- Download Section -->
+  <section class="download-section" *ngIf="_showButton()">
+    <h2>📥 Download Code Samples</h2>
+    <p>Get all the source code examples used in this tutorial:</p>
+    
+    <button 
+      mat-raised-button 
+      color="primary" 
+      [disabled]="_isLoading()"
+      (click)="_dlClick$.next()">
+      <mat-icon>download</mat-icon>
+      {{ _isLoading() ? 'Downloading...' : 'Download Portal Tutorial Code' }}
+    </button>
+
+    <div class="download-feedback">
+      <p *ngIf="_successMsg()" class="success-message">{{ _successMsg() }}</p>
+      <p *ngIf="_errorMsg()" class="error-message">{{ _errorMsg() }}</p>
+    </div>
+  </section>
+
+  <!-- Installation Section -->
+  <section class="installation-section">
+    <h2>🚀 Installation & Setup</h2>
+    
+    <div class="step-card">
+      <h3>Step 1: Install Dependencies</h3>
+      <pre><code [highlight]="_installationCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="step-card">
+      <h3>Step 2: Update Package.json</h3>
+      <pre><code [highlight]="_packageJsonCode" language="json"></code></pre>
+    </div>
+
+    <div class="step-card">
+      <h3>Step 3: Import Components</h3>
+      <pre><code [highlight]="_setupModuleCode" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <!-- Core Concepts Section -->
+  <section class="concepts-section">
+    <h2>🧠 Core Concepts</h2>
+    
+    <div class="concept-explanation">
+      <h3>What is a Portal?</h3>
+      <p>
+        A Portal is a piece of UI that can be dynamically rendered to any location in the DOM tree,
+        outside of its original Angular component hierarchy. Think of it as "teleporting" content
+        from one place to another while maintaining all Angular features like data binding, 
+        dependency injection, and lifecycle hooks.
+      </p>
+    </div>
+
+    <div class="concept-explanation">
+      <h3>Key Components</h3>
+      <ul>
+        <li><strong>Portal Input:</strong> Defines content that can be teleported</li>
+        <li><strong>Portal Outlet:</strong> Destination where portal content appears</li>
+        <li><strong>Portal Bridge Service:</strong> Manages portal registration and communication</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Basic Usage Section -->
+  <section class="usage-section">
+    <h2>📝 Basic Usage</h2>
+    
+    <div class="example-card">
+      <h3>Simple Portal Example</h3>
+      <p>The most basic portal usage involves defining content and displaying it elsewhere:</p>
+      <pre><code [highlight]="_basicUsageExample" language="html"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Multiple Named Portals</h3>
+      <p>Use named portals to manage multiple content areas:</p>
+      <pre><code [highlight]="_multiplePortalsExample" language="html"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Conditional Portal Rendering</h3>
+      <p>Portals work seamlessly with Angular's structural directives:</p>
+      <pre><code [highlight]="_conditionalPortalExample" language="html"></code></pre>
+    </div>
+  </section>
+
+  <!-- Implementation Details Section -->
+  <section class="implementation-section">
+    <h2>⚙️ Implementation Details</h2>
+    
+    <div class="code-card">
+      <h3>Portal Constants</h3>
+      <p>Define the core types and constants for our portal system:</p>
+      <pre><code [highlight]="_portalConstantsCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Portal Bridge Service</h3>
+      <p>The service that manages portal registration and communication:</p>
+      <pre><code [highlight]="_portalBridgeServiceCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Portal Input Component</h3>
+      <p>Component that wraps content to make it available as a portal:</p>
+      <pre><code [highlight]="_portalInputComponentCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Portal Outlet Component</h3>
+      <p>Component that displays portal content at the target location:</p>
+      <pre><code [highlight]="_portalOutletComponentCode" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <!-- Advanced Examples Section -->
+  <section class="advanced-section">
+    <h2>🔥 Advanced Examples</h2>
+    
+    <div class="example-card">
+      <h3>Dynamic Content with Signals</h3>
+      <p>Use Angular signals to create reactive portal content:</p>
+      <pre><code [highlight]="_dynamicContentExample" language="html"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Complex Component Portals</h3>
+      <p>Portal entire components with inputs, outputs, and nested content:</p>
+      <pre><code [highlight]="_complexComponentExample" language="html"></code></pre>
+    </div>
+  </section>
+
+  <!-- Advanced Patterns Section -->
+  <section class="patterns-section">
+    <h2>🎨 Advanced Patterns</h2>
+    
+    <div class="code-card">
+      <h3>Portal Manager Service</h3>
+      <p>Create a higher-level service for advanced portal management:</p>
+      <pre><code [highlight]="_portalManagerServiceCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Dynamic Portal Component</h3>
+      <p>Build components that can dynamically switch portal content:</p>
+      <pre><code [highlight]="_advancedPatternsCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Conditional Portal Directive</h3>
+      <p>Create directives for more advanced portal control:</p>
+      <pre><code [highlight]="_conditionalPortalDirectiveCode" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <!-- Testing Section -->
+  <section class="testing-section">
+    <h2>🧪 Testing Your Portals</h2>
+    
+    <div class="code-card">
+      <h3>Unit Testing</h3>
+      <p>Comprehensive unit testing strategy for portal components:</p>
+      <pre><code [highlight]="_testingCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>End-to-End Testing</h3>
+      <p>E2E testing with Playwright for portal functionality:</p>
+      <pre><code [highlight]="_e2eTestingCode" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo-section" *ngIf="_showDemo()">
+    <h2>🎮 Live Demo</h2>
+    <p>Try out the portal system in action:</p>
+    
+    <div class="demo-container">
+      <div class="demo-source">
+        <h4>Portal Input (Source)</h4>
+        <sb-portal-input name="demo-portal">
+          <div class="demo-content">
+            <h3>🕷️ This content is teleported!</h3>
+            <p>This content is defined here but renders in the outlet below.</p>
+            <button mat-raised-button color="primary">Interactive Button</button>
+          </div>
+        </sb-portal-input>
+      </div>
+      
+      <div class="demo-destination">
+        <h4>Portal Outlet (Destination)</h4>
+        <div class="outlet-container">
+          <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Practices Section -->
+  <section class="best-practices-section">
+    <h2>✨ Best Practices</h2>
+    
+    <div class="practice-grid">
+      <div class="practice-card">
+        <h3>🏷️ Named Portals</h3>
+        <p>Always use descriptive names for your portals to avoid conflicts and improve maintainability.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>🧹 Cleanup</h3>
+        <p>Portal components automatically clean up on destroy, but be mindful of memory leaks in custom implementations.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>🔍 Error Handling</h3>
+        <p>Implement proper error boundaries around portal content to prevent cascading failures.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>⚡ Performance</h3>
+        <p>Use OnPush change detection and signals for optimal performance in portal-heavy applications.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>🎯 Accessibility</h3>
+        <p>Ensure portal content maintains proper ARIA relationships and focus management.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>🧪 Testing</h3>
+        <p>Test both the portal input and outlet components, as well as their interaction through the bridge service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion Section -->
+  <section class="conclusion-section">
+    <h2>🎉 Conclusion</h2>
+    <p>
+      You've now learned how to build a complete Portal system using Angular CDK! This system provides
+      a powerful foundation for dynamic content rendering, complex layouts, and advanced UI patterns.
+      The signal-based architecture ensures optimal performance while maintaining type safety and 
+      developer experience.
+    </p>
+    
+    <div class="next-steps">
+      <h3>🚀 Next Steps</h3>
+      <ul>
+        <li>Integrate portals into your existing Angular applications</li>
+        <li>Experiment with complex portal compositions</li>
+        <li>Build reusable portal-based UI libraries</li>
+        <li>Explore advanced Angular CDK features like Overlay and Dialog</li>
+      </ul>
+    </div>
+    
+    <div class="footer-cta">
+      <p>Happy coding with Angular CDK Portals! 🕷️✨</p>
+    </div>
+  </section>
+</div>

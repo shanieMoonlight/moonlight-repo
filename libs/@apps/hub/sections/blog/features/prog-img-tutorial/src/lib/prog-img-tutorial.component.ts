@@ -13,7 +13,7 @@ import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/down
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
-import { SbPortalInputComponent } from '@spider-baby/utils-portal';
+import { SbPortalInputComponent, SbPortalOutletComponent } from '@spider-baby/utils-portal';
 import { Subject } from 'rxjs';
 import { ComponentBasicCode } from './code/component-basic';
 import { ComponentStyleCode } from './code/component-style';
@@ -47,6 +47,7 @@ import { BlogConstants } from './config/constants';
     HubUiBtnDownloadComponent,
     SbPortalInputComponent,
     SbHubPkgLinksComponent,
+    SbPortalOutletComponent
   ],
   providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-prog-img-tutorial',

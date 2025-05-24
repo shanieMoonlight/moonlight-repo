@@ -9,7 +9,7 @@ import { DEFAULT_NAME } from './portal-constants';
   imports: [PortalModule],
   template: `
   @if(_portal(); as portal){
-    <ng-container [cdkPortalOutlet]="portal"/>
+    <ng-container [cdkPortalOutlet]="portal"/>{{count}}
   }
   `,
   styles: [
@@ -25,6 +25,10 @@ export class SbPortalOutletComponent {
 
   protected _bridge = inject(SbPortalBridgeService)
 
+  private static _count = 1
+  count = SbPortalOutletComponent._count++
+
+
   //- - - - - - - - - - - - -//
 
   _name = input(DEFAULT_NAME, {
@@ -33,5 +37,14 @@ export class SbPortalOutletComponent {
   })
 
   protected _portal = this._bridge.getPortal(this._name)
+
+  /**
+   *
+   */
+  constructor() {
+    console.log('SbPortalOutletComponent initialized with name:', this._name());
+    
+    
+  }
 
 }

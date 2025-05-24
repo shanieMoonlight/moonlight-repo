@@ -3,3 +3,327 @@
   // padding-top: 72px;
 }
 
+.tutorial-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  section {
+    margin-bottom: 3rem;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--mdc-theme-primary);
+      border-bottom: 2px solid var(--mdc-theme-primary);
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: var(--mdc-theme-on-surface);
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: var(--mdc-theme-on-surface-variant);
+    }
+
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+        color: var(--mdc-theme-on-surface-variant);
+      }
+    }
+  }
+}
+
+// Benefits grid
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.benefit-card {
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--mdc-theme-outline-variant);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--mdc-theme-primary);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--mdc-theme-on-surface-variant);
+  }
+}
+
+// Code and example cards
+.code-card, .example-card, .step-card {
+  background: var(--mdc-theme-surface);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--mdc-theme-outline-variant);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--mdc-theme-primary);
+    font-size: 1.3rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    margin: 0;
+    border-radius: 6px;
+    overflow-x: auto;
+    
+    code {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Download section
+.download-section {
+  text-align: center;
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+.download-feedback {
+  margin-top: 1rem;
+  
+  .success-message {
+    color: var(--mdc-theme-primary);
+    font-weight: 500;
+  }
+  
+  .error-message {
+    color: var(--mdc-theme-error);
+    font-weight: 500;
+  }
+}
+
+// Concept explanations
+.concept-explanation {
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--mdc-theme-primary);
+
+  h3 {
+    margin-top: 0;
+    color: var(--mdc-theme-primary);
+  }
+}
+
+// Demo section
+.demo-section {
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 12px;
+  padding: 2rem;
+
+  .demo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .demo-source, .demo-destination {
+    background: var(--mdc-theme-surface);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 2px solid var(--mdc-theme-outline-variant);
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--mdc-theme-primary);
+      font-weight: 600;
+    }
+  }
+
+  .demo-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  .outlet-container {
+    min-height: 100px;
+    border: 2px dashed var(--mdc-theme-outline);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--mdc-theme-surface-variant);
+  }
+}
+
+// Best practices grid
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.practice-card {
+  background: var(--mdc-theme-surface);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--mdc-theme-outline-variant);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--mdc-theme-primary);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
+
+// Next steps
+.next-steps {
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+
+  h3 {
+    margin-top: 0;
+    color: var(--mdc-theme-primary);
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+// Footer CTA
+.footer-cta {
+  text-align: center;
+  background: linear-gradient(135deg, var(--mdc-theme-primary) 0%, var(--mdc-theme-secondary) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .tutorial-content {
+    padding: 1rem;
+
+    section {
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .code-card, .example-card, .step-card {
+    padding: 1rem;
+    
+    pre code {
+      font-size: 0.8rem;
+    }
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+

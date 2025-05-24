@@ -1,0 +1,80 @@
+export const TestingCode = `// portal-input.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { SbPortalInputComponent } from './portal-input.component';
+import { SbPortalBridgeService } from './portal-bridge.service';
+
+@Component({
+  template: \`
+    <sb-portal-input name="test-portal">
+      <div data-testid="portal-content">Test Content</div>
+    </sb-portal-input>
+  \`
+})
+class TestHostComponent {}
+
+describe('SbPortalInputComponent', () => {
+  let component: TestHostComponent;
+  let fixture: ComponentFixture<TestHostComponent>;
+  let portalBridge: SbPortalBridgeService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SbPortalInputComponent],
+      declarations: [TestHostComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestHostComponent);
+    component = fixture.componentInstance;
+    portalBridge = TestBed.inject(SbPortalBridgeService);
+  });
+
+  it('should register portal with bridge service', () => {
+    fixture.detectChanges();
+    
+    expect(portalBridge.hasPortal('test-portal')).toBe(true);
+  });
+
+  it('should render content inside portal', () => {
+    fixture.detectChanges();
+    
+    const content = fixture.debugElement.nativeElement
+      .querySelector('[data-testid="portal-content"]');
+    expect(content).toBeTruthy();
+    expect(content.textContent).toBe('Test Content');
+  });
+});`;
+
+export const E2ETestingCode = `// portal.e2e.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Portal System', () => {
+  test('should teleport content between locations', async ({ page }) => {
+    await page.goto('/portal-demo');
+
+    // Content should appear in the portal input initially
+    await expect(page.locator('[data-testid="portal-input"] .content'))
+      .toBeVisible();
+
+    // Content should also appear in the portal outlet
+    await expect(page.locator('[data-testid="portal-outlet"] .content'))
+      .toBeVisible();
+
+    // Both should have the same content
+    const inputText = await page.locator('[data-testid="portal-input"] .content')
+      .textContent();
+    const outletText = await page.locator('[data-testid="portal-outlet"] .content')
+      .textContent();
+    
+    expect(inputText).toBe(outletText);
+  });
+
+  test('should handle multiple named portals', async ({ page }) => {
+    await page.goto('/portal-demo');
+
+    await expect(page.locator('[data-testid="header-outlet"]'))
+      .toContainText('Header Content');
+    await expect(page.locator('[data-testid="sidebar-outlet"]'))
+      .toContainText('Sidebar Content');
+  });
+});`;
