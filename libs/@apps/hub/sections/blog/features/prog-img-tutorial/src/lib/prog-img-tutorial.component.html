@@ -1,14 +1,11 @@
 
-<ng-template #testTemplate>
-  <h1>Test Template</h1>
-  <p>This is a test template content.</p>
-
-</ng-template>
 <sb-portal-input>
-  <ng-container />
-    <sb-hub-pkg-links
-      [gitHubRepoUrl]="_githubRepo"
-      [npmPackageUrl]="_npmPkgUrl"/>
+  <sb-hub-pkg-links
+    [gitHubRepoUrl]="_githubRepo"
+    [npmPackageUrl]="_npmPkgUrl"/>
+</sb-portal-input>
+<sb-portal-input name="sidebar">
+  XYZ
 </sb-portal-input>
 
 <sb-hub-hero-banner-2
@@ -19,16 +16,6 @@
   [backgroundImage]="_bannerImg"/>
 
 <div class="component-container">
-<!-- 
-  <div class="btn-container" 
-    [class.show]="true">
-    
-    <button mat-mini-fab aria-label="Download Code Samples" 
-      id="btn-download" 
-      [matTooltip]="'Download Code Samples'" >
-      <mat-icon>code</mat-icon>
-    </button>
-  </div> -->
 
   <sb-hub-blog-ui-btn-download 
     [showButton]="_showButton()"
