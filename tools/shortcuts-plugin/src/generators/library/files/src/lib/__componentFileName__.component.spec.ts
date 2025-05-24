@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {<%= componentClassName %> } from './<%= name %>.component';
+import {<%= componentClassName %> } from './<%= componentFileName %>.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';

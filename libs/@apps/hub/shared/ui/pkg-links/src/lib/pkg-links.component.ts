@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, input, OnInit } from '@angular/core';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-window';
 
@@ -6,14 +6,22 @@ import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-win
   standalone: true,
   imports: [
     MatEverythingModule,
-    SbNavigateNewWindowDirective],
+    SbNavigateNewWindowDirective
+  ],
   providers: [],
   selector: 'sb-hub-pkg-links',
   templateUrl: './pkg-links.component.html',
   styleUrl: './pkg-links.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbHubPkgLinksComponent {
+export class SbHubPkgLinksComponent implements OnInit{
+  ngOnInit(): void {
+    console.log('_gitHubRepoUrl', this._gitHubRepoUrl());
+    console.log('_gitTooltip', this._gitTooltip());
+    console.log('_npmPackageUrl', this._npmPackageUrl());
+    console.log('_npmTooltip', this._npmTooltip());
+    
+  }
 
   _gitHubRepoUrl = input<string | undefined>('', { alias: 'gitHubRepoUrl' });
   _gitTooltip = input<string | undefined>('Git repo', { alias: 'gitTooltip' });
