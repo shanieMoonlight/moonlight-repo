@@ -4,7 +4,7 @@ import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
-import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
+import { GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
 import { EntryPointRoutesUtils } from '../../@shared/utils/entry-point-routes-utils';
 import { LibrarySettings } from '../../@shared/utils/options/lib-settings';
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';
@@ -49,7 +49,7 @@ function updateParentEntryPointRoutes(tree: Tree, options: NoramlizedSectionGene
 async function generateEntryPointLibrary(tree: Tree, options: NoramlizedSectionGeneratorSchema): Promise<LibrarySettings> {
 
   const librarySettings = getLibrarySettings(options);
-  const defaultOptions = getDefaultOptions()
+  const defaultOptions = getDefaultLibraryOptions()
 
   const libOptions = {
     ...defaultOptions,

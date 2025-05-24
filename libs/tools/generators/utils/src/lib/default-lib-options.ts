@@ -6,7 +6,7 @@ export type DefaultLibraryOptions = Omit<Schema, 'directory'>;
 
 //##############################################//
 
-export function getDefaultOptions(): DefaultLibraryOptions {
+export function getDefaultLibraryOptions(): DefaultLibraryOptions {
 
     return {
         addTailwind: false,

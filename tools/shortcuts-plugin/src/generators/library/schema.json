@@ -12,7 +12,26 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
+    },
+    "importPath": {
+      "type": "string",
+      "description": "The library name used to import it, like `@myorg/my-awesome-lib`. Must be a valid npm name."
+    },
+    "directory": {
+      "type": "string",
+      "description": "Directory where the application is placed",
+      "x-prompt": "In which directory should the application be generated?"
+    },
+    "componentName": {
+      "type": "string",
+      "description": "Name of the component to be generated in the library. Leave blank to generate empty library."
+    },
+    "prefix": {
+      "type": "string",
+      "format": "html-selector",
+      "description": "The prefix to apply to generated selectors.",
+      "alias": "p"
     }
   },
-  "required": ["name"]
+  "required": ["name", "importPath"]
 }

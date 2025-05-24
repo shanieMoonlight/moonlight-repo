@@ -1,6 +1,6 @@
 import { libraryGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
-import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
+import { GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
 import * as path from 'path';
 import { EntryPointRoutesUtils } from '../../../@shared/utils/entry-point-routes-utils';
 import { RouteDefsUtils } from '../../../@shared/utils/route-defs-utils';
@@ -56,7 +56,7 @@ async function generateNewFeatureLibrary(tree: Tree, options: NoramlizedSectionN
   const directory = options.libraryRoot
   const libraryName = options.libraryName
   const importPath = options.importPath
-  const defaultOptions = getDefaultOptions()
+  const defaultOptions = getDefaultLibraryOptions()
 
 
   const libOptions = {

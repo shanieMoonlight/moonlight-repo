@@ -5,7 +5,7 @@ import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/pr
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../@shared/schema/schema';
 
 import { PathUtils } from '../../@shared/utils/path-utils';
-import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
+import { GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
 import path = require('path');
 import { OptionsUtils } from '../../@shared/utils/options/options-utils';
 
@@ -16,7 +16,7 @@ async function generateConfigLibrary(tree: Tree, options: NoramlizedSectionGener
   const directory =  PathUtils.combine(options.sectionRoot, 'config')
   const importPath = PathUtils.combine(options.importPrefix, 'config')
   const libraryName = `${options.libraryNamePrefix}-config`
-  const defaultOptions = getDefaultOptions()
+  const defaultOptions = getDefaultLibraryOptions()
 
   const entryPointLibOptions = {
     ...defaultOptions,

@@ -3,7 +3,7 @@ import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
-import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
+import { GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../../@shared/schema/schema';
 import { OptionsUtils } from '../../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../../@shared/utils/path-utils';
@@ -16,7 +16,7 @@ async function generateHomeLibrary(tree: Tree, options: NoramlizedSectionGenerat
   const directory =   PathUtils.combine(options.sectionRoot, 'features', 'home')
   const importPath =   PathUtils.combine(options.importPrefix, 'features-home')
   const libraryName =  options.libraryNamePrefix + '-features-home'
-  const defaultOptions = getDefaultOptions()
+  const defaultOptions = getDefaultLibraryOptions()
 
 
   const libOptions = {
