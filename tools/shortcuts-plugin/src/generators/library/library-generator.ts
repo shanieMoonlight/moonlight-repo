@@ -1,11 +1,8 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  Tree,
-} from '@nx/devkit';
+import { addProjectConfiguration, formatFiles, generateFiles, Tree, } from '@nx/devkit';
 import * as path from 'path';
 import { LibraryGeneratorGeneratorSchema } from './schema';
+import { libraryGenerator} from '@nx/angular/generators';
+import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
 
 export async function libraryGeneratorGenerator(
   tree: Tree,

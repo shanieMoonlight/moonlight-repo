@@ -1,12 +1,11 @@
 import { libraryGenerator } from '@nx/angular/generators';
 import { generateFiles, Tree } from '@nx/devkit';
+import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
 import * as path from 'path';
-import { GeneratorUtils } from "@spider-baby/generators-utils";
-import { getDefaultOptions } from '../../../@shared/utils/options/default-lib-options';
-import { NewFeatureOptionsUtils } from './options-utils';
-import { NoramlizedSectionNewFeatureGeneratorSchema, SectionNewFeatureGeneratorSchema } from './schema';
 import { EntryPointRoutesUtils } from '../../../@shared/utils/entry-point-routes-utils';
 import { RouteDefsUtils } from '../../../@shared/utils/route-defs-utils';
+import { NewFeatureOptionsUtils } from './options-utils';
+import { NoramlizedSectionNewFeatureGeneratorSchema, SectionNewFeatureGeneratorSchema } from './schema';
 
 
 //------------------------------//

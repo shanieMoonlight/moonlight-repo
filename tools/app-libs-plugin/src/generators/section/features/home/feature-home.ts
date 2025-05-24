@@ -1,13 +1,12 @@
 import { } from '@nx/angular';
-import { generateFiles, Tree } from '@nx/devkit';
 import { libraryGenerator as ngLibGenerator } from '@nx/angular/generators';
+import { generateFiles, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { } from '@nx/js';
+import { GeneratorUtils, getDefaultOptions } from "@spider-baby/generators-utils";
 import { NoramlizedSectionGeneratorSchema, SectionGeneratorSchema } from '../../../@shared/schema/schema';
-import { getDefaultOptions } from '../../../@shared/utils/options/default-lib-options';
 import { OptionsUtils } from '../../../@shared/utils/options/options-utils';
 import { PathUtils } from '../../../@shared/utils/path-utils';
-import { GeneratorUtils } from "@spider-baby/generators-utils";
 import path = require('path');
 
 //##############################################//
