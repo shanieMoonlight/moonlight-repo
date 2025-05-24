@@ -1,5 +1,5 @@
 import { PortalModule } from '@angular/cdk/portal';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { SbPortalBridgeService } from './portal-bridge.service';
 import { DEFAULT_NAME } from './portal-constants';
 
@@ -25,13 +25,13 @@ export class SbPortalOutletComponent {
 
   protected _bridge = inject(SbPortalBridgeService)
 
-  //- - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - -//
 
   _name = input(DEFAULT_NAME, {
     alias: 'name',
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
   })
-  
-  _portal = computed(() => this._bridge.getPortal(this._name()))
+
+  protected _portal = this._bridge.getPortal(this._name)
 
 }

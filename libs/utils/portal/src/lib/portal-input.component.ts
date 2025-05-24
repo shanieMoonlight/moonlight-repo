@@ -1,7 +1,6 @@
 import { CdkPortal, PortalModule } from '@angular/cdk/portal';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, OnDestroy, OnInit, PLATFORM_ID, effect, inject, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, PLATFORM_ID, effect, inject, input, viewChild } from '@angular/core';
 import { SbPortalBridgeService } from './portal-bridge.service';
 import { DEFAULT_NAME } from './portal-constants';
 
@@ -23,13 +22,12 @@ import { DEFAULT_NAME } from './portal-constants';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
+export class SbPortalInputComponent implements OnDestroy {
 
   private _portalBridge = inject(SbPortalBridgeService);
   private _platformId = inject(PLATFORM_ID)
-  private _destroyor = inject(DestroyRef)
 
-  //- - - - - - - - - - - - - - - //
+  //- - - - - - - - - - - - -//
 
   private _portal = viewChild(CdkPortal)
 
@@ -38,26 +36,24 @@ export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
     alias: 'name',
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
   });
-  private _name$ = toObservable(this._name);
 
+  //-------------------------//
 
+  constructor() {
+    effect(() => {
+      if (!isPlatformBrowser(this._platformId))
+        return
 
-  //------------------------------//
+      const portal = this._portal();
+      const name = this._name();
 
+      if (portal)
+        this._portalBridge.updatePortal(name, portal);
 
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this._platformId))
-      return
-
-    this._name$
-      .pipe(takeUntilDestroyed(this._destroyor))
-      .subscribe((name) => {
-        this._portalBridge.updatePortal(name, this._portal())
-      })
+    });
   }
 
-  //- - - - - - - - - - - - - - - //
-
+  //- - - - - - - - - - - - -//
 
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this._platformId))
