@@ -1,1 +1,1 @@
-export * from './lib/<%= name %>.component';
+export * from './lib/<%= componentFileName %>.component';

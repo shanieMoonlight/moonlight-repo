@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
+import { SbHubPkgLinksComponent } from '@sb-hub/shared-ui/pkg-links';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
@@ -56,6 +57,7 @@ const rhsNavbarItems: NavbarItem[] = [
     MatEverythingModule,
     NgTemplateOutlet,
     RouterModule,
+    SbHubPkgLinksComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

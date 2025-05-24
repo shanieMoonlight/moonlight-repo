@@ -1,10 +1,10 @@
 import { libraryGenerator } from '@nx/angular/generators';
+import { Schema } from '@nx/angular/src/generators/library/schema';
 import { formatFiles, generateFiles, names, Tree } from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
-import { DefaultLibraryOptions, GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
+import { GeneratorUtils, getDefaultLibraryOptions } from "@spider-baby/generators-utils";
 import * as path from 'path';
 import { LibraryGeneratorGeneratorSchema, NoramlizedLibraryGeneratorGeneratorSchema } from './schema';
-import { Schema } from '@nx/angular/src/generators/library/schema';
 
 //----------------------------//
 
@@ -33,6 +33,7 @@ function normalizeOptions(options: LibraryGeneratorGeneratorSchema): NoramlizedL
   const componentNameOptions = names(sanitizedComponentName);
 
   const prefix = options.prefix || 'sb';
+  const prefixOptions = names(prefix);
   const componentFileName = componentNameOptions.fileName.replace(`${prefix}-`, ''); //Don't use the prefix in the file name
   console.log(`componentNameOptions.fileName:`, componentNameOptions.fileName);
   console.log(`componentFileName:`, componentFileName);
@@ -40,7 +41,7 @@ function normalizeOptions(options: LibraryGeneratorGeneratorSchema): NoramlizedL
   
   const selectorSuffix =`${prefix}-${componentFileName}`;
 
-  const componentClassName = `${componentNameOptions.className}Component`;
+  const componentClassName = `${prefixOptions.className}${componentNameOptions.className}Component`;
 
 
   return {
@@ -86,11 +87,7 @@ export async function libraryGeneratorGenerator(
   const nameAndRootOptions = await determineProjectNameAndRootOptions(tree, { ...normalizedOptions, projectType: 'library' });
   const projectRoot = nameAndRootOptions.projectRoot;
   const libraryName = normalizedOptions.name;
-  // console.log(`normalizedOptions:`, normalizedOptions);
-  // console.log(`libraryOptions:`, libraryOptions);
-  // console.log(`nameAndRootOptions:`, nameAndRootOptions);
-  // console.log(`libraryName:`, libraryName);
-  // console.log(`projectRoot:`, projectRoot);
+  
 
   await libraryGenerator(tree, libraryOptions);
   if (options.componentName) {

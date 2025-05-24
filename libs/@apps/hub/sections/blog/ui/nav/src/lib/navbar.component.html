@@ -28,6 +28,10 @@
       <mat-icon svgIcon="npm" />
     </button> -->
 
+    <sb-hub-pkg-links
+      [gitHubRepoUrl]="_gitRepoUrl()"
+      [npmPackageUrl]="_npmPkgUrl()"/>
+
     <button
       mat-icon-button
       aria-label="Share current page"

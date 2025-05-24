@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  align-items: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+button[mat-icon-button] {
+  margin: 0 4px;
+  color: inherit;
+
+  &:hover {
+    color: var(--hoverColor, var(--mat-sys-primary));
+  }
+}

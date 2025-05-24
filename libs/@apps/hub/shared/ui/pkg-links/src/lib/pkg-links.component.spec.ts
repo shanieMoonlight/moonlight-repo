@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { SbPortalComponent } from './spider-baby-utils-portal.component';
+import { SbHubPkgLinksComponent } from './sb-hub-shared-ui-pkg-links.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
@@ -53,12 +53,12 @@ const mockPerformanceService = {
   measureCoreWebVitals: jest.fn(),
 };
 
-describe('SbPortalComponent', () => {
-  let component: SbPortalComponent;
+describe('SbHubPkgLinksComponent', () => {
+  let component: SbHubPkgLinksComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SbPortalComponent, RouterModule.forRoot([])],
+      imports: [SbHubPkgLinksComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
         { provide: SeoConfigService, useValue: mockSeoConfig },
@@ -70,7 +70,7 @@ describe('SbPortalComponent', () => {
       ], // Provide the IconsService
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(SbPortalComponent);
+    const fixture = TestBed.createComponent(SbHubPkgLinksComponent);
     component = fixture.componentInstance;
   });
 

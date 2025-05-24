@@ -1,0 +1,18 @@
+@if(_gitHubRepoUrl(); as gitUrl){
+    <button
+        mat-icon-button
+        aria-label="Git repo for project"
+        [mlNavigateNewWindow]="gitUrl"
+        [matTooltip]="_gitTooltip()">
+        <mat-icon svgIcon="git" />
+    </button>
+}
+@if(_npmPackageUrl(); as npmUrl){
+    <button
+        mat-icon-button
+        aria-label="Npm Package"
+        [mlNavigateNewWindow]="npmUrl"
+        [matTooltip]="_npmTooltip()">
+        <mat-icon svgIcon="npm" />
+    </button>
+}

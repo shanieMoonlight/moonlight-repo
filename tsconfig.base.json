@@ -120,6 +120,9 @@
       "@sb-hub/shared-ui/hero-banner/banner-2": [
         "libs/@apps/hub/shared/ui/hero-banner/banner-2/src/index.ts"
       ],
+      "@sb-hub/shared-ui/pkg-links": [
+        "libs/@apps/hub/shared/ui/pkg-links/src/index.ts"
+      ],
       "@sb-hub/shared-utils/icons": [
         "libs/@apps/hub/shared/utils/icons/src/index.ts"
       ],
