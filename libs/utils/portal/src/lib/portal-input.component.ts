@@ -47,20 +47,37 @@ export class SbPortalInputComponent implements OnDestroy {
       const portal = this._portal();
       const name = this._name();
 
-      if (portal)
-        this._portalBridge.updatePortal(name, portal);
-
+      if (portal) {
+        try {
+          this._portalBridge.updatePortal(name, portal);
+        } catch (error) {
+          console.warn('Error updating portal:', error);
+        }
+      }
     });
   }
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - - //
+
 
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this._platformId))
       return
 
-    this._portalBridge.removePortal(this._name())
-    this._portal()?.detach()
+    try {
+      this._portalBridge.removePortal(this._name())
+    } catch (error) {
+      console.warn('Error removing portal:', error);
+    }
+    
+    const portal = this._portal();    
+    if (portal?.isAttached) {
+      try {
+        portal.detach()
+      } catch (error) {
+        console.warn('Error detaching portal:', error);
+      }
+    }
   }
 
 
