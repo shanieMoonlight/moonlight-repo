@@ -5,9 +5,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { SbHubPkgLinksComponent } from '@sb-hub/shared-ui/pkg-links';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { ShareService } from '@spider-baby/utils-share';
+import { SbPortalOutletComponent } from '@spider-baby/utils-portal';
 import { map } from 'rxjs';
 
 //##############################################################//
@@ -57,13 +57,14 @@ const rhsNavbarItems: NavbarItem[] = [
     MatEverythingModule,
     NgTemplateOutlet,
     RouterModule,
-    SbHubPkgLinksComponent
+    SbPortalOutletComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubBlogNavbarComponent {
+  
   private _shareService = inject(ShareService);
   private _breakpoints = inject(BreakpointObserver);
   private platformId = inject(PLATFORM_ID);

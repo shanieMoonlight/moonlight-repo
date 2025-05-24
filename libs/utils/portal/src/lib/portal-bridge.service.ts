@@ -1,19 +1,17 @@
-import { CdkPortal } from '@angular/cdk/portal';
-import { Injectable, TemplateRef, WritableSignal, computed, signal } from '@angular/core';
+import { Portal } from '@angular/cdk/portal';
+import { Injectable, WritableSignal, computed, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SbPortalBridgeService {
 
-  private _portalTemplate: WritableSignal<TemplateRef<unknown> | undefined> = signal(undefined)
-  template = computed(() => this._portalTemplate())
 
-  private _cdkPortal: WritableSignal<CdkPortal | undefined> = signal(undefined)
-  cdkPortal = computed(() => this._cdkPortal())
+  private _portal: WritableSignal<Portal<unknown> | undefined> = signal(undefined)
+  portal = computed(() => this._portal())
 
-    
-  setPortal = (cdkPortal?: CdkPortal) =>
-  this._cdkPortal.set(cdkPortal)
+
+  updatePortal = (portal?: Portal<unknown>) =>
+    this._portal.set(portal)
 
 }

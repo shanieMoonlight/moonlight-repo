@@ -12,25 +12,8 @@
     />
 
     @if(!_isSmallScreen()){
-    <!-- <button
-      mat-icon-button
-      aria-label="Git repo for project"
-      [sbNavigateNewWindow]="_gitRepoUrl()"
-      [matTooltip]="'Git repo'">
-      <mat-icon svgIcon="git" />
-    </button>
 
-    <button
-      mat-icon-button
-      aria-label="Npm Package"
-      [sbNavigateNewWindow]="_npmPkgUrl()"
-      [matTooltip]="'Npm Package'">
-      <mat-icon svgIcon="npm" />
-    </button> -->
-
-    <sb-hub-pkg-links
-      [gitHubRepoUrl]="_gitRepoUrl()"
-      [npmPackageUrl]="_npmPkgUrl()"/>
+      <sb-portal-outlet/>
 
     <button
       mat-icon-button

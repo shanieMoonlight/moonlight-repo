@@ -7,7 +7,7 @@ import { SbPortalBridgeService } from './portal-bridge.service';
   standalone: true,
   imports: [PortalModule],
   template: `
-  @if(_portal.cdkPortal(); as portal){
+  @if(_portal.portal(); as portal){
     <ng-container [cdkPortalOutlet]="portal"/>
   }
   `,
@@ -21,7 +21,7 @@ import { SbPortalBridgeService } from './portal-bridge.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbPortalOutletComponent {
-
+  
   protected _portal = inject(SbPortalBridgeService)
 
 }

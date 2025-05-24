@@ -6,6 +6,7 @@ import { HubAppDownloads } from '@sb-hub/core-config/downloads';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SbHubPkgLinksComponent } from '@sb-hub/shared-ui/pkg-links';
 
 // Import code samples
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
@@ -19,8 +20,7 @@ import { DirectiveBasicCode } from './code/directive-basic';
 import { DirectiveImplementationCode } from './code/directive-implementation';
 import { FallBackConstsTsCode } from './code/fallback-consts';
 import { FallbackInputCode } from './code/fallback-input';
-import {
-  BasicUsageExample,
+import {  BasicUsageExample,
   FallbackImageExample,
   ObjectFitExample,
   PredefinedFunctionsExample,
@@ -33,6 +33,7 @@ import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { UsageExampleCode } from './code/usage-example';
 import { BlogConstants } from './config/constants';
 import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
+import { SbPortalOutletComponent, SbPortalInputComponent } from '@spider-baby/utils-portal';
 
 @Component({
   standalone: true,
@@ -42,7 +43,9 @@ import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/down
     RouterModule,
     HighlightModule,
     HubHeroBanner2Component,
-    HubUiBtnDownloadComponent
+    HubUiBtnDownloadComponent,
+    SbPortalInputComponent,
+    SbHubPkgLinksComponent,
   ],
   providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-prog-img-tutorial',

@@ -1,9 +1,10 @@
 import { CdkPortal, PortalModule } from '@angular/cdk/portal';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, PLATFORM_ID, inject, viewChild } from '@angular/core';
 import { SbPortalBridgeService } from './portal-bridge.service';
 
 @Component({
-  selector: 'sb-portal',
+  selector: 'sb-portal-input',
   standalone: true,
   imports: [PortalModule],
   template: `
@@ -20,24 +21,29 @@ import { SbPortalBridgeService } from './portal-bridge.service';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbPortalInputComponent implements OnInit, OnDestroy {
+export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
 
-  private _portalBridge = inject(SbPortalBridgeService)
-    
-  private _portal = viewChild( CdkPortal)
+  private _portalBridge = inject(SbPortalBridgeService);
+  private _platformId = inject(PLATFORM_ID)
+
+  
+  private _portal = viewChild(CdkPortal)
 
 
   //----------------------------------//
 
-  ngOnInit(): void {    
 
-    this._portalBridge.setPortal(this._portal())    
-    
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this._platformId))
+      this._portalBridge.updatePortal(this._portal())
   }
-    
+
+
   ngOnDestroy(): void {
-    this._portalBridge.setPortal(undefined)
-    this._portal()?.detach()
+    if (isPlatformBrowser(this._platformId)) {
+      this._portalBridge.updatePortal(undefined)
+      this._portal()?.detach()
+    }
   }
 
 

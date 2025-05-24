@@ -1,7 +1,16 @@
-<!-- <div class="header-banner">
-  <h1 class="title">{{ _title }}</h1>
-  <h2 class="subtitle">{{ _subtitle }}</h2>
-</div> -->
+
+<ng-template #testTemplate>
+  <h1>Test Template</h1>
+  <p>This is a test template content.</p>
+
+</ng-template>
+<sb-portal-input>
+  <ng-container />
+    <sb-hub-pkg-links
+      [gitHubRepoUrl]="_githubRepo"
+      [npmPackageUrl]="_npmPkgUrl"/>
+</sb-portal-input>
+
 <sb-hub-hero-banner-2
   [title]="_title"
   [subtitle]="_subtitle"
