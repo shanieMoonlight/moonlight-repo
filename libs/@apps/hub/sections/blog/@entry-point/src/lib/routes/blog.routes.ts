@@ -9,7 +9,7 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
-      path: HubBlogSectionRoutesDefs.route('portal'),
+      path: HubBlogSectionRoutesDefs.route('portal-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-portal')
         .then((m) => m.HubBlogPortalComponent),
     },

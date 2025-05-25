@@ -1,5 +1,4 @@
-import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, TemplateRef, viewChild, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HubAppDownloads } from '@sb-hub/core-config/downloads';
 import { HubAppImages } from '@sb-hub/core-config/images';
@@ -12,35 +11,32 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
-import { SbPortalInputComponent, SbPortalOutletComponent } from '@spider-baby/utils-portal';
+import { SbPortalInputComponent } from '@spider-baby/utils-portal';
 import { Subject } from 'rxjs';
 
 // Import tutorial code samples
-import { AdvancedPatternsCode, ConditionalPortalDirectiveCode, PortalManagerServiceCode } from './code/advanced-patterns';
+import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
 import { BasicUsageExample, ComplexComponentExample, ConditionalPortalExample, DynamicContentExample, MultiplePortalsExample } from './code/html-examples';
 import { PortalBridgeServiceCode } from './code/portal-bridge-service';
 import { PortalConstantsCode } from './code/portal-constants';
 import { PortalInputComponentCode } from './code/portal-input-component';
 import { PortalOutletComponentCode } from './code/portal-outlet-component';
 import { BlogConstants } from './config/constants';
-import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
-import { Portal, TemplatePortal } from '@angular/cdk/portal';
 import { SbHubBlogPortalConditionalDemoComponent } from './demo/conditional-demo.component';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
     MatEverythingModule,
     RouterModule,
     HighlightModule,
     HubHeroBanner2Component,
     SbPortalInputComponent,
-    SbPortalOutletComponent,
     SbHubPkgLinksComponent,
     HubUiBtnDownloadComponent,
-    NgTemplateOutlet,
-    SbHubBlogPortalConditionalDemoComponent
+    SbHubBlogPortalConditionalDemoComponent,
+    SbMatNotificationsModalComponent
   ],
   providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-portal',
@@ -61,6 +57,9 @@ export class HubBlogPortalComponent implements OnInit {
   protected _title = BlogConstants.PortalTutorial.Title;
   protected _subtitle = BlogConstants.PortalTutorial.Subtitle;
   protected _description = BlogConstants.PortalTutorial.Description;
+
+  //- - - - - - - - - - - - - - -//
+
   // Code samples for displaying in the tutorial
   protected readonly _portalConstantsCode = PortalConstantsCode;
   protected readonly _portalBridgeServiceCode = PortalBridgeServiceCode;
@@ -73,10 +72,8 @@ export class HubBlogPortalComponent implements OnInit {
   protected readonly _conditionalPortalExample = ConditionalPortalExample;
   protected readonly _dynamicContentExample = DynamicContentExample;
   protected readonly _complexComponentExample = ComplexComponentExample;
-  // Advanced patterns
-  protected readonly _advancedPatternsCode = AdvancedPatternsCode;
-  protected readonly _portalManagerServiceCode = PortalManagerServiceCode;
-  protected readonly _conditionalPortalDirectiveCode = ConditionalPortalDirectiveCode;
+
+  //- - - - - - - - - - - - - - -//
 
   protected readonly _bannerImg = HubAppImages.Blog.PortalTutorial.placeholder;
 
@@ -94,27 +91,12 @@ export class HubBlogPortalComponent implements OnInit {
   private _dlState = MiniStateBuilder.CreateWithObservableInput(
     this._dlClick$,
     () => this._codeSampleDownloader.download$(HubAppDownloads.PortalTutorial.CodeSampleZipFile, 'portal-tutorial-code-samples.zip'))
-    .setSuccessMsgFn(() => '✅ Download complete!');
+    .setSuccessMsgFn(() => '✨ Download complete!');
 
   protected _errorMsg = this._dlState.error;
   protected _successMsg = this._dlState.successMsg;
   protected _dlResult = this._dlState.data;
   protected _isLoading = this._dlState.loading;
-
-  protected showDialog = false
-
-  // private _viewContainerRef = inject(ViewContainerRef);
-  protected _selectedPortal?: TemplateRef<unknown>
-  demoTemplate1 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate1');
-  demoTemplate2 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate2');
-
-  showTemplate1(){
-    this._selectedPortal = this.demoTemplate1()
-  }
-  showTemplate2(){
-    this._selectedPortal =  this.demoTemplate2()
-  }
-
 
   //----------------------------//
 

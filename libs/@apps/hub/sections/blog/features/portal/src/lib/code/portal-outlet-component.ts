@@ -10,13 +10,13 @@ import { DEFAULT_NAME } from './portal-constants';
   imports: [PortalModule],
   template: \`
   @if(_portal(); as portal){
-    <ng-template [cdkPortalOutlet]="portal"/>
+    <ng-template [cdkPortalOutlet]="portal"/> //This is how it's rendered
   }
   \`,
   styles: [
     \`
       :host {
-        display: flex;
+        display: flex; //override or omit as desired
       }
     \`,
   ],
@@ -33,5 +33,6 @@ export class SbPortalOutletComponent {
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
   })
 
+  //Get PortalSignal from the bridge service
   protected _portal = this._bridge.getPortal(this._name)
 }`;

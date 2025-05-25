@@ -7,6 +7,7 @@ import { computed, Injectable, Signal, signal } from '@angular/core';
 })
 export class SbPortalBridgeService {
 
+  //Use signal so we can react to changes
   private _portals = signal<Map<string, Portal<unknown>>>(new Map())
 
   //- - - - - - - - - - - - -//
@@ -17,7 +18,7 @@ export class SbPortalBridgeService {
    * @returns Signal that emits the portal or undefined
    */
   getPortal = (name: Signal<string>): Signal<Portal<unknown> | undefined> =>
-    computed(() => this._portals().get(name()));
+    computed(() => this._portals().get(name())); //Will recalculate when the name or portal map changes
 
   //- - - - - - - - - - - - -//
 
@@ -37,7 +38,6 @@ export class SbPortalBridgeService {
    * Remove a portal and detach it if necessary
    */
   removePortal(name: string) {
-    console.log('Removing portal:', name);
     
     this._portals.update(portals => {
       const existingPortal = portals.get(name);
@@ -50,7 +50,7 @@ export class SbPortalBridgeService {
         console.warn('Error detaching portal:', error);
       }
 
-      const newPortals = new Map(portals);
+      const newPortals = new Map(portals);//trigger change detection
       newPortals.delete(name);
       return newPortals;
     })

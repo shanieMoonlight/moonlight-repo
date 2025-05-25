@@ -4,6 +4,12 @@
   width: 100%;
 }
 
+mat-divider {
+  width: 90%;
+  margin: auto;
+  margin: 2rem auto;
+}
+
 .tutorial-content {
   max-width: 1200px;
   width: calc(96% - 4rem);
@@ -12,13 +18,13 @@
   padding: 2rem;
   position: relative;
 
-    code {
+  code {
     font-size: 1rem;
   }
 
   section {
     margin-bottom: 3rem;
-    
+
     h2 {
       font-size: 2rem;
       font-weight: 600;
@@ -44,7 +50,7 @@
     ul {
       margin-bottom: 1rem;
       padding-left: 1.5rem;
-      
+
       li {
         margin-bottom: 0.5rem;
         line-height: 1.5;
@@ -88,7 +94,9 @@
 }
 
 // Code and example cards
-.code-card, .example-card, .step-card {
+.code-card,
+.example-card,
+.step-card {
   background: var(--mdc-theme-surface);
   border-radius: 8px;
   padding: 1.5rem;
@@ -111,7 +119,7 @@
     margin: 0;
     border-radius: 6px;
     overflow-x: auto;
-    
+
     code {
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
       font-size: 0.9rem;
@@ -140,12 +148,12 @@
 
 .download-feedback {
   margin-top: 1rem;
-  
+
   .success-message {
     color: var(--mdc-theme-primary);
     font-weight: 500;
   }
-  
+
   .error-message {
     color: var(--mdc-theme-error);
     font-weight: 500;
@@ -183,7 +191,8 @@
     }
   }
 
-  .demo-source, .demo-destination {
+  .demo-source,
+  .demo-destination {
     background: var(--mdc-theme-surface);
     border-radius: 8px;
     padding: 1.5rem;
@@ -219,7 +228,7 @@
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      
+
       &:hover {
         background: rgba(255, 255, 255, 0.3);
       }
@@ -285,11 +294,36 @@
   }
 }
 
+.npm-pkg-container {
+  margin: 3rem 0;
+  background: var(--mdc-theme-surface-variant);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid var(--mdc-theme-secondary);
+
+  h4 {
+    margin: 0 0 1rem 0;
+    color: var(--mdc-theme-secondary);
+    font-weight: 600;
+  }
+
+  .npm-pkg-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--mdc-theme-on-surface);
+
+    sb-hub-pkg-links {
+      display: inline-block;
+    }
+  }
+}
+
 // Footer CTA
 .footer-cta {
   text-align: center;
   background: linear-gradient(135deg, var(--mdc-theme-primary) 0%, var(--mdc-theme-secondary) 100%);
-  color: white;
+  // color: white;
   padding: 2rem;
   border-radius: 12px;
   margin-top: 2rem;
@@ -321,9 +355,11 @@
     gap: 1rem;
   }
 
-  .code-card, .example-card, .step-card {
+  .code-card,
+  .example-card,
+  .step-card {
     padding: 1rem;
-    
+
     pre code {
       font-size: 0.8rem;
     }
@@ -334,4 +370,3 @@
     gap: 1rem;
   }
 }
-

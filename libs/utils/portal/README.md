@@ -24,7 +24,8 @@ npm install @spider-baby/utils-portal
 {
   "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0",
   "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0", 
-  "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0"
+  "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0",
+  "rxjs": "^7.4.0 || ~7.5.0 || ~7.6.0 || ~7.8.0"
 }
 ```
 
@@ -206,57 +207,108 @@ Multiple outlets can share the same portal name, causing the same content to app
 <sb-portal-input name="shared-content" [portalTemplate]="sharedContentTemplate"></sb-portal-input>
 ```
 
-### Dynamic Portal Names
-
-Use signal-based reactive portal names:
-
-```typescript
-@Component({
-  template: `
-    <!-- Define templates -->
-    <ng-template #contentATemplate>Content A</ng-template>
-    <ng-template #contentBTemplate>Content B</ng-template>
-    
-    <!-- Dynamic outlet -->
-    <sb-portal-outlet [name]="currentPortal()"></sb-portal-outlet>
-    
-    <button (click)="switchPortal()">Switch Portal</button>
-    
-    <!-- Project templates to different portal names -->
-    <sb-portal-input name="portal-a" [portalTemplate]="contentATemplate"></sb-portal-input>
-    <sb-portal-input name="portal-b" [portalTemplate]="contentBTemplate"></sb-portal-input>
-  `
-})
-export class DynamicPortalComponent {
-  currentPortal = signal('portal-a');
-  
-  switchPortal() {
-    this.currentPortal.set(
-      this.currentPortal() === 'portal-a' ? 'portal-b' : 'portal-a'
-    );
-  }
-}
-```
 
 ### Conditional Portal Content
 
 ```typescript
 @Component({
-  template: `
-    <!-- Define template -->
-    <ng-template #extraActionsTemplate>
-      <button>Extra Action</button>
-    </ng-template>
-    
-    <!-- Conditionally project template -->
-    @if(showExtraActions()) {
-      <sb-portal-input name="navbar-actions" [portalTemplate]="extraActionsTemplate"></sb-portal-input>
-    }
+  standalone: true,
+  imports: [SbPortalInputComponent],
+  template: `<!-- Conditional Portal Rendering -->
+  <div class="demo-container">
+       <div class="demo-source">
+      <h4>Portal Input (Source)</h4>
+      <p>Click the button below to teleport this content:</p>
+
+      <div class="demo-actions">
+        <!-- Change TemplateRef -->
+        <button mat-flat-button class="primary" 
+          (click)="_selectedPortal = _demoTemplate1()"   
+          [disabled]="_selectedPortal === _demoTemplate1()">
+          Display 1
+        </button>
+
+        <!-- Change TemplateRef -->
+        <button mat-flat-button class="secondary" 
+          (click)="_selectedPortal = _demoTemplate2()"
+          [disabled]="_selectedPortal === _demoTemplate2()">
+          Display 2
+        </button>
+
+        <!-- Remove TemplateRef -->
+        <button mat-flat-button class="tertiary" 
+          (click)="_selectedPortal = undefined"
+          [disabled]="!_selectedPortal">
+          Hide
+        </button>
+
+        <!-- Change Template content in realtime -->
+        <button 
+          mat-flat-button class="error" 
+          (click)="_toggleDynamicText()">
+          Dynamic Text 
+        </button>
+      </div>
+      
+      <!-- Define Templates to render -->
+      <ng-template #demoPortalTemplate1>
+        <div class="demo-content primary">
+          <h3>🚀 Primary Portal Content</h3>
+          <p>This is the primary content portal - it demonstrates basic portal functionality with a clean, modern design.</p>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
+        </div>
+      </ng-template>
+
+      <ng-template #demoPortalTemplate2>
+        <div class="demo-content secondary">
+          <h3>⭐ Secondary Portal Content</h3>
+          <p>This is the secondary content portal - showcasing alternative styling and content to demonstrate portal flexibility.</p>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
+        </div>
+      </ng-template>
+
+
+      <!-- Conditional Rendering -->
+      @if(_selectedPortal; as portal){  
+        <sb-portal-input [portalTemplate]="portal" name="demo-portal" />
+      }
+    </div>
+
+
+  </div>
   `
 })
 export class ConditionalPortalComponent {
-  showExtraActions = signal(false);
+
+  protected _demoTemplate1 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate1')
+  protected _demoTemplate2 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate2')
+
+
+  protected _selectedPortal?: TemplateRef<unknown>
+
+  protected _dynamicText = "Hello"
+  protected _toggleDynamicText = () => 
+    this._dynamicText = this._dynamicText === "Hello" ? "GoodBye" : "Hello"
 }
+
+
+// some-other.component.ts
+@Component({
+  selector: 'some-other-component',
+  standalone: true,
+  imports: [SbPortalOutletComponent],
+  template: `    
+      <!-- Render the portal-->
+    <div class="demo-destination">
+      <h4>Portal Outlet (Destination)</h4>
+      <h5>Could be anywhere in your application</h5>
+      <div class="outlet-container">
+        <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+      </div>
+    </div>
+  `
+})
+export class SomeOtherComponent {}
 ```
 
 ## API Reference

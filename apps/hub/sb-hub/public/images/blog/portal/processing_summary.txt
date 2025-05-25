@@ -1,8 +1,0 @@
-Processing Summary - 24/05/2025 23:42:50
-Source folder: C:\Users\Shaneyboy\Desktop\portal-imgs
-Total folder types processed: 5
-- placeholder: 14 images processed
-- small: 14 images processed
-- medium: 14 images processed
-- large: 14 images processed
-- xlarge: 14 images processed

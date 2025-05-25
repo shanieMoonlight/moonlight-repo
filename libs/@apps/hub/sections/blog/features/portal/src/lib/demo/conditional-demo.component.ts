@@ -22,16 +22,9 @@ export class SbHubBlogPortalConditionalDemoComponent {
 
   protected _selectedPortal?: TemplateRef<unknown>
 
-  
-
-  protected showTemplate1 = () =>
-    this._selectedPortal = this._demoTemplate1()
-
-  protected showTemplate2 = () =>
-    this._selectedPortal = this._demoTemplate2()
-
-  protected hidePortal = () =>
-    this._selectedPortal = undefined;
+  protected _dynamicText = "Hello"
+  protected _toggleDynamicText = () => 
+    this._dynamicText = this._dynamicText === "Hello" ? "GoodBye" : "Hello"
 
 }
 

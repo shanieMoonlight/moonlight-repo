@@ -44,7 +44,7 @@ export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
   <sb-portal-outlet name="sidebar-content"></sb-portal-outlet>
 </aside>`;
 
-export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
+export const ConditionalPortalExample0 = `<!-- Conditional Portal Rendering -->
 <!-- Define template -->
 <ng-template #dialogTemplate>
   <div class="message">
@@ -62,6 +62,74 @@ export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
 
 <!-- Portal outlet (always present) -->
 <sb-portal-outlet name="message-content"/>`;
+
+export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
+  <div class="demo-container">
+       <div class="demo-source">
+      <h4>Portal Input (Source)</h4>
+      <p>Click the button below to teleport this content:</p>
+      <div class="demo-actions">
+        <!-- Change TemplateRef -->
+        <button mat-flat-button class="primary" 
+          (click)="_selectedPortal = _demoTemplate1()"   
+          [disabled]="_selectedPortal === _demoTemplate1()">
+          Display 1
+        </button>
+        <!-- Change TemplateRef -->
+        <button mat-flat-button class="secondary" 
+          (click)="_selectedPortal = _demoTemplate2()"
+          [disabled]="_selectedPortal === _demoTemplate2()">
+          Display 2
+        </button>
+        <!-- Remove TemplateRef -->
+        <button mat-flat-button class="tertiary" 
+          (click)="_selectedPortal = undefined"
+          [disabled]="!_selectedPortal">
+          Hide
+        </button>
+        <!-- Change Template content in realtime -->
+        <button 
+          mat-flat-button class="error" 
+          (click)="_toggleDynamicText()">
+          Dynamic Text 
+        </button>
+      </div>
+      
+      <!-- Define Templates to render -->
+      <ng-template #demoPortalTemplate1>
+        <div class="demo-content primary">
+          <h3>🚀 Primary Portal Content</h3>
+          <p>This is the primary content portal - it demonstrates basic portal functionality with a clean, modern design.</p>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
+        </div>
+      </ng-template>
+
+      <ng-template #demoPortalTemplate2>
+        <div class="demo-content secondary">
+          <h3>⭐ Secondary Portal Content</h3>
+          <p>This is the secondary content portal - showcasing alternative styling and content to demonstrate portal flexibility.</p>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
+        </div>
+      </ng-template>
+
+
+      <!-- Conditional Rendering -->
+      @if(_selectedPortal; as portal){  
+      <sb-portal-input [portalTemplate]="portal" name="demo-portal" />
+      }
+    </div>
+
+    
+      <!-- Render the portal-->
+    <div class="demo-destination">
+      <h4>Portal Outlet (Destination)</h4>
+      <h5>Could be anywhere in your application</h5>
+      <div class="outlet-container">
+        <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+      </div>
+    </div>
+
+  </div>`;
 
 export const DynamicContentExample = `<!-- Dynamic Content with Signals -->
 <!-- Define template -->

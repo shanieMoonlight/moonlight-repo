@@ -35,6 +35,7 @@ import { ImageLoadingCode } from './code/image-loading';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { UsageExampleCode } from './code/usage-example';
 import { BlogConstants } from './config/constants';
+import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
 
 @Component({
   standalone: true,
@@ -46,6 +47,7 @@ import { BlogConstants } from './config/constants';
     HubHeroBanner2Component,
     HubUiBtnDownloadComponent,
     SbPortalInputComponent,
+    SbMatNotificationsModalComponent,
     SbHubPkgLinksComponent
   ],
   providers: [LocalFileDownloadServiceService],

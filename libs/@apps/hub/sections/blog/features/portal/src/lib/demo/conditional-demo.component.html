@@ -10,19 +10,25 @@
       <p>Click the button below to teleport this content:</p>
       <div class="demo-actions">
         <button mat-flat-button class="primary" 
-          (click)="showTemplate1()"
+          (click)="_selectedPortal = _demoTemplate1()"
           [disabled]="_selectedPortal === _demoTemplate1()">
           Display 1
         </button>
         <button mat-flat-button class="secondary" 
-          (click)="showTemplate2()"
+          (click)="_selectedPortal = _demoTemplate2()"
           [disabled]="_selectedPortal === _demoTemplate2()">
           Display 2
         </button>
         <button mat-flat-button class="tertiary" 
-          (click)="hidePortal()"
+          (click)="_selectedPortal = undefined"
           [disabled]="!_selectedPortal">
           Hide
+        </button>
+        <button 
+          mat-flat-button class="error" 
+          (click)="_toggleDynamicText()"
+          [disabled]="!_selectedPortal">
+          Dynamic Text
         </button>
       </div>
       <ng-template #demoPortalTemplate1>
@@ -30,6 +36,7 @@
           <h3>🚀 Primary Portal Content</h3>
           <p>This is the primary content portal - it demonstrates basic portal functionality with a clean, modern design.</p>
           <button mat-raised-button color="primary">Primary Action</button>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
         </div>
       </ng-template>
 
@@ -38,6 +45,7 @@
           <h3>⭐ Secondary Portal Content</h3>
           <p>This is the secondary content portal - showcasing alternative styling and content to demonstrate portal flexibility.</p>
           <button mat-raised-button color="accent">Secondary Action</button>
+          <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
         </div>
       </ng-template>
 
@@ -50,6 +58,7 @@
 
     <div class="demo-destination">
       <h4>Portal Outlet (Destination)</h4>
+      <h5>Could be anywhere in your application</h5>
       <div class="outlet-container">
         <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
       </div>

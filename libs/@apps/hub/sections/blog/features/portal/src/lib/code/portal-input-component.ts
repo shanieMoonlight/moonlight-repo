@@ -62,6 +62,7 @@ export class SbPortalInputComponent implements AfterViewInit {
     if (!isPlatformBrowser(this._platformId))
       return
 
+    //Listen for changes to the template and name inputs
     combineLatest([this._portalTemplate$, this._name$])
       .pipe(
         takeUntilDestroyed(this._destroyer),

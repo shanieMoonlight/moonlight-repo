@@ -11,7 +11,7 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     description: 'Tackle routing complexities in large Angular apps. Learn a type-safe, hierarchical approach to eliminate magic strings, prevent typos, and simplify refactoring when route paths change, ensuring robust and maintainable navigation.',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route('route-defs-tutorial'),
     icon: 'follow_the_signs',
-    color: 'secondary',
+    color: 'primary',
     img: HubAppImages.Blog.RouteDefsTutorial.large,
     imgPlaceholder: HubAppImages.Blog.RouteDefsTutorial.placeholder,
 
@@ -24,6 +24,14 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     color: 'secondary',
     img: HubAppImages.Blog.ProgImgsTutorial.large,
     imgPlaceholder: HubAppImages.Blog.ProgImgsTutorial.placeholder,
-
+  },
+    {
+    title: 'Angular CDK Portal System Tutorial',
+    description: 'Learn how to create a powerful Portal system using Angular CDK that allows you to dynamically render content anywhere in your application. Master portal inputs, outlets, bridges, and advanced patterns for complex UI scenarios.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('portal-tutorial'),
+    icon: 'door_front',
+    color: 'tertiary',
+    img: HubAppImages.Blog.PortalTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.PortalTutorial.placeholder,
   },
 ];
