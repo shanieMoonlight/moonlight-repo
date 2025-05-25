@@ -15,16 +15,15 @@
 
       <sb-portal-outlet/>
 
-    <button
-      mat-icon-button
-      aria-label="Share current page"
-      (click)="share()"
-      matTooltip="Share this page">
-      <mat-icon>share</mat-icon>
-    </button>
+      <button
+        mat-icon-button
+        aria-label="Share current page"
+        (click)="share()"
+        matTooltip="Share this page">
+        <mat-icon>share</mat-icon>
+      </button>
     }
   </div>
-      <sb-portal-outlet/>
 
   <div class="title-container">
     <span class="title">{{ _title() }}</span>
@@ -47,6 +46,7 @@
       @if(_rhsOutletTemplate(); as template){
       <ng-container [ngTemplateOutlet]="template" />
       }
+      <sb-portal-outlet/>
     </div>
   </div>
 </mat-toolbar>

@@ -1,15 +1,17 @@
 import { PortalModule } from '@angular/cdk/portal';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { SbPortalBridgeService } from './portal-bridge.service';
 import { DEFAULT_NAME } from './portal-constants';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'sb-portal-outlet',
   standalone: true,
   imports: [PortalModule],
   template: `
-  @if(_portal(); as portal){
-    <ng-container [cdkPortalOutlet]="portal"/>{{count}}
+  @if(prtl(); as portal){
+    <ng-template [cdkPortalOutlet]="portal"/>{{count}}
   }
   `,
   styles: [
@@ -35,16 +37,38 @@ export class SbPortalOutletComponent {
     alias: 'name',
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
   })
+  _name$ = toObservable(this._name);
 
-  protected _portal = this._bridge.getPortal(this._name)
+  // protected _portal = this._bridge.getPortal(this._name)
+  protected _portal = computed(() => this._bridge.allPortals().get(this._name()))
+  protected prtl$ = combineLatest([this._name$, this._bridge.portals$])
+    .pipe(takeUntilDestroyed(),
+      map(([name, portals]) => {
+        const portal = portals.get(name);
+        console.log('Portals combineLatest:', SbPortalOutletComponent._count, name, portals.size);
+        console.log('Portals combineLatest:', SbPortalOutletComponent._count, portal);
+        return portal;
+      }))
+      prtl = toSignal(this.prtl$, { initialValue: undefined });
+
+
+
+
 
   /**
    *
    */
   constructor() {
     console.log('SbPortalOutletComponent initialized with name:', this._name());
-    
-    
+
+    // this._bridge.portals$
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe(portals => {
+    //     const portal = portals.get(this._name());
+    //     console.log('Portals updated:', SbPortalOutletComponent._count, portals);
+    //   });
+
+
   }
 
 }

@@ -40,13 +40,14 @@ export class SbPortalInputComponent implements OnDestroy {
   //-------------------------//
 
   constructor() {
+    if (!isPlatformBrowser(this._platformId))
+      return
+
+
     effect(() => {
-      if (!isPlatformBrowser(this._platformId))
-        return
 
-      const portal = this._portal();
-      const name = this._name();
-
+      const portal = this._portal()
+      const name = this._name()
 
       try {
         if (portal)
