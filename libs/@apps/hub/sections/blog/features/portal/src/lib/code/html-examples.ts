@@ -1,23 +1,32 @@
 export const BasicUsageExample = `<!-- Basic Portal Usage -->
-<sb-portal-input name="my-content">
+<!-- Define content in a template -->
+<ng-template #myContentTemplate>
   <h2>This content will be teleported!</h2>
   <p>Any Angular content can go here - components, directives, pipes, etc.</p>
-</sb-portal-input>
+</ng-template>
+
+<!-- Project the template -->
+<sb-portal-input name="my-content" [portalTemplate]="myContentTemplate"></sb-portal-input>
 
 <!-- Display the portal content elsewhere -->
 <sb-portal-outlet name="my-content"></sb-portal-outlet>`;
 
 export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
-<sb-portal-input name="header-content">
+<!-- Define templates -->
+<ng-template #headerTemplate>
   <h1>Header Content</h1>
-</sb-portal-input>
+</ng-template>
 
-<sb-portal-input name="sidebar-content">
+<ng-template #sidebarTemplate>
   <nav>
     <a href="/home">Home</a>
     <a href="/about">About</a>
   </nav>
-</sb-portal-input>
+</ng-template>
+
+<!-- Project templates -->
+<sb-portal-input name="header-content" [portalTemplate]="headerTemplate"></sb-portal-input>
+<sb-portal-input name="sidebar-content" [portalTemplate]="sidebarTemplate"></sb-portal-input>
 
 <!-- Display in different locations -->
 <header>
@@ -29,28 +38,37 @@ export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
 </aside>`;
 
 export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
-<sb-portal-input name="dialog-content" *ngIf="showDialog">
+<!-- Define template -->
+<ng-template #dialogTemplate>
   <div class="dialog">
     <h3>Important Message</h3>
     <p>This dialog content is conditionally rendered.</p>
     <button (click)="closeDialog()">Close</button>
   </div>
-</sb-portal-input>
+</ng-template>
+
+<!-- Conditionally project template -->
+<sb-portal-input name="dialog-content" [portalTemplate]="dialogTemplate" *ngIf="showDialog"></sb-portal-input>
 
 <!-- Portal outlet (always present) -->
 <sb-portal-outlet name="dialog-content"></sb-portal-outlet>`;
 
 export const DynamicContentExample = `<!-- Dynamic Content with Signals -->
-<sb-portal-input name="dynamic-content">
+<!-- Define template -->
+<ng-template #dynamicTemplate>
   <div [innerHTML]="dynamicHtml()"></div>
-</sb-portal-input>
+</ng-template>
+
+<!-- Project template -->
+<sb-portal-input name="dynamic-content" [portalTemplate]="dynamicTemplate"></sb-portal-input>
 
 <!-- Multiple outlets for the same content -->
 <sb-portal-outlet name="dynamic-content"></sb-portal-outlet>
 <sb-portal-outlet name="dynamic-content"></sb-portal-outlet>`;
 
 export const ComplexComponentExample = `<!-- Complex Components in Portals -->
-<sb-portal-input name="complex-widget">
+<!-- Define template -->
+<ng-template #complexWidgetTemplate>
   <my-complex-component 
     [data]="complexData()"
     (action)="handleAction($event)">
@@ -64,6 +82,9 @@ export const ComplexComponentExample = `<!-- Complex Components in Portals -->
       <p>Widget content with {{ interpolation }}</p>
     </ng-container>
   </my-complex-component>
-</sb-portal-input>
+</ng-template>
+
+<!-- Project template -->
+<sb-portal-input name="complex-widget" [portalTemplate]="complexWidgetTemplate"></sb-portal-input>
 
 <sb-portal-outlet name="complex-widget"></sb-portal-outlet>`;

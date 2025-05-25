@@ -19,7 +19,7 @@ export class SbPortalBridgeService {
     computed(() => this._portals().get(name()));
 
 
-  
+
   /**
    * Get all registered portal names (useful for debugging)
    */
@@ -32,7 +32,19 @@ export class SbPortalBridgeService {
 
 
   removePortal(name: string) {
+    console.log('Removing portal:', name);
+    
     this._portals.update(portals => {
+      const existingPortal = portals.get(name);
+
+      // Detach portal if it's attached
+      try {
+        if (existingPortal?.isAttached)
+          existingPortal.detach();
+      } catch (error) {
+        console.warn('Error detaching portal:', error);
+      }
+
       const newPortals = new Map(portals);
       newPortals.delete(name);
       return newPortals;

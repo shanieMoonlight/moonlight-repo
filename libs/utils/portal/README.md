@@ -40,10 +40,13 @@ import { SbPortalInputComponent, SbPortalOutletComponent } from '@spider-baby/ut
   standalone: true,
   imports: [SbPortalInputComponent, SbPortalOutletComponent],
   template: `
-    <!-- Content to be projected -->
-    <sb-portal-input>
+    <!-- Define content in a template -->
+    <ng-template #myContentTemplate>
       <h2>This content will be projected!</h2>
-    </sb-portal-input>
+    </ng-template>
+    
+    <!-- Project the template -->
+    <sb-portal-input [portalTemplate]="myContentTemplate"></sb-portal-input>
     
     <!-- Where the content appears -->
     <sb-portal-outlet></sb-portal-outlet>
@@ -56,21 +59,27 @@ export class AppComponent {}
 
 ### SbPortalInputComponent
 
-Projects content to a named portal outlet.
+Projects template content to a named portal outlet.
 
 ```html
-<!-- Project to default outlet -->
-<sb-portal-input>
+<!-- Define templates -->
+<ng-template #navigationTemplate>
   <my-navigation-buttons />
-</sb-portal-input>
+</ng-template>
+
+<ng-template #sidebarTemplate>
+  <my-sidebar-content />
+</ng-template>
+
+<!-- Project to default outlet -->
+<sb-portal-input [portalTemplate]="navigationTemplate"></sb-portal-input>
 
 <!-- Project to named outlet -->
-<sb-portal-input name="sidebar">
-  <my-sidebar-content />
-</sb-portal-input>
+<sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"></sb-portal-input>
 ```
 
 **Properties:**
+- `portalTemplate` (required): TemplateRef to project
 - `name` (optional): The portal name (defaults to 'default')
 
 ### SbPortalOutletComponent
@@ -123,15 +132,14 @@ export class NavbarComponent {}
   standalone: true,
   imports: [SbPortalInputComponent],
   template: `
-    <!-- Project page-specific actions to navbar -->
-    <sb-portal-input name="navbar-actions">
+    <!-- Define templates -->
+    <ng-template #navbarActionsTemplate>
       <button>Edit Post</button>
       <button>Share</button>
       <button>Print</button>
-    </sb-portal-input>
+    </ng-template>
     
-    <!-- Project sidebar content -->
-    <sb-portal-input name="sidebar">
+    <ng-template #sidebarTemplate>
       <div class="table-of-contents">
         <h3>Table of Contents</h3>
         <ul>
@@ -139,7 +147,11 @@ export class NavbarComponent {}
           <li><a href="#details">Details</a></li>
         </ul>
       </div>
-    </sb-portal-input>
+    </ng-template>
+
+    <!-- Project templates to portals -->
+    <sb-portal-input name="navbar-actions" [portalTemplate]="navbarActionsTemplate"></sb-portal-input>
+    <sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"></sb-portal-input>
 
     <!-- Main content -->
     <article>
@@ -181,13 +193,17 @@ export class SidebarComponent {}
 Multiple outlets can share the same portal name, causing the same content to appear in multiple locations:
 
 ```html
+<!-- Define template -->
+<ng-template #sharedContentTemplate>
+  <p>This appears in both outlets!</p>
+</ng-template>
+
 <!-- Both outlets will show the same content -->
 <sb-portal-outlet name="shared-content"></sb-portal-outlet>
 <sb-portal-outlet name="shared-content"></sb-portal-outlet>
 
-<sb-portal-input name="shared-content">
-  <p>This appears in both outlets!</p>
-</sb-portal-input>
+<!-- Project template to both outlets -->
+<sb-portal-input name="shared-content" [portalTemplate]="sharedContentTemplate"></sb-portal-input>
 ```
 
 ### Dynamic Portal Names
@@ -197,12 +213,18 @@ Use signal-based reactive portal names:
 ```typescript
 @Component({
   template: `
+    <!-- Define templates -->
+    <ng-template #contentATemplate>Content A</ng-template>
+    <ng-template #contentBTemplate>Content B</ng-template>
+    
+    <!-- Dynamic outlet -->
     <sb-portal-outlet [name]="currentPortal()"></sb-portal-outlet>
     
     <button (click)="switchPortal()">Switch Portal</button>
     
-    <sb-portal-input name="portal-a">Content A</sb-portal-input>
-    <sb-portal-input name="portal-b">Content B</sb-portal-input>
+    <!-- Project templates to different portal names -->
+    <sb-portal-input name="portal-a" [portalTemplate]="contentATemplate"></sb-portal-input>
+    <sb-portal-input name="portal-b" [portalTemplate]="contentBTemplate"></sb-portal-input>
   `
 })
 export class DynamicPortalComponent {
@@ -218,11 +240,22 @@ export class DynamicPortalComponent {
 
 ### Conditional Portal Content
 
-```html
-@if(showExtraActions()) {
-  <sb-portal-input name="navbar-actions">
-    <button>Extra Action</button>
-  </sb-portal-input>
+```typescript
+@Component({
+  template: `
+    <!-- Define template -->
+    <ng-template #extraActionsTemplate>
+      <button>Extra Action</button>
+    </ng-template>
+    
+    <!-- Conditionally project template -->
+    @if(showExtraActions()) {
+      <sb-portal-input name="navbar-actions" [portalTemplate]="extraActionsTemplate"></sb-portal-input>
+    }
+  `
+})
+export class ConditionalPortalComponent {
+  showExtraActions = signal(false);
 }
 ```
 

@@ -6,9 +6,13 @@ import { SbPortalBridgeService } from './portal-bridge.service';
 
 @Component({
   template: \`
-    <sb-portal-input name="test-portal">
+    <!-- Define template -->
+    <ng-template #testTemplate>
       <div data-testid="portal-content">Test Content</div>
-    </sb-portal-input>
+    </ng-template>
+    
+    <!-- Project template -->
+    <sb-portal-input name="test-portal" [portalTemplate]="testTemplate"></sb-portal-input>
   \`
 })
 class TestHostComponent {}
@@ -35,13 +39,12 @@ describe('SbPortalInputComponent', () => {
     expect(portalBridge.hasPortal('test-portal')).toBe(true);
   });
 
-  it('should render content inside portal', () => {
+  it('should create template portal from TemplateRef', () => {
     fixture.detectChanges();
     
-    const content = fixture.debugElement.nativeElement
-      .querySelector('[data-testid="portal-content"]');
-    expect(content).toBeTruthy();
-    expect(content.textContent).toBe('Test Content');
+    const portal = portalBridge.getPortal('test-portal');
+    expect(portal).toBeTruthy();
+    expect(portal.constructor.name).toBe('TemplatePortal');
   });
 });`;
 

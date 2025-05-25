@@ -1,7 +1,8 @@
 export const AdvancedPatternsCode = `// Portal with dynamic content
 @Component({
   template: \`
-    <sb-portal-input [name]="portalName()">
+    <!-- Define dynamic template -->
+    <ng-template #dynamicContentTemplate>
       <ng-container [ngSwitch]="contentType()">
         <div *ngSwitchCase="'text'">{{ textContent() }}</div>
         <img *ngSwitchCase="'image'" [src]="imageUrl()" [alt]="altText()">
@@ -9,7 +10,10 @@ export const AdvancedPatternsCode = `// Portal with dynamic content
           <ng-content></ng-content>
         </ng-container>
       </ng-container>
-    </sb-portal-input>
+    </ng-template>
+
+    <!-- Project template -->
+    <sb-portal-input [name]="portalName()" [portalTemplate]="dynamicContentTemplate"></sb-portal-input>
   \`
 })
 export class DynamicPortalComponent {

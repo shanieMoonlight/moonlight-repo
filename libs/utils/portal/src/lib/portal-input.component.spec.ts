@@ -88,7 +88,7 @@ describe('SbPortalInputComponent', () => {
       it('should create portal directive on initialization', () => {
         fixture.detectChanges();
         // After initialization, the portal should be available
-        const portal = component['_portal']();
+        const portal = component['_portal'];
         expect(portal).toBeTruthy();
       });
     });
@@ -101,7 +101,7 @@ describe('SbPortalInputComponent', () => {
         await fixture.whenStable();
         fixture.detectChanges();
 
-        const portal = component['_portal']();
+        const portal = component['_portal'];
         if (portal) {
           expect(mockBridgeService.updatePortalSpy).toHaveBeenCalledWith(DEFAULT_NAME, portal);
         }
@@ -116,7 +116,7 @@ describe('SbPortalInputComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
         
-        const portal = component['_portal']();
+        const portal = component['_portal'];
         mockBridgeService.reset();
 
         // Change the name
@@ -138,7 +138,7 @@ describe('SbPortalInputComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        const portal = component['_portal']();
+        const portal = component['_portal'];
         if (portal && mockBridgeService.updatePortalSpy.mock.calls.length > 0) {
           expect(mockBridgeService.updatePortalSpy).toHaveBeenCalledWith(DEFAULT_NAME, portal);
         }
@@ -151,7 +151,7 @@ describe('SbPortalInputComponent', () => {
         fixture.detectChanges();
         await fixture.whenStable();
 
-        const portalBeforeDestroy = component['_portal']();
+        const portalBeforeDestroy = component['_portal'];
         
         // Destroy the component
         fixture.destroy();
@@ -250,7 +250,7 @@ describe('SbPortalInputComponent', () => {
       
       expect(portalInputComponent._name()).toBe('host-portal');
       
-      const portal = portalInputComponent['_portal']();
+      const portal = component['_portal'];
       if (portal) {
         expect(mockBridgeService.updatePortalSpy).toHaveBeenCalledWith('host-portal', portal);
       }
@@ -267,7 +267,7 @@ describe('SbPortalInputComponent', () => {
 
       const portalInputDebugElement = hostFixture.debugElement.query(By.directive(SbPortalInputComponent));
       const portalInputComponent = portalInputDebugElement.componentInstance as SbPortalInputComponent;
-      const portal = portalInputComponent['_portal']();
+      const portal = component['_portal'];
 
       if (portal) {
         expect(mockBridgeService.updatePortalSpy).toHaveBeenCalledWith('updated-portal', portal);
@@ -283,7 +283,7 @@ describe('SbPortalInputComponent', () => {
       
       // Verify that the portal is created and available
       const portalInputComponent = portalComponent.componentInstance as SbPortalInputComponent;
-      const portal = portalInputComponent['_portal']();
+      const portal = component['_portal'];
       expect(portal).toBeTruthy();
       
       // Note: The content is not rendered within the component itself but in portal outlets
@@ -326,7 +326,7 @@ describe('SbPortalInputComponent', () => {
       await fixture.whenStable();
 
       // Should register with the final name
-      const portal = component['_portal']();
+      const portal = component['_portal'];
       if (portal) {
         expect(mockBridgeService.updatePortalSpy).toHaveBeenCalledWith('name3', portal);
       }

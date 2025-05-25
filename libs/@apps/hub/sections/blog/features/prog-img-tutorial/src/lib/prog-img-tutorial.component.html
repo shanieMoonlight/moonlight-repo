@@ -1,9 +1,10 @@
-
-<sb-portal-input>
+<ng-template #linksTemplate>
   <sb-hub-pkg-links
     [gitHubRepoUrl]="_githubRepo"
     [npmPackageUrl]="_npmPkgUrl"/>
-</sb-portal-input>
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate"/>
 
 
 <sb-hub-hero-banner-2
