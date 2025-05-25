@@ -21,9 +21,14 @@ export class HubAppDownloads {
 
   }
 
-
   static MiniStateTutorial = class {
     static readonly Base = 'mini-state-tutorial'
+    static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
+
+  }
+
+  static MatThemingTutorial = class {
+    static readonly Base = 'mat-theming-tutorial'
     static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
 
   }

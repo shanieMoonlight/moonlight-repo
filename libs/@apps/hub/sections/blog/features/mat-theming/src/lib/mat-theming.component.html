@@ -1,1 +1,504 @@
-<h1>mat-theming Works!</h1>
+<!-- ################################### -->
+
+<ng-template #linksTemplate>
+  <sb-hub-pkg-links 
+    [gitHubRepoUrl]="_gitHubRepoUrl" 
+    [npmPackageUrl]="_npmPackageUrl" />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" />
+
+<!-- ################################### -->
+
+<sb-notifications-modal-mat 
+    [toastMsg]="_successMsg()" 
+    [errorMsg]="_errorMsg()" />
+
+<!-- ################################### -->
+
+<sb-hub-hero-banner-2 
+[objectPosition]="'center 20%'"
+[title]="_title" 
+[subtitle]="_subtitle" 
+[description]="_description" 
+[backgroundImage]="_bannerImg" />
+
+<div class="tutorial-content">
+
+  <sb-hub-blog-ui-btn-download 
+    [showButton]="_showButton()" 
+    [loading]="_isLoading()" 
+    [tooltip]="'Download Code Samples'"
+    (downloadClick)="_dlClick$.next()" />
+
+  <section class="intro-section">
+    <h2>🎨 The Modern Angular Theming Challenge</h2>
+    <p>
+      Building beautiful, accessible Angular applications requires sophisticated theming capabilities that go beyond basic CSS. 
+      Modern applications need dynamic theme switching, dark mode support, user customization, and seamless Material Design 3 integration.
+      The &#64;spider-baby/theming package provides a comprehensive solution for all these needs and more.
+    </p>
+    
+    <div class="challenge-explanation">
+      <h3>The Essential Requirements:</h3>
+      <ul>
+        <li><strong>Dynamic Theme Switching</strong> - Change themes at runtime without page reloads</li>
+        <li><strong>Material Design 3 Integration</strong> - Full M3 color system and design tokens</li>
+        <li><strong>Dark Mode Support</strong> - Seamless light/dark mode with system preference detection</li>
+        <li><strong>Custom Theme Creation</strong> - Allow users to create and save personalized themes</li>
+        <li><strong>Performance Optimization</strong> - Efficient color generation and DOM updates</li>
+        <li><strong>Hierarchical Theming</strong> - Different themes for different sections of your app</li>
+        <li><strong>Smooth Transitions</strong> - Visually appealing theme change animations</li>
+        <li><strong>Persistent Preferences</strong> - Save user choices between sessions</li>
+      </ul>
+    </div>
+
+    <div class="solution-highlight">
+      <h3>💡 The Comprehensive &#64;spider-baby/theming Solution</h3>
+      <p>
+        &#64;spider-baby/theming eliminates theming complexity by providing a complete, production-ready theming system.
+        With TypeScript-first architecture, reactive state management, and modular design, it integrates seamlessly 
+        with Angular and Material Design while offering advanced features like hierarchical theming and smooth transitions.
+      </p>
+      
+      <div class="feature-grid">
+        <div class="feature-item">
+          <mat-icon>palette</mat-icon>
+          <h4>Dynamic Theming</h4>
+          <p>Runtime theme changes with CSS variables</p>
+        </div>
+        <div class="feature-item">
+          <mat-icon>dark_mode</mat-icon>
+          <h4>Dark Mode</h4>
+          <p>Intelligent light/dark mode switching</p>
+        </div>
+        <div class="feature-item">
+          <mat-icon>tune</mat-icon>
+          <h4>Customization</h4>
+          <p>User-created themes with persistence</p>
+        </div>
+        <div class="feature-item">
+          <mat-icon>speed</mat-icon>
+          <h4>Performance</h4>
+          <p>Memoized calculations and efficient updates</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="installation-section">
+    <h2>📦 Installation & Setup</h2>
+    <p>Get started with &#64;spider-baby/theming in just a few steps:</p>
+    
+    <div class="code-example">
+      <h3>1. Install the Package</h3>
+      <pre><code [highlight]="_installationExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-example">
+      <h3>2. Configure Your Application</h3>
+      <pre><code [highlight]="_basicSetupExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="setup-explanation">
+      <h4>Configuration Options:</h4>
+      <ul>
+        <li><strong>themeOptions</strong> - Array of available themes for your application</li>
+        <li><strong>defaultDarkModeType</strong> - Default behavior: 'light', 'dark', or 'system'</li>
+        <li><strong>themeClassPrefix</strong> - CSS class prefix for theme-specific styling</li>
+        <li><strong>transitionOptions</strong> - Configure smooth theme transitions</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="core-concepts-section">
+    <h2>🏗️ Core Architecture</h2>
+    <p>&#64;spider-baby/theming is built with a modular architecture using multiple entry points:</p>
+
+    <div class="architecture-grid">
+      <div class="arch-item">
+        <h4>/service</h4>
+        <p>Core services for theme management, generation, and transitions</p>
+        <ul>
+          <li>ThemeService - State management</li>
+          <li>ThemeGeneratorService - CSS generation</li>
+          <li>ThemeTransitionService - Animations</li>
+        </ul>
+      </div>
+      
+      <div class="arch-item">
+        <h4>/config</h4>
+        <p>Configuration utilities and models</p>
+        <ul>
+          <li>ThemeOption - Theme definitions</li>
+          <li>DynamicThemeConfigService - Runtime config</li>
+          <li>Theme configuration providers</li>
+        </ul>
+      </div>
+      
+      <div class="arch-item">
+        <h4>/components</h4>
+        <p>Ready-to-use UI components</p>
+        <ul>
+          <li>Theme toggle buttons</li>
+          <li>Dark mode switches</li>
+          <li>Theme selector dropdowns</li>
+        </ul>
+      </div>
+      
+      <div class="arch-item">
+        <h4>/customizer</h4>
+        <p>Advanced theme customization UI</p>
+        <ul>
+          <li>Complete theme editor</li>
+          <li>Color palette picker</li>
+          <li>Live preview</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="basic-usage-section">
+    <h2>🚀 Basic Usage</h2>
+    
+    <div class="code-example">
+      <h3>Theme Service Integration</h3>
+      <p>The ThemeService provides reactive access to theme state and simple methods for theme management:</p>
+      <pre><code [highlight]="_basicThemeServiceExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="feature-explanation">
+      <h4>Key Features:</h4>
+      <ul>
+        <li><strong>Reactive State</strong> - All theme properties are available as signals and observables</li>
+        <li><strong>Automatic Persistence</strong> - User preferences are saved to localStorage</li>
+        <li><strong>System Integration</strong> - Respects system dark mode preferences</li>
+        <li><strong>Type Safety</strong> - Full TypeScript support with strict typing</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="custom-themes-section">
+    <h2>🎨 Custom Theme Creation</h2>
+    
+    <div class="code-example">
+      <h3>Dynamic Theme Creation</h3>
+      <p>Allow users to create and save their own custom themes:</p>
+      <pre><code [highlight]="_customThemeExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="theme-creation-tips">
+      <h4>Theme Creation Best Practices:</h4>
+      <ul>
+        <li>Use contrasting colors for accessibility</li>
+        <li>Test themes in both light and dark modes</li>
+        <li>Consider color blindness when choosing palettes</li>
+        <li>Validate theme names for uniqueness</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="material-design-section">
+    <h2>🎯 Material Design 3 Integration</h2>
+    <p>&#64;spider-baby/theming generates complete Material Design 3 color tokens automatically:</p>
+    
+    <div class="code-example">
+      <h3>Using M3 Color Tokens</h3>
+      <pre><code [highlight]="_materialDesign3Example" language="typescript"></code></pre>
+    </div>
+
+    <div class="m3-features">
+      <h4>Available M3 Color Tokens:</h4>
+      <div class="token-grid">
+        <div class="token-group">
+          <h5>Primary Colors</h5>
+          <ul>
+            <li>--mat-sys-primary</li>
+            <li>--mat-sys-on-primary</li>
+            <li>--mat-sys-primary-container</li>
+            <li>--mat-sys-on-primary-container</li>
+          </ul>
+        </div>
+        <div class="token-group">
+          <h5>Surface Colors</h5>
+          <ul>
+            <li>--mat-sys-surface</li>
+            <li>--mat-sys-surface-container</li>
+            <li>--mat-sys-surface-variant</li>
+            <li>--mat-sys-background</li>
+          </ul>
+        </div>
+        <div class="token-group">
+          <h5>Neutral Colors</h5>
+          <ul>
+            <li>--mat-sys-outline</li>
+            <li>--mat-sys-outline-variant</li>
+            <li>--mat-sys-scrim</li>
+            <li>--mat-sys-shadow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dynamic-config-section">
+    <h2>⚡ Dynamic Theme Configuration</h2>
+    
+    <div class="code-example">
+      <h3>Runtime Theme Management</h3>
+      <p>Update available themes dynamically based on context or user permissions:</p>
+      <pre><code [highlight]="_dynamicThemeConfigExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="dynamic-use-cases">
+      <h4>Dynamic Configuration Use Cases:</h4>
+      <ul>
+        <li><strong>Feature Sections</strong> - Different themes for different app sections</li>
+        <li><strong>User Roles</strong> - Admin-specific themes with restricted access</li>
+        <li><strong>Seasonal Themes</strong> - Holiday or event-based theme additions</li>
+        <li><strong>A/B Testing</strong> - Test different theme options with user groups</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="hierarchical-theming-section">
+    <h2>🏗️ Hierarchical Theming</h2>
+    <p>One of the most powerful features - different sections can have completely different theme contexts:</p>
+    
+    <div class="code-example">
+      <h3>Section-Specific Themes</h3>
+      <pre><code [highlight]="_hierarchicalThemingExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="hierarchical-benefits">
+      <h4>Benefits of Hierarchical Theming:</h4>
+      <ul>
+        <li><strong>Contextual Theming</strong> - Match themes to content or functionality</li>
+        <li><strong>User Experience</strong> - Visual cues for different app sections</li>
+        <li><strong>Brand Consistency</strong> - Different brands or products within one app</li>
+        <li><strong>Progressive Enhancement</strong> - Gradually introduce new themes</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="theme-generator-section">
+    <h2>🔧 Advanced Theme Generation</h2>
+    
+    <div class="code-example">
+      <h3>Direct Theme Application</h3>
+      <p>Use ThemeGeneratorService for advanced scenarios like theme previews:</p>
+      <pre><code [highlight]="_themeGeneratorExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="generator-features">
+      <h4>Generator Service Features:</h4>
+      <ul>
+        <li><strong>Targeted Application</strong> - Apply themes to specific elements</li>
+        <li><strong>Performance Optimized</strong> - Memoized palette generation</li>
+        <li><strong>CSS Variable Generation</strong> - Complete M3 token creation</li>
+        <li><strong>Class Management</strong> - Automatic CSS class handling</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="transitions-section">
+    <h2>✨ Smooth Theme Transitions</h2>
+    
+    <div class="code-example">
+      <h3>Animated Theme Changes</h3>
+      <p>Create beautiful transitions between themes for enhanced user experience:</p>
+      <pre><code [highlight]="_themeTransitionsExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="transition-types">
+      <h4>Available Transition Types:</h4>
+      <ul>
+        <li><strong>Overlay Transition</strong> - Smooth color wash effect</li>
+        <li><strong>Morph Transition</strong> - Circular or rectangular morphing</li>
+        <li><strong>Fade Transition</strong> - Classic cross-fade between themes</li>
+        <li><strong>Custom Transitions</strong> - Define your own animation styles</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="scss-export-section">
+    <h2>📄 SCSS Export & Integration</h2>
+    
+    <div class="code-example">
+      <h3>Export Themes as SCSS</h3>
+      <p>Generate SCSS variables from your themes for build-time integration:</p>
+      <pre><code [highlight]="_scssExportExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="scss-benefits">
+      <h4>SCSS Export Benefits:</h4>
+      <ul>
+        <li><strong>Build-Time Integration</strong> - Use themes in pre-compiled styles</li>
+        <li><strong>Debugging</strong> - Inspect generated color palettes</li>
+        <li><strong>Documentation</strong> - Share theme specifications with design teams</li>
+        <li><strong>Version Control</strong> - Track theme changes over time</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="component-integration-section">
+    <h2>🧩 Component Integration</h2>
+    
+    <div class="code-example">
+      <h3>Pre-built Components</h3>
+      <p>Use ready-made components for common theming UI patterns:</p>
+      <pre><code [highlight]="_componentIntegrationExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="component-features">
+      <h4>Available Components:</h4>
+      <div class="component-grid">
+        <div class="component-item">
+          <h5>sb-theme-customizer</h5>
+          <p>Complete theme editor with color picker and live preview</p>
+        </div>
+        <div class="component-item">
+          <h5>sb-dark-mode-toggle</h5>
+          <p>Simple toggle for light/dark mode switching</p>
+        </div>
+        <div class="component-item">
+          <h5>sb-theme-selector</h5>
+          <p>Dropdown selector for available themes</p>
+        </div>
+        <div class="component-item">
+          <h5>sb-theme-showcase</h5>
+          <p>Display component with all Material Design elements</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="complete-setup-section">
+    <h2>🚀 Complete Application Setup</h2>
+    
+    <div class="code-example">
+      <h3>Production-Ready Configuration</h3>
+      <p>A complete example showing full application setup with theming:</p>
+      <pre><code [highlight]="_completeSetupExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <section class="best-practices-section">
+    <h2>📝 Best Practices & Tips</h2>
+    
+    <div class="practices-grid">
+      <div class="practice-item">
+        <h4>🎨 Color Selection</h4>
+        <ul>
+          <li>Use WCAG AA compliant color combinations</li>
+          <li>Test themes with color blindness simulators</li>
+          <li>Ensure sufficient contrast ratios</li>
+          <li>Consider cultural color associations</li>
+        </ul>
+      </div>
+      
+      <div class="practice-item">
+        <h4>⚡ Performance</h4>
+        <ul>
+          <li>Use signals for reactive theme changes</li>
+          <li>Leverage memoization for palette generation</li>
+          <li>Apply themes to specific elements when possible</li>
+          <li>Minimize CSS variable updates</li>
+        </ul>
+      </div>
+      
+      <div class="practice-item">
+        <h4>🧪 Testing</h4>
+        <ul>
+          <li>Test all themes in both light and dark modes</li>
+          <li>Verify theme persistence across sessions</li>
+          <li>Check system preference integration</li>
+          <li>Validate hierarchical theme switches</li>
+        </ul>
+      </div>
+      
+      <div class="practice-item">
+        <h4>📱 User Experience</h4>
+        <ul>
+          <li>Provide visual feedback during theme changes</li>
+          <li>Use smooth transitions for better UX</li>
+          <li>Remember user preferences</li>
+          <li>Offer theme previews before applying</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="api-reference-section">
+    <h2>📚 API Reference</h2>
+    
+    <div class="api-grid">
+      <div class="api-item">
+        <h4>ThemeService</h4>
+        <ul>
+          <li><code>currentTheme()</code> - Get current theme</li>
+          <li><code>setTheme(theme)</code> - Apply theme</li>
+          <li><code>toggleDarkMode()</code> - Toggle dark mode</li>
+          <li><code>addCustomTheme(theme)</code> - Add custom theme</li>
+          <li><code>availableThemes()</code> - Get all themes</li>
+        </ul>
+      </div>
+      
+      <div class="api-item">
+        <h4>ThemeGeneratorService</h4>
+        <ul>
+          <li><code>applyTheme(theme, element?)</code> - Apply to element</li>
+          <li><code>exportThemeAsScss(theme)</code> - Generate SCSS</li>
+        </ul>
+      </div>
+      
+      <div class="api-item">
+        <h4>DynamicThemeConfigService</h4>
+        <ul>
+          <li><code>setSystemThemes(themes)</code> - Update themes</li>
+          <li><code>addSystemTheme(theme)</code> - Add theme</li>
+          <li><code>resetSystemThemesToInitial()</code> - Reset</li>
+        </ul>
+      </div>
+      
+      <div class="api-item">
+        <h4>ThemeTransitionService</h4>
+        <ul>
+          <li><code>transitionWithOverlay()</code> - Overlay transition</li>
+          <li><code>transitionWithMorph()</code> - Morph transition</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="conclusion-section">
+    <h2>🎉 Conclusion</h2>
+    <p>
+      &#64;spider-baby/theming provides everything you need for sophisticated theming in modern Angular applications.
+      From basic dark mode support to advanced hierarchical theming with smooth transitions, it offers a complete
+      solution that scales with your application's needs.
+    </p>
+    
+    <div class="next-steps">
+      <h3>Next Steps:</h3>
+      <ul>
+        <li>📦 Install the package and set up your first themes</li>
+        <li>🎨 Experiment with Material Design 3 color tokens</li>
+        <li>⚡ Try dynamic theme configuration in different sections</li>
+        <li>✨ Add smooth transitions for enhanced user experience</li>
+        <li>🧩 Integrate pre-built components for quick setup</li>
+      </ul>
+    </div>
+
+    <div class="resources">
+      <h3>Additional Resources:</h3>
+      <ul>
+        <li><a [href]="_gitHubRepoUrl" target="_blank">GitHub Repository</a></li>
+        <li><a [href]="_npmPackageUrl" target="_blank">NPM Package</a></li>
+        <li><a href="/demos/theming" target="_blank">Live Demo</a></li>
+        <li><a href="/docs/theming" target="_blank">Full API Documentation</a></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
