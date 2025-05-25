@@ -1,0 +1,303 @@
+<!-- ################################### -->
+
+<ng-template #linksTemplate>
+  <sb-hub-pkg-links 
+    [gitHubRepoUrl]="_gitHubRepoUrl" 
+    [npmPackageUrl]="_npmPackageUrl" />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" />
+
+<!-- ################################### -->
+
+<sb-notifications-modal-mat 
+    [toastMsg]="_successMsg()" 
+    [errorMsg]="_errorMsg()" />
+
+<!-- ################################### -->
+
+<sb-hub-hero-banner-2 [title]="_title" [subtitle]="_subtitle" [description]="_description" [backgroundImage]="_bannerImg" />
+
+<div class="tutorial-content">
+
+  <sb-hub-blog-ui-btn-download 
+    [showButton]="_showButton()" 
+    [loading]="_isLoading()" 
+    [tooltip]="'Download Code Samples'"
+    (downloadClick)="_dlClick$.next()" />
+  <section class="intro-section">
+    <h2>🤔 The Common Angular Challenge</h2>
+    <p>
+      As Angular developers, we frequently encounter this familiar scenario: We need to make an HTTP call to an outside service,
+      handle the response (either success payload or error), show loading indicators while the operation is in progress,
+      and properly manage subscriptions to avoid memory leaks.
+    </p>
+    
+    <div class="challenge-explanation">
+      <h3>What We Typically Need:</h3>
+      <ul>
+        <li><strong>HTTP Service Calls</strong> - Fetch data from APIs or external services</li>
+        <li><strong>Loading States</strong> - Show spinners or loading messages during operations</li>
+        <li><strong>Success Handling</strong> - Display data when operations complete successfully</li>
+        <li><strong>Error Management</strong> - Show meaningful error messages when things go wrong</li>
+        <li><strong>Subscription Management</strong> - Properly subscribe and unsubscribe to prevent memory leaks</li>
+        <li><strong>Multiple Operations</strong> - Coordinate several HTTP calls together (Get & Edit, CRUD operations, etc.)</li>
+      </ul>
+    </div>    <div class="solution-highlight">
+      <h3>💡 The MiniState Solution</h3>
+      <p>
+        <strong>MiniState</strong> provides a neat, lightweight way to handle all these concerns without the full machinery 
+        of something like &#64;ngrx/store. It's perfect for component-level state management that focuses on async operations.
+      </p>
+    </div>
+
+    <h2>🕷️ What You'll Learn</h2>
+    <p>
+      In this comprehensive tutorial, you'll master MiniState - a lightweight yet powerful state management library for Angular.
+      MiniState simplifies async operations, loading states, error handling, and UI feedback using modern Angular patterns
+      like Signals and RxJS observables.
+    </p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>🎯 Reactive State Management</h3>
+        <p>Handle async operations with built-in loading states and error handling</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🔄 Modern Angular Patterns</h3>
+        <p>Built with Angular Signals and RxJS for optimal performance</p>
+      </div>
+      <div class="benefit-card">
+        <h3>⚡ CRUD Operations</h3>
+        <p>Specialized support for Create, Read, Update, Delete operations</p>
+      </div>
+      <div class="benefit-card">
+        <h3>📦 Git and NPM</h3>
+        <sb-hub-pkg-links 
+          [gitHubRepoUrl]="_gitHubRepoUrl" 
+          [npmPackageUrl]="_npmPackageUrl" />
+      </div>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <section class="getting-started-section">
+    <h2>🛠️ What is MiniState?</h2>
+
+    <div class="step-card">
+      <p>
+        MiniState is a lightweight state management library for Angular that focuses on simplifying async operations.
+        Unlike complex global state libraries, MiniState is designed for component-level state management with:
+      </p>
+      <ul>
+        <li><strong>Automatic Loading States</strong> - Built-in loading indicators for async operations</li>
+        <li><strong>Error Handling</strong> - Centralized error management with customizable messages</li>
+        <li><strong>Success Feedback</strong> - User-friendly success messages and callbacks</li>
+        <li><strong>Signal Integration</strong> - Native Angular Signals support for reactive UI</li>
+        <li><strong>Observable Support</strong> - Full RxJS integration for complex reactive patterns</li>
+        <li><strong>Automatic Cleanup</strong> - Built-in resource management with DestroyRef</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="installation-section">
+    <h2>📦 Installation</h2>
+    
+    <div class="code-card">
+      <h3>Install MiniState</h3>
+      <pre><code [highlight]="_installationExample" language="bash"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Import in Your Component</h3>
+      <pre><code [highlight]="_importExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Core Concepts Section -->
+  <section class="concepts-section">
+    <h2>🧠 Core Concepts</h2>
+
+    <div class="concept-explanation">
+      <h3>What Problems Does MiniState Solve?</h3>
+      <p>
+        Traditional Angular async operations often require managing multiple pieces of state manually:
+        loading flags, error states, success messages, and data. MiniState encapsulates all of this
+        into a single, reactive state object that automatically handles these concerns.
+      </p>
+    </div>
+
+    <div class="concept-explanation">
+      <h3>Key Classes</h3>
+      <ul>
+        <li><strong>MiniState</strong> - Core class for managing async operation state</li>
+        <li><strong>MiniStateBuilder</strong> - Factory for creating MiniState instances with different configurations</li>
+        <li><strong>MiniCrudState</strong> - Specialized extension for CRUD operations on collections</li>
+        <li><strong>MiniStateCombined</strong> - Combines multiple states for unified UI feedback</li>
+        <li><strong>MiniStateUtility</strong> - Low-level utilities for fine-grained state combination</li>
+      </ul>
+    </div>
+
+    <div class="concept-explanation">
+      <h3>Signals vs Observables</h3>
+      <p>
+        MiniState provides both Angular Signals and RxJS Observables for all state properties:
+      </p>
+      <ul>
+        <li><strong>Signals</strong> - Perfect for template binding and reactive computations</li>
+        <li><strong>Observables</strong> - Ideal for complex reactive patterns and operators</li>
+      </ul>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Basic Usage Section -->
+  <section class="basic-usage-section">
+    <h2>🚀 Basic Usage</h2>
+
+    <div class="example-card">
+      <h3>Simple Data Fetching</h3>
+      <p>The most basic MiniState usage for loading data without parameters:</p>
+      <pre><code [highlight]="_basicExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Operations with Input Parameters</h3>
+      <p>Handle operations that require input, like search or filtering:</p>
+      <pre><code [highlight]="_withInputExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Reactive Operations</h3>
+      <p>Automatically trigger operations when observables emit (like route parameters):</p>
+      <pre><code [highlight]="_reactiveExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- CRUD Operations Section -->
+  <section class="crud-section">
+    <h2>📝 CRUD Operations</h2>
+
+    <div class="example-card">
+      <h3>Complete CRUD with MiniCrudState</h3>
+      <p>
+        MiniCrudState extends MiniState to provide automatic handling of Create, Read, Update, Delete operations
+        with client-side data synchronization:
+      </p>
+      <pre><code [highlight]="_crudExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Advanced Features Section -->
+  <section class="advanced-section">
+    <h2>🎯 Advanced Features</h2>
+
+    <div class="example-card">
+      <h3>Combining Multiple States</h3>
+      <p>Use MiniStateCombined for unified loading indicators and error handling across multiple operations:</p>
+      <pre><code [highlight]="_combinedStatesExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Granular State Control</h3>
+      <p>Use MiniStateUtility for fine-grained control over state combinations:</p>
+      <pre><code [highlight]="_stateUtilityExample" language="typescript"></code></pre>
+    </div>
+
+    <div class="example-card">
+      <h3>Advanced Configuration</h3>
+      <p>Customize every aspect of MiniState behavior with advanced configuration options:</p>
+      <pre><code [highlight]="_advancedConfigExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Service Example Section -->
+  <section class="service-section">
+    <h2>🔧 Example Service</h2>
+
+    <div class="code-card">
+      <h3>Sample Service Implementation</h3>
+      <p>Here's a complete service example that works with all the MiniState examples above:</p>
+      <pre><code [highlight]="_userServiceExample" language="typescript"></code></pre>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Best Practices Section -->
+  <section class="best-practices-section">
+    <h2>💡 Best Practices</h2>
+
+    <div class="practice-grid">
+      <div class="practice-card">
+        <h3>🎯 Use MiniStateBuilder</h3>
+        <p>Always use MiniStateBuilder instead of instantiating MiniState directly. It handles DestroyRef injection automatically.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>🔄 Expose Signals to Templates</h3>
+        <p>Create protected properties that expose MiniState signals for template binding rather than accessing them directly.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>📦 Combine Related Operations</h3>
+        <p>Use MiniStateCombined for operations that should share loading states or error handling in the UI.</p>
+      </div>
+      
+      <div class="practice-card">
+        <h3>⚡ Leverage Reactive Patterns</h3>
+        <p>Use CreateWithObservableInput and CreateWithSignalInput for operations that should react to data changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <mat-divider />
+
+  <!-- Conclusion Section -->
+  <section class="conclusion-section">
+    <h2>🎉 Conclusion</h2>
+    <p>
+      You've now learned how to use MiniState for powerful, reactive state management in Angular! 
+      This library provides a perfect middle ground between manual state management and complex global solutions.
+      With built-in loading states, error handling, and modern Angular patterns, MiniState simplifies async
+      operations while maintaining type safety and performance.
+    </p>
+
+    <div class="key-takeaways">
+      <h3>🔑 Key Takeaways</h3>
+      <ul>
+        <li>Use <strong>MiniStateBuilder</strong> for creating state instances</li>
+        <li>Leverage <strong>Signals</strong> for reactive UI updates</li>
+        <li>Use <strong>MiniCrudState</strong> for collection-based operations</li>
+        <li>Combine states with <strong>MiniStateCombined</strong> for unified UI feedback</li>
+        <li>Apply <strong>reactive patterns</strong> with Observable and Signal inputs</li>
+      </ul>
+    </div>
+
+    <mat-divider/>
+    
+    <div class="npm-pkg-container">
+      <h4>🦥 Ready to Get Started?</h4>
+      <div class="npm-pkg-message">
+        Install MiniState and start building reactive Angular applications:
+        <sb-hub-pkg-links [npmPackageUrl]="_npmPackageUrl" />
+      </div>
+    </div>
+    
+    <mat-divider/>
+
+    <div class="footer-cta">
+      <p>Happy coding with MiniState! 🕷️✨</p>
+    </div>
+  </section>
+</div>

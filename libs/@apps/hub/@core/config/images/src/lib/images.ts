@@ -119,8 +119,17 @@ export class HubAppImages {
       static readonly large = 'images/blog/prog-img/large/prog-img-tutorial-2.jpeg';
       static readonly xLarge = 'images/blog/prog-img/xlarge/prog-img-tutorial-2.jpeg';
     };
+     static PortalTutorial = class {
+      static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
+      static readonly placeholder = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
+      static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
+      static readonly medium = 'images/blog/portal/medium/portal-tutorial.jpeg';
+      static readonly large = 'images/blog/portal/large/portal-tutoria.jpeg';
+      static readonly xLarge = 'images/blog/portal/xlarge/portal-tutorial.jpeg';
+    };
 
-    static PortalTutorial = class {
+
+    static MiniStateTutorial = class {
       static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
       static readonly placeholder = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
       static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
