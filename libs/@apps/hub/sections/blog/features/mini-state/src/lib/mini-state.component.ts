@@ -90,7 +90,7 @@ export class HubBlogMiniStateComponent implements OnInit {
 
   //- - - - - - - - - - - - - - -//
 
-  protected readonly _bannerImg = HubAppImages.Blog.MiniStateTutorial?.placeholder || '';
+  protected readonly _bannerImg = HubAppImages.Blog.MiniStateTutorial.placeholder || '';
 
   protected _showDemo = signal(false);
   protected _showButton = signal(false);

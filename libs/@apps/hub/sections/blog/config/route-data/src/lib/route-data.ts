@@ -34,4 +34,13 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.PortalTutorial.large,
     imgPlaceholder: HubAppImages.Blog.PortalTutorial.placeholder,
   },
+    {
+    title: 'Angular Mini-State Management Tutorial',
+    description: 'Learn how to build reactive Angular applications with MiniState - a lightweight state management library that simplifies async operations, loading states, error handling, and UI feedback.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mini-state-tutorial'),
+    icon: 'merge',
+    color: 'primary',
+    img: HubAppImages.Blog.MiniStateTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.MiniStateTutorial.placeholder,
+  },
 ];
