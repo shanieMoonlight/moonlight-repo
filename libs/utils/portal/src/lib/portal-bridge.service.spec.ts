@@ -106,9 +106,7 @@ describe('SbPortalBridgeService', () => {
 
       // Verify it's removed
       expect(service.getPortal(nameSignal)()).toBeUndefined();
-    });
-
-    it('should handle removing non-existent portal gracefully', () => {
+    });    it('should handle removing non-existent portal gracefully', () => {
       const portalName = 'non-existent-portal';
       
       // Should not throw error
@@ -117,7 +115,56 @@ describe('SbPortalBridgeService', () => {
       // Portal should still be undefined
       const nameSignal = signal(portalName);
       expect(service.getPortal(nameSignal)()).toBeUndefined();
-    });    it('should trigger signal updates when portal is removed', () => {
+    });
+      it('should detach portal if it is attached before removing it', () => {
+      const portal = new ComponentPortal(TestPortalComponent);
+      const portalName = 'detach-test-portal';
+      
+      // Mock the isAttached property and detach method
+      Object.defineProperty(portal, 'isAttached', { get: () => true });
+      const detachSpy = jest.spyOn(portal, 'detach').mockImplementation(() => null);
+      
+      // Add portal first
+      service.updatePortal(portalName, portal);
+      
+      // Remove portal - should trigger detach
+      service.removePortal(portalName);
+      
+      // Verify detach was called
+      expect(detachSpy).toHaveBeenCalled();
+      
+      // Cleanup
+      detachSpy.mockRestore();
+    });
+    
+    it('should handle errors during portal detachment gracefully', () => {
+      const portal = new ComponentPortal(TestPortalComponent);
+      const portalName = 'error-detach-test';
+      
+      // Mock the isAttached property and make detach throw an error
+      Object.defineProperty(portal, 'isAttached', { get: () => true });
+      const detachSpy = jest.spyOn(portal, 'detach').mockImplementation(() => {
+        throw new Error('Detach error');
+      });
+      
+      // Add portal first
+      service.updatePortal(portalName, portal);
+      
+      // Should not throw even though detach throws
+      expect(() => service.removePortal(portalName)).not.toThrow();
+      
+      // Verify detach was called
+      expect(detachSpy).toHaveBeenCalled();
+      
+      // Verify portal was still removed despite the error
+      const nameSignal = signal(portalName);
+      expect(service.getPortal(nameSignal)()).toBeUndefined();
+      
+      // Cleanup
+      detachSpy.mockRestore();
+    });
+
+    it('should trigger signal updates when portal is removed', () => {
       const portal = new ComponentPortal(TestPortalComponent);
       const portalName = 'test-portal';
       const nameSignal = signal(portalName);
