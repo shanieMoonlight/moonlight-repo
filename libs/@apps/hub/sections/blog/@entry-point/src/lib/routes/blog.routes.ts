@@ -9,6 +9,11 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('mat-theming'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-mat-theming')
+        .then((m) => m.HubBlogMatThemingComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('mini-state-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-mini-state')
         .then((m) => m.HubBlogMiniStateComponent),

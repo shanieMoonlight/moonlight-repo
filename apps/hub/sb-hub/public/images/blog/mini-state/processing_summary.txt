@@ -1,0 +1,8 @@
+Processing Summary - 25/05/2025 22:01:55
+Source folder: C:\Users\Shaneyboy\Desktop\mini-state
+Total folder types processed: 5
+- placeholder: 29 images processed
+- small: 29 images processed
+- medium: 29 images processed
+- large: 29 images processed
+- xlarge: 29 images processed

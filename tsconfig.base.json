@@ -54,6 +54,9 @@
       "@sb-hub/sections-blog/features-home": [
         "libs/@apps/hub/sections/blog/features/home/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-mat-theming": [
+        "libs/@apps/hub/sections/blog/features/mat-theming/src/index.ts"
+      ],
       "@sb-hub/sections-blog/features-mini-state": [
         "libs/@apps/hub/sections/blog/features/mini-state/src/index.ts"
       ],

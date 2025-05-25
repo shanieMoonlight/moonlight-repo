@@ -16,7 +16,12 @@
 
 <!-- ################################### -->
 
-<sb-hub-hero-banner-2 [title]="_title" [subtitle]="_subtitle" [description]="_description" [backgroundImage]="_bannerImg" />
+<sb-hub-hero-banner-2 
+[objectPosition]="'center 20%'"
+[title]="_title" 
+[subtitle]="_subtitle" 
+[description]="_description" 
+[backgroundImage]="_bannerImg" />
 
 <div class="tutorial-content">
 
@@ -106,7 +111,7 @@
     
     <div class="code-card">
       <h3>Install MiniState</h3>
-      <pre><code [highlight]="_installationExample" language="bash"></code></pre>
+      <pre><code [highlight]="_installationExample" language="typescript"></code></pre>
     </div>
 
     <div class="code-card">

@@ -131,14 +131,14 @@ export class HubAppImages {
 
     static MiniStateTutorial = class {
       static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
-      static readonly placeholder = 'images/blog/mini-state/placeholder/mini-state.jpeg';
+      static readonly placeholder = 'images/blog/mini-state/placeholder/mini-state18.jpeg';
       static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
       static readonly medium = 'images/blog/portal/medium/portal-tutorial.jpeg';
       static readonly large = 'images/blog/portal/large/portal-tutoria.jpeg';
       static readonly xLarge = 'images/blog/portal/xlarge/portal-tutorial.jpeg';
     };
   }; // End of Blog
-  //17 18 19 21 23 24 25
+  //28 3 5 11 18
 
   //==========================================//
 

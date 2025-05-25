@@ -6,7 +6,7 @@ import { RouteUtility } from '@spider-baby/utils-routes';
 const BaseRoute = 'blog';
 
 /** Type alias for the child routes of the blog application area: 'home'. */
-type CHILD_ROUTE = 'home'|'route-defs-tutorial' | 'hash' | 'firebase-deploy' | 'prog-img-tutorial' | 'portal-tutorial' | 'mini-state-tutorial'
+type CHILD_ROUTE = 'home'|'route-defs-tutorial' | 'hash' | 'firebase-deploy' | 'prog-img-tutorial' | 'portal-tutorial' | 'mini-state-tutorial' | 'mat-theming';
 
 //#################################################//
 
