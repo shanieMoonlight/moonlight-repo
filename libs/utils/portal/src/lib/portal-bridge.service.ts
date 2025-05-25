@@ -19,6 +19,8 @@ export class SbPortalBridgeService {
     computed(() => this._portals().get(name()));
 
 
+  //- - - - - - - - - - - - -//
+
 
   /**
    * Get all registered portal names (useful for debugging)
@@ -30,6 +32,7 @@ export class SbPortalBridgeService {
     })
   }
 
+  //- - - - - - - - - - - - -//
 
   removePortal(name: string) {
     console.log('Removing portal:', name);

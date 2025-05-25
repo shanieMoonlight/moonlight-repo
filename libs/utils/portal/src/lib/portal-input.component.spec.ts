@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, PLATFORM_ID } from '@angular/core';
+import { Component, PLATFORM_ID, TemplateRef, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { SbPortalInputComponent } from './portal-input.component';
@@ -29,12 +29,15 @@ class MockSbPortalBridgeService {
   standalone: true,
   imports: [SbPortalInputComponent],
   template: `
-    <sb-portal-input [name]="portalName">
+    <ng-template #testTemplate>
       <div class="test-content">Test Content</div>
-    </sb-portal-input>
+    </ng-template>
+    
+    <sb-portal-input [name]="portalName" [portalTemplate]="testTemplate"></sb-portal-input>
   `
 })
 class TestHostComponent {
+  @ViewChild('testTemplate', { static: true }) testTemplate!: TemplateRef<any>;
   portalName = 'test-portal';
 }
 
@@ -42,10 +45,18 @@ describe('SbPortalInputComponent', () => {
   let component: SbPortalInputComponent;
   let fixture: ComponentFixture<SbPortalInputComponent>;
   let mockBridgeService: MockSbPortalBridgeService;
+  let mockTemplate: TemplateRef<any>;
+
+  // Helper to create a mock TemplateRef
+  const createMockTemplate = (): TemplateRef<unknown> => ({
+    createEmbeddedView: jest.fn(),
+    elementRef: { nativeElement: document.createElement('div') }
+  } as TemplateRef<unknown>);
 
   describe('Browser Platform', () => {
     beforeEach(async () => {
       mockBridgeService = new MockSbPortalBridgeService();
+      mockTemplate = createMockTemplate();
 
       await TestBed.configureTestingModule({
         imports: [SbPortalInputComponent],
@@ -86,7 +97,16 @@ describe('SbPortalInputComponent', () => {
       });
 
       it('should create portal directive on initialization', () => {
+        // Create a mock template ref
+        const mockTemplate = {
+          createEmbeddedView: jest.fn(),
+          elementRef: { nativeElement: document.createElement('div') }
+        } as any;
+        
+        // Set the required portalTemplate input
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.detectChanges();
+        
         // After initialization, the portal should be available
         const portal = component['_portal'];
         expect(portal).toBeTruthy();
@@ -95,6 +115,8 @@ describe('SbPortalInputComponent', () => {
 
     describe('Portal Registration and Effect Behavior', () => {
       it('should register portal with bridge service when portal is available', async () => {
+        // Set the required portalTemplate input
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.detectChanges();
         
         // Wait for effect to run and viewChild to be available
@@ -113,6 +135,8 @@ describe('SbPortalInputComponent', () => {
       });
 
       it('should update portal registration when name changes', async () => {
+        // Set the required portalTemplate input
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.detectChanges();
         await fixture.whenStable();
         
@@ -130,11 +154,15 @@ describe('SbPortalInputComponent', () => {
       });
 
       it('should re-register portal when portal changes', async () => {
+        // Set the required portalTemplate input
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.detectChanges();
         await fixture.whenStable();
         mockBridgeService.reset();
 
-        // Force a new detection cycle to potentially change the portal reference
+        // Create a new mock template and update it
+        const newMockTemplate = createMockTemplate();
+        fixture.componentRef.setInput('portalTemplate', newMockTemplate);
         fixture.detectChanges();
         await fixture.whenStable();
 
@@ -147,6 +175,8 @@ describe('SbPortalInputComponent', () => {
 
     describe('Component Destruction and Cleanup', () => {
       it('should remove portal from bridge service on destroy', async () => {
+        // Set required inputs
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.componentRef.setInput('name', 'test-cleanup');
         fixture.detectChanges();
         await fixture.whenStable();
@@ -167,6 +197,8 @@ describe('SbPortalInputComponent', () => {
       });
 
       it('should use current name value when removing portal on destroy', async () => {
+        // Set required inputs
+        fixture.componentRef.setInput('portalTemplate', mockTemplate);
         fixture.componentRef.setInput('name', 'initial-name');
         fixture.detectChanges();
         await fixture.whenStable();
@@ -283,8 +315,9 @@ describe('SbPortalInputComponent', () => {
       
       // Verify that the portal is created and available
       const portalInputComponent = portalComponent.componentInstance as SbPortalInputComponent;
-      const portal = component['_portal'];
-      expect(portal).toBeTruthy();
+      // Get the portal from the component instance we found
+      const portalInstance = portalInputComponent['_portal'];
+      expect(portalInstance).toBeTruthy();
       
       // Note: The content is not rendered within the component itself but in portal outlets
       // So we verify the portal exists rather than trying to find the projected content
@@ -314,6 +347,8 @@ describe('SbPortalInputComponent', () => {
     });
 
     it('should handle rapid name changes', async () => {
+      // Set the required portalTemplate input
+      fixture.componentRef.setInput('portalTemplate', mockTemplate);
       fixture.detectChanges();
       await fixture.whenStable();
       mockBridgeService.reset();
@@ -336,6 +371,9 @@ describe('SbPortalInputComponent', () => {
       mockBridgeService.updatePortalSpy.mockImplementation(() => {
         throw new Error('Bridge service error');
       });
+
+      // Set the required portalTemplate input
+      fixture.componentRef.setInput('portalTemplate', mockTemplate);
 
       // The component should handle bridge service errors gracefully
       expect(() => {
