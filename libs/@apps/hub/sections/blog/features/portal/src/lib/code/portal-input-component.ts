@@ -1,73 +1,84 @@
 export const PortalInputComponentCode = `// portal-input.component.ts
-import { TemplatePortal } from '@angular/cdk/portal';
+import { Portal, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { isPlatformBrowser } from '@angular/common';
 import { 
+  AfterViewInit, 
   ChangeDetectionStrategy, 
   Component, 
-  OnDestroy, 
+  DestroyRef, 
   PLATFORM_ID, 
   TemplateRef,
   ViewContainerRef,
-  effect, 
   inject, 
-  input,
-  toObservable
+  input
 } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { combineLatest, finalize } from 'rxjs';
 import { SbPortalBridgeService } from './portal-bridge.service';
 import { DEFAULT_NAME } from './portal-constants';
 
 @Component({
   selector: 'sb-portal-input',
   standalone: true,
-  template: \`<!-- Portal input renders nothing directly -->\`,
+  imports: [PortalModule],
+  template: \`\`,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbPortalInputComponent implements OnDestroy {
+export class SbPortalInputComponent implements AfterViewInit {
 
+  //Used to bridge portal data between input and output components
   private _portalBridge = inject(SbPortalBridgeService);
-  private _platformId = inject(PLATFORM_ID);
-  private _viewContainer = inject(ViewContainerRef);
+  // Used for SSR detection
+  private _platformId = inject(PLATFORM_ID)
+  //Used to create the TemplatePortal
+  private _viewContainerRef = inject(ViewContainerRef);
+  //Used to destroy the component and clean up subscriptions
+  private _destroyer = inject(DestroyRef);
 
-  // Required template input
-  portalTemplate = input.required<TemplateRef<unknown>>();
+  //- - - - - - - - - - - - -//
 
-  // Input for portal name with default value
-  name = input(DEFAULT_NAME, {
+  //Get the portal name from input or use default
+  _name = input(DEFAULT_NAME, {
+    alias: 'name',
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
-  });
+  })
+  // Create an observable to react to changes. We can't start listing immedeately becase the viewContainerRef is not initialized yet
+  private _name$ = toObservable(this._name)
 
-  constructor() {
-    // React to changes in template or name
-    effect(() => {
-      if (!isPlatformBrowser(this._platformId))
-        return;
+  //Get the content to render
+  _portalTemplate = input.required<TemplateRef<unknown>>({ alias: 'portalTemplate' });
+  // Create an observable to react to changes. We can't start listing immedeately becase the viewContainerRef is not initialized yet
+  private _portalTemplate$ = toObservable(this._portalTemplate)
 
-      const template = this.portalTemplate();
-      const portalName = this.name();
+  //The portal instance that will be created and destroyed
+  //This wil be sent to the portal bridge service and from there to the portal outlet
+  private _portal?: Portal<unknown>
 
-      try {
-        if (template && portalName) {
-          // Create a template portal from the TemplateRef
-          const templatePortal = new TemplatePortal(
-            template,
-            this._viewContainer
-          );
-          
-          // Register the portal with the bridge service
-          this._portalBridge.setPortal(portalName, templatePortal);
+  //-------------------------//
+
+  //Wait for viewcontainer to be initialized
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this._platformId))
+      return
+
+    combineLatest([this._portalTemplate$, this._name$])
+      .pipe(
+        takeUntilDestroyed(this._destroyer),
+        finalize(() => this._portalBridge.removePortal(this._name()))
+      )
+      .subscribe(([template, name]) => {
+        if (!template || !name) //Just in case ;)
+          return
+
+        try {
+        //Create the portal with the template and viewContainerRef
+          this._portal = new TemplatePortal(template, this._viewContainerRef);
+          //Pass the portal to the bridge service
+          this._portalBridge.updatePortal(name, this._portal);
+        } catch (error) {
+          console.warn('Error updating portal:', error);
         }
-      } catch (error) {
-        console.error('Error setting portal:', error);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    const portalName = this.name();
-    if (portalName) {
-      // Clean up portal registration
-      this._portalBridge.removePortal(portalName);
-    }
+      })
   }
 }`;

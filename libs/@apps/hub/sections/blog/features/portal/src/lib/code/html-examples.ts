@@ -6,10 +6,10 @@ export const BasicUsageExample = `<!-- Basic Portal Usage -->
 </ng-template>
 
 <!-- Project the template -->
-<sb-portal-input name="my-content" [portalTemplate]="myContentTemplate"></sb-portal-input>
+<sb-portal-input [portalTemplate]="myContentTemplate"></sb-portal-outlet>
 
 <!-- Display the portal content elsewhere -->
-<sb-portal-outlet name="my-content"></sb-portal-outlet>`;
+<sb-portal-outlet></sb-portal-outlet>`;
 
 export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
 <!-- Define templates -->
@@ -25,8 +25,15 @@ export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
 </ng-template>
 
 <!-- Project templates -->
-<sb-portal-input name="header-content" [portalTemplate]="headerTemplate"></sb-portal-input>
-<sb-portal-input name="sidebar-content" [portalTemplate]="sidebarTemplate"></sb-portal-input>
+<sb-portal-input 
+  name="header-content" 
+  [portalTemplate]="headerTemplate">
+</sb-portal-input>
+
+<sb-portal-input 
+  name="sidebar-content" 
+  [portalTemplate]="sidebarTemplate">
+</sb-portal-input>
 
 <!-- Display in different locations -->
 <header>
@@ -40,18 +47,21 @@ export const MultiplePortalsExample = `<!-- Multiple Named Portals -->
 export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
 <!-- Define template -->
 <ng-template #dialogTemplate>
-  <div class="dialog">
+  <div class="message">
     <h3>Important Message</h3>
-    <p>This dialog content is conditionally rendered.</p>
-    <button (click)="closeDialog()">Close</button>
+    <p>This message content is conditionally rendered.</p>
   </div>
 </ng-template>
-
+  
 <!-- Conditionally project template -->
-<sb-portal-input name="dialog-content" [portalTemplate]="dialogTemplate" *ngIf="showDialog"></sb-portal-input>
+<button mat-flat-button (click)="showDialog = !showDialog">Toggle Message</button>
+ @if(showDialog){
+   <sb-portal-input name="message-content" 
+     [portalTemplate]="dialogTemplate"/>
+ }
 
 <!-- Portal outlet (always present) -->
-<sb-portal-outlet name="dialog-content"></sb-portal-outlet>`;
+<sb-portal-outlet name="message-content"/>`;
 
 export const DynamicContentExample = `<!-- Dynamic Content with Signals -->
 <!-- Define template -->

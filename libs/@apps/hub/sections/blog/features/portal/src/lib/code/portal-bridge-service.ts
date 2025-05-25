@@ -1,76 +1,58 @@
 export const PortalBridgeServiceCode = `// portal-bridge.service.ts
 import { Portal } from '@angular/cdk/portal';
-import { Injectable, computed, signal } from '@angular/core';
-import { DEFAULT_NAME, PortalInfo, PortalMap } from './portal-constants';
+import { computed, Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SbPortalBridgeService {
 
-  // Internal signals for managing portals
-  private _portals = signal<PortalMap>({});
-  private _portalInfos = signal<Record<string, PortalInfo>>({});
+  private _portals = signal<Map<string, Portal<unknown>>>(new Map())
 
-  // Public computed signals for reactivity
-  portals = computed(() => this._portals());
-  portalInfos = computed(() => this._portalInfos());
+  //- - - - - - - - - - - - -//
 
   /**
-   * Register a portal with a given name
+   * Get a reactive portal by name
+   * @param name Signal containing the portal name
+   * @returns Signal that emits the portal or undefined
    */
-  setPortal(name: string, portal: Portal<any> | null): void {
-    this._portals.update(portals => ({
-      ...portals,
-      [name]: portal
-    }));
+  getPortal = (name: Signal<string>): Signal<Portal<unknown> | undefined> =>
+    computed(() => this._portals().get(name()));
 
-    this._portalInfos.update(infos => ({
-      ...infos,
-      [name]: {
-        name,
-        isAttached: portal !== null,
-        timestamp: Date.now()
-      }
-    }));
-  }
+  //- - - - - - - - - - - - -//
 
   /**
-   * Get a portal by name
+   * Update or register a portal with the given name
    */
-  getPortal(name: string = DEFAULT_NAME): Portal<any> | null {
-    return this._portals()[name] || null;
-  }
-
-  /**
-   * Check if a portal exists and is attached
-   */
-  hasPortal(name: string = DEFAULT_NAME): boolean {
-    const portal = this.getPortal(name);
-    return portal !== null;
-  }
-
-  /**
-   * Remove a portal
-   */
-  removePortal(name: string): void {
+  updatePortal(name: string, portal: Portal<unknown>) {
     this._portals.update(portals => {
-      const newPortals = { ...portals };
-      delete newPortals[name];
-      return newPortals;
-    });
-
-    this._portalInfos.update(infos => {
-      const newInfos = { ...infos };
-      delete newInfos[name];
-      return newInfos;
-    });
+      const newPortals = new Map(portals) //trigger change detection
+      return newPortals.set(name, portal)
+    })
   }
 
+  //- - - - - - - - - - - - -//
+
   /**
-   * Get all portal names
+   * Remove a portal and detach it if necessary
    */
-  getPortalNames(): string[] {
-    return Object.keys(this._portals());
+  removePortal(name: string) {
+    console.log('Removing portal:', name);
+    
+    this._portals.update(portals => {
+      const existingPortal = portals.get(name);
+
+      // Detach portal if it's attached
+      try {
+        if (existingPortal?.isAttached)
+          existingPortal.detach();
+      } catch (error) {
+        console.warn('Error detaching portal:', error);
+      }
+
+      const newPortals = new Map(portals);
+      newPortals.delete(name);
+      return newPortals;
+    })
   }
 }`;

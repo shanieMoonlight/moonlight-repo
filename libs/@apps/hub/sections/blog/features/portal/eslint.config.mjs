@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'sbHubBlogFeaturesPortal',
+          prefix: 'sbHubBlog',
           style: 'camelCase',
         },
       ],
@@ -34,7 +34,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'sb-hub-blog-features-portal',
+          prefix: 'sb-hub-blog',
           style: 'kebab-case',
         },
       ],

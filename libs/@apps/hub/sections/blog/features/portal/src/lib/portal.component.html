@@ -8,28 +8,72 @@
 
 <sb-portal-input 
   [portalTemplate]="linksTemplate"/>
-  
-<ng-template #sidebarTemplate>
-  This is the sidebar
-</ng-template>
-<sb-portal-input 
-  [name]="'sidebar'"
-  [portalTemplate]="sidebarTemplate"/>
+
+<sb-hub-blog-portal-conditional-demo/>
+    <!-- <section class="demo-section">
+    <h2>🎮 Live Demo</h2>
+    <p>Try out the portal system in action:</p>
+    
+    <div class="demo-container">
+      <div class="demo-source">
+        <h4>Portal Input (Source)</h4>
+            <button mat-flat-button color="primary" (click)="showTemplate1()">Display 1</button>
+            <button mat-flat-button class="secondary"  (click)="showTemplate2()">Display 2</button>
+            <button mat-flat-button class="error"  (click)="_selectedPortal = undefined">Hide</button>
+        
+        <ng-template #demoPortalTemplate1>
+          <div class="demo-content">
+            <h3>🕷️ This content is teleported!</h3>
+            <p>This content is defined here but renders in the outlet below.</p>
+            <button mat-raised-button color="primary">Interactive Button 1</button>
+          </div>
+        </ng-template>
+         <ng-template #demoPortalTemplate2>
+          <div class="demo-content">
+            <h3>🕷️ This content is teleported!</h3>
+            <p>This content is defined here but renders in the outlet below.</p>
+            <button mat-raised-button class="secondary">Interactive Button 2</button>
+          </div>
+        </ng-template>
+
+         @if(_selectedPortal; as portal){
+          <sb-portal-input 
+            [portalTemplate]="portal"
+            name="demo-portal"/>
+        }
+        <p>Click the button below to teleport this content:</p>
+      </div>
+      
+      <div class="demo-destination">
+        <h4>Portal Outlet (Destination)</h4>
+        <div class="outlet-container">
+          <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+        </div>
+      </div>
+    </div>
+  </section> -->
 
 
-<!-- Hero Banner -->
+  <!-- =============================== -->
+   
+<!--   
 <sb-hub-hero-banner-2 
   [title]="_title" 
   [subtitle]="_subtitle"
   [description]="_description"
-  [backgroundImage]="_bannerImg"/>
+  [backgroundImage]="_bannerImg"/> -->
 
-<!-- Introduction Section -->
-<div class="tutorial-content">
-    <sb-portal-outlet [name]="'sidebar'"/>
-  <section class="intro-section">
+<div class="tutorial-content">    
+
+  
+  <sb-hub-blog-ui-btn-download 
+    [showButton]="_showButton()"
+    [loading]="_isLoading()"
+    [tooltip]="'Download Code Samples'"
+    (downloadClick)="_dlClick$.next()"/>
+
+  <!-- <section class="intro-section">
     <h2>🕷️ What You'll Learn</h2>
-    <!-- <sb-portal-outlet/> -->
     <p>
       In this comprehensive tutorial, you'll learn how to build a complete Portal system using Angular CDK.
       Portals allow you to dynamically render content anywhere in your application - perfect for modals, 
@@ -46,25 +90,20 @@
         <p>Build with modern Angular signals for optimal performance</p>
       </div>
       <div class="benefit-card">
-        <h3>🧪 Comprehensive Testing</h3>
-        <p>Master testing strategies for portal-based components</p>
-      </div>
-      <div class="benefit-card">
         <h3>⚡ Production Ready</h3>
         <p>Build enterprise-grade components with proper error handling</p>
       </div>
     </div>
-  </section>
-
+  </section> -->
   <!-- Package Links -->
-  <section class="package-section">
-    <h2>📦 Package Information</h2>    
+  <!-- <section class="package-section">
+    <h2>📦 Source Code & Resources</h2>    
+    <p>This tutorial demonstrates building portal components from scratch using Angular CDK. The complete implementation is available in our library:</p>
     <sb-hub-pkg-links
       [gitHubRepoUrl]="_gitHubRepoUrl"
       [npmPackageUrl]="_npmPackageUrl">
     </sb-hub-pkg-links>
   </section>
-  <!-- Download Section -->
   <section class="download-section" *ngIf="_showButton()">
     <h2>📥 Download Code Samples</h2>
     <p>Get all the source code examples used in this tutorial:</p>
@@ -82,28 +121,28 @@
       <p *ngIf="_successMsg()" class="success-message">{{ _successMsg() }}</p>
       <p *ngIf="_errorMsg()" class="error-message">{{ _errorMsg() }}</p>
     </div>
-  </section>
-
-  <!-- Installation Section -->
-  <section class="installation-section">
-    <h2>🚀 Installation & Setup</h2>
+  </section> -->
+  <!-- Getting Started Section -->
+  <section class="getting-started-section">
+    <h2>🚀 Getting Started</h2>
     
     <div class="step-card">
-      <h3>Step 1: Install Dependencies</h3>
-      <pre><code [highlight]="_installationCode" language="typescript"></code></pre>
+      <h3>Step 1: Create Portal Components</h3>
+      <p>We'll build three main components from scratch using Angular CDK:</p>
+      <ul>
+        <li><strong>Portal Input Component</strong> - Wraps content to make it teleportable</li>
+        <li><strong>Portal Outlet Component</strong> - Displays portal content at target locations</li>
+        <li><strong>Portal Bridge Service</strong> - Manages portal registration and communication. 
+          <br>
+          It essentially receives a portal from the Portal Input Component and passes it on to the Portal Outlet Component for rendering</li>
+      </ul>
     </div>
 
     <div class="step-card">
-      <h3>Step 2: Update Package.json</h3>
-      <pre><code [highlight]="_packageJsonCode" language="json"></code></pre>
-    </div>
-
-    <div class="step-card">
-      <h3>Step 3: Import Components</h3>
-      <pre><code [highlight]="_setupModuleCode" language="typescript"></code></pre>
+      <h3>Step 2: Understanding Template Portals</h3>
+      <p>Template Portals allow you to take any Angular template and render it elsewhere in your DOM tree while maintaining all Angular features like data binding, dependency injection, and lifecycle hooks.</p>
     </div>
   </section>
-
   <!-- Core Concepts Section -->
   <section class="concepts-section">
     <h2>🧠 Core Concepts</h2>
@@ -119,6 +158,36 @@
     </div>
 
     <div class="concept-explanation">
+      <h3>How Template Portals Work</h3>
+      <p>
+        Template Portals are created from Angular TemplateRef objects. When you define an 
+        <code>&lt;ng-template&gt;</code>, you can get a reference to it and wrap it in a 
+        TemplatePortal. This portal can then be attached to any PortalOutlet in your application.
+        The beauty is that the template maintains its original context and scope.
+      </p>
+      <pre><code [highlight]="`// Create a TemplatePortal from a TemplateRef
+const portal = new TemplatePortal(templateRef, viewContainer);`"
+      language="typescript"></code>
+    </pre>
+    </div>
+
+    <!-- <div class="concept-explanation">
+      <h3>Portal Constants for Magic String Prevention</h3>      <p>
+        To avoid magic strings and improve maintainability, we define portal names as constants.
+        This provides type safety and makes refactoring easier:
+      </p>
+      <pre><code
+         [highlight]="`export const DEFAULT_NAME = 'default-portal';
+export const PORTAL_NAMES = {{ '{' }}
+  SIDEBAR: 'sidebar-portal',
+  HEADER: 'header-portal',
+  FOOTER: 'footer-portal'
+{{ '}' }} as const;`"
+        language="typescript">
+      </code></pre>
+    </div> -->
+
+    <div class="concept-explanation">
       <h3>Key Components</h3>
       <ul>
         <li><strong>Portal Input:</strong> Defines content that can be teleported</li>
@@ -128,8 +197,8 @@
     </div>
   </section>
 
-  <!-- Basic Usage Section -->
-  <section class="usage-section">
+  <!-- Usage Section -->
+  <!-- <section class="usage-section">
     <h2>📝 Basic Usage</h2>
     
     <div class="example-card">
@@ -149,7 +218,22 @@
       <p>Portals work seamlessly with Angular's structural directives:</p>
       <pre><code [highlight]="_conditionalPortalExample" language="html"></code></pre>
     </div>
-  </section>
+    
+      <ng-template #dialogTemplate>
+        <div class="message">
+          <h3>Important Message</h3>
+          <p>This message content is conditionally rendered. It could be anywhere in the application.</p>
+        </div>
+      </ng-template>
+        
+      <button mat-flat-button (click)="showDialog = !showDialog">Toggle Message</button>
+      @if(showDialog){
+        <sb-portal-input name="message-content" 
+          [portalTemplate]="dialogTemplate"/>
+      }
+
+      <sb-portal-outlet name="message-content"/>
+  </section> -->
 
   <!-- Implementation Details Section -->
   <section class="implementation-section">
@@ -161,16 +245,18 @@
       <pre><code [highlight]="_portalConstantsCode" language="typescript"></code></pre>
     </div>
 
-    <div class="code-card">
-      <h3>Portal Bridge Service</h3>
-      <p>The service that manages portal registration and communication:</p>
-      <pre><code [highlight]="_portalBridgeServiceCode" language="typescript"></code></pre>
-    </div>
 
     <div class="code-card">
       <h3>Portal Input Component</h3>
       <p>Component that wraps content to make it available as a portal:</p>
       <pre><code [highlight]="_portalInputComponentCode" language="typescript"></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Portal Bridge Service</h3>
+      <p>The service that manages portal registration and communication:</p>
+      <p>It's main purpose is to receive Portals from <code>SbPortalInputComponents</code> and the  pass them on to <code>SbPortalOutletComponents</code></p>
+      <pre><code [highlight]="_portalBridgeServiceCode" language="typescript"></code></pre>
     </div>
 
     <div class="code-card">
@@ -216,25 +302,7 @@
     <div class="code-card">
       <h3>Conditional Portal Directive</h3>
       <p>Create directives for more advanced portal control:</p>
-      <pre><code [highlight]="_conditionalPortalDirectiveCode" language="typescript"></code></pre>
-    </div>
-  </section>
-
-  <!-- Testing Section -->
-  <section class="testing-section">
-    <h2>🧪 Testing Your Portals</h2>
-    
-    <div class="code-card">
-      <h3>Unit Testing</h3>
-      <p>Comprehensive unit testing strategy for portal components:</p>
-      <pre><code [highlight]="_testingCode" language="typescript"></code></pre>
-    </div>
-
-    <div class="code-card">
-      <h3>End-to-End Testing</h3>
-      <p>E2E testing with Playwright for portal functionality:</p>
-      <pre><code [highlight]="_e2eTestingCode" language="typescript"></code></pre>
-    </div>
+      <pre><code [highlight]="_conditionalPortalDirectiveCode" language="typescript"></code></pre>    </div>
   </section>
 
   <!-- Demo Section -->
@@ -245,13 +313,17 @@
     <div class="demo-container">
       <div class="demo-source">
         <h4>Portal Input (Source)</h4>
-        <!-- <sb-portal-input name="demo-portal">
+        <ng-template #demoPortalTemplate>
           <div class="demo-content">
             <h3>🕷️ This content is teleported!</h3>
             <p>This content is defined here but renders in the outlet below.</p>
             <button mat-raised-button color="primary">Interactive Button</button>
           </div>
-        </sb-portal-input> -->
+        </ng-template>
+        <sb-portal-input 
+          [portalTemplate]="demoPortalTemplate"
+          name="demo-portal"/>
+        <p>Click the button below to teleport this content:</p>
       </div>
       
       <div class="demo-destination">

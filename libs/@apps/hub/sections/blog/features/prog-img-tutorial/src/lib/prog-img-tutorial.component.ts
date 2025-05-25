@@ -46,8 +46,7 @@ import { BlogConstants } from './config/constants';
     HubHeroBanner2Component,
     HubUiBtnDownloadComponent,
     SbPortalInputComponent,
-    SbHubPkgLinksComponent,
-    SbPortalOutletComponent
+    SbHubPkgLinksComponent
   ],
   providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-prog-img-tutorial',

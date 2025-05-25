@@ -1,12 +1,20 @@
 :host {
   display: block;
   // padding-top: 72px;
+  width: 100%;
 }
 
 .tutorial-content {
   max-width: 1200px;
+  width: calc(96% - 4rem);
+  // background-color: rgba(250, 235, 215, 0.437);
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+
+    code {
+    font-size: 1rem;
+  }
 
   section {
     margin-bottom: 3rem;

@@ -1,12 +1,4 @@
 export const PortalConstantsCode = `// portal-constants.ts
-export const DEFAULT_NAME = 'default-portal';
+// Default portal name use as fallback for name in Portal Input Component and Portal Outlet Component (avoid magic strings) 
+export const DEFAULT_NAME = 'default-portal';`;
 
-export interface PortalInfo {
-  name: string;
-  isAttached: boolean;
-  timestamp: number;
-}
-
-export interface PortalMap {
-  [name: string]: Portal<any> | null;
-}`;

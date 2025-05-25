@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, TemplateRef, viewChild, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HubAppDownloads } from '@sb-hub/core-config/downloads';
 import { HubAppImages } from '@sb-hub/core-config/images';
@@ -18,13 +18,14 @@ import { Subject } from 'rxjs';
 // Import tutorial code samples
 import { AdvancedPatternsCode, ConditionalPortalDirectiveCode, PortalManagerServiceCode } from './code/advanced-patterns';
 import { BasicUsageExample, ComplexComponentExample, ConditionalPortalExample, DynamicContentExample, MultiplePortalsExample } from './code/html-examples';
-import { InstallationCode, PackageJsonCode, SetupModuleCode } from './code/installation';
 import { PortalBridgeServiceCode } from './code/portal-bridge-service';
 import { PortalConstantsCode } from './code/portal-constants';
 import { PortalInputComponentCode } from './code/portal-input-component';
 import { PortalOutletComponentCode } from './code/portal-outlet-component';
-import { E2ETestingCode, TestingCode } from './code/testing-examples';
 import { BlogConstants } from './config/constants';
+import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
+import { Portal, TemplatePortal } from '@angular/cdk/portal';
+import { SbHubBlogPortalConditionalDemoComponent } from './demo/conditional-demo.component';
 
 @Component({
   standalone: true,
@@ -37,6 +38,9 @@ import { BlogConstants } from './config/constants';
     SbPortalInputComponent,
     SbPortalOutletComponent,
     SbHubPkgLinksComponent,
+    HubUiBtnDownloadComponent,
+    NgTemplateOutlet,
+    SbHubBlogPortalConditionalDemoComponent
   ],
   providers: [LocalFileDownloadServiceService],
   selector: 'sb-hub-blog-features-portal',
@@ -57,33 +61,22 @@ export class HubBlogPortalComponent implements OnInit {
   protected _title = BlogConstants.PortalTutorial.Title;
   protected _subtitle = BlogConstants.PortalTutorial.Subtitle;
   protected _description = BlogConstants.PortalTutorial.Description;
-
   // Code samples for displaying in the tutorial
   protected readonly _portalConstantsCode = PortalConstantsCode;
   protected readonly _portalBridgeServiceCode = PortalBridgeServiceCode;
   protected readonly _portalInputComponentCode = PortalInputComponentCode;
   protected readonly _portalOutletComponentCode = PortalOutletComponentCode;
-  
-  // Installation and setup
-  protected readonly _installationCode = InstallationCode;
-  protected readonly _setupModuleCode = SetupModuleCode;
-  protected readonly _packageJsonCode = PackageJsonCode;
-  
+
   // HTML examples
   protected readonly _basicUsageExample = BasicUsageExample;
   protected readonly _multiplePortalsExample = MultiplePortalsExample;
   protected readonly _conditionalPortalExample = ConditionalPortalExample;
   protected readonly _dynamicContentExample = DynamicContentExample;
   protected readonly _complexComponentExample = ComplexComponentExample;
-  
   // Advanced patterns
   protected readonly _advancedPatternsCode = AdvancedPatternsCode;
   protected readonly _portalManagerServiceCode = PortalManagerServiceCode;
   protected readonly _conditionalPortalDirectiveCode = ConditionalPortalDirectiveCode;
-  
-  // Testing examples
-  protected readonly _testingCode = TestingCode;
-  protected readonly _e2eTestingCode = E2ETestingCode;
 
   protected readonly _bannerImg = HubAppImages.Blog.PortalTutorial.placeholder;
 
@@ -107,6 +100,21 @@ export class HubBlogPortalComponent implements OnInit {
   protected _successMsg = this._dlState.successMsg;
   protected _dlResult = this._dlState.data;
   protected _isLoading = this._dlState.loading;
+
+  protected showDialog = false
+
+  // private _viewContainerRef = inject(ViewContainerRef);
+  protected _selectedPortal?: TemplateRef<unknown>
+  demoTemplate1 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate1');
+  demoTemplate2 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate2');
+
+  showTemplate1(){
+    this._selectedPortal = this.demoTemplate1()
+  }
+  showTemplate2(){
+    this._selectedPortal =  this.demoTemplate2()
+  }
+
 
   //----------------------------//
 

@@ -1,0 +1,59 @@
+<section class="demo-section">
+  <div class="demo-header">
+    <h2>🎮 Live Demo</h2>
+    <p>Try out the portal system in action:</p>
+  </div>
+
+  <div class="demo-container">
+    <div class="demo-source">
+      <h4>Portal Input (Source)</h4>
+      <p>Click the button below to teleport this content:</p>
+      <div class="demo-actions">
+        <button mat-flat-button class="primary" 
+          (click)="showTemplate1()"
+          [disabled]="_selectedPortal === _demoTemplate1()">
+          Display 1
+        </button>
+        <button mat-flat-button class="secondary" 
+          (click)="showTemplate2()"
+          [disabled]="_selectedPortal === _demoTemplate2()">
+          Display 2
+        </button>
+        <button mat-flat-button class="tertiary" 
+          (click)="hidePortal()"
+          [disabled]="!_selectedPortal">
+          Hide
+        </button>
+      </div>
+      <ng-template #demoPortalTemplate1>
+        <div class="demo-content primary">
+          <h3>🚀 Primary Portal Content</h3>
+          <p>This is the primary content portal - it demonstrates basic portal functionality with a clean, modern design.</p>
+          <button mat-raised-button color="primary">Primary Action</button>
+        </div>
+      </ng-template>
+
+      <ng-template #demoPortalTemplate2>
+        <div class="demo-content secondary">
+          <h3>⭐ Secondary Portal Content</h3>
+          <p>This is the secondary content portal - showcasing alternative styling and content to demonstrate portal flexibility.</p>
+          <button mat-raised-button color="accent">Secondary Action</button>
+        </div>
+      </ng-template>
+
+
+
+      @if(_selectedPortal; as portal){
+      <sb-portal-input [portalTemplate]="portal" name="demo-portal" />
+      }
+    </div>
+
+    <div class="demo-destination">
+      <h4>Portal Outlet (Destination)</h4>
+      <div class="outlet-container">
+        <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+      </div>
+    </div>
+  </div>
+
+</section>
