@@ -9,13 +9,7 @@ import { SbPortalBridgeService } from './portal-bridge.service';
   standalone: true,
   imports: [PortalModule],
   template: ``,
-  styles: [
-    `
-      :host {
-        position: relative;
-      }
-    `,
-  ],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
@@ -28,7 +22,7 @@ export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
 
   private _portal?: Portal<unknown>
 
-  _portalTemplate = input<TemplateRef<unknown> | undefined>(undefined, { alias: 'portalTemplate' });
+  _portalTemplate = input.required<TemplateRef<unknown>>({ alias: 'portalTemplate' });
   private _portalTemplate$ = toObservable(this._portalTemplate)
 
 
@@ -56,11 +50,9 @@ export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
     if (!isPlatformBrowser(this._platformId))
       return
 
-    if (!this._portal?.isAttached)
-      return
-
     this._portalBridge.updatePortal(undefined)
-    this._portal?.detach()
+    if (this._portal?.isAttached)
+      this._portal?.detach()
   }
 
 

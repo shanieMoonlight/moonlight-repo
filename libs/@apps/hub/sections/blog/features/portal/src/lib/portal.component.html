@@ -1,13 +1,20 @@
 
 
 <ng-template #linksTemplate>
- <sb-hub-pkg-links
+  <sb-hub-pkg-links
     [gitHubRepoUrl]="_gitHubRepoUrl"
     [npmPackageUrl]="_npmPackageUrl"/>
 </ng-template>
 
 <sb-portal-input 
   [portalTemplate]="linksTemplate"/>
+  
+<ng-template #sidebarTemplate>
+  This is the sidebar
+</ng-template>
+<sb-portal-input 
+  [name]="'sidebar'"
+  [portalTemplate]="sidebarTemplate"/>
 
 
 <!-- Hero Banner -->
@@ -19,7 +26,7 @@
 
 <!-- Introduction Section -->
 <div class="tutorial-content">
-    <!-- <sb-portal-outlet/> -->
+    <sb-portal-outlet [name]="'sidebar'"/>
   <section class="intro-section">
     <h2>🕷️ What You'll Learn</h2>
     <!-- <sb-portal-outlet/> -->

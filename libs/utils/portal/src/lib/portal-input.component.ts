@@ -1,6 +1,8 @@
-import { CdkPortal, PortalModule } from '@angular/cdk/portal';
+import { Portal, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, PLATFORM_ID, effect, inject, input, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, OnDestroy, PLATFORM_ID, TemplateRef, ViewContainerRef, inject, input } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { combineLatest } from 'rxjs';
 import { SbPortalBridgeService } from './portal-bridge.service';
 import { DEFAULT_NAME } from './portal-constants';
 
@@ -8,56 +10,52 @@ import { DEFAULT_NAME } from './portal-constants';
   selector: 'sb-portal-input',
   standalone: true,
   imports: [PortalModule],
-  template: `
-  <ng-container *cdkPortal>
-    <ng-content/>
-  </ng-container>
-  `,
-  styles: [
-    `
-      :host {
-        position: relative;
-      }
-    `,
-  ],
+  template: ``,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbPortalInputComponent implements OnDestroy {
+export class SbPortalInputComponent implements AfterViewInit, OnDestroy {
 
   private _portalBridge = inject(SbPortalBridgeService);
   private _platformId = inject(PLATFORM_ID)
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _destroyer = inject(DestroyRef);
 
   //- - - - - - - - - - - - -//
-
-  private _portal = viewChild(CdkPortal)
-
-
+  
   _name = input(DEFAULT_NAME, {
     alias: 'name',
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
-  });
+  })
+  private _name$ = toObservable(this._name)
+  
+  _portalTemplate = input.required<TemplateRef<unknown>>({ alias: 'portalTemplate' });
+  private _portalTemplate$ = toObservable(this._portalTemplate)
+  
+  private _portal?: Portal<unknown>
 
   //-------------------------//
-
-  constructor() {
+  
+  ngAfterViewInit(): void {
     if (!isPlatformBrowser(this._platformId))
       return
 
+    //Wait for viewcontainer to be initialized
+    combineLatest([this._portalTemplate$, this._name$])
+      .pipe(takeUntilDestroyed(this._destroyer))
+      .subscribe(([template, name]) => {
+        if (!template || !name)
+          return
 
-    effect(() => {
-
-      const portal = this._portal()
-      const name = this._name()
-
-      try {
-        if (portal)
-          this._portalBridge.updatePortal(name, portal)
-      } catch (error) {
-        console.warn('Error updating portal:', error);
-      }
-
-    });
+        try {
+          this._portal = new TemplatePortal(template, this._viewContainerRef);
+          this._portalBridge.updatePortal(name, this._portal);
+        } catch (error) {
+          console.warn('Error updating portal:', error);
+        }
+      })
   }
+
 
   //- - - - - - - - - - - - - - - //
 
@@ -65,13 +63,11 @@ export class SbPortalInputComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this._platformId))
       return
-
-    this._portalBridge.removePortal(this._name())
-
+    
     try {
-      const portal = this._portal();
-      if (portal?.isAttached)
-        portal.detach()
+      this._portalBridge.removePortal(this._name())
+      if (this._portal?.isAttached)
+        this._portal.detach()
     } catch (error) {
       console.warn('Error detaching portal:', error);
     }
