@@ -1,1 +1,16 @@
 make blobservice better
+
+
+To implement searching for static pages on a Firebase app, you'll need to create a search system. Let me first understand your workspace structure and then provide a solution.
+
+<nx_workspace/>
+Now let me check what generators are available for creating search functionality:
+
+<nx_generators/>
+For implementing search functionality for your static pages, here are several approaches:
+
+Option 1: Client-Side Search with Fuse.js (Recommended for Static Pages)
+First, let's create a search service:
+
+<nx_open_generate_ui generator="@nx/angular:service" options='{"name": "search", "project": "@apps/hub/sections/blog/features/home"}'/>
+After the service is generated, here's how to implement the search:
