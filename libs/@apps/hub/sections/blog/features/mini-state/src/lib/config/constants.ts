@@ -7,5 +7,6 @@ export class BlogConstants {
 
     static readonly GitHubRepo = 'https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/packages/@spider-baby/mini-state/src/lib';
     static readonly NpmPackage = 'https://www.npmjs.com/package/@spider-baby/mini-state';
+    static readonly DemoWebsite = 'https://spider-baby-mini-state.web.app/';
   }
 }

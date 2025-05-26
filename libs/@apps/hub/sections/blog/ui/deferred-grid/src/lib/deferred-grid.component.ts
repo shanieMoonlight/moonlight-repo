@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, input, TemplateRef } from '@angular
 
 
 @Component({
-  selector: 'sb-hub-deferred-loop',
+  selector: 'sb-hub-ui-deferred-grid',
   imports: [NgTemplateOutlet],
   templateUrl: './deferred-grid.component.html',
   styleUrl: './deferred-grid.component.scss',

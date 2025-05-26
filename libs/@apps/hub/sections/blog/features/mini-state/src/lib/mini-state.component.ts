@@ -96,6 +96,7 @@ export class HubBlogMiniStateComponent implements OnInit {
   protected _showButton = signal(false);
   protected readonly _gitHubRepoUrl = BlogConstants.MiniStateTutorial.GitHubRepo;
   protected readonly _npmPackageUrl = BlogConstants.MiniStateTutorial.NpmPackage;
+  protected readonly _demoWebsiteUrl = BlogConstants.MiniStateTutorial.DemoWebsite;
 
   // Create a transition ID for the component based on the current route
   protected _transitionId = computed(() => this._router.url);

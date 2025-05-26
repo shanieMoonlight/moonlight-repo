@@ -20,6 +20,8 @@ export class SbHubPkgLinksComponent {
   _gitTooltip = input<string | undefined>('Git repo', { alias: 'gitTooltip' });
   _npmPackageUrl = input<string | undefined>('', { alias: 'npmPackageUrl' });
   _npmTooltip = input<string | undefined>('Npm Package', { alias: 'npmTooltip' });
+  _demoWebsiteUrl = input<string | undefined>('', { alias: 'demoWebsiteUrl' });
+  _demoTooltip = input<string | undefined>('Demo Website', { alias: 'demoTooltip' });
 
   @HostBinding('style.--hoverColor')
   @Input('hoverColor') _hoverColor: string | undefined

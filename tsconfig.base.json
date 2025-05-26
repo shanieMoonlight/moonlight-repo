@@ -75,6 +75,9 @@
       "@sb-hub/sections-blog/ui-buttons/downlaod": [
         "libs/@apps/hub/sections/blog/ui/buttons/downlaod/src/index.ts"
       ],
+      "@sb-hub/sections-blog/ui-deferred-grid": [
+        "libs/@apps/hub/sections/blog/ui/deferred-grid/src/index.ts"
+      ],
       "@sb-hub/sections-blog/ui-nav": [
         "libs/@apps/hub/sections/blog/ui/nav/src/index.ts"
       ],

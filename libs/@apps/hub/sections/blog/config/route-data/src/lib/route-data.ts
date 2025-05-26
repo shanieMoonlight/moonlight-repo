@@ -48,7 +48,7 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     description: 'Master dynamic theming in Angular with @spider-baby/theming - a comprehensive library for Material Design 3 implementation, dark mode support, custom themes, hierarchical theming, and more...',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mat-theming'),
     icon: 'palette',
-    color: 'primary',
+    color: 'secondary',
     img: HubAppImages.Blog.MatThemingTutorial.large,
     imgPlaceholder: HubAppImages.Blog.MatThemingTutorial.placeholder,
   },

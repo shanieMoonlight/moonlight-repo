@@ -7,7 +7,7 @@ import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2'
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
-import { SbHubDeferredGridComponent } from './deferred-grid/deferred-grid.component';
+import { SbHubDeferredGridComponent } from '@sb-hub/sections-blog/ui-deferred-grid';
 
 @Component({
   selector: 'sb-hub-blog-home',

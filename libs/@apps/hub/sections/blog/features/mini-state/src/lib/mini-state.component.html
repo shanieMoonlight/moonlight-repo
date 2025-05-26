@@ -3,7 +3,8 @@
 <ng-template #linksTemplate>
   <sb-hub-pkg-links 
     [gitHubRepoUrl]="_gitHubRepoUrl" 
-    [npmPackageUrl]="_npmPackageUrl" />
+    [npmPackageUrl]="_npmPackageUrl" 
+    [demoWebsiteUrl]="_demoWebsiteUrl" />
 </ng-template>
 
 <sb-portal-input [portalTemplate]="linksTemplate" />
@@ -17,11 +18,11 @@
 <!-- ################################### -->
 
 <sb-hub-hero-banner-2 
-[objectPosition]="'center 20%'"
-[title]="_title" 
-[subtitle]="_subtitle" 
-[description]="_description" 
-[backgroundImage]="_bannerImg" />
+  [objectPosition]="'center 20%'"
+  [title]="_title" 
+  [subtitle]="_subtitle" 
+  [description]="_description" 
+  [backgroundImage]="_bannerImg" />
 
 <div class="tutorial-content">
 

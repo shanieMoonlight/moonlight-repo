@@ -15,30 +15,13 @@
         [img]="feature.imgPlaceholder ?? feature.img" />
   </ng-template>
 
-  <sb-hub-deferred-loop
+  <sb-hub-ui-deferred-grid
     [data]="_features()"
     [elementTemplate]="featureTemplate">
-  </sb-hub-deferred-loop>
+  </sb-hub-ui-deferred-grid>
 
 </div>
 <footer class="home-footer">
   <p>Spider-Baby</p>
   <p><small>Built with Angular</small></p>
 </footer>
-
-<!-- <div class="features-grid">
-  @for (feature of _features(); track $index) {
-    @defer (on viewport) {
-      <sb-hub-fancy-nav-card 
-        [icon]="feature.icon" 
-        [title]="feature.title" 
-        [description]="feature.description" 
-        [route]="feature.route" 
-        [color]="feature.color"
-        [img]="feature.imgPlaceholder ?? feature.img" />
-    }
-      @placeholder{
-      <p></p>
-    }
-  } 
-</div>-->

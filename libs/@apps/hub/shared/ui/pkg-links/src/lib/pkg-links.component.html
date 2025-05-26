@@ -16,3 +16,12 @@
         <mat-icon svgIcon="npm" />
     </button>
 }
+@if(_demoWebsiteUrl(); as demoUrl){
+    <button
+        mat-icon-button
+        aria-label="Demo"
+        [sbNavigateNewWindow]="demoUrl"
+        [matTooltip]="_demoTooltip()">
+        <mat-icon >language</mat-icon>
+    </button>
+}
