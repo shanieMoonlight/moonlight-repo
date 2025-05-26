@@ -137,8 +137,8 @@ export class HubAppImages {
     };
 
     static MatThemingTutorial = class {
-      static readonly default = 'images/blog/mat-theming/mat-theming-tutorial.jpeg';
-      static readonly placeholder = 'images/blog/mat-theming/placeholder/portal-tutorial.jpeg';
+      static readonly default = 'dev-assets/mat-theme/mat-theme1.jpeg';
+      static readonly placeholder = 'dev-assets/mat-theme/placeholder/mat-theme26.jpeg';
       static readonly small = 'images/blog/mat-theming/small/mat-theming-tutorial.jpeg';
       static readonly medium = 'images/blog/mat-theming/medium/mat-theming-tutorial.jpeg';
       static readonly large = 'images/blog/mat-theming/large/mat-theming-tutorial.jpeg';
