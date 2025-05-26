@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DEMO_APPS } from '@sb-hub/core-config/demo-apps';
 import { HubAppImages } from '@sb-hub/core-config/images';
-import { HubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
+import { SbHubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -11,7 +11,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
     MatEverythingModule,
     HubUiFancyNavCardComponent,
     HubHeroBanner2Component,
-    HubSharedUiFooterComponent
+    SbHubSharedUiFooterComponent
   ],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.scss',

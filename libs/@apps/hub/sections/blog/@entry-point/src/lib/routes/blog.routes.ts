@@ -48,7 +48,7 @@ export const blogRoutes: Route[] = [
       // We want the base/entry route to be '' so that routing will happen relative to HubBlogSectionRoutesDefs.BASE not 'home'
       {
         path: '',
-        loadComponent: () => import('@sb-hub/sections-blog/features-home').then((m) => m.HubBlogHomeComponent),
+        loadComponent: () => import('@sb-hub/sections-blog/features-home').then((m) => m.SbHubBlogHomeComponent),
       },
       // This route redirects the 'home' route to ''.
       // We want the base/entry route to be '' so that routing will happen relative to HubBlogSectionRoutesDefs.BASE not 'home'

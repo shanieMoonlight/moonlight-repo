@@ -8,6 +8,7 @@ import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 import { SbHubDeferredGridComponent } from '@sb-hub/sections-blog/ui-deferred-grid';
+import { SbHubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 
 @Component({
   selector: 'sb-hub-blog-home',
@@ -17,14 +18,15 @@ import { SbHubDeferredGridComponent } from '@sb-hub/sections-blog/ui-deferred-gr
     MatEverythingModule,
     HubHeroBanner2Component,
     HubUiFancyNavCardComponent,
-    SbHubDeferredGridComponent
+    SbHubDeferredGridComponent,
+    SbHubSharedUiFooterComponent
   ],
   host: { ngSkipHydration: 'true' },
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HubBlogHomeComponent implements OnInit {
+export class SbHubBlogHomeComponent implements OnInit {
   private _seoService = inject(SeoService);
   private _router = inject(Router);
 

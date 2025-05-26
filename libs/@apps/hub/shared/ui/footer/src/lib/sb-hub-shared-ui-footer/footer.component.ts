@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HubSharedUiFooterComponent {
+export class SbHubSharedUiFooterComponent {
 
   
   protected _currentYear = new Date().getFullYear()
