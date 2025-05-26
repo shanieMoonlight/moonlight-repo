@@ -62,7 +62,9 @@ export class RouteDefsUtils {
         // Regex to find the CHILD_ROUTE type alias and capture its existing routes.
         // It looks for 'type CHILD_ROUTE = ' followed by the routes (group 1) and a semicolon.
         // The routes can be single quoted strings separated by '|'.
-        const childRouteTypeRegex = /type\s+CHILD_ROUTE\s*=\s*([^;]+);/;
+        // const childRouteTypeRegex = /type\s+CHILD_ROUTE\s*=\s*([^;]+);/;// 
+        const childRouteTypeRegex = /type\s+CHILD_ROUTE\s*=\s*([\s\S]*?)(?:;|(?=\s*(?:type\s+|export\s+|const\s+|class\s+|\/\/|$)))/;
+
         const match = childRouteTypeRegex.exec(routeDefsFileContent);
         let updatedFileContent: string;
 
@@ -82,7 +84,8 @@ export class RouteDefsUtils {
             if (existingRoutes === '') { // Should not happen if type is valid, but good to check
                 updatedRoutes = newRouteSegment;
             } else {
-                updatedRoutes = `${existingRoutes} | ${newRouteSegment}`;
+                updatedRoutes = `${existingRoutes} 
+  | ${newRouteSegment}`;
             }
 
             const updatedChildRouteType = `type CHILD_ROUTE = ${updatedRoutes};`;
