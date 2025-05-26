@@ -5,29 +5,40 @@
 
 <div class="component-container">
     
+  <ng-template let-feature #featureTemplate>  
+    <sb-hub-fancy-nav-card 
+        [icon]="feature.icon" 
+        [title]="feature.title" 
+        [description]="feature.description" 
+        [route]="feature.route" 
+        [color]="feature.color"
+        [img]="feature.imgPlaceholder ?? feature.img" />
+  </ng-template>
 
-  <section class="features-section">
-    <!-- <h2 class="section-title">Blog Posts</h2> -->
-    <!-- <p class="section-description">
-      Explore these examples to see how our solution can help with your
-      projects.
-    </p> -->
-
-    <div class="features-grid">
-      @for (feature of _features(); track feature.title) {
-        <sb-hub-fancy-nav-card 
-          [icon]="feature.icon" 
-          [title]="feature.title" 
-          [description]="feature.description" 
-          [route]="feature.route" 
-          [color]="feature.color"
-          [img]="feature.imgPlaceholder ?? feature.img" />
-      }
-    </div>
-  </section>
+  <sb-hub-deferred-loop
+    [data]="_features()"
+    [elementTemplate]="featureTemplate">
+  </sb-hub-deferred-loop>
 
 </div>
 <footer class="home-footer">
   <p>Spider-Baby</p>
   <p><small>Built with Angular</small></p>
 </footer>
+
+<!-- <div class="features-grid">
+  @for (feature of _features(); track $index) {
+    @defer (on viewport) {
+      <sb-hub-fancy-nav-card 
+        [icon]="feature.icon" 
+        [title]="feature.title" 
+        [description]="feature.description" 
+        [route]="feature.route" 
+        [color]="feature.color"
+        [img]="feature.imgPlaceholder ?? feature.img" />
+    }
+      @placeholder{
+      <p></p>
+    }
+  } 
+</div>-->

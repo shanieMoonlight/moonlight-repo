@@ -7,6 +7,7 @@ import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2'
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
+import { DeferredGridComponent } from './deferred-grid/deferred-grid.component';
 
 @Component({
   selector: 'sb-hub-blog-home',
@@ -15,8 +16,10 @@ import { SeoService } from '@spider-baby/utils-seo';
     RouterModule,
     MatEverythingModule,
     HubHeroBanner2Component,
-    HubUiFancyNavCardComponent
+    HubUiFancyNavCardComponent,
+    DeferredGridComponent
   ],
+  host: { ngSkipHydration: 'true' },
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
