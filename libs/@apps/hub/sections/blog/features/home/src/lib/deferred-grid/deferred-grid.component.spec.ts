@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DeferredGridComponent } from './deferred-grid.component';
+import { SbHubDeferredGridComponent } from './deferred-grid.component';
 
 describe('DeferredLoopComponent', () => {
-  let component: DeferredGridComponent;
-  let fixture: ComponentFixture<DeferredGridComponent>;
+  let component: SbHubDeferredGridComponent;
+  let fixture: ComponentFixture<SbHubDeferredGridComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeferredGridComponent],
+      imports: [SbHubDeferredGridComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DeferredGridComponent);
+    fixture = TestBed.createComponent(SbHubDeferredGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

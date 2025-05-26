@@ -1,9 +1,11 @@
 
 <div class="features-grid">
     
-    @for (element of _data(); track $index) {
+    @for (element of _data(); track $index; let i = $index) {
         @defer (on viewport) {
-        <div class="element-container" @fadeInUp>
+            <div 
+                class="element-container fade-in-up" 
+                [style.animation-delay.ms]="i * _staggerDelayMs()">
             <ng-container 
                 [ngTemplateOutlet]="_elementTemplate()"
                 [ngTemplateOutletContext]="{ $implicit: element}"/>
