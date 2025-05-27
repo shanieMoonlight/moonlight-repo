@@ -105,7 +105,7 @@ export class HubAppImages {
 
     static Home = class {
       static readonly default = 'dev-assets/images/blog/home/blog.jpeg';
-      static readonly placeholder = 'dev-assets/images/blog/home/placeholder/blog1.jpeg';
+      static readonly placeholder = 'dev-assets/images/blog/home/placeholder/blog8.jpeg';
       static readonly small = 'dev-assets/images/blog/home/small/blog.jpeg';
       static readonly medium = 'dev-assets/images/blog/home/medium/blog.jpeg';
       static readonly large = 'dev-assets/images/blog/home/large/blog.jpeg';
