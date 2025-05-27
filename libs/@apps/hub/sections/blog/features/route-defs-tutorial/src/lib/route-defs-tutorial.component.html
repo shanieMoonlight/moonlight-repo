@@ -1,0 +1,17 @@
+
+<!-- ################################### -->
+ 
+
+<ng-template #linksTemplate>
+  <sb-hub-pkg-links 
+    [demoWebsiteUrl]="_webDemoUrl"  />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" />
+
+
+<!-- ################################### -->
+
+
+<sb-post-route-defs-tutorial [showDemoLink]="true"/>
+<sb-hub-shared-ui-footer/>

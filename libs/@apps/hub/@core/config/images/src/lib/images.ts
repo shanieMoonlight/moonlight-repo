@@ -89,19 +89,30 @@ export class HubAppImages {
       static readonly xLarge = 'images/main/open-source/xlarge/open-source.jpeg';
     };
 
-    static Posts = class {
-      static readonly default = 'images/main/posts/posts.jpeg';
-      static readonly placeholder = 'images/main/posts/placeholder/posts.jpeg';
-      static readonly small = 'images/main/posts/small/posts.jpeg';
-      static readonly medium = 'images/main/posts/medium/posts.jpeg';
-      static readonly large = 'images/main/posts/large/posts.jpeg';
-      static readonly xLarge = 'images/main/posts/xlarge/posts.jpeg';
-    };
+    // static Posts = class {
+    //   static readonly default = 'images/main/posts/posts.jpeg';
+    //   static readonly placeholder = 'images/main/posts/placeholder/posts.jpeg';
+    //   static readonly small = 'images/main/posts/small/posts.jpeg';
+    //   static readonly medium = 'images/main/posts/medium/posts.jpeg';
+    //   static readonly large = 'images/main/posts/large/posts.jpeg';
+    //   static readonly xLarge = 'images/main/posts/xlarge/posts.jpeg';
+    // };
   }; // End of Main
 
   //==========================================//
 
   static Blog = class {
+
+    static Home = class {
+      static readonly default = 'dev-assets/images/blog/home/blog.jpeg';
+      static readonly placeholder = 'dev-assets/images/blog/home/placeholder/blog1.jpeg';
+      static readonly small = 'dev-assets/images/blog/home/small/blog.jpeg';
+      static readonly medium = 'dev-assets/images/blog/home/medium/blog.jpeg';
+      static readonly large = 'dev-assets/images/blog/home/large/blog.jpeg';
+      static readonly xLarge = 'dev-assets/images/blog/home/xlarge/blog.jpeg';
+    };
+
+
     static RouteDefsTutorial = class {
       static readonly default = 'images/blog/route-defs/route-defs-post.jpg';
       static readonly placeholder = 'images/blog/route-defs/placeholder/route-defs-post.jpg';
@@ -119,7 +130,7 @@ export class HubAppImages {
       static readonly large = 'images/blog/prog-img/large/prog-img-tutorial-2.jpeg';
       static readonly xLarge = 'images/blog/prog-img/xlarge/prog-img-tutorial-2.jpeg';
     };
-     static PortalTutorial = class {
+    static PortalTutorial = class {
       static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
       static readonly placeholder = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
       static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
@@ -137,12 +148,12 @@ export class HubAppImages {
     };
 
     static MatThemingTutorial = class {
-      static readonly default = 'dev-assets/mat-theme/mat-theme1.jpeg';
-      static readonly placeholder = 'dev-assets/mat-theme/placeholder/mat-theme26.jpeg';
-      static readonly small = 'images/blog/mat-theming/small/mat-theming-tutorial.jpeg';
-      static readonly medium = 'images/blog/mat-theming/medium/mat-theming-tutorial.jpeg';
-      static readonly large = 'images/blog/mat-theming/large/mat-theming-tutorial.jpeg';
-      static readonly xLarge = 'images/blog/mat-theming/xlarge/mat-theming-tutorial.jpeg';
+      static readonly default = 'dev-assets/images/blog/mat-theme/mat-theme1.jpeg';
+      static readonly placeholder = 'dev-assets/images/blog/mat-theme/placeholder/mat-theme26.jpeg';
+      static readonly small = 'dev-assets/images/blog/mat-theming/small/mat-theming-tutorial.jpeg';
+      static readonly medium = 'dev-assets/images/blog/mat-theming/medium/mat-theming-tutorial.jpeg';
+      static readonly large = 'dev-assets/images/blog/mat-theming/large/mat-theming-tutorial.jpeg';
+      static readonly xLarge = 'dev-assets/images/blog/mat-theming/xlarge/mat-theming-tutorial.jpeg';
     };
   }; // End of Blog
   //28 3 5 11 18

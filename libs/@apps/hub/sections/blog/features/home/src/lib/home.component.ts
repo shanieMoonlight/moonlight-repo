@@ -43,6 +43,9 @@ export class SbHubBlogHomeComponent implements OnInit {
   protected _features = signal(HubBlogPrincipalRoutes);
   protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
 
+
+  protected _bannerImg = HubAppImages.Blog.Home.placeholder;
+
   //- - - - - - - - - - - - - - -//
 
   ngOnInit() {

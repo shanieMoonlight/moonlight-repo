@@ -20,7 +20,7 @@ export const MainPrincipalRoutes: ApiRouteData[] = [
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route(),
     icon: 'school',
     color: 'secondary',
-    img:HubAppImages.Main.Posts.default,
-    imgPlaceholder: HubAppImages.Main.Posts.placeholder
+    img:HubAppImages.Blog.Home.default,
+    imgPlaceholder: HubAppImages.Blog.Home.placeholder
   }
 ];

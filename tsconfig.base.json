@@ -66,6 +66,9 @@
       "@sb-hub/sections-blog/features-prog-img-tutorial": [
         "libs/@apps/hub/sections/blog/features/prog-img-tutorial/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-route-defs-tutorial": [
+        "libs/@apps/hub/sections/blog/features/route-defs-tutorial/src/index.ts"
+      ],
       "@sb-hub/sections-blog/route-defs": [
         "libs/@apps/hub/sections/blog/@route-defs/src/index.ts"
       ],

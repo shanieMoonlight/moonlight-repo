@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
@@ -48,6 +48,10 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
   //- - - - - - - - - - - - - - //
 
+  _showDemoLinkInput = input<boolean | undefined>(undefined, {alias: 'showDemoLink'});
+
+  //- - - - - - - - - - - - - - //
+
   protected _simpleAppRoutesWitRoutesTypeCode = SimpleAppRoutesWitRoutesTypeCode
   protected _subSetionRouteDefsCode = ProdAdminSubSetionRouteDefsCode
   protected _adminSubSetionRouteDefsCode = AdminSubSetionRouteDefsCode
@@ -58,9 +62,9 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   //- - - - - - - - - - - - - - //
 
   protected readonly _codeSamplesZip = RouteUtility.combine(
-      AppConstants.Downloads.Dir, 
-      AppConstants.Downloads.CodeSampleZipFile) 
-      
+    AppConstants.Downloads.Dir,
+    AppConstants.Downloads.CodeSampleZipFile)
+
   protected _showButton = signal(false)
   protected _showDemoLink = signal(false)
   protected _demoLink = 'https://spider-baby-route-defs.web.app/'
@@ -104,9 +108,14 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
 
     // Access static data
-    const staticData = this.route.snapshot.data;
-    devConsole.log('Static data:', staticData);
-    this._showDemoLink.set(staticData['showDemoLink']);
+    const showDemoLink = this._showDemoLinkInput();
+    if(showDemoLink != undefined) {
+      this._showDemoLink.set(showDemoLink)
+    }else{
+      const staticData = this.route.snapshot.data;
+      devConsole.log('Static data:', staticData);
+      this._showDemoLink.set(staticData['showDemoLink']);
+    }
 
   }
 

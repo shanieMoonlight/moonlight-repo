@@ -9,6 +9,11 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-route-defs-tutorial')
+        .then((m) => m.HubBlogRouteDefsTutorialComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('mat-theming'),
       loadComponent: () => import('@sb-hub/sections-blog/features-mat-theming')
         .then((m) => m.HubBlogMatThemingComponent),
@@ -38,11 +43,11 @@ export const blogRoutes: Route[] = [
       loadComponent: () => import('@sb-hub/sections-blog/features-hash')
         .then((m) => m.HubBlogHashComponent),
     },
-    {
-        path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
-        loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
-        data: { pageTitle: 'Route Definitions Tutorial', showDemoLink: true } // Example data
-      },
+    // {
+    //     path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
+    //     loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),
+    //     data: { pageTitle: 'Route Definitions Tutorial', showDemoLink: true } // Example data
+    //   },
 
       // This route is the default route for the product-admin area 
       // We want the base/entry route to be '' so that routing will happen relative to HubBlogSectionRoutesDefs.BASE not 'home'
