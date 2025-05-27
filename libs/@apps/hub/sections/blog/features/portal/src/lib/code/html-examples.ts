@@ -63,7 +63,7 @@ export const ConditionalPortalExample0 = `<!-- Conditional Portal Rendering -->
 <!-- Portal outlet (always present) -->
 <sb-portal-outlet name="message-content"/>`;
 
-export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
+export const ConditionalPortalHtmlExample = `<!-- Conditional Portal Rendering -->
   <div class="demo-container">
        <div class="demo-source">
       <h4>Portal Input (Source)</h4>
@@ -99,7 +99,8 @@ export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
       <ng-template #demoPortalTemplate1>
         <div class="demo-content primary">
           <h3>🚀 Primary Portal Content</h3>
-          <p>This is the primary content portal - it demonstrates basic portal functionality with a clean, modern design.</p>
+          <p>This is the primary content portal - 
+            it demonstrates basic portal functionality with a clean, modern design.</p>
           <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
         </div>
       </ng-template>
@@ -107,7 +108,8 @@ export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
       <ng-template #demoPortalTemplate2>
         <div class="demo-content secondary">
           <h3>⭐ Secondary Portal Content</h3>
-          <p>This is the secondary content portal - showcasing alternative styling and content to demonstrate portal flexibility.</p>
+          <p>This is the secondary content portal - 
+            showcasing alternative styling and content to demonstrate portal flexibility.</p>
           <h3 class="dynamic"> Dynamic Text: {{_dynamicText}}</h3>
         </div>
       </ng-template>
@@ -130,6 +132,22 @@ export const ConditionalPortalExample = `<!-- Conditional Portal Rendering -->
     </div>
 
   </div>`;
+
+export const ConditionalPortalTsExample = `export class SbHubBlogPortalConditionalDemoComponent {
+
+  protected _demoTemplate1 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate1')
+  protected _demoTemplate2 = viewChild.required<TemplateRef<unknown>>('demoPortalTemplate2')
+
+
+  protected _selectedPortal?: TemplateRef<unknown>
+
+  protected _dynamicText = "Hello"
+  protected _toggleDynamicText = () => 
+    this._dynamicText = this._dynamicText === "Hello" ? "GoodBye" : "Hello"
+
+}`;
+
+
 
 export const DynamicContentExample = `<!-- Dynamic Content with Signals -->
 <!-- Define template -->

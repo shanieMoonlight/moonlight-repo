@@ -37,15 +37,15 @@
   <section class="intro-section">
     <h2>🕷️ What You'll Learn</h2>
     <p>
-      In this comprehensive tutorial, you'll learn how to build a complete Portal system using Angular CDK.
-      Portals allow you to dynamically render content anywhere in your application - perfect for modals,
+      In this tutorial, we'll describe how to build a complete Portal system using Angular CDK.
+      Portals allow you to dynamically render content anywhere in your application - perfect for 
       tooltips, sidebars, and complex layout management.
       <br>
       <br>
-      The Git and NPM links in the navbar above 👆 are dynamically rendered using the Portal system
+      The Git and NPM links in the navbar above 👆 are dynamically rendered using the Portal system.
     </p>
 
-    <div class="benefits-grid">
+    <!-- <div class="benefits-grid">
       <div class="benefit-card">
         <h3>🎯 Dynamic Content Rendering</h3>
         <p>Learn to teleport Angular content anywhere in your DOM tree</p>
@@ -63,7 +63,7 @@
           [gitHubRepoUrl]="_gitHubRepoUrl" 
           [npmPackageUrl]="_npmPackageUrl" />
       </div>
-    </div>
+    </div> -->
   </section>
 
   <mat-divider />
@@ -81,11 +81,11 @@
       <!-- <h3>Create Portal Components</h3> -->
       <p>We'll build three main components from scratch using Angular CDK:</p>
       <ul>
-        <li><strong>Portal Input Component</strong> - Wraps content to make it teleportable</li>
+        <li><strong>Portal Input Component</strong> - This is where we pass the content that we want to 'teleport'</li>
         <li><strong>Portal Outlet Component</strong> - Displays portal content at target locations</li>
-        <li><strong>Portal Bridge Service</strong> - Manages portal registration and communication.
+        <li><strong>Portal Bridge Service</strong> - Manages portal registration and communication between Input and Output.
           <br>
-          It essentially receives a portal from the Portal Input Component and passes it on to the Portal Outlet Component for rendering
+          The Bridge Service essentially receives a portal from the Portal Input Component and passes it on to the Portal Outlet Component for rendering
         </li>
       </ul>
     </div>
@@ -106,7 +106,8 @@
 
     <div class="concept-explanation">
       <h3>How Template Portals Work</h3>
-      
+        We'll be using TemplatePortals from <code>&#64;angular/cdk/portal</code>.
+        <br>
         Template Portals are created from Angular TemplateRef objects. When you define an
         <code>&lt;ng-template&gt;</code>, you can get a reference to it and wrap it in a
         <br>
@@ -186,8 +187,13 @@ const portal = new TemplatePortal(templateRef, viewContainer);`"
 
     <div class="example-card">
       <h3>Conditional Portal Rendering</h3>
-      <p>Portals work seamlessly with Angular's structural directives:</p>
-      <pre><code [highlight]="_conditionalPortalExample" language="html"></code></pre>
+      <p>You can change the renedered content by either updating the current Input Template content,  or by completely swapping the current Input Template  for another one.
+        <br>
+        That's what's happening in the demo above.
+      </p>
+      <pre><code [highlight]="_conditionalPortalHtmlExample" language="html"></code></pre>
+      <br>
+      <pre><code [highlight]="_conditionalPortalTsExample" language="typescript"></code></pre>
     </div>
     
       <ng-template #dialogTemplate>

@@ -36,10 +36,10 @@ export class EntryPointRoutesUtils {
         if (!routesMatch) {
             console.error(`Could not find routes array in ${routeDefsPathRelative}`);
             return ''
-        }
-
-        // Calculate the start position of the array content
+        }        // Calculate the start position of the array content
         const arrayStartPos = routesMatch.index + routesMatch[0].indexOf('[') + 1;
+        console.log(`Array starts at position: ${arrayStartPos}`);
+        console.log(`Array content: "${routesMatch[1]}"`);
 
         // Find the first object literal in the routes array (not a spread)
         // const firstObjectRegex = /\s*{[^}]*path\s*:/s;
@@ -53,6 +53,7 @@ export class EntryPointRoutesUtils {
         }
 
         console.log(`Found first object: ${objectMatch[0]}`);
+        console.log(`Object match index: ${objectMatch.index}`);
 
 
         // Find the position of the first '{'
@@ -60,11 +61,10 @@ export class EntryPointRoutesUtils {
         if (openBracePosition === -1) {
             console.error(`Could not find opening brace in object match`);
             return '';
-        }
-
-        // Insert our element before the first object (after all spreads)
+        }        // Insert our element before the first object (after all spreads)
         // The absolute position is array start + relative position of the object
-        const insertPos = arrayStartPos + objectMatch.index + openBracePosition + 1;
+        const insertPos = arrayStartPos + objectMatch.index;
+        console.log(`Insert position: ${insertPos}`);
 
         // Extract the indentation from the existing object
         const indentationMatch = /\n(\s*)/.exec(objectMatch[0]);
@@ -72,7 +72,7 @@ export class EntryPointRoutesUtils {
 
         updatedContent =
             parentRouteDefsContent.substring(0, insertPos) +
-            `\n${indentation}${element}\n` +
+            `${indentation}${element}\n` +
             parentRouteDefsContent.substring(insertPos);
 
 

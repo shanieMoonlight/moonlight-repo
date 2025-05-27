@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 
 // Import tutorial code samples
 import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
-import { BasicUsageExample, ComplexComponentExample, ConditionalPortalExample, DynamicContentExample, MultiplePortalsExample } from './code/html-examples';
+import { BasicUsageExample, ComplexComponentExample, ConditionalPortalHtmlExample, ConditionalPortalTsExample, DynamicContentExample, MultiplePortalsExample } from './code/html-examples';
 import { PortalBridgeServiceCode } from './code/portal-bridge-service';
 import { PortalConstantsCode } from './code/portal-constants';
 import { PortalInputComponentCode } from './code/portal-input-component';
@@ -69,7 +69,8 @@ export class HubBlogPortalComponent implements OnInit {
   // HTML examples
   protected readonly _basicUsageExample = BasicUsageExample;
   protected readonly _multiplePortalsExample = MultiplePortalsExample;
-  protected readonly _conditionalPortalExample = ConditionalPortalExample;
+  protected readonly _conditionalPortalHtmlExample = ConditionalPortalHtmlExample;
+  protected readonly _conditionalPortalTsExample = ConditionalPortalTsExample;
   protected readonly _dynamicContentExample = DynamicContentExample;
   protected readonly _complexComponentExample = ComplexComponentExample;
 

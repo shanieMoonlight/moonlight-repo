@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HubBlogHomeComponent } from './home.component';
+import { SbHubBlogHomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {
   SeoService,
   StructuredDataService,
@@ -9,6 +10,7 @@ import {
   UrlUtilsService,
 } from '@spider-baby/utils-seo';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { provideHttpClient } from '@angular/common/http';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -53,13 +55,15 @@ const mockPerformanceService = {
 };
 
 describe('HubHubHomeComponent', () => {
-  let component: HubBlogHomeComponent;
-  let fixture: ComponentFixture<HubBlogHomeComponent>;
+  let component: SbHubBlogHomeComponent;
+  let fixture: ComponentFixture<SbHubBlogHomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HubBlogHomeComponent, RouterModule.forRoot([])],
+      imports: [SbHubBlogHomeComponent, RouterModule.forRoot([])],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },
@@ -69,7 +73,7 @@ describe('HubHubHomeComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HubBlogHomeComponent);
+    fixture = TestBed.createComponent(SbHubBlogHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
