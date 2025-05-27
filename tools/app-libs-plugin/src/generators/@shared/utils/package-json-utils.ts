@@ -42,7 +42,7 @@ export class PackageJsonUtils {
 
   //----------------------------//
 
-  static getPackageJsonNameProperty(tree: Tree, projectConfig: any): string {
+  static getPackageJsonNameProperty(tree: Tree, projectConfig: any): string|null {
     return PackageJsonUtils.getPackageJson(tree, projectConfig)?.name
   }
 
