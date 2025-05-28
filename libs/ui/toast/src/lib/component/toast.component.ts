@@ -50,7 +50,8 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  close = () => this.ref.close()
+  close = () => 
+    this._animationState.set('closing') //trigger animation
 
   //----------------------------//
 
@@ -62,7 +63,7 @@ export class SbToastComponent {
 
 
     if (isFadeOut && itFinished)
-      this.close()
+      this.ref.close();
 
   }
 
@@ -74,7 +75,7 @@ export class SbToastComponent {
     this._iconType.set(this.getIconName())
     this._bgColor.set(this.getBackgroundColor())
     this._txtColor.set(this.getTextColor())
-    this._txt.set(data.text ?? '')   
+    this._txt.set(data.text ?? '')
 
   }
 
@@ -106,7 +107,7 @@ export class SbToastComponent {
 
   getBackgroundColor(): string {
 
-    const config = this._toastConfig;    
+    const config = this._toastConfig;
     switch (this.data.type) {
       case 'success':
         return config.colorBgSuccess;

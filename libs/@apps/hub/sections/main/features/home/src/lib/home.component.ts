@@ -115,7 +115,7 @@ static count = 0;
       }
     );
 
-    this._toast.show(errorToastData, 60000);
+    this._toast.show(errorToastData, 2000);
   }
 
   showSuccessToast(){
@@ -141,7 +141,7 @@ static count = 0;
   }
 
     showWarnToast(){
-    const warnToastData = ToastData.Create(
+    const warnToastData = ToastData.TopLeft(
       'warn',
       'This is a WARNING toast message! ' + HubMainHomeComponent.count++,     
 

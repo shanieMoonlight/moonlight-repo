@@ -51,11 +51,14 @@ export class ToastService {
     const injector = this.getInjector(data, toastRef, this.parentInjector)
     const toastPortal = new ComponentPortal(SbToastComponent, null, injector)
 
-    overlayRef.attach(toastPortal)
+    const componentRef = overlayRef.attach(toastPortal)
 
 
-    if (!!durationMillis && durationMillis > 0)
-      timer(durationMillis).subscribe(() => toastRef.close())
+    if (!!durationMillis && durationMillis > 0) {
+      timer(durationMillis).subscribe(() => 
+        componentRef.instance.close()
+    )
+    }
 
     return toastRef
   }
@@ -134,7 +137,7 @@ export class ToastService {
     const verticalPos = data.positionVertical;
     const horizontalPos = data.positionHorizontal;
 
-    
+
 
     // Handle vertical positioning for non-center cases
     if (verticalPos === 'center')
