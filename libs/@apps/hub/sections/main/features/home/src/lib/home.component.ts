@@ -73,14 +73,14 @@ export class HubMainHomeComponent implements OnInit {
     });
   }
 
-
+static count = 0;
 
 
   showToast() {
 
     const warnToastData = ToastData.Create(
       'warn',
-      'This is a WARNING toast message!',     
+      'This is a WARNING toast message! ' + HubMainHomeComponent.count++,     
 
     )
     
@@ -96,7 +96,7 @@ export class HubMainHomeComponent implements OnInit {
 
     const errorToastData = ToastData.Create(
       'info',
-      'This is an ERROR toast message!',
+      'This is an ERROR toast message! ' + HubMainHomeComponent.count++,
       {
         position: 'bottom',
       }
@@ -109,9 +109,9 @@ export class HubMainHomeComponent implements OnInit {
   showErrorToast(){
     const errorToastData = ToastData.Create(
       'error',
-      'This is an ERROR toast message!',
+      'This is an ERROR toast message! ' + HubMainHomeComponent.count++,
       {
-        position: 'top',
+        position: 'bottom',
       }
     );
 
@@ -121,7 +121,7 @@ export class HubMainHomeComponent implements OnInit {
   showSuccessToast(){
        const successToastData = ToastData.Create(
       'success',
-      'This is a SUCCESS toast message!',
+      'This is a SUCCESS toast message! ' + HubMainHomeComponent.count++,
       {
         position: 'center',
       }
@@ -143,7 +143,7 @@ export class HubMainHomeComponent implements OnInit {
     showWarnToast(){
     const warnToastData = ToastData.Create(
       'warn',
-      'This is a WARNING toast message!',     
+      'This is a WARNING toast message! ' + HubMainHomeComponent.count++,     
 
     )
 

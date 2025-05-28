@@ -75,8 +75,6 @@ export class SbToastComponent {
     this._bgColor.set(this.getBackgroundColor())
     this._txtColor.set(this.getTextColor())
     this._txt.set(data.text ?? '')
-
-    console.log('this.getBackgroundColor()', this.getBackgroundColor());
     
 
   }
@@ -109,9 +107,7 @@ export class SbToastComponent {
 
   getBackgroundColor(): string {
 
-    const config = this._toastConfig;
-    console.log('config', config.colorBgWarn, config);
-    
+    const config = this._toastConfig;    
     switch (this.data.type) {
       case 'success':
         return config.colorBgSuccess;

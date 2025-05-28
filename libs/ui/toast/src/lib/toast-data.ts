@@ -34,6 +34,8 @@ export class ToastData {
   public readonly customClass?: string;
   public readonly position: 'top' | 'bottom' | 'center';
 
+  
+
   constructor(
     public type: ToastType,
     public text?: string,
@@ -49,29 +51,23 @@ export class ToastData {
 
   //----------------------------//
 
-  static Create(
-    type: ToastType,
-    text: string,
-    options: ToastOptions = {}
-  ): ToastData {
-    return new ToastData(type, text, options);
-  }
+  static Create = (type: ToastType, text: string, options: ToastOptions = {}): ToastData => 
+    new ToastData(type, text, options)
 
 
-  // Factory methods for common use cases
-  static Success = (text: string, options: ToastOptions = {}): ToastData => 
+  static Success = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('success', text, options)
 
 
-  static Error= (text: string, options: ToastOptions = {}): ToastData => 
+  static Error = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('error', text, options)
 
 
-  static Warning= (text: string, options: ToastOptions = {}): ToastData => 
+  static Warning = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('warn', text, options)
 
 
-  static Info= (text: string, options: ToastOptions = {}): ToastData => 
+  static Info = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('info', text, options)
 
 

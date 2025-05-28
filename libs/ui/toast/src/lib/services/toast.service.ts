@@ -18,19 +18,9 @@ export class ToastService {
   private destroyer = inject(DestroyRef)
   private toastConfig: ToastConfig = inject(TOAST_CONFIG_TOKEN)
 
-  private lastToast: ToastRef
+  // private lastToast: ToastRef
 
   private readonly activeToasts = new Set<ToastRef>()
-
-  //----------------------------//
-
-  constructor() {
-
-    const positionStrategy = this.getPositionStrategy('top')
-    const overlayRef = this.overlay.create({ positionStrategy })
-    this.lastToast = new ToastRef(overlayRef)
-
-  }
 
   //----------------------------//
 
@@ -48,7 +38,6 @@ export class ToastService {
     const overlayRef = this.overlay.create({ positionStrategy })
 
     const toastRef = new ToastRef(overlayRef, data)
-    this.lastToast = toastRef
 
     // Track active toasts
     this.activeToasts.add(toastRef);
@@ -129,8 +118,8 @@ export class ToastService {
 
       case 'center':
         return positionBuilder
-          // .centerHorizontally()
-          .centerVertically();
+          .centerHorizontally()
+          .bottom(this.getBottomCenterPosition())
 
       case 'top':
       default:
@@ -143,11 +132,17 @@ export class ToastService {
   //----------------------------//
 
   getTopPosition(): string {
-    const lastToastIsVisible = this.lastToast && this.lastToast.isVisible();
-    const position = lastToastIsVisible
-      ? this.lastToast.getPosition().bottom
-      : this.toastConfig.positionConfig.topPx;
-    return position + 'px';
+    // For top positioning, calculate from top down
+    // Stack toasts from top with proper spacing
+    const topToasts = Array.from(this.activeToasts).filter(
+      toast => toast.data?.position === 'top'
+    );
+    
+    const baseTopPx = this.toastConfig.positionConfig.topPx;
+    const toastHeight = 60; // Approximate height per toast
+    const spacing = 10; // Space between toasts
+    
+    return (baseTopPx + (topToasts.length * (toastHeight + spacing))) + 'px';
   }
 
   //----------------------------//
@@ -176,12 +171,14 @@ export class ToastService {
 
   //----------------------------//
 
-  // Legacy method for backward compatibility
-  getPosition(): string {
-    return this.getTopPosition();
+  //Stack center toasts on top of each other
+  getBottomCenterPosition(): string {    
+    const baseBottomPx = this.toastConfig.positionConfig.bottomPx;    
+    return baseBottomPx + 'px';
   }
 
   //----------------------------//
+
 
   getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
 
