@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
 import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
@@ -21,7 +21,7 @@ const TS_CODE = `
 
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';

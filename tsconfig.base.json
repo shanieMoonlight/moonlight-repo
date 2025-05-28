@@ -159,22 +159,22 @@
       "@spider-baby/generators-utils": [
         "libs/tools/generators/utils/src/index.ts"
       ],
-      "@spider-baby/mat-notifications": [
+      "@spider-baby/ui-mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
       ],
-      "@spider-baby/mat-notifications/error": [
+      "@spider-baby/ui-mat-notifications/error": [
         "libs/ui/notifications/mat-notifications/error/src/index.ts"
       ],
-      "@spider-baby/mat-notifications/loader": [
+      "@spider-baby/ui-mat-notifications/loader": [
         "libs/ui/notifications/mat-notifications/loader/src/index.ts"
       ],
-      "@spider-baby/mat-notifications/success": [
+      "@spider-baby/ui-mat-notifications/success": [
         "libs/ui/notifications/mat-notifications/success/src/index.ts"
       ],
-      "@spider-baby/mat-notifications/toast": [
+      "@spider-baby/ui-mat-notifications/toast": [
         "libs/ui/notifications/mat-notifications/toast/src/index.ts"
       ],
-      "@spider-baby/mat-notifications/utils": [
+      "@spider-baby/ui-mat-notifications/utils": [
         "libs/ui/notifications/mat-notifications/utils/src/index.ts"
       ],
       "@spider-baby/material-theming": [

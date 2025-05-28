@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, output, PLATFORM_ID, signal } from '@angular/core';
-import { MatEverythingModule } from '@spider-baby/mat-notifications/utils';
+import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
 
 @Component({
   selector: 'sb-success-modal-mat',

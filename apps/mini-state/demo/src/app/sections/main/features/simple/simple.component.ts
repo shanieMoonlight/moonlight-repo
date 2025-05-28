@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MainConstants } from '../../config/constants';

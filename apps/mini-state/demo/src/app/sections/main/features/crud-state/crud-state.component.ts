@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { Album } from '../../data/album';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
@@ -81,7 +81,7 @@ export const TS_CRUD_STATE_COMPONENT_CODE = `
 //This is provided in the component itself, not in the root module. 
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { Album } from '../../data/album';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';

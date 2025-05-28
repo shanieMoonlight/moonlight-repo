@@ -1,5 +1,5 @@
 {
-  "name": "@spider-baby/mat-notifications",
+  "name": "@spider-baby/ui-mat-notifications",
   "version": "1.0.0", 
   "description": "Material Design based popup notification components (loader, toast, success, error) for Angular.",
   "author": "shanieMoonlight", 

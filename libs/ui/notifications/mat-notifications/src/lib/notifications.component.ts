@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ErrorModalComponent } from '@spider-baby/mat-notifications/error';
-import { SbMatLoaderModalComponent } from '@spider-baby/mat-notifications/loader';
-import { SuccessModalComponent } from '@spider-baby/mat-notifications/success';
-import { SbMatToastModalComponent } from '@spider-baby/mat-notifications/toast';
+import { ErrorModalComponent } from '@spider-baby/ui-mat-notifications/error';
+import { SbMatLoaderModalComponent } from '@spider-baby/ui-mat-notifications/loader';
+import { SuccessModalComponent } from '@spider-baby/ui-mat-notifications/success';
+import { SbMatToastModalComponent } from '@spider-baby/ui-mat-notifications/toast';
 
 @Component({
   selector: 'sb-notifications-modal-mat',

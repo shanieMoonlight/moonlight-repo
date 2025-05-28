@@ -119,7 +119,7 @@ userCrudState.setEqualsFn((item1, item2) =>
 const COMPLETE_EXAMPLE = `import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniCrudState } from '@spider-baby/mini-state';
 import { User } from '../../data/user';

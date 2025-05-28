@@ -23,7 +23,7 @@ import { PortalInputComponentCode } from './code/portal-input-component';
 import { PortalOutletComponentCode } from './code/portal-outlet-component';
 import { BlogConstants } from './config/constants';
 import { SbHubBlogPortalConditionalDemoComponent } from './demo/conditional-demo.component';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 
 @Component({
   standalone: true,

@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 
 // Import tutorial code samples
 import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 
 // Import code examples
 import { 

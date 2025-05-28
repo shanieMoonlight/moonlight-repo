@@ -35,7 +35,7 @@ import { ImageLoadingCode } from './code/image-loading';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { UsageExampleCode } from './code/usage-example';
 import { BlogConstants } from './config/constants';
-import { SbMatNotificationsModalComponent } from '@spider-baby/mat-notifications';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 
 @Component({
   standalone: true,

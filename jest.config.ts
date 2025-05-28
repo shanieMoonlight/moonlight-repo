@@ -27,7 +27,7 @@ export default async (): Promise<Config> => ({
     // Add specific mappings matching tsconfig.base.json
   '^@angular/animations/browser$': '<rootDir>/node_modules/@angular/animations/fesm2022/browser.mjs',
   
-    '^@spider-baby/mat-notifications$': '<rootDir>/libs/ui/notifications/mat-notifications/src/index.ts',
+    '^@spider-baby/ui-mat-notifications$': '<rootDir>/libs/ui/notifications/mat-notifications/src/index.ts',
     '^@spider-baby/mini-state$': '<rootDir>/libs/packages/@spider-baby/mini-state/src/index.ts',
     '^@spider-baby/material-theming$': '<rootDir>/libs/packages/@spider-baby/theming/src/index.ts',
     '^@spider-baby/material-theming/config$': '<rootDir>/libs/packages/@spider-baby/theming/config/src/index.ts',
