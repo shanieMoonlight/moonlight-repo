@@ -1,31 +1,30 @@
 {
-  "name": "spider-baby-ui-mat-notifications",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui/notifications/mat-notifications/src",
-  "prefix": "sb",
+  "name": "spider-baby-ui-mat-toast",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/toast/src",
+  "prefix": "sb-tst",
   "projectType": "library",
   "release": {
     "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
       "currentVersionResolver": "git-tag",
-      "fallbackCurrentVersionResolver": "disk",
-      "preserveLocalDependencyProtocols": false,
-      "manifestRootsToUpdate": ["dist/{projectRoot}"]
+      "fallbackCurrentVersionResolver": "disk"
     }
   },
-  "tags": ["lib ui mat notifications"],
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/ui/notifications/mat-notifications/ng-package.json"
+        "project": "libs/ui/toast/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.lib.prod.json"
+          "tsConfig": "libs/ui/toast/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.lib.json"
+          "tsConfig": "libs/ui/toast/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -39,7 +38,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ui/notifications/mat-notifications/jest.config.ts"
+        "jestConfig": "libs/ui/toast/jest.config.ts"
       }
     },
     "lint": {

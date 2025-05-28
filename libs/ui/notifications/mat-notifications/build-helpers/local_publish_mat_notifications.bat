@@ -1,7 +1,7 @@
 @echo off
 REM Set your local npm directory
 set NPM_DIR=C:\Users\Shaneyboy\my-npm
-set PROJECT_NAME=sb-mat-notifications
+set PROJECT_NAME=spider-baby-ui-mat-notifications
 set PACKAGE_SCOPE=spider-baby
 set PACKAGE_NAME=mat-notifications
 set DIST_PATH=dist\libs\ui\notifications\mat-notifications
