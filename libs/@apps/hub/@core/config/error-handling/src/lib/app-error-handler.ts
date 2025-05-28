@@ -22,7 +22,9 @@ export class AppErrorHandler implements ErrorHandler {
   private _doc = inject(DOCUMENT)
   private _platformId = inject(PLATFORM_ID)
 
+
   //--------------------------//
+
 
   handleError(error: any): void {
 
@@ -49,24 +51,23 @@ export class AppErrorHandler implements ErrorHandler {
     if (statusCode !== NOT_FOUND && statusCode !== UNAUTHORIZED) {
       this.showToast(error.message)
 
-      const errorInfoObject = this._errorhelpers.CreateErrorInfoObject(error);
-
       if (isDevMode())
-        this.downloadTxtFile(errorInfoObject)
+        this.downloadErrorAsTxtFile(error)
     }
 
   }
 
+
   //--------------------------//
 
 
-  private downloadTxtFile(errorInfoObject: any) {
+  private downloadErrorAsTxtFile(error: any) {
 
+    const errorInfoObject = this._errorhelpers.CreateErrorInfoObject(error);
     const errorString = JSON.stringify(errorInfoObject)
       .replace(new RegExp('\\\\n', 'g'), '\r\n')
 
     this._blobHandler.downloadText(errorString, `Errors_${this.formatYearMonthDay()}.txt`)
-
   }
 
   //--------------------------//
@@ -90,11 +91,10 @@ export class AppErrorHandler implements ErrorHandler {
 
     const safeMsg = msg.length > 60 ? msg.substring(0, 57) + '...' : msg
 
-    const errorToastData = ToastData.Success(safeMsg)
+    const errorToastData = ToastData.Error(safeMsg)
       .positionTopRight()
       .withSlide()
-    this._toastService.show(errorToastData, 5000)
-
+    this._toastService.show(errorToastData, 6000)
   }
 
   //--------------------------//
