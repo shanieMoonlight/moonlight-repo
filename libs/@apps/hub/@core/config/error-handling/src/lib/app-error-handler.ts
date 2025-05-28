@@ -26,8 +26,10 @@ export class AppErrorHandler implements ErrorHandler {
 
   handleError(error: any): void {
 
+      console.log('error()', error);
+      console.log('isDevMode()', isDevMode());
     if (isPlatformServer(this._platformId)) {
-      console.log('SSR-Error?', error)
+      console.log('SSR-Error', error)
       console.trace()
       return
     }
@@ -48,6 +50,7 @@ export class AppErrorHandler implements ErrorHandler {
     const statusCode = String(error?.statusCode);
     if (statusCode !== NOT_FOUND && statusCode !== UNAUTHORIZED) {
       this.showToast(error?.message)
+      console.log('isDevMode()', isDevMode());
 
       if (isDevMode())
         this._errorDownloadService.bufferErrorForDownload(error)
