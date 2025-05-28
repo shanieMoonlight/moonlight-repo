@@ -10,7 +10,6 @@ import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appViewTransition } from './app.view-transitions';
-import { matToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,6 +48,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    ToastSetup.getProviders(matToastConfig)
+    // ToastSetup.getProviders(matToastConfig)
   ],
 };

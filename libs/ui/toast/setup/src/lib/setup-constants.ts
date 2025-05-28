@@ -5,6 +5,6 @@ export class ToastSetupConstants {
   static ColorBgSuccess = '#c4ecff';
   static ColorBgInfo = '#e2ffa8';
   static ColorBgDefault = '#fff';
-  static ColorText = '#000';
+  static ColorText = '#212121';
 
 } //Cls

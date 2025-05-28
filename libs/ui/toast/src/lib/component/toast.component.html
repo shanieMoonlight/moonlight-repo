@@ -1,34 +1,37 @@
 <div
   class="toast"
   [style.background-color]="_bgColor()"
-  [@fadeAnimation]="{
+  [@dynamicToastAnimation]="{
     value: _animationState(),
     params: {
-      fadeIn: _toastConfig.animationConfig.fadeInMs,
-      fadeOut: _toastConfig.animationConfig.fadeOutMs
+      enterMs: _toastConfig.animationConfig.enterMs,
+      leaveMs: _toastConfig.animationConfig.leaveMs
     }
   }"
-  (@fadeAnimation.done)="onFadeFinished($event)">
+  (@dynamicToastAnimation.done)="onAnimationFinished($event)">
   
-  <button id="button-icon" 
-    [style.color]="_txtColor()" 
-    (click)="close()"
-    aria-label="Toast icon">
-    <ng-container 
-      [ngTemplateOutlet]="iconTemplate" 
-      [ngTemplateOutletContext]="{ iconType: _iconType()}" /> 
-  </button>
+  @if (_showIcon()) {
+    <div id="icon" 
+      [style.color]="_txtColor()" 
+      aria-label="Toast icon">
+      <ng-container 
+        [ngTemplateOutlet]="iconTemplate" 
+        [ngTemplateOutletContext]="{ iconType: _iconType()}" /> 
+    </div>
+  }
 
   <div class="txt-container">
     <div class="toast-text" [style.color]="_txtColor()">{{ _txt() }}</div>
   </div>
 
-  <button id="button-close" 
-    [style.color]="_txtColor()" 
-    (click)="close()"
-    aria-label="Close toast">
-    <ng-container [ngTemplateOutlet]="closeButtonTemplate" /> 
+  @if (_dismissible()) {
+    <button id="button-close" 
+      [style.color]="_txtColor()" 
+      (click)="close()"
+      aria-label="Close toast">
+      <ng-container [ngTemplateOutlet]="closeButtonTemplate" /> 
   </button>
+}
 
 </div>
 

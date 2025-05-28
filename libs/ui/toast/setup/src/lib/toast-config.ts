@@ -281,8 +281,6 @@ export class ToastConfig {
     return this;
   }
 
-  //------------------------------//
-
 
 } //Cls
 
@@ -293,15 +291,15 @@ export class ToastConfig {
  */
 export class ToastAnimationConfig {
 
-  private constructor(public fadeOutMs = 500, public fadeInMs = 350) { }
+  private constructor(public leaveMs = 500, public enterMs = 350) { }
 
   /**
    * Create new instance of ToastConfig
-   * @param fadeOutMs How long in milliseconds should it take the toast to fade out - default 2500
-   * @param fadeInMs How long in milliseconds should it take the toast to fade in - default 350
+   * @param leaveMs How long in milliseconds should it take the toast to fade out - default 2500
+   * @param enterMs How long in milliseconds should it take the toast to fade in - default 350
    */
-  static Create(fadeOutMs = 500, fadeInMs = 350): ToastAnimationConfig {
-    return new ToastAnimationConfig(fadeOutMs, fadeInMs);
+  static Create(leaveMs = 500, enterMs = 350): ToastAnimationConfig {
+    return new ToastAnimationConfig(leaveMs, enterMs);
   }
 
 }//Cls 

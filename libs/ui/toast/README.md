@@ -87,6 +87,15 @@ export class ExampleComponent {
 | `showBottomCenter(message, type?, duration?)` | Show toast at bottom-center | `string, ToastType?, number?` | `ToastRef` |
 | `showCenter(message, type?, duration?)` | Show toast at true center (overlays) | `string, ToastType?, number?` | `ToastRef` |
 
+#### Animation Methods
+
+| Method | Description | Parameters | Returns |
+|--------|-------------|------------|---------|
+| `showWithFade(message, type?, duration?)` | Show toast with fade animation | `string, ToastType?, number?` | `ToastRef` |
+| `showWithSlide(message, type?, duration?)` | Show toast with slide animation | `string, ToastType?, number?` | `ToastRef` |
+| `showWithScale(message, type?, duration?)` | Show toast with scale animation | `string, ToastType?, number?` | `ToastRef` |
+| `showWithBounce(message, type?, duration?)` | Show toast with bounce animation | `string, ToastType?, number?` | `ToastRef` |
+
 ### Positioning System
 
 The toast library supports a flexible 3×3 positioning grid:
@@ -125,6 +134,62 @@ const centerToast = ToastData.Center('warn', 'Warning message');
 this.toast.show(centerToast);
 ```
 
+### Animation System
+
+The toast library supports multiple animation types that can be configured at runtime:
+
+**Available Animations:**
+- `fade` - Simple opacity fade in/out (default)
+- `slide` - Slide down from top / slide up to top  
+- `scale` - Scale from small to normal / scale down to small
+- `bounce` - Bounce down from top with elastic effect
+
+**Usage Examples:**
+```typescript
+// Using animation methods
+this.toast.showWithSlide('Sliding message', 'info');
+this.toast.showWithBounce('Bouncy success!', 'success');
+this.toast.showWithScale('Scaling warning', 'warn');
+
+// Using ToastData with animation type
+const animatedToast = new ToastData('error', 'Custom animated message', {
+  animationType: 'bounce',
+  positionVertical: 'top',
+  positionHorizontal: 'center'
+});
+this.toast.show(animatedToast);
+
+// Using factory methods with animations
+const bounceToast = ToastData.WithBounce('success', 'Bouncing!');
+const slideToast = ToastData.WithSlide('info', 'Sliding!');
+this.toast.show(bounceToast);
+
+// Combining positioning and animations
+const toast = new ToastData('warn', 'Bottom corner slide', {
+  positionVertical: 'bottom',
+  positionHorizontal: 'right',
+  animationType: 'slide'
+});
+this.toast.show(toast);
+```
+
+### ToastOptions Interface
+
+```typescript
+interface ToastOptions {
+  duration?: number;                      // Auto-dismiss time in milliseconds
+  dismissible?: boolean;                  // Whether user can dismiss manually (default: true)
+  actions?: ToastAction[];                // Action buttons
+  positionVertical?: 'top' | 'bottom' | 'center';    // Vertical positioning
+  positionHorizontal?: 'left' | 'right' | 'center';  // Horizontal positioning
+  position?: 'top' | 'bottom' | 'center';            // Legacy positioning (backward compatibility)
+  showIcon?: boolean;                     // Show type-based icon (default: true)
+  customIcon?: string;                    // Custom icon name/path
+  customClass?: string;                   // Additional CSS classes
+  animationType?: 'fade' | 'slide' | 'scale' | 'bounce';  // Animation type (default: 'fade')
+}
+```
+
 ### Toast Types
 
 - `success` - Green toast for successful operations
@@ -150,8 +215,8 @@ const customConfig = ToastConfig.create({
     leftPx: 20
   },
   animationConfig: {
-    fadeInMs: 300,
-    fadeOutMs: 200
+    enterMs: 300,
+    leaveMs: 200
   }
 });
 ```

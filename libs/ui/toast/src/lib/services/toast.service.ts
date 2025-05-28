@@ -18,8 +18,6 @@ export class ToastService {
   private destroyer = inject(DestroyRef)
   private toastConfig: ToastConfig = inject(TOAST_CONFIG_TOKEN)
 
-  // private lastToast: ToastRef
-
   private readonly activeToasts = new Set<ToastRef>()
 
   //----------------------------//
@@ -55,9 +53,8 @@ export class ToastService {
 
 
     if (!!durationMillis && durationMillis > 0) {
-      timer(durationMillis).subscribe(() => 
-        componentRef.instance.close()
-    )
+      timer(durationMillis).subscribe(() =>
+        componentRef.instance.close())
     }
 
     return toastRef
@@ -76,30 +73,6 @@ export class ToastService {
 
   info = (message: string, duration = 5000): ToastRef =>
     this.show(ToastData.Create('info', message), duration)
-
-  //----------------------------//
-
-  // Enhanced positioning methods
-  showTopLeft = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.TopLeft(type, message), duration)
-
-  showTopRight = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.TopRight(type, message), duration)
-
-  showTopCenter = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.TopCenter(type, message), duration)
-
-  showBottomLeft = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.BottomLeft(type, message), duration)
-
-  showBottomRight = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.BottomRight(type, message), duration)
-
-  showBottomCenter = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
-    this.show(ToastData.BottomCenter(type, message), duration)
-
-  showCenter = (message: string, type: ToastType = 'error', duration = 8000): ToastRef =>
-    this.show(ToastData.Center(type, message), duration)
 
   //----------------------------//
 

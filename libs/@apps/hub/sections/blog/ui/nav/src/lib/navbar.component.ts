@@ -82,7 +82,7 @@ export class HubBlogNavbarComponent {
   protected _logoSml = signal(HubAppImages.Logo.small);
 
   protected _gitRepoUrl = signal(HubAppConstants.GIT_REP_URL);
-  protected _npmPkgUrl = signal(HubAppConstants.NPM_PKG_URL);
+  protected _npmPkgUrl = signal(HubAppConstants.NPM_PACKAGES);
   protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems);
 
   protected _isBrowser = signal(isPlatformBrowser(this.platformId));

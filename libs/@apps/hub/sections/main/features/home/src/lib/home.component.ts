@@ -57,7 +57,7 @@ export class HubMainHomeComponent implements OnInit {
 
   protected _features = signal(MainPrincipalRoutes);
   protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
-  protected _npmUrl = signal(HubAppConstants.NPM_PKG_URL);
+  protected _npmUrl = signal(HubAppConstants.NPM_PACKAGES);
 
   protected _currentYear = new Date().getFullYear()
 
@@ -73,86 +73,72 @@ export class HubMainHomeComponent implements OnInit {
     });
   }
 
-static count = 0;
+  static count = 0;
 
 
   showToast() {
-
-    const warnToastData = ToastData.Create(
-      'warn',
-      'This is a WARNING toast message! ' + HubMainHomeComponent.count++,     
-
-    )
-    
-    const successToastData = ToastData.Create(
-      'success',
-      'This is a SUCCESS toast message!'
-    )
-
-    const infoToastData = ToastData.Create(
-      'info',
-      'This is an INFO toast message!'
-    )
-
     const errorToastData = ToastData.Create(
       'info',
       'This is an ERROR toast message! ' + HubMainHomeComponent.count++,
       {
-        position: 'bottom',
+        positionVertical: 'bottom',
       }
     )
 
+    this._toast.show(errorToastData, 600000);
+
+
+  }
+  showErrorToast() {
+    const errorToastData = ToastData.Success('This is a Error toast message! ' + HubMainHomeComponent.count++)
+      .positionBottomLeft()
+      .withSlide()
+
+
+    this._toast.show(errorToastData, 600000);
+  }
+
+
+
+
+  showSuccessToast() {
+    const successToastData = ToastData.Success('This is a SUCCESS toast message! ' + HubMainHomeComponent.count++)
+      .positionTopCenter()
+      .withScale()
+
+
+    this._toast.show(successToastData, 600000);
+  }
+
+  showinfoToast() {
+    const infoToastData = ToastData
+      .Info('This is an INFO toast message!' + HubMainHomeComponent.count++,
+        {
+          dismissible: false,
+          showIcon: false
+        }
+      )
+      .positionTopLeft()
+      .withBounce()
+
+    this._toast.show(infoToastData, 5000);
+  }
+
+
+
+  showWarnToast() {
+    const warnToastData = ToastData
+      .Warning('This is a WARNING toast message! ' + HubMainHomeComponent.count++)
+      .positionBottomCenter()
+      .withFade()
     this._toast.show(warnToastData, 600000);
-
-
-  }
-  showErrorToast(){
-    const errorToastData = ToastData.Create(
-      'error',
-      'This is an ERROR toast message! ' + HubMainHomeComponent.count++,
-      {
-        position: 'bottom',
-      }
-    );
-
-    this._toast.show(errorToastData, 2000);
   }
 
-  showSuccessToast(){
-       const successToastData = ToastData.Create(
-      'success',
-      'This is a SUCCESS toast message! ' + HubMainHomeComponent.count++,
-      {
-        position: 'center',
-      }
-    )
 
 
-    this._toast.show(successToastData, 60000);
+  clearAllToasts() {
+    this._toast.clearAll()
   }
-
-  showinfoToast(){
-    const infoToastData = ToastData.BottomCenter(
-      'info',
-      'This is an INFO toast message!'
-    )
-
-    this._toast.show(infoToastData, 60000);
-  }
-
-    showWarnToast(){
-    const warnToastData = ToastData.TopLeft(
-      'warn',
-      'This is a WARNING toast message! ' + HubMainHomeComponent.count++,     
-
-    )
-
-    this._toast.show(warnToastData, 60000);
-  }
-
-clearAllToasts(){
-   this._toast.clearAll()
-}
 
 
 

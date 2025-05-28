@@ -1,65 +1,44 @@
 
+import { ToastAnimationType } from './toast-animations';
+
 //##################################//
 
 export type ToastType = 'warn' | 'info' | 'success' | 'error';
 
 //##################################//
 
-export interface ToastAction {
-  label: string;
-  action: () => void;
-  color?: 'primary' | 'accent' | 'warn';
-}
-
-//##################################//
-
 export interface ToastOptions {
   duration?: number;
   dismissible?: boolean;
-  actions?: ToastAction[];
   positionVertical?: 'top' | 'bottom' | 'center';
   positionHorizontal?: 'left' | 'right' | 'center';
-  // Keep the old position for backward compatibility
-  position?: 'top' | 'bottom' | 'center';
   showIcon?: boolean;
-  customIcon?: string;
-  customClass?: string;
+  animationType?: ToastAnimationType;
 }
 
 //##################################//
 
 export class ToastData {
 
-  public readonly actions?: ToastAction[];
-  public readonly dismissible: boolean;
-  public readonly showIcon: boolean;
-  public readonly customIcon?: string;
-  public readonly customClass?: string;
-  public readonly positionVertical: 'top' | 'bottom' | 'center';
-  public readonly positionHorizontal: 'left' | 'right' | 'center';
-  // Keep the old position for backward compatibility
-  public readonly position: 'top' | 'bottom' | 'center';
+  public  dismissible: boolean=  true
+  public  showIcon: boolean =  true
+  public  positionVertical: 'top' | 'bottom' | 'center';
+  public  positionHorizontal: 'left' | 'right' | 'center';
+  public animationType: ToastAnimationType;
 
   constructor(
     public type: ToastType,
     public text?: string,
     options: ToastOptions = {}
   ) {
-    this.actions = options.actions;
     this.dismissible = options.dismissible ?? true;
     this.showIcon = options.showIcon ?? true;
-    this.customIcon = options.customIcon;
-    this.customClass = options.customClass;
+    this.animationType = options.animationType ?? 'fade';
     
     // Handle new positioning system
     this.positionVertical = options.positionVertical ?? 'top';
     this.positionHorizontal = options.positionHorizontal ?? 'right';
     
-    // Backward compatibility: map old position to new system
-    if (options.position && !options.positionVertical) {
-      this.positionVertical = options.position;
-    }
-    this.position = options.position ?? this.positionVertical;
   }
 
   //----------------------------//
@@ -83,27 +62,74 @@ export class ToastData {
   static Info = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('info', text, options)
 
-  // Enhanced factory methods with positioning
-  static TopLeft = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'left' })
+  
+  //- - - - - - - - - - - - - - - //
 
-  static TopRight = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'right' })
+  // Positioning instance methods
+  positionTopLeft(): ToastData {
+    this.positionVertical = 'top';
+    this.positionHorizontal = 'left';
+    return this;
+  }
 
-  static TopCenter = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'center' })
+  positionTopRight(): ToastData {
+    this.positionVertical = 'top';
+    this.positionHorizontal = 'right';
+    return this;
+  }
 
-  static BottomLeft = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'left' })
+  positionTopCenter(): ToastData {
+    this.positionVertical = 'top';
+    this.positionHorizontal = 'center';
+    return this;
+  }
 
-  static BottomRight = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'right' })
+  positionBottomLeft(): ToastData {
+    this.positionVertical = 'bottom';
+    this.positionHorizontal = 'left';
+    return this;
+  }
 
-  static BottomCenter = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'center' })
+  positionBottomRight(): ToastData {
+    this.positionVertical = 'bottom';
+    this.positionHorizontal = 'right';
+    return this;
+  }
 
-  static Center = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
-    new ToastData(type, text, { ...options, positionVertical: 'center', positionHorizontal: 'center' })
+  positionBottomCenter(): ToastData {
+    this.positionVertical = 'bottom';
+    this.positionHorizontal = 'center';
+    return this;
+  }
+
+  positionCenter(): ToastData {
+    this.positionVertical = 'center';
+    this.positionHorizontal = 'center';
+    return this;
+  }
+
+  //- - - - - - - - - - - - - - - //
+
+  // Animation-specific instance methods
+  withFade(): ToastData {
+    this.animationType = 'fade';
+    return this;
+  }
+
+  withSlide(): ToastData {
+    this.animationType = 'slide';
+    return this;
+  }
+
+  withScale(): ToastData {
+    this.animationType = 'scale';
+    return this;
+  }
+
+  withBounce(): ToastData {
+    this.animationType = 'bounce';
+    return this;
+  }
 
 
 } //Cls

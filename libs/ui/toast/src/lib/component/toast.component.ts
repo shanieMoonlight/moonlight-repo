@@ -3,7 +3,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TOAST_CONFIG_TOKEN, ToastConfig } from '@spider-baby/ui-toast/setup';
-import { ToastAnimationState, toastAnimations } from '../toast-animations';
+import { ToastAnimationState, dynamicToastAnimation } from '../toast-animations';
 import { ToastConstants } from '../toast-constants';
 import { ToastData } from '../toast-data';
 import { ToastRef } from '../toast-ref';
@@ -12,7 +12,9 @@ import { ToastRef } from '../toast-ref';
   selector: 'sb-tst',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss'],
-  animations: [toastAnimations.fadeToast],
+  animations: [
+    dynamicToastAnimation
+  ],
   standalone: true,
   imports: [
     OverlayModule,
@@ -22,7 +24,7 @@ import { ToastRef } from '../toast-ref';
 })
 export class SbToastComponent {
 
-  private readonly data = inject(ToastData)
+  protected readonly data = inject(ToastData)
   private readonly ref = inject(ToastRef)
 
   //----------------------------//
@@ -36,11 +38,14 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  _bgColor = signal(this._toastConfig.colorBgDefault)
-  _animationState = signal<ToastAnimationState>('default')
-  _iconType = signal('')
-  _txtColor = signal(this._toastConfig.colorText)
-  _txt = signal('')
+  protected _bgColor = signal(this._toastConfig.colorBgDefault)
+  protected _animationState = signal<ToastAnimationState>(this.data.animationType ?? 'fade')
+  protected _iconType = signal('')
+  protected _txtColor = signal(this._toastConfig.colorText)
+  protected _txt = signal('')
+  protected _currentAnimationType = signal(this.data.animationType)
+  protected _dismissible = signal(this.data.dismissible)
+  protected _showIcon = signal(this.data.showIcon)
 
   //----------------------------//
 
@@ -50,7 +55,7 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  close = () => 
+  close = () =>
     this._animationState.set('closing') //trigger animation
 
   //----------------------------//
@@ -58,13 +63,19 @@ export class SbToastComponent {
   onFadeFinished(event: AnimationEvent) {
 
     const { toState } = event;
-    const isFadeOut = (toState as ToastAnimationState) === 'closing';
+    const isleaveMs = (toState as ToastAnimationState) === 'closing';
     const itFinished = this._animationState() === 'closing';
 
+    console.log(`Animation finished: ${toState}, isleaveMs: ${isleaveMs}, itFinished: ${itFinished}`);
 
-    if (isFadeOut && itFinished)
+    if (isleaveMs && itFinished)
       this.ref.close();
 
+  }
+
+  // Renamed method to handle all animation types
+  onAnimationFinished(event: AnimationEvent) {
+    this.onFadeFinished(event);
   }
 
   //----------------------------//
@@ -76,7 +87,6 @@ export class SbToastComponent {
     this._bgColor.set(this.getBackgroundColor())
     this._txtColor.set(this.getTextColor())
     this._txt.set(data.text ?? '')
-
   }
 
   //----------------------------//
