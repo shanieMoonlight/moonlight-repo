@@ -5,7 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TOAST_CONFIG_TOKEN, ToastConfig } from '@spider-baby/ui-toast/setup';
 import { timer } from 'rxjs';
 import { SbToastComponent } from '../component/toast.component';
-import { ToastData, ToastType } from '../toast-data';
+import { ToastData, ToastOptions, ToastType } from '../toast-data';
 import { ToastRef } from '../toast-ref';
 
 @Injectable({
@@ -62,19 +62,22 @@ export class ToastService {
 
   //----------------------------//
 
-  success = (message: string, duration = 5000): ToastRef =>
-    this.show(ToastData.Create('success', message), duration)
 
-  error = (message: string, duration = 8000): ToastRef =>
-    this.show(ToastData.Create('error', message), duration)
+  success = (message: string, duration = 5000, options: ToastOptions = {}): ToastRef =>
+    this.show(ToastData.Success(message, options), duration)
 
-  warning = (message: string, duration = 6000): ToastRef =>
-    this.show(ToastData.Create('warn', message), duration)
+  error = (message: string, duration = 8000, options: ToastOptions = {}): ToastRef =>
+    this.show(ToastData.Error(message, options), duration)
 
-  info = (message: string, duration = 5000): ToastRef =>
-    this.show(ToastData.Create('info', message), duration)
+  warning = (message: string, duration = 6000, options: ToastOptions = {}): ToastRef =>
+    this.show(ToastData.Warning(message, options), duration)
 
+  info = (message: string, duration = 5000, options: ToastOptions = {}): ToastRef =>
+    this.show(ToastData.Info(message, options), duration)
+
+  
   //----------------------------//
+
 
   /**
    * Clear all active toasts
@@ -92,6 +95,7 @@ export class ToastService {
   getActiveCount = (): number =>
     this.activeToasts.size
 
+
   //----------------------------//
 
   /**
@@ -103,9 +107,11 @@ export class ToastService {
   showMsg = (msg: string, toastType: ToastType = 'error', durationMillis = 5000): ToastRef =>
     this.show(new ToastData(toastType, msg), durationMillis)
 
+
   //----------------------------//
 
-  getPositionStrategy(data: ToastData) {
+
+  private getPositionStrategy(data: ToastData) {
     const positionBuilder = this.overlay.position().global();
     const verticalPos = data.positionVertical;
     const horizontalPos = data.positionHorizontal;
@@ -135,21 +141,22 @@ export class ToastService {
 
   //----------------------------//
 
-  getTopPosition(): string {
-    return this.toastConfig.positionConfig.topPx + 'px';
-  }
-  getBottomPosition(): string {
-    return this.toastConfig.positionConfig.bottomPx + 'px';
-  }
 
-  getRightPosition(): string {
-    return this.toastConfig.positionConfig.rightPx + 'px';
-  }
-  getLeftPosition(): string {
-    return this.toastConfig.positionConfig.leftPx + 'px';
-  }
+  private getTopPosition = (): string =>
+    this.toastConfig.positionConfig.topPx + 'px'
+
+  private getBottomPosition = (): string =>
+    this.toastConfig.positionConfig.bottomPx + 'px'
+
+  private getRightPosition = (): string =>
+    this.toastConfig.positionConfig.rightPx + 'px'
+
+  private getLeftPosition = (): string =>
+    this.toastConfig.positionConfig.leftPx + 'px'
+
 
   //----------------------------//
+
 
   getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
 

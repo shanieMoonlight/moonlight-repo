@@ -18,7 +18,7 @@ export const MainPrincipalRoutes: ApiRouteData[] = [
     description:
       'Stay updated with our latest articles, tutorials, and insights on Angular development, best practices, and more.',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route(),
-    icon: 'school',
+    icon: 'history_edu',
     color: 'secondary',
     img:HubAppImages.Blog.Home.default,
     imgPlaceholder: HubAppImages.Blog.Home.placeholder

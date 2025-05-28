@@ -20,8 +20,8 @@ export interface ToastOptions {
 
 export class ToastData {
 
-  public  dismissible: boolean=  true
-  public  showIcon: boolean =  true
+  public  dismissible: boolean
+  public  showIcon: boolean
   public  positionVertical: 'top' | 'bottom' | 'center';
   public  positionHorizontal: 'left' | 'right' | 'center';
   public animationType: ToastAnimationType;
@@ -31,6 +31,7 @@ export class ToastData {
     public text?: string,
     options: ToastOptions = {}
   ) {
+    
     this.dismissible = options.dismissible ?? true;
     this.showIcon = options.showIcon ?? true;
     this.animationType = options.animationType ?? 'fade';

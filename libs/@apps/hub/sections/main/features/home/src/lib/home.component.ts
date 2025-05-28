@@ -8,13 +8,13 @@ import { Router, RouterModule } from '@angular/router';
 import { HubAppConstants } from '@sb-hub/core-config/constants';
 import { HubAppImages } from '@sb-hub/core-config/images';
 import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
-import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { SbHubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
-import { SeoService } from '@spider-baby/utils-seo';
 import { ToastData, ToastService } from '@spider-baby/ui-toast';
+import { matToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
+import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
-import { matToastConfig, ToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
 
 //##############################################//
 

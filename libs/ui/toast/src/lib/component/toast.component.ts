@@ -43,7 +43,6 @@ export class SbToastComponent {
   protected _iconType = signal('')
   protected _txtColor = signal(this._toastConfig.colorText)
   protected _txt = signal('')
-  protected _currentAnimationType = signal(this.data.animationType)
   protected _dismissible = signal(this.data.dismissible)
   protected _showIcon = signal(this.data.showIcon)
 
