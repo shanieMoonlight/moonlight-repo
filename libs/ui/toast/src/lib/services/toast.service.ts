@@ -63,19 +63,47 @@ export class ToastService {
   //----------------------------//
 
 
+  /**
+   * Shows a success toast notification
+   * @param message The message to display in the toast
+   * @param duration Duration in milliseconds to show the toast (default: 5000ms)
+   * @param options Additional configuration options
+   * @returns A reference to the created toast
+   */
   success = (message: string, duration = 5000, options: ToastOptions = {}): ToastRef =>
     this.show(ToastData.Success(message, options), duration)
 
+  /**
+   * Shows an error toast notification
+   * @param message The message to display in the toast
+   * @param duration Duration in milliseconds to show the toast (default: 8000ms)
+   * @param options Additional configuration options
+   * @returns A reference to the created toast
+   */
   error = (message: string, duration = 8000, options: ToastOptions = {}): ToastRef =>
     this.show(ToastData.Error(message, options), duration)
 
+  /**
+   * Shows a warning toast notification
+   * @param message The message to display in the toast
+   * @param duration Duration in milliseconds to show the toast (default: 6000ms)
+   * @param options Additional configuration options
+   * @returns A reference to the created toast
+   */
   warning = (message: string, duration = 6000, options: ToastOptions = {}): ToastRef =>
     this.show(ToastData.Warning(message, options), duration)
 
+  /**
+   * Shows an info toast notification
+   * @param message The message to display in the toast
+   * @param duration Duration in milliseconds to show the toast (default: 5000ms)
+   * @param options Additional configuration options
+   * @returns A reference to the created toast
+   */
   info = (message: string, duration = 5000, options: ToastOptions = {}): ToastRef =>
     this.show(ToastData.Info(message, options), duration)
 
-  
+
   //----------------------------//
 
 
@@ -91,6 +119,7 @@ export class ToastService {
 
   /**
    * Get count of active toasts
+   * @returns The number of currently active toast notifications
    */
   getActiveCount = (): number =>
     this.activeToasts.size
@@ -102,7 +131,8 @@ export class ToastService {
    * Show a toast pop-up
    * @param msg What to say
    * @param toastType Toast type. Affects the color. Default = 'error' (red)
-   * @returns ToastRef
+   * @param durationMillis Duration in milliseconds to show the toast (default: 5000ms)
+   * @returns A reference to the created toast
    */
   showMsg = (msg: string, toastType: ToastType = 'error', durationMillis = 5000): ToastRef =>
     this.show(new ToastData(toastType, msg), durationMillis)
