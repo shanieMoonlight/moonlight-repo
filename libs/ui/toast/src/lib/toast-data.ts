@@ -20,10 +20,10 @@ export interface ToastOptions {
 
 export class ToastData {
 
-  public  dismissible: boolean
-  public  showIcon: boolean
-  public  positionVertical: 'top' | 'bottom' | 'center';
-  public  positionHorizontal: 'left' | 'right' | 'center';
+  public dismissible: boolean
+  public showIcon: boolean
+  public positionVertical: 'top' | 'bottom' | 'center';
+  public positionHorizontal: 'left' | 'right' | 'center';
   public animationType: ToastAnimationType;
 
   constructor(
@@ -31,15 +31,15 @@ export class ToastData {
     public text?: string,
     options: ToastOptions = {}
   ) {
-    
+
     this.dismissible = options.dismissible ?? true;
     this.showIcon = options.showIcon ?? true;
     this.animationType = options.animationType ?? 'fade';
-    
+
     // Handle new positioning system
     this.positionVertical = options.positionVertical ?? 'top';
     this.positionHorizontal = options.positionHorizontal ?? 'right';
-    
+
   }
 
   //----------------------------//
@@ -51,7 +51,7 @@ export class ToastData {
    * @param options Additional configuration options
    * @returns A new ToastData instance
    */
-  static Create = (type: ToastType, text: string, options: ToastOptions = {}): ToastData => 
+  static Create = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
     new ToastData(type, text, options)
 
   /**
@@ -90,7 +90,7 @@ export class ToastData {
   static Info = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('info', text, options)
 
-  
+
   //- - - - - - - - - - - - - - - //
 
   // Positioning instance methods
@@ -202,6 +202,23 @@ export class ToastData {
     this.animationType = 'bounce';
     return this;
   }
+
+  withWobble(): ToastData {
+    this.animationType = 'wobble';
+    return this;
+  }
+
+  withRubber(): ToastData {
+    this.animationType = 'rubber';
+    return this;
+  }
+
+  withSpin(): ToastData {
+    this.animationType = 'spin';
+    return this;
+  }
+
+
 
 
 } //Cls

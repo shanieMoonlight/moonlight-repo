@@ -34,7 +34,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     HubUiFancyNavCardComponent // Add the new card component to imports
   ],
   providers: [
-    ToastSetup.getProviders(matToastConfig)
+    // ToastService
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -92,8 +92,8 @@ export class HubMainHomeComponent implements OnInit {
   }
   showErrorToast() {
     const errorToastData = ToastData.Error('This is a Error toast message! ' + HubMainHomeComponent.count++)
-      .positionBottomLeft()
-      .withSlide()
+      .positionBottomCenter()
+      .withWobble()
 
 
     this._toast.show(errorToastData, 600000);
@@ -105,10 +105,10 @@ export class HubMainHomeComponent implements OnInit {
   showSuccessToast() {
     const successToastData = ToastData.Success('This is a SUCCESS toast message! ' + HubMainHomeComponent.count++)
       .positionTopCenter()
-      .withScale()
+      .withRubber()
 
 
-    this._toast.show(successToastData, 600000);
+    this._toast.show(successToastData, 2000);
   }
 
   showinfoToast() {
@@ -119,8 +119,8 @@ export class HubMainHomeComponent implements OnInit {
           showIcon: true
         }
       )
-      .positionTopLeft()
-      .withBounce()
+      .positionCenter()
+      .withSpin()
 
     this._toast.show(infoToastData, 5000);
   }
@@ -130,7 +130,7 @@ export class HubMainHomeComponent implements OnInit {
   showWarnToast() {
     const warnToastData = ToastData
       .Warning('This is a WARNING toast message! ' + HubMainHomeComponent.count++)
-      .positionBottomCenter()
+      .positionBottomRight()
       .withFade()
     this._toast.show(warnToastData, 600000);
   }

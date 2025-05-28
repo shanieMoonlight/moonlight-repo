@@ -3,7 +3,7 @@ import { TOAST_CONFIG_TOKEN, ToastConfig } from "./toast-config";
 
 export class ToastSetup {
 
-    static getProviders(config: ToastConfig = ToastConfig.Create()): (Provider | EnvironmentProviders)[] {
+    static getProviders(config: ToastConfig): (Provider | EnvironmentProviders)[] {
 
         return [
             {

@@ -2,11 +2,19 @@ import { Route } from '@angular/router';
 import { HubMainAreaRoutesDefs } from '@sb-hub/sections-main/route-defs';
 import { routeBuilderChildren } from '@spider-baby/utils-routes/builder';
 import { HubMainComponent } from '../main.component';
+import { matToastConfig, ToastPositionConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
+import { ToastService } from '@spider-baby/ui-toast';
 
 export const MAIN_ROUTES: Route[] = [
   {
     path: '',
     component: HubMainComponent,
+    providers: [
+      
+    ToastSetup.getProviders(matToastConfig
+      .setPositionConfig(ToastPositionConfig.Create(undefined, undefined, 300, undefined))),
+      ToastService
+    ],
     children: [
       // {
       //   path: HubMainAreaRoutesDefs.route('home'),
