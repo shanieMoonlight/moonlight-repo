@@ -8,12 +8,8 @@
     [actionsTemplate]="heroActions"/>
 
   <section class="dynamic-features-section">
-    <!-- <div class="section-header">
-      <h2 class="section-title-modern">Discover Our Capabilities</h2>
-      <p class="section-intro-text">
-        Explore interactive examples and see how our innovative solutions can elevate your projects.
-      </p>
-    </div> -->
+    
+    <button (click)="showToast()" >Toast</button>
     
     <div class="features-grid">
       @for (feature of _features(); track feature.title) {

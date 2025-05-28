@@ -1,5 +1,5 @@
 export default {
-  displayName: 'spider-baby-ui-mat-toast',
+  displayName: 'spider-baby-ui-toast',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/libs/ui/toast',

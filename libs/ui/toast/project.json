@@ -1,5 +1,5 @@
 {
-  "name": "spider-baby-ui-mat-toast",
+  "name": "spider-baby-ui-toast",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/toast/src",
   "prefix": "sb-tst",

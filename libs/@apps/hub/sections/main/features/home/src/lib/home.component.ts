@@ -12,7 +12,9 @@ import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2'
 import { SbHubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
 import { SeoService } from '@spider-baby/utils-seo';
+import { ToastData, ToastService } from '@spider-baby/ui-toast';
 import { HighlightModule } from 'ngx-highlightjs';
+import { matToastConfig, ToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
 
 //##############################################//
 
@@ -31,6 +33,9 @@ import { HighlightModule } from 'ngx-highlightjs';
     SbHubSharedUiFooterComponent,
     HubUiFancyNavCardComponent // Add the new card component to imports
   ],
+  providers: [
+    ToastSetup.getProviders(matToastConfig)
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,14 +43,15 @@ import { HighlightModule } from 'ngx-highlightjs';
 export class HubMainHomeComponent implements OnInit {
   private _seoService = inject(SeoService);
   private _router = inject(Router);
+  private _toast = inject(ToastService);
 
   //- - - - - - - - - - - - - - -//
 
-// ...existing code...
+  // ...existing code...
   protected _title = 'Spider-Baby';
   protected _subtitle = 'A Journey Through Code, Content, and Open Source';
   protected _description = `Hi, I'm Spider-Baby. This space is dedicated to my passion for development and sharing knowledge. You'll find my blog articles, project showcases, and various open-source contributions. Feel free to look around and get inspired!`;
-// ...existing code...
+  // ...existing code...
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
 
@@ -66,4 +72,40 @@ export class HubMainHomeComponent implements OnInit {
       keywords: ['Angular', 'Signals', 'Angular library', 'Reactive State'],
     });
   }
+
+
+
+
+  showToast() {
+
+    const warnToastData = ToastData.Create(
+      'warn',
+      'This is a WARNING toast message!',     
+
+    )
+    
+    const successToastData = ToastData.Create(
+      'success',
+      'This is a SUCCESS toast message!'
+    )
+
+    const infoToastData = ToastData.Create(
+      'info',
+      'This is an INFO toast message!'
+    )
+
+    const errorToastData = ToastData.Create(
+      'info',
+      'This is an ERROR toast message!'
+    )
+
+    this._toast.show(successToastData, 30000);
+
+
+  }
+
+
+
+
+
 }

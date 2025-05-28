@@ -1,1 +1,3 @@
-export * from './lib/spider-baby-ui-mat-toast/spider-baby-ui-mat-toast.component';
+
+export * from './lib/toast-data';
+export * from './lib/services/toast.service';

@@ -159,24 +159,6 @@
       "@spider-baby/generators-utils": [
         "libs/tools/generators/utils/src/index.ts"
       ],
-      "@spider-baby/ui-mat-notifications": [
-        "libs/ui/notifications/mat-notifications/src/index.ts"
-      ],
-      "@spider-baby/ui-mat-notifications/error": [
-        "libs/ui/notifications/mat-notifications/error/src/index.ts"
-      ],
-      "@spider-baby/ui-mat-notifications/loader": [
-        "libs/ui/notifications/mat-notifications/loader/src/index.ts"
-      ],
-      "@spider-baby/ui-mat-notifications/success": [
-        "libs/ui/notifications/mat-notifications/success/src/index.ts"
-      ],
-      "@spider-baby/ui-mat-notifications/toast": [
-        "libs/ui/notifications/mat-notifications/toast/src/index.ts"
-      ],
-      "@spider-baby/ui-mat-notifications/utils": [
-        "libs/ui/notifications/mat-notifications/utils/src/index.ts"
-      ],
       "@spider-baby/material-theming": [
         "libs/packages/@spider-baby/theming/src/index.ts"
       ],
@@ -222,7 +204,26 @@
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
       "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
       "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
+      "@spider-baby/ui-mat-notifications": [
+        "libs/ui/notifications/mat-notifications/src/index.ts"
+      ],
+      "@spider-baby/ui-mat-notifications/error": [
+        "libs/ui/notifications/mat-notifications/error/src/index.ts"
+      ],
+      "@spider-baby/ui-mat-notifications/loader": [
+        "libs/ui/notifications/mat-notifications/loader/src/index.ts"
+      ],
+      "@spider-baby/ui-mat-notifications/success": [
+        "libs/ui/notifications/mat-notifications/success/src/index.ts"
+      ],
+      "@spider-baby/ui-mat-notifications/toast": [
+        "libs/ui/notifications/mat-notifications/toast/src/index.ts"
+      ],
+      "@spider-baby/ui-mat-notifications/utils": [
+        "libs/ui/notifications/mat-notifications/utils/src/index.ts"
+      ],
       "@spider-baby/ui-toast": ["libs/ui/toast/src/index.ts"],
+      "@spider-baby/ui-toast/setup": ["libs/ui/toast/setup/src/index.ts"],
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
       "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
