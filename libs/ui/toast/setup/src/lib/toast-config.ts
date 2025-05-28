@@ -316,7 +316,8 @@ export class ToastPositionConfig {
   private constructor(
     public topPx = 20, 
     public rightPx = 20, 
-    public bottomPx = 20
+    public bottomPx = 20,
+    public leftPx = 20
   ) { }
 
   /**
@@ -324,9 +325,10 @@ export class ToastPositionConfig {
    * @param topPx How many pixels from the top should the toast be  - default 20
    * @param rightPx How many pixels from the right should the toast be  - default 20
    * @param bottomPx How many pixels from the bottom should the toast be  - default 20
+   * @param leftPx How many pixels from the left should the toast be  - default 20
    */
-  static Create(topPx = 20, rightPx = 20, bottomPx = 20): ToastPositionConfig {
-    return new ToastPositionConfig(topPx, rightPx, bottomPx);
+  static Create(topPx = 20, rightPx = 20, bottomPx = 20, leftPx = 20): ToastPositionConfig {
+    return new ToastPositionConfig(topPx, rightPx, bottomPx, leftPx);
   }
 
 }//Cls

@@ -67,7 +67,7 @@ export class MainNavTitleService {
       // Clean the segment: remove query parameters.
       // Hyphen replacement and capitalization are handled by toTitleCase.
       const cleanedSegment = segmentForTitleProcessing?.split("?")[0];
-      console.log('Segment used for Title:', cleanedSegment);
+      // console.log('Segment used for Title:', cleanedSegment);
       
       const title = this.toTitleCase(cleanedSegment);
       // this.changeTitle(title);

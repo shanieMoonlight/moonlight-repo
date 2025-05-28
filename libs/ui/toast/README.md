@@ -8,6 +8,7 @@ A modern, accessible toast notification library for Angular applications.
 - ♿ **Accessible** - WCAG compliant with proper ARIA labels and keyboard navigation
 - 🎨 **Customizable** - Flexible theming and styling options
 - 📱 **Responsive** - Works great on all screen sizes
+- 📍 **Flexible Positioning** - 3x3 grid positioning system (top/center/bottom × left/center/right)
 - 🔄 **Queue Management** - Smart stacking and queue handling
 - ⚡ **Performance** - Optimized with OnPush change detection
 - 🧩 **Standalone** - Works with both standalone and NgModule approaches
@@ -74,6 +75,56 @@ export class ExampleComponent {
 | `clearAll()` | Clear all active toasts | - | `void` |
 | `getActiveCount()` | Get number of active toasts | - | `number` |
 
+#### Positioning Methods
+
+| Method | Description | Parameters | Returns |
+|--------|-------------|------------|---------|
+| `showTopLeft(message, type?, duration?)` | Show toast at top-left | `string, ToastType?, number?` | `ToastRef` |
+| `showTopRight(message, type?, duration?)` | Show toast at top-right | `string, ToastType?, number?` | `ToastRef` |
+| `showTopCenter(message, type?, duration?)` | Show toast at top-center | `string, ToastType?, number?` | `ToastRef` |
+| `showBottomLeft(message, type?, duration?)` | Show toast at bottom-left | `string, ToastType?, number?` | `ToastRef` |
+| `showBottomRight(message, type?, duration?)` | Show toast at bottom-right | `string, ToastType?, number?` | `ToastRef` |
+| `showBottomCenter(message, type?, duration?)` | Show toast at bottom-center | `string, ToastType?, number?` | `ToastRef` |
+| `showCenter(message, type?, duration?)` | Show toast at true center (overlays) | `string, ToastType?, number?` | `ToastRef` |
+
+### Positioning System
+
+The toast library supports a flexible 3×3 positioning grid:
+
+```
+┌─────────────┬─────────────┬─────────────┐
+│  top-left   │ top-center  │ top-right   │
+├─────────────┼─────────────┼─────────────┤
+│center-left  │   center    │center-right │
+├─────────────┼─────────────┼─────────────┤
+│bottom-left  │bottom-center│bottom-right │
+└─────────────┴─────────────┴─────────────┘
+```
+
+**Stacking Behavior:**
+- Toasts in the same position stack vertically with proper spacing
+- Center-center toasts overlay each other (use for critical messages)
+- Different positions don't interfere with each other
+
+**Usage Examples:**
+```typescript
+// Using positioning methods
+this.toast.showTopLeft('Top left success', 'success');
+this.toast.showCenter('Critical error!', 'error');
+
+// Using ToastData with positioning
+const toast = new ToastData('info', 'Custom message', {
+  positionVertical: 'bottom',
+  positionHorizontal: 'center',
+  duration: 5000
+});
+this.toast.show(toast);
+
+// Using factory methods
+const centerToast = ToastData.Center('warn', 'Warning message');
+this.toast.show(centerToast);
+```
+
 ### Toast Types
 
 - `success` - Green toast for successful operations
@@ -94,7 +145,9 @@ const customConfig = ToastConfig.create({
   colorText: '#ffffff',
   positionConfig: {
     topPx: 20,
-    rightPx: 20
+    rightPx: 20,
+    bottomPx: 20,
+    leftPx: 20
   },
   animationConfig: {
     fadeInMs: 300,

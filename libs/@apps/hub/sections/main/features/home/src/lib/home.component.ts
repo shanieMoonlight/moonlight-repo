@@ -132,7 +132,7 @@ static count = 0;
   }
 
   showinfoToast(){
-    const infoToastData = ToastData.Create(
+    const infoToastData = ToastData.BottomCenter(
       'info',
       'This is an INFO toast message!'
     )

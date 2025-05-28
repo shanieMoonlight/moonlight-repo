@@ -17,6 +17,9 @@ export interface ToastOptions {
   duration?: number;
   dismissible?: boolean;
   actions?: ToastAction[];
+  positionVertical?: 'top' | 'bottom' | 'center';
+  positionHorizontal?: 'left' | 'right' | 'center';
+  // Keep the old position for backward compatibility
   position?: 'top' | 'bottom' | 'center';
   showIcon?: boolean;
   customIcon?: string;
@@ -32,9 +35,10 @@ export class ToastData {
   public readonly showIcon: boolean;
   public readonly customIcon?: string;
   public readonly customClass?: string;
+  public readonly positionVertical: 'top' | 'bottom' | 'center';
+  public readonly positionHorizontal: 'left' | 'right' | 'center';
+  // Keep the old position for backward compatibility
   public readonly position: 'top' | 'bottom' | 'center';
-
-  
 
   constructor(
     public type: ToastType,
@@ -46,7 +50,16 @@ export class ToastData {
     this.showIcon = options.showIcon ?? true;
     this.customIcon = options.customIcon;
     this.customClass = options.customClass;
-    this.position = options.position ?? 'top';
+    
+    // Handle new positioning system
+    this.positionVertical = options.positionVertical ?? 'top';
+    this.positionHorizontal = options.positionHorizontal ?? 'right';
+    
+    // Backward compatibility: map old position to new system
+    if (options.position && !options.positionVertical) {
+      this.positionVertical = options.position;
+    }
+    this.position = options.position ?? this.positionVertical;
   }
 
   //----------------------------//
@@ -69,6 +82,28 @@ export class ToastData {
 
   static Info = (text: string, options: ToastOptions = {}): ToastData =>
     new ToastData('info', text, options)
+
+  // Enhanced factory methods with positioning
+  static TopLeft = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'left' })
+
+  static TopRight = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'right' })
+
+  static TopCenter = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'top', positionHorizontal: 'center' })
+
+  static BottomLeft = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'left' })
+
+  static BottomRight = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'right' })
+
+  static BottomCenter = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'bottom', positionHorizontal: 'center' })
+
+  static Center = (type: ToastType, text: string, options: ToastOptions = {}): ToastData =>
+    new ToastData(type, text, { ...options, positionVertical: 'center', positionHorizontal: 'center' })
 
 
 } //Cls

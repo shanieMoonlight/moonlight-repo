@@ -31,10 +31,9 @@ export class ToastService {
    */
   show(data: ToastData, durationMillis?: number): ToastRef {
 
-    console.log('ToastData', data);
 
-    // Use the position from ToastData options, fallback to default 'top'
-    const positionStrategy = this.getPositionStrategy(data.position)
+    // Use the new positioning system
+    const positionStrategy = this.getPositionStrategy(data)
     const overlayRef = this.overlay.create({ positionStrategy })
 
     const toastRef = new ToastRef(overlayRef, data)
@@ -77,6 +76,30 @@ export class ToastService {
 
   //----------------------------//
 
+  // Enhanced positioning methods
+  showTopLeft = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.TopLeft(type, message), duration)
+
+  showTopRight = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.TopRight(type, message), duration)
+
+  showTopCenter = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.TopCenter(type, message), duration)
+
+  showBottomLeft = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.BottomLeft(type, message), duration)
+
+  showBottomRight = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.BottomRight(type, message), duration)
+
+  showBottomCenter = (message: string, type: ToastType = 'info', duration = 5000): ToastRef =>
+    this.show(ToastData.BottomCenter(type, message), duration)
+
+  showCenter = (message: string, type: ToastType = 'error', duration = 8000): ToastRef =>
+    this.show(ToastData.Center(type, message), duration)
+
+  //----------------------------//
+
   /**
    * Clear all active toasts
    */
@@ -106,79 +129,51 @@ export class ToastService {
 
   //----------------------------//
 
-  getPositionStrategy(position?: 'top' | 'bottom' | 'center') {
+  getPositionStrategy(data: ToastData) {
     const positionBuilder = this.overlay.position().global();
-    const rightOffset = this.toastConfig.positionConfig.rightPx + 'px';
+    const verticalPos = data.positionVertical;
+    const horizontalPos = data.positionHorizontal;
 
-    switch (position) {
-      case 'bottom':
-        return positionBuilder
-          .bottom(this.getBottomPosition())
-          .right(rightOffset);
+    
 
-      case 'center':
-        return positionBuilder
-          .centerHorizontally()
-          .bottom(this.getBottomCenterPosition())
+    // Handle vertical positioning for non-center cases
+    if (verticalPos === 'center')
+      positionBuilder.centerVertically()
+    else if (verticalPos === 'top')
+      positionBuilder.top(this.getTopPosition())
+    else if (verticalPos === 'bottom')
+      positionBuilder.bottom(this.getBottomPosition());
 
-      case 'top':
-      default:
-        return positionBuilder
-          .top(this.getTopPosition())
-          .right(rightOffset);
-    }
+
+    // Handle horizontal positioning for non-center cases
+    if (horizontalPos === 'center')
+      positionBuilder.centerHorizontally();
+    else if (horizontalPos === 'left')
+      positionBuilder.left(this.getLeftPosition());
+    else if (horizontalPos === 'right')
+      positionBuilder.right(this.getRightPosition());
+
+
+    return positionBuilder;
   }
 
   //----------------------------//
 
   getTopPosition(): string {
-    // For top positioning, calculate from top down
-    // Stack toasts from top with proper spacing
-    const topToasts = Array.from(this.activeToasts).filter(
-      toast => toast.data?.position === 'top'
-    );
-    
-    const baseTopPx = this.toastConfig.positionConfig.topPx;
-    const toastHeight = 60; // Approximate height per toast
-    const spacing = 10; // Space between toasts
-    
-    return (baseTopPx + (topToasts.length * (toastHeight + spacing))) + 'px';
+    return this.toastConfig.positionConfig.topPx + 'px';
   }
-
-  //----------------------------//
-
-  getCenterPosition(): { x: string, y: string } {
-    // Center positioning uses overlay's built-in centering
-    // but we can provide offset calculations if needed
-    return { x: '0px', y: '0px' };
-  }
-
-  //----------------------------//
-
   getBottomPosition(): string {
-    // For bottom positioning, calculate from bottom up
-    // Stack toasts from bottom with proper spacing
-    const bottomToasts = Array.from(this.activeToasts).filter(
-      toast => toast.data?.position === 'bottom'
-    );
-    
-    const baseBottomPx = this.toastConfig.positionConfig.bottomPx;
-    const toastHeight = 60; // Approximate height per toast
-    const spacing = 10; // Space between toasts
-    
-    return (baseBottomPx + (bottomToasts.length * (toastHeight + spacing))) + 'px';
+    return this.toastConfig.positionConfig.bottomPx + 'px';
+  }
+
+  getRightPosition(): string {
+    return this.toastConfig.positionConfig.rightPx + 'px';
+  }
+  getLeftPosition(): string {
+    return this.toastConfig.positionConfig.leftPx + 'px';
   }
 
   //----------------------------//
-
-  //Stack center toasts on top of each other
-  getBottomCenterPosition(): string {    
-    const baseBottomPx = this.toastConfig.positionConfig.bottomPx;    
-    return baseBottomPx + 'px';
-  }
-
-  //----------------------------//
-
 
   getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
 

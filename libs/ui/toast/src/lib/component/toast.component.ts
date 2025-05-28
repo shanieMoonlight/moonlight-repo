@@ -74,8 +74,7 @@ export class SbToastComponent {
     this._iconType.set(this.getIconName())
     this._bgColor.set(this.getBackgroundColor())
     this._txtColor.set(this.getTextColor())
-    this._txt.set(data.text ?? '')
-    
+    this._txt.set(data.text ?? '')   
 
   }
 
