@@ -2,8 +2,7 @@ import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ErrorHandler, inject, Injectable, isDevMode, PLATFORM_ID, Provider } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
 import { ToastData, ToastService } from '@spider-baby/ui-toast';
-import { FileDownloadService } from '@spider-baby/utils-file-saver';
-import { ErrorHelpers } from './error-helpers';
+import { ErrorDownloadService } from './error-download.service';
 
 //############################//
 
@@ -16,11 +15,10 @@ const UNAUTHORIZED = '401'
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
 
-  private _toastService = inject(ToastService)
-  private _blobHandler = inject(FileDownloadService)
-  private _errorhelpers = inject(ErrorHelpers)
-  private _doc = inject(DOCUMENT)
-  private _platformId = inject(PLATFORM_ID)
+  private _toastService = inject(ToastService);
+  private _errorDownloadService = inject(ErrorDownloadService);
+  private _doc = inject(DOCUMENT);
+  private _platformId = inject(PLATFORM_ID);
 
 
   //--------------------------//
@@ -49,26 +47,14 @@ export class AppErrorHandler implements ErrorHandler {
     //Don't report unauthorized errors
     const statusCode = String(error?.statusCode);
     if (statusCode !== NOT_FOUND && statusCode !== UNAUTHORIZED) {
-      this.showToast(error.message)
+      this.showToast(error?.message)
 
       if (isDevMode())
-        this.downloadErrorAsTxtFile(error)
+        this._errorDownloadService.bufferErrorForDownload(error)
     }
 
   }
 
-
-  //--------------------------//
-
-
-  private downloadErrorAsTxtFile(error: any) {
-
-    const errorInfoObject = this._errorhelpers.CreateErrorInfoObject(error);
-    const errorString = JSON.stringify(errorInfoObject)
-      .replace(new RegExp('\\\\n', 'g'), '\r\n')
-
-    this._blobHandler.downloadText(errorString, `Errors_${this.formatYearMonthDay()}.txt`)
-  }
 
   //--------------------------//
 
@@ -95,24 +81,6 @@ export class AppErrorHandler implements ErrorHandler {
       .positionTopRight()
       .withSlide()
     this._toastService.show(errorToastData, 6000)
-  }
-
-  //--------------------------//
-
-  private formatYearMonthDay(date: Date = new Date(), separator = '-') {
-
-    const d = new Date(date)
-    let month = '' + (d.getMonth() + 1)
-    let day = '' + d.getDate()
-    const year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join(separator);
   }
 
 } //Cls
