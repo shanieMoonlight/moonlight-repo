@@ -9,7 +9,11 @@
 
   <section class="dynamic-features-section">
     
-    <button (click)="showToast()" >Toast</button>
+    <button (click)="showSuccessToast()" >Success</button>
+    <button (click)="showErrorToast()" >Error</button>
+    <button (click)="showinfoToast()" >Info</button>
+    <button (click)="showWarnToast()" >Warn</button>
+    <button (click)="clearAllToasts()" >Clear</button>
     
     <div class="features-grid">
       @for (feature of _features(); track feature.title) {

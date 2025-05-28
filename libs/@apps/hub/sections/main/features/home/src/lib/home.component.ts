@@ -96,15 +96,63 @@ export class HubMainHomeComponent implements OnInit {
 
     const errorToastData = ToastData.Create(
       'info',
-      'This is an ERROR toast message!'
+      'This is an ERROR toast message!',
+      {
+        position: 'bottom',
+      }
     )
 
-    this._toast.show(successToastData, 30000);
+    this._toast.show(warnToastData, 600000);
 
 
   }
+  showErrorToast(){
+    const errorToastData = ToastData.Create(
+      'error',
+      'This is an ERROR toast message!',
+      {
+        position: 'top',
+      }
+    );
+
+    this._toast.show(errorToastData, 60000);
+  }
+
+  showSuccessToast(){
+       const successToastData = ToastData.Create(
+      'success',
+      'This is a SUCCESS toast message!',
+      {
+        position: 'center',
+      }
+    )
 
 
+    this._toast.show(successToastData, 60000);
+  }
+
+  showinfoToast(){
+    const infoToastData = ToastData.Create(
+      'info',
+      'This is an INFO toast message!'
+    )
+
+    this._toast.show(infoToastData, 60000);
+  }
+
+    showWarnToast(){
+    const warnToastData = ToastData.Create(
+      'warn',
+      'This is a WARNING toast message!',     
+
+    )
+
+    this._toast.show(warnToastData, 60000);
+  }
+
+clearAllToasts(){
+   this._toast.clearAll()
+}
 
 
 

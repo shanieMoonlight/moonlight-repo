@@ -238,7 +238,7 @@ export class SbProgressiveImageLoaderDirective implements AfterContentInit, OnDe
 
     if (currentSmlToLrgFn) {
       const derivedUrl = currentSmlToLrgFn(url);
-      devConsole.log('derivedUrl img load: ', derivedUrl)
+      // devConsole.log('derivedUrl img load: ', derivedUrl)
       if (derivedUrl)
         return derivedUrl
     }

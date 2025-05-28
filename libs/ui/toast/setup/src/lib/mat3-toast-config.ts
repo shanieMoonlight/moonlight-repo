@@ -1,5 +1,4 @@
-import { EnvironmentProviders, Provider } from "@angular/core";
-import { TOAST_CONFIG_TOKEN, ToastConfig } from "./toast-config";
+import { ToastConfig } from "./toast-config";
 
 
 export const matToastConfig = ToastConfig.Create(

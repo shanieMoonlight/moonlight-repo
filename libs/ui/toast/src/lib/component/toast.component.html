@@ -10,9 +10,10 @@
   }"
   (@fadeAnimation.done)="onFadeFinished($event)">
   
-  <button id="button-close" 
+  <button id="button-icon" 
     [style.color]="_txtColor()" 
-    (click)="close()">
+    (click)="close()"
+    aria-label="Toast icon">
     <ng-container 
       [ngTemplateOutlet]="iconTemplate" 
       [ngTemplateOutletContext]="{ iconType: _iconType()}" /> 
@@ -24,7 +25,8 @@
 
   <button id="button-close" 
     [style.color]="_txtColor()" 
-    (click)="close()">
+    (click)="close()"
+    aria-label="Close toast">
     <ng-container [ngTemplateOutlet]="closeButtonTemplate" /> 
   </button>
 

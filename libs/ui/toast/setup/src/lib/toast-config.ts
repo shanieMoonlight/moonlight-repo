@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { ToastSetupConstants } from './setup-constants'
 
-//===================================================================//
+//##################################//
 
 export const TOAST_CONFIG_TOKEN = new InjectionToken<ToastConfig>(
   'toast-config',
@@ -9,7 +9,7 @@ export const TOAST_CONFIG_TOKEN = new InjectionToken<ToastConfig>(
     factory: () => ToastConfig.Create() //Fallback to defaults
   });
 
-//===================================================================//
+//##################################//
 
 export class ToastConfig {
   /** Background color for error toast - default: '#f44336'*/
@@ -31,7 +31,7 @@ export class ToastConfig {
 
   private _colorTxtWarn: string = ToastSetupConstants.ColorText;
   public get colorTxtWarn(): string {
-    return this._colorBgWarn = this._colorTxtWarn ?? ToastSetupConstants.ColorText
+    return this._colorTxtWarn = this._colorTxtWarn ?? ToastSetupConstants.ColorText
   }
 
   private _colorBgSuccess: string = ToastSetupConstants.ColorBgSuccess;
@@ -286,7 +286,7 @@ export class ToastConfig {
 
 } //Cls
 
-//===================================================================//
+//##################################//
 
 /**
  * Configuration settings for the toast animations
@@ -306,24 +306,29 @@ export class ToastAnimationConfig {
 
 }//Cls 
 
-//===================================================================//
+//##################################//
 
 /**
  * Configuration settings for the toast postion
  */
 export class ToastPositionConfig {
 
-  private constructor(public topPx = 20, public rightPx = 20) { }
+  private constructor(
+    public topPx = 20, 
+    public rightPx = 20, 
+    public bottomPx = 20
+  ) { }
 
   /**
    * Create new instance of ToastPositionConfig
    * @param topPx How many pixels from the top should the toast be  - default 20
    * @param rightPx How many pixels from the right should the toast be  - default 20
+   * @param bottomPx How many pixels from the bottom should the toast be  - default 20
    */
-  static Create(topPx = 20, rightPx = 20): ToastPositionConfig {
-    return new ToastPositionConfig(topPx, rightPx);
+  static Create(topPx = 20, rightPx = 20, bottomPx = 20): ToastPositionConfig {
+    return new ToastPositionConfig(topPx, rightPx, bottomPx);
   }
 
 }//Cls
 
-//===================================================================//
+//##################################//

@@ -39,7 +39,7 @@ export class SbToastComponent {
   _bgColor = signal(this._toastConfig.colorBgDefault)
   _animationState = signal<ToastAnimationState>('default')
   _iconType = signal('')
-  _txtColor = signal(this._toastConfig.colorBgDefault)
+  _txtColor = signal(this._toastConfig.colorText)
   _txt = signal('')
 
   //----------------------------//
@@ -76,6 +76,9 @@ export class SbToastComponent {
     this._txtColor.set(this.getTextColor())
     this._txt.set(data.text ?? '')
 
+    console.log('this.getBackgroundColor()', this.getBackgroundColor());
+    
+
   }
 
   //----------------------------//
@@ -107,6 +110,8 @@ export class SbToastComponent {
   getBackgroundColor(): string {
 
     const config = this._toastConfig;
+    console.log('config', config.colorBgWarn, config);
+    
     switch (this.data.type) {
       case 'success':
         return config.colorBgSuccess;
