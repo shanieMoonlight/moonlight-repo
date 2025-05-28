@@ -85,7 +85,7 @@ export class HubMainHomeComponent implements OnInit {
       }
     )
 
-    this._toast.show(errorToastData, 600000);
+    this._toast.show(errorToastData, 6000);
 
 
   }

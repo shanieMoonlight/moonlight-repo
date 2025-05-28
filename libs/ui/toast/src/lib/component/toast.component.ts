@@ -60,27 +60,23 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  onFadeFinished(event: AnimationEvent) {
+  /**
+   * Handles animation completion events for all animation types
+   */
+  protected onAnimationFinished(event: AnimationEvent) {
 
     const { toState } = event;
-    const isleaveMs = (toState as ToastAnimationState) === 'closing';
-    const itFinished = this._animationState() === 'closing';
+    const isClosing = (toState as ToastAnimationState) === 'closing';
+    const animationStateIsClosing = this._animationState() === 'closing';
 
-    console.log(`Animation finished: ${toState}, isleaveMs: ${isleaveMs}, itFinished: ${itFinished}`);
-
-    if (isleaveMs && itFinished)
+    if (isClosing && animationStateIsClosing) {
       this.ref.close();
-
-  }
-
-  // Renamed method to handle all animation types
-  onAnimationFinished(event: AnimationEvent) {
-    this.onFadeFinished(event);
+    }
   }
 
   //----------------------------//
 
-  setUp() {
+  private setUp() {
     const data = this.data;
 
     this._iconType.set(this.getIconName())
@@ -92,7 +88,7 @@ export class SbToastComponent {
   //----------------------------//
 
 
-  getIconName(): string {
+  private getIconName(): string {
 
     switch (this.data.type) {
       case 'success':
@@ -115,7 +111,7 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  getBackgroundColor(): string {
+  private getBackgroundColor(): string {
 
     const config = this._toastConfig;
     switch (this.data.type) {
@@ -139,7 +135,7 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  getTextColor(): string {
+  private getTextColor(): string {
 
     const config = this._toastConfig;
     switch (this.data.type) {
