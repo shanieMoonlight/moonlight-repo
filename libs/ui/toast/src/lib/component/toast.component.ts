@@ -68,7 +68,7 @@ export class SbToastComponent {
   //----------------------------//
 
   private getBackgroundColor(data: ToastData, config: ToastConfig): string {
-
+    
     switch (data.type) {
       case 'success':
         return config.colorBgSuccess;
