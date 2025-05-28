@@ -1,4 +1,4 @@
-import { Overlay } from '@angular/cdk/overlay';
+import { GlobalPositionStrategy, Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DestroyRef, Injectable, Injector, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -43,6 +43,7 @@ export class ToastService {
     toastRef.afterClosed()
       .pipe(takeUntilDestroyed(this.destroyer))
       .subscribe(() => {
+        console.log('closing', toastRef)        
         this.activeToasts.delete(toastRef);
       });
 
@@ -141,14 +142,13 @@ export class ToastService {
   //----------------------------//
 
 
-  private getPositionStrategy(data: ToastData) {
+  private getPositionStrategy(data: ToastData): GlobalPositionStrategy {
     const positionBuilder = this.overlay.position().global();
     const verticalPos = data.positionVertical;
     const horizontalPos = data.positionHorizontal;
 
 
 
-    // Handle vertical positioning for non-center cases
     if (verticalPos === 'center')
       positionBuilder.centerVertically()
     else if (verticalPos === 'top')
@@ -156,8 +156,6 @@ export class ToastService {
     else if (verticalPos === 'bottom')
       positionBuilder.bottom(this.getBottomPosition());
 
-
-    // Handle horizontal positioning for non-center cases
     if (horizontalPos === 'center')
       positionBuilder.centerHorizontally();
     else if (horizontalPos === 'left')
@@ -188,7 +186,7 @@ export class ToastService {
   //----------------------------//
 
 
-  getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
+  private getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
 
     return Injector.create({
       providers: [

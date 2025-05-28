@@ -4,9 +4,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TOAST_CONFIG_TOKEN, ToastConfig } from '@spider-baby/ui-toast/setup';
 import { ToastAnimationState, dynamicToastAnimation } from '../toast-animations';
-import { ToastConstants } from '../toast-constants';
 import { ToastData } from '../toast-data';
 import { ToastRef } from '../toast-ref';
+
 
 @Component({
   selector: 'sb-tst',
@@ -24,33 +24,25 @@ import { ToastRef } from '../toast-ref';
 })
 export class SbToastComponent {
 
-  protected readonly data = inject(ToastData)
-  private readonly ref = inject(ToastRef)
+  private readonly _data = inject(ToastData)
+  private readonly _ref = inject(ToastRef)
 
-  //----------------------------//
+  //- - - - - - - - - - - - - - //
 
   protected _toastConfig: ToastConfig = inject(TOAST_CONFIG_TOKEN)
-  protected _toastIconError = ToastConstants.IconNameError
-  protected _toastIconWarn = ToastConstants.IconNameWarn
-  protected _toastIconSuccess = ToastConstants.IconNameSuccess
-  protected _toastIconInfo = ToastConstants.IconNameInfo
-  protected _toastIconDefault = ToastConstants.IconNameDefault
 
-  //----------------------------//
+  //- - - - - - - - - - - - - - //
 
-  protected _bgColor = signal(this._toastConfig.colorBgDefault)
-  protected _animationState = signal<ToastAnimationState>(this.data.animationType ?? 'fade')
-  protected _iconType = signal('')
-  protected _txtColor = signal(this._toastConfig.colorText)
-  protected _txt = signal('')
-  protected _dismissible = signal(this.data.dismissible)
-  protected _showIcon = signal(this.data.showIcon)
+  protected _bgColor = signal(this.getBackgroundColor(this._data, this._toastConfig))
+  protected _txtColor = signal(this.getTextColor(this._data, this._toastConfig))
 
-  //----------------------------//
-
-  constructor() {
-    this.setUp()
-  }
+  protected _txt = signal(this._data.text ?? '')
+  
+  protected _toastType = signal(this._data.type)
+  protected _animationState = signal<ToastAnimationState>(this._data.animationType ?? 'fade')
+  
+  protected _dismissible = signal(this._data.dismissible)
+  protected _showIcon = signal(this._data.showIcon)
 
   //----------------------------//
 
@@ -69,51 +61,15 @@ export class SbToastComponent {
     const animationStateIsClosing = this._animationState() === 'closing';
 
     if (isClosing && animationStateIsClosing) {
-      this.ref.close();
+      this._ref.close();
     }
   }
 
   //----------------------------//
 
-  private setUp() {
-    const data = this.data;
+  private getBackgroundColor(data: ToastData, config: ToastConfig): string {
 
-    this._iconType.set(this.getIconName())
-    this._bgColor.set(this.getBackgroundColor())
-    this._txtColor.set(this.getTextColor())
-    this._txt.set(data.text ?? '')
-  }
-
-  //----------------------------//
-
-
-  private getIconName(): string {
-
-    switch (this.data.type) {
-      case 'success':
-        return ToastConstants.IconNameSuccess;
-
-      case 'info':
-        return ToastConstants.IconNameInfo;
-
-      case 'warn':
-        return ToastConstants.IconNameWarn;
-
-      case 'error':
-        return ToastConstants.IconNameError;
-
-      default:
-        return ToastConstants.IconNameDefault;
-    }
-
-  }
-
-  //----------------------------//
-
-  private getBackgroundColor(): string {
-
-    const config = this._toastConfig;
-    switch (this.data.type) {
+    switch (data.type) {
       case 'success':
         return config.colorBgSuccess;
 
@@ -134,10 +90,9 @@ export class SbToastComponent {
 
   //----------------------------//
 
-  private getTextColor(): string {
+  private getTextColor(data: ToastData, config: ToastConfig): string {
 
-    const config = this._toastConfig;
-    switch (this.data.type) {
+    switch (data.type) {
       case 'success':
         return config.colorTxtSuccess;
 

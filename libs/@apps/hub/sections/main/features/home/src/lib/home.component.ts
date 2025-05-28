@@ -91,7 +91,7 @@ export class HubMainHomeComponent implements OnInit {
 
   }
   showErrorToast() {
-    const errorToastData = ToastData.Success('This is a Error toast message! ' + HubMainHomeComponent.count++)
+    const errorToastData = ToastData.Error('This is a Error toast message! ' + HubMainHomeComponent.count++)
       .positionBottomLeft()
       .withSlide()
 
@@ -116,7 +116,7 @@ export class HubMainHomeComponent implements OnInit {
       .Info('This is an INFO toast message!' + HubMainHomeComponent.count++,
         {
           dismissible: false,
-          showIcon: false
+          showIcon: true
         }
       )
       .positionTopLeft()
