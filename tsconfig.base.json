@@ -30,6 +30,9 @@
       "@sb-hub/core-config/downloads": [
         "libs/@apps/hub/@core/config/downloads/src/index.ts"
       ],
+      "@sb-hub/core-config/error-handling": [
+        "libs/@apps/hub/@core/config/error-handling/src/index.ts"
+      ],
       "@sb-hub/core-config/images": [
         "libs/@apps/hub/@core/config/images/src/index.ts"
       ],

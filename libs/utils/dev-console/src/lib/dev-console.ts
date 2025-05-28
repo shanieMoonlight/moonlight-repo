@@ -70,6 +70,14 @@ export const devConsole = {
   },
 
   /**
+   * Log the stack trace
+   */
+  trace: (): void => {
+    if (isDevMode()) 
+      console.trace();
+  },
+
+  /**
    * Ends a timer in development mode only and logs the elapsed time.
    * @param label Timer label
    */

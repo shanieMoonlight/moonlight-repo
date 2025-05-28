@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/dev-console",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple utility for Angular that wraps console methods to log only during development mode (isDevMode).",
   "author": "shanieMoonlight",
   "repository": {

@@ -6,6 +6,7 @@ import { provideRouter, withInMemoryScrolling, withRouterConfig, withViewTransit
 import { provideServiceWorker } from '@angular/service-worker';
 import { appRoutes } from '@sb-hub/app/entry-point';
 import { SEO_CONFIG, THEME_CONFIG } from '@sb-hub/core-config';
+import { provideAppErrorHandler } from '@sb-hub/core-config/error-handling';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
@@ -48,6 +49,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    provideAppErrorHandler()
     // ToastSetup.getProviders(matToastConfig)
   ],
 };

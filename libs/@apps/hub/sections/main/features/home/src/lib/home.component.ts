@@ -85,6 +85,7 @@ export class HubMainHomeComponent implements OnInit {
       }
     )
 
+    throw new Error('This is a simulated error to show the toast! ' + HubMainHomeComponent.count++);
     this._toast.show(errorToastData, 6000);
 
 
