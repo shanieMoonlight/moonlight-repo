@@ -104,7 +104,7 @@ export class ErrorDownloadService {
      * @param error The error to download
      */
     private downloadErrorAsTxtFile(error: unknown): void {
-        const errorInfoObject = this._errorHelpers.CreateErrorInfoObject(error);
+        const errorInfoObject = this._errorHelpers.createErrorInfoObject(error);
         const errorString = JSON.stringify(errorInfoObject, null, 2)
             .replace(new RegExp('\\\\n', 'g'), '\r\n');
 
@@ -125,7 +125,7 @@ export class ErrorDownloadService {
     private downloadErrorBatchAsTxtFile(errors: unknown[]): void {
         // Create a combined error object
         const errorObjects = errors.map(error =>
-            this._errorHelpers.CreateErrorInfoObject(error)
+            this._errorHelpers.createErrorInfoObject(error)
         );
 
         const batchData: ErrorBatch = {
