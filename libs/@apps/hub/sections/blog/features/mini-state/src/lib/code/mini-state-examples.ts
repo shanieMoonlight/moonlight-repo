@@ -23,11 +23,21 @@ import { UserService } from './user.service';
   \`
 })
 export class UserListComponent {
+  // This is the simplest way to use MiniState.
+  // It will handle subscribing and unsubscribing to/from the supplied observabled automatically.
+  // While the observable is loading, it will set the loading signal/observable to true.
+  // When the observavle emits a value, it will:
+  //  🔸 Set the loading signal/observable to false.
+  //  🔸 Set the and returned data in the data signal/observable.
+  //  🔸 Set the errorMsg signal/observable if an error occured otherwise it will be undefined.
+  //  🔸 If a SuccessMsgFn was supplied . It will set the successMsg signal/observable.
+
   private userService = inject(UserService);
   
-  private state = MiniStateBuilder.Create(
-    () => this.userService.getAll()
-  );
+  private state = MiniStateBuilder
+    .Create(() => this.userService.getAll())
+    // .setOnSuccessFn((input, output) => "Optional Success message.") <-- probably not needed in a get list situation as the data represents success
+    .trigger();
   
   // Expose signals to template
   protected users = this.state.data;
@@ -36,11 +46,11 @@ export class UserListComponent {
   
   constructor() {
     // Load data when component initializes
-    this.state.trigger();
+    //this.state.trigger(); <-- optional. (You can just trigger immedeately like above)
   }
   
   protected refresh() {
-    this.state.retrigger();
+    this.state.trigger();
   }
 }`;
 
@@ -77,6 +87,12 @@ import { UserService } from './user.service';
   \`
 })
 export class UserSearchComponent {
+  // Sometimes your supplied observable (http call) will need an input. (Like a search term or an id parameter). 
+  // For this situation you can use MiniStateBuilder.CreateWithInput.
+  // This will allow you to pass an input parameter to the observable function.
+  // Then when you have your input ready, you can call the trigger method to fetch the data.
+  // MiniState will handle the rest.
+
   private userService = inject(UserService);
   
   protected searchTerm = signal('');
@@ -128,6 +144,17 @@ import { UserService } from './user.service';
   \`
 })
 export class UserDetailComponent {
+  // Sometimes you want to MiniState react to an observable. For example a search term 
+  // from FormControl.valueChanges or an id paramater supplied by ActivatedRoute.
+  // MiniStateBuilder.CreateWithObservableInput handle this situation.
+  // Here we supply a 'trigger' observable that will be used to trigger the main (http) observable.
+  // Once the trigger observable emits a value (the search term changes or the id param is emitted from ActivatedRoute), 
+  // MiniState will call the main observable function with that value.
+  // In this scenario you won't have direct access to the input value so MiniState supplies a 
+  // 'retrigger' method that will re-trigger the main observable with the last input value.
+
+
+
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
   
@@ -146,6 +173,11 @@ export class UserDetailComponent {
   protected user = this.userState.data;
   protected loading = this.userState.loading;
   protected errorMsg = this.userState.errorMsg;
+
+
+   protected refresh() {
+    this.state.retrigger();
+  }
 }`;
 
 // MiniCrudState example
@@ -202,6 +234,16 @@ interface User {
   \`
 })
 export class UserCrudComponent {
+  // MiniCrudState is a specialized extension of MiniState designed for managing collections with CRUD operations.
+  // It automatically handles data synchronization - when you add, update, or delete items, the collection is updated automatically.
+  // You define separate observables for each CRUD operation (Create, Read, Update, Delete) and MiniCrudState coordinates them.
+  // Each operation can have its own success message function, and the state manages loading/error states across all operations.
+  // The equality function helps MiniCrudState identify which items in the collection to add, update or remove.
+  // It will default to using the 'id' property of the items, but you can customize it if needed.
+  // The data is automatically update when the CRUD operations are triggered successfully.
+  // All loaders, and messages are combined into a single state object, making it easy to manage the UI.
+
+
   private userService = inject(UserService);
   
   protected newUserName = signal('');
@@ -210,20 +252,18 @@ export class UserCrudComponent {
   // CRUD state with automatic data synchronization
   private crudState = MiniCrudState.Create(
     () => this.userService.getAll(),
-    (item1: User, item2: User) => item1.id === item2.id // equality function
+    (item1: User, item2: User) => item1.id === item2.id // equality function (Optional))
   )
   .setAddState(
     (user: User) => this.userService.create(user),
-    (user) => \`User \${user.name} created successfully!\`
-  )
+    (user) => \`User \${user.name} created successfully!\`)
   .setUpdateState(
     (user: User) => this.userService.update(user),
-    (user) => \`User \${user.name} updated successfully!\`
-  )
+    (user) => \`User \${user.name} updated successfully!\`)
   .setDeleteState(
     (user: User) => this.userService.delete(user.id),
-    (user) => \`User \${user.name} deleted successfully!\`
-  );
+    (user) => \`User \${user.name} deleted successfully!\`)
+  .trigger()//Trigger immediately.
   
   protected users = this.crudState.data;
   protected loading = this.crudState.loading;
@@ -232,7 +272,7 @@ export class UserCrudComponent {
   
   constructor() {
     // Load initial data
-    this.crudState.trigger();
+    // this.crudState.trigger(); Can just be triggered immediately like above
   }
   
   protected updateNewUserName(event: Event) {

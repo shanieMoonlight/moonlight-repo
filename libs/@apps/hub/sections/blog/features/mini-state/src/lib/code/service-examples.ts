@@ -84,10 +84,7 @@ export class UserService {
 
 export const InstallationExample = `# Install the MiniState package
 npm install @spider-baby/mini-state
-
-# For utilities (state combination)
-# This is included in the main package
-import { MiniStateCombined, MiniStateUtility } from '@spider-baby/mini-state/utils';`;
+`;
 
 export const ImportExample = `// Import the main classes
 import { 

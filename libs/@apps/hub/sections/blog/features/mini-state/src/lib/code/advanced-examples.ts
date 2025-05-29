@@ -44,6 +44,15 @@ import { UserService, ProjectService } from './services';
   \`
 })
 export class DashboardComponent {
+
+// MiniStateCombined allows you to unify multiple MiniState instances for coordinated UI feedback.
+// Instead of managing loading states, errors, and success messages from each state individually,
+// you can combine them into a single state object that aggregates all the feedback signals.
+// This is perfect for dashboards or complex views where multiple async operations need unified UI indicators.
+// The combined state will show loading as true if ANY of the individual states are loading,
+// display the most recent error or success message, and coordinate all feedback seamlessly.
+
+
   private userService = inject(UserService);
   private projectService = inject(ProjectService);
   

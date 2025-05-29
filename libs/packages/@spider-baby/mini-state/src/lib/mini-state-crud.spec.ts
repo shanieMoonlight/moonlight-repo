@@ -221,7 +221,7 @@ describe('MiniCrudState', () => {
 
         it('should emit success message from custom successMsgFn', () => {
             // Arrange
-            const successMessageFn = (item: TestItem, output: TestItem) => `Added ${item.name} successfully!`
+            const successMessageFn = (item: TestItem, output: TestItem | undefined) => `Added ${output?.name || item.name} successfully!`
         
             // Get the injector
             const injector = TestBed.inject(TestBed);

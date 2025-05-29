@@ -8,10 +8,10 @@ import { appRoutes } from '@sb-hub/app/entry-point';
 import { SEO_CONFIG, THEME_CONFIG } from '@sb-hub/core-config';
 import { provideAppErrorHandler } from '@sb-hub/core-config/error-handling';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { matToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appViewTransition } from './app.view-transitions';
-import { matToastConfig, ToastPositionConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -51,7 +51,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000'
     }),
     provideAppErrorHandler(),
-    // ToastSetup.getProviders(matToastConfig)
+    ToastSetup.getProviders(matToastConfig)
     //   .setPositionConfig(ToastPositionConfig.Create(undefined, undefined, undefined, undefined)))
   ],
 };
