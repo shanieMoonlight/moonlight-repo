@@ -44,13 +44,13 @@ export class SbPortalInputComponent implements AfterViewInit {
     transform: (value: string | undefined | null) => value ?? DEFAULT_NAME
   })
   // Create an observable to react to changes. 
-  // We can't start listing immedeately becase the viewContainerRef is not initialized yet
+  // We can't start listing immediately becase the viewContainerRef is not initialized yet
   private _name$ = toObservable(this._name)
 
   //Get the content to render
   _portalTemplate = input.required<TemplateRef<unknown>>({ alias: 'portalTemplate' });
   // Create an observable to react to changes. 
-  // We can't start listing immedeately becase the viewContainerRef is not initialized yet
+  // We can't start listing immediately becase the viewContainerRef is not initialized yet
   private _portalTemplate$ = toObservable(this._portalTemplate)
 
   //The portal instance that will be created and destroyed

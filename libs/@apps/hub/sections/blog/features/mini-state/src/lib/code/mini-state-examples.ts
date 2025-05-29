@@ -24,9 +24,9 @@ import { UserService } from './user.service';
 })
 export class UserListComponent {
   // This is the simplest way to use MiniState.
-  // It will handle subscribing and unsubscribing to/from the supplied observabled automatically.
+  // It will handle subscribing and unsubscribing to/from the supplied observable automatically.
   // While the observable is loading, it will set the loading signal/observable to true.
-  // When the observavle emits a value, it will:
+  // When the observable emits a value, it will:
   //  🔸 Set the loading signal/observable to false.
   //  🔸 Set the and returned data in the data signal/observable.
   //  🔸 Set the errorMsg signal/observable if an error occured otherwise it will be undefined.
@@ -46,7 +46,7 @@ export class UserListComponent {
   
   constructor() {
     // Load data when component initializes
-    //this.state.trigger(); <-- optional. (You can just trigger immedeately like above)
+    //this.state.trigger(); <-- optional. (You can just trigger immediately like above)
   }
   
   protected refresh() {

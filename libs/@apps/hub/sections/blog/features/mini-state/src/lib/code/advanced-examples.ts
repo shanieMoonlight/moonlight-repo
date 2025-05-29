@@ -23,17 +23,16 @@ import { UserService, ProjectService } from './services';
       <div class="success-banner">{{ combinedState.successMsg() }}</div>
     }
     
-    <!-- Dashboard content -->
+    <!-- Form content -->
     <div class="dashboard-content">
-      <div class="users-section">
-        <h3>Users ({{ users()?.length || 0 }})</h3>
-        <!-- Users content -->
-      </div>
+      <h2>User Detail</h2>
+      <button mat-raised-button color="primary" (click)="refresh()">
+        <mat-icon>refresh</mat-icon> Refresh Data
+      </button>
       
-      <div class="projects-section">
-        <h3>Projects ({{ projects()?.length || 0 }})</h3>
-        <!-- Projects content -->
-      </div>
+    <sb-user-form
+        [user]="_user()"
+        (edit)="edit($event)" />
       
       <div class="actions">
         <button (click)="refreshAll()">Refresh All</button>
@@ -53,61 +52,45 @@ export class DashboardComponent {
 // display the most recent error or success message, and coordinate all feedback seamlessly.
 
 
-  private userService = inject(UserService);
-  private projectService = inject(ProjectService);
-  
-  // Individual states for different operations
-  private usersState = MiniStateBuilder.Create(
-    () => this.userService.getAll()
-  );
-  
-  private projectsState = MiniStateBuilder.Create(
-    () => this.projectService.getAll()
-  );
-  
-  private updateUserState = MiniStateBuilder.CreateWithInput(
-    (user: User) => this.userService.update(user)
-  ).setSuccessMsgFn((user) => \`User \${user.name} updated!\`);
-  
-  private createProjectState = MiniStateBuilder.CreateWithInput(
-    (project: Project) => this.projectService.create(project)
-  ).setSuccessMsgFn((project) => \`Project \${project.name} created!\`);
-  
-  // Combine all states for unified UI feedback
-  protected combinedState = MiniStateCombined.Combine(
-    this.usersState,
-    this.projectsState,
-    this.updateUserState,
-    this.createProjectState
-  );
-  
-  // Individual data access
-  protected users = this.usersState.data;
-  protected projects = this.projectsState.data;
-  
-  constructor() {
-    this.refreshAll();
-  }
-  
-  protected refreshAll() {
-    this.usersState.trigger();
-    this.projectsState.trigger();
-  }
-  
-  protected updateUser() {
-    const user = this.users()?.[0];
-    if (user) {
-      this.updateUserState.trigger({ ...user, name: user.name + ' (Updated)' });
-    }
-  }
-  
-  protected createProject() {
-    this.createProjectState.trigger({
-      id: 0,
-      name: 'New Project ' + Date.now(),
-      description: 'Auto-generated project'
-    });
-  }
+  private _ioService = inject(UserService)
+  private _actRoute = inject(ActivatedRoute)
+  private _router = inject(Router)
+
+  //- - - - - - - - - - - - - //
+
+  private _id$ = this._actRoute.paramMap.pipe(
+    map((params: ParamMap) => params.get('id') ?? undefined),
+    filter((id: string | undefined): id is string => !!id)
+  )
+
+  //- - - - - - - - - - - - - //  
+
+  private _itemState = MiniStateBuilder.CreateWithObservableInput(
+    this._id$,
+    (id: string) => this._ioService.getById(id))
+
+  private _editState = MiniStateBuilder
+    .CreateWithInput((user: User) => this._ioService.update(user))
+    .setSuccessMsgFn((user: User) => \`User \${user.title} updated successfully!\`)
+
+  private _combinedState = MiniStateCombined.Combine(
+    this._itemState,
+    this._editState)
+
+  protected _user = computed(() => this._combinedState.data() ?? [])
+  protected _successMsg = this._combinedState.successMsg
+  protected _errorMsg = this._combinedState.errorMsg
+  protected _loading = this._combinedState.loading
+
+  //--------------------------//
+
+  protected edit = (user: User) =>
+    this._editState.trigger(user)
+
+
+  protected refresh = () =>
+    this._itemState.retrigger()
+
 }`;
 
 // MiniStateUtility example
@@ -141,6 +124,15 @@ import { MiniStateUtility } from '@spider-baby/mini-state/utils';
   \`
 })
 export class GranularControlComponent {
+// MiniStateUtility provides granular control over combining specific aspects of multiple MiniState instances.
+// While MiniStateCombined creates a unified state combining all signals, MiniStateUtility lets you selectively combine
+// only the loading states, error messages, or success messages you need for different UI scenarios.
+// This gives you fine-grained control - you can show critical loading states separately from background operations,
+// combine errors from data-fetching states while ignoring sync errors, or create custom UI feedback patterns.
+// Perfect for complex applications where different operations require different visual treatment.
+
+
+
   private dataService = inject(DataService);
   
   // Critical operations (affect main UI)

@@ -43,13 +43,13 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.MiniStateTutorial.large,
     imgPlaceholder: HubAppImages.Blog.MiniStateTutorial.placeholder,
   },
-    {
-    title: 'Angular Material Theming',
-    description: 'Master dynamic theming in Angular with @spider-baby/theming - a comprehensive library for Material Design 3 implementation, dark mode support, custom themes, hierarchical theming, and more...',
-    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mat-theming'),
-    icon: 'palette',
-    color: 'secondary',
-    img: HubAppImages.Blog.MatThemingTutorial.large,
-    imgPlaceholder: HubAppImages.Blog.MatThemingTutorial.placeholder,
-  },
+  //   {
+  //   title: 'Angular Material Theming',
+  //   description: 'Master dynamic theming in Angular with @spider-baby/theming - a comprehensive library for Material Design 3 implementation, dark mode support, custom themes, hierarchical theming, and more...',
+  //   route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mat-theming'),
+  //   icon: 'palette',
+  //   color: 'secondary',
+  //   img: HubAppImages.Blog.MatThemingTutorial.large,
+  //   imgPlaceholder: HubAppImages.Blog.MatThemingTutorial.placeholder,
+  // },
 ];
