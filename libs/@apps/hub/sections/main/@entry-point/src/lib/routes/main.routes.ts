@@ -11,6 +11,11 @@ export const MAIN_ROUTES: Route[] = [
     ],
     children: [
       {
+        path: HubMainAreaRoutesDefs.route('tester'),
+        loadComponent: () => import('@sb-hub/sections-main/features-tester')
+          .then((m) => m.HubMainTesterComponent),
+      },
+      {
         path: HubMainAreaRoutesDefs.route('open-source'),
         loadComponent: () => import('@sb-hub/sections-main/features/open-source')
           .then((m) => m.HubOpenSourceDemosComponent),

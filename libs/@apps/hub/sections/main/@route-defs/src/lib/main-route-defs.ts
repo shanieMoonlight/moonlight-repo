@@ -6,7 +6,8 @@ import { RouteUtility } from '@spider-baby/utils-routes';
 const BaseRoute = 'main';
 
 /** Type alias for the child routes of the main application area: 'home' | 'open-source'. */
-type CHILD_ROUTE = 'home' | 'open-source';
+type CHILD_ROUTE = 'home' | 'open-source' 
+  | 'tester';
 
 /** Type alias for all routes (base and child) of the main application area. */
 type ROUTE = typeof BaseRoute | CHILD_ROUTE;

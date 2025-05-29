@@ -12,14 +12,76 @@ A modern, accessible toast notification library for Angular applications.
 - 🔄 **Queue Management** - Smart stacking and queue handling
 - ⚡ **Performance** - Optimized with OnPush change detection
 - 🧩 **Standalone** - Works with both standalone and NgModule approaches
+- 🏗️ **CDK-Powered** - Built on Angular CDK overlay for robust positioning
 
 ## Installation
+
+### 1. Install the Package
 
 ```bash
 npm install @spider-baby/ui-toast
 ```
 
+### 2. Install Required Dependencies
+
+The toast library depends on Angular CDK for overlay functionality. **This is required even if you don't use Angular Material elsewhere in your project.**
+
+```bash
+npm install @angular/cdk
+```
+
+> 💡 **Why CDK?** The library uses `@angular/cdk/overlay` to position toasts correctly across different screen sizes and positions. This is a core Angular CDK module, not specific to Material Design.
+
+### 3. Import Required CSS
+
+**⚠️ CRITICAL STEP**: Add the Angular CDK overlay CSS to your project. **Toasts will not display correctly without this CSS.**
+
+The CDK overlay CSS is required for proper positioning, z-index management, and backdrop functionality.
+
+**Option A: In `angular.json` (Recommended)**
+```json
+{
+  "projects": {
+    "your-app": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "node_modules/@angular/cdk/overlay-prebuilt.css",
+              "src/styles.css"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Option B: In `styles.css` or `styles.scss`**
+```css
+@import '@angular/cdk/overlay-prebuilt.css';
+```
+
+**Option C: In `index.html`**
+```html
+<link href="node_modules/@angular/cdk/overlay-prebuilt.css" rel="stylesheet">
+```
+
+> 🚨 **Common Issue**: If you skip this step, toasts may appear with no styling, broken positioning, or may not appear at all. See the [Troubleshooting](#troubleshooting) section if you encounter display issues.
+
 ## Quick Start
+
+### Prerequisites Checklist
+
+Before using the toast library, ensure you have completed ALL of these installation steps:
+
+- ✅ Installed `@spider-baby/ui-toast`
+- ✅ Installed `@angular/cdk` 
+- ✅ **Added `@angular/cdk/overlay-prebuilt.css` to your project** ⚠️ 
+- ✅ Configured animations with `provideAnimations()`
+
+> 🚨 **Most Common Issue**: Forgetting to import the CDK overlay CSS. This will cause toasts to not display or appear broken.
 
 ### 1. Setup Configuration
 
@@ -59,6 +121,64 @@ export class ExampleComponent {
 
   showError() {
     this.toast.error('Something went wrong!', 8000);
+  }
+}
+```
+
+## Complete Setup Example
+
+Here's a complete example showing all required setup steps:
+
+**main.ts** (Standalone Angular App)
+```typescript
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ToastSetup, matToastConfig } from '@spider-baby/ui-toast/setup';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    // Required for toast animations
+    provideAnimations(),
+    
+    // Toast configuration
+    ToastSetup.getProviders(matToastConfig),
+    
+    // ... other providers
+  ]
+}).catch(err => console.error(err));
+```
+
+**styles.css** (Global Styles)
+```css
+/* Required for Angular CDK overlays */
+@import '@angular/cdk/overlay-prebuilt.css';
+
+/* Your other global styles */
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+```
+
+**app.component.ts**
+```typescript
+import { Component, inject } from '@angular/core';
+import { ToastService } from '@spider-baby/ui-toast';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <h1>Toast Demo</h1>
+    <button (click)="showToast()">Show Toast</button>
+  `
+})
+export class AppComponent {
+  private toast = inject(ToastService);
+  
+  showToast() {
+    this.toast.success('Hello from Toast!');
   }
 }
 ```
@@ -414,6 +534,106 @@ const customColors = ToastConfig.Create()
 - **🎬 Rich Animations** - Four animation types with customizable timing
 - **⚙️ Comprehensive Configuration** - Colors, positioning, and animations
 - **📊 Toast Management** - Active count tracking and bulk operations
+
+## Troubleshooting
+
+### Toasts Not Displaying or Styled Incorrectly
+
+**Problem**: Toasts don't appear at all, have no styling, appear with broken layout, or display incorrectly.
+
+**Root Cause**: This is almost always caused by missing Angular CDK overlay CSS. The toast library uses `@angular/cdk/overlay` for positioning and rendering, which requires its CSS to be loaded.
+
+**Solution**: Import the required CDK overlay CSS file using one of these methods:
+
+**Method 1 (Recommended): In `angular.json`**
+```json
+{
+  "projects": {
+    "your-app": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "node_modules/@angular/cdk/overlay-prebuilt.css",
+              "src/styles.css"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Method 2: In `styles.css`**
+```css
+@import '@angular/cdk/overlay-prebuilt.css';
+```
+
+**Method 3: In `index.html`**
+```html
+<link href="node_modules/@angular/cdk/overlay-prebuilt.css" rel="stylesheet">
+```
+
+> ⚠️ **Critical**: This CSS is mandatory even if you don't use Angular Material elsewhere in your project. The overlay functionality will not work without it.
+
+### Missing Dependencies Error
+
+**Problem**: Build errors about missing `@angular/cdk` modules or runtime errors about CDK overlay.
+
+**Solution**: Install the Angular CDK and ensure it's properly configured:
+
+```bash
+npm install @angular/cdk
+```
+
+Then ensure you've imported the overlay CSS (see [installation steps](#installation)).
+
+### TypeScript Errors
+
+**Problem**: TypeScript compilation errors about toast types.
+
+**Solution**: Ensure you're importing from the correct entry points:
+
+```typescript
+// ✅ Correct imports
+import { ToastService, ToastData } from '@spider-baby/ui-toast';
+import { ToastSetup, matToastConfig } from '@spider-baby/ui-toast/setup';
+
+// ❌ Incorrect - don't import from internal paths
+import { ToastService } from '@spider-baby/ui-toast/src/lib/services/toast.service';
+```
+
+### Performance Issues with Many Toasts
+
+**Problem**: App becomes slow when showing many toasts simultaneously.
+
+**Solution**: Use `clearAll()` to remove old toasts, or implement a maximum toast limit:
+
+```typescript
+// Clear old toasts before showing new ones
+if (this.toast.getActiveCount() > 5) {
+  this.toast.clearAll();
+}
+this.toast.success('New message');
+```
+
+### Animations Not Working
+
+**Problem**: Toast animations appear choppy or don't work.
+
+**Solution**: Ensure `@angular/animations` is properly configured:
+
+```typescript
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideAnimations(), // Required for animations
+    ToastSetup.getProviders(matToastConfig),
+  ]
+});
+```
 
 ## Running unit tests
 

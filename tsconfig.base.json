@@ -102,6 +102,9 @@
       "@sb-hub/sections-main/entry-point": [
         "libs/@apps/hub/sections/main/@entry-point/src/index.ts"
       ],
+      "@sb-hub/sections-main/features-tester": [
+        "libs/@apps/hub/sections/main/features/tester/src/index.ts"
+      ],
       "@sb-hub/sections-main/features/home": [
         "libs/@apps/hub/sections/main/features/home/src/index.ts"
       ],
