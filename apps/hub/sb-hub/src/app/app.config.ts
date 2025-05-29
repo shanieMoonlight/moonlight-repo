@@ -9,6 +9,7 @@ import { SEO_CONFIG, THEME_CONFIG } from '@sb-hub/core-config';
 import { provideAppErrorHandler } from '@sb-hub/core-config/error-handling';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { matToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
+import { provideThemeInitializer } from '@spider-baby/material-theming/init';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appViewTransition } from './app.view-transitions';
@@ -29,7 +30,8 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})
     ),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    // MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+     provideThemeInitializer(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
@@ -51,7 +53,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000'
     }),
     provideAppErrorHandler(),
-    ToastSetup.getProviders(matToastConfig)
+    // ToastSetup.getProviders(matToastConfig)
     //   .setPositionConfig(ToastPositionConfig.Create(undefined, undefined, undefined, undefined)))
   ],
 };

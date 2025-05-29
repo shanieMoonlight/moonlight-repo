@@ -203,22 +203,32 @@ export class ToastData {
     return this;
   }
 
+  /**
+   * Sets the toast animation type to wobble
+   * @returns The current ToastData instance for chaining
+   */
   withWobble(): ToastData {
     this.animationType = 'wobble';
     return this;
   }
 
+  /**
+   * Sets the toast animation type to rubber
+   * @returns The current ToastData instance for chaining
+   */
   withRubber(): ToastData {
     this.animationType = 'rubber';
     return this;
   }
 
+  /**
+   * Sets the toast animation type to spin
+   * @returns The current ToastData instance for chaining
+   */
   withSpin(): ToastData {
     this.animationType = 'spin';
     return this;
   }
-
-
 
 
 } //Cls

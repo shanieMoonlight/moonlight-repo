@@ -36,7 +36,7 @@ npm install @angular/cdk
 
 **⚠️ CRITICAL STEP**: Add the Angular CDK overlay CSS to your project. **Toasts will not display correctly without this CSS.**
 
-The CDK overlay CSS is required for proper positioning, z-index management, and backdrop functionality.
+The CDK overlays depend on a small set of structural styles to work correctly. If you're using Angular Material, these styles have been included together with the theme, otherwise if you're using the CDK on its own, you'll have to include the styles yourself. You can do so by importing the prebuilt styles in your global stylesheet:
 
 **Option A: In `angular.json` (Recommended)**
 ```json
@@ -288,7 +288,7 @@ interface ToastOptions {
   positionVertical?: 'top' | 'bottom' | 'center';    // Vertical positioning (default: 'top')
   positionHorizontal?: 'left' | 'right' | 'center';  // Horizontal positioning (default: 'right')
   showIcon?: boolean;                     // Show type-based icon (default: true)
-  animationType?: 'fade' | 'slide' | 'scale' | 'bounce';  // Animation type (default: 'fade')
+  animationType?: 'fade' | 'slide' | 'scale' | 'bounce'| 'wobble' | 'spin' | 'rubber';  // Animation type (default: 'fade')
 }
 ```
 
@@ -324,6 +324,9 @@ The `ToastData` class supports method chaining for positioning and animations:
 .withSlide()              // Use slide animation
 .withScale()              // Use scale animation
 .withBounce()             // Use bounce animation
+.withWobble()             // Use wobble animation
+.withRubber()             // Use rubber animation
+.withSpin()               // Use spin animation
 
 // Example: Chaining positioning and animation
 const toast = ToastData
@@ -534,6 +537,126 @@ const customColors = ToastConfig.Create()
 - **🎬 Rich Animations** - Four animation types with customizable timing
 - **⚙️ Comprehensive Configuration** - Colors, positioning, and animations
 - **📊 Toast Management** - Active count tracking and bulk operations
+
+## Dynamic Configuration with ToastDynamicSetup
+
+For scenarios where you need different toast configurations in different areas of your application (different routes, components, or modules), you can use the `ToastDynamicSetup` class to create scoped toast service instances with their own configurations.
+
+### Why Use Dynamic Setup?
+
+- **Route-Specific Configuration** - Different routes can have different toast positioning/styling
+- **Component-Scoped Toasts** - Individual components can override global toast behavior  
+- **Modular Applications** - Different modules can have distinct toast appearances
+
+### Basic Usage
+
+```typescript
+import { Component } from '@angular/core';
+import { ToastDynamicSetup } from '@spider-baby/ui-toast/dynamic-provider';
+import { matToastConfig, ToastPositionConfig } from '@spider-baby/ui-toast/setup';
+
+@Component({
+  selector: 'app-special-component',
+  providers: [
+    // This component gets its own toast service instance with custom config
+    ...ToastDynamicSetup.getProviders(
+      matToastConfig.setPositionConfig(
+        ToastPositionConfig.Create(undefined, undefined, 300, undefined) // 300px from right
+      )
+    )
+  ],
+  template: `
+    <button (click)="showToast()">Show Custom Positioned Toast</button>
+  `
+})
+export class SpecialComponent {
+  constructor(private toast: ToastService) {} // Gets component-scoped instance
+  
+  showToast() {
+    // This toast will appear 300px from the right edge
+    this.toast.success('Custom positioned toast!');
+  }
+}
+```
+
+### Route-Level Configuration
+
+```typescript
+// In your routing configuration
+const routes: Routes = [
+  {
+    path: 'admin',
+    component: AdminComponent,
+    providers: [
+      // Admin routes get red-themed toasts in bottom-left
+      ...ToastDynamicSetup.getProviders(
+        matToastConfig
+          .setColorBgSuccess('#dc2626')
+          .setColorBgError('#991b1b')
+          .setPositionConfig(ToastPositionConfig.BottomLeft())
+      )
+    ]
+  },
+  {
+    path: 'user',
+    component: UserComponent,
+    providers: [
+      // User routes get blue-themed toasts in top-right
+      ...ToastDynamicSetup.getProviders(
+        matToastConfig
+          .setColorBgSuccess('#2563eb')
+          .setColorBgInfo('#1d4ed8')
+          .setPositionConfig(ToastPositionConfig.TopRight())
+      )
+    ]
+  }
+];
+```
+
+### Advanced Configuration Examples
+
+```typescript
+// High-priority alerts with center positioning and long duration
+const alertConfig = matToastConfig
+  .setPositionConfig(ToastPositionConfig.Center())
+  .setColorBgError('#b91c1c')
+  .setColorBgWarn('#d97706');
+
+@Component({
+  providers: [...ToastDynamicSetup.getProviders(alertConfig)]
+})
+export class AlertComponent {
+  showCriticalAlert() {
+    this.toast.error('Critical system error!', 15000); // 15 second duration
+  }
+}
+
+// Minimal toasts for dashboard widgets
+const dashboardConfig = matToastConfig
+  .setPositionConfig(ToastPositionConfig.Create(10, undefined, undefined, 10)) // Top-left corner
+  .setShowIcon(false)
+  .setDismissible(false);
+
+@Component({
+  providers: [...ToastDynamicSetup.getProviders(dashboardConfig)]
+})
+export class DashboardWidgetComponent {
+  showQuickStatus() {
+    this.toast.info('Data updated', 2000); // Quick, minimal notification
+  }
+}
+```
+
+
+### Key Benefits
+
+- **✅ Isolated Configurations** - Each scope gets its own service instance
+- **✅ No Global Impact** - Changes don't affect other parts of the application
+- **✅ Easy to Use** - Same API as global configuration
+- **✅ Flexible Scoping** - Works at component, route, module, or any provider level
+- **✅ Type Safety** - Full TypeScript support with proper injection
+
+> 💡 **Tip**: The `ToastDynamicSetup.getProviders()` method automatically includes both the configuration token and the `ToastService`.
 
 ## Troubleshooting
 

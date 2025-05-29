@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 
 
+## [1.0.3] - 2025-05-29
+
+### Fixed
+- Fixed import error with `provideAppInitializer` when using package in Angular 17-18 environments
+- Replaced `provideAppInitializer` with `APP_INITIALIZER` token for better cross-version compatibility
+- Updated `provideThemeInitializer` function to work consistently across Angular 17, 18, and 19
+
+### Technical Details
+- `provideAppInitializer` was only introduced in Angular 19, causing import errors in earlier versions
+- Now uses the stable `APP_INITIALIZER` token which is available in all supported Angular versions
+- Maintains the same API surface while ensuring compatibility
+
+
 ## [1.0.2] - 2025-05-12
 
 ### Changed

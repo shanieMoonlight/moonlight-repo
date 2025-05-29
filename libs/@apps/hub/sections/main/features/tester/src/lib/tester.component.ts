@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ToastData, ToastService } from '@spider-baby/ui-toast';
+import { ToastDynamicSetup } from '@spider-baby/ui-toast/dynamic-provider';
+import { matToastConfig } from '@spider-baby/ui-toast/setup';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 // import { IconsService } from '@sb-hub-main-features-tester/shared-utils/icons';
 
 @Component({
   standalone: true,
   imports: [
-    MatEverythingModule
+    MatEverythingModule     
   ],
-  providers: [],
+  providers: [
+    ToastDynamicSetup.getProviders(matToastConfig)
+  ],
   selector: 'sb-hub-main-features-tester',
   templateUrl: './tester.component.html',
   styleUrl: './tester.component.scss',
