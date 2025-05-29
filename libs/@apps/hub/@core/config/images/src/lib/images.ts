@@ -104,12 +104,12 @@ export class HubAppImages {
   static Blog = class {
 
     static Home = class {
-      static readonly default = 'dev-assets/images/blog/home/blog.jpeg';
-      static readonly placeholder = 'dev-assets/images/blog/home/placeholder/blog8.jpeg';
-      static readonly small = 'dev-assets/images/blog/home/small/blog.jpeg';
-      static readonly medium = 'dev-assets/images/blog/home/medium/blog.jpeg';
-      static readonly large = 'dev-assets/images/blog/home/large/blog.jpeg';
-      static readonly xLarge = 'dev-assets/images/blog/home/xlarge/blog.jpeg';
+      static readonly default = 'images/blog/home/home/blog-home.jpeg';
+      static readonly placeholder = 'images/blog/home/placeholder/blog-home.jpeg';
+      static readonly small = 'images/blog/home/home/small/blog-home.jpeg';
+      static readonly medium = 'images/blog/home/home/medium/blog-home.jpeg';
+      static readonly large = 'images/blog/home/home/large/blog-home.jpeg';
+      static readonly xLarge = 'images/blog/home/home/xlarge/blog-home.jpeg';
     };
 
 
