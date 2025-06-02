@@ -13,6 +13,8 @@ export class DynamicThemeConfigService {
   // Inject the *initial* static config provided via app.config.ts
   private _initialConfig: ThemingConfig = inject(ThemeConfigService);
 
+  private _themeStack: ThemeOption[] = [...this._initialConfig.themeOptions];
+
   //- - - - - - - - - - - - - - - //
 
   private _systemThemesBs = new BehaviorSubject<ThemeOption[]>([...this._initialConfig.themeOptions]);
@@ -21,7 +23,6 @@ export class DynamicThemeConfigService {
 
   private _defaultDarkModeTypeBs = new BehaviorSubject<DarkModeType>(this._initialConfig.defaultDarkModeType);
   readonly defaultDarkModeType$ = this._defaultDarkModeTypeBs.asObservable()
-  // public readonly defaultDarkModeType: DarkModeType = this._initialConfig.defaultDarkModeType;
   public readonly defaultDarkModeType = toSignal(this.defaultDarkModeType$, { initialValue: this._initialConfig.defaultDarkModeType });
 
   // Dark mode class

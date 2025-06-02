@@ -4,7 +4,7 @@ import { MlDarkModeToggleMatComponent } from '@spider-baby/material-theming/comp
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { ThemeTransitionIndicatorComponent } from '../../shared/utils/theme-transition/theme-transition-indicator.component';
-import { SEASON_THEME_CONFIG } from './config/seasonal-theme.config';
+import { SEASON_THEME_OPTIONS } from './config/seasonal-theme.config';
 import { SeasonalNavbarComponent } from './ui/navbar/navbar.component';
 
 
@@ -27,7 +27,7 @@ export class SeasonsComponent implements OnDestroy {
   constructor(private dynamicConfigService: DynamicThemeConfigService) {
 
     // Replace the central theme options with the seasonal ones
-    this.dynamicConfigService.setSystemThemes(SEASON_THEME_CONFIG.themeOptions);
+    this.dynamicConfigService.setSystemThemes(SEASON_THEME_OPTIONS);
 
   }
 

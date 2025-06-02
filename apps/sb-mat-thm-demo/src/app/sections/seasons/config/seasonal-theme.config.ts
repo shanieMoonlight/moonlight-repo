@@ -49,7 +49,7 @@ export const  WINTER_THEME = ThemeOption.create({
 })
 
 
-const _themeOptions: ThemeOption[] = [
+export const SEASON_THEME_OPTIONS: ThemeOption[] = [
   DEFAULT_SEAONAL_THEME,
   SPRING_THEME,
   SUMMER_THEME,
@@ -59,7 +59,7 @@ const _themeOptions: ThemeOption[] = [
 
 
 export const SEASON_THEME_CONFIG = ThemingConfig.create({
-  themeOptions: _themeOptions,
+  themeOptions: SEASON_THEME_OPTIONS,
   defaultDarkModeType: 'dark',
   themeClassPrefix: 'my-app-theme',
   transitionOptions:{

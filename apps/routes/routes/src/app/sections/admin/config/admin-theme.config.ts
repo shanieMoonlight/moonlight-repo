@@ -41,7 +41,7 @@ export const ADMIN_3_THEME = ThemeOption.create({
 })
 
 
-const _themeOptions: ThemeOption[] = [
+export const ADMIN_THEME_OPTIONS: ThemeOption[] = [
   DEFAULT_ADMIN_THEME,
   ADMIN_2_THEME,
   ADMIN_3_THEME
@@ -49,7 +49,7 @@ const _themeOptions: ThemeOption[] = [
 
 
 export const ADMIN_THEME_CONFIG = ThemingConfig.create({
-  themeOptions: _themeOptions,
+  themeOptions: ADMIN_THEME_OPTIONS,
   defaultDarkModeType: 'dark',
   themeClassPrefix: 'my-app-theme',
   transitionOptions:{

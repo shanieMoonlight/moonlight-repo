@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { THEME_CONFIG } from '../../../../../config/app-theme.config';
-import { SEASON_THEME_CONFIG } from '../../../config/seasonal-theme.config';
+import { SEASON_THEME_OPTIONS } from '../../../config/seasonal-theme.config';
 
 @Component({
   selector: 'sb-theme-hierarchy-diagram',
@@ -346,7 +346,7 @@ import { SEASON_THEME_CONFIG } from '../../../config/seasonal-theme.config';
 export class ThemeHierarchyDiagramComponent {
 
   _baseThemes = signal(THEME_CONFIG.themeOptions)
-  _seasonalThemes = signal(SEASON_THEME_CONFIG.themeOptions)
+  _seasonalThemes = signal(SEASON_THEME_OPTIONS)
 
   //- - - - - - - - - - - - - - -//
 

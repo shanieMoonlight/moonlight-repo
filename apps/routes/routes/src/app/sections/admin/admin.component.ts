@@ -1,10 +1,10 @@
-import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AdminMainRoutes } from './config/admin-route-data';
-import { ADMIN_THEME_CONFIG } from './config/admin-theme.config';
+import { ADMIN_THEME_OPTIONS } from './config/admin-theme.config';
 import { AdminNavbarComponent } from './ui/navbar/navbar.component';
 
 @Component({
@@ -36,10 +36,11 @@ export class AdminComponent implements OnDestroy {
   //- - - - - - - - - - - - - - -//
 
   constructor() {
-    this._dynamicConfigService.setSystemThemes(ADMIN_THEME_CONFIG.themeOptions);
+    this._dynamicConfigService.setSystemThemes(ADMIN_THEME_OPTIONS);
   }
 
   ngOnDestroy(): void {
     this._dynamicConfigService.resetSystemThemesToInitial()
   }
+  
 } //Cls
