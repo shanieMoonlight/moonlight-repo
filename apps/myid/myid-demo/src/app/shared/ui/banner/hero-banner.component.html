@@ -1,0 +1,21 @@
+<div class="hero-banner">
+  <div class="banner-content">
+    @if (_imageUrl()) {
+      <img class="hero-image" [src]="_imageUrl()" [alt]="_imageAlt()" />
+    }
+    <h1 class="title">{{ _title() }}</h1>
+    @if(_subtitle()) {
+      <h2 class="_sub_title">{{ _subtitle() }}</h2>
+    }
+    @if(_description()) {
+      <p class="description">{{ _description() }}</p>
+    }
+
+    <div class="cta-buttons">
+      @if(_actionsTemplate(); as template) {
+        <ng-container [ngTemplateOutlet]="template"/>
+      }
+    </div>
+
+  </div>
+</div>

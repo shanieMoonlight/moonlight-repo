@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
+import { MainSectionRoutesDefs } from './main-route-defs';
 
 export const mainRoutes: Route[] = [
     {
@@ -10,6 +10,10 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('home'),
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('oauth'),
+                loadComponent: () => import('./features/oauth/oauth.component').then(m => m.OauthComponent),
             },
             {
                 path: '',

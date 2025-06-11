@@ -1,0 +1,4 @@
+# robots.txt for myid-demo site
+User-agent: *
+Allow: /
+Sitemap: https://spider-baby-mini-state.web.app/sitemap.xml

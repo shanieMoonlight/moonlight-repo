@@ -1,10 +1,10 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, TemplateRef } from '@angular/core';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { RouterModule } from '@angular/router';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
 @Component({
-  selector: '<%= prefix %>-hero-banner', 
+  selector: 'sb-hero-banner', 
   standalone: true,
   imports: [
     MatEverythingModule, 
