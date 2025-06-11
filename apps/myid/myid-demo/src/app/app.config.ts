@@ -9,6 +9,7 @@ import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { SocialAuthSetup } from './config/oauth.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({})),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
+    SocialAuthSetup.provideSocialLoginConfig(),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
@@ -40,9 +42,10 @@ export const appConfig: ApplicationConfig = {
           json: () => import('highlight.js/lib/languages/json')
         }
       }
-    }, provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })
+    },
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
 };

@@ -116,7 +116,7 @@ export class ThemeService {
   constructor() {
 
     effect(() => {
-      consoleDev.log('This is the effect')
+      // consoleDev.log('This is the effect')
       const currentSystemThemes = this.systemThemes();
       const currentThemeValue = this.currentTheme().value;
       // consoleDev.log('ThemeService: System themes changed, checking current theme validity.');

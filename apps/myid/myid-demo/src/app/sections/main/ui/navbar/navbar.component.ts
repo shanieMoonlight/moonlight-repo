@@ -24,23 +24,23 @@ interface NavbarItem {
 
 const rhsNavbarItems: NavbarItem[] = [
   {
-    routerLink: 'route1',
-    tooltip: 'Route 1',
-    icon: 'egg',
-    text: 'Route 1'
+    routerLink: 'oauth',
+    tooltip: 'Oauth',
+    icon: 'verified_user',
+    text: 'Oauth'
   },
-  {
-    routerLink: 'route2',
-    tooltip: 'Route 2',
-    icon: 'join_inner',
-    text: 'Route 2'
-  },
-  {
-    routerLink: 'route3',
-    tooltip: 'Route 3',
-    icon: 'oil_barrel',
-    text: 'Route 3'
-  },
+  // {
+  //   routerLink: 'route2',
+  //   tooltip: 'Route 2',
+  //   icon: 'join_inner',
+  //   text: 'Route 2'
+  // },
+  // {
+  //   routerLink: 'route3',
+  //   tooltip: 'Route 3',
+  //   icon: 'oil_barrel',
+  //   text: 'Route 3'
+  // },
   {
     routerLink: '/api',
     tooltip: 'Api Documentation',
