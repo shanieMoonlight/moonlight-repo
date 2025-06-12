@@ -58,20 +58,32 @@ function extractRequestBody(operation: unknown): string | undefined {
 
 // Helper to extract response body type from an operation object
 function extractResponseBody(operation: unknown): string | undefined {
-    if (!operation || typeof operation !== 'object') return undefined;
+    if (!operation || typeof operation !== 'object') 
+        return undefined;
+
     const op = operation as { responses?: Record<string, any> };
-    if (!op.responses) return undefined;
+    if (!op.responses) 
+        return undefined;
+
     // Get the first status code (e.g., '200', '201', etc.)
     const statusCode = Object.keys(op.responses)[0];
-    if (!statusCode) return undefined;
+    if (!statusCode) 
+        return undefined;
+
     const responseObj = op.responses[statusCode];
-    if (!responseObj || !responseObj.content) return undefined;
+    if (!responseObj || !responseObj.content) 
+        return undefined;
+
     const content = responseObj.content;
     // Prefer application/json, otherwise pick the first available
     const schemaObj = content['application/json'] || Object.values(content)[0];
-    if (!schemaObj || !schemaObj.schema) return undefined;
+    if (!schemaObj || !schemaObj.schema) 
+        return undefined;
+
     const schema = schemaObj.schema;
-    if (schema.$ref) return schema.$ref.split('/').pop();
+    if (schema.$ref) 
+        return schema.$ref.split('/').pop();
+    
     // Optionally, handle inline schemas here if needed
     return undefined;
 }

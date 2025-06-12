@@ -32,14 +32,14 @@ import { IdentityIoService } from './base/identity.io.service';
 })
 export class AccountIoService extends IdentityIoService {
 
-  constructor() { 
+  constructor() {
     super(IdentityServerRoutes.Account.Controller);
   }
 
   //- - - - - - - - - - - - - -//
 
   googleLogin = (dto: GoogleSignUp, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('googleLogin'),
       dto,
       opts ?? {}
@@ -48,7 +48,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   confirmEmail = (dto: ConfirmEmail, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('confirmEmail'),
       dto,
       opts ?? {}
@@ -57,7 +57,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   confirmEmailWithPassword = (dto: ConfirmEmailWithPwd, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('confirmEmailWithPassword'),
       dto,
       opts ?? {}
@@ -66,7 +66,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   confirmPhone = (dto: ConfirmPhone, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('confirmPhone'),
       dto,
       opts ?? {}
@@ -75,7 +75,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   forgotPassword = (dto: ForgotPwd, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('forgotPassword'),
       dto,
       opts ?? {}
@@ -84,12 +84,16 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   login = (dto: LoginDto, opts?: unknown): Observable<JwtPackage> =>
-    this.postAction(IdentityServerRoutes.Account.action('login'), dto, opts ?? {});
+    this.postAction<JwtPackage>(
+      IdentityServerRoutes.Account.action('login'),
+      dto,
+      opts ?? {}
+    );
 
   //------------------//
 
   changePassword = (dto: ChPwd, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('changePassword'),
       dto,
       opts ?? {}
@@ -98,17 +102,22 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   myInfo = (opts?: unknown): Observable<AppUser> =>
-    this.getAction(IdentityServerRoutes.Account.action('myInfo'), opts ?? {});
+    this.getAction<AppUser>(
+      IdentityServerRoutes.Account.action('myInfo'),
+      opts ?? {});
 
   //------------------//
 
   myInfoCustomer = (opts?: unknown): Observable<AppUser> =>
-    this.getAction(IdentityServerRoutes.Account.action('myInfoCustomer'), opts ?? {});
+    this.getAction<AppUser>(
+      IdentityServerRoutes.Account.action('myInfoCustomer'),
+      opts ?? {}
+    );
 
   //------------------//
 
   registerCustomer = (dto: RegCustomer, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('registerCustomer'),
       dto,
       opts ?? {}
@@ -117,7 +126,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   createCustomer = (dto: CreateCustomer, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('createCustomer'),
       dto,
       opts ?? {}
@@ -126,7 +135,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   registerMntcTeamLeader = (dto: RegMntcLeader, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('registerMntcTeamLeader'),
       dto,
       opts ?? {}
@@ -135,7 +144,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   addMntcTeamMember = (dto: AddMntcMember, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('addMntcTeamMember'),
       dto,
       opts ?? {}
@@ -144,7 +153,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   addSprTeamMember = (dto: AddSprMember, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('addSuperTeamMember'),
       dto,
       opts ?? {}
@@ -153,7 +162,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   addCustomerTeamMember = (dto: AddCustomerMember, opts?: unknown): Observable<AppUser> =>
-    this.postAction(
+    this.postAction<AppUser>(
       IdentityServerRoutes.Account.action('addCustomerTeamMember'),
       dto,
       opts ?? {}
@@ -165,7 +174,7 @@ export class AccountIoService extends IdentityIoService {
     teamId: Identifier,
     opts?: unknown
   ): Observable<MessageResponse> =>
-    this.delete(
+    this.delete<MessageResponse>(
       `${IdentityServerRoutes.Account.action('closeAccount')}/${teamId}`,
       opts ?? {}
     );
@@ -173,7 +182,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   resendEmailConfirmationNotLoggedIn = (dto: ResendEmailConfirmation, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('resendEmailConfirmation'),
       dto,
       opts ?? {}
@@ -182,7 +191,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   resendEmailConfirmation = (opts?: unknown): Observable<MessageResponse> =>
-    this.getAction(
+    this.getAction<MessageResponse>(
       IdentityServerRoutes.Account.action('resendEmailConfirmation'),
       opts ?? {}
     );
@@ -190,7 +199,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   resendPhoneConfirmationNotLoggedIn = (dto: ResendPhoneConfirmation, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('resendPhoneConfirmation'),
       dto,
       opts ?? {}
@@ -199,7 +208,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   resendPhoneConfirmation = (opts?: unknown): Observable<MessageResponse> =>
-    this.getAction(
+    this.getAction<MessageResponse>(
       IdentityServerRoutes.Account.action('resendPhoneConfirmation'),
       opts ?? {}
     );
@@ -207,7 +216,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   resendTwoFactor = (dto: Resend2Factor, opts?: unknown): Observable<MessageResponse> =>
-    this.postAction(
+    this.postAction<MessageResponse>(
       IdentityServerRoutes.Account.action('twoFactorResend'),
       dto,
       opts ?? {}
@@ -216,7 +225,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   twoFactorVerification = (dto: Verify2Factor, opts?: unknown): Observable<JwtPackage> =>
-    this.postAction(
+    this.postAction<JwtPackage>(
       IdentityServerRoutes.Account.action('twoFactorVerification'),
       dto,
       opts ?? {}
@@ -225,12 +234,15 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   twoFactorSetupData = (opts?: unknown): Observable<AuthAppSetup> =>
-    this.getAction(IdentityServerRoutes.Account.action('twoFactorSetupData'), opts ?? {});
+    this.getAction<AuthAppSetup>(
+      IdentityServerRoutes.Account.action('twoFactorSetupData'),
+      opts ?? {}
+    );
 
   //------------------//
 
   twoFactorAuthAppEmailComplete = (code: Identifier, opts?: unknown): Observable<AppUser> =>
-    this.getAction(
+    this.getAction<AppUser>(
       `${IdentityServerRoutes.Account.action('twoFactorAuthAppEmailComplete')}/${code}`,
       opts ?? {}
     );
@@ -238,7 +250,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   twoFactorAuthAppComplete = (dto: TwoFactorAuthAppComplete, opts?: unknown): Observable<AppUser> =>
-    this.getAction(
+    this.getAction<AppUser>(
       IdentityServerRoutes.Account.action('twoFactorAuthAppComplete'),
       opts ?? {}
     );
@@ -246,7 +258,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   enableTwoFactorAuthentication = (opts?: unknown): Observable<AppUser> =>
-    this.patchAction(
+    this.patchAction<AppUser>(
       IdentityServerRoutes.Account.action('enableTwoFactorAuthentication'),
       opts ?? {}
     );
@@ -254,7 +266,7 @@ export class AccountIoService extends IdentityIoService {
   //------------------//
 
   disableTwoFactorAuthentication = (opts?: unknown): Observable<AppUser> =>
-    this.patchAction(
+    this.patchAction<AppUser>(
       IdentityServerRoutes.Account.action('disableTwoFactorAuthentication'),
       opts ?? {}
     );
@@ -267,11 +279,6 @@ export class AccountIoService extends IdentityIoService {
       dto,
       opts ?? {}
     );
-
-  //------------------//
-
-  testSe = (opts?: unknown): Observable<unknown> =>
-    this.getAction(IdentityServerRoutes.Account.action('testSe'), opts ?? {});
 
   //------------------//
 

@@ -8,8 +8,35 @@ import { HttpError, INTERNAL_SERVER_ERROR_MESSAGE, NotFoundError, UnreadableResp
 import { Identifier } from '../models/identifier';
 
 //################################//
-// RouteUtility.combine
 
+function combine(...paths: Array<string | null | undefined>): string {
+    const validSegments = paths
+      // Filter out null, undefined, and empty/whitespace-only strings
+      .filter(
+        (segment): segment is string =>
+          typeof segment === 'string' && segment.trim() !== ''
+      )
+      // Trim whitespace from valid segments
+      .map((segment) => segment.trim());
+
+    if (validSegments.length === 0)
+      return '';
+
+    // Join segments, then normalize slashes
+    let combinedPath = validSegments.join('/');
+
+    // Replace multiple consecutive slashes with a single slash
+    combinedPath = combinedPath.replace(/\/{2,}/g, '/');
+
+    // Optional: Remove a trailing slash if the path is not just "/"
+    if (combinedPath !== '/' && combinedPath.endsWith('/'))
+      combinedPath = combinedPath.slice(0, -1);
+
+    return combinedPath;
+  }
+
+
+//################################//
 /**
  * Base Service for all http services.
  * Provides basic CRUD operations and error handling. *  
@@ -30,8 +57,8 @@ export abstract class BaseDataService {
    * Get some resources - Action = 'get'
    * @param opts http options
    */
-  protected get(opts = {}) {
-    return this._http.get(this.url, opts ?? {}).pipe(
+  protected get<T>(opts = {}): Observable<T> {
+    return this._http.get<T>(this.url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -39,10 +66,9 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected getTimeout(id: string | number, timeoutMillis: number = 60000, opts = {}) {
-    const url = this.url + '/' + id;
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getTimeout<T>(id: string | number, timeoutMillis: number = 60000, opts = {}): Observable<T> {
+    const url = combine(this.url, id?.toString());
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       timeout(timeoutMillis),
       catchError((error) => this.handleError(error))
@@ -57,8 +83,8 @@ export abstract class BaseDataService {
    * @param opts http options
    * @returns Observable<?>
    */
-  protected getQueryParams(params: string, opts = {}) {
-    return this._http.get(this.url + params, opts ?? {}).pipe(
+  protected getQueryParams<T>(params: string, opts = {}): Observable<T> {
+    return this._http.get<T>(this.url + params, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -66,10 +92,9 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected getById(id: string | number, opts = {}) {
-    const url = this.url + '/' + id;
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getById<T>(id: string | number, opts = {}): Observable<T> {
+    const url = combine(this.url, id?.toString());
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -83,10 +108,9 @@ export abstract class BaseDataService {
    * @param date resource identifier / date
    * @param opts http options
    */
-  protected getByDate(date: Date, opts = {}) {
-    const url = this.url + '/' + to_dd_MMM_YYYY(date);
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getByDate<T>(date: Date, opts = {}): Observable<T> {
+    const url = combine(this.url, to_dd_MMM_YYYY(date));
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -94,8 +118,8 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected getUrl(url: string, opts = {}) {
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getUrl<T>(url: string, opts = {}): Observable<T> {
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -108,8 +132,9 @@ export abstract class BaseDataService {
    * @param action The method on the controller
    * @param opts http options
    */
-  protected getAction(action: string, opts = {}) {
-    return this._http.get(this.url + '/' + action, opts ?? {}).pipe(
+  protected getAction<T>(action: string, opts = {}): Observable<T> {
+    const url = combine(this.url, action);
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -123,10 +148,9 @@ export abstract class BaseDataService {
    * @param id resource identifier
    * @param opts http options
    */
-  protected getActionById(action: string, id: Identifier, opts = {}) {
-    const url = this.url + '/' + action + '/' + id;
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getActionById<T>(action: string, id: Identifier, opts = {}): Observable<T> {
+    const url = combine(this.url, action, id?.toString());
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -140,10 +164,9 @@ export abstract class BaseDataService {
    * @param date resource identifier / date
    * @param opts http options
    */
-  protected getActionByDate(action: string, date: Date, opts = {}) {
-    const url = this.url + '/' + action + '/' + to_dd_MMM_YYYY(date);
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getActionByDate<T>(action: string, date: Date, opts = {}): Observable<T> {
+    const url = combine(this.url, action, to_dd_MMM_YYYY(date));
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -151,12 +174,9 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected getActionTimeout(action: string, timeoutMillis: number = 60000, opts = {}) {
-    let url = this.url
-    if (action)
-      url += '/' + action;
-
-    return this._http.get(url, opts ?? {}).pipe(
+  protected getActionTimeout<T>(action: string, timeoutMillis: number = 60000, opts = {}): Observable<T> {
+    const url = combine(this.url, action);
+    return this._http.get<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       timeout(timeoutMillis),
       catchError((error) => this.handleError(error))
@@ -165,8 +185,8 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected post(resource: unknown, opts = {}) {
-    return this._http.post(this.url, resource, opts ?? {}).pipe(
+  protected post<T>(resource: unknown, opts = {}): Observable<T> {
+    return this._http.post<T>(this.url, resource, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -181,12 +201,9 @@ export abstract class BaseDataService {
    * @param opts http options
    * @p
    */
-  protected postAction(action: string, resource: unknown, opts = {}) {
-    let url = this.url
-    if (action)
-      url += '/' + action;
-
-    return this._http.post(url, resource, opts ?? {})
+  protected postAction<T>(action: string, resource: unknown, opts = {}): Observable<T> {
+    const url = combine(this.url, action);
+    return this._http.post<T>(url, resource, opts ?? {})
       .pipe(
         map(this.extractData),
         catchError((error) => this.handleError(error))
@@ -195,12 +212,9 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected postActionTimeout(action: string, resource: any, timeoutMillis: number = 60000, opts = {}) {
-    let url = this.url
-    if (action)
-      url += '/' + action;
-
-    return this._http.post(url, resource, opts ?? {}).pipe(
+  protected postActionTimeout<T>(action: string, resource: unknown, timeoutMillis: number = 60000, opts = {}): Observable<T> {
+    const url = combine(this.url, action);
+    return this._http.post<T>(url, resource, opts ?? {}).pipe(
       map(this.extractData),
       timeout(timeoutMillis),
       catchError((error) => this.handleError(error))
@@ -210,19 +224,19 @@ export abstract class BaseDataService {
   //------------------------------//
 
 
-  protected patchById(id: string | number, resource: unknown, opts = {}) {
-    const patchUrl = this.url + '/' + id;
-
-    return this._http.patch(patchUrl, resource, opts).pipe(
+  protected patchById<T>(id: string | number, resource: unknown, opts = {}): Observable<T> {
+    const patchUrl = combine(this.url, id?.toString());
+    return this._http.patch<T>(patchUrl, resource, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
-  } //update
+  } 
 
   //------------------------------//
 
-  protected patchAction(action: string, resource: unknown, opts = {}) {
-    return this._http.patch(this.url + '/' + action, resource, opts).pipe(
+  protected patchAction<T>(action: string, resource: unknown, opts = {}): Observable<T> {
+    const url = combine(this.url, action);
+    return this._http.patch<T>(url, resource, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -236,10 +250,9 @@ export abstract class BaseDataService {
    * @param id resource identifier
    * @param opts http options
    */
-  protected patchActionById(action: string, id: Identifier, opts = {}) {
-    const url = this.url + '/' + action + '/' + id;
-
-    return this._http.patch(url, opts ?? {}).pipe(
+  protected patchActionById<T>(action: string, id: Identifier, opts = {}): Observable<T> {
+    const url = combine(this.url, action, id?.toString());
+    return this._http.patch<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -253,10 +266,9 @@ export abstract class BaseDataService {
    * @param date resource identifier / date
    * @param opts http options
    */
-  protected patchActionByDate(action: string, date: Date, opts = {}) {
-    const url = this.url + '/' + action + '/' + to_dd_MMM_YYYY(date);
-
-    return this._http.patch(url, opts ?? {}).pipe(
+  protected patchActionByDate<T>(action: string, date: Date, opts = {}): Observable<T> {
+    const url = combine(this.url, action, to_dd_MMM_YYYY(date));
+    return this._http.patch<T>(url, opts ?? {}).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -264,10 +276,9 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected delete(id: string | number, opts = {}): Observable<any> {
-    const deleteUrl = this.url + '/' + id;
-
-    return this._http.delete(deleteUrl, opts).pipe(
+  protected delete<T>(id: string | number, opts = {}): Observable<T> {
+    const deleteUrl = combine(this.url, id?.toString());
+    return this._http.delete<T>(deleteUrl, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -280,11 +291,9 @@ export abstract class BaseDataService {
    * @param id resource identifier
    * @param opts http options
    */
-  protected deleteAction(action: string, id: Identifier, opts = {}) {
-
-    const deleteUrl = this.url + '/' + action + '/' + id;
-
-    return this._http.delete(deleteUrl, opts).pipe(
+  protected deleteAction<T>(action: string, id: Identifier, opts = {}): Observable<T> {
+    const deleteUrl = combine(this.url, action, id?.toString());
+    return this._http.delete<T>(deleteUrl, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -407,7 +416,7 @@ export abstract class BaseDataService {
 
   //------------------------------//
 
-  protected extractData(res: any) {
+  protected extractData<T>(res: T): T {
     return res;
     // return res.text() ? res.json() : {};
   }
