@@ -13,7 +13,8 @@ export interface Action {
     paramType: ParamInputMethod;
     params?: Paramater[];
     description?: string;
-    requestBody?: any;
+    requestBodyType?: string;
+    responseBodyType?: string;
 }
 
 export interface ControllerDefinition {

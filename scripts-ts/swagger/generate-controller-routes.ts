@@ -9,18 +9,29 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// - - - - - - - - - - - - - - - - //
+
+function toCamelCase(str: string) {
+  return str.replace(/[-_\s.]+(.)?/g, (_, c) => c ? c.toUpperCase() : '')
+    .replace(/^(.)/, (m) => m.toLowerCase());
+}
 
 // - - - - - - - - - - - - - - - - //
 
 function generateControllerClass(controller: { name: string; actions: { name: string }[] }) {
-  const className = `${capitalize(controller.name)}ControllerRoutes`;
+  const className = `${capitalize(controller.name)}Controller`;
   const actionsUnion = controller.actions
-    .map(a => `  | '${a.name}'`)
+    .map(a => `  | '${toCamelCase(a.name)}'`)
     .join('\n');
 
-  return `\n\nconst CONTROLLER = '${controller.name}';\n\ntype ACTIONS =\n${actionsUnion}\n\n//#################################################//\n\nexport class ${className} {\n  public static readonly Controller = CONTROLLER;\n\n  static action = (action: ACTIONS): string => action\n}\n`;
+  return `\n\nconst CONTROLLER = '${controller.name}';\n\n
+  type ACTIONS =\n${actionsUnion}\n\n
+  //#################################################//\n\n
+  export class ${className} {\n  
+    public static readonly Controller = CONTROLLER;\n\n  
+    static action = (action: ACTIONS): string => action\n
+  }\n`;
 }
-
 
 // - - - - - - - - - - - - - - - - //
 
@@ -56,8 +67,7 @@ if (require.main === module) {
   main();
 }
 
-
 // npx ts-node -P tsconfig.scripts.json  scripts-ts/swagger/generate-controller-routes.ts scripts-ts/swagger/swagger.example.json scripts-ts/swagger/controller-routes.generated.ts
 
 // npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-controller-routes.ts scripts-ts/swagger/swagger.example.json apps/myid/myid-demo/src/app/config/io/id/controllers
-// npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-controller-routes.ts scripts-ts/swagger/swagger.example.json C:/Users/Shaneyboy/Desktop/GeneratorTest
+// npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-controller-routes.ts scripts-ts/swagger/swagger.example.json C:/Users/Shaneyboy/Desktop/GeneratorTest/Controllers

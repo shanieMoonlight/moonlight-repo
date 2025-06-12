@@ -3,133 +3,159 @@ import * as path from 'path';
 
 // ################################//
 
-
-// Utility to resolve $ref
-function resolveRef(ref: string, swagger: any): any {
-    if (!ref.startsWith('#/')) return undefined;
-    const pathParts = ref.slice(2).split('/');
-    let result = swagger;
-    for (const part of pathParts) {
-        result = result[part];
-        if (!result) break;
-    }
-    return result;
+function interfaceFilename(name: string) {
+  return name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '.ts';
 }
-
 
 // - - - - - - - - - - - - - - - - //
 
-// Convert a Swagger schema property to TypeScript type
+function getRefsFromSchema(schema: any): string[] {
+  const refs: string[] = [];
+  if (!schema) return refs;
+  if (schema.$ref) {
+    refs.push(refToTsType(schema.$ref));
+  }
+  if (schema.type === 'array' && schema.items) {
+    refs.push(...getRefsFromSchema(schema.items));
+  }
+  if (schema.type === 'object' && schema.properties) {
+    for (const prop of Object.values(schema.properties)) {
+      refs.push(...getRefsFromSchema(prop));
+    }
+  }
+  return refs;
+}
+
+// - - - - - - - - - - - - - - - - //
+
 function swaggerTypeToTs(prop: any, swagger: any): string {
-
-    if (prop.$ref)
-        return refToTsType(prop.$ref);
-
-    if (prop.type === 'array') {
-        if (prop.items) {
-            return `${swaggerTypeToTs(prop.items, swagger)}[]`;
-        }
-        return 'any[]';
+  if (prop.$ref)
+    return refToTsType(prop.$ref);
+  if (prop.type === 'array') {
+    if (prop.items) {
+      return `${swaggerTypeToTs(prop.items, swagger)}[]`;
     }
-
-    if (prop.enum)
-        return prop.enum.map((v: any) => JSON.stringify(v)).join(' | ');
-
-    switch (prop.type) {
-        case 'integer':
-        case 'number':
-            return 'number';
-        case 'boolean':
-            return 'boolean';
-        case 'string':
-            if (prop.format === 'date-time' || prop.format === 'date') return 'string'; // Could use Date
-            return 'string';
-        case 'object':
-            if (prop.properties) {
-                // Inline object type
-                return `{ ${Object.entries(prop.properties)
-                    .map(([k, v]) => `${k}: ${swaggerTypeToTs(v, swagger)}`)
-                    .join('; ')} }`;
-            }
-            return 'Record<string, any>';
-        default:
-            return 'any';
-    }
+    return 'any[]';
+  }
+  if (prop.enum)
+    return prop.enum.map((v: any) => JSON.stringify(v)).join(' | ');
+  switch (prop.type) {
+    case 'integer':
+    case 'number':
+      return 'number';
+    case 'boolean':
+      return 'boolean';
+    case 'string':
+      if (prop.format === 'date-time' || prop.format === 'date') return 'string';
+      return 'string';
+    case 'object':
+      if (prop.properties) {
+        return `{ ${Object.entries(prop.properties)
+          .map(([k, v]) => `${k}: ${swaggerTypeToTs(v, swagger)}`)
+          .join('; ')} }`;
+      }
+      return 'Record<string, any>';
+    default:
+      return 'any';
+  }
 }
 
 
 // - - - - - - - - - - - - - - - - //
 
-// Convert $ref to TypeScript type name
 function refToTsType(ref: string): string {
-    return ref.split('/').pop() || 'any';
+  return ref.split('/').pop() || 'any';
 }
-
 
 // - - - - - - - - - - - - - - - - //
 
-// Generate TypeScript interface from a schema
+
 function schemaToInterface(
-    name: string,
-    schema: any,
-    swagger: any
-): string {
-    if (schema.enum) {
-        // Enum as union type
-        return `export type ${name} = ${schema.enum.map((v: any) => JSON.stringify(v)).join(' | ')};\n`;
-    }
-    if (schema.type !== 'object' || !schema.properties) {
-        return `export type ${name} = ${swaggerTypeToTs(schema, swagger)};\n`;
-    }
-    const required = schema.required || [];
-    const props = Object.entries(schema.properties)
-        .map(([propName, propSchema]: [string, any]) => {
-            let tsType = '';
-            if (propSchema.$ref) {
-                tsType = refToTsType(propSchema.$ref);
-            } else if (propSchema.type === 'array' && propSchema.items && propSchema.items.$ref) {
-                tsType = `${refToTsType(propSchema.items.$ref)}[]`;
-            } else {
-                tsType = swaggerTypeToTs(propSchema, swagger);
-            }
-            const optional = required.includes(propName) ? '' : '?';
-            return `  ${propName}${optional}: ${tsType};`;
-        })
-        .join('\n');
-    return `export interface ${name} {\n${props}\n}\n`;
-}
+  name: string,
+  schema: any,
+  swagger: any
+): { code: string; imports: string[] } {
+  const imports = Array.from(new Set(getRefsFromSchema(schema))).filter(ref => ref !== name);
+  let importStmts = '';
+  
+  if (imports.length) {
+    importStmts = imports
+      .map(ref => `import { ${ref} } from './${interfaceFilename(ref).replace(/\.ts$/, '')}';`)
+      .join('\n') + '\n\n';
+  }
+  
+  if (schema.enum) {
+    return {
+      code: `${importStmts}export type ${name} = ${schema.enum.map((v: any) => JSON.stringify(v)).join(' | ')};\n`,
+      imports
+    };
+  }
+  
+  if (schema.type !== 'object' || !schema.properties) {
+    return {
+      code: `${importStmts}export type ${name} = ${swaggerTypeToTs(schema, swagger)};\n`,
+      imports
+    };
+  }
 
+  const required = schema.required || [];
+  const props = Object.entries(schema.properties)
+    .map(([propName, propSchema]: [string, any]) => {
+      let tsType = '';
+      if (propSchema.$ref) {
+        tsType = refToTsType(propSchema.$ref);
+      } else if (propSchema.type === 'array' && propSchema.items && propSchema.items.$ref) {
+        tsType = `${refToTsType(propSchema.items.$ref)}[]`;
+      } else {
+        tsType = swaggerTypeToTs(propSchema, swagger);
+      }
+      const optional = required.includes(propName) ? '' : '?';
+      return `  ${propName}${optional}: ${tsType};`;
+    })
+    .join('\n');
+  return {
+    code: `${importStmts}export interface ${name} {\n${props}\n}\n`,
+    imports
+  };
+}
 
 // - - - - - - - - - - - - - - - - //
 
-// Main function
-function generateInterfaces(swaggerPath: string, outputPath: string) {
-    const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
-    const schemas = swagger.components?.schemas;
-    if (!schemas) {
-        console.error('No schemas found in Swagger file.');
-        process.exit(1);
-    }
-
-    let output = `// Auto-generated from Swagger schemas\n\n`;
-
-    for (const [name, schema] of Object.entries(schemas)) {
-        output += schemaToInterface(name, schema, swagger) + '\n';
-    }
-
-    fs.writeFileSync(outputPath, output, 'utf8');
-    console.log(`TypeScript interfaces written to ${outputPath}`);
+function generateInterfaces(swaggerPath: string, outputDir: string) {
+  const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
+  const schemas = swagger.components?.schemas;
+  if (!schemas) {
+    console.error('No schemas found in Swagger file.');
+    process.exit(1);
+  }
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+  const indexExports: string[] = [];
+  for (const [name, schema] of Object.entries(schemas)) {
+    const { code } = schemaToInterface(name, schema, swagger);
+    const filename = interfaceFilename(name);
+    fs.writeFileSync(path.join(outputDir, filename), code, 'utf8');
+    indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
+  }
+  // Write index.ts
+  fs.writeFileSync(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n', 'utf8');
+  console.log(`TypeScript interfaces written to ${outputDir}`);
 }
-
 
 // ################################//
 
 // CLI usage
 if (require.main === module) {
-    const [swaggerPath, outputPath] = process.argv.slice(2);
-    if (!swaggerPath || !outputPath) {
-        console.error('Usage: ts-node generate-interfaces.ts <swagger.json> <output.ts>');
-        process.exit(1);
-    }
-    generateInterfaces(swaggerPath, outputPath);
+  const [swaggerPath, outputDir] = process.argv.slice(2);
+  if (!swaggerPath || !outputDir) {
+    console.error('Usage: ts-node generate-interfaces.ts <swagger.json> <output-folder>');
+    process.exit(1);
+  }
+  generateInterfaces(swaggerPath, outputDir);
 }
+
+
+
+
+// npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-interfaces.ts scripts-ts/swagger/swagger.example.json C:/Users/Shaneyboy/Desktop/GeneratorTest/Models

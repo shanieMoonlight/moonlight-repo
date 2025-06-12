@@ -7,22 +7,73 @@ import { ControllerDefinition, Action, Paramater } from './models'; // Adjust th
 
 // Helper to extract parameter names from an operation object
 function extractParamNames(operation: unknown): Paramater[] {
-    if (operation && typeof operation === 'object' && Array.isArray((operation as { parameters?: unknown[] }).parameters)) {
-        return ((operation as { parameters?: { name?: string; schema?: { type?: string; format?: string } }[] }).parameters || [])
-            .map((param) => {
-                if (param && typeof param === 'object' && 'name' in param) {
-                    const name = (param as { name: string }).name;
-                    const schema = (param as { schema?: { type?: string; format?: string } }).schema || {};
-                    const type = schema.type || '';
-                    const paramObj: Paramater = { name, type };
-                    if (schema.format) paramObj.format = schema.format;
-                    return paramObj;
-                }
+    if (!operation || typeof operation !== 'object' || !Array.isArray((operation as { parameters?: unknown[] }).parameters)) 
+        return [];
+    
+
+    return ((operation as { parameters?: { name?: string; schema?: { type?: string; format?: string } }[] }).parameters || [])
+        .map((param) => {
+            if (!param || typeof param !== 'object' || !('name' in param)) 
                 return undefined;
-            })
-            .filter((p): p is Paramater => !!p);
-    }
-    return [];
+            
+            const name = (param as { name: string }).name;
+            const schema = (param as { schema?: { type?: string; format?: string } }).schema || {};
+            const type = schema.type || '';
+            const paramObj: Paramater = { name, type };
+
+            if (schema.format) 
+                paramObj.format = schema.format;
+            return paramObj;
+        })
+        .filter((p): p is Paramater => !!p);
+
+}
+
+// - - - - - - - - - - - - - - - - //
+
+// Helper to extract request body type from an operation object
+function extractRequestBody(operation: unknown): string | undefined {
+    if (!operation || typeof operation !== 'object') 
+        return undefined;
+    
+    const op = operation as { requestBody?: { content?: Record<string, any> } };
+    if (!op.requestBody || !op.requestBody.content) 
+        return undefined; 
+
+    const content = op.requestBody.content;
+    // Prefer application/json, otherwise pick the first available
+    const schemaObj = content['application/json'] || Object.values(content)[0];
+    if (!schemaObj || !schemaObj.schema) 
+        return undefined;
+
+    const schema = schemaObj.schema;
+    if (schema.$ref) 
+        return schema.$ref.split('/').pop();
+    
+    // Optionally, handle inline schemas here if needed
+    return undefined;
+}
+
+// - - - - - - - - - - - - - - - - //
+
+// Helper to extract response body type from an operation object
+function extractResponseBody(operation: unknown): string | undefined {
+    if (!operation || typeof operation !== 'object') return undefined;
+    const op = operation as { responses?: Record<string, any> };
+    if (!op.responses) return undefined;
+    // Get the first status code (e.g., '200', '201', etc.)
+    const statusCode = Object.keys(op.responses)[0];
+    if (!statusCode) return undefined;
+    const responseObj = op.responses[statusCode];
+    if (!responseObj || !responseObj.content) return undefined;
+    const content = responseObj.content;
+    // Prefer application/json, otherwise pick the first available
+    const schemaObj = content['application/json'] || Object.values(content)[0];
+    if (!schemaObj || !schemaObj.schema) return undefined;
+    const schema = schemaObj.schema;
+    if (schema.$ref) return schema.$ref.split('/').pop();
+    // Optionally, handle inline schemas here if needed
+    return undefined;
 }
 
 // - - - - - - - - - - - - - - - - //
@@ -55,15 +106,21 @@ export function extractControllersFromSwagger(swaggerPath: string): ControllerDe
         // Iterate over HTTP methods in the path object
         for (const [method, operation] of Object.entries(pathObj as Record<string, unknown>)) {
             // Only process standard HTTP methods
-            if (!['get', 'post', 'put', 'patch', 'delete'].includes(method)) continue;
+            if (!['get', 'post', 'put', 'patch', 'delete'].includes(method)) 
+                continue;
+            
             // Use helper to extract parameter names
             const params = extractParamNames(operation);
+            const requestBodyType = extractRequestBody(operation);
+            const responseBodyType = extractResponseBody(operation);
             const action: Action = {
                 name: actionName,
                 method: method.toUpperCase(),
                 paramType: 'query',
                 params,
-                description: `Auto-extracted action ${actionName} (${method.toUpperCase()}) from path ${pathKey}`
+                description: `Auto-extracted action ${actionName} (${method.toUpperCase()}) from path ${pathKey}`,
+                requestBodyType,
+                responseBodyType
             };
             controller.actions.push(action);
         }
