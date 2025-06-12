@@ -1,0 +1,86 @@
+[
+  {
+    "name": "IdFeatureFlags",
+    "description": "Controller for IdFeatureFlags",
+    "actions": [
+      {
+        "name": "Add",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Add (POST) from path /identity/IdFeatureFlags/Add"
+      },
+      {
+        "name": "Edit",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Edit (PATCH) from path /identity/IdFeatureFlags/Edit"
+      },
+      {
+        "name": "Delete",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Delete (DELETE) from path /identity/IdFeatureFlags/Delete/{id}"
+      },
+      {
+        "name": "GetAll",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetAll (GET) from path /identity/IdFeatureFlags/GetAll"
+      },
+      {
+        "name": "Get",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Get (GET) from path /identity/IdFeatureFlags/Get/{id}"
+      },
+      {
+        "name": "GetAllByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetAllByName (GET) from path /identity/IdFeatureFlags/GetAllByName/{name}"
+      },
+      {
+        "name": "GetByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetByName (GET) from path /identity/IdFeatureFlags/GetByName/{name}"
+      },
+      {
+        "name": "Page",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Page (POST) from path /identity/IdFeatureFlags/Page"
+      }
+    ]
+  }
+]
