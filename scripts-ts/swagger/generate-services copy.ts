@@ -6,124 +6,35 @@ import { extractControllersFromSwagger } from './extract-swagger-contollers';
 
 // ################################//
 
-interface MethodParamInfo {
-    name: string;
-    type: string;
-}
-
-// ################################//
-
 const baseIoServiceFilename = 'base-server-io.service.ts';
 const baseIoServiceClassname = 'BaseServerIoService';
 const baseIoServiceDir = 'base';
-const dtoName = 'dto';
 
 // ################################//
-
-
-function getTypeScriptParamType(param: Paramater): string {
-    return param.type || 'any';
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function hasParamaters(action: Action): boolean {
-    return !!(action.params && action.params.length) || !!action.requestBodyType;
-}
-
-// - - - - - - - - - - - - - - - - //
-
-
-function generateMethodParams(action: Action): MethodParamInfo[] {
-    const requestBodyType = action.requestBodyType
-    if (requestBodyType)
-        return [{
-            name: dtoName,
-            type: requestBodyType
-        }]
-
-    if (!action.params?.length)
-        return []
-
-    return action.params.map(param => {
-        return {
-            name: param.name,
-            type: getTypeScriptParamType(param)
-        };
-
-    })
-
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function generateServiceReturnType(action: Action): string {
-    const responseBody = action.responseBody
-    if (!responseBody || !responseBody.type)
-        return 'any'
-
-    return responseBody.isArray
-        ? `${responseBody.type}[]`
-        : responseBody.type;
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function getBaseMethod(action: Action): string {
-
-    if (action.method === 'POST')
-        return '_postAction';
-    else if (action.method === 'PATCH')
-        return '_patchAction';
-    else if (action.method === 'DELETE') {
-        return '_deleteAction';
-    }
-
-    return hasParamaters(action)
-        ? '_getActionById'
-        : '_getAction';
-}
-
-// - - - - - - - - - - - - - - - - //
 
 /**
  * Builds a service method string for an action with a request body.
  */
-function buildServiceMethod(action: Action, controllerName: string, serverRoutesClass: string) {
-
-    const methodName = SwgStringUtils.toCamelCase(action.name)
-    const responseType = generateServiceReturnType(action)
-    const baseMethod = getBaseMethod(action);
-    const actionName = action.name;
-    const methodParams = generateMethodParams(action)
-
-    const methodInputParams = methodParams
-        .map(param => `${param.name}: ${param.type}`)
-        .join(', ');
-
-    const baseMethodInputParams = methodParams
-        .map(param => param.name)
-        .join(', ');
-
-    if (!methodParams.length) {
-        return `\n  
-    ${methodName} = (opts?: unknown): Observable<${responseType}> =>
-            this.${baseMethod}<${responseType}>(
-                ${serverRoutesClass}.${SwgStringUtils.capitalize(controllerName)}.action('${SwgStringUtils.toCamelCase(actionName)}'),
-                opts ?? {}
-            );
-        `;
-
-    }
-
-    return `\n  
-    ${methodName} = (${methodInputParams}, opts?: unknown): Observable<${responseType}> =>
+function buildServiceMethodWithRequest(methodName: string, requestType: string, responseType: string, baseMethod: string, serverRoutesClass: string, controllerName: string, actionName: string) {
+    return `\n  ${methodName} = (dto: ${requestType}, opts?: unknown): Observable<${responseType}> =>
         this.${baseMethod}<${responseType}>(
            ${serverRoutesClass}.${SwgStringUtils.capitalize(controllerName)}.action('${SwgStringUtils.toCamelCase(actionName)}'),
-           ${baseMethodInputParams},
+           dto,
            opts ?? {}
         );
     `;
+}
+
+/**
+ * Builds a service method string for an action without a request body.
+ */
+function buildServiceMethodNoRequest(methodName: string, responseType: string, baseMethod: string, serverRoutesClass: string, controllerName: string, actionName: string) {
+    return `\n  ${methodName} = (opts?: unknown): Observable<${responseType}> =>
+    this.${baseMethod}<${responseType}>(
+        ${serverRoutesClass}.${SwgStringUtils.capitalize(controllerName)}.action('${SwgStringUtils.toCamelCase(actionName)}'),
+        opts ?? {}
+    );
+`;
 }
 
 // - - - - - - - - - - - - - - - - //
@@ -175,6 +86,38 @@ function generateBaseIOServiceCode(serverRoutesClass?: string): string {
         }
         `
 
+}
+
+// - - - - - - - - - - - - - - - - //
+
+function getTypeScriptParamType(param: Paramater): string {
+    return param.type || 'any';
+}
+
+// - - - - - - - - - - - - - - - - //
+
+function generateServiceRequestType(action: Action): string | undefined {
+    const requestBodyType = action.requestBodyType
+    if (requestBodyType)
+        return `dto: ${requestBodyType}`
+
+    if (!action.params?.length)
+        return undefined
+
+    return action.params.map(param => `${param.name}:${getTypeScriptParamType(param)}`)
+        .join(', ');
+}
+
+// - - - - - - - - - - - - - - - - //
+
+function generateServiceReturnType(action: Action): string {
+    const responseBody = action.responseBody
+    if (!responseBody || !responseBody.type)
+        return 'any'
+
+    return responseBody.isArray
+        ? `${responseBody.type}[]`
+        : responseBody.type;
 }
 
 // --------------------------------//
@@ -229,7 +172,7 @@ export function generateServices(
             const responseType = generateServiceReturnType(action)
             const responseImportType = action.responseBody?.type || 'any';
 
-            const requestType = generateMethodParams(action);
+            const requestType = generateServiceRequestType(action);
             const requestImportType = action.requestBodyType || undefined;
 
             console.log('action.requestBodyType', action.requestBodyType);
@@ -250,12 +193,10 @@ export function generateServices(
             else if (action.method === 'DELETE')
                 baseMethod = '_delete';
 
-            // if (requestType)
-            //     methods += buildServiceMethodWithRequest(methodName, requestType, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
-            // else
-            //     methods += buildServiceMethodNoRequest(methodName, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
-
-            methods += buildServiceMethod(action, controller.name, serverRoutesClass);
+            if (requestType)
+                methods += buildServiceMethodWithRequest(methodName, requestType, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
+            else
+                methods += buildServiceMethodNoRequest(methodName, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
         }
         const importStmts = buildServiceImports(serverRoutesClass, importTypes);
         const serviceCode = buildServiceClassCode(importStmts, className, baseServiceClass, controllerRoute, methods);

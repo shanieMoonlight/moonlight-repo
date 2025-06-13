@@ -10,8 +10,24 @@
         "params": [],
         "description": "Auto-extracted action GetAll (GET) from path /identity/IdFeatureFlags/GetAll",
         "responseBody": {
-          "type": "FeatureFlagDto[]",
+          "type": "FeatureFlagDto",
           "isArray": true
+        }
+      },
+      {
+        "name": "Delete",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Delete (DELETE) from path /identity/IdFeatureFlags/Delete/{id}",
+        "responseBody": {
+          "type": "FeatureFlagDto"
         }
       }
     ]
