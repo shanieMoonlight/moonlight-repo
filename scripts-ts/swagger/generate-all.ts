@@ -3,12 +3,14 @@ import * as path from 'path';
 import { extractControllersFromSwagger } from './extract-swagger-contollers';
 import { generateControllerRoutes } from './generate-controller-routes';
 import { generateInterfaces } from './generate-interfaces';
+import { generateServices } from './generate-services';
 // Usage: ts-node generate-all.ts <swagger.json> <outputDir>
 // ################################//
 
 interface OutputDirectories {
     modelsDir: string;
     controllersDir: string;
+    ioDir: string;
 }
 
 
@@ -19,6 +21,7 @@ function createDirectoriesIfNotExists(outputDir: string): OutputDirectories {
     // Ensure output subfolders exist
     const modelsDir = path.join(outputDir, 'models');
     const controllersDir = path.join(outputDir, 'controllers');
+    const ioDir = path.join(outputDir, 'io');
 
     if (!fs.existsSync(modelsDir))
         fs.mkdirSync(modelsDir, { recursive: true });
@@ -26,7 +29,10 @@ function createDirectoriesIfNotExists(outputDir: string): OutputDirectories {
     if (!fs.existsSync(controllersDir))
         fs.mkdirSync(controllersDir, { recursive: true });
 
-    return { modelsDir, controllersDir };
+    if (!fs.existsSync(ioDir))
+        fs.mkdirSync(ioDir, { recursive: true });
+
+    return { modelsDir, controllersDir, ioDir };
 }
 
 // - - - - - - - - - - - - - - - - //
@@ -41,7 +47,7 @@ function main() {
     }
 
     const outputDirectories = createDirectoriesIfNotExists(outputDir);
-    const { modelsDir, controllersDir } = outputDirectories;
+    const { modelsDir, controllersDir, ioDir } = outputDirectories;
 
     const controllers = extractControllersFromSwagger(swaggerPath);
 
@@ -52,6 +58,10 @@ function main() {
     // Run generate-controller-routes.ts
     console.log('Generating controller routes...');
     generateControllerRoutes(controllers, controllersDir);
+    
+    // Run generate-controller-routes.ts
+    console.log('Generating io services...');
+    generateServices(controllers, ioDir, 'BaseServerIoService', 'ServerRoutes');
 
     console.log('All codegen steps complete.');
 }

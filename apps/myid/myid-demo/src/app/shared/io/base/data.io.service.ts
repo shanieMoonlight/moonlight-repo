@@ -9,7 +9,7 @@ import { Identifier } from '../models/identifier';
 
 //################################//
 
-function combine(...paths: Array<string | null | undefined>): string {
+export function combine(...paths: Array<string | null | undefined>): string {
     const validSegments = paths
       // Filter out null, undefined, and empty/whitespace-only strings
       .filter(
@@ -41,7 +41,7 @@ function combine(...paths: Array<string | null | undefined>): string {
  * Base Service for all http services.
  * Provides basic CRUD operations and error handling. *  
  **/
-export abstract class BaseDataService {
+export abstract class ABaseHttpService {
 
   protected _http = inject(HttpClient)
 

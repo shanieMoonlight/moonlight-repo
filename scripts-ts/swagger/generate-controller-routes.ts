@@ -83,6 +83,7 @@ export function generateControllerRoutesSwaggerJson(swaggerPath: string, outputD
  * @param baseUrl Optional base URL for the ServerRoutes class
  */
 export function generateControllerRoutes(controllers: ControllerDefinition[], outputDir: string, baseUrl?: string): string[] {
+  
   if (!controllers?.length) {
     console.error('No controllers provided to generateControllerRoutes. Skipping code generation.');
     return [];
@@ -104,11 +105,13 @@ export function generateControllerRoutes(controllers: ControllerDefinition[], ou
   }
 
   // Generate the ServerRoutes class
-  const serverRoutesCode = generateServerRoutesClass(controllerNames, baseUrl);
-  const serverRoutesPath = path.join(outputDir, 'all-server-routes.ts');
-  fs.writeFileSync(serverRoutesPath, serverRoutesCode, 'utf8');
-  writtenFiles.push(serverRoutesPath);
-  return writtenFiles;
+  const serverRoutesCode = generateServerRoutesClass(controllerNames, baseUrl)
+  const serverRoutesPath = path.join(outputDir, 'all-server-routes.ts')
+  fs.writeFileSync(serverRoutesPath, serverRoutesCode, 'utf8')
+  writtenFiles.push(serverRoutesPath)
+
+  return writtenFiles
+
 }
 
 

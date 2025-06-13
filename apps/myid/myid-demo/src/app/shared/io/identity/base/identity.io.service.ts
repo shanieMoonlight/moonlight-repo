@@ -1,12 +1,11 @@
-import { RouteUtility } from '@spider-baby/utils-routes';
 import { ServerRoutes } from '../../../../config/io/id/id.server.routes';
-import { BaseDataService } from '../../base/data.io.service';
+import { ABaseHttpService, combine } from '../../base/data.io.service';
 
 
-export class IdentityIoService extends BaseDataService {
+export class IdentityIoService extends ABaseHttpService {
 
   constructor(controller: string) {
-    super(RouteUtility.combine(ServerRoutes.BASE_URL, controller));
+    super(combine(ServerRoutes.BASE_URL, controller));
   }
 
 }

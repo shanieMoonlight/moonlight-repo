@@ -14,9 +14,16 @@ export class SwgStringUtils {
   }
 
   // - - - - - - - - - - - - - - - - //
-
+  
   static interfaceFilename(name: string) {
     return name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '.ts';
   }
-
+  
+  // - - - - - - - - - - - - - - - - //
+  
+  static classNameToFilename(className: string) {
+    return className.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '.ts';
+  }
+  
+  
 }//Cls
