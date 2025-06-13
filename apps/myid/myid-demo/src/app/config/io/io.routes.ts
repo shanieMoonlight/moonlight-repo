@@ -1,11 +1,11 @@
 
-import { IdentityServerRoutes } from "./id/id.server.routes";
+import { ServerRoutes } from "./id/id.server.routes";
 
 
 
 
 export class IoRoutes {
 
-    public Identity = IdentityServerRoutes
+    public Identity = ServerRoutes
 
 }

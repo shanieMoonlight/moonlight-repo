@@ -1,44 +1,50 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { SwgStringUtils } from './swg-string-utils';
 
 // ################################//
 
-function interfaceFilename(name: string) {
-  return name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '.ts';
-}
-
-// - - - - - - - - - - - - - - - - //
 
 function getRefsFromSchema(schema: any): string[] {
+
   const refs: string[] = [];
-  if (!schema) return refs;
-  if (schema.$ref) {
+
+  if (!schema)
+    return refs;
+
+  if (schema.$ref)
     refs.push(refToTsType(schema.$ref));
-  }
-  if (schema.type === 'array' && schema.items) {
+
+  if (schema.type === 'array' && schema.items)
     refs.push(...getRefsFromSchema(schema.items));
-  }
+
   if (schema.type === 'object' && schema.properties) {
     for (const prop of Object.values(schema.properties)) {
       refs.push(...getRefsFromSchema(prop));
     }
   }
+
   return refs;
 }
 
+
 // - - - - - - - - - - - - - - - - //
 
+
 function swaggerTypeToTs(prop: any, swagger: any): string {
+
   if (prop.$ref)
-    return refToTsType(prop.$ref);
+    return refToTsType(prop.$ref)
+
   if (prop.type === 'array') {
-    if (prop.items) {
-      return `${swaggerTypeToTs(prop.items, swagger)}[]`;
-    }
-    return 'any[]';
+    return prop.items
+      ? `${swaggerTypeToTs(prop.items, swagger)}[]`
+      : 'any[]';
   }
+
   if (prop.enum)
-    return prop.enum.map((v: any) => JSON.stringify(v)).join(' | ');
+    return prop.enum.map((v: unknown) => JSON.stringify(v)).join(' | ')
+
   switch (prop.type) {
     case 'integer':
     case 'number':
@@ -49,12 +55,11 @@ function swaggerTypeToTs(prop: any, swagger: any): string {
       if (prop.format === 'date-time' || prop.format === 'date') return 'string';
       return 'string';
     case 'object':
-      if (prop.properties) {
-        return `{ ${Object.entries(prop.properties)
+      return prop.properties
+        ? `{ ${Object.entries(prop.properties)
           .map(([k, v]) => `${k}: ${swaggerTypeToTs(v, swagger)}`)
-          .join('; ')} }`;
-      }
-      return 'Record<string, any>';
+          .join('; ')} }`
+        : 'Record<string, any>';
     default:
       return 'any';
   }
@@ -63,34 +68,32 @@ function swaggerTypeToTs(prop: any, swagger: any): string {
 
 // - - - - - - - - - - - - - - - - //
 
+
 function refToTsType(ref: string): string {
   return ref.split('/').pop() || 'any';
 }
 
+
 // - - - - - - - - - - - - - - - - //
 
 
-function schemaToInterface(
-  name: string,
-  schema: any,
-  swagger: any
-): { code: string; imports: string[] } {
+function schemaToInterface(name: string, schema: any, swagger: any): { code: string; imports: string[] } {
   const imports = Array.from(new Set(getRefsFromSchema(schema))).filter(ref => ref !== name);
   let importStmts = '';
-  
+
   if (imports.length) {
     importStmts = imports
-      .map(ref => `import { ${ref} } from './${interfaceFilename(ref).replace(/\.ts$/, '')}';`)
+      .map(ref => `import { ${ref} } from './${SwgStringUtils.interfaceFilename(ref).replace(/\.ts$/, '')}';`)
       .join('\n') + '\n\n';
   }
-  
+
   if (schema.enum) {
     return {
       code: `${importStmts}export type ${name} = ${schema.enum.map((v: any) => JSON.stringify(v)).join(' | ')};\n`,
       imports
     };
   }
-  
+
   if (schema.type !== 'object' || !schema.properties) {
     return {
       code: `${importStmts}export type ${name} = ${swaggerTypeToTs(schema, swagger)};\n`,
@@ -101,40 +104,48 @@ function schemaToInterface(
   const required = schema.required || [];
   const props = Object.entries(schema.properties)
     .map(([propName, propSchema]: [string, any]) => {
-      let tsType = '';
-      if (propSchema.$ref) {
+      
+      let tsType = ''
+
+      if (propSchema.$ref)
         tsType = refToTsType(propSchema.$ref);
-      } else if (propSchema.type === 'array' && propSchema.items && propSchema.items.$ref) {
+      else if (propSchema.type === 'array' && propSchema.items && propSchema.items.$ref)
         tsType = `${refToTsType(propSchema.items.$ref)}[]`;
-      } else {
+      else
         tsType = swaggerTypeToTs(propSchema, swagger);
-      }
+
       const optional = required.includes(propName) ? '' : '?';
       return `  ${propName}${optional}: ${tsType};`;
     })
-    .join('\n');
+    .join('\n')
+
   return {
     code: `${importStmts}export interface ${name} {\n${props}\n}\n`,
     imports
-  };
+  }
+
 }
+
 
 // - - - - - - - - - - - - - - - - //
 
-function generateInterfaces(swaggerPath: string, outputDir: string) {
+
+export function generateInterfaces(swaggerPath: string, outputDir: string) {
   const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
   const schemas = swagger.components?.schemas;
+
   if (!schemas) {
     console.error('No schemas found in Swagger file.');
     process.exit(1);
   }
-  if (!fs.existsSync(outputDir)) {
+
+  if (!fs.existsSync(outputDir))
     fs.mkdirSync(outputDir, { recursive: true });
-  }
+
   const indexExports: string[] = [];
   for (const [name, schema] of Object.entries(schemas)) {
     const { code } = schemaToInterface(name, schema, swagger);
-    const filename = interfaceFilename(name);
+    const filename = SwgStringUtils.interfaceFilename(name);
     fs.writeFileSync(path.join(outputDir, filename), code, 'utf8');
     indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
   }
@@ -143,10 +154,13 @@ function generateInterfaces(swaggerPath: string, outputDir: string) {
   console.log(`TypeScript interfaces written to ${outputDir}`);
 }
 
+
 // ################################//
+
 
 // CLI usage
 if (require.main === module) {
+
   const [swaggerPath, outputDir] = process.argv.slice(2);
   if (!swaggerPath || !outputDir) {
     console.error('Usage: ts-node generate-interfaces.ts <swagger.json> <output-folder>');
@@ -156,6 +170,7 @@ if (require.main === module) {
 }
 
 
+// ################################//
 
 
 // npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-interfaces.ts scripts-ts/swagger/swagger.example.json C:/Users/Shaneyboy/Desktop/GeneratorTest/Models
