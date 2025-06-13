@@ -6,6 +6,10 @@ export interface Paramater{
     type: string;
     format?: string;
 }
+export interface ResponseBody{
+    type:string;
+    isArray?: boolean;
+}
 
 export interface Action {
     name: string;
@@ -14,7 +18,8 @@ export interface Action {
     params?: Paramater[];
     description?: string;
     requestBodyType?: string;
-    responseBodyType?: string;
+    // responseBodyType?: string;
+    responseBody?: ResponseBody;
 }
 
 export interface ControllerDefinition {

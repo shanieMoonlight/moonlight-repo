@@ -50,6 +50,10 @@ function main() {
     const { modelsDir, controllersDir, ioDir } = outputDirectories;
 
     const controllers = extractControllersFromSwagger(swaggerPath);
+     
+    console.log(`Extracted ${controllers.length} controllers from Swagger file: ${swaggerPath}`);
+    
+    
 
     // Run generate-interfaces.ts
     console.log('Generating interfaces...');
@@ -58,10 +62,11 @@ function main() {
     // Run generate-controller-routes.ts
     console.log('Generating controller routes...');
     generateControllerRoutes(controllers, controllersDir);
-    
+
     // Run generate-controller-routes.ts
     console.log('Generating io services...');
-    generateServices(controllers, ioDir, 'BaseServerIoService', 'ServerRoutes');
+    const services = generateServices(controllers, ioDir, 'BaseServerIoService', 'ServerRoutes');
+    services.forEach(f => console.log(`   - ${f}`));
 
     console.log('All codegen steps complete.');
 }

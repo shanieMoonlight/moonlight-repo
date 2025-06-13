@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { SwgStringUtils } from './swg-string-utils';
-import { ControllerDefinition } from './models';
+import { Action, ControllerDefinition, ResponseBody } from './models';
 import { extractControllersFromSwagger } from './extract-swagger-contollers';
 
 // ################################//
@@ -72,20 +72,32 @@ export class ${className} extends ${baseServiceClass} {\n
 function generateBaseIOServiceCode(serverRoutesClass?: string): string {
 
     return `
-import { ${serverRoutesClass} } from '../../controllers/all-server-routes';
-import { ABaseHttpService } from '../data-service/a-base-data.io.service';
-import { RouteUtils } from '../data-service/route-utils';
-
-
-export class ${baseIoServiceClassname} extends ABaseHttpService {
-
-  constructor(controller: string) {
-    super(RouteUtils.combine(${serverRoutesClass}.BASE_URL, controller));
-  }
+    import { ${serverRoutesClass} } from '../../controllers/all-server-routes';
+    import { ABaseHttpService } from '../data-service/a-base-data.io.service';
+    import { RouteUtils } from '../data-service/route-utils';
+    
+    
+    export class ${baseIoServiceClassname} extends ABaseHttpService {
+        
+    constructor(controller: string) {
+        super(RouteUtils.combine(${serverRoutesClass}.BASE_URL, controller));
+        }
+        
+        }
+        `
 
 }
-`
 
+// - - - - - - - - - - - - - - - - //
+
+function generateServiceReturnType(action: Action): string {
+    const responseBody = action.responseBody
+    if (!responseBody || !responseBody.type)
+        return 'any'
+
+    return responseBody.isArray
+        ? `${responseBody.type}[]`
+        : responseBody.type;
 }
 
 // --------------------------------//
@@ -116,16 +128,16 @@ export function generateServices(
     if (!fs.existsSync(outputDir))
         fs.mkdirSync(outputDir, { recursive: true });
 
-    const baseServiceCode = generateBaseIOServiceCode(serverRoutesClass);  
-    const filePath = path.join(outputDir,baseIoServiceDir, baseIoServiceFilename);
+    const baseServiceCode = generateBaseIOServiceCode(serverRoutesClass);
+    const filePath = path.join(outputDir, baseIoServiceDir, baseIoServiceFilename);
     fs.writeFileSync(filePath, baseServiceCode, 'utf8');
 
     const writtenFiles: string[] = [];
     for (const controller of controllers) {
-        
-        if (!controller.name || !Array.isArray(controller.actions)) 
+
+        if (!controller.name || !Array.isArray(controller.actions))
             continue;
-        
+
         const className = `${SwgStringUtils.capitalize(controller.name)}IoService`;
         const controllerRoute = `${serverRoutesClass}.${SwgStringUtils.capitalize(controller.name)}.Controller`;
         const importTypes = new Set<string>();
@@ -136,22 +148,24 @@ export function generateServices(
                 continue;
 
             const methodName = SwgStringUtils.toCamelCase(action.name);
-            const responseType = action.responseBodyType || 'any';
+            // const responseType = action.responseBody?.type || 'any';
+            const responseType = generateServiceReturnType(action)
+            const importType = action.responseBody?.type || 'any';
             const requestType = action.requestBodyType || undefined;
 
-            if (responseType && responseType !== 'any')
-                importTypes.add(responseType);
+            if (importType && importType !== 'any')
+                importTypes.add(importType);
 
             if (requestType && requestType !== 'any')
                 importTypes.add(requestType);
 
-            let baseMethod = 'getAction';
+            let baseMethod = '_getAction';
             if (action.method === 'POST')
-                baseMethod = 'postAction';
+                baseMethod = '_postAction';
             else if (action.method === 'PATCH')
-                baseMethod = 'patchAction';
+                baseMethod = '_patchAction';
             else if (action.method === 'DELETE')
-                baseMethod = 'delete';
+                baseMethod = '_delete';
 
             if (requestType)
                 methods += buildServiceMethodWithRequest(methodName, requestType, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
@@ -165,7 +179,6 @@ export function generateServices(
 
         fs.writeFileSync(filePath, serviceCode, 'utf8');
         writtenFiles.push(filePath);
-        console.log(`Wrote ${filename}`);
     }
     return writtenFiles;
 }

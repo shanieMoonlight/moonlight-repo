@@ -1,0 +1,1347 @@
+[
+  {
+    "name": "Account",
+    "description": "Controller for Account",
+    "actions": [
+      {
+        "name": "CloseAccount",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action CloseAccount (DELETE) from path /identity/Account/CloseAccount",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "MyInfoCustomer",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action MyInfoCustomer (GET) from path /identity/Account/MyInfoCustomer",
+        "responseBodyType": "AppUser_Customer_Dto"
+      },
+      {
+        "name": "RegisterCustomer",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RegisterCustomer (POST) from path /identity/Account/RegisterCustomer",
+        "requestBodyType": "RegisterCustomerDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "CreateCustomer",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action CreateCustomer (POST) from path /identity/Account/CreateCustomer",
+        "requestBodyType": "RegisterCustomer_NoPwdDto",
+        "responseBodyType": "AppUser_Customer_Dto"
+      },
+      {
+        "name": "AddCustomerTeamMember",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddCustomerTeamMember (POST) from path /identity/Account/AddCustomerTeamMember",
+        "requestBodyType": "AddCustomerMemberDto",
+        "responseBodyType": "AppUser_Customer_Dto"
+      },
+      {
+        "name": "AddCustomerTeamMemberMntc",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddCustomerTeamMemberMntc (POST) from path /identity/Account/AddCustomerTeamMemberMntc",
+        "requestBodyType": "AddCustomerMember_MntcDto",
+        "responseBodyType": "AppUser_Customer_Dto"
+      },
+      {
+        "name": "GoogleLogin",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GoogleLogin (POST) from path /identity/Account/GoogleLogin",
+        "requestBodyType": "GoogleSignInDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "ConfirmPhone",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ConfirmPhone (POST) from path /identity/Account/ConfirmPhone",
+        "requestBodyType": "ConfirmPhoneDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendPhoneConfirmation",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ResendPhoneConfirmation (POST) from path /identity/Account/ResendPhoneConfirmation",
+        "requestBodyType": "ResendPhoneConfirmationDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendPhoneConfirmation",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ResendPhoneConfirmation (GET) from path /identity/Account/ResendPhoneConfirmation",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendPhoneConfirmation",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "email",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action ResendPhoneConfirmation (GET) from path /identity/Account/ResendPhoneConfirmation/{email}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ConfirmEmail",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ConfirmEmail (POST) from path /identity/Account/ConfirmEmail",
+        "requestBodyType": "ConfirmEmailDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ConfirmEmailWithPassword",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ConfirmEmailWithPassword (POST) from path /identity/Account/ConfirmEmailWithPassword",
+        "requestBodyType": "ConfirmEmailWithPwdDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ForgotPassword",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ForgotPassword (POST) from path /identity/Account/ForgotPassword",
+        "requestBodyType": "ForgotPwdDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "Login",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Login (POST) from path /identity/Account/Login",
+        "requestBodyType": "LoginDto",
+        "responseBodyType": "JwtPackage"
+      },
+      {
+        "name": "LoginRefresh",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action LoginRefresh (POST) from path /identity/Account/LoginRefresh",
+        "requestBodyType": "LoginRefreshDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "CookieSignOut",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action CookieSignOut (POST) from path /identity/Account/CookieSignOut"
+      },
+      {
+        "name": "CookieSignIn",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action CookieSignIn (POST) from path /identity/Account/CookieSignIn",
+        "requestBodyType": "SignInDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ChangePassword",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ChangePassword (POST) from path /identity/Account/ChangePassword",
+        "requestBodyType": "ChPwdDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "MyInfo",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action MyInfo (GET) from path /identity/Account/MyInfo",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "AddMntcTeamMember",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddMntcTeamMember (POST) from path /identity/Account/AddMntcTeamMember",
+        "requestBodyType": "AddMntcMemberDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "AddSuperTeamMember",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddSuperTeamMember (POST) from path /identity/Account/AddSuperTeamMember",
+        "requestBodyType": "AddSprMemberDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "RefreshTokenRevoke",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RefreshTokenRevoke (DELETE) from path /identity/Account/RefreshTokenRevoke",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendEmailConfirmation",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ResendEmailConfirmation (POST) from path /identity/Account/ResendEmailConfirmation",
+        "requestBodyType": "ResendEmailConfirmationDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendEmailConfirmation",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ResendEmailConfirmation (GET) from path /identity/Account/ResendEmailConfirmation",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "ResendEmailConfirmation",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "email",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action ResendEmailConfirmation (GET) from path /identity/Account/ResendEmailConfirmation/{email}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "TwoFactorResend",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action TwoFactorResend (POST) from path /identity/Account/TwoFactorResend",
+        "requestBodyType": "Resend2FactorDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "TwoFactorVerification",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action TwoFactorVerification (POST) from path /identity/Account/TwoFactorVerification",
+        "requestBodyType": "Verify2FactorDto",
+        "responseBodyType": "JwtPackage"
+      },
+      {
+        "name": "TwoFactorSetupData",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action TwoFactorSetupData (GET) from path /identity/Account/TwoFactorSetupData",
+        "responseBodyType": "AuthAppSetupDto"
+      },
+      {
+        "name": "TwoFactorAuthAppEmailComplete",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "code",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action TwoFactorAuthAppEmailComplete (GET) from path /identity/Account/TwoFactorAuthAppEmailComplete/{code}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "TwoFactorAuthAppComplete",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action TwoFactorAuthAppComplete (GET) from path /identity/Account/TwoFactorAuthAppComplete",
+        "requestBodyType": "TwoFactorAuthAppCompleteRegDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "EnableTwoFactorAuthentication",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action EnableTwoFactorAuthentication (PATCH) from path /identity/Account/EnableTwoFactorAuthentication",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "DisableTwoFactorAuthentication",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action DisableTwoFactorAuthentication (PATCH) from path /identity/Account/DisableTwoFactorAuthentication",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "ResetPassword",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action ResetPassword (POST) from path /identity/Account/ResetPassword",
+        "requestBodyType": "ResetPwdDto",
+        "responseBodyType": "MessageResponseDto"
+      }
+    ]
+  },
+  {
+    "name": "AuthenticatorDemo",
+    "description": "Controller for AuthenticatorDemo",
+    "actions": [
+      {
+        "name": "endpoints",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action endpoints (GET) from path /api/AuthenticatorDemo/endpoints"
+      },
+      {
+        "name": "test-info",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action test-info (GET) from path /api/AuthenticatorDemo/test-info"
+      }
+    ]
+  },
+  {
+    "name": "CookieDebugging",
+    "description": "Controller for CookieDebugging",
+    "actions": [
+      {
+        "name": "cookie-info",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action cookie-info (GET) from path /api/CookieDebugging/cookie-info"
+      }
+    ]
+  },
+  {
+    "name": "CustomerAuthenticatorDemo",
+    "description": "Controller for CustomerAuthenticatorDemo",
+    "actions": [
+      {
+        "name": "customer",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action customer (GET) from path /api/CustomerAuthenticatorDemo/customer"
+      },
+      {
+        "name": "customer-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action customer-minimum (GET) from path /api/CustomerAuthenticatorDemo/customer-minimum"
+      },
+      {
+        "name": "customer-leader",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action customer-leader (GET) from path /api/CustomerAuthenticatorDemo/customer-leader"
+      },
+      {
+        "name": "customer-leader-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action customer-leader-minimum (GET) from path /api/CustomerAuthenticatorDemo/customer-leader-minimum"
+      },
+      {
+        "name": "customer-resource-filter",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action customer-resource-filter (GET) from path /api/CustomerAuthenticatorDemo/customer-resource-filter"
+      }
+    ]
+  },
+  {
+    "name": "IdFeatureFlags",
+    "description": "Controller for IdFeatureFlags",
+    "actions": [
+      {
+        "name": "Add",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Add (POST) from path /identity/IdFeatureFlags/Add",
+        "requestBodyType": "FeatureFlagDto",
+        "responseBodyType": "FeatureFlagDto"
+      },
+      {
+        "name": "Edit",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Edit (PATCH) from path /identity/IdFeatureFlags/Edit",
+        "requestBodyType": "FeatureFlagDto",
+        "responseBodyType": "FeatureFlagDto"
+      },
+      {
+        "name": "Delete",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Delete (DELETE) from path /identity/IdFeatureFlags/Delete/{id}",
+        "responseBodyType": "FeatureFlagDto"
+      },
+      {
+        "name": "GetAll",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetAll (GET) from path /identity/IdFeatureFlags/GetAll"
+      },
+      {
+        "name": "Get",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Get (GET) from path /identity/IdFeatureFlags/Get/{id}",
+        "responseBodyType": "FeatureFlagDto"
+      },
+      {
+        "name": "GetAllByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetAllByName (GET) from path /identity/IdFeatureFlags/GetAllByName/{name}"
+      },
+      {
+        "name": "GetByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetByName (GET) from path /identity/IdFeatureFlags/GetByName/{name}"
+      },
+      {
+        "name": "Page",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Page (POST) from path /identity/IdFeatureFlags/Page",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "FeatureFlagDtoPagedResponse"
+      }
+    ]
+  },
+  {
+    "name": "IdImages",
+    "description": "Controller for IdImages",
+    "actions": [
+      {
+        "name": "EmailConfirmed",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action EmailConfirmed (GET) from path /identity/IdImages/EmailConfirmed",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "PhoneConfirmed",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action PhoneConfirmed (GET) from path /identity/IdImages/PhoneConfirmed",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "FallbackLogo",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action FallbackLogo (GET) from path /identity/IdImages/FallbackLogo",
+        "responseBodyType": "MessageResponseDto"
+      }
+    ]
+  },
+  {
+    "name": "IdMaintenance",
+    "description": "Controller for IdMaintenance",
+    "actions": [
+      {
+        "name": "Initialize",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Initialize (POST) from path /identity/IdMaintenance/Initialize",
+        "requestBodyType": "InitializeDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "Migrate",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Migrate (POST) from path /identity/IdMaintenance/Migrate",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "PublicSigningKey",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action PublicSigningKey (GET) from path /identity/IdMaintenance/PublicSigningKey"
+      },
+      {
+        "name": "EmailRoutes",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action EmailRoutes (GET) from path /identity/IdMaintenance/EmailRoutes"
+      },
+      {
+        "name": "GetTwoFactorProviders",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetTwoFactorProviders (GET) from path /identity/IdMaintenance/GetTwoFactorProviders"
+      },
+      {
+        "name": "GlobalSettings",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GlobalSettings (GET) from path /identity/IdMaintenance/GlobalSettings"
+      }
+    ]
+  },
+  {
+    "name": "IdOutboxMessages",
+    "description": "Controller for IdOutboxMessages",
+    "actions": [
+      {
+        "name": "GetAll",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetAll (GET) from path /identity/IdOutboxMessages/GetAll"
+      },
+      {
+        "name": "Get",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Get (GET) from path /identity/IdOutboxMessages/Get/{id}",
+        "responseBodyType": "IdOutboxMessageDto"
+      },
+      {
+        "name": "GetAllByType",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetAllByType (GET) from path /identity/IdOutboxMessages/GetAllByType/{name}"
+      },
+      {
+        "name": "Page",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Page (POST) from path /identity/IdOutboxMessages/Page",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "IdOutboxMessageDtoPagedResponse"
+      }
+    ]
+  },
+  {
+    "name": "IdSubscriptionPlans",
+    "description": "Controller for IdSubscriptionPlans",
+    "actions": [
+      {
+        "name": "Add",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Add (POST) from path /identity/IdSubscriptionPlans/Add",
+        "requestBodyType": "SubscriptionPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "Edit",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Edit (PATCH) from path /identity/IdSubscriptionPlans/Edit",
+        "requestBodyType": "SubscriptionPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "Delete",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Delete (DELETE) from path /identity/IdSubscriptionPlans/Delete/{id}"
+      },
+      {
+        "name": "GetAll",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetAll (GET) from path /identity/IdSubscriptionPlans/GetAll"
+      },
+      {
+        "name": "Get",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Get (GET) from path /identity/IdSubscriptionPlans/Get/{id}",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "GetByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetByName (GET) from path /identity/IdSubscriptionPlans/GetByName/{name}",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "GetAllByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetAllByName (GET) from path /identity/IdSubscriptionPlans/GetAllByName/{name}"
+      },
+      {
+        "name": "Page",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Page (POST) from path /identity/IdSubscriptionPlans/Page",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "SubscriptionPlanDtoPagedResponse"
+      },
+      {
+        "name": "AddFeature",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddFeature (POST) from path /identity/IdSubscriptionPlans/AddFeature",
+        "requestBodyType": "AddFeatureToPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "AddFeatures",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddFeatures (POST) from path /identity/IdSubscriptionPlans/AddFeatures",
+        "requestBodyType": "AddFeaturesToPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "RemoveFeature",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RemoveFeature (POST) from path /identity/IdSubscriptionPlans/RemoveFeature",
+        "requestBodyType": "RemoveFeatureFromSubscriptionPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      },
+      {
+        "name": "RemoveFeatures",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RemoveFeatures (POST) from path /identity/IdSubscriptionPlans/RemoveFeatures",
+        "requestBodyType": "RemoveFeaturesFromSubscriptionPlanDto",
+        "responseBodyType": "SubscriptionPlanDto"
+      }
+    ]
+  },
+  {
+    "name": "MaintenanceAuthenticatorDemo",
+    "description": "Controller for MaintenanceAuthenticatorDemo",
+    "actions": [
+      {
+        "name": "mntc",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc (GET) from path /api/MaintenanceAuthenticatorDemo/mntc"
+      },
+      {
+        "name": "mntc-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc-minimum (GET) from path /api/MaintenanceAuthenticatorDemo/mntc-minimum"
+      },
+      {
+        "name": "mntc-leader",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc-leader (GET) from path /api/MaintenanceAuthenticatorDemo/mntc-leader"
+      },
+      {
+        "name": "mntc-leader-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc-leader-minimum (GET) from path /api/MaintenanceAuthenticatorDemo/mntc-leader-minimum"
+      },
+      {
+        "name": "mntc-minimum-or-dev",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc-minimum-or-dev (GET) from path /api/MaintenanceAuthenticatorDemo/mntc-minimum-or-dev"
+      },
+      {
+        "name": "mntc-resource-filter",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action mntc-resource-filter (GET) from path /api/MaintenanceAuthenticatorDemo/mntc-resource-filter"
+      }
+    ]
+  },
+  {
+    "name": "MiscellaneousAuthenticatorDemo",
+    "description": "Controller for MiscellaneousAuthenticatorDemo",
+    "actions": [
+      {
+        "name": "leader",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action leader (GET) from path /api/MiscellaneousAuthenticatorDemo/leader"
+      },
+      {
+        "name": "position-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action position-minimum (GET) from path /api/MiscellaneousAuthenticatorDemo/position-minimum"
+      },
+      {
+        "name": "position-minimum-with-level",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action position-minimum-with-level (GET) from path /api/MiscellaneousAuthenticatorDemo/position-minimum-with-level"
+      },
+      {
+        "name": "position-minimum-resource-filter",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action position-minimum-resource-filter (GET) from path /api/MiscellaneousAuthenticatorDemo/position-minimum-resource-filter"
+      },
+      {
+        "name": "leader-resource-filter",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action leader-resource-filter (GET) from path /api/MiscellaneousAuthenticatorDemo/leader-resource-filter"
+      },
+      {
+        "name": "policy-example",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action policy-example (GET) from path /api/MiscellaneousAuthenticatorDemo/policy-example"
+      }
+    ]
+  },
+  {
+    "name": "SuperAuthenticatorDemo",
+    "description": "Controller for SuperAuthenticatorDemo",
+    "actions": [
+      {
+        "name": "super",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action super (GET) from path /api/SuperAuthenticatorDemo/super"
+      },
+      {
+        "name": "super-minimum",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action super-minimum (GET) from path /api/SuperAuthenticatorDemo/super-minimum"
+      },
+      {
+        "name": "super-leader",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action super-leader (GET) from path /api/SuperAuthenticatorDemo/super-leader"
+      },
+      {
+        "name": "super-minimum-or-dev",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action super-minimum-or-dev (GET) from path /api/SuperAuthenticatorDemo/super-minimum-or-dev"
+      },
+      {
+        "name": "super-resource-filter",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action super-resource-filter (GET) from path /api/SuperAuthenticatorDemo/super-resource-filter"
+      }
+    ]
+  },
+  {
+    "name": "Teams",
+    "description": "Controller for Teams",
+    "actions": [
+      {
+        "name": "AddCustomerToTeam",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddCustomerToTeam (POST) from path /identity/Teams/AddCustomerToTeam",
+        "requestBodyType": "AddCustomerMember_MntcDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "Add",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Add (POST) from path /identity/Teams/Add",
+        "requestBodyType": "TeamDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "Edit",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Edit (PATCH) from path /identity/Teams/Edit",
+        "requestBodyType": "TeamDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "UpdatePositionRange",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action UpdatePositionRange (PATCH) from path /identity/Teams/UpdatePositionRange",
+        "requestBodyType": "UpdateTeamPositionRangeDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "Delete",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Delete (DELETE) from path /identity/Teams/Delete/{id}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "GetAll",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetAll (GET) from path /identity/Teams/GetAll",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "GetSuper",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetSuper (GET) from path /identity/Teams/GetSuper",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "GetMntc",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetMntc (GET) from path /identity/Teams/GetMntc",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "Get",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action Get (GET) from path /identity/Teams/Get/{id}",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "GetAllByName",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "description": "Auto-extracted action GetAllByName (GET) from path /identity/Teams/GetAllByName/{name}"
+      },
+      {
+        "name": "Page",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action Page (POST) from path /identity/Teams/Page",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "TeamDtoPagedResponse"
+      },
+      {
+        "name": "AddSubscription",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddSubscription (POST) from path /identity/Teams/AddSubscription",
+        "requestBodyType": "AddTeamSubscriptionDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "GetSubscription",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "subId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetSubscription (GET) from path /identity/Teams/GetSubscription/{subId}",
+        "responseBodyType": "SubscriptionDto"
+      },
+      {
+        "name": "RemoveSubscription",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RemoveSubscription (POST) from path /identity/Teams/RemoveSubscription",
+        "requestBodyType": "RemoveTeamSubscriptionDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "RecordSubscriptionPayment",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RecordSubscriptionPayment (POST) from path /identity/Teams/RecordSubscriptionPayment",
+        "requestBodyType": "RecordSubscriptionPaymentDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "GetDevice",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "subId",
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "dvcId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetDevice (GET) from path /identity/Teams/GetDevice/{subId}/{dvcId}",
+        "responseBodyType": "DeviceDto"
+      },
+      {
+        "name": "AddDevice",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action AddDevice (POST) from path /identity/Teams/AddDevice",
+        "requestBodyType": "AddDeviceToTeamDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "RemoveDevice",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action RemoveDevice (POST) from path /identity/Teams/RemoveDevice",
+        "requestBodyType": "RemoveDeviceFromTeamSubscriptionDto",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "UpdateDevice",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action UpdateDevice (PATCH) from path /identity/Teams/UpdateDevice",
+        "requestBodyType": "DeviceDto",
+        "responseBodyType": "MessageResponseDto"
+      }
+    ]
+  },
+  {
+    "name": "UserManagement",
+    "description": "Controller for UserManagement",
+    "actions": [
+      {
+        "name": "DeleteCustomer",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action DeleteCustomer (DELETE) from path /identity/UserManagement/DeleteCustomer/{userId}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "GetCustomers",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetCustomers (GET) from path /identity/UserManagement/GetCustomers"
+      },
+      {
+        "name": "GetCustomersPage",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetCustomersPage (POST) from path /identity/UserManagement/GetCustomersPage",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "AppUser_Customer_DtoPagedResponse"
+      },
+      {
+        "name": "GetCustomer",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "teamId",
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetCustomer (GET) from path /identity/UserManagement/GetCustomer/{teamId}/{userId}",
+        "responseBodyType": "AppUser_Customer_Dto"
+      },
+      {
+        "name": "UpdatePosition",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "newPosition",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "description": "Auto-extracted action UpdatePosition (PATCH) from path /identity/UserManagement/UpdatePosition/{userId}/{newPosition}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "UpdateMember",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action UpdateMember (PATCH) from path /identity/UserManagement/UpdateMember",
+        "requestBodyType": "UpdateSelfDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "UpdateMyTeamLeader",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "newLeaderId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action UpdateMyTeamLeader (PATCH) from path /identity/UserManagement/UpdateMyTeamLeader/{newLeaderId}",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "UpdateLeader",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action UpdateLeader (PATCH) from path /identity/UserManagement/UpdateLeader",
+        "requestBodyType": "UpdateTeamLeaderDto",
+        "responseBodyType": "TeamDto"
+      },
+      {
+        "name": "UpdateTwoFactorProvider",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "provider",
+            "type": ""
+          }
+        ],
+        "description": "Auto-extracted action UpdateTwoFactorProvider (PATCH) from path /identity/UserManagement/UpdateTwoFactorProvider/{provider}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "UpdateAddress",
+        "method": "PATCH",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action UpdateAddress (PATCH) from path /identity/UserManagement/UpdateAddress",
+        "requestBodyType": "IdentityAddressDto",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "DeleteMntcMember",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action DeleteMntcMember (DELETE) from path /identity/UserManagement/DeleteMntcMember/{userId}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "DeleteSuperMember",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action DeleteSuperMember (DELETE) from path /identity/UserManagement/DeleteSuperMember/{userId}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "DeleteTeamMember",
+        "method": "DELETE",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action DeleteTeamMember (DELETE) from path /identity/UserManagement/DeleteTeamMember/{userId}",
+        "responseBodyType": "MessageResponseDto"
+      },
+      {
+        "name": "GetTeamMembers",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetTeamMembers (GET) from path /identity/UserManagement/GetTeamMembers"
+      },
+      {
+        "name": "GetMntcTeamMembers",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetMntcTeamMembers (GET) from path /identity/UserManagement/GetMntcTeamMembers"
+      },
+      {
+        "name": "GetSuperTeamMembers",
+        "method": "GET",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetSuperTeamMembers (GET) from path /identity/UserManagement/GetSuperTeamMembers"
+      },
+      {
+        "name": "GetMntcTeamMembersPage",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetMntcTeamMembersPage (POST) from path /identity/UserManagement/GetMntcTeamMembersPage",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "AppUserDtoPagedResponse"
+      },
+      {
+        "name": "GetSuperTeamMembersPage",
+        "method": "POST",
+        "paramType": "query",
+        "params": [],
+        "description": "Auto-extracted action GetSuperTeamMembersPage (POST) from path /identity/UserManagement/GetSuperTeamMembersPage",
+        "requestBodyType": "PagedRequest",
+        "responseBodyType": "AppUserDtoPagedResponse"
+      },
+      {
+        "name": "GetMyTeamMember",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetMyTeamMember (GET) from path /identity/UserManagement/GetMyTeamMember/{userId}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "GetTeamMember",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "teamId",
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetTeamMember (GET) from path /identity/UserManagement/GetTeamMember/{teamId}/{userId}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "GetSuperTeamMember",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetSuperTeamMember (GET) from path /identity/UserManagement/GetSuperTeamMember/{userId}",
+        "responseBodyType": "AppUserDto"
+      },
+      {
+        "name": "GetMntcTeamMember",
+        "method": "GET",
+        "paramType": "query",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "description": "Auto-extracted action GetMntcTeamMember (GET) from path /identity/UserManagement/GetMntcTeamMember/{userId}",
+        "responseBodyType": "AppUserDto"
+      }
+    ]
+  }
+]
