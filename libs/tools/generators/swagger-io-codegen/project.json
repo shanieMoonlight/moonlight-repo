@@ -1,0 +1,38 @@
+{
+  "name": "spider-baby-generators-swagger-io-codegen",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/generators/swagger-io-codegen/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk"
+    }
+  },
+  "tags": ["swagger codegen"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tools/generators/swagger-io-codegen",
+        "main": "libs/tools/generators/swagger-io-codegen/src/index.ts",
+        "tsConfig": "libs/tools/generators/swagger-io-codegen/tsconfig.lib.json",
+        "assets": ["libs/tools/generators/swagger-io-codegen/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/tools/generators/swagger-io-codegen/jest.config.ts"
+      }
+    }
+  }
+}

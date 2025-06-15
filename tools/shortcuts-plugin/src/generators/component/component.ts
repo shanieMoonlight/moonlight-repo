@@ -1,9 +1,7 @@
-import { addProjectConfiguration, formatFiles, generateFiles, Tree, } from '@nx/devkit';
-import * as path from 'path';
 import { componentGenerator as ngComponentGenerator, } from '@nx/angular/generators';
-import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
-import { ComponentGeneratorSchema, NoramlizedComponentGeneratorSchema } from './schema';
 import { Schema } from '@nx/angular/src/generators/component/schema';
+import { Tree } from '@nx/devkit';
+import { ComponentGeneratorSchema, NoramlizedComponentGeneratorSchema } from './schema';
 
 //-----------------------------//
 
