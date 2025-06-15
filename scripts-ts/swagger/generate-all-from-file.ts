@@ -1,17 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { extractControllersFromSwagger } from './extract-swagger-contollers';
+import { extractControllersFromSwaggerPath } from './extract-swagger-contollers';
 import { generateControllerRoutes } from './generate-controller-routes';
-import { generateInterfaces } from './generate-interfaces';
+import { generateInterfacesFromPath } from './generate-interfaces';
 import { generateServices } from './generate-services';
-// Usage: ts-node generate-all.ts <swagger.json> <outputDir>
-// ################################//
+import { GenerateResults, OutputDirectories } from './models';
+import { logGeneratedResults } from './swg-utils';
 
-interface OutputDirectories {
-    modelsDir: string;
-    controllersDir: string;
-    ioDir: string;
-}
+// ################################//
 
 const SERVER_ROUTES_CLASS_NAME = 'ServerRoutes';
 const A_BASE_IO_SERVICE_CLASS_NAME = 'AServerIoService';
@@ -40,19 +36,13 @@ function createDirectoriesIfNotExists(outputDir: string): OutputDirectories {
 
 // - - - - - - - - - - - - - - - - //
 
-function main() {
+export  function generateAllFromPath(swaggerPath: string, outputDir: string): GenerateResults {
 
-    const [swaggerPath, outputDir] = process.argv.slice(2)
-
-    if (!swaggerPath || !outputDir) {
-        console.error('Usage: ts-node generate-all.ts <swagger.json> <outputDir>');
-        process.exit(1);
-    }
 
     const outputDirectories = createDirectoriesIfNotExists(outputDir);
     const { modelsDir, controllersDir, ioDir } = outputDirectories;
 
-    const controllers = extractControllersFromSwagger(swaggerPath);
+    const controllers = extractControllersFromSwaggerPath(swaggerPath);
 
     console.log(`Extracted ${controllers.length} controllers from Swagger file: ${swaggerPath}`);
 
@@ -62,18 +52,42 @@ function main() {
 
     // Run generate-interfaces.ts
     console.log('Generating interfaces...');
-    generateInterfaces(swaggerPath, modelsDir);
+    const generatedInterfaces = generateInterfacesFromPath(swaggerPath, modelsDir);
 
     // Run generate-controller-routes.ts
     console.log('Generating controller routes...');
-    generateControllerRoutes(controllers, controllersDir);
+    const generatedControllerRoutes = generateControllerRoutes(controllers, controllersDir);
 
     // Run generate-controller-routes.ts
     console.log('Generating io services...');
-    const services = generateServices(controllers, ioDir, A_BASE_IO_SERVICE_CLASS_NAME, SERVER_ROUTES_CLASS_NAME);
-    services.forEach(f => console.log(`   - ${f}`));
+    const generatedServices = generateServices(controllers, ioDir, A_BASE_IO_SERVICE_CLASS_NAME, SERVER_ROUTES_CLASS_NAME);
 
     console.log('All codegen steps complete.');
+    
+    return {
+        interfaces: generatedInterfaces,
+        services: generatedServices,
+        controllerRoutes: generatedControllerRoutes
+    };
+
+
+}
+
+// - - - - - - - - - - - - - - - - //
+
+function main() {
+
+    const [swaggerPath, outputDir] = process.argv.slice(2)
+
+    if (!swaggerPath || !outputDir) {
+        console.error('Usage: ts-node generate-all.ts <swagger.json> <outputDir>');
+        process.exit(1);
+    }
+
+    
+    const results = generateAllFromPath(swaggerPath, outputDir);
+    logGeneratedResults(results);
+
 }
 
 // ################################//

@@ -41,3 +41,22 @@ export interface SwgJsonActionParamter {
 
 
 // ################################//
+
+
+
+export interface OutputDirectories {
+    modelsDir: string;
+    controllersDir: string;
+    ioDir: string;
+}
+
+
+export interface GenerateResults {
+    interfaces: string[];
+    services: string[];
+    controllerRoutes: string[];
+}
+
+
+
+// ################################//

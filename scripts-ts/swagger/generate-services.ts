@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { actionToServiceMethod } from './action-to-service-method';
-import { extractControllersFromSwagger } from './extract-swagger-contollers';
+import { extractControllersFromSwaggerPath } from './extract-swagger-contollers';
 import { ControllerDefinition } from './models';
 import { SwgSConstants } from './swg-constants';
 import { SwgStringUtils } from './swg-string-utils';
@@ -60,7 +60,7 @@ export abstract class ${SwgSConstants.baseIoServiceClassname} extends ABaseHttpS
 // --------------------------------//
 
 export function generateServicesSwaggerJson(swaggerPath: string, outputDir: string, baseServiceClass?: string, serverRoutesClass?: string): string[] {
-    const controllers = extractControllersFromSwagger(swaggerPath);
+    const controllers = extractControllersFromSwaggerPath(swaggerPath);
     return generateServices(controllers, outputDir, baseServiceClass, serverRoutesClass);
 }
 

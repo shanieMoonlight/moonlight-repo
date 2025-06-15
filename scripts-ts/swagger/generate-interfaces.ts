@@ -2,8 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { SwgStringUtils } from './swg-string-utils';
 
-// ################################//
-
 
 function getRefsFromSchema(schema: any): string[] {
 
@@ -131,8 +129,15 @@ function schemaToInterface(name: string, schema: any, swagger: any): { code: str
 // - - - - - - - - - - - - - - - - //
 
 
-export function generateInterfaces(swaggerPath: string, outputDir: string) {
+export function generateInterfacesFromPath(swaggerPath: string, outputDir: string):string[] {
   const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
+  return generateInterfacesFromJson(swagger, outputDir);
+}
+
+// - - - - - - - - - - - - - - - - //
+
+
+export function generateInterfacesFromJson(swagger: any, outputDir: string):string[] {
   const schemas = swagger.components?.schemas;
 
   if (!schemas) {
@@ -143,16 +148,21 @@ export function generateInterfaces(swaggerPath: string, outputDir: string) {
   if (!fs.existsSync(outputDir))
     fs.mkdirSync(outputDir, { recursive: true });
 
+  const generatedFiles: string[] = [];
+
   const indexExports: string[] = [];
   for (const [name, schema] of Object.entries(schemas)) {
     const { code } = schemaToInterface(name, schema, swagger);
     const filename = SwgStringUtils.interfaceFilename(name);
-    fs.writeFileSync(path.join(outputDir, filename), code, 'utf8');
+    const filePath = path.join(outputDir, filename);
+    fs.writeFileSync(filePath, code, 'utf8');
+    generatedFiles.push(filePath);
     indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
   }
   // Write index.ts
   fs.writeFileSync(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n', 'utf8');
   console.log(`TypeScript interfaces written to ${outputDir}`);
+  return generatedFiles;
 }
 
 
@@ -167,7 +177,7 @@ if (require.main === module) {
     console.error('Usage: ts-node generate-interfaces.ts <swagger.json> <output-folder>');
     process.exit(1);
   }
-  generateInterfaces(swaggerPath, outputDir);
+  generateInterfacesFromPath(swaggerPath, outputDir);
 }
 
 

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { extractControllersFromSwagger } from './extract-swagger-contollers';
+import { extractControllersFromSwaggerPath } from './extract-swagger-contollers';
 import { SwgStringUtils } from './swg-string-utils';
 import { ControllerDefinition } from './models';
 
@@ -70,7 +70,7 @@ function generateServerRoutesClass(controllerNames: string[], baseUrl?: string) 
  * If you already have a parsed controller array, use generateControllerRoutes instead.
  */
 export function generateControllerRoutesSwaggerJson(swaggerPath: string, outputDir: string, baseUrl?: string): string[] {
-  const controllers = extractControllersFromSwagger(swaggerPath);
+  const controllers = extractControllersFromSwaggerPath(swaggerPath);
   return generateControllerRoutes(controllers, outputDir, baseUrl);
 }
 

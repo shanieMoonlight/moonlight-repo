@@ -115,9 +115,18 @@ function extractResponseBody(operation: unknown): ResponseBody | undefined {
 // - - - - - - - - - - - - - - - - //
 
 // Main extraction function
-export function extractControllersFromSwagger(swaggerPath: string): ControllerDefinition[] {
+export function extractControllersFromSwaggerPath(swaggerPath: string): ControllerDefinition[] {
     const swaggerContent = fs.readFileSync(swaggerPath, 'utf8');
     const swagger = JSON.parse(swaggerContent);
+    return extractControllersFromSwaggerJson(swagger);
+}
+
+// - - - - - - - - - - - - - - - - //
+
+
+// Main extraction function
+export function extractControllersFromSwaggerJson(swagger: any): ControllerDefinition[] {
+   
     const controllersMap = new Map<string, ControllerDefinition>();
 
     for (const [pathKey, pathObj] of Object.entries(swagger.paths)) {
@@ -177,8 +186,11 @@ if (require.main === module) {
     const swaggerPath = process.argv[2] || path.join(__dirname, 'swagger.example.json');
     console.log(`Extracting controllers from Swagger file: ${swaggerPath}`);
 
-    const result = extractControllersFromSwagger(swaggerPath);
+    const result = extractControllersFromSwaggerPath(swaggerPath);
     const outputPath = path.join(__dirname, 'controllers-extracted.json');
     fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
     console.log(`Extracted controllers written to ${outputPath}`);
 }
+
+
+//  npx ts-node -P tsconfig.scripts.json scripts-ts/swagger/generate-all-from-file.ts scripts-ts/swagger/json/swagger.example.json scripts-ts/swagger/generated
