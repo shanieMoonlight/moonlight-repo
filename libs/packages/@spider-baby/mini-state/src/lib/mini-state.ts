@@ -260,7 +260,7 @@ export class MiniState<Input, Output, TError = any> {
 
         this._loadingBs.next(false); //Close the loader
         this._wasTriggeredBs.next(true); // Mark as triggered
-        devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
+        // devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
 
     }
 

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ControllerDefinition, Action, Paramater, ResponseBody } from './models'; // Adjust the import path as needed
+import { ControllerDefinition, Action, Paramater, ResponseBody, SwgJsonActionParamter, SwgJsonParamaterSchema } from './models'; // Adjust the import path as needed
 //npx ts-node -P tsconfig.scripts.json  scripts-ts/swagger/extract-swagger-contollers.ts scripts-ts/swagger/swagger.example.json
 //npx ts-node -P tsconfig.scripts.json  scripts-ts/swagger/extract-swagger-contollers.ts scripts-ts/swagger/swagger.simple.example.json
 
@@ -8,17 +8,20 @@ import { ControllerDefinition, Action, Paramater, ResponseBody } from './models'
 
 // Helper to extract parameter names from an operation object
 function extractParamNames(operation: unknown): Paramater[] {
+
+    console.log(`Extracting parameters from operation: ${JSON.stringify(operation, null, 2)}`);
+    
     if (!operation || typeof operation !== 'object' || !Array.isArray((operation as { parameters?: unknown[] }).parameters))
-        return [];
+        return []
 
 
-    return ((operation as { parameters?: { name?: string; schema?: { type?: string; format?: string } }[] }).parameters || [])
+    return ((operation as { parameters?: SwgJsonActionParamter[] }).parameters || [])
         .map((param) => {
             if (!param || typeof param !== 'object' || !('name' in param))
                 return undefined;
 
             const name = (param as { name: string }).name;
-            const schema = (param as { schema?: { type?: string; format?: string } }).schema || {};
+            const schema = (param as { schema?: SwgJsonParamaterSchema}).schema || {};
             const type = schema.type || '';
             const paramObj: Paramater = { name, type };
 
@@ -119,7 +122,7 @@ export function extractControllersFromSwagger(swaggerPath: string): ControllerDe
             continue;
 
         const controllerName = segments[1];
-        const actionName = segments[2] || 'root';
+        const actionName = segments[2] || undefined;
 
         let controller = controllersMap.get(controllerName);
         if (!controller) {

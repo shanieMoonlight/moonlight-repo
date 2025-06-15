@@ -13,6 +13,9 @@ interface OutputDirectories {
     ioDir: string;
 }
 
+const SERVER_ROUTES_CLASS_NAME = 'ServerRoutes';
+const A_BASE_IO_SERVICE_CLASS_NAME = 'AServerIoService';
+
 
 // ################################//
 
@@ -50,22 +53,24 @@ function main() {
     const { modelsDir, controllersDir, ioDir } = outputDirectories;
 
     const controllers = extractControllersFromSwagger(swaggerPath);
-     
+
     console.log(`Extracted ${controllers.length} controllers from Swagger file: ${swaggerPath}`);
-    
-    
 
-    // Run generate-interfaces.ts
-    console.log('Generating interfaces...');
-    generateInterfaces(swaggerPath, modelsDir);
+    // console.log(JSON.stringify(controllers, null, 2));
 
-    // Run generate-controller-routes.ts
-    console.log('Generating controller routes...');
-    generateControllerRoutes(controllers, controllersDir);
+
+
+    // // Run generate-interfaces.ts
+    // console.log('Generating interfaces...');
+    // generateInterfaces(swaggerPath, modelsDir);
+
+    // // Run generate-controller-routes.ts
+    // console.log('Generating controller routes...');
+    // generateControllerRoutes(controllers, controllersDir);
 
     // Run generate-controller-routes.ts
     console.log('Generating io services...');
-    const services = generateServices(controllers, ioDir, 'BaseServerIoService', 'ServerRoutes');
+    const services = generateServices(controllers, ioDir, A_BASE_IO_SERVICE_CLASS_NAME, SERVER_ROUTES_CLASS_NAME);
     services.forEach(f => console.log(`   - ${f}`));
 
     console.log('All codegen steps complete.');

@@ -1,132 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { SwgStringUtils } from './swg-string-utils';
-import { Action, ControllerDefinition, Paramater, ResponseBody } from './models';
+import { actionToServiceMethod } from './action-to-service-method';
 import { extractControllersFromSwagger } from './extract-swagger-contollers';
+import { ControllerDefinition } from './models';
+import { SwgSConstants } from './swg-constants';
+import { SwgStringUtils } from './swg-string-utils';
 
 // ################################//
-
-interface MethodParamInfo {
-    name: string;
-    type: string;
-}
-
-// ################################//
-
-const baseIoServiceFilename = 'base-server-io.service.ts';
-const baseIoServiceClassname = 'BaseServerIoService';
-const baseIoServiceDir = 'base';
-const dtoName = 'dto';
-
-// ################################//
-
-
-function getTypeScriptParamType(param: Paramater): string {
-    return param.type || 'any';
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function hasParamaters(action: Action): boolean {
-    return !!(action.params && action.params.length) || !!action.requestBodyType;
-}
-
-// - - - - - - - - - - - - - - - - //
-
-
-function generateMethodParams(action: Action): MethodParamInfo[] {
-    const requestBodyType = action.requestBodyType
-    if (requestBodyType)
-        return [{
-            name: dtoName,
-            type: requestBodyType
-        }]
-
-    if (!action.params?.length)
-        return []
-
-    return action.params.map(param => {
-        return {
-            name: param.name,
-            type: getTypeScriptParamType(param)
-        };
-
-    })
-
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function generateServiceReturnType(action: Action): string {
-    const responseBody = action.responseBody
-    if (!responseBody || !responseBody.type)
-        return 'any'
-
-    return responseBody.isArray
-        ? `${responseBody.type}[]`
-        : responseBody.type;
-}
-
-// - - - - - - - - - - - - - - - - //
-
-function getBaseMethod(action: Action): string {
-
-    if (action.method === 'POST')
-        return '_postAction';
-    else if (action.method === 'PATCH')
-        return '_patchAction';
-    else if (action.method === 'DELETE') {
-        return '_deleteAction';
-    }
-
-    return hasParamaters(action)
-        ? '_getActionById'
-        : '_getAction';
-}
-
-// - - - - - - - - - - - - - - - - //
-
-/**
- * Builds a service method string for an action with a request body.
- */
-function buildServiceMethod(action: Action, controllerName: string, serverRoutesClass: string) {
-
-    const methodName = SwgStringUtils.toCamelCase(action.name)
-    const responseType = generateServiceReturnType(action)
-    const baseMethod = getBaseMethod(action);
-    const actionName = action.name;
-    const methodParams = generateMethodParams(action)
-
-    const methodInputParams = methodParams
-        .map(param => `${param.name}: ${param.type}`)
-        .join(', ');
-
-    const baseMethodInputParams = methodParams
-        .map(param => param.name)
-        .join(', ');
-
-    if (!methodParams.length) {
-        return `\n  
-    ${methodName} = (opts?: unknown): Observable<${responseType}> =>
-            this.${baseMethod}<${responseType}>(
-                ${serverRoutesClass}.${SwgStringUtils.capitalize(controllerName)}.action('${SwgStringUtils.toCamelCase(actionName)}'),
-                opts ?? {}
-            );
-        `;
-
-    }
-
-    return `\n  
-    ${methodName} = (${methodInputParams}, opts?: unknown): Observable<${responseType}> =>
-        this.${baseMethod}<${responseType}>(
-           ${serverRoutesClass}.${SwgStringUtils.capitalize(controllerName)}.action('${SwgStringUtils.toCamelCase(actionName)}'),
-           ${baseMethodInputParams},
-           opts ?? {}
-        );
-    `;
-}
-
-// - - - - - - - - - - - - - - - - //
 
 /**
  * Builds the import statements for a generated service file.
@@ -134,7 +14,7 @@ function buildServiceMethod(action: Action, controllerName: string, serverRoutes
 function buildServiceImports(serverRoutesClass: string, importTypes: Set<string>): string {
     let importStmts = `import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ${baseIoServiceClassname} } from './base/${baseIoServiceFilename}';
+import { ${SwgSConstants.baseIoServiceClassname} } from './base/${SwgSConstants.baseIoServiceFilename}';
 import { ${serverRoutesClass} } from '../controllers/all-server-routes.ts';\n`;
 
     if (importTypes.size)
@@ -161,18 +41,18 @@ export class ${className} extends ${baseServiceClass} {\n
 function generateBaseIOServiceCode(serverRoutesClass?: string): string {
 
     return `
-    import { ${serverRoutesClass} } from '../../controllers/all-server-routes';
-    import { ABaseHttpService } from '../data-service/a-base-data.io.service';
-    import { RouteUtils } from '../data-service/route-utils';
-    
-    
-    export class ${baseIoServiceClassname} extends ABaseHttpService {
+import { ${serverRoutesClass} } from '../../controllers/all-server-routes';
+import { ABaseHttpService } from '../data-service/a-base-data.io.service';
+import { UrlUtils } from '../data-service/route-utils';
+
+
+export abstract class ${SwgSConstants.baseIoServiceClassname} extends ABaseHttpService {
         
     constructor(controller: string) {
-        super(RouteUtils.combine(${serverRoutesClass}.BASE_URL, controller));
-        }
+        super(UrlUtils.combine(${serverRoutesClass}.BASE_URL, controller));
+    }
         
-        }
+}
         `
 
 }
@@ -206,7 +86,7 @@ export function generateServices(
         fs.mkdirSync(outputDir, { recursive: true });
 
     const baseServiceCode = generateBaseIOServiceCode(serverRoutesClass);
-    const filePath = path.join(outputDir, baseIoServiceDir, baseIoServiceFilename);
+    const filePath = path.join(outputDir, SwgSConstants.baseIoServiceDir, SwgSConstants.baseIoServiceFilename);
     fs.writeFileSync(filePath, baseServiceCode, 'utf8');
 
     const writtenFiles: string[] = [];
@@ -221,20 +101,12 @@ export function generateServices(
         let methods = '';
 
         for (const action of controller.actions) {
-            if (!action.name)
-                continue;
+            // if (!action.name)
+            //     continue;
 
-            const methodName = SwgStringUtils.toCamelCase(action.name);
-            // const responseType = action.responseBody?.type || 'any';
-            const responseType = generateServiceReturnType(action)
             const responseImportType = action.responseBody?.type || 'any';
 
-            const requestType = generateMethodParams(action);
             const requestImportType = action.requestBodyType || undefined;
-
-            console.log('action.requestBodyType', action.requestBodyType);
-            console.log('action.params', action.params);
-
 
             if (responseImportType && responseImportType !== 'any')
                 importTypes.add(responseImportType);
@@ -242,20 +114,7 @@ export function generateServices(
             if (requestImportType && requestImportType !== 'any')
                 importTypes.add(requestImportType);
 
-            let baseMethod = '_getAction';
-            if (action.method === 'POST')
-                baseMethod = '_postAction';
-            else if (action.method === 'PATCH')
-                baseMethod = '_patchAction';
-            else if (action.method === 'DELETE')
-                baseMethod = '_delete';
-
-            // if (requestType)
-            //     methods += buildServiceMethodWithRequest(methodName, requestType, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
-            // else
-            //     methods += buildServiceMethodNoRequest(methodName, responseType, baseMethod, serverRoutesClass, controller.name, action.name);
-
-            methods += buildServiceMethod(action, controller.name, serverRoutesClass);
+            methods += actionToServiceMethod(action, controller.name, serverRoutesClass);
         }
         const importStmts = buildServiceImports(serverRoutesClass, importTypes);
         const serviceCode = buildServiceClassCode(importStmts, className, baseServiceClass, controllerRoute, methods);

@@ -10,30 +10,24 @@ import { Identifier } from '../models/identifier';
 //################################//
 
 export function combine(...paths: Array<string | null | undefined>): string {
-    const validSegments = paths
-      // Filter out null, undefined, and empty/whitespace-only strings
-      .filter(
-        (segment): segment is string =>
-          typeof segment === 'string' && segment.trim() !== ''
-      )
-      // Trim whitespace from valid segments
-      .map((segment) => segment.trim());
+  const validSegments = paths
+    .filter(
+      (segment): segment is string =>
+        typeof segment === 'string' && segment.trim() !== ''
+    )
+    .map((segment, idx) => {
+      // Don't trim trailing slash from protocol (e.g., 'https://')
+      if (idx === 0 && /^[a-zA-Z]+:\/\//.test(segment)) {
+        return segment.replace(/\/+$/, '');
+      }
+      return segment.replace(/^\/+|\/+$/g, '');
+    });
 
-    if (validSegments.length === 0)
-      return '';
+  if (validSegments.length === 0) return '';
 
-    // Join segments, then normalize slashes
-    let combinedPath = validSegments.join('/');
-
-    // Replace multiple consecutive slashes with a single slash
-    combinedPath = combinedPath.replace(/\/{2,}/g, '/');
-
-    // Optional: Remove a trailing slash if the path is not just "/"
-    if (combinedPath !== '/' && combinedPath.endsWith('/'))
-      combinedPath = combinedPath.slice(0, -1);
-
-    return combinedPath;
-  }
+  // Join with a single slash
+  return validSegments.join('/');
+}
 
 
 //################################//
@@ -48,6 +42,8 @@ export abstract class ABaseHttpService {
   constructor(private url: string) {
     if (isDevMode()) {
       // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+      console.log(`ABaseHttpService initialized with URL: ${this.url}`);
+      
     }
   }
 

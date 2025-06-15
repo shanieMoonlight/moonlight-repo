@@ -2861,7 +2861,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              }
+            }
           }
         }
       }
@@ -2873,7 +2890,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              }
+            }
           }
         }
       }
@@ -2923,7 +2957,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
+                }
+              }
+            }
           }
         }
       }
@@ -5666,6 +5717,23 @@
         },
         "additionalProperties": false
       },
+      "EmailRoutesDto": {
+        "type": "object",
+        "properties": {
+          "confirmEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmEmailWithPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "routeParams": {
+            "$ref": "#/components/schemas/Params"
+          }
+        },
+        "additionalProperties": false
+      },
       "FeatureFlag": {
         "type": "object",
         "properties": {
@@ -5859,6 +5927,80 @@
           "deviceId": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdGlobalOptions": {
+        "required": [
+          "applicationName",
+          "claimTypePrefix",
+          "jwtRefreshTokensEnabled",
+          "mntcAccountsUrl",
+          "mntcTeamMaxPosition",
+          "mntcTeamMinPosition",
+          "phoneTokenTimeSpan",
+          "superTeamMaxPosition",
+          "superTeamMinPosition"
+        ],
+        "type": "object",
+        "properties": {
+          "applicationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "mntcAccountsUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "mntcTeamMinPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mntcTeamMaxPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "superTeamMinPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "superTeamMaxPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "claimTypePrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "jwtRefreshTokensEnabled": {
+            "type": "boolean"
+          },
+          "phoneTokenTimeSpan": {
+            "type": "string",
+            "format": "date-span"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdGlobalSetupOptions_CUSTOMER": {
+        "type": "object",
+        "properties": {
+          "customerAccountsUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "maxTeamPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minTeamPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxTeamSize": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -6317,6 +6459,30 @@
         },
         "additionalProperties": false
       },
+      "Params": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmationToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicSigningKeyDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RecordSubscriptionPaymentDto": {
         "type": "object",
         "properties": {
@@ -6570,6 +6736,18 @@
           "resetToken": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SettingsDto": {
+        "type": "object",
+        "properties": {
+          "settings": {
+            "$ref": "#/components/schemas/IdGlobalOptions"
+          },
+          "customerSettings": {
+            "$ref": "#/components/schemas/IdGlobalSetupOptions_CUSTOMER"
           }
         },
         "additionalProperties": false

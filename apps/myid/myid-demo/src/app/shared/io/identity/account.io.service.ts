@@ -38,9 +38,18 @@ export class AccountIoService extends IdentityIoService {
 
   //- - - - - - - - - - - - - -//
 
-  googleLogin = (dto: GoogleSignUp, opts?: unknown): Observable<AppUser> =>
-    this.postAction<AppUser>(
+  googleLogin = (dto: GoogleSignUp, opts?: unknown): Observable<JwtPackage> =>
+    this.postAction<JwtPackage>(
       ServerRoutes.Account.action('googleLogin'),
+      dto,
+      opts ?? {}
+    );
+
+  //------------------//
+
+  googleCookieLogin = (dto: GoogleSignUp, opts?: unknown): Observable<JwtPackage> =>
+    this.postAction<JwtPackage>(
+      ServerRoutes.Account.action('googleCookieSignin'),
       dto,
       opts ?? {}
     );

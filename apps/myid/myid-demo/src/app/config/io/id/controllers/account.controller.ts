@@ -10,6 +10,7 @@ type ACTIONS =
   | 'confirmPhone'
   | 'loginRefresh'
   | 'googleLogin'
+  | 'googleCookieSignin'
   | 'confirmEmailWithPassword'
   | 'confirmPhone'
   | 'forgotPassword'

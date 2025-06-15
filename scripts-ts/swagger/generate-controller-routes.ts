@@ -7,11 +7,11 @@ import { ControllerDefinition } from './models';
 
 // ################################//
 
-function generateControllerClass(controller: { name: string; actions: { name: string }[] }) {
+function generateControllerClass(controller: ControllerDefinition) {
 
   const className = `${SwgStringUtils.capitalize(controller.name)}Controller`;
   const actionsUnion = controller.actions
-    .map(a => `  | '${SwgStringUtils.toCamelCase(a.name)}'`)
+    .map(a => `  | '${SwgStringUtils.toCamelCase(a.name || a.method.toLowerCase())}'`)
     .join('\n');
 
   return `\n\nconst CONTROLLER = '${controller.name}';\n\n
@@ -83,7 +83,7 @@ export function generateControllerRoutesSwaggerJson(swaggerPath: string, outputD
  * @param baseUrl Optional base URL for the ServerRoutes class
  */
 export function generateControllerRoutes(controllers: ControllerDefinition[], outputDir: string, baseUrl?: string): string[] {
-  
+
   if (!controllers?.length) {
     console.error('No controllers provided to generateControllerRoutes. Skipping code generation.');
     return [];

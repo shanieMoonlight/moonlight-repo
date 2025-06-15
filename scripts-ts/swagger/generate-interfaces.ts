@@ -52,7 +52,8 @@ function swaggerTypeToTs(prop: any, swagger: any): string {
     case 'boolean':
       return 'boolean';
     case 'string':
-      if (prop.format === 'date-time' || prop.format === 'date') return 'string';
+      if (prop.format === 'date-time' || prop.format === 'date') 
+        return 'string';
       return 'string';
     case 'object':
       return prop.properties

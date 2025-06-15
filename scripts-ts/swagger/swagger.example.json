@@ -5,6 +5,251 @@
     "version": "v1"
   },
   "paths": {
+    "/identity/Aardvaark/Index": {
+      "get": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/Aardvaark": {
+      "get": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/Aardvaark/{userId}": {
+      "get": {
+        "tags": [
+          "Aardvaark"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/identity/Account/CloseAccount": {
       "delete": {
         "tags": [
@@ -285,17 +530,65 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppUserDto"
+                  "$ref": "#/components/schemas/JwtPackage"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppUserDto"
+                  "$ref": "#/components/schemas/JwtPackage"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppUserDto"
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/Account/GoogleCookieSignin": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleCookieSignInDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleCookieSignInDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleCookieSignInDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
                 }
               }
             }
@@ -726,17 +1019,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignInDto"
+                "$ref": "#/components/schemas/CookieSignInDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignInDto"
+                "$ref": "#/components/schemas/CookieSignInDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SignInDto"
+                "$ref": "#/components/schemas/CookieSignInDto"
               }
             }
           }
@@ -747,17 +1040,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
+                  "$ref": "#/components/schemas/CookieSignInResultData"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
+                  "$ref": "#/components/schemas/CookieSignInResultData"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
+                  "$ref": "#/components/schemas/CookieSignInResultData"
                 }
               }
             }
@@ -1149,6 +1442,54 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/Verify2FactorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtPackage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/Account/TwoFactorVerificationCookie": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Verify2FactorCookieDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Verify2FactorCookieDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Verify2FactorCookieDto"
               }
             }
           }
@@ -1940,157 +2281,6 @@
         }
       }
     },
-    "/identity/IdMaintenance/Initialize": {
-      "post": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InitializeDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InitializeDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/InitializeDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/identity/IdMaintenance/Migrate": {
-      "post": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/identity/IdMaintenance/PublicSigningKey": {
-      "get": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/identity/IdMaintenance/EmailRoutes": {
-      "get": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/identity/IdMaintenance/GetTwoFactorProviders": {
-      "get": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/identity/IdMaintenance/GlobalSettings": {
-      "get": {
-        "tags": [
-          "IdMaintenance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/identity/IdOutboxMessages/GetAll": {
       "get": {
         "tags": [
@@ -2782,6 +2972,208 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionPlanDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/Initialize": {
+      "post": {
+        "tags": [
+          "IdSystem"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitializeDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitializeDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitializeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/Migrate": {
+      "post": {
+        "tags": [
+          "IdSystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/PublicSigningKey": {
+      "get": {
+        "tags": [
+          "IdSystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSigningKeyDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/EmailRoutes": {
+      "get": {
+        "tags": [
+          "IdSystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRoutesDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/GetTwoFactorProviders": {
+      "get": {
+        "tags": [
+          "IdSystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity/IdSystem/GlobalSettings": {
+      "get": {
+        "tags": [
+          "IdSystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsDto"
                 }
               }
             }
@@ -5500,6 +5892,62 @@
         },
         "additionalProperties": false
       },
+      "CookieSignInDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "deviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "rememberMe": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CookieSignInResultData": {
+        "type": "object",
+        "properties": {
+          "succeeded": {
+            "type": "boolean"
+          },
+          "emailConfirmationRequired": {
+            "type": "boolean"
+          },
+          "twoFactorRequired": {
+            "type": "boolean"
+          },
+          "twoFactorProvider": {
+            "$ref": "#/components/schemas/TwoFactorProvider"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "extraInfo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "DeviceDto": {
         "type": "object",
         "properties": {
@@ -5523,6 +5971,23 @@
           "subscriptionId": {
             "type": "string",
             "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmailRoutesDto": {
+        "type": "object",
+        "properties": {
+          "confirmEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmEmailWithPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "routeParams": {
+            "$ref": "#/components/schemas/Params"
           }
         },
         "additionalProperties": false
@@ -5705,6 +6170,28 @@
         },
         "additionalProperties": false
       },
+      "GoogleCookieSignInDto": {
+        "type": "object",
+        "properties": {
+          "idToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "subscriptionId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "deviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "rememberMe": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "GoogleSignInDto": {
         "type": "object",
         "properties": {
@@ -5720,6 +6207,80 @@
           "deviceId": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdGlobalOptions": {
+        "required": [
+          "applicationName",
+          "claimTypePrefix",
+          "jwtRefreshTokensEnabled",
+          "mntcAccountsUrl",
+          "mntcTeamMaxPosition",
+          "mntcTeamMinPosition",
+          "phoneTokenTimeSpan",
+          "superTeamMaxPosition",
+          "superTeamMinPosition"
+        ],
+        "type": "object",
+        "properties": {
+          "applicationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "mntcAccountsUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "mntcTeamMinPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mntcTeamMaxPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "superTeamMinPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "superTeamMaxPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "claimTypePrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "jwtRefreshTokensEnabled": {
+            "type": "boolean"
+          },
+          "phoneTokenTimeSpan": {
+            "type": "string",
+            "format": "date-span"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdGlobalSetupOptions_CUSTOMER": {
+        "type": "object",
+        "properties": {
+          "customerAccountsUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "maxTeamPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minTeamPosition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxTeamSize": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -5952,9 +6513,6 @@
         "additionalProperties": false
       },
       "LoginDto": {
-        "required": [
-          "password"
-        ],
         "type": "object",
         "properties": {
           "userId": {
@@ -5971,8 +6529,8 @@
             "nullable": true
           },
           "password": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "deviceId": {
             "type": "string",
@@ -6173,6 +6731,30 @@
             "items": {
               "$ref": "#/components/schemas/SortRequest"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Params": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmationToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicSigningKeyDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -6435,35 +7017,14 @@
         },
         "additionalProperties": false
       },
-      "SignInDto": {
-        "required": [
-          "password"
-        ],
+      "SettingsDto": {
         "type": "object",
         "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+          "settings": {
+            "$ref": "#/components/schemas/IdGlobalOptions"
           },
-          "username": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string",
-            "nullable": true
-          },
-          "rememberMe": {
-            "type": "boolean"
+          "customerSettings": {
+            "$ref": "#/components/schemas/IdGlobalSetupOptions_CUSTOMER"
           }
         },
         "additionalProperties": false
@@ -7289,6 +7850,30 @@
         },
         "additionalProperties": false
       },
+      "Verify2FactorCookieDto": {
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rememberMe": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "Verify2FactorDto": {
         "required": [
           "token"
@@ -7300,6 +7885,33 @@
             "type": "string"
           },
           "deviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
             "type": "string",
             "nullable": true
           }
