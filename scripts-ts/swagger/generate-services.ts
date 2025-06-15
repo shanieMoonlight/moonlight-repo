@@ -90,6 +90,7 @@ export function generateServices(
     fs.writeFileSync(filePath, baseServiceCode, 'utf8');
 
     const writtenFiles: string[] = [];
+    const indexExports: string[] = [];
     for (const controller of controllers) {
 
         if (!controller.name || !Array.isArray(controller.actions))
@@ -123,7 +124,12 @@ export function generateServices(
 
         fs.writeFileSync(filePath, serviceCode, 'utf8');
         writtenFiles.push(filePath);
+        indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
     }
+
+    // Write index.ts
+    fs.writeFileSync(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n', 'utf8');
+    console.log(`TypeScript interfaces written to ${outputDir}`);
     return writtenFiles;
 }
 
