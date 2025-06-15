@@ -161,6 +161,9 @@
       "@spider-baby-repo/shortcuts-plugin": [
         "tools/shortcuts-plugin/src/index.ts"
       ],
+      "@spider-baby-repo/swagger-codegen-plugin": [
+        "tools/swagger-codegen-plugin/src/index.ts"
+      ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [
         "libs/tools/generators/swagger-io-codegen/src/index.ts"

@@ -1,0 +1,48 @@
+{
+  "name": "swagger-codegen-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/swagger-codegen-plugin/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/swagger-codegen-plugin",
+        "main": "tools/swagger-codegen-plugin/src/index.ts",
+        "tsConfig": "tools/swagger-codegen-plugin/tsconfig.lib.json",
+        "assets": [
+          "tools/swagger-codegen-plugin/*.md",
+          {
+            "input": "./tools/swagger-codegen-plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/swagger-codegen-plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/swagger-codegen-plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/swagger-codegen-plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "tools/swagger-codegen-plugin/jest.config.ts"
+      }
+    }
+  }
+}

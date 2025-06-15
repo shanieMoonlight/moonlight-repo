@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "swg-models": {
+      "factory": "./src/generators/models/swg-models",
+      "schema": "./src/generators/models/schema.json",
+      "description": "swg-models generator"
+    }
+  }
+}
