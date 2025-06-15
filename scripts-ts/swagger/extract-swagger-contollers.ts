@@ -7,10 +7,8 @@ import { ControllerDefinition, Action, Paramater, ResponseBody, SwgJsonActionPar
 // ################################//
 
 // Helper to extract parameter names from an operation object
-function extractParamNames(operation: unknown): Paramater[] {
+function extractParamNames(operation: any): Paramater[] {
 
-    console.log(`Extracting parameters from operation: ${JSON.stringify(operation, null, 2)}`);
-    
     if (!operation || typeof operation !== 'object' || !Array.isArray((operation as { parameters?: unknown[] }).parameters))
         return []
 
@@ -21,7 +19,7 @@ function extractParamNames(operation: unknown): Paramater[] {
                 return undefined;
 
             const name = (param as { name: string }).name;
-            const schema = (param as { schema?: SwgJsonParamaterSchema}).schema || {};
+            const schema = (param as { schema?: SwgJsonParamaterSchema }).schema || {};
             const type = schema.type || '';
             const paramObj: Paramater = { name, type };
 
@@ -36,9 +34,11 @@ function extractParamNames(operation: unknown): Paramater[] {
 // - - - - - - - - - - - - - - - - //
 
 // Helper to extract request body type from an operation object
-function extractRequestBody(operation: unknown): string | undefined {
+function extractRequestBody(operation: any): string | undefined {
     if (!operation || typeof operation !== 'object')
         return undefined;
+
+
 
     const op = operation as { requestBody?: { content?: Record<string, any> } };
     if (!op.requestBody || !op.requestBody.content)
@@ -53,6 +53,11 @@ function extractRequestBody(operation: unknown): string | undefined {
     const schema = schemaObj.schema;
     if (schema.$ref)
         return schema.$ref.split('/').pop();
+
+    const schemaType = schema.type;
+
+    if (!schemaType)
+        return undefined;
 
     // Optionally, handle inline schemas here if needed
     return undefined;
@@ -122,7 +127,12 @@ export function extractControllersFromSwagger(swaggerPath: string): ControllerDe
             continue;
 
         const controllerName = segments[1];
-        const actionName = segments[2] || undefined;
+        let actionName = segments[2] || undefined;
+
+        //No-name action with paramater
+        if (actionName?.startsWith('{')) 
+            actionName = undefined; // Skip actions with dynamic parameters
+
 
         let controller = controllersMap.get(controllerName);
         if (!controller) {

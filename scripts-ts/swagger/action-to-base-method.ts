@@ -24,12 +24,6 @@ function getGetMethod(action: Action): string {
 
 function getPostMethod(action: Action): string {
 
-    if (!action.name) {
-        return hasParamaters(action)
-            ? '_getById'
-            : '_get';
-    }
-
     return !action.name
         ? '_post'
         : '_postAction';
@@ -39,15 +33,9 @@ function getPostMethod(action: Action): string {
 
 function getPatchMethod(action: Action): string {
 
-    if (!action.name) {
-        return hasParamaters(action)
-            ? '_patchActionById'
-            : '_patch';
-    }
-
-    return hasParamaters(action)
-        ? '_getActionById'
-        : '_patchAction';
+    return !action.name
+        ? '_patch'
+        : '_patchAction'
 }
 
 // - - - - - - - - - - - - -//
@@ -65,7 +53,7 @@ function getDeleteMethod(action: Action): string {
 
 
 export function getBaseMethod(action: Action): string {
-// console.log(`getBaseMethod: ${action.method} - ${action.name}`);
+    // console.log(`getBaseMethod: ${action.method} - ${action.name}`);
 
     switch (action.method.toLocaleLowerCase()) {
         case 'post':

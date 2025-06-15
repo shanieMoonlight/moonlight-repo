@@ -6,55 +6,36 @@
     },
     "paths": {
         "/identity/Aardvaark": {
-            "patch": {
+            "get": {
                 "tags": [
                     "Aardvaark"
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "text/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MessageResponseDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
                                 }
                             },
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MessageResponseDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
                                 }
                             },
                             "text/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MessageResponseDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
                                 }
                             }
                         }
@@ -831,6 +812,62 @@
                 },
                 "additionalProperties": false
             },
+            "CookieSignInDto": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "nullable": true
+                    },
+                    "username": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deviceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "rememberMe": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CookieSignInResultData": {
+                "type": "object",
+                "properties": {
+                    "succeeded": {
+                        "type": "boolean"
+                    },
+                    "emailConfirmationRequired": {
+                        "type": "boolean"
+                    },
+                    "twoFactorRequired": {
+                        "type": "boolean"
+                    },
+                    "twoFactorProvider": {
+                        "$ref": "#/components/schemas/TwoFactorProvider"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "extraInfo": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "DeviceDto": {
                 "type": "object",
                 "properties": {
@@ -854,6 +891,23 @@
                     "subscriptionId": {
                         "type": "string",
                         "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "EmailRoutesDto": {
+                "type": "object",
+                "properties": {
+                    "confirmEmail": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "confirmEmailWithPassword": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "routeParams": {
+                        "$ref": "#/components/schemas/Params"
                     }
                 },
                 "additionalProperties": false
@@ -1036,6 +1090,28 @@
                 },
                 "additionalProperties": false
             },
+            "GoogleCookieSignInDto": {
+                "type": "object",
+                "properties": {
+                    "idToken": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "subscriptionId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "nullable": true
+                    },
+                    "deviceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "rememberMe": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
             "GoogleSignInDto": {
                 "type": "object",
                 "properties": {
@@ -1051,6 +1127,93 @@
                     "deviceId": {
                         "type": "string",
                         "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "IWeatherForecastList": {
+                "type": "object",
+                "properties": {
+                    "weatherForecasts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WeatherForecast"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "IdGlobalOptions": {
+                "required": [
+                    "applicationName",
+                    "claimTypePrefix",
+                    "jwtRefreshTokensEnabled",
+                    "mntcAccountsUrl",
+                    "mntcTeamMaxPosition",
+                    "mntcTeamMinPosition",
+                    "phoneTokenTimeSpan",
+                    "superTeamMaxPosition",
+                    "superTeamMinPosition"
+                ],
+                "type": "object",
+                "properties": {
+                    "applicationName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "mntcAccountsUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "mntcTeamMinPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mntcTeamMaxPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "superTeamMinPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "superTeamMaxPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "claimTypePrefix": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "jwtRefreshTokensEnabled": {
+                        "type": "boolean"
+                    },
+                    "phoneTokenTimeSpan": {
+                        "type": "string",
+                        "format": "date-span"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "IdGlobalSetupOptions_CUSTOMER": {
+                "type": "object",
+                "properties": {
+                    "customerAccountsUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "maxTeamPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minTeamPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxTeamSize": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 },
                 "additionalProperties": false
@@ -1283,9 +1446,6 @@
                 "additionalProperties": false
             },
             "LoginDto": {
-                "required": [
-                    "password"
-                ],
                 "type": "object",
                 "properties": {
                     "userId": {
@@ -1302,8 +1462,8 @@
                         "nullable": true
                     },
                     "password": {
-                        "minLength": 1,
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     },
                     "deviceId": {
                         "type": "string",
@@ -1504,6 +1664,30 @@
                         "items": {
                             "$ref": "#/components/schemas/SortRequest"
                         },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Params": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "confirmationToken": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PublicSigningKeyDto": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
                         "nullable": true
                     }
                 },
@@ -1766,35 +1950,14 @@
                 },
                 "additionalProperties": false
             },
-            "SignInDto": {
-                "required": [
-                    "password"
-                ],
+            "SettingsDto": {
                 "type": "object",
                 "properties": {
-                    "userId": {
-                        "type": "string",
-                        "format": "uuid",
-                        "nullable": true
+                    "settings": {
+                        "$ref": "#/components/schemas/IdGlobalOptions"
                     },
-                    "username": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "email": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "password": {
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "deviceId": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "rememberMe": {
-                        "type": "boolean"
+                    "customerSettings": {
+                        "$ref": "#/components/schemas/IdGlobalSetupOptions_CUSTOMER"
                     }
                 },
                 "additionalProperties": false
@@ -2620,6 +2783,30 @@
                 },
                 "additionalProperties": false
             },
+            "Verify2FactorCookieDto": {
+                "required": [
+                    "token"
+                ],
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "deviceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "rememberMe": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
             "Verify2FactorDto": {
                 "required": [
                     "token"
@@ -2631,6 +2818,33 @@
                         "type": "string"
                     },
                     "deviceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "WeatherForecast": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "temperatureC": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "temperatureF": {
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": true
+                    },
+                    "summary": {
                         "type": "string",
                         "nullable": true
                     }

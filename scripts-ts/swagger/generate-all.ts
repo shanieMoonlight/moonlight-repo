@@ -60,13 +60,13 @@ function main() {
 
 
 
-    // // Run generate-interfaces.ts
-    // console.log('Generating interfaces...');
-    // generateInterfaces(swaggerPath, modelsDir);
+    // Run generate-interfaces.ts
+    console.log('Generating interfaces...');
+    generateInterfaces(swaggerPath, modelsDir);
 
-    // // Run generate-controller-routes.ts
-    // console.log('Generating controller routes...');
-    // generateControllerRoutes(controllers, controllersDir);
+    // Run generate-controller-routes.ts
+    console.log('Generating controller routes...');
+    generateControllerRoutes(controllers, controllersDir);
 
     // Run generate-controller-routes.ts
     console.log('Generating io services...');

@@ -66,27 +66,47 @@ function generateServiceReturnType(action: Action): string {
 
 // - - - - - - - - - - - - - - - - //
 
+function getUniqueMethodName(action: Action): string {
+    let name = SwgStringUtils.toCamelCase(action.name || action.method.toLowerCase());
+    if (action.params && action.params.length > 0) {
+        const paramNames = action.params.map(p => SwgStringUtils.capitalize(p.name)).join('And');
+        const suffix = 'By' + paramNames;
+        // Check if name already ends with the suffix (case-insensitive)
+        if (name.toLowerCase().endsWith(suffix.toLowerCase())) {
+            return name;
+        }
+        name += suffix;
+    }
+    return name;
+}
+
+// - - - - - - - - - - - - - - - - //
+
 /**
  * Builds a service method string for an action with a request body.
  */
 export function actionToServiceMethod(action: Action, controllerName: string, serverRoutesClass: string) {
 
-    const methodName = SwgStringUtils.toCamelCase(action.name || action.method.toLowerCase());
+    const methodName =  getUniqueMethodName(action)//   SwgStringUtils.toCamelCase(action.name || action.method.toLowerCase());
     const responseType = generateServiceReturnType(action)
     const baseMethod = getBaseMethod(action);
     const actionName = action.name//|| action.method.toLowerCase();
     const methodParams = generateMethodParams(action)
 
-    console.log(`Generating service method for action: ${controllerName}/${actionName} with params: ${JSON.stringify(methodParams, null, 2)}`);
+    // console.log(`Generating service method for action: ${controllerName}/${actionName} with params: ${JSON.stringify(methodParams, null, 2)}`);
 
 
     const methodInputParams = methodParams
         .map(param => `${param.name}: ${param.type}`)
         .join(', ');
 
-    const baseMethodInputParams = methodParams
+    let baseMethodInputParams = methodParams
         .map(param => param.name)
         .join(', ');
+
+        if(action.method.toLowerCase() === 'get' || action.method.toLowerCase() === 'delete') 
+            baseMethodInputParams = `[${baseMethodInputParams}]`
+            
 
     const actionParam = actionName
         ? `
