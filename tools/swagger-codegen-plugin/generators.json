@@ -3,7 +3,12 @@
     "swg-models": {
       "factory": "./src/generators/models/swg-models",
       "schema": "./src/generators/models/schema.json",
-      "description": "swg-models generator"
+      "description": "Generator for Swagger IO models"
+    },
+    "swg-io-services": {
+      "factory": "./src/generators/io-services/io-services",
+      "schema": "./src/generators/io-services/schema.json",
+      "description": "Generator for Swagger IO models and services"
     }
   }
 }

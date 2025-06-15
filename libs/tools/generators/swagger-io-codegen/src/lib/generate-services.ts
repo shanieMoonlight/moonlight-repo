@@ -1,10 +1,10 @@
-import * as fs from 'fs';
 import * as path from 'path';
 import { actionToServiceMethod } from './action-to-service-method';
 import { extractControllersFromSwaggerPath } from './extract-swagger-contollers';
 import { ControllerDefinition } from './models';
-import { SwgSConstants } from './swg-constants';
+import { SwgConstants } from './swg-constants';
 import { SwgStringUtils } from './swg-string-utils';
+import { Tree } from '@nx/devkit';
 
 // ################################//
 
@@ -14,8 +14,8 @@ import { SwgStringUtils } from './swg-string-utils';
 function buildServiceImports(serverRoutesClass: string, importTypes: Set<string>): string {
     let importStmts = `import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ${SwgSConstants.baseIoServiceClassname} } from './base/${SwgSConstants.baseIoServiceFilename}';
-import { ${serverRoutesClass} } from '../controllers/all-server-routes.ts';\n`;
+import { ${SwgConstants.baseIoServiceClassName} } from './base/${SwgConstants.baseIoServiceFilename.replace(/\.ts$/, '')}';
+import { ${serverRoutesClass} } from '../controllers/all-server-routes';\n`;
 
     if (importTypes.size)
         importStmts += `import { ${Array.from(importTypes).join(', ')} } from '../models';\n`;
@@ -42,11 +42,11 @@ function generateBaseIOServiceCode(serverRoutesClass?: string): string {
 
     return `
 import { ${serverRoutesClass} } from '../../controllers/all-server-routes';
-import { ABaseHttpService } from '../data-service/a-base-data.io.service';
-import { UrlUtils } from '../data-service/route-utils';
+import { ABaseHttpService } from '../../data-service/a-base-data.io.service';
+import { UrlUtils } from '../../data-service/url-utils';
 
 
-export abstract class ${SwgSConstants.baseIoServiceClassname} extends ABaseHttpService {
+export abstract class ${SwgConstants.baseIoServiceClassName} extends ABaseHttpService {
         
     constructor(controller: string) {
         super(UrlUtils.combine(${serverRoutesClass}.BASE_URL, controller));
@@ -59,9 +59,14 @@ export abstract class ${SwgSConstants.baseIoServiceClassname} extends ABaseHttpS
 
 // --------------------------------//
 
-export function generateServicesSwaggerJson(swaggerPath: string, outputDir: string, baseServiceClass?: string, serverRoutesClass?: string): string[] {
+export function generateServicesSwaggerJson(
+    tree: Tree, 
+    swaggerPath: string, 
+    outputDir: string, 
+    baseServiceClass?: string, 
+    serverRoutesClass?: string): string[] {
     const controllers = extractControllersFromSwaggerPath(swaggerPath);
-    return generateServices(controllers, outputDir, baseServiceClass, serverRoutesClass);
+    return generateServices(tree, controllers, outputDir, baseServiceClass, serverRoutesClass);
 }
 
 // - - - - - - - - - - - - - - - - //
@@ -75,19 +80,20 @@ export function generateServicesSwaggerJson(swaggerPath: string, outputDir: stri
  * @returns Array of file paths written
  */
 export function generateServices(
-    controllers: ControllerDefinition[], outputDir: string, baseServiceClass = 'IdentityIoService', serverRoutesClass = 'ServerRoutes'): string[] {
+    tree: Tree, 
+    controllers: ControllerDefinition[],
+    outputDir: string,
+    baseServiceClass = SwgConstants.baseIoServiceClassName,
+    serverRoutesClass = SwgConstants.baseIoRoutesClassName): string[] {
 
     if (!Array.isArray(controllers) || !controllers.length) {
         console.error('No controllers provided to generateServices. Skipping code generation.');
         return [];
     }
 
-    if (!fs.existsSync(outputDir))
-        fs.mkdirSync(outputDir, { recursive: true });
-
     const baseServiceCode = generateBaseIOServiceCode(serverRoutesClass);
-    const filePath = path.join(outputDir, SwgSConstants.baseIoServiceDir, SwgSConstants.baseIoServiceFilename);
-    fs.writeFileSync(filePath, baseServiceCode, 'utf8');
+    const filePath = path.join(outputDir, SwgConstants.baseIoServiceDir, SwgConstants.baseIoServiceFilename);
+    tree.write(filePath, baseServiceCode);
 
     const writtenFiles: string[] = [];
     const indexExports: string[] = [];
@@ -122,13 +128,16 @@ export function generateServices(
         const filename = `${controller.name.toLowerCase()}.io.service.ts`;
         const filePath = path.join(outputDir, filename);
 
-        fs.writeFileSync(filePath, serviceCode, 'utf8');
+        tree.write(filePath, serviceCode);
         writtenFiles.push(filePath);
-        indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
+        indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`)
+
+        console.log(filename, filename.replace(/\.ts$/, ''));
+        
     }
 
     // Write index.ts
-    fs.writeFileSync(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n', 'utf8');
+    tree.write(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n');
     console.log(`TypeScript interfaces written to ${outputDir}`);
     return writtenFiles;
 }

@@ -129,6 +129,23 @@ function schemaToInterface(name: string, schema: any, swagger: any): { code: str
 // - - - - - - - - - - - - - - - - //
 
 
+export async function generateInterfacesFromUrl(swaggerUrl: string, outputDir: string):Promise<string[]> {
+  
+    // Fetch Swagger JSON from URL
+    console.log(`Fetching Swagger JSON from: ${swaggerUrl}`);
+    const response = await fetch(swaggerUrl);
+    if (!response.ok) {
+        console.error(`Failed to fetch Swagger JSON: ${response.statusText}`);
+        process.exit(1);
+    }
+    const swaggerJson = await response.json();
+  return generateInterfacesFromJson(swaggerJson, outputDir);
+  
+}
+
+// - - - - - - - - - - - - - - - - //
+
+
 export function generateInterfacesFromPath(swaggerPath: string, outputDir: string):string[] {
   const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
   return generateInterfacesFromJson(swagger, outputDir);

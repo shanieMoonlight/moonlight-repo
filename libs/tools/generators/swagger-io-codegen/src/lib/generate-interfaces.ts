@@ -1,3 +1,10 @@
+import {
+  addProjectConfiguration,
+  formatFiles,
+  generateFiles,
+  Tree,
+} from '@nx/devkit';
+import { json, workspaces } from '@angular-devkit/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import { SwgStringUtils } from './swg-string-utils';
@@ -50,7 +57,7 @@ function swaggerTypeToTs(prop: any, swagger: any): string {
     case 'boolean':
       return 'boolean';
     case 'string':
-      if (prop.format === 'date-time' || prop.format === 'date') 
+      if (prop.format === 'date-time' || prop.format === 'date')
         return 'string';
       return 'string';
     case 'object':
@@ -103,7 +110,7 @@ function schemaToInterface(name: string, schema: any, swagger: any): { code: str
   const required = schema.required || [];
   const props = Object.entries(schema.properties)
     .map(([propName, propSchema]: [string, any]) => {
-      
+
       let tsType = ''
 
       if (propSchema.$ref)
@@ -129,24 +136,37 @@ function schemaToInterface(name: string, schema: any, swagger: any): { code: str
 // - - - - - - - - - - - - - - - - //
 
 
-export function generateInterfacesFromPath(swaggerPath: string, outputDir: string):string[] {
-  const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
-  return generateInterfacesFromJson(swagger, outputDir);
+export async function generateInterfacesFromUrlAsync(tree: Tree, swaggerUrl: string, outputDir: string): Promise<string[]> {
+
+  // Fetch Swagger JSON from URL
+  console.log(`Fetching Swagger JSON from: ${swaggerUrl}`);
+  const response = await fetch(swaggerUrl);
+  if (!response.ok) {
+    console.error(`Failed to fetch Swagger JSON: ${response.statusText}`);
+    process.exit(1);
+  }
+  const swaggerJson = await response.json();
+  return generateInterfacesFromJson(tree, swaggerJson, outputDir);
 }
 
 // - - - - - - - - - - - - - - - - //
 
 
-export function generateInterfacesFromJson(swagger: any, outputDir: string):string[] {
+export function generateInterfacesFromPath(tree: Tree, swaggerPath: string, outputDir: string): string[] {
+  const swagger = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
+  return generateInterfacesFromJson(tree, swagger, outputDir);
+}
+
+// - - - - - - - - - - - - - - - - //
+
+
+export function generateInterfacesFromJson(tree: Tree, swagger: any, outputDir: string): string[] {
   const schemas = swagger.components?.schemas;
 
   if (!schemas) {
     console.error('No schemas found in Swagger file.');
     process.exit(1);
   }
-
-  if (!fs.existsSync(outputDir))
-    fs.mkdirSync(outputDir, { recursive: true });
 
   const generatedFiles: string[] = [];
 
@@ -155,12 +175,12 @@ export function generateInterfacesFromJson(swagger: any, outputDir: string):stri
     const { code } = schemaToInterface(name, schema, swagger);
     const filename = SwgStringUtils.interfaceFilename(name);
     const filePath = path.join(outputDir, filename);
-    fs.writeFileSync(filePath, code, 'utf8');
+    tree.write(filePath, code);
     generatedFiles.push(filePath);
     indexExports.push(`export * from './${filename.replace(/\.ts$/, '')}';`);
   }
   // Write index.ts
-  fs.writeFileSync(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n', 'utf8');
+  tree.write(path.join(outputDir, 'index.ts'), indexExports.join('\n') + '\n');
   console.log(`TypeScript interfaces written to ${outputDir}`);
   return generatedFiles;
 }

@@ -1,4 +1,4 @@
-export interface SwgModelsGeneratorSchema {
+export interface IoServicesGeneratorSchema {
  outputDir: string;
   swaggerPath?: string;
   swaggerUrl?: string;
@@ -7,7 +7,7 @@ export interface SwgModelsGeneratorSchema {
 
 //##############################################//
 
-export interface NoramlizedSwgModelsGeneratorSchema extends SwgModelsGeneratorSchema {
+export interface NoramlizedIoServicesGeneratorSchema extends IoServicesGeneratorSchema {
   generateFromUrl: boolean;
 }
 

@@ -1,6 +1,6 @@
 import { getBaseMethod } from './action-to-base-method';
 import { Action, Paramater } from "./models";
-import { SwgSConstants } from './swg-constants';
+import { SwgConstants } from './swg-constants';
 import { SwgStringUtils } from './swg-string-utils';
 
 // ################################//
@@ -35,7 +35,7 @@ function generateMethodParams(action: Action): MethodParamInfo[] {
     const requestBodyType = action.requestBodyType
     if (requestBodyType)
         return [{
-            name: SwgSConstants.dtoName,
+            name: SwgConstants.dtoName,
             type: requestBodyType
         }]
 

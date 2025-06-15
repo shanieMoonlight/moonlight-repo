@@ -1,8 +1,8 @@
-import * as fs from 'fs';
 import * as path from 'path';
 import { extractControllersFromSwaggerPath } from './extract-swagger-contollers';
 import { SwgStringUtils } from './swg-string-utils';
 import { ControllerDefinition } from './models';
+import { Tree } from '@nx/devkit';
 
 
 // ################################//
@@ -69,9 +69,13 @@ function generateServerRoutesClass(controllerNames: string[], baseUrl?: string) 
  * This function will extract controllers from the swagger file and generate all route classes and the ServerRoutes aggregator.
  * If you already have a parsed controller array, use generateControllerRoutes instead.
  */
-export function generateControllerRoutesSwaggerJson(swaggerPath: string, outputDir: string, baseUrl?: string): string[] {
+export function generateControllerRoutesSwaggerJson(
+  tree: Tree,
+  swaggerPath: string,
+  outputDir: string,
+  baseUrl?: string): string[] {
   const controllers = extractControllersFromSwaggerPath(swaggerPath);
-  return generateControllerRoutes(controllers, outputDir, baseUrl);
+  return generateControllerRoutes(tree, controllers, outputDir, baseUrl);
 }
 
 // - - - - - - - - - - - - - - - - //
@@ -82,16 +86,17 @@ export function generateControllerRoutesSwaggerJson(swaggerPath: string, outputD
  * @param outputDir Output directory for generated files
  * @param baseUrl Optional base URL for the ServerRoutes class
  */
-export function generateControllerRoutes(controllers: ControllerDefinition[], outputDir: string, baseUrl?: string): string[] {
+export function generateControllerRoutes(
+  tree: Tree,
+  controllers: ControllerDefinition[],
+  outputDir: string,
+  baseUrl?: string): string[] {
 
   if (!controllers?.length) {
     console.error('No controllers provided to generateControllerRoutes. Skipping code generation.');
     return [];
   }
 
-  // Ensure output directory exists
-  if (!fs.existsSync(outputDir))
-    fs.mkdirSync(outputDir, { recursive: true });
 
   const controllerNames: string[] = [];
   const writtenFiles: string[] = [];
@@ -99,7 +104,7 @@ export function generateControllerRoutes(controllers: ControllerDefinition[], ou
     const classCode = generateControllerClass(controller);
     const filename = `${controller.name.toLowerCase()}.controller.ts`;
     const filePath = path.join(outputDir, filename);
-    fs.writeFileSync(filePath, classCode, 'utf8');
+    tree.write(filePath, classCode);
     controllerNames.push(controller.name);
     writtenFiles.push(filePath);
   }
@@ -107,7 +112,7 @@ export function generateControllerRoutes(controllers: ControllerDefinition[], ou
   // Generate the ServerRoutes class
   const serverRoutesCode = generateServerRoutesClass(controllerNames, baseUrl)
   const serverRoutesPath = path.join(outputDir, 'all-server-routes.ts')
-  fs.writeFileSync(serverRoutesPath, serverRoutesCode, 'utf8')
+  tree.write(serverRoutesPath, serverRoutesCode)
   writtenFiles.push(serverRoutesPath)
 
   return writtenFiles
