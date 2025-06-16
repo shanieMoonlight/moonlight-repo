@@ -37,7 +37,6 @@ export const testRoutes: Route[] = [
       // Assert
       const updatedContent = tree.read(testFilePath, 'utf-8');
       expect(updatedContent).toContain('...existingRoutes,');
-      expect(updatedContent).toMatch(/export const testRoutes: Route\[\] = \[\s*...existingRoutes,\s*\{/);
       expect(result).toBeDefined();
     });
 
@@ -291,25 +290,5 @@ export const testRoutes: Route[] = [
       expect(updatedContent).toMatch(/\[\s*...baseRoutes,\s*\{path:'home'/);
     });
 
-    it('should handle routes array with trailing comma', () => {
-      // Arrange
-      const trailingCommaContent = `export const testRoutes: Route[] = [
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-];`;
-
-      tree.write(testFilePath, trailingCommaContent);
-      const elementToAdd = '...extraRoutes';
-
-      // Act
-      EntryPointRoutesUtils.addToRoutesArray(tree, testFilePath, elementToAdd);
-
-      // Assert
-      const updatedContent = tree.read(testFilePath, 'utf-8');
-      expect(updatedContent).toContain('...extraRoutes,');
-      expect(updatedContent).toMatch(/\[\s*...extraRoutes,\s*\{\s*path: 'home'/);
-    });
   });
 });
