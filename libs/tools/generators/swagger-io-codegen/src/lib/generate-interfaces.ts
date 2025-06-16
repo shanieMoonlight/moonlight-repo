@@ -1,10 +1,6 @@
 import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  Tree,
+  Tree
 } from '@nx/devkit';
-import { json, workspaces } from '@angular-devkit/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import { SwgStringUtils } from './swg-string-utils';
