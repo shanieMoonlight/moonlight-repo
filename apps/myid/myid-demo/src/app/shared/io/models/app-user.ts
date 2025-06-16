@@ -1,24 +1,40 @@
+import { IdentityAddress } from './identity-address';
+import { Avatar } from './avatar';
+import { Team } from './team';
+import { TwoFactorProvider } from './two-factor-provider';
+import { OAuthInfo } from './oauth-info';
 
-import { Identifier } from "./identifier";
-import { TeamPosition } from "./team-position";
-import { TwoFactorProvider } from "./two-factor-provider";
-
-
-//=====================================//
-
-export class AppUser {
-
-  id?: Identifier
-  firstName?: string
-  lastName?: string
-  phoneNumber?: string
-  userName?: string
-  email: string = ''
-  teamId?: Identifier
-  teamPosition: TeamPosition = TeamPosition.guest
-  twoFactorProvider: TwoFactorProvider = TwoFactorProvider.Sms
-  twoFactorEnabled: boolean = false
-  emailConfirmed: boolean = false
-
-
-} //Cls
+export interface AppUser {
+  id?: string;
+  userName?: string;
+  normalizedUserName?: string;
+  email?: string;
+  normalizedEmail?: string;
+  emailConfirmed?: boolean;
+  passwordHash?: string;
+  securityStamp?: string;
+  concurrencyStamp?: string;
+  phoneNumber?: string;
+  phoneNumberConfirmed?: boolean;
+  twoFactorEnabled?: boolean;
+  lockoutEnd?: string;
+  lockoutEnabled?: boolean;
+  accessFailedCount?: number;
+  administratorUsername?: string;
+  administratorId?: string;
+  dateCreated?: string;
+  lastModifiedDate?: string;
+  firstName?: string;
+  lastName?: string;
+  address?: IdentityAddress;
+  avatar?: Avatar;
+  teamId?: string;
+  team?: Team;
+  teamPosition?: number;
+  tkn?: string;
+  tknModifiedDate?: string;
+  twoFactorProvider?: TwoFactorProvider;
+  twoFactorKey?: string;
+  oAuthInfo?: OAuthInfo;
+  friendlyName?: string;
+}

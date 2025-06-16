@@ -46,7 +46,7 @@ function generateServerRoutesClass(controllerNames: string[], baseUrl?: string) 
     .join('\n');
 
   // Optionally include a BASE_URL
-  const baseUrlProp = `static readonly BASE_URL = '${baseUrl ?? 'https://localhost:1234'}';`;
+  const baseUrlProp = `static readonly BASE_URL = '${baseUrl ?? 'environment.serverUrl'}';`;
 
   return `${importStmts}\n\nexport class ${className} {
   

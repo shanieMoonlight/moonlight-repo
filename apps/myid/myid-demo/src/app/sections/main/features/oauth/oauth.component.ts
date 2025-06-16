@@ -4,9 +4,9 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { AccountIoService } from '../../../../shared/io/identity/account.io.service';
-import { LoginDto } from '../../../../shared/io/models/login';
+import { AccountIoService } from '../../../../shared/io/services/account.io.service';
 import { googleSocialUser, validUserAuthCredentials } from './secret';
+import { LoginDto } from '../../../../shared/io/models';
 
 
 
@@ -36,7 +36,7 @@ export class OauthComponent implements OnInit {
 
 
   protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: SocialUser) => this._ioService.googleCookieLogin(dto))
+    .CreateWithInput((dto: SocialUser) => this._ioService.googleCookieSignin(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.firstName}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 

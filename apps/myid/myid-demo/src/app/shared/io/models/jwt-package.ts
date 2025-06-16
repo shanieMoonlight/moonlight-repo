@@ -1,14 +1,11 @@
-import { TwoFactorProvider } from "./two-factor-provider"
+import { TwoFactorProvider } from './two-factor-provider';
 
-
-export class JwtPackage {
-
-  accessToken?: string
-  expiration: number = 0
-  twoStepVerificationRequired: boolean = false
-  twoFactorProvider?: TwoFactorProvider
-  extraInfo?: string
-  expirationDate: string = ''
-
-
-} //Cls
+export interface JwtPackage {
+  accessToken?: string;
+  refreshToken?: string;
+  expiration?: number;
+  twoStepVerificationRequired?: boolean;
+  twoFactorProvider?: TwoFactorProvider;
+  extraInfo?: string;
+  expirationDate?: string;
+}

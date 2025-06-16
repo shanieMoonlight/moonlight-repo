@@ -1,8 +1,4 @@
-import {
-  formatFiles,
-  generateFiles,
-  Tree
-} from '@nx/devkit';
+import {  formatFiles,  generateFiles,  Tree} from '@nx/devkit';
 import { determineProjectNameAndRootOptions } from '@nx/devkit/src/generators/project-name-and-root-utils';
 import { generateAllSwaggerIoFromPath, generateAllSwaggerIoFromUrl } from '@spider-baby/generators-swagger-io-codegen';
 import * as path from 'path';

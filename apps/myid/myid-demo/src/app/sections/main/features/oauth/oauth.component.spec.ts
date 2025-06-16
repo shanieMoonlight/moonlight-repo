@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OauthComponent } from './oauth.component';
 import { SocialAuthSetup } from '../../../../config/oauth.config';
-import { AccountIoService } from '../../../../shared/io/identity/account.io.service';
+import { AccountIoService } from '../../../../shared/io/services/account.io.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
