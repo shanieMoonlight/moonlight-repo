@@ -36,7 +36,7 @@ export class OauthComponent implements OnInit {
 
 
   protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: SocialUser) => this._ioService.googleLogin(dto))
+    .CreateWithInput((dto: SocialUser) => this._ioService.googleCookieLogin(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.firstName}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 

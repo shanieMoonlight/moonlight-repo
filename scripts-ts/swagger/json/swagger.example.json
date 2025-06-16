@@ -241,10 +241,21 @@
         }
       }
     },
-    "/identity/Account/CloseAccount": {
+    "/identity/Account/CloseAccount/{teamId}": {
       "delete": {
         "tags": [
           "Account"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -4383,31 +4394,30 @@
         }
       }
     },
-    "/identity/UserManagement/UpdatePosition/{userId}/{newPosition}": {
+    "/identity/UserManagement/UpdatePosition": {
       "patch": {
         "tags": [
           "UserManagement"
         ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "newPosition",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePositionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePositionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePositionDto"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -7784,6 +7794,20 @@
         "type": "integer",
         "format": "int32",
         "nullable": true
+      },
+      "UpdatePositionDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "newPosition": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
       },
       "UpdateSelfDto": {
         "type": "object",
