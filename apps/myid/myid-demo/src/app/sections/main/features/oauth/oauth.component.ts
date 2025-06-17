@@ -1,13 +1,15 @@
-import { GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule, SocialUser } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { AccountIoService } from '../../../../shared/io/services/account.io.service';
-import { googleSocialUser, validUserAuthCredentials } from './secret';
+import { SbForgotPwdFormComponent } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
+import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
 import { LoginDto } from '../../../../shared/io/models';
-import { LoginFormComponent } from '../../../../shared/id/ui/login/login.component';
+import { AccountIoService } from '../../../../shared/io/services/account.io.service';
+import { googleSocialUser } from './secret';
+import { ConfirmEmailWithPwdDto, ConfirmEmailWithPwdFormComponent } from '../../../../shared/id/ui/confirm-email-with-pwd/confirm-email-with-pwd.component';
 
 
 
@@ -18,7 +20,9 @@ import { LoginFormComponent } from '../../../../shared/id/ui/login/login.compone
     GoogleSigninButtonModule,
     MatEverythingModule,
     SbMatNotificationsModalComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    SbForgotPwdFormComponent,
+    ConfirmEmailWithPwdFormComponent
     
   ],
   templateUrl: './oauth.component.html',
@@ -101,5 +105,12 @@ export class OauthComponent implements OnInit {
     this._googleLoginState.trigger(googleSocialUser)
 
   }
+
+
+  
+handlePasswordSet(dto: ConfirmEmailWithPwdDto) {
+console.log('Password set event:', dto);
+
+}
 
 }//Cls

@@ -3,10 +3,9 @@
   max-width: 450px;
   width: 100%;
   border-radius: 1rem;
-  // padding: 2rem;
 }
 
-.login-form {
+.reset-pwd-form {
   width: 100%;
   color: var(--mat-sys-on-surface-container);
   display: flex;
@@ -14,10 +13,18 @@
   gap: 1.5rem;
 }
 
-.login-form h2 {
+.reset-pwd-form h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
+}
+
+.description {
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
 }
 
 .form-group {
@@ -31,23 +38,14 @@ label {
   font-weight: 500;
 }
 
-sb-button,
-sb-text-button {
+sb-button {
   width: 100%;
 }
-
 
 .error {
   color: var(--mat-sys-error);
   font-size: 0.95rem;
   margin-top: -0.25rem;
-}
-
-.remember-me {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: -0.5rem;
 }
 
 .password-input-container {
@@ -73,5 +71,4 @@ sb-text-button {
     outline: none;
     flex: 1;
   }
-
 }

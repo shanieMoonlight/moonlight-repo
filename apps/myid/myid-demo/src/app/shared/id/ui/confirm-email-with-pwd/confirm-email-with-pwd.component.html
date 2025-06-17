@@ -1,0 +1,55 @@
+<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="confirm-email-pwd-form">
+    <!-- <h2>Set Your Password</h2>
+    <p class="description">Create a secure password for your account.</p> -->
+    
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'password'+_idSuffix">Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn color="primary">
+            <input 
+                [id]="'password'+_idSuffix" 
+                [type]="showPassword() ? 'text' : 'password'" 
+                formControlName="password" 
+                placeholder="Enter your password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onPasswordToggle($event)"/>
+        </div>
+        @if(_form.controls.password.touched && _form.controls.password.invalid) {
+            @if(_form.controls.password.errors?.['firstError']; as err) {
+            <span class="error">{{err}}</span>
+            }
+        }
+    </div>
+
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'confirmPassword'+_idSuffix">Confirm Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn color="primary">
+            <input 
+                [id]="'confirmPassword'+_idSuffix" 
+                [type]="showConfirmPassword() ? 'text' : 'password'" 
+                formControlName="confirmPassword" 
+                placeholder="Confirm your password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onConfirmPasswordToggle($event)"/>
+        </div>
+        @if(_form.controls.confirmPassword.touched && _form.controls.confirmPassword.invalid) {
+            @if(_form.controls.confirmPassword.errors?.['firstError']; as err) {
+            <span class="error">{{err}}</span>
+            }
+        }
+        @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {
+            <span class="error">Passwords do not match</span>
+        }
+    </div>
+
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+        Set Password
+    </sb-button>
+</form>

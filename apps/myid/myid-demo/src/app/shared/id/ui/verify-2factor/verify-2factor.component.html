@@ -1,0 +1,27 @@
+<form [formGroup]="form" [sbFormControlFirstError]="form" (ngSubmit)="submit()" class="verify-2factor-form">
+    <!-- <h2>Two-Factor Authentication</h2>
+    <p class="description">Enter the 6-digit verification code from your authenticator app.</p> -->
+    
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'token'+_idSuffix">Verification Code</label>
+        }
+        <input 
+            [id]="'token'+_idSuffix" 
+            type="text" 
+            formControlName="token" 
+            placeholder="000000" 
+            maxlength="6"
+            sbInputStyle 
+            class="token-input" />
+        @if(form.controls.token.touched && form.controls.token.invalid) {
+            @if(form.controls.token.errors?.['firstError']; as err) {
+            <span class="error">{{err}}</span>
+            }
+        }
+    </div>
+
+    <sb-button type="submit" [disabled]="form.invalid" color="primary">
+        Verify Code
+    </sb-button>
+</form>

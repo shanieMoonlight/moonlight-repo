@@ -2,6 +2,10 @@
     
   <div class="features-grid">
 
+    
+  <sb-forgot-pwd-form/>
+  <sb-confirm-email-with-pwd-form (confirmEmail)="handlePasswordSet($event)"/>
+
     <mat-card>
       <mat-card-header>
         <mat-card-title>Jwt Login</mat-card-title>
@@ -26,6 +30,7 @@
     </mat-card>
 
   </div>
+
 
 
   <sb-notifications-modal-mat 

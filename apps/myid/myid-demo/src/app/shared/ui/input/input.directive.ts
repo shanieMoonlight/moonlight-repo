@@ -25,7 +25,7 @@ export class SbInputStyleDirective {
     this._renderer.setStyle(this._input, 'font-size', '1rem');
     this._renderer.setStyle(this._input, 'transition', 'border-color 0.2s');
     this._renderer.setStyle(this._input, 'background-color', 'transparent');
-    // this._renderer.setStyle(this._input, 'color', 'var(--mat-sys-on-surface-container)');
+    this._renderer.setStyle(this._input, 'color', 'inherit');
     
     // Add focus styles
     this._renderer.listen(this._input, 'focus', () => {
