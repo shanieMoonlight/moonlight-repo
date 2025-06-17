@@ -10,7 +10,7 @@
             }
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password" >Password</label>
         <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
         @if(form.controls.password.touched && form.controls.password.invalid) {
             @if(form.controls.password.errors?.['firstError'];as err) {
@@ -21,16 +21,17 @@
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
-        <label>
+        <!-- <label>
             <input type="checkbox" formControlName="rememberMe" /> Remember me
-        </label>
+        </label> -->
+        <sb-checkbox formControlName="rememberMe" >Che</sb-checkbox>
     </div>
     }
 
-    <sb-checkbox  [disabled]="form.invalid">Che</sb-checkbox>
+    <!-- <sb-checkbox  [disabled]="form.invalid">Che</sb-checkbox>
     <sb-checkbox  [disabled]="form.invalid" color='secondary'>Che</sb-checkbox>
     <sb-checkbox  [disabled]="form.invalid" color='tertiary'>Che</sb-checkbox>
-    <sb-checkbox  [disabled]="form.invalid" color='error'>Che</sb-checkbox>
+    <sb-checkbox  [disabled]="form.invalid" color='error'>Che</sb-checkbox> -->
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">Login</sb-button>
 

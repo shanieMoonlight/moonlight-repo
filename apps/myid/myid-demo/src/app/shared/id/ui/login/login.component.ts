@@ -41,8 +41,25 @@ export class LoginFormComponent {
   protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
     email: ['a@b.c', [Validators.required]],
     password: ['', [Validators.required]],
-    rememberMe: [false, []]
+    // rememberMe: [false, []]
+    rememberMe: [false, [Validators.required]]
   });
+
+
+  /**
+   *
+   */
+  constructor() {
+    this.form.controls.rememberMe.enable()
+    this.form.valueChanges.subscribe(val => {
+      console.log('Form status changed:', val);
+      // if (this.form.valid)
+      //   this.form.controls.rememberMe.enable()
+      // else
+      //   this.form.controls.rememberMe.disable()
+    });
+
+  }
 
   submit() {
     if (!this.form.valid)
