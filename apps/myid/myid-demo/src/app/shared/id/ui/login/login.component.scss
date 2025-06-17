@@ -1,0 +1,81 @@
+:host {
+  display: block;
+}
+
+.login-form {
+  max-width: 350px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface-container);
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background-color: transparent;
+  color: var(--mat-sys-on-surface-container);
+}
+
+input:focus {
+  border: 1px solid var(--mat-sys-outline-variant);
+  outline: none;
+}
+
+sb-button {
+  width: 100%;
+}
+
+
+.error {
+  color: var(--mat-sys-error);
+  font-size: 0.95rem;
+  margin-top: -0.25rem;
+}
+
+.remember-me {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: -0.5rem;
+
+  label {
+    font-weight: 400;
+    font-size: 0.98rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--mat-sys-error);
+    margin-right: 0.5rem;
+  }
+}

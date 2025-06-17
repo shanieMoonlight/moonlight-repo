@@ -1,0 +1,74 @@
+:host {
+  --color-border: var(--mat-sys-primary-40);
+  --color-bg: var(--mat-sys-primary-100);
+  --color-bg: tranparent;
+  --color-bg-checked: var(--mat-sys-primary-40);
+  --color-bg-disabled: var(--mat-sys-primary-95);
+  --color-check: var(--mat-sys-primary-100);
+  --color-error: var(--mat-sys-primary-50);
+}
+
+.sb-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.sb-checkbox-input {
+  display: none;
+}
+
+.sb-checkbox-custom {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.3rem;
+  background: var(--color-bg);
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-checkbox-label.primary .sb-checkbox-custom {
+  border-color: var(--mat-sys-primary-40);
+}
+.sb-checkbox-label.secondary .sb-checkbox-custom {
+  border-color: var(--mat-sys-primary-60);
+}
+.sb-checkbox-label.error .sb-checkbox-custom {
+  border-color: var(--color-error);
+}
+
+.sb-checkbox-input:checked + .sb-checkbox-custom {
+  background: var(--color-bg-checked);
+  border-color: var(--color-bg-checked);
+}
+
+.sb-checkbox-input:checked + .sb-checkbox-custom::after {
+  content: '';
+  display: block;
+  width: 0.5rem;
+  height: 0.9rem;
+  border: solid var(--color-check);
+  border-width: 0 0.2rem 0.2rem 0;
+  position: absolute;
+  left: 0.35rem;
+  top: 0.1rem;
+  transform: rotate(45deg);
+}
+
+.sb-checkbox-input:disabled + .sb-checkbox-custom {
+  background: var(--color-bg-disabled);
+  border-color: var(--color-bg-disabled);
+  cursor: not-allowed;
+}
+
+.sb-checkbox-label:has(.sb-checkbox-input:disabled) {
+  color: var(--mat-sys-primary-80);
+  cursor: not-allowed;
+}

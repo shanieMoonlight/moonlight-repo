@@ -7,6 +7,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AccountIoService } from '../../../../shared/io/services/account.io.service';
 import { googleSocialUser, validUserAuthCredentials } from './secret';
 import { LoginDto } from '../../../../shared/io/models';
+import { LoginFormComponent } from '../../../../shared/id/ui/login/login.component';
 
 
 
@@ -16,7 +17,8 @@ import { LoginDto } from '../../../../shared/io/models';
   imports: [
     GoogleSigninButtonModule,
     MatEverythingModule,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    LoginFormComponent
   ],
   templateUrl: './oauth.component.html',
   styleUrl: './oauth.component.scss',
@@ -67,7 +69,7 @@ export class OauthComponent implements OnInit {
 
   ngOnInit() {
     console.log('OauthComponent ngOnInit called');
-    
+
     this._socialAuth.authState.subscribe((socialUser) => {
       console.log('Google Auth State:', socialUser);
       console.log('Google Auth State Stringified:', JSON.stringify(socialUser).replace(/,/g, ',\n'));
@@ -77,6 +79,12 @@ export class OauthComponent implements OnInit {
   }
 
   //--------------------------//
+
+
+  loginForm(dto: LoginDto) {
+    console.log('Login Form DTO:', dto);
+    
+  }
 
 
   loginStandard() {
