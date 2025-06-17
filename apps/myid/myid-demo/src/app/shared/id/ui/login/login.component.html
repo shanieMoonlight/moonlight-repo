@@ -18,12 +18,27 @@
             }
         }
     </div>
+    <div class="form-group">
+       <sb-select 
+            [options]="selectOptions" 
+            placeholder="Choose an option"
+            color="primary">
+        </sb-select>
+    </div>
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
         <sb-checkbox formControlName="rememberMe" >Remember me</sb-checkbox>
     </div>
     }
+
+    @if(showForgotPwd()){
+        <button class="forgot-pwd"  (click)="forgotPwdClick()">
+            Fogot your password?
+        </button>
+    }
+
+   
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">Login</sb-button>
 

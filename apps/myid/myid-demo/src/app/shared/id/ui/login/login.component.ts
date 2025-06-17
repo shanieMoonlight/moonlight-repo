@@ -4,6 +4,7 @@ import { SbButtonComponent } from '../../../ui/button/button.component';
 import { SbCheckboxComponent } from '../../../ui/checkbox/checkbox.component';
 import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
 import { SbInputStyleDirective } from '../../../ui/input/input.directive';
+import { SbSelectComponent } from '../../../ui/select/select.component';
 
 //##########################//
 
@@ -31,7 +32,9 @@ interface LoginForm {
     FirstErrorDirective,
     SbButtonComponent,
     SbCheckboxComponent,
-    SbInputStyleDirective],
+    SbInputStyleDirective,
+    SbSelectComponent
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +44,9 @@ export class LoginFormComponent {
   private fb = inject(FormBuilder)
 
   login = output<LoginDto>();
+  forgotPwd = output();
   showRemeberMe = input<boolean>(false);
+  showForgotPwd = input<boolean>(false);
 
 
   protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
@@ -50,6 +55,11 @@ export class LoginFormComponent {
     rememberMe: [false, []]
   });
 
+  selectOptions = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3', disabled: true }
+  ];
 
   submit() {
     if (!this.form.valid)
@@ -63,5 +73,9 @@ export class LoginFormComponent {
 
     this.login.emit(dto)
   }
+
+
+  forgotPwdClick = () => this.forgotPwd.emit();
+  
 
 }
