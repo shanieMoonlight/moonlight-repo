@@ -1,6 +1,8 @@
 import { AbstractControl, FormControl, FormGroup } from "@angular/forms";
 
+
 //##########################//
+
 
 const errorMessageMap = new Map<string, (fieldName: string, errorValue: any) => string>([
     ['required', (fieldName) => `${fieldName} is required.`],
@@ -29,6 +31,7 @@ const errorMessageMap = new Map<string, (fieldName: string, errorValue: any) => 
 
 //##########################//
 
+
 export class FormErrors {
 
 
@@ -42,19 +45,21 @@ export class FormErrors {
                 const firstError = this.getFirstErrorMessage(key, control)
 
                 if (firstError)
-                    control.setErrors({ ...currentErrors, firstError: this.getFirstErrorMessage(key, control) })
+                    control.setErrors({ ...currentErrors, firstError: firstError })
             }
         })
     }
 
+
     //----------------------------//    
 
-    static getFirstErrorMessage(key: string, control: AbstractControl): string {
+
+    static getFirstErrorMessage(key: string, control: AbstractControl): string | null {
 
         const errorKey = this.firstErrorKey(control)
 
         if (!errorKey)
-            return ''
+            return null
 
         const errorValue = control.errors?.[errorKey]
         const fieldName = this.toTitleCase(key) ?? 'This field'
@@ -65,7 +70,7 @@ export class FormErrors {
 
         // Get error message function and call it
         const errorMessageFn = errorMessageMap.get(errorKey);
-        if (errorMessageFn) 
+        if (errorMessageFn)
             return errorMessageFn(fieldName, errorValue)
 
         // Fallback for unknown error types
@@ -78,6 +83,7 @@ export class FormErrors {
     private static firstErrorKey = (control: AbstractControl): string | null =>
         Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
 
+    
     //----------------------------//
 
     private static toTitleCase = (s: string) => {

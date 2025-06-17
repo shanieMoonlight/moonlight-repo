@@ -1,7 +1,9 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, Renderer2, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { FormErrors } from './form-errors';
+
 
 @Directive({
   selector: '[sbFormControlFirstError]',
@@ -20,7 +22,7 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
   }
 
   //- - - - - - - - - - - - - - //
-  
+
   private _form?: FormGroup
   private clickListener?: () => void
   private vcSub?: Subscription
@@ -45,11 +47,16 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
   //----------------------------//
 
   observeValueChanges(form: FormGroup) {
-    
+
     this.vcSub?.unsubscribe()
-    this.vcSub = form.valueChanges.subscribe(
-      () => FormErrors.setFirstErrors(form)
-    )
+    this.vcSub = form.statusChanges.pipe(
+      distinctUntilChanged(),
+      filter(status => status === 'INVALID')
+    ).subscribe(() => {
+      console.log('Form status changed:', form.status);
+      if (form.status === 'INVALID')
+        FormErrors.setFirstErrors(form)
+    })
   }
 
 }//Cls
