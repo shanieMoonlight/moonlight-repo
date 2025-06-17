@@ -5,6 +5,7 @@ import { SbCheckboxComponent } from '../../../ui/checkbox/checkbox.component';
 import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
 import { SbInputStyleDirective } from '../../../ui/input/input.directive';
 import { SbSelectComponent } from '../../../ui/select/select.component';
+import { SbTextButtonComponent } from '../../../ui/text-button/text-button.component';
 
 //##########################//
 
@@ -33,7 +34,8 @@ interface LoginForm {
     SbButtonComponent,
     SbCheckboxComponent,
     SbInputStyleDirective,
-    SbSelectComponent
+    SbSelectComponent,
+    SbTextButtonComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -46,7 +48,7 @@ export class LoginFormComponent {
   login = output<LoginDto>();
   forgotPwd = output();
   showRemeberMe = input<boolean>(false);
-  showForgotPwd = input<boolean>(false);
+  showForgotPwd = input<boolean>(true);
 
 
   protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
@@ -76,6 +78,6 @@ export class LoginFormComponent {
 
 
   forgotPwdClick = () => this.forgotPwd.emit();
-  
+
 
 }

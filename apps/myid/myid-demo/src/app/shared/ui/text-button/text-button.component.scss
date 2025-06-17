@@ -1,0 +1,75 @@
+:host {
+    --color-text: var(--mat-sys-primary);
+    --color-text-hover: var(--mat-sys-primary-container);
+    --color-text-disabled: var(--mat-sys-outline);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+button {
+    font: inherit;
+    /* Inherits font styles from parent (like body) */
+    color: inherit;
+    /* Inherits text color from parent */
+    text-align: inherit;
+}
+
+.sb-text-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color 0.2s, background-color 0.2s;
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    outline: none;
+}
+
+
+.sb-text-btn:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--mat-sys-surface-variant);
+}
+
+.sb-text-btn:focus-visible {
+    background-color: rgba(0, 0, 0, 0.08);
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+.sb-text-btn:active:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.sb-text-btn:disabled {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+}
+
+.sb-text-btn.primary {
+    --color-text: var(--mat-sys-primary);
+    --color-text-hover: var(--mat-sys-primary-container);
+}
+
+.sb-text-btn.secondary {
+    --color-text: var(--mat-sys-secondary);
+    --color-text-hover: var(--mat-sys-secondary-container);
+}
+
+.sb-text-btn.tertiary {
+    --color-text: var(--mat-sys-tertiary);
+    --color-text-hover: var(--mat-sys-tertiary-container);
+}
+
+.sb-text-btn.error {
+    --color-text: var(--mat-sys-error);
+    --color-text-hover: var(--mat-sys-error-container);
+}
