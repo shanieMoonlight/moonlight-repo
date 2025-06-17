@@ -19,6 +19,7 @@ import { LoginFormComponent } from '../../../../shared/id/ui/login/login.compone
     MatEverythingModule,
     SbMatNotificationsModalComponent,
     LoginFormComponent
+    
   ],
   templateUrl: './oauth.component.html',
   styleUrl: './oauth.component.scss',
@@ -27,7 +28,7 @@ import { LoginFormComponent } from '../../../../shared/id/ui/login/login.compone
 export class OauthComponent implements OnInit {
 
   private _ioService = inject(AccountIoService)
-  private _socialAuth = inject(SocialAuthService)
+  // private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
 
@@ -70,12 +71,12 @@ export class OauthComponent implements OnInit {
   ngOnInit() {
     console.log('OauthComponent ngOnInit called');
 
-    this._socialAuth.authState.subscribe((socialUser) => {
-      console.log('Google Auth State:', socialUser);
-      console.log('Google Auth State Stringified:', JSON.stringify(socialUser).replace(/,/g, ',\n'));
-      this._googleLoginState.trigger(socialUser)
+    // this._socialAuth.authState.subscribe((socialUser) => {
+    //   console.log('Google Auth State:', socialUser);
+    //   console.log('Google Auth State Stringified:', JSON.stringify(socialUser).replace(/,/g, ',\n'));
+    //   this._googleLoginState.trigger(socialUser)
 
-    });
+    // });
   }
 
   //--------------------------//

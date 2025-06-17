@@ -8,15 +8,17 @@
         <mat-card-subtitle>Google Oauth login</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <asl-google-signin-button type='standard' size='large' />
+        <!-- <asl-google-signin-button type='standard' size='large' /> -->
       </mat-card-content>
     </mat-card>
 
+
        <sb-login-form (login)="loginForm($event)"/>
+       <!-- <sb-login-form2 (login)="loginForm($event)"/> -->
 
 
     
-
+<!-- 
     <mat-card>
       <mat-card-header>
         <mat-card-title>Login</mat-card-title>
@@ -38,7 +40,7 @@
       <button mat-flat-button class="secondary" (click)="googleLoginTest()">Test</button>
       </mat-card-content>
     </mat-card>
-
+ -->
 
   </div>
 

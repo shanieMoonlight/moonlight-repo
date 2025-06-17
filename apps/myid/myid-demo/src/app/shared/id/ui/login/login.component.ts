@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, output, signal, input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SbButtonComponent } from '../../../ui/button/button.component';
 import { SbCheckboxComponent } from '../../../ui/checkbox/checkbox.component';
+import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
 
 //##########################//
 
@@ -16,7 +15,7 @@ export interface LoginDto {
 interface LoginForm {
   email: FormControl<string>;
   password: FormControl<string>;
-  rememberMe?: FormControl<boolean>
+  rememberMe: FormControl<boolean>
 }
 
 
@@ -32,30 +31,30 @@ interface LoginForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
-  form: FormGroup<LoginForm>;
+
+  private fb = inject(FormBuilder)
 
   login = output<LoginDto>();
   showRemeberMe = input<boolean>(false);
 
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group<LoginForm>({
-      email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
-      password: this.fb.nonNullable.control('', [Validators.required]),
-      rememberMe: this.fb.nonNullable.control(false, []),
-    })
-  }
+  protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
+    email: ['a@b.c', [Validators.required]],
+    password: ['', [Validators.required]],
+    rememberMe: [false, []]
+  });
 
   submit() {
     if (!this.form.valid)
       return
 
-    const { email, password, rememberMe } = this.form.value;
-    if (email && password) {
-      const dto: LoginDto = { email, password, rememberMe };
-      this.login.emit(dto);
+    const dto: LoginDto = {
+      email: this.form.controls.email.value,
+      password: this.form.controls.password.value,
+      rememberMe: this.form.controls.rememberMe.value,
     }
 
+    this.login.emit(dto)
   }
 
 }

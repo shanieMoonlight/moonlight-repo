@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { IdTheme } from '../theme.type';
 
 @Component({
   selector: 'sb-checkbox',
@@ -12,9 +13,14 @@ import { NgClass } from '@angular/common';
         class="sb-checkbox-input"
         [checked]="checked()"
         [disabled]="disabled()"
-        (change)="onToggle($event)"/>
-      <span class="sb-checkbox-custom"></span>
-      <!-- <svg class="sb-checkbox-custom" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> -->
+        (change)="onToggle($event)"/>      
+        <div class="sb-checkbox-custom">
+          <svg id="icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+          </svg>
+        </div>
+        
+
       <ng-content/>
     </label>
 
@@ -26,7 +32,7 @@ export class SbCheckboxComponent {
 
   checked = input<boolean>(false);
   disabled = input<boolean>(false);
-  color = input<'primary' | 'secondary' | 'error'>('primary');
+  color = input<IdTheme>('primary');
 
   checkedChange = output<boolean>();
 

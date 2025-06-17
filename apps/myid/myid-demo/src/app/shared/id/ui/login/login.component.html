@@ -27,11 +27,11 @@
     </div>
     }
 
-    <sb-checkbox>Che</sb-checkbox>
+    <sb-checkbox  [disabled]="form.invalid">Che</sb-checkbox>
+    <sb-checkbox  [disabled]="form.invalid" color='secondary'>Che</sb-checkbox>
+    <sb-checkbox  [disabled]="form.invalid" color='tertiary'>Che</sb-checkbox>
+    <sb-checkbox  [disabled]="form.invalid" color='error'>Che</sb-checkbox>
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">Login</sb-button>
-    <!-- <sb-button type="submit" [disabled]="form.invalid" color="secondary">Login</sb-button>
-    <sb-button type="submit" [disabled]="form.invalid" color="tertiary">Login</sb-button>
-    <sb-button type="submit" [disabled]="form.invalid" color="error">Login</sb-button> -->
 
 </form>
