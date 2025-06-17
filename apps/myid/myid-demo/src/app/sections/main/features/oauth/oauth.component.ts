@@ -126,12 +126,12 @@ export class OauthComponent implements OnInit {
 
 
   handleAddUser(dto: AppUserDtoFormDto) {
-    console.log('Adding User:', dto);
+    console.log('Adding User:', dto.teamPosition, dto);
   }
 
 
   handleEditUser(dto: AppUserDtoFormDto) {
-    console.log('Updating User:', dto);
+    console.log('Updating User:', dto.teamPosition, dto);
   }
 
 

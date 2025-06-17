@@ -12,14 +12,14 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
   private _el = inject(ElementRef)
   private _renderer = inject(Renderer2)
 
-  //- - - - - - - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - //
 
   @Input({ required: true }) set sbFormControlFirstError(form: FormGroup) {
     this._form = form
     this.observeValueChanges(form)
   }
 
-  //- - - - - - - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - //
   
   private _form?: FormGroup
   private clickListener?: () => void
@@ -35,7 +35,7 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
     });
   }
 
-  //- - - - - - - - - - - - - - - - - - - -//
+  //- - - - - - - - - - - - - - //
 
   ngOnDestroy(): void {
     this.vcSub?.unsubscribe()
@@ -51,7 +51,5 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
       () => FromErrors.setFirstErrors(form)
     )
   }
-
-  //----------------------------//
 
 }//Cls
