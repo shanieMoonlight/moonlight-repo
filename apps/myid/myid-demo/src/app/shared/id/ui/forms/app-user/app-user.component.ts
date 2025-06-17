@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
-import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
-import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
-import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
-import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
 import { IdentityAddressDto } from '../../../../io/models/identity-address-dto';
+import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
+import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
+import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbSelectComponent } from '../../../../ui/select/select.component';
+import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
+import { teamPositionOptions } from '../../../utils/team-position-options';
+import { twoFactorProviderOptions } from '../../../utils/two-factor-provider-options';
 
 //##########################//
 
@@ -57,7 +59,7 @@ interface AppUserForm {
     SbButtonComponent,
     SbInputStyleDirective,
     SbSelectComponent,
-    SbCheckboxComponent,
+    SbCheckboxComponent
   ],
   templateUrl: './app-user.component.html',
   styleUrl: './app-user.component.scss',
@@ -71,27 +73,19 @@ export class SbAppUserFormComponent {
   addUser = output<AppUserDtoFormDto>();
   updateUser = output<AppUserDtoFormDto>();
 
+  protected showAddressSection = input(false);
+
   @Input()
   public set appUser(user: AppUserDtoFormDto | undefined) {
     this.setFormValues(user);
     this._isUpdateForm.set(!!user);
   }
 
-  protected _isUpdateForm = signal<boolean>(false);
+protected _isUpdateForm = signal(false);
 
+  protected _twoFactorProviderOptions = twoFactorProviderOptions
 
-  protected twoFactorProviderOptions: SelectOption[] = [
-    { value: 'authenticatorApp', label: 'Authenticator App' },
-    { value: 'sms', label: 'SMS' },
-    { value: 'email', label: 'Email' }
-  ];
-
-  protected teamPositionOptions: SelectOption[] = [
-    { value: 1, label: 'Member' },
-    { value: 2, label: 'Lead' },
-    { value: 3, label: 'Manager' },
-    { value: 4, label: 'Admin' }
-  ];
+  protected _teamPositionOptions= teamPositionOptions
 
   protected form: FormGroup<AppUserForm> = this.fb.nonNullable.group({
     // Personal Information Section
@@ -117,9 +111,11 @@ export class SbAppUserFormComponent {
     areaCode: [''],
     notes: [''],
     appUserId: ['']
-  });
+  })
+
 
   //---------------------//
+
 
   setFormValues(user: AppUserDtoFormDto | undefined) {
     if (user) {
@@ -185,6 +181,7 @@ export class SbAppUserFormComponent {
 
     return dto;
   }
+  
 
   //- - - - - - - - - - -//
 
@@ -197,7 +194,9 @@ export class SbAppUserFormComponent {
     this.addUser.emit(dto);
   }
 
+
   //- - - - - - - - - - -//
+
 
   update() {
     if (!this.form.valid)

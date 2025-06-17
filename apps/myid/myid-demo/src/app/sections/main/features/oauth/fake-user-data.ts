@@ -31,7 +31,7 @@ export const demoAppUserData: AppUserDto = {
   userName: 'sarah.johnson',
   email: 'sarah.johnson@company.com',
   teamId: 'team_dev_001',
-  teamPosition: 2,
+  teamPosition: 3,
   twoFactorProvider: 'authenticatorApp',
   twoFactorEnabled: true,
   address: {

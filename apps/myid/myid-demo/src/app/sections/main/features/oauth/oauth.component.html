@@ -1,45 +1,50 @@
 <div class="container">
     
-  <sb-app-user-form [appUser]="_testUser"/>
+  <sb-app-user-form [appUser]="_testUser"
+    (addUser)="handleAddUser($event)"
+    (updateUser)="handleEditUser($event)"/>
+
   <div class="features-grid">
 
-<sb-update-two-factor-provider-form [currentProvider]="'sms'" (updateProvider)="handleProviderUpdate($event)"/>
-    
-  <sb-forgot-pwd-form/>
-  <sb-confirm-email-with-pwd-form (confirmEmail)="handlePasswordSet($event)"/>
+    <sb-update-two-factor-provider-form [currentProvider]="'sms'" (updateProvider)="handleProviderUpdate($event)"/>
+      
+    <sb-forgot-pwd-form/>
+    <sb-confirm-email-with-pwd-form (confirmEmail)="handlePasswordSet($event)"/>
 
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Jwt Login</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-       <sb-login-form (login)="loginJwt($event)" 
-        [showRemeberMe]="false"
-        [socialTemplate]="socialTemplate"/>
-      </mat-card-content>
-    </mat-card>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Jwt Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        <sb-login-form 
+          (login)="loginJwt($event)" 
+          [showRemeberMe]="false"
+          [socialTemplate]="socialTemplate"/>
+        </mat-card-content>
+      </mat-card>
 
-    
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Cookie Login</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-       <sb-login-form (login)="loginCookie($event)" 
-        [showRemeberMe]="true"
-        [socialTemplate]="socialTemplate"/>
-      </mat-card-content>
-    </mat-card>
+      
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Cookie Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        <sb-login-form 
+          (login)="loginCookie($event)" 
+          [showRemeberMe]="true"
+          [socialTemplate]="socialTemplate"/>
+        </mat-card-content>
+      </mat-card>
 
-  </div>
+    </div>
 
 
 
-  <sb-notifications-modal-mat 
-    [errorMsg]="_errorMsg()" 
-    [successMsg]="_successMsg()" 
-    [isLoading]="_loading()" 
-    [loadingMessage]="'Loading ...'" />
+    <sb-notifications-modal-mat 
+      [errorMsg]="_errorMsg()" 
+      [successMsg]="_successMsg()" 
+      [isLoading]="_loading()" 
+      [loadingMessage]="'Loading ...'" />
     
 </div>
 

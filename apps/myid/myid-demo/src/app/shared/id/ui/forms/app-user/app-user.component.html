@@ -131,7 +131,7 @@
                 }
                 <sb-select
                     [id]="'teamPosition'"
-                    [options]="teamPositionOptions"
+                    [options]="_teamPositionOptions"
                     placeholder="Select position"
                     formControlName="teamPosition"
                     color="primary">
@@ -155,7 +155,7 @@
                 }
                 <sb-select
                     [id]="'twoFactorProvider'"
-                    [options]="twoFactorProviderOptions"
+                    [options]="_twoFactorProviderOptions"
                     placeholder="Select 2FA method"
                     formControlName="twoFactorProvider"
                     color="primary">
@@ -174,114 +174,120 @@
             </div>
         </div>
     </div>    <!-- Address Section (Optional) -->
-    <div class="form-section">
-        <h3>Address (Optional)</h3>
-        <div class="form-row">
-            <div class="form-group full-width">
-                @if(showLables()) {
-                    <label [for]="'line1'">Address Line 1</label>
-                }
-                <input 
-                    [id]="'line1'" 
-                    type="text" 
-                    formControlName="line1" 
-                    placeholder="Address Line 1" 
-                    sbInputStyle />
+
+    
+        @if(showAddressSection()) {
+            <div class="collapsible-content">
+                <div class="form-section">
+                    <h3>Address (Optional)</h3>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            @if(showLables()) {
+                                <label [for]="'line1'">Address Line 1</label>
+                            }
+                            <input 
+                                [id]="'line1'" 
+                                type="text" 
+                                formControlName="line1" 
+                                placeholder="Address Line 1" 
+                                sbInputStyle />
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'line2'">Address Line 2</label>
+                            }
+                            <input 
+                                [id]="'line2'" 
+                                type="text" 
+                                formControlName="line2" 
+                                placeholder="Address Line 2" 
+                                sbInputStyle />
+                        </div>
+                        
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'line3'">Address Line 3</label>
+                            }
+                            <input 
+                                [id]="'line3'" 
+                                type="text" 
+                                formControlName="line3" 
+                                placeholder="Address Line 3" 
+                                sbInputStyle />
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'line4'">Address Line 4</label>
+                            }
+                            <input 
+                                [id]="'line4'" 
+                                type="text" 
+                                formControlName="line4" 
+                                placeholder="Address Line 4" 
+                                sbInputStyle />
+                        </div>
+                        
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'line5'">Address Line 5</label>
+                            }
+                            <input 
+                                [id]="'line5'" 
+                                type="text" 
+                                formControlName="line5" 
+                                placeholder="Address Line 5" 
+                                sbInputStyle />
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'areaCode'">Area Code</label>
+                            }
+                            <input 
+                                [id]="'areaCode'" 
+                                type="text" 
+                                formControlName="areaCode" 
+                                placeholder="Area Code" 
+                                sbInputStyle />
+                        </div>
+                        
+                        <div class="form-group">
+                            @if(showLables()) {
+                                <label [for]="'appUserId'">App User ID</label>
+                            }
+                            <input 
+                                [id]="'appUserId'" 
+                                type="text" 
+                                formControlName="appUserId" 
+                                placeholder="App User ID" 
+                                sbInputStyle />
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            @if(showLables()) {
+                                <label [for]="'notes'">Notes</label>
+                            }
+                            <input 
+                                [id]="'notes'" 
+                                type="text" 
+                                formControlName="notes" 
+                                placeholder="Additional notes" 
+                                sbInputStyle />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'line2'">Address Line 2</label>
-                }
-                <input 
-                    [id]="'line2'" 
-                    type="text" 
-                    formControlName="line2" 
-                    placeholder="Address Line 2" 
-                    sbInputStyle />
-            </div>
-            
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'line3'">Address Line 3</label>
-                }
-                <input 
-                    [id]="'line3'" 
-                    type="text" 
-                    formControlName="line3" 
-                    placeholder="Address Line 3" 
-                    sbInputStyle />
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'line4'">Address Line 4</label>
-                }
-                <input 
-                    [id]="'line4'" 
-                    type="text" 
-                    formControlName="line4" 
-                    placeholder="Address Line 4" 
-                    sbInputStyle />
-            </div>
-            
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'line5'">Address Line 5</label>
-                }
-                <input 
-                    [id]="'line5'" 
-                    type="text" 
-                    formControlName="line5" 
-                    placeholder="Address Line 5" 
-                    sbInputStyle />
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'areaCode'">Area Code</label>
-                }
-                <input 
-                    [id]="'areaCode'" 
-                    type="text" 
-                    formControlName="areaCode" 
-                    placeholder="Area Code" 
-                    sbInputStyle />
-            </div>
-            
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'appUserId'">App User ID</label>
-                }
-                <input 
-                    [id]="'appUserId'" 
-                    type="text" 
-                    formControlName="appUserId" 
-                    placeholder="App User ID" 
-                    sbInputStyle />
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group full-width">
-                @if(showLables()) {
-                    <label [for]="'notes'">Notes</label>
-                }
-                <input 
-                    [id]="'notes'" 
-                    type="text" 
-                    formControlName="notes" 
-                    placeholder="Additional notes" 
-                    sbInputStyle />
-            </div>
-        </div>
-    </div>
+        }
 
     @if (_isUpdateForm()) {
         <sb-button (click)="update()" [disabled]="form.invalid" color="primary">

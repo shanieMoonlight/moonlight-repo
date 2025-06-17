@@ -11,7 +11,7 @@ import { AccountIoService } from '../../../../shared/io/services/account.io.serv
 import { googleSocialUser } from './secret';
 import { ConfirmEmailWithPwdFormDto, ConfirmEmailWithPwdFormComponent } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
-import { SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
+import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 
 
@@ -28,7 +28,7 @@ import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
     ConfirmEmailWithPwdFormComponent,
     SbUpdateTwoFactorProviderFormComponent,
     SbAppUserFormComponent
-    
+
   ],
   templateUrl: './oauth.component.html',
   styleUrl: './oauth.component.scss',
@@ -45,7 +45,7 @@ export class OauthComponent implements OnInit {
     .CreateWithInput((dto: LoginDto) => this._ioService.login(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', jwtPackage); })
-    
+
   protected _cookieLoginState = MiniStateBuilder
     .CreateWithInput((dto: LoginDto) => this._ioService.cookieSignIn(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
@@ -101,7 +101,7 @@ export class OauthComponent implements OnInit {
   //--------------------------//
 
 
-  loginJwt =(dto: LoginDto) =>  
+  loginJwt = (dto: LoginDto) =>
     this._loginState.trigger(dto)
 
   loginCookie = (dto: LoginDto) =>
@@ -112,20 +112,27 @@ export class OauthComponent implements OnInit {
   googleLoginTest() {
     console.log('Login OAuth');
     this._googleLoginState.trigger(googleSocialUser)
-
   }
 
 
-  
-handlePasswordSet(dto: ConfirmEmailWithPwdFormDto) {
-console.log('Password set event:', dto);
-
-}
+  handlePasswordSet(dto: ConfirmEmailWithPwdFormDto) {
+    console.log('Password set event:', dto)
+  }
 
 
-handleProviderUpdate(dto: UpdateTwoFactorProviderFormDto) {
-  console.log('Updating 2FA provider to:', dto);
-  // Provider update logic here
-}
+  handleProviderUpdate(dto: UpdateTwoFactorProviderFormDto) {
+    console.log('Updating 2FA provider to:', dto);
+  }
+
+
+  handleAddUser(dto: AppUserDtoFormDto) {
+    console.log('Adding User:', dto);
+  }
+
+
+  handleEditUser(dto: AppUserDtoFormDto) {
+    console.log('Updating User:', dto);
+  }
+
 
 }//Cls
