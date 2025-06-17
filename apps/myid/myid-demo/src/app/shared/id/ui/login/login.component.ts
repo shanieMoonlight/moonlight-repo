@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { SbButtonComponent } from '../../../ui/button/button.component';
 import { SbCheckboxComponent } from '../../../ui/checkbox/checkbox.component';
 import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
+import { SbInputStyleDirective } from '../../../ui/input/input.directive';
 
 //##########################//
 
@@ -25,7 +26,12 @@ interface LoginForm {
 @Component({
   selector: 'sb-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FirstErrorDirective, SbButtonComponent, SbCheckboxComponent],
+  imports: [
+    ReactiveFormsModule,
+    FirstErrorDirective,
+    SbButtonComponent,
+    SbCheckboxComponent,
+    SbInputStyleDirective],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,27 +45,11 @@ export class LoginFormComponent {
 
 
   protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
-    email: ['a@b.c', [Validators.required]],
+    email: ['a@b.c', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
-    // rememberMe: [false, []]
-    rememberMe: [false, [Validators.required]]
+    rememberMe: [false, []]
   });
 
-
-  /**
-   *
-   */
-  constructor() {
-    this.form.controls.rememberMe.enable()
-    this.form.valueChanges.subscribe(val => {
-      console.log('Form status changed:', val);
-      // if (this.form.valid)
-      //   this.form.controls.rememberMe.enable()
-      // else
-      //   this.form.controls.rememberMe.disable()
-    });
-
-  }
 
   submit() {
     if (!this.form.valid)

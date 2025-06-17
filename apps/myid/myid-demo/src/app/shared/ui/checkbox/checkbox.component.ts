@@ -10,26 +10,7 @@ import { IdTheme } from '../theme.type';
   selector: 'sb-checkbox',
   standalone: true,
   imports: [NgClass],
-  template: `
-    <label class="sb-checkbox-label" [ngClass]="color()" [class.disabled]="_disabled()">
-      <input
-        type="checkbox"
-        class="sb-checkbox-input"
-        [checked]="_checked()"
-        [disabled]="_disabled()"
-        (change)="setValue($event)"
-        (blur)="onTouched()"/>
-      <div class="sb-checkbox-custom">
-        <svg id="icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" fill="currentColor">
-          <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
-        </svg>
-      </div>
-      <ng-content/>      
-      @if (_required){
-        <span class="sb-checkbox-required">*</span>
-      }
-    </label>
-  `,
+  templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: []

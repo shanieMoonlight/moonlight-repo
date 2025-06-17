@@ -2,7 +2,7 @@
     <h2>Sign In</h2>
     <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email" sbInputStyle/>
             @if(form.controls.email.touched && form.controls.email.invalid) {
                 @if(form.controls.email.errors?.['firstError'];as err) {
                 <span class="error">{{err}}</span>
@@ -11,9 +11,9 @@
     </div>
     <div class="form-group">
         <label for="password" >Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password" sbInputStyle/>
         @if(form.controls.password.touched && form.controls.password.invalid) {
-            @if(form.controls.password.errors?.['firstError'];as err) {
+            @if(form.controls.password.errors?.['firstError']; as err) {
             <span class="error">{{err}}</span>
             }
         }
@@ -21,17 +21,9 @@
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
-        <!-- <label>
-            <input type="checkbox" formControlName="rememberMe" /> Remember me
-        </label> -->
-        <sb-checkbox formControlName="rememberMe" >Che</sb-checkbox>
+        <sb-checkbox formControlName="rememberMe" >Remember me</sb-checkbox>
     </div>
     }
-
-    <!-- <sb-checkbox  [disabled]="form.invalid">Che</sb-checkbox>
-    <sb-checkbox  [disabled]="form.invalid" color='secondary'>Che</sb-checkbox>
-    <sb-checkbox  [disabled]="form.invalid" color='tertiary'>Che</sb-checkbox>
-    <sb-checkbox  [disabled]="form.invalid" color='error'>Che</sb-checkbox> -->
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">Login</sb-button>
 
