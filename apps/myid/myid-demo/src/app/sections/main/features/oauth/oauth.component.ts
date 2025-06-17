@@ -9,7 +9,10 @@ import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.c
 import { LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services/account.io.service';
 import { googleSocialUser } from './secret';
-import { ConfirmEmailWithPwdDto, ConfirmEmailWithPwdFormComponent } from '../../../../shared/id/ui/confirm-email-with-pwd/confirm-email-with-pwd.component';
+import { ConfirmEmailWithPwdFormDto, ConfirmEmailWithPwdFormComponent } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
+import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
+import { SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
+import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 
 
 
@@ -22,7 +25,9 @@ import { ConfirmEmailWithPwdDto, ConfirmEmailWithPwdFormComponent } from '../../
     SbMatNotificationsModalComponent,
     LoginFormComponent,
     SbForgotPwdFormComponent,
-    ConfirmEmailWithPwdFormComponent
+    ConfirmEmailWithPwdFormComponent,
+    SbUpdateTwoFactorProviderFormComponent,
+    SbAppUserFormComponent
     
   ],
   templateUrl: './oauth.component.html',
@@ -62,6 +67,10 @@ export class OauthComponent implements OnInit {
   protected _successMsg = this._states.successMsg
   protected _errorMsg = this._states.errorMsg
   protected _loading = this._states.loading
+
+
+  protected _testUser = demoAppUserData;
+  protected _testUserMinimal = demoAppUserDataMinimal;
 
 
 
@@ -108,9 +117,15 @@ export class OauthComponent implements OnInit {
 
 
   
-handlePasswordSet(dto: ConfirmEmailWithPwdDto) {
+handlePasswordSet(dto: ConfirmEmailWithPwdFormDto) {
 console.log('Password set event:', dto);
 
+}
+
+
+handleProviderUpdate(dto: UpdateTwoFactorProviderFormDto) {
+  console.log('Updating 2FA provider to:', dto);
+  // Provider update logic here
 }
 
 }//Cls

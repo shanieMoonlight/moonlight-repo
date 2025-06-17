@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, input, Input, output, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SbButtonComponent } from '../../../ui/button/button.component';
-import { SbInputWithBtnDirective } from '../../../ui/input/input-with-btn.directive';
-import { SbToggleIconButtonComponent } from '../../../ui/toggle-icon-button/toggle-icon-button.component';
-import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
-import { StrongPassword6WithSpecialRegx } from '../../utils/pwd-regexes';
+import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
+import { SbToggleIconButtonComponent } from '../../../../ui/toggle-icon-button/toggle-icon-button.component';
+import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
+import { StrongPassword6WithSpecialRegx } from '../../../utils/pwd-regexes';
 
 //##########################//
 
-export interface ConfirmEmailWithPwdDto {
+export interface ConfirmEmailWithPwdFormDto {
     password: string;
     confirmPassword: string;
 }
@@ -50,7 +50,7 @@ export class ConfirmEmailWithPwdFormComponent {
 
     private fb = inject(FormBuilder);
 
-    confirmEmail = output<ConfirmEmailWithPwdDto>();
+    confirmEmail = output<ConfirmEmailWithPwdFormDto>();
 
     showLables = input<boolean>(true);
 
@@ -85,7 +85,7 @@ export class ConfirmEmailWithPwdFormComponent {
         if (!this._form.valid)
             return;
 
-        const dto: ConfirmEmailWithPwdDto = {
+        const dto: ConfirmEmailWithPwdFormDto = {
             password: this._form.controls.password.value,
             confirmPassword: this._form.controls.confirmPassword.value,
         };

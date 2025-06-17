@@ -6,18 +6,18 @@ import { FirstErrorDirective } from '../../../../utils/forms/first-error.directi
 
 //##########################//
 
-export interface Verify2FactorTknFormDto {
-  token: string;
+export interface ConfirmPhoneFormDto {
+  confirmationToken?: string;
 }
 
-interface Verify2FactorForm {
-  token: FormControl<string>;
+interface ConfirmPhoneForm {
+  confirmationToken: FormControl<string>;
 }
 
 //##########################//
 
 @Component({
-  selector: 'sb-verify-2factor-form',
+  selector: 'sb-confirm-phone-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -25,32 +25,31 @@ interface Verify2FactorForm {
     SbButtonComponent,
     SbInputStyleDirective,
   ],
-  templateUrl: './verify-2factor.component.html',
-  styleUrl: './verify-2factor.component.scss',
+  templateUrl: './confirm-phone.component.html',
+  styleUrl: './confirm-phone.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbVerify2FactorFormComponent {
+export class SbConfirmPhoneFormComponent {
 
   private fb = inject(FormBuilder);
 
   showLables = input<boolean>(true);
-  verify2Factor = output<Verify2FactorTknFormDto>();
+  confirmPhone = output<ConfirmPhoneFormDto>();
 
-  protected form: FormGroup<Verify2FactorForm> = this.fb.nonNullable.group({
-    token: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
+  protected form: FormGroup<ConfirmPhoneForm> = this.fb.nonNullable.group({
+    confirmationToken: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
   });
 
-  private static _count = 0;
-  protected _idSuffix = `-${SbVerify2FactorFormComponent._count++}`;
+  
 
   submit() {
     if (!this.form.valid)
       return;
 
-    const dto: Verify2FactorTknFormDto = {
-      token: this.form.controls.token.value,
+    const dto: ConfirmPhoneFormDto = {
+      confirmationToken: this.form.controls.confirmationToken.value || undefined,
     };
 
-    this.verify2Factor.emit(dto);
+    this.confirmPhone.emit(dto);
   }
 }

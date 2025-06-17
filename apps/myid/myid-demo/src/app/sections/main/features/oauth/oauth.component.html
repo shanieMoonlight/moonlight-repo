@@ -1,7 +1,9 @@
 <div class="container">
     
+  <sb-app-user-form [appUser]="_testUser"/>
   <div class="features-grid">
 
+<sb-update-two-factor-provider-form [currentProvider]="'sms'" (updateProvider)="handleProviderUpdate($event)"/>
     
   <sb-forgot-pwd-form/>
   <sb-confirm-email-with-pwd-form (confirmEmail)="handlePasswordSet($event)"/>

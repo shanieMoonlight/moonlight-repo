@@ -11,7 +11,7 @@ import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.dir
 
 //##########################//
 
-export interface LoginDto {
+export interface LoginFormDto {
   email: string;
   password: string;
   rememberMe?: boolean
@@ -55,7 +55,7 @@ export class LoginFormComponent {
 
 
 
-  login = output<LoginDto>();
+  login = output<LoginFormDto>();
   forgotPwd = output();
 
   protected showPassword = signal(false);
@@ -75,7 +75,7 @@ export class LoginFormComponent {
     if (!this._form.valid)
       return
 
-    const dto: LoginDto = {
+    const dto: LoginFormDto = {
       email: this._form.controls.email.value,
       password: this._form.controls.password.value,
       rememberMe: this._form.controls.rememberMe.value,

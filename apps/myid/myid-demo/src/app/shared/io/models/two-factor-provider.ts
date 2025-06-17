@@ -1,1 +1,1 @@
-export type TwoFactorProvider = 1 | 2 | 3;
+export type TwoFactorProvider = 'email' | 'sms' | 'authenticatorApp';

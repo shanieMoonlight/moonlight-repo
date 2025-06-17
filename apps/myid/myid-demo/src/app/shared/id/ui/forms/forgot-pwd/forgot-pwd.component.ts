@@ -6,7 +6,7 @@ import { FirstErrorDirective } from '../../../../utils/forms/first-error.directi
 
 //##########################//
 
-export interface ForgotPasswordDto {
+export interface ForgotPasswordFormDto {
   email: string;
 }
 
@@ -34,7 +34,7 @@ export class SbForgotPwdFormComponent {
   private fb = inject(FormBuilder);
 
   showLables = input<boolean>(true);
-  forgotPassword = output<ForgotPasswordDto>()
+  forgotPassword = output<ForgotPasswordFormDto>()
 
   protected form: FormGroup<ForgotPasswordForm> = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]]
@@ -49,7 +49,7 @@ export class SbForgotPwdFormComponent {
     if (!this.form.valid)
       return;
 
-    const dto: ForgotPasswordDto = {
+    const dto: ForgotPasswordFormDto = {
       email: this.form.controls.email.value,
     };
 

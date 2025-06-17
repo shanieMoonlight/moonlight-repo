@@ -1,0 +1,296 @@
+<form [formGroup]="form" [sbFormControlFirstError]="form" class="app-user-form">
+    <!-- <h2>User Information</h2>
+    <p class="description">Manage user account details and settings.</p> -->
+    
+    <!-- Personal Information Section -->
+    <div class="form-section">
+        <h3>Personal Information</h3>
+        <div class="form-row">
+                <input  hidden
+                    [id]="'id'" 
+                    type="text" 
+                    formControlName="id" 
+                    placeholder="User ID" 
+                    sbInputStyle />
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'firstName'">First Name</label>
+                }
+                <input 
+                    [id]="'firstName'" 
+                    type="text" 
+                    formControlName="firstName" 
+                    placeholder="First Name" 
+                    sbInputStyle />
+                @if(form.controls.firstName.touched && form.controls.firstName.invalid) {
+                    @if(form.controls.firstName.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'lastName'">Last Name</label>
+                }
+                <input 
+                    [id]="'lastName'" 
+                    type="text" 
+                    formControlName="lastName" 
+                    placeholder="Last Name" 
+                    sbInputStyle />
+                @if(form.controls.lastName.touched && form.controls.lastName.invalid) {
+                    @if(form.controls.lastName.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'phoneNumber'">Phone Number</label>
+                }
+                <input 
+                    [id]="'phoneNumber'" 
+                    type="tel" 
+                    formControlName="phoneNumber" 
+                    placeholder="Phone Number" 
+                    sbInputStyle />
+                @if(form.controls.phoneNumber.touched && form.controls.phoneNumber.invalid) {
+                    @if(form.controls.phoneNumber.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Information Section -->
+    <div class="form-section">
+        <h3>Account Information</h3>
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'userName'">Username</label>
+                }
+                <input 
+                    [id]="'userName'" 
+                    type="text" 
+                    formControlName="userName" 
+                    placeholder="Username" 
+                    sbInputStyle />
+                @if(form.controls.userName.touched && form.controls.userName.invalid) {
+                    @if(form.controls.userName.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'email'">Email</label>
+                }
+                <input 
+                    [id]="'email'" 
+                    type="email" 
+                    formControlName="email" 
+                    placeholder="Email Address" 
+                    sbInputStyle />
+                @if(form.controls.email.touched && form.controls.email.invalid) {
+                    @if(form.controls.email.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'teamId'">Team ID</label>
+                }
+                <input 
+                    [id]="'teamId'" 
+                    type="text" 
+                    formControlName="teamId" 
+                    placeholder="Team ID" 
+                    sbInputStyle />
+                @if(form.controls.teamId.touched && form.controls.teamId.invalid) {
+                    @if(form.controls.teamId.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'teamPosition'">Team Position</label>
+                }
+                <sb-select
+                    [id]="'teamPosition'"
+                    [options]="teamPositionOptions"
+                    placeholder="Select position"
+                    formControlName="teamPosition"
+                    color="primary">
+                </sb-select>
+                @if(form.controls.teamPosition.touched && form.controls.teamPosition.invalid) {
+                    @if(form.controls.teamPosition.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Settings Section -->
+    <div class="form-section">
+        <h3>Security Settings</h3>
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'twoFactorProvider'">2FA Method</label>
+                }
+                <sb-select
+                    [id]="'twoFactorProvider'"
+                    [options]="twoFactorProviderOptions"
+                    placeholder="Select 2FA method"
+                    formControlName="twoFactorProvider"
+                    color="primary">
+                </sb-select>
+                @if(form.controls.twoFactorProvider.touched && form.controls.twoFactorProvider.invalid) {
+                    @if(form.controls.twoFactorProvider.errors?.['firstError']; as err) {
+                    <span class="error">{{err}}</span>
+                    }
+                }
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <sb-checkbox formControlName="twoFactorEnabled" color="primary">
+                    Enable Two-Factor Authentication
+                </sb-checkbox>
+            </div>
+        </div>
+    </div>    <!-- Address Section (Optional) -->
+    <div class="form-section">
+        <h3>Address (Optional)</h3>
+        <div class="form-row">
+            <div class="form-group full-width">
+                @if(showLables()) {
+                    <label [for]="'line1'">Address Line 1</label>
+                }
+                <input 
+                    [id]="'line1'" 
+                    type="text" 
+                    formControlName="line1" 
+                    placeholder="Address Line 1" 
+                    sbInputStyle />
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'line2'">Address Line 2</label>
+                }
+                <input 
+                    [id]="'line2'" 
+                    type="text" 
+                    formControlName="line2" 
+                    placeholder="Address Line 2" 
+                    sbInputStyle />
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'line3'">Address Line 3</label>
+                }
+                <input 
+                    [id]="'line3'" 
+                    type="text" 
+                    formControlName="line3" 
+                    placeholder="Address Line 3" 
+                    sbInputStyle />
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'line4'">Address Line 4</label>
+                }
+                <input 
+                    [id]="'line4'" 
+                    type="text" 
+                    formControlName="line4" 
+                    placeholder="Address Line 4" 
+                    sbInputStyle />
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'line5'">Address Line 5</label>
+                }
+                <input 
+                    [id]="'line5'" 
+                    type="text" 
+                    formControlName="line5" 
+                    placeholder="Address Line 5" 
+                    sbInputStyle />
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'areaCode'">Area Code</label>
+                }
+                <input 
+                    [id]="'areaCode'" 
+                    type="text" 
+                    formControlName="areaCode" 
+                    placeholder="Area Code" 
+                    sbInputStyle />
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'appUserId'">App User ID</label>
+                }
+                <input 
+                    [id]="'appUserId'" 
+                    type="text" 
+                    formControlName="appUserId" 
+                    placeholder="App User ID" 
+                    sbInputStyle />
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group full-width">
+                @if(showLables()) {
+                    <label [for]="'notes'">Notes</label>
+                }
+                <input 
+                    [id]="'notes'" 
+                    type="text" 
+                    formControlName="notes" 
+                    placeholder="Additional notes" 
+                    sbInputStyle />
+            </div>
+        </div>
+    </div>
+
+    @if (_isUpdateForm()) {
+        <sb-button (click)="update()" [disabled]="form.invalid" color="primary">
+            Save Changes
+        </sb-button>
+    }@else {
+        <sb-button (click)="add()" [disabled]="form.invalid" color="primary">
+            Create User
+        </sb-button>
+    }
+
+</form>

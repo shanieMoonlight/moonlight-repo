@@ -1,0 +1,49 @@
+<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="update-two-factor-provider-form">
+    <!-- <h2>Update Two-Factor Authentication</h2>
+    <p class="description">Choose your preferred method for two-factor authentication.</p> -->
+    
+    <div class="form-group">
+        @if(showLables()) {
+            <label [for]="'provider'">Authentication Method</label>
+        }
+        <sb-select
+            [id]="'provider'"
+            [options]="_providerOptions"
+            placeholder="Select authentication method"
+            formControlName="provider"
+            color="primary">
+        </sb-select>
+        @if(_form.controls.provider.touched && _form.controls.provider.invalid) {
+            @if(_form.controls.provider.errors?.['firstError']; as err) {
+            <span class="error">{{err}}</span>
+            }
+        }
+    </div>
+
+    <div class="provider-info">
+        @switch(_form.controls.provider.value) {
+            @case('authenticatorApp') {
+                <div class="info-card">
+                    <h4>Authenticator App</h4>
+                    <p>Use apps like Google Authenticator, Authy, or Microsoft Authenticator to generate time-based codes.</p>
+                </div>
+            }
+            @case('sms') {
+                <div class="info-card">
+                    <h4>SMS</h4>
+                    <p>Receive verification codes via text message to your registered phone number.</p>
+                </div>
+            }
+            @case('email') {
+                <div class="info-card">
+                    <h4>Email</h4>
+                    <p>Receive verification codes via email to your registered email address.</p>
+                </div>
+            }
+        }
+    </div>
+
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+        Update Method
+    </sb-button>
+</form>
