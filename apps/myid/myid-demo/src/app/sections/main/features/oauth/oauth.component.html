@@ -4,47 +4,28 @@
 
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Google</mat-card-title>
-        <mat-card-subtitle>Google Oauth login</mat-card-subtitle>
+        <mat-card-title>Jwt Login</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <!-- <asl-google-signin-button type='standard' size='large' /> -->
-      </mat-card-content>
-    </mat-card>
-
-
-       <sb-login-form (login)="loginForm($event)" [showRemeberMe]="true"/>
-       <!-- <sb-login-form2 (login)="loginForm($event)"/> -->
-
-
-    
-<!-- 
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
-        <mat-card-subtitle>Standard login</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-      <button mat-flat-button (click)="loginStandard()">Login</button>
+       <sb-login-form (login)="loginJwt($event)" 
+        [showRemeberMe]="false"
+        [socialTemplate]="socialTemplate"/>
       </mat-card-content>
     </mat-card>
 
     
-
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Google Test</mat-card-title>
-        <mat-card-subtitle>Test Google Login with fake data</mat-card-subtitle>
+        <mat-card-title>Cookie Login</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-      <button mat-flat-button class="secondary" (click)="googleLoginTest()">Test</button>
+       <sb-login-form (login)="loginCookie($event)" 
+        [showRemeberMe]="true"
+        [socialTemplate]="socialTemplate"/>
       </mat-card-content>
     </mat-card>
- -->
 
   </div>
-
-
 
 
   <sb-notifications-modal-mat 
@@ -54,3 +35,14 @@
     [loadingMessage]="'Loading ...'" />
     
 </div>
+
+
+
+<!-- ####################################### -->
+
+<ng-template #socialTemplate>
+     <!-- <asl-google-signin-button type='icon' size='large' /> -->
+</ng-template>
+
+
+<!-- ####################################### -->

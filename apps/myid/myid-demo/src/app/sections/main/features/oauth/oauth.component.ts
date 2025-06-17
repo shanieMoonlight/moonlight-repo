@@ -36,6 +36,11 @@ export class OauthComponent implements OnInit {
     .CreateWithInput((dto: LoginDto) => this._ioService.login(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', jwtPackage); })
+    
+  protected _cookieLoginState = MiniStateBuilder
+    .CreateWithInput((dto: LoginDto) => this._ioService.cookieSignIn(dto))
+    .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
+    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', jwtPackage); })
 
 
   protected _googleLoginState = MiniStateBuilder
@@ -47,6 +52,7 @@ export class OauthComponent implements OnInit {
 
   private _states = MiniStateCombined.Combine(
     this._loginState,
+    this._cookieLoginState,
     this._googleLoginState)
 
   protected _successMsg = this._states.successMsg
@@ -82,22 +88,16 @@ export class OauthComponent implements OnInit {
   //--------------------------//
 
 
-  loginForm(dto: LoginDto) {
-    console.log('Login Form DTO:', dto);
-    
-  }
+  loginJwt =(dto: LoginDto) =>  
+    this._loginState.trigger(dto)
 
+  loginCookie = (dto: LoginDto) =>
+    this._cookieLoginState.trigger(dto)
 
-  loginStandard() {
-    console.log('Login Standard');
-
-    this._loginState.trigger(validUserAuthCredentials)
-  }
 
 
   googleLoginTest() {
-    console.log('Login Standard');
-
+    console.log('Login OAuth');
     this._googleLoginState.trigger(googleSocialUser)
 
   }

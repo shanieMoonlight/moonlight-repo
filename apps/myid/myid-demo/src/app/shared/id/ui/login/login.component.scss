@@ -1,15 +1,14 @@
 :host {
   display: block;
+  max-width: 450px;
+  width: 100%;
+  border-radius: 1rem;
+  // padding: 2rem;
 }
 
 .login-form {
-  max-width: 350px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--mat-sys-surface-container);
+  width: 100%;
   color: var(--mat-sys-on-surface-container);
-  border-radius: 1rem;
-  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -32,7 +31,8 @@ label {
   font-weight: 500;
 }
 
-sb-button, sb-text-button {
+sb-button,
+sb-text-button {
   width: 100%;
 }
 
@@ -48,4 +48,30 @@ sb-button, sb-text-button {
   align-items: center;
   gap: 0.5rem;
   margin-top: -0.5rem;
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--mat-sys-outline);
+  transition: border-color 0.3s ease-in-out;
+  border-radius: 0.5rem;
+  padding-right: 1rem;
+
+  &:focus-within {
+    border-color: var(--mat-sys-primary);
+  }
+
+  input {
+    all: unset;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: inherit;
+    background-color: transparent;
+    outline: none;
+    flex: 1;
+  }
+
 }

@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SbButtonComponent } from '../../../ui/button/button.component';
 import { SbCheckboxComponent } from '../../../ui/checkbox/checkbox.component';
-import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
 import { SbInputStyleDirective } from '../../../ui/input/input.directive';
-import { SbSelectComponent } from '../../../ui/select/select.component';
 import { SbTextButtonComponent } from '../../../ui/text-button/text-button.component';
+import { SbToggleIconButtonComponent } from '../../../ui/toggle-icon-button/toggle-icon-button.component';
+import { FirstErrorDirective } from '../../../utils/forms/first-error.directive';
 
 //##########################//
 
@@ -34,8 +35,9 @@ interface LoginForm {
     SbButtonComponent,
     SbCheckboxComponent,
     SbInputStyleDirective,
-    SbSelectComponent,
-    SbTextButtonComponent
+    SbTextButtonComponent,
+    NgTemplateOutlet,
+    SbToggleIconButtonComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -45,11 +47,15 @@ export class LoginFormComponent {
 
   private fb = inject(FormBuilder)
 
-  login = output<LoginDto>();
-  forgotPwd = output();
   showRemeberMe = input<boolean>(false);
   showForgotPwd = input<boolean>(true);
+  socialTemplate = input<TemplateRef<any> | undefined>(undefined)
 
+
+  login = output<LoginDto>();
+  forgotPwd = output();
+
+  protected showPassword = signal(false);
 
   protected form: FormGroup<LoginForm> = this.fb.nonNullable.group({
     email: ['a@b.c', [Validators.required, Validators.email]],
@@ -57,11 +63,8 @@ export class LoginFormComponent {
     rememberMe: [false, []]
   });
 
-  selectOptions = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3', disabled: true }
-  ];
+  private static _count = 0;
+  protected _idSuffix = `-${LoginFormComponent._count++}`;
 
   submit() {
     if (!this.form.valid)
@@ -79,5 +82,14 @@ export class LoginFormComponent {
 
   forgotPwdClick = () => this.forgotPwd.emit();
 
+
+
+  togglePasswordVisibility() {
+    this.showPassword.update(show => !show);
+  }
+
+  onPasswordToggle(hide: boolean) {
+    this.showPassword.set(!hide);
+  }
 
 }

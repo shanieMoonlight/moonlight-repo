@@ -1,44 +1,50 @@
 <form [formGroup]="form" [sbFormControlFirstError]="form" (ngSubmit)="submit()" class="login-form">
     <h2>Sign In</h2>
     <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="Enter your email" sbInputStyle/>
-            @if(form.controls.email.touched && form.controls.email.invalid) {
-                @if(form.controls.email.errors?.['firstError'];as err) {
-                <span class="error">{{err}}</span>
-                }
+        <label [for]="'email'+_idSuffix">Email</label>
+        <input [id]="'email'+_idSuffix" type="email" formControlName="email" placeholder="Enter your email" sbInputStyle />
+        @if(form.controls.email.touched && form.controls.email.invalid) {
+            @if(form.controls.email.errors?.['firstError'];as err) {
+            <span class="error">{{err}}</span>
             }
+        }
     </div>
     <div class="form-group">
-        <label for="password" >Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Enter your password" sbInputStyle/>
+        <label [for]="'password'+_idSuffix">Password</label>
+        <!-- <input [id]="'password'+_idSuffix" type="password" formControlName="password" placeholder="Enter your password" sbInputStyle /> -->
+          <div class="password-input-container">
+            <input 
+                [id]="'password'+_idSuffix" 
+                [type]="showPassword() ? 'text' : 'password'" 
+                formControlName="password" 
+                placeholder="Enter your password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onPasswordToggle($event)"/>
+    </div>
         @if(form.controls.password.touched && form.controls.password.invalid) {
             @if(form.controls.password.errors?.['firstError']; as err) {
             <span class="error">{{err}}</span>
             }
         }
     </div>
-    <div class="form-group">
-       <sb-select 
-            [options]="selectOptions" 
-            placeholder="Choose an option"
-            color="primary">
-        </sb-select>
-    </div>
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
-        <sb-checkbox formControlName="rememberMe" >Remember me</sb-checkbox>
+        <sb-checkbox formControlName="rememberMe">Remember me</sb-checkbox>
     </div>
     }
 
     @if(showForgotPwd()){
-        <sb-text-button color="primary" (clicked)="forgotPwdClick()">
-            Basic Text Button
-        </sb-text-button>
+    <sb-text-button color="primary" (clicked)="forgotPwdClick()">
+        Forgot Password?
+    </sb-text-button>
     }
 
-   
+    @if(socialTemplate(); as template){
+    <ng-container [ngTemplateOutlet]="template" />
+    }
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">Login</sb-button>
 
