@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, Renderer2, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { FromErrors } from './form-errors';
+import { FormErrors } from './form-errors';
 
 @Directive({
   selector: '[sbFormControlFirstError]',
@@ -31,7 +31,7 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
     const nativeElement = this._el.nativeElement
     this.clickListener = this._renderer.listen(nativeElement, 'click', () => {
       if (this._form)
-        FromErrors.setFirstErrors(this._form)
+        FormErrors.setFirstErrors(this._form)
     });
   }
 
@@ -48,7 +48,7 @@ export class FirstErrorDirective implements OnDestroy, AfterViewInit {
     
     this.vcSub?.unsubscribe()
     this.vcSub = form.valueChanges.subscribe(
-      () => FromErrors.setFirstErrors(form)
+      () => FormErrors.setFirstErrors(form)
     )
   }
 
