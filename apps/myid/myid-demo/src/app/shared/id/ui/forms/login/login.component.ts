@@ -72,18 +72,6 @@ export class LoginFormComponent {
   private static _count = 0;
   protected _idSuffix = `-${LoginFormComponent._count++}`;
 
-    spanishErrors = new Map<string,ErrorMessageFunction >([
-    ['required', (fieldName) => `${fieldName} es requerido.`],
-    ['email', () => 'Por favor ingrese un email válido.'],
-    ['minlength', (fieldName, errorValue) => 
-      `${fieldName} debe tener al menos ${errorValue?.requiredLength} caracteres.`]
-  ]);
-
-  // frenchErrors = new Map([
-  //   ['required', (fieldName) => `${fieldName} est requis.`],
-  //   ['email', () => 'Veuillez entrer une adresse email valide.']
-  // ]);
-
   //- - - - - - - - - - - -//
 
   submit() {
