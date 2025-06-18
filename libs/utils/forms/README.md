@@ -99,7 +99,6 @@ A standalone component that displays validation errors with smooth animations an
 - Smooth fade-in animation for error appearance
 - ARIA live regions for screen reader compatibility
 - CSS custom properties for theme integration
-- Material Design color system support
 
 #### Usage
 
