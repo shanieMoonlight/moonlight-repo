@@ -1,6 +1,10 @@
 <div class="container">
+        <sb-login-form 
+          (login)="loginCookie($event)" 
+          [showRemeberMe]="true"
+          [socialTemplate]="socialTemplate"/>
     
-  <sb-app-user-form [appUser]="_testUser"
+  <!-- <sb-app-user-form [appUser]="_testUser"
     (addUser)="handleAddUser($event)"
     (updateUser)="handleEditUser($event)"/>
 
@@ -46,7 +50,7 @@
       [isLoading]="_loading()" 
       [loadingMessage]="'Loading ...'" />
     
-</div>
+</div> -->
 
 
 

@@ -1,10 +1,13 @@
-import { AbstractControl, FormControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormGroup } from "@angular/forms";
 
 
 //##########################//
 
+export type ErrorMessageFunction = (fieldName: string, errorValue: any) => string;
+export type CustomErrorMessageMap = Map<string, ErrorMessageFunction>;
 
-const errorMessageMap = new Map<string, (fieldName: string, errorValue: any) => string>([
+
+const errorMessageMap = new Map<string, ErrorMessageFunction>([
     ['required', (fieldName) => `${fieldName} is required.`],
     ['email', () => 'Please enter a valid email address.'],
     ['minlength', (fieldName, errorValue) => !errorValue ? 'Value is too short' : `${fieldName} must be at least ${errorValue?.requiredLength} characters.`],
@@ -35,41 +38,67 @@ const errorMessageMap = new Map<string, (fieldName: string, errorValue: any) => 
 export class FormErrors {
 
 
-    static setFirstErrors(form: FormGroup) {
+    static setFirstErrors(
+        form: FormGroup,
+        customErrorMessages?: CustomErrorMessageMap
+    ): void {
 
-        const controls = form.controls || {}
-        Object.keys(controls).forEach(key => {
-            const control = form.get(key) as FormControl
-            if (control) {
+        const controls = form.controls
+        for (const name in controls) {
+            const control = controls[name]
+            if (control.invalid) {
                 const currentErrors = control.errors
-                const firstError = this.getFirstErrorMessage(key, control)
+                const firstError = this.getFirstErrorMessage(name, control, customErrorMessages)
 
                 if (firstError)
                     control.setErrors({ ...currentErrors, firstError: firstError })
+
             }
-        })
+        }
     }
 
 
     //----------------------------//    
 
+    
+    static setFirstErrorMessage(
+        name: string,
+        control: AbstractControl,
+        customErrorMessages?: CustomErrorMessageMap): void {
+          const currentErrors = control.errors
+          const firstError = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
+          if (firstError)
+            control.setErrors({ ...currentErrors, firstError: firstError })     
 
-    static getFirstErrorMessage(key: string, control: AbstractControl): string | null {
+    }
+
+
+
+    //----------------------------//    
+
+
+    static getFirstErrorMessage(
+        name: string,
+        control: AbstractControl,
+        customErrorMessages?: CustomErrorMessageMap): string | null {
 
         const errorKey = this.firstErrorKey(control)
-
         if (!errorKey)
             return null
 
+
         const errorValue = control.errors?.[errorKey]
-        const fieldName = this.toTitleCase(key) ?? 'This field'
+        const fieldName = this.toTitleCase(name) ?? 'This field'
 
         // Handle string error values (custom error messages)
         if (typeof errorValue === 'string')
             return errorValue
 
+
+        const errorMessageFn = customErrorMessages?.get(errorKey) ?? errorMessageMap.get(errorKey);
+
+
         // Get error message function and call it
-        const errorMessageFn = errorMessageMap.get(errorKey);
         if (errorMessageFn)
             return errorMessageFn(fieldName, errorValue)
 
@@ -83,11 +112,10 @@ export class FormErrors {
     private static firstErrorKey = (control: AbstractControl): string | null =>
         Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
 
-    
+
     //----------------------------//
 
-    private static toTitleCase = (s: string) => {
-
+    private static toTitleCase(s: string) {
         const result = s.replace(/([A-Z])/g, ' $1');
         return result.charAt(0).toUpperCase() + result.slice(1);
     }

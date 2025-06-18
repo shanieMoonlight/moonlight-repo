@@ -8,6 +8,7 @@ import { SbTextButtonComponent } from '../../../../ui/text-button/text-button.co
 import { SbToggleIconButtonComponent } from '../../../../ui/toggle-icon-button/toggle-icon-button.component';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
+import { ErrorMessageFunction } from '../../../../utils/forms/form-errors';
 
 //##########################//
 
@@ -62,12 +63,24 @@ export class LoginFormComponent {
 
   protected _form: FormGroup<LoginForm> = this.fb.nonNullable.group({
     email: ['a@b.c', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: ['12345', [Validators.required, Validators.minLength(4)]],
     rememberMe: [false, []]
   });
 
   private static _count = 0;
   protected _idSuffix = `-${LoginFormComponent._count++}`;
+
+    spanishErrors = new Map<string,ErrorMessageFunction >([
+    ['required', (fieldName) => `${fieldName} es requerido.`],
+    ['email', () => 'Por favor ingrese un email válido.'],
+    ['minlength', (fieldName, errorValue) => 
+      `${fieldName} debe tener al menos ${errorValue?.requiredLength} caracteres.`]
+  ]);
+
+  // frenchErrors = new Map([
+  //   ['required', (fieldName) => `${fieldName} est requis.`],
+  //   ['email', () => 'Veuillez entrer une adresse email valide.']
+  // ]);
 
   //- - - - - - - - - - - -//
 

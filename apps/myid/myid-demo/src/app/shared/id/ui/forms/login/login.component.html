@@ -1,11 +1,19 @@
-<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="login-form">
-    <h2>Sign In</h2>
+<form [formGroup]="_form" 
+    [sbFormControlFirstError]="_form" 
+    [customErrorMessages]="spanishErrors"
+    (ngSubmit)="submit()" class="login-form">
+    <!-- <h2>Sign In</h2> -->
     <div class="form-group">
         @if(showLables()){
             <label [for]="'email'+_idSuffix">Email</label>
         }
-        <input [id]="'email'+_idSuffix" type="email" formControlName="email" placeholder="Enter your email" sbInputStyle />
-        @if(_form.controls.email.touched && _form.controls.email.invalid) {
+        <input [id]="'email'+_idSuffix" 
+            sbInputStyle
+            type="email" 
+            formControlName="email" 
+            placeholder="Enter your email"/>
+            {{_form.controls.email.touched}}-{{_form.controls.email.dirty}}
+        @if(_form.controls.email.touched ) {
             @if(_form.controls.email.errors?.['firstError'];as err) {
             <span class="error">{{err}}</span>
             }
@@ -26,7 +34,8 @@
                 untoggledLabel="Show password"
                 (toggled$)="onPasswordToggle($event)"/>
     </div>
-        @if(_form.controls.password.touched && _form.controls.password.invalid) {
+        {{_form.controls.password.touched}}-{{_form.controls.password.dirty}}
+        @if(_form.controls.password.touched) {
             @if(_form.controls.password.errors?.['firstError']; as err) {
             <span class="error">{{err}}</span>
             }

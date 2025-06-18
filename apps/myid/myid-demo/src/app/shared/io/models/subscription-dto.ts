@@ -1,8 +1,8 @@
+import { DeviceDto } from './device-dto';
 import { SubscriptionPlanDto } from './subscription-plan-dto';
+import { SubscriptionRenewalTypes } from './subscription-renewal-types';
 import { SubscriptionStatus } from './subscription-status';
 import { Team } from './team';
-import { DeviceDto } from './device-dto';
-import { SubscriptionRenewalTypesNullable } from './subscription-renewal-types-nullable';
 
 export interface SubscriptionDto {
   administratorUsername?: string;
@@ -26,5 +26,5 @@ export interface SubscriptionDto {
   name?: string;
   description?: string;
   trial?: boolean;
-  renewalType?: SubscriptionRenewalTypesNullable;
+  renewalType: SubscriptionRenewalTypes;
 }

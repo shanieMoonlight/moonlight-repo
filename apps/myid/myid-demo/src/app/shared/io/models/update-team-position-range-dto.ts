@@ -1,4 +1,4 @@
 export interface UpdateTeamPositionRangeDto {
-  minPosition?: number;
-  maxPosition?: number;
+  minPosition: number;
+  maxPosition: number;
 }

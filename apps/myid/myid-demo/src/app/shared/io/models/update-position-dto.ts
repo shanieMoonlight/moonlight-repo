@@ -1,4 +1,4 @@
 export interface UpdatePositionDto {
-  userId?: string;
-  newPosition?: number;
+  userId: string;
+  newPosition: number;
 }

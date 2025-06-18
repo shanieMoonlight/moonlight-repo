@@ -42,7 +42,7 @@ export class ServiceWorkerUpdateMatComponent {
   private checkForUpdates(): void {
     
     if (!this.swUpdate.isEnabled) {
-      console.log('Service Worker is not enabled');
+      // console.log('Service Worker is not enabled');
       return;
     }
 

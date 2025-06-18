@@ -1,4 +1,4 @@
 export interface UpdateTeamLeaderDto {
-  newLeaderId?: string;
-  teamId?: string;
+  newLeaderId: string;
+  teamId: string;
 }
