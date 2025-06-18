@@ -241,6 +241,7 @@
       "@spider-baby/ui-toast/setup": ["libs/ui/toast/setup/src/index.ts"],
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
+      "@spider-baby/utils-forms": ["libs/utils/forms/src/index.ts"],
       "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
       "@spider-baby/utils-img/progressive": [
         "libs/utils/imgs/progressive/src/index.ts"

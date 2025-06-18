@@ -1,0 +1,10 @@
+{
+  "name": "@spider-baby/utils-forms",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "19.2.9",
+    "rxjs": "~7.8.0"
+  },
+  "sideEffects": false
+}
