@@ -39,7 +39,7 @@ export const demoTeamDataSuper: TeamFormDto = {
   teamType: 'super',
   leader: demoAppUserDataArray[1], // Michael Chen
   members: [
-    demoAppUserDataArray[1] // Michael Chen (leader only for now)
+    // demoAppUserDataArray[1] // Michael Chen (leader only for now)
   ]
 };
 

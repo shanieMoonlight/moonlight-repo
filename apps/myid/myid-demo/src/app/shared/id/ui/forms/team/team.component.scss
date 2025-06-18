@@ -85,6 +85,24 @@
     }
   }
 
+  // Info message styling
+  .info-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #e3f2fd;
+    background-color: var(--mat-sys-surface-container);
+    border-radius: 4px;
+    // color: #0d47a1;
+    font-size: 0.75rem;
+
+    .info-icon {
+      font-size: 1rem;
+    }
+  }
+
   // Submit Button
   sb-button {
     align-self: flex-start;

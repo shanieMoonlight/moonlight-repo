@@ -88,18 +88,23 @@
                 <!-- Hidden form control to maintain form structure -->
                 <input type="hidden" formControlName="teamType" />
             </div>
-            
-            <div class="form-group">
+              <div class="form-group">
                 @if(showLables()) {
-                    <label [for]="'leaderId'">Team Leader ID</label>
+                    <label [for]="'leaderId'">Team Leader</label>
                 }
-                <input 
-                    [id]="'leaderId'" 
-                    type="text" 
-                    formControlName="leaderId" 
-                    placeholder="Team Leader ID (Optional)" 
-                    sbInputStyle />
+                <sb-select
+                    [id]="'leaderId'"
+                    [options]="_memberOptions()"
+                    placeholder="Select Team Leader"
+                    formControlName="leaderId"
+                    color="primary"/>
                 <sb-first-error [control]="form.controls.leaderId"/>
+                @if(_memberOptions().length <= 1) {
+                    <div class="info-message">
+                        <span class="info-icon">ℹ️</span>
+                        Add team members first to select a leader
+                    </div>
+                }
             </div>
         </div>
     </div>

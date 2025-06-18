@@ -6,6 +6,7 @@ import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
 import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 import { TitleCasePipe } from '@angular/common';
 
 //##########################//
@@ -42,7 +43,8 @@ interface TeamForm {
     FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
-    TitleCasePipe
+    TitleCasePipe,
+    SbSelectComponent
   ],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss',
@@ -60,8 +62,8 @@ export class SbTeamFormComponent {
   public set team(team: TeamFormDto | undefined) {
     this.setFormValues(team);
     this._isUpdateForm.set(!!team);
-  }
-  protected _isUpdateForm = signal(false);
+  }  protected _isUpdateForm = signal(false);
+  protected _memberOptions = signal<SelectOption[]>([]);
 
   public form: FormGroup<TeamForm> = this.fb.nonNullable.group({
     // Basic Team Information
@@ -81,8 +83,10 @@ export class SbTeamFormComponent {
 
   //---------------------//
 
+  
   setFormValues(team: TeamFormDto | undefined) {
     if (team) {
+      // Update form values
       this.form.patchValue({
         id: team.id,
         name: team.name,
@@ -92,6 +96,9 @@ export class SbTeamFormComponent {
         leaderId: team.leaderId || '',
         teamType: team.teamType || 'customer'
       });
+      
+      // Generate member options for the dropdown
+      this.updateMemberOptions(team.members || []);
     } else {
       this.form.reset({
         id: '',
@@ -102,7 +109,28 @@ export class SbTeamFormComponent {
         leaderId: '',
         teamType: 'customer'
       });
+      
+      // Clear member options
+      this._memberOptions.set([]);
     }
+  }
+
+  /**
+   * Creates select options from a list of team members
+   */
+  updateMemberOptions(members: AppUserDto[]) {
+    const options: SelectOption[] = members.map(member => ({
+      value: member.id,
+      label: `${member.firstName} ${member.lastName} (${member.userName})`
+    }));
+    
+    // Add an empty option for clearing the selection
+    options.unshift({
+      value: '',
+      label: '-- Select Team Leader --'
+    });
+    
+    this._memberOptions.set(options);
   }
 
   //- - - - - - - - - - -//
@@ -123,7 +151,7 @@ export class SbTeamFormComponent {
   
   //- - - - - - - - - - -//
 
-  
+
   add() {
     if (!this.form.valid)
       return;

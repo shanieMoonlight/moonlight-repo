@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SbTeamFormComponent } from './team.component';
 import { TeamType } from '../../../../io/models/team-type';
+import { TwoFactorProvider } from '../../../../io/models';
 
 describe('SbTeamFormComponent', () => {
   let component: SbTeamFormComponent;
@@ -124,5 +125,78 @@ describe('SbTeamFormComponent', () => {
       leaderId: '',
       teamType: 'customer'
     });
+  });
+
+  it('should generate member options from team members', () => {
+    const mockMembers = [
+      { 
+        id: 'user1', 
+        firstName: 'John', 
+        lastName: 'Doe', 
+        userName: 'jdoe',
+        email: 'john@example.com',
+        phoneNumber: '555-1234',
+        teamId: 'team1',
+        teamPosition: 1,
+        twoFactorEnabled: false,
+        twoFactorProvider: 'email' as TwoFactorProvider
+      },
+      { 
+        id: 'user2', 
+        firstName: 'Jane', 
+        lastName: 'Smith', 
+        userName: 'jsmith',
+        email: 'jane@example.com',
+        phoneNumber: '555-5678',
+        teamId: 'team1',
+        teamPosition: 2,
+        twoFactorEnabled: false,
+        twoFactorProvider: 'email' as TwoFactorProvider
+      }
+    ];
+    
+    // Call the method directly
+    component.updateMemberOptions(mockMembers);
+    
+    // Check if options are generated correctly
+    expect(component['_memberOptions']().length).toBe(3); // 2 members + empty option
+    expect(component['_memberOptions']()[0].value).toBe('');
+    expect(component['_memberOptions']()[1].value).toBe('user1');
+    expect(component['_memberOptions']()[1].label).toBe('John Doe (jdoe)');
+    expect(component['_memberOptions']()[2].value).toBe('user2');
+    expect(component['_memberOptions']()[2].label).toBe('Jane Smith (jsmith)');
+  });
+
+  it('should set member options when team with members is provided', () => {
+    const mockTeam = {
+      id: 'team-1',
+      name: 'Test Team',
+      description: 'Test Description',
+      minPosition: 2,
+      maxPosition: 8,
+      leaderId: 'user1',
+      teamType: 'maintenance' as TeamType,
+      members: [
+        { 
+          id: 'user1', 
+          firstName: 'John', 
+          lastName: 'Doe', 
+          userName: 'jdoe',
+          email: 'john@example.com',
+          phoneNumber: '555-1234',
+          teamId: 'team1',
+          teamPosition: 1,
+          twoFactorEnabled: false,
+          twoFactorProvider: 'email' as TwoFactorProvider
+        }
+      ]
+    };
+
+    // Set the team
+    component.team = mockTeam;
+    
+    // Check if member options are generated
+    expect(component['_memberOptions']().length).toBe(2); // 1 member + empty option
+    expect(component['_memberOptions']()[1].value).toBe('user1');
   });
 });
