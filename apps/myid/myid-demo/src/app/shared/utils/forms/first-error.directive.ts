@@ -18,6 +18,7 @@ export class FirstErrorDirective implements OnDestroy {
   }
 
   @Input() customErrorMessages?: CustomErrorMessageMap;
+  @Input() showUntouched: boolean = false; // Opt-out flag for immediate errors
 
   //- - - - - - - - - - - - - - //
 
@@ -42,15 +43,22 @@ export class FirstErrorDirective implements OnDestroy {
       )
       .subscribe((invalidControlData) => {
         for (const controlData of invalidControlData) {
-          //There should be only one non-firstError in invalidControlData.
+          // There should be only one non-firstError in invalidControlData.
           // If there is no firstError, it's because that control has changed, is invalid and it's errors 
           // were updated by Reactive Forms
-          //Other controls will remain unchanged
-          if (!controlData.control.errors?.['firstError']) {
-            const name = controlData.name;
-            const control = controlData.control;
-            FormErrors.setFirstErrorMessage(name, control, this.customErrorMessages)
+          // Other controls will remain unchanged
+
+          const shouldShowError = !controlData.control.errors?.['firstError']
+            && (this.showUntouched || controlData.control.touched)
+
+          if (shouldShowError) {
+            FormErrors.setFirstErrorMessage(
+              controlData.name,
+              controlData.control,
+              this.customErrorMessages
+            )
           }
+
         }
       })
   }

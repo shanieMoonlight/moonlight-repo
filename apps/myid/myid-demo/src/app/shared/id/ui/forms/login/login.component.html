@@ -12,18 +12,15 @@
             type="email" 
             formControlName="email" 
             placeholder="Enter your email"/>
-            {{_form.controls.email.touched}}-{{_form.controls.email.dirty}}
-        @if(_form.controls.email.touched ) {
             @if(_form.controls.email.errors?.['firstError'];as err) {
-            <span class="error">{{err}}</span>
+                <span class="error">{{err}}</span>
             }
-        }
     </div>
     <div class="form-group">
         @if(showLables()){
             <label [for]="'password'+_idSuffix">Password</label>
         }
-          <div class="password-input-container" sbInputWithBtn color="secondary">
+        <div class="password-input-container" sbInputWithBtn color="secondary">
             <input 
                 [id]="'password'+_idSuffix" 
                 [type]="showPassword() ? 'text' : 'password'" 
@@ -33,14 +30,11 @@
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
                 (toggled$)="onPasswordToggle($event)"/>
-    </div>
-        {{_form.controls.password.touched}}-{{_form.controls.password.dirty}}
-        @if(_form.controls.password.touched) {
+        </div>    
             @if(_form.controls.password.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
+                <span class="error">{{err}}</span>
             }
-        }
-    </div>
+        </div>
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
