@@ -1,76 +1,90 @@
 import { AbstractControl, FormGroup } from "@angular/forms";
 
+//##########################//
+
+export interface ControlData{
+  name: string;
+  control: AbstractControl;
+}
+
+//##########################//
+
 export class FormUtility {
 
   public static findInvalidControlNames(form: FormGroup): Set<string> {
 
-    const invalid = new Set<string>();
-    const controls = form.controls;
+    const invalid = new Set<string>()
+    const controls = form.controls
+
     for (const name in controls) {
       if (controls[name].invalid)
         invalid.add(name)
     }
-    return invalid
 
+    return invalid
   }
+
+  //----------------------------//
+
   public static findInvalidControlInfo(form: FormGroup): Set<string> {
 
-    const invalid = new Set<string>();
-    const controls = form.controls;
+    const invalid = new Set<string>()
+    const controls = form.controls
+
     for (const name in controls) {
       if (controls[name].invalid)
-        invalid.add(name + ': ' + this.firstErrorKey(controls[name]) || 'Invalid')
+        invalid.add(`${name}: ${this.firstErrorKey(controls[name]) || 'Invalid'}`)
     }
-    return invalid
 
+    return invalid
   }
 
   //----------------------------//
 
   public static findInvalidControls(form: FormGroup): AbstractControl[] {
 
-    const invalid = [];
-    const controls = form.controls;
+    const invalid = []
+    const controls = form.controls
+
     for (const name in controls) {
       if (controls[name].invalid)
-        invalid.push(controls[name]);
-
+        invalid.push(controls[name])
     }
-    return invalid
 
+    return invalid
   }
 
   //----------------------------//
 
-  public static findInvalidControlsData(form: FormGroup): { name: string, control: AbstractControl }[] {
+  public static findInvalidControlsData(form: FormGroup): ControlData[] {
 
     const invalid: { name: string, control: AbstractControl }[] = [];
-    const controls = form.controls;
+    const controls = form.controls
+
     for (const name in controls) {
-      const control = controls[name];
+      const control = controls[name]
       if (control.invalid)
-        invalid.push({ name, control });
-
+        invalid.push({ name, control })
     }
-    return invalid
 
+    return invalid
   }
 
   //----------------------------//
 
 
   static replaceNullWithUndefined(obj: Record<string, any>): Record<string, any> {
+
     for (const [key, value] of Object.entries(obj)) {
-      if (value === null) {
+      if (value === null) 
         obj[key] = undefined;
-      }
     }
     return obj;
   }
 
   //----------------------------//
 
-  getFirstFormError(form: FormGroup): Record<string, any> | null {
+  static getFirstFormError(form: FormGroup): Record<string, any> | null {
     if (form.valid)
       return null
 
@@ -94,7 +108,7 @@ export class FormUtility {
 
   //----------------------------//
 
-  private static firstErrorKey = (control: AbstractControl): string | null =>
+  static firstErrorKey = (control: AbstractControl): string | null =>
     Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
 
 

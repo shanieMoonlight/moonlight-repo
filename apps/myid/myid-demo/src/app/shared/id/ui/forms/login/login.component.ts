@@ -9,6 +9,7 @@ import { SbToggleIconButtonComponent } from '../../../../ui/toggle-icon-button/t
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
 import { ErrorMessageFunction } from '../../../../utils/forms/form-errors';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -39,7 +40,8 @@ interface LoginForm {
     SbTextButtonComponent,
     NgTemplateOutlet,
     SbToggleIconButtonComponent,
-    SbInputWithBtnDirective
+    SbInputWithBtnDirective,
+    FirstErrorComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -62,8 +64,8 @@ export class LoginFormComponent {
   protected showPassword = signal(false);
 
   protected _form: FormGroup<LoginForm> = this.fb.nonNullable.group({
-    email: ['a@b.c', [Validators.required, Validators.email]],
-    password: ['12345', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
     rememberMe: [false, []]
   });
 

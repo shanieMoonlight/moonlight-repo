@@ -12,9 +12,7 @@
             type="email" 
             formControlName="email" 
             placeholder="Enter your email"/>
-            @if(_form.controls.email.errors?.['firstError'];as err) {
-                <span class="error">{{err}}</span>
-            }
+            <sb-first-error [control]="_form.controls.email"/>
     </div>
     <div class="form-group">
         @if(showLables()){
@@ -31,9 +29,7 @@
                 untoggledLabel="Show password"
                 (toggled$)="onPasswordToggle($event)"/>
         </div>    
-            @if(_form.controls.password.errors?.['firstError']; as err) {
-                <span class="error">{{err}}</span>
-            }
+            <sb-first-error [control]="_form.controls.password"/>
         </div>
 
     @if(showRemeberMe()){
@@ -43,9 +39,9 @@
     }
 
     @if(showForgotPwd()){
-    <sb-text-button color="primary" (clicked)="forgotPwdClick()">
-        Forgot Password?
-    </sb-text-button>
+        <sb-text-button color="primary" (clicked)="forgotPwdClick()">
+            Forgot Password?
+        </sb-text-button>
     }
 
     @if(socialTemplate(); as template){

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AbstractControl, FormGroup } from "@angular/forms";
 
 
@@ -40,35 +41,32 @@ export class FormErrors {
 
     static setFirstErrors(
         form: FormGroup,
-        customErrorMessages?: CustomErrorMessageMap
-    ): void {
+        customErrorMessages?: CustomErrorMessageMap): void {
 
         const controls = form.controls
         for (const name in controls) {
             const control = controls[name]
-            if (control.invalid) {
-                const currentErrors = control.errors
-                const firstError = this.getFirstErrorMessage(name, control, customErrorMessages)
-
-                if (firstError)
-                    control.setErrors({ ...currentErrors, firstError: firstError })
-
-            }
+            if (control.invalid) 
+                this.setFirstErrorMessage(name, control, customErrorMessages)
         }
     }
 
 
     //----------------------------//    
 
-    
+
     static setFirstErrorMessage(
         name: string,
         control: AbstractControl,
         customErrorMessages?: CustomErrorMessageMap): void {
-          const currentErrors = control.errors
-          const firstError = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
-          if (firstError)
-            control.setErrors({ ...currentErrors, firstError: firstError })     
+
+        const currentErrors = control.errors
+        const firstError = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
+        if (firstError)
+                control.setErrors(
+                    { ...currentErrors, firstError: firstError }, 
+                    { emitEvent: false }  // This prevents statusChanges emission
+                )
 
     }
 
@@ -115,7 +113,7 @@ export class FormErrors {
 
     //----------------------------//
 
-    private static toTitleCase(s: string) {
+    private static toTitleCase(s: string): string {
         const result = s.replace(/([A-Z])/g, ' $1');
         return result.charAt(0).toUpperCase() + result.slice(1);
     }

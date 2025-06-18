@@ -5,31 +5,43 @@ import { Injectable } from '@angular/core';
 })
 export class RemoveNullsService<T> {
 
-  remove(obj: T): T {
+  remove = (obj: T): T => RemoveNulls(obj, true)
 
-    for (const key in obj) {
-      (obj[key] === null || obj[key] === undefined) && delete obj[key];
-    }
+} 
 
+
+//==============================//
+
+
+export function RemoveNulls<T>(obj: T, iterate = true): T {
+
+  if (obj === null || obj === undefined)
+    return obj;
+
+  // Handle arrays
+  if (Array.isArray(obj)) {
     return obj
-
-  } //remove
-
-} //Cls
-
-//=========================================================================//
-
-export function RemoveNulls(obj: any, iterate = true): any {
-
-  for (const key in obj) {
-    (obj[key] === null || obj[key] === undefined) && delete obj[key];
-   
-    if (obj[key] instanceof Object && iterate)
-      RemoveNulls(obj[key])
+      .filter(item => item !== null && item !== undefined) // Remove null/undefined items
+      .map(item => iterate && typeof item === 'object' ? RemoveNulls(item, iterate) : item) as T;
   }
 
-  return obj
+  // Handle non-objects (primitives)
+  if (typeof obj !== 'object')
+    return obj;
 
-} //remove
+  const cleaned = structuredClone(obj);
 
-//=========================================================================//
+  for (const key in cleaned) {
+
+    if (cleaned[key] === null || cleaned[key] === undefined)
+      delete cleaned[key];
+
+    if (cleaned[key] instanceof Object && iterate)
+      cleaned[key] = RemoveNulls(cleaned[key], iterate);
+  }
+
+  return cleaned
+
+}
+
+//==============================//

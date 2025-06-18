@@ -44,8 +44,8 @@ export class FirstErrorDirective implements OnDestroy {
       .subscribe((invalidControlData) => {
         for (const controlData of invalidControlData) {
           // There should be only one non-firstError in invalidControlData.
-          // If there is no firstError, it's because that control has changed, is invalid and it's errors 
-          // were updated by Reactive Forms
+          // If there is a firstError, it's because that control has changed, is invalid and it's errors 
+          // were updated by Reactive Forms. So if they had a firstError, it will still be there.
           // Other controls will remain unchanged
 
           const shouldShowError = !controlData.control.errors?.['firstError']
