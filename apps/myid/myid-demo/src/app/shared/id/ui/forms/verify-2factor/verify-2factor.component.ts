@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -22,6 +23,7 @@ interface Verify2FactorForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
   ],
@@ -40,8 +42,6 @@ export class SbVerify2FactorFormComponent {
     token: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
   });
 
-  private static _count = 0;
-  protected _idSuffix = `-${SbVerify2FactorFormComponent._count++}`;
 
   submit() {
     if (!this.form.valid)

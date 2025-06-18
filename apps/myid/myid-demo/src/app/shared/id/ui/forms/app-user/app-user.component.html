@@ -17,18 +17,13 @@
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'firstName'">First Name</label>
-                }
-                <input 
+                }                <input 
                     [id]="'firstName'" 
                     type="text" 
                     formControlName="firstName" 
                     placeholder="First Name" 
                     sbInputStyle />
-                @if(form.controls.firstName.touched && form.controls.firstName.invalid) {
-                    @if(form.controls.firstName.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.firstName"/>
             </div>
         </div>
         
@@ -36,35 +31,25 @@
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'lastName'">Last Name</label>
-                }
-                <input 
+                }                <input 
                     [id]="'lastName'" 
                     type="text" 
                     formControlName="lastName" 
                     placeholder="Last Name" 
                     sbInputStyle />
-                @if(form.controls.lastName.touched && form.controls.lastName.invalid) {
-                    @if(form.controls.lastName.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.lastName"/>
             </div>
             
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'phoneNumber'">Phone Number</label>
-                }
-                <input 
+                }                <input 
                     [id]="'phoneNumber'" 
                     type="tel" 
                     formControlName="phoneNumber" 
                     placeholder="Phone Number" 
                     sbInputStyle />
-                @if(form.controls.phoneNumber.touched && form.controls.phoneNumber.invalid) {
-                    @if(form.controls.phoneNumber.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.phoneNumber"/>
             </div>
         </div>
     </div>
@@ -76,35 +61,25 @@
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'userName'">Username</label>
-                }
-                <input 
+                }                <input 
                     [id]="'userName'" 
                     type="text" 
                     formControlName="userName" 
                     placeholder="Username" 
                     sbInputStyle />
-                @if(form.controls.userName.touched && form.controls.userName.invalid) {
-                    @if(form.controls.userName.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.userName"/>
             </div>
             
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'email'">Email</label>
-                }
-                <input 
+                }                <input 
                     [id]="'email'" 
                     type="email" 
                     formControlName="email" 
                     placeholder="Email Address" 
                     sbInputStyle />
-                @if(form.controls.email.touched && form.controls.email.invalid) {
-                    @if(form.controls.email.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.email"/>
             </div>
         </div>
         
@@ -112,36 +87,26 @@
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'teamId'">Team ID</label>
-                }
-                <input 
+                }                <input 
                     [id]="'teamId'" 
                     type="text" 
                     formControlName="teamId" 
                     placeholder="Team ID" 
                     sbInputStyle />
-                @if(form.controls.teamId.touched && form.controls.teamId.invalid) {
-                    @if(form.controls.teamId.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.teamId"/>
             </div>
             
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'teamPosition'">Team Position</label>
-                }
-                <sb-select
+                }                <sb-select
                     [id]="'teamPosition'"
                     [options]="_teamPositionOptions"
                     placeholder="Select position"
                     formControlName="teamPosition"
                     color="primary">
                 </sb-select>
-                @if(form.controls.teamPosition.touched && form.controls.teamPosition.invalid) {
-                    @if(form.controls.teamPosition.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.teamPosition"/>
             </div>
         </div>
     </div>
@@ -153,19 +118,14 @@
             <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'twoFactorProvider'">2FA Method</label>
-                }
-                <sb-select
+                }                <sb-select
                     [id]="'twoFactorProvider'"
                     [options]="_twoFactorProviderOptions"
                     placeholder="Select 2FA method"
                     formControlName="twoFactorProvider"
                     color="primary">
                 </sb-select>
-                @if(form.controls.twoFactorProvider.touched && form.controls.twoFactorProvider.invalid) {
-                    @if(form.controls.twoFactorProvider.errors?.['firstError']; as err) {
-                    <span class="error">{{err}}</span>
-                    }
-                }
+                <sb-first-error [control]="form.controls.twoFactorProvider"/>
             </div>
             
             <div class="form-group checkbox-group">

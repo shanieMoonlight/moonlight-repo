@@ -17,11 +17,7 @@
                 untoggledLabel="Show password"
                 (toggled$)="onPasswordToggle($event)"/>
         </div>
-        @if(_form.controls.password.touched && _form.controls.password.invalid) {
-            @if(_form.controls.password.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.password"/>
     </div>
 
     <div class="form-group">
@@ -39,11 +35,8 @@
                 untoggledLabel="Show password"
                 (toggled$)="onConfirmPasswordToggle($event)"/>
         </div>
-        @if(_form.controls.confirmPassword.touched && _form.controls.confirmPassword.invalid) {
-            @if(_form.controls.confirmPassword.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.confirmPassword"/>
+        
         @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {
             <span class="error">Passwords do not match</span>
         }

@@ -34,6 +34,7 @@ interface LoginForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbCheckboxComponent,
     SbInputStyleDirective,
@@ -41,7 +42,6 @@ interface LoginForm {
     NgTemplateOutlet,
     SbToggleIconButtonComponent,
     SbInputWithBtnDirective,
-    FirstErrorComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

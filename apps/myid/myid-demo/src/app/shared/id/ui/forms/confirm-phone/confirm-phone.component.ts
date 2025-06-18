@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -22,6 +23,7 @@ interface ConfirmPhoneForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
   ],
@@ -36,18 +38,18 @@ export class SbConfirmPhoneFormComponent {
   showLables = input<boolean>(true);
   confirmPhone = output<ConfirmPhoneFormDto>();
 
-  protected form: FormGroup<ConfirmPhoneForm> = this.fb.nonNullable.group({
+  protected _form: FormGroup<ConfirmPhoneForm> = this.fb.nonNullable.group({
     confirmationToken: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
   });
 
   
 
   submit() {
-    if (!this.form.valid)
+    if (!this._form.valid)
       return;
 
     const dto: ConfirmPhoneFormDto = {
-      confirmationToken: this.form.controls.confirmationToken.value || undefined,
+      confirmationToken: this._form.controls.confirmationToken.value || undefined,
     };
 
     this.confirmPhone.emit(dto);

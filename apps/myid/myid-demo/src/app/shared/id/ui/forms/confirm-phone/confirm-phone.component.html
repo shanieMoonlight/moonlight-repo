@@ -1,27 +1,25 @@
-<form [formGroup]="form" [sbFormControlFirstError]="form" (ngSubmit)="submit()" class="confirm-phone-form">
+<form [formGroup]="_form" 
+    [sbFormControlFirstError]="_form" 
+    (ngSubmit)="submit()" 
+    class="confirm-phone-form">
     <!-- <h2>Confirm Your Phone</h2>
     <p class="description">Enter the 6-digit verification code sent to your phone number.</p> -->
     
     <div class="form-group">
         @if(showLables()) {
-            <label [for]="'confirmationToken'+_idSuffix">Confirmation Code</label>
+            <label [for]="'confirmationToken'">Confirmation Code</label>
         }
         <input 
             [id]="'confirmationToken'" 
             type="text" 
             formControlName="confirmationToken" 
-            placeholder="000000" 
-            maxlength="6"
+            placeholder=""
             sbInputStyle 
             class="token-input" />
-        @if(form.controls.confirmationToken.touched && form.controls.confirmationToken.invalid) {
-            @if(form.controls.confirmationToken.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+            <sb-first-error [control]="_form.controls.confirmationToken"/>
     </div>
 
-    <sb-button type="submit" [disabled]="form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
         Confirm Phone
     </sb-button>
 </form>

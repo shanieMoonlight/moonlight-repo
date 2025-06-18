@@ -9,6 +9,7 @@ import { SbSelectComponent } from '../../../../ui/select/select.component';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
 import { teamPositionOptions } from '../../../utils/team-position-options';
 import { twoFactorProviderOptions } from '../../../utils/two-factor-provider-options';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -56,6 +57,7 @@ interface AppUserForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
     SbSelectComponent,

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -22,6 +23,7 @@ interface ForgotPasswordForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
   ],
@@ -36,7 +38,7 @@ export class SbForgotPwdFormComponent {
   showLables = input<boolean>(true);
   forgotPassword = output<ForgotPasswordFormDto>()
 
-  protected form: FormGroup<ForgotPasswordForm> = this.fb.nonNullable.group({
+  protected _form: FormGroup<ForgotPasswordForm> = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]]
   });
 
@@ -46,11 +48,11 @@ export class SbForgotPwdFormComponent {
   //- - - - - - - - - - - -//
 
   protected submit() {
-    if (!this.form.valid)
+    if (!this._form.valid)
       return;
 
     const dto: ForgotPasswordFormDto = {
-      email: this.form.controls.email.value,
+      email: this._form.controls.email.value,
     };
 
     this.forgotPassword.emit(dto);

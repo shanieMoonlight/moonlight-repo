@@ -4,6 +4,7 @@ import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 import { FirstErrorDirective } from '../../../../utils/forms/first-error.directive';
 import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
+import { FirstErrorComponent } from '../../../../utils/forms/first-error.component';
 
 //##########################//
 
@@ -23,6 +24,7 @@ interface UpdateTwoFactorProviderForm {
   imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
+    FirstErrorComponent,
     SbButtonComponent,
     SbSelectComponent,
   ],

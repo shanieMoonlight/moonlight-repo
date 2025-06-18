@@ -5,19 +5,14 @@
     <div class="form-group">
         @if(showLables()) {
             <label [for]="'provider'">Authentication Method</label>
-        }
-        <sb-select
+        }        <sb-select
             [id]="'provider'"
             [options]="_providerOptions"
             placeholder="Select authentication method"
             formControlName="provider"
             color="primary">
         </sb-select>
-        @if(_form.controls.provider.touched && _form.controls.provider.invalid) {
-            @if(_form.controls.provider.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.provider"/>
     </div>
 
     <div class="provider-info">

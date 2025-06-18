@@ -4,21 +4,17 @@
     
     <div class="form-group">
         @if(showLables()){
-            <label [for]="'token'+_idSuffix">Verification Code</label>
+            <label [for]="'token'">Verification Code</label>
         }
         <input 
-            [id]="'token'+_idSuffix" 
+            [id]="'token'" 
             type="text" 
             formControlName="token" 
-            placeholder="000000" 
+            placeholder="" 
             maxlength="6"
             sbInputStyle 
             class="token-input" />
-        @if(form.controls.token.touched && form.controls.token.invalid) {
-            @if(form.controls.token.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="form.controls.token"/>
     </div>
 
     <sb-button type="submit" [disabled]="form.invalid" color="primary">

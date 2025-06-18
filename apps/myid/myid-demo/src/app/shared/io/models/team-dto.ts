@@ -2,13 +2,13 @@ import { AppUserDto } from './app-user-dto';
 import { TeamType } from './team-type';
 
 export interface TeamDto {
-  id?: string;
-  name?: string;
+  id: string;
+  name: string;
   description?: string;
-  minPosition?: number;
-  maxPosition?: number;
+  minPosition: number;
+  maxPosition: number;
   leaderId?: string;
   leader?: AppUserDto;
-  members?: AppUserDto[];
-  teamType?: TeamType;
+  members?: AppUserDto[]
+  teamType: TeamType;
 }

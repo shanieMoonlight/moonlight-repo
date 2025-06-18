@@ -5,18 +5,13 @@
     <div class="form-group">
         @if(showLables()) {
             <label [for]="'email'+_idSuffix">Email Address</label>
-        }
-        <input 
+        }        <input 
             [id]="'email'+_idSuffix" 
             type="email" 
             formControlName="email" 
             placeholder="Enter your email address" 
             sbInputStyle />
-        @if(_form.controls.email.touched && _form.controls.email.invalid) {
-            @if(_form.controls.email.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.email"/>
     </div>
 
     <div class="form-group">
@@ -32,14 +27,9 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onPasswordToggle($event)">
-            </sb-toggle-icon-button>
+                (toggled$)="onPasswordToggle($event)"/>
         </div>
-        @if(_form.controls.newPassword.touched && _form.controls.newPassword.invalid) {
-            @if(_form.controls.newPassword.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.newPassword"/>
     </div>
 
     <div class="form-group">
@@ -55,14 +45,9 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onConfirmPasswordToggle($event)">
-            </sb-toggle-icon-button>
+                (toggled$)="onConfirmPasswordToggle($event)"/>
         </div>
-        @if(_form.controls.confirmPassword.touched && _form.controls.confirmPassword.invalid) {
-            @if(_form.controls.confirmPassword.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+        <sb-first-error [control]="_form.controls.confirmPassword"/>
         @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {
             <span class="error">Passwords do not match</span>
         }

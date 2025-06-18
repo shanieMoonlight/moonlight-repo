@@ -1,4 +1,4 @@
-<form [formGroup]="form" [sbFormControlFirstError]="form" (ngSubmit)="submit()" class="forgot-pwd-form">
+<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="forgot-pwd-form">
     <!-- <h2>Reset Password</h2>
     <p class="description">Enter your email address and we'll send you a link to reset your password.</p> -->
     
@@ -12,14 +12,10 @@
             formControlName="email" 
             placeholder="Enter your email address" 
             sbInputStyle />
-        @if(form.controls.email.touched && form.controls.email.invalid) {
-            @if(form.controls.email.errors?.['firstError']; as err) {
-            <span class="error">{{err}}</span>
-            }
-        }
+            <sb-first-error [control]="_form.controls.email"/>
     </div>
 
-    <sb-button type="submit" [disabled]="form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
         Send Reset Link
     </sb-button>
 </form>
