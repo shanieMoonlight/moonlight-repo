@@ -13,6 +13,8 @@ import { ConfirmEmailWithPwdFormDto, ConfirmEmailWithPwdFormComponent } from '..
 import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
 import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
+import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
+import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 
 
 
@@ -27,7 +29,8 @@ import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
     SbForgotPwdFormComponent,
     ConfirmEmailWithPwdFormComponent,
     SbUpdateTwoFactorProviderFormComponent,
-    SbAppUserFormComponent
+    SbAppUserFormComponent,
+    SbTeamFormComponent
 
   ],
   templateUrl: './oauth.component.html',
@@ -71,6 +74,9 @@ export class OauthComponent implements OnInit {
 
   protected _testUser = demoAppUserData;
   protected _testUserMinimal = demoAppUserDataMinimal;
+  protected _testTeam = demoTeamData;
+  protected _testTeamSuper = demoTeamDataSuper;
+  protected _testTeamMinimal = demoTeamDataMinimal;
 
 
 

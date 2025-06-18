@@ -1,0 +1,126 @@
+<form class="team-form" [formGroup]="form" 
+    [sbFormControlFirstError]="form" (ngSubmit)="form.valid && _isUpdateForm() ? update() : add()">
+    
+    <!-- Basic Team Information Section -->
+    <div class="form-section">
+        <h3>Team Information</h3>
+        <div class="form-row">
+            <input hidden
+                [id]="'id'" 
+                type="text" 
+                formControlName="id" 
+                placeholder="Team ID" 
+                sbInputStyle />
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'name'">Team Name</label>
+                }
+                <input 
+                    [id]="'name'" 
+                    type="text" 
+                    formControlName="name" 
+                    placeholder="Team Name" 
+                    sbInputStyle />
+                <sb-first-error [control]="form.controls.name"/>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group full-width">
+                @if(showLables()) {
+                    <label [for]="'description'">Description</label>
+                }
+                <input 
+                    [id]="'description'" 
+                    type="text" 
+                    formControlName="description" 
+                    placeholder="Team Description (Optional)" 
+                    sbInputStyle />
+                <sb-first-error [control]="form.controls.description"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Configuration Section -->
+    <div class="form-section">
+        <h3>Team Configuration</h3>
+        <div class="form-row">
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'minPosition'">Minimum Position</label>
+                }
+                <input 
+                    [id]="'minPosition'" 
+                    type="number" 
+                    formControlName="minPosition" 
+                    placeholder="Minimum Position" 
+                    min="1"
+                    sbInputStyle />
+                <sb-first-error [control]="form.controls.minPosition"/>
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'maxPosition'">Maximum Position</label>
+                }
+                <input 
+                    [id]="'maxPosition'" 
+                    type="number" 
+                    formControlName="maxPosition" 
+                    placeholder="Maximum Position" 
+                    min="1"
+                    sbInputStyle />
+                <sb-first-error [control]="form.controls.maxPosition"/>
+            </div>
+        </div>
+          <div class="form-row">
+            <div class="form-group">                                
+                @if(showLables()) {
+                    <label [for]="'teamType'">Team Type</label>
+                }    
+                <div class="team-type-display">
+                    <!-- <span class="team-type-value">{{ form.controls.teamType.value | titlecase }}</span> -->
+                    <span class="team-type-badge" [attr.data-type]="form.controls.teamType.value">
+                        {{ form.controls.teamType.value | titlecase }}
+                    </span>
+                </div>
+                <!-- Hidden form control to maintain form structure -->
+                <input type="hidden" formControlName="teamType" />
+            </div>
+            
+            <div class="form-group">
+                @if(showLables()) {
+                    <label [for]="'leaderId'">Team Leader ID</label>
+                }
+                <input 
+                    [id]="'leaderId'" 
+                    type="text" 
+                    formControlName="leaderId" 
+                    placeholder="Team Leader ID (Optional)" 
+                    sbInputStyle />
+                <sb-first-error [control]="form.controls.leaderId"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- Position Configuration Info -->
+    <div class="form-section">
+        <div class="info-card">
+            <h4>Position Configuration</h4>
+            <p>Set the minimum and maximum position levels for team members. Position 1 is typically the lowest level, and higher numbers represent senior positions.</p>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    @if (_isUpdateForm()) {
+        <sb-button (click)="update()" [disabled]="form.invalid" color="primary">
+            Save Changes
+        </sb-button>
+    }@else {
+        <sb-button (click)="add()" [disabled]="form.invalid" color="primary">
+            Create Team
+        </sb-button>
+    }
+
+</form>

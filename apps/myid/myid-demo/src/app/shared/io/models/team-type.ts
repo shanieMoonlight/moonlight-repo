@@ -1,1 +1,1 @@
-export type TeamType = 1 | 2 | 3;
+export type TeamType = 'customer' | 'maintenance' | 'super';
