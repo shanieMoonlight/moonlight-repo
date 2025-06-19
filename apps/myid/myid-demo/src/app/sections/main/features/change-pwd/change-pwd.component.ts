@@ -2,22 +2,21 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ResetPwdFormDto } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
-import { ConfirmPhoneDto } from '../../../../shared/io/models';
+import { ChangePwdFormComponent } from '../../../../shared/id/ui/forms/change-pwd/change-pwd.component';
+import { ChPwdDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 
 @Component({
-  selector: 'sb-confirm-email',
-  standalone: true,
+  selector: 'sb-change-pwd',
   imports: [
     SbMatNotificationsModalComponent,
+    ChangePwdFormComponent
   ],
-  templateUrl: './confirm-email.component.html',
-  styleUrl: './confirm-email.component.scss',
+  templateUrl: './change-pwd.component.html',
+  styleUrl: './change-pwd.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmEmailComponent {
-
+export class ChangePwdComponent {
 
   private _ioService = inject(AccountIoService)
   
@@ -25,7 +24,7 @@ export class ConfirmEmailComponent {
 
 
   protected _resetPwdState = MiniStateBuilder
-    .CreateWithInput((dto: ConfirmPhoneDto) => this._ioService.confirmPhone(dto))
+    .CreateWithInput((dto: ChPwdDto) => this._ioService.changePassword(dto))
     .setSuccessMsgFn((dto, response) => `${response.message}`)
 
   //- - - - - - - - - - - - - //
@@ -40,8 +39,10 @@ export class ConfirmEmailComponent {
 
   //--------------------------//
 
-  resetPwd = (dto: ResetPwdFormDto) => {
-    console.log('ResetPwdComponent.resetPwd', dto)
+
+  changePassword = (dto: ChPwdDto) => {
+    console.log('ConfirmEmailWithPwdFormDto', dto)
   }
-  
+
 }//Cls
+

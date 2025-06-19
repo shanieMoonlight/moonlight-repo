@@ -8,6 +8,7 @@ import { executeAfterEmissionAndOnTermination } from "./utils/rxjs-utils"
 
 const SPACE_1 = ' \u200B'
 const SPACE_2 = '\u200C '
+const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later.'
 
 //=========================================================//
 
@@ -243,7 +244,7 @@ export class MiniState<Input, Output, TError = any> {
         //Not using finalize in case obs doesn't complete
         this._sub = this._triggerFn$(input)
             .pipe(
-                executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) => 
+                executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) =>
                     this.handleTriggerComplete(input, outputValue, error, isFinalized)),
             )
             .subscribe({
@@ -260,7 +261,7 @@ export class MiniState<Input, Output, TError = any> {
 
         this._loadingBs.next(false); //Close the loader
         this._wasTriggeredBs.next(true); // Mark as triggered
-        // devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
+        devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
 
     }
 
@@ -285,8 +286,8 @@ export class MiniState<Input, Output, TError = any> {
 
     private handleTriggerError(input: Input, error: any) {
 
-        devConsole.log('MiniState', error);
-        this.emitErrorMsg(this._errorMsgFn(error))
+        devConsole.log('MiniState-handleTriggerError', error);
+        this.emitErrorMsg(this._errorMsgFn(error) || FALLBACK_ERROR_MSG)
         this._errorBs.next(error)
 
         //In case loading MUST complete first

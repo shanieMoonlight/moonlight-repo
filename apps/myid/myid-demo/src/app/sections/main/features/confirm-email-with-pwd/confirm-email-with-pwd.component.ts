@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ResetPwdFormDto } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
-import { ConfirmEmailWithPwdDto, ResetPwdDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
 import { ConfirmEmailWithPwdFormComponent, ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
+import { ConfirmEmailWithPwdDto } from '../../../../shared/io/models';
+import { AccountIoService } from '../../../../shared/io/services';
 
 @Component({
   selector: 'sb-confirm-email-with-pwd',
+  standalone: true,
   imports: [
     SbMatNotificationsModalComponent,
     ConfirmEmailWithPwdFormComponent

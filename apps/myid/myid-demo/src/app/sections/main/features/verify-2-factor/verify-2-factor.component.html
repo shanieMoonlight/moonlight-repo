@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="header">
+        <h2>Verify 2-Factor</h2>
+        <!-- <p class="description">Create a secure password for your account.</p> -->
+    </div>
+    
+
+<sb-verify-2factor-form
+ (verify2Factor)="verify2Factor($event)"/>
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />

@@ -16,9 +16,16 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
+    title: 'Change Password',
+    description: 'Change your password.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('change-pwd'),
+    icon: 'change_circle',
+    color: 'tertiary'
+  },
+  {
     title: 'Reset Password',
     description: 'Reset your password.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('reset-pwd'),
+    route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
     icon: 'refresh',
     color: 'tertiary'
   },
@@ -41,6 +48,13 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     description: 'Confirm your phone number.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
     icon: 'call',
+    color: 'secondary'
+  },
+  {
+    title: 'Verify 2-Factor',
+    description: 'Verify 2 Factor Provider.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor'),
+    icon: 'shield',
     color: 'secondary'
   },
 ]

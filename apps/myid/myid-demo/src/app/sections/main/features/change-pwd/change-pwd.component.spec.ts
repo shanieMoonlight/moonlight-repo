@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConfirmEmailWithPwdComponent } from './confirm-email-with-pwd.component';
+import { ChangePwdComponent } from './change-pwd.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { AccountIoService } from '../../../../shared/io/services';
 
-describe('ConfirmEmailWithPwdComponent', () => {
-  let component: ConfirmEmailWithPwdComponent;
-  let fixture: ComponentFixture<ConfirmEmailWithPwdComponent>;
+describe('ChangePwdComponent', () => {
+  let component: ChangePwdComponent;
+  let fixture: ComponentFixture<ChangePwdComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfirmEmailWithPwdComponent],
+      imports: [ChangePwdComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -18,7 +18,7 @@ describe('ConfirmEmailWithPwdComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConfirmEmailWithPwdComponent);
+    fixture = TestBed.createComponent(ChangePwdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

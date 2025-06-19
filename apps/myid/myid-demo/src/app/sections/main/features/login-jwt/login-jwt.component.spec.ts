@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginJwtComponent } from './login-jwt.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { SocialAuthService, SocialAuthServiceConfig, } from '@abacritt/angularx-social-login';
 import { AccountIoService } from '../../../../shared/io/services';
+import { SocialAuthService, SocialAuthServiceConfig, } from '@abacritt/angularx-social-login';
 
 //##############################//
 

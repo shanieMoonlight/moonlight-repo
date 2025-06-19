@@ -4,11 +4,11 @@
     
     <div class="form-group">
         @if(showLables()){
-            <label [for]="'password'+_idSuffix">Password</label>
+            <label [for]="'password'">Password</label>
         }
         <div class="password-input-container" sbInputWithBtn color="primary">
             <input 
-                [id]="'password'+_idSuffix" 
+                [id]="'password'" 
                 [type]="showPassword() ? 'text' : 'password'" 
                 formControlName="password" 
                 placeholder="Enter your password" />
@@ -22,11 +22,11 @@
 
     <div class="form-group">
         @if(showLables()){
-            <label [for]="'confirmPassword'+_idSuffix">Confirm Password</label>
+            <label [for]="'confirmPassword'">Confirm Password</label>
         }
         <div class="password-input-container" sbInputWithBtn color="primary">
             <input 
-                [id]="'confirmPassword'+_idSuffix" 
+                [id]="'confirmPassword'" 
                 [type]="showConfirmPassword() ? 'text' : 'password'" 
                 formControlName="confirmPassword" 
                 placeholder="Confirm your password" />
@@ -38,7 +38,7 @@
         <sb-first-error [control]="_form.controls.confirmPassword"/>
         
         @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {
-            <span class="error">Passwords do not match</span>
+           <span class="error">Passwords do not match</span>
         }
     </div>
 

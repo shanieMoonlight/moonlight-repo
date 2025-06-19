@@ -2,9 +2,11 @@
 
     <h2>Reset Your Password</h2>
     <p class="description">Enter your email address and create a new secure password for your account.</p>
-    
+
 
     <sb-reset-pwd-form
+        [showLables]="false"
+        [disabled]="!_readyToReset()"
         (resetPassword)="resetPwd($event)"/>
     
 </div>

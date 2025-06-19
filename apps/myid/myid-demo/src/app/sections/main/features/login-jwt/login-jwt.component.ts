@@ -8,6 +8,7 @@ import { ForgotPwdDto, LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
+import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -25,18 +26,19 @@ import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd
 export class LoginJwtComponent implements OnInit {
 
   private _ioService = inject(AccountIoService)
+  private _loginService = inject(LoginService)
   private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
 
   protected _loginState = MiniStateBuilder
-    .CreateWithInput((dto: LoginDto) => this._ioService.login(dto))
+    .CreateWithInput((dto: LoginDto) => this._loginService.loginJwt(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', jwtPackage); })
 
 
   protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: SocialUser) => this._ioService.googleLogin(dto))
+    .CreateWithInput((dto: SocialUser) => this._loginService.loginGoogleJwt(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.firstName}, is logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 

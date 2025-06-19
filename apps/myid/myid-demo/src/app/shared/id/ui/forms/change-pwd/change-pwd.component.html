@@ -1,0 +1,76 @@
+<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="change-pwd-form">
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'email'+_idSuffix">Email</label>
+        }
+        <input 
+            [id]="'email'+_idSuffix" 
+            sbInputStyle
+            type="email" 
+            formControlName="email" 
+            placeholder="Enter your email" />
+        <sb-first-error [control]="_form.controls.email"/>
+    </div>
+
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'password'+_idSuffix">Current Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn color="primary">
+            <input 
+                [id]="'password'+_idSuffix" 
+                [type]="showCurrentPassword() ? 'text' : 'password'" 
+                formControlName="password" 
+                placeholder="Enter your current password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onCurrentPasswordToggle($event)"/>
+        </div>
+        <sb-first-error [control]="_form.controls.password"/>
+    </div>
+
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'newPassword'+_idSuffix">New Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn color="primary">
+            <input 
+                [id]="'newPassword'+_idSuffix" 
+                [type]="showNewPassword() ? 'text' : 'password'" 
+                formControlName="newPassword" 
+                placeholder="Enter your new password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onNewPasswordToggle($event)"/>
+        </div>
+        <sb-first-error [control]="_form.controls.newPassword"/>
+    </div>
+
+    <div class="form-group">
+        @if(showLables()){
+            <label [for]="'confirmPassword'+_idSuffix">Confirm New Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn color="primary">
+            <input 
+                [id]="'confirmPassword'+_idSuffix" 
+                [type]="showConfirmPassword() ? 'text' : 'password'" 
+                formControlName="confirmPassword" 
+                placeholder="Confirm your new password" />
+            <sb-toggle-icon-button
+                toggledLabel="Hide password"
+                untoggledLabel="Show password"
+                (toggled$)="onConfirmPasswordToggle($event)"/>
+        </div>
+        <sb-first-error [control]="_form.controls.confirmPassword"/>
+        
+        @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {
+            <span class="error">Passwords do not match</span>
+        }
+    </div>
+
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+        Change Password
+    </sb-button>
+</form>

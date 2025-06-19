@@ -2,19 +2,17 @@ import { GoogleSigninButtonModule, SocialUser } from '@abacritt/angularx-social-
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { SbForgotPwdFormComponent } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
+import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
+import { ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
+import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
+import { UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
 import { LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services/account.io.service';
-import { googleSocialUser } from './secret';
-import { ConfirmEmailWithPwdFormDto, ConfirmEmailWithPwdFormComponent } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
-import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
-import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
-import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
-import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
+import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
+import { googleSocialUser } from './secret';
 
 
 
@@ -24,15 +22,10 @@ import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-tea
   imports: [
     GoogleSigninButtonModule,
     MatEverythingModule,
-    SbMatNotificationsModalComponent,
     LoginFormComponent,
-    SbForgotPwdFormComponent,
-    ConfirmEmailWithPwdFormComponent,
-    SbUpdateTwoFactorProviderFormComponent,
-    SbAppUserFormComponent,
     SbTeamFormComponent
-
-  ],
+],
+  standalone: true,
   templateUrl: './oauth.component.html',
   styleUrl: './oauth.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,13 +4,15 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
-import { ForgotPwdDto, LoginDto } from '../../../../shared/io/models';
+import { CookieSignInDto, ForgotPwdDto, LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
 
 @Component({
   selector: 'sb-login-cki',
+  standalone: true,
   imports: [
     GoogleSigninButtonModule,
     SbMatNotificationsModalComponent,
@@ -24,18 +26,19 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 export class LoginCkiComponent implements OnInit {
 
   private _ioService = inject(AccountIoService)
+  private _loginService = inject(LoginService)
   private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
 
   protected _cookieLoginState = MiniStateBuilder
-    .CreateWithInput((dto: LoginDto) => this._ioService.cookieSignIn(dto))
+    .CreateWithInput((dto: CookieSignInDto) => this._loginService.loginCookie(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
     .setOnSuccessFn((dto, signinData) => { console.log('Login successful:', signinData); })
 
 
   protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: SocialUser) => this._ioService.googleCookieSignin(dto))
+    .CreateWithInput((dto: SocialUser) => this._loginService.loginGoogleCookie(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.firstName}, is logged in successfully!`)
     .setOnSuccessFn((dto, signinData) => { console.log('Login successful:', dto, signinData); })
 

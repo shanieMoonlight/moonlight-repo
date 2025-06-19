@@ -1,39 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject, input, Input, output, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
-import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbToggleIconButtonComponent } from '../../../../ui/buttons/toggle-icon-button/toggle-icon-button.component';
-import { StrongPassword6WithSpecialRegx } from '../../../utils/pwd-regexes';
+import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
+import { PasswordValidation } from '../utils/validators/password-validators';
 
 //##########################//
 
 export interface ResetPwdFormDto {
-  email: string;
   newPassword: string;
   confirmPassword: string;
 }
 
 interface ResetPwdForm {
-  email: FormControl<string>;
   newPassword: FormControl<string>;
   confirmPassword: FormControl<string>;
 }
 
 //##########################//
-
-// Custom validator for password confirmation
-function passwordMatchValidator(control: AbstractControl) {
-  const newPassword = control.get('newPassword');
-  const confirmPassword = control.get('confirmPassword');
-
-  if (!newPassword || !confirmPassword) {
-    return null;
-  }
-
-  return newPassword.value === confirmPassword.value ? null : { passwordMismatch: true };
-}
 
 @Component({
   selector: 'sb-reset-pwd-form',
@@ -43,7 +28,6 @@ function passwordMatchValidator(control: AbstractControl) {
     FirstErrorDirective,
     FirstErrorComponent,
     SbButtonComponent,
-    SbInputStyleDirective,
     SbInputWithBtnDirective,
     SbToggleIconButtonComponent,
   ],
@@ -55,29 +39,32 @@ export class SbResetPwdFormComponent {
 
   private fb = inject(FormBuilder);
 
+  //- - - - - - - - - - - -//
+
   resetPassword = output<ResetPwdFormDto>();
 
   showLables = input<boolean>(true);
+  disabled = input<boolean>(true);
 
-  @Input('strongPassword') set strongPassword(strongPwd: boolean | RegExp | undefined | null) {
+  @Input()
+  set passwordValidators(validators: ValidatorFn[] | undefined | null) {
     setTimeout(() => {
-      if (!strongPwd)
+      if (!validators?.length)
         this._form.controls.newPassword.setValidators([Validators.required])
-      else if (strongPwd instanceof RegExp)
-        this._form.controls.newPassword.setValidators([Validators.required, Validators.pattern(strongPwd)])
       else
-        this._form.controls.newPassword.setValidators([Validators.required, Validators.pattern(StrongPassword6WithSpecialRegx)])
+        this._form.controls.newPassword.setValidators([Validators.required, ...validators])
     }, 500)
   }
+
+  //- - - - - - - - - - - -//
 
   protected showPassword = signal(false);
   protected showConfirmPassword = signal(false);
 
   protected _form: FormGroup<ResetPwdForm> = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    newPassword: ['', [Validators.required, Validators.pattern(StrongPassword6WithSpecialRegx)]],
-    confirmPassword: ['', [Validators.required]]
-  }, { validators: passwordMatchValidator });
+    newPassword: ['Abc123!', [Validators.required, ...PasswordValidation.validationArray(6)]],
+    confirmPassword: ['Abc123!', [Validators.required]]
+  }, { validators: PasswordValidation.matchValidator('newPassword', 'confirmPassword') });
 
   private static _count = 0;
   protected _idSuffix = `-${SbResetPwdFormComponent._count++}`;
@@ -89,7 +76,6 @@ export class SbResetPwdFormComponent {
       return;
 
     const dto: ResetPwdFormDto = {
-      email: this._form.controls.email.value,
       newPassword: this._form.controls.newPassword.value,
       confirmPassword: this._form.controls.confirmPassword.value,
     };
@@ -99,6 +85,7 @@ export class SbResetPwdFormComponent {
 
   protected onPasswordToggle = (hide: boolean) =>
     this.showPassword.set(!hide);
+
 
   protected onConfirmPasswordToggle = (hide: boolean) =>
     this.showConfirmPassword.set(!hide);

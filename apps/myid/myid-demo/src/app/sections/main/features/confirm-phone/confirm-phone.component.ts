@@ -9,6 +9,7 @@ import { ConfirmPhoneFormDto, SbConfirmPhoneFormComponent } from '../../../../sh
 
 @Component({
   selector: 'sb-confirm-phone',
+  standalone: true,
   imports: [
     SbMatNotificationsModalComponent,
     SbConfirmPhoneFormComponent

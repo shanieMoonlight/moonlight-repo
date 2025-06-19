@@ -2,31 +2,32 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ResetPwdFormDto } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
-import { ConfirmPhoneDto } from '../../../../shared/io/models';
+import { SbVerify2FactorFormComponent, Verify2FactorTknFormDto } from '../../../../shared/id/ui/forms/verify-2factor/verify-2factor.component';
+import { Verify2FactorDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 
+
 @Component({
-  selector: 'sb-confirm-email',
+  selector: 'sb-verify-2-factor',
   standalone: true,
   imports: [
     SbMatNotificationsModalComponent,
+    SbVerify2FactorFormComponent
   ],
-  templateUrl: './confirm-email.component.html',
-  styleUrl: './confirm-email.component.scss',
+  templateUrl: './verify-2-factor.component.html',
+  styleUrl: './verify-2-factor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmEmailComponent {
-
+export class Verify2FactorComponent {
 
   private _ioService = inject(AccountIoService)
-  
+
   //- - - - - - - - - - - - - //
 
 
   protected _resetPwdState = MiniStateBuilder
-    .CreateWithInput((dto: ConfirmPhoneDto) => this._ioService.confirmPhone(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message}`)
+    .CreateWithInput((dto: Verify2FactorDto) => this._ioService.twoFactorVerification(dto))
+    .setSuccessMsgFn(() => `${'2FA verification successful!'}`)
 
   //- - - - - - - - - - - - - //
 
@@ -40,8 +41,10 @@ export class ConfirmEmailComponent {
 
   //--------------------------//
 
-  resetPwd = (dto: ResetPwdFormDto) => {
-    console.log('ResetPwdComponent.resetPwd', dto)
+
+  verify2Factor = (dto: Verify2FactorTknFormDto) => {
+    console.log('verify2Factor', dto)
   }
-  
+
 }//Cls
+

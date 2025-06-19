@@ -36,8 +36,16 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/confirm-phone/confirm-phone.component').then(m => m.ConfirmPhoneComponent),
             },
             {
-                path: MainSectionRoutesDefs.route('reset-pwd'),
+                path: MainSectionRoutesDefs.route('reset-password'),
                 loadComponent: () => import('./features/reset-pwd/reset-pwd.component').then(m => m.ResetPwdComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('change-pwd'),
+                loadComponent: () => import('./features/change-pwd/change-pwd.component').then(m => m.ChangePwdComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('verify-2-factor'),
+                loadComponent: () => import('./features/verify-2-factor/verify-2-factor.component').then(m => m.Verify2FactorComponent),
             },
             {
                 path: '',

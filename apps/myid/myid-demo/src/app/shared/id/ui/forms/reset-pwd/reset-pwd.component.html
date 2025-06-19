@@ -4,18 +4,6 @@
      -->
     <div class="form-group">
         @if(showLables()) {
-            <label [for]="'email'+_idSuffix">Email Address</label>
-        }        <input 
-            [id]="'email'+_idSuffix" 
-            type="email" 
-            formControlName="email" 
-            placeholder="Enter your email address" 
-            sbInputStyle />
-        <sb-first-error [control]="_form.controls.email"/>
-    </div>
-
-    <div class="form-group">
-        @if(showLables()) {
             <label [for]="'newPassword'+_idSuffix">New Password</label>
         }
         <div class="password-input-container" sbInputWithBtn color="primary">
@@ -53,7 +41,9 @@
         }
     </div>
 
-    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    <sb-button type="submit" 
+        [disabled]="_form.invalid || disabled()" 
+        color="primary">
         Reset Password
     </sb-button>
 </form>

@@ -1,50 +1,54 @@
-import { ChangeDetectionStrategy, Component, inject, input, Input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbToggleIconButtonComponent } from '../../../../ui/buttons/toggle-icon-button/toggle-icon-button.component';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
+import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { PasswordValidation } from '../utils/validators/password-validators';
 
-//##########################//
-
-export interface ConfirmEmailWithPwdFormDto {
+export interface ChangePwdFormDto {
+    email: string;
     password: string;
+    newPassword: string;
     confirmPassword: string;
 }
 
-interface ConfirmEmailWithPwdForm {
+interface ChangePwdForm {
+    email: FormControl<string>;
     password: FormControl<string>;
+    newPassword: FormControl<string>;
     confirmPassword: FormControl<string>;
 }
 
 //##########################//
 
 @Component({
-    selector: 'sb-confirm-email-with-pwd-form',
+    selector: 'sb-change-pwd-form',
     standalone: true,
     imports: [
         ReactiveFormsModule,
         FirstErrorDirective,
         FirstErrorComponent,
         SbButtonComponent,
+        SbInputStyleDirective,
         SbInputWithBtnDirective,
-        SbToggleIconButtonComponent
+        SbToggleIconButtonComponent,
     ],
-    templateUrl: './confirm-email-with-pwd.component.html',
-    styleUrl: './confirm-email-with-pwd.component.scss',
+    templateUrl: './change-pwd.component.html',
+    styleUrl: './change-pwd.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmEmailWithPwdFormComponent {
+export class ChangePwdFormComponent {
 
     private fb = inject(FormBuilder);
 
     //- - - - - - - - - - - -//
-
-    confirmEmail = output<ConfirmEmailWithPwdFormDto>();
-
+    
+    changePassword = output<ChangePwdFormDto>();
 
     showLables = input<boolean>(true);
+
 
     /**
      * Allows consumers to customize the password field's validation.
@@ -69,15 +73,19 @@ export class ConfirmEmailWithPwdFormComponent {
 
     //- - - - - - - - - - - -//
 
-    protected showPassword = signal(false);
+    protected showCurrentPassword = signal(false);
+    protected showNewPassword = signal(false);
     protected showConfirmPassword = signal(false);
 
-    protected _form: FormGroup<ConfirmEmailWithPwdForm> = this.fb.nonNullable
-        .group({
-            password: ['', [Validators.required, ...PasswordValidation.validationArray(6)]],
-            confirmPassword: ['', [Validators.required]]
-        }, { validators: PasswordValidation.matchValidator() });
+    protected _form: FormGroup<ChangePwdForm> = this.fb.nonNullable.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        newPassword: ['', [Validators.required, ...PasswordValidation.validationArray(6)]],
+        confirmPassword: ['', [Validators.required]]
+  }, { validators: PasswordValidation.matchValidator('newPassword', 'confirmPassword') });
 
+    private static _count = 0;
+    protected _idSuffix = `-${ChangePwdFormComponent._count++}`;
 
     //- - - - - - - - - - - -//
 
@@ -85,19 +93,23 @@ export class ConfirmEmailWithPwdFormComponent {
         if (!this._form.valid)
             return;
 
-        const dto: ConfirmEmailWithPwdFormDto = {
+        const dto: ChangePwdFormDto = {
+            email: this._form.controls.email.value,
             password: this._form.controls.password.value,
+            newPassword: this._form.controls.newPassword.value,
             confirmPassword: this._form.controls.confirmPassword.value,
         };
 
-        this.confirmEmail.emit(dto);
+        this.changePassword.emit(dto);
     }
 
-    protected onPasswordToggle = (hide: boolean) =>
-        this.showPassword.set(!hide);
+    protected onCurrentPasswordToggle = (hide: boolean) =>
+        this.showCurrentPassword.set(!hide);
 
+    protected onNewPasswordToggle = (hide: boolean) =>
+        this.showNewPassword.set(!hide);
 
     protected onConfirmPasswordToggle = (hide: boolean) =>
         this.showConfirmPassword.set(!hide);
 
-}
+}//Cls
