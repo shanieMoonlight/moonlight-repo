@@ -2,12 +2,12 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
-import { SbTextButtonComponent } from '../../../../ui/text-button/text-button.component';
-import { SbToggleIconButtonComponent } from '../../../../ui/toggle-icon-button/toggle-icon-button.component';
+import { SbTextButtonComponent } from '../../../../ui/buttons/text-button/text-button.component';
+import { SbToggleIconButtonComponent } from '../../../../ui/buttons/toggle-icon-button/toggle-icon-button.component';
 
 //##########################//
 
@@ -85,7 +85,7 @@ export class LoginFormComponent {
     this.login.emit(dto)
   }
 
-  protected forgotPwdClick = () =>
+  protected forgotPwdClick = () => 
     this.forgotPwd.emit()
 
   protected onPasswordToggle = (hide: boolean) =>

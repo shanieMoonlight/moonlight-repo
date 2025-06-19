@@ -1,22 +1,22 @@
 <div class="home-container">
 
-  <sb-hero-banner
+  <!-- <sb-hero-banner
     [title]="_title"
     [subtitle]="_subtitle"
     [description]="_description"
     [imageUrl]="_heroImageUrl"
     [imageAlt]="_heroImageAlt"
-    [actionsTemplate]="bannerActionsTemplate"/>
+    [actionsTemplate]="bannerActionsTemplate"/> -->
     
-  <!-- <section class="features-section">
+  <section class="features-section">
     <h2 class="section-title">Examples</h2>
     <p class="section-description">
       Explore these examples to see how our solution can help with your projects.
     </p>
 
     <div class="features-grid">
-      @for (feature of _features(); track feature.title) {
-        <mat-card class="feature-card">
+      @for (feature of _features(); track feature.title ) {
+        <mat-card class="feature-card" [ngClass]="feature.color || 'primary'">
           <mat-card-header>
             <mat-icon mat-card-avatar>{{ feature.icon }}</mat-icon>
             <mat-card-title>{{ feature.title }}</mat-card-title>
@@ -24,15 +24,15 @@
           <mat-card-content>
             <p>{{ feature.description }}</p>
           </mat-card-content>
-          <mat-card-actions>
-            <a mat-button color="primary" [routerLink]="feature.route">View Example</a>
+          <mat-card-actions [align]="'end'">
+            <a mat-button color="primary" [routerLink]="feature.route">EXPLORE</a>
           </mat-card-actions>
         </mat-card>
       }
     </div>
   </section>
 
-  <mat-divider/>
+  <!-- <mat-divider/>
   <section class="benefits-section">
     <h2 class="section-title">Key Benefits</h2>
     <p class="section-description">

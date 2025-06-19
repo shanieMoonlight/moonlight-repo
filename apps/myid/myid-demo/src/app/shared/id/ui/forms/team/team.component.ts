@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { AppUserDto } from '../../../../io/models/app-user-dto';
 import { TeamType } from '../../../../io/models/team-type';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 
@@ -61,7 +61,9 @@ export class SbTeamFormComponent {
   public set team(team: TeamFormDto | undefined) {
     this.setFormValues(team);
     this._isUpdateForm.set(!!team);
-  }  protected _isUpdateForm = signal(false);
+  }  
+  
+  protected _isUpdateForm = signal(false);
   protected _memberOptions = signal<SelectOption[]>([]);
 
   public form: FormGroup<TeamForm> = this.fb.nonNullable.group({
@@ -74,7 +76,7 @@ export class SbTeamFormComponent {
     minPosition: [1, [Validators.required, Validators.min(1)]],
     maxPosition: [1, [Validators.required, Validators.min(1)]],    
     // Leadership
-    leaderId: [''],
+    leaderId: ['',[]],
     
     // Team Type (read-only, determined by server)
     teamType: ['customer' as TeamType]
@@ -135,6 +137,7 @@ export class SbTeamFormComponent {
   //- - - - - - - - - - -//
 
   extractFormValues(): TeamFormDto {
+
     const dto: TeamFormDto = {
       id: this.form.controls.id.value,
       name: this.form.controls.name.value,

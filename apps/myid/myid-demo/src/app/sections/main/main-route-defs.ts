@@ -9,6 +9,9 @@ const BaseRoute = '';
 type CHILD_ROUTE =
   | 'home'
   | 'oauth'
+  | 'login-jwt'
+  | 'login-cookie'
+  | 'custom-slider'
 
 //#################################################//
 

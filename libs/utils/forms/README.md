@@ -82,11 +82,11 @@ export class LoginFormComponent {
 
 #### Inputs
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `sbFormControlFirstError` | `FormGroup` | **required** | The reactive form to monitor |
-| `customErrorMessages` | `CustomErrorMessageMap` | `undefined` | Custom error message mappings |
-| `showUntouched` | `boolean` | `false` | Show errors before user interaction |
+| Property                  | Type                    | Default      | Description                         |
+| ------------------------- | ----------------------- | ------------ | ----------------------------------- |
+| `sbFormControlFirstError` | `FormGroup`             | **required** | The reactive form to monitor        |
+| `customErrorMessages`     | `CustomErrorMessageMap` | `undefined`  | Custom error message mappings       |
+| `showUntouched`           | `boolean`               | `false`      | Show errors before user interaction |
 
 ### 🎨 FirstErrorComponent
 
@@ -98,7 +98,6 @@ A standalone component that displays validation errors with smooth animations an
 - Displays only the first validation error
 - Smooth fade-in animation for error appearance
 - ARIA live regions for screen reader compatibility
-- CSS custom properties for theme integration
 
 #### Usage
 
@@ -131,8 +130,8 @@ sb-first-error {
 
 #### Inputs
 
-| Property | Type | Description |
-|----------|------|-------------|
+| Property  | Type              | Description                                          |
+| --------- | ----------------- | ---------------------------------------------------- |
 | `control` | `AbstractControl` | **Required.** The form control to display errors for |
 
 ## Installation & Setup
@@ -143,7 +142,7 @@ sb-first-error {
 import { 
   FirstErrorDirective, 
   FirstErrorComponent 
-} from '@spider-baby-repo/utils-forms';
+} from '@spider-baby/utils-forms';
 
 @Component({
   standalone: true,
@@ -247,36 +246,36 @@ export class LoginFormComponent {
 
 The library provides sensible defaults for common validation errors:
 
-| Error Key         | Example Message                                                                 |
-|-------------------|-------------------------------------------------------------------------------|
-| required          | `Email is required.`                                                           |
-| email             | `Please enter a valid email address.`                                          |
-| minlength         | `Password must be at least 8 characters.`                                      |
-| maxlength         | `Field must be no more than 20 characters.`                                    |
-| pattern           | `Field format is invalid.`                                                     |
-| min               | `Value must be at least 1.`                                                    |
-| max               | `Value must be no more than 100.`                                              |
-| passwordMismatch  | `Passwords do not match.`                                                      |
-| mustMatch         | `Fields do not match.`                                                         |
-| whitespace        | `Field cannot contain only whitespace.`                                        |
-| forbiddenValue    | `Field cannot be "forbidden".`                                               |
-| asyncValidation   | `Field validation is pending...`                                               |
-| invalidDate       | `Please enter a valid date.`                                                   |
-| futureDate        | `Date must be in the future.`                                                  |
-| pastDate          | `Date must be in the past.`                                                    |
-| strongPassword    | `Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.` |
-| phoneNumber       | `Please enter a valid phone number.`                                           |
-| url               | `Please enter a valid URL.`                                                    |
-| unique            | `This field is already taken.`                                                 |
-| fileSize          | `File size must be less than 2MB.`                                             |
-| fileType          | `Only PDF, DOCX files are allowed.`                                            |
+| Error Key        | Example Message                                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------- |
+| required         | `Email is required.`                                                                                                |
+| email            | `Please enter a valid email address.`                                                                               |
+| minlength        | `Password must be at least 8 characters.`                                                                           |
+| maxlength        | `Field must be no more than 20 characters.`                                                                         |
+| pattern          | `Field format is invalid.`                                                                                          |
+| min              | `Value must be at least 1.`                                                                                         |
+| max              | `Value must be no more than 100.`                                                                                   |
+| passwordMismatch | `Passwords do not match.`                                                                                           |
+| mustMatch        | `Fields do not match.`                                                                                              |
+| whitespace       | `Field cannot contain only whitespace.`                                                                             |
+| forbiddenValue   | `Field cannot be "forbidden".`                                                                                      |
+| asyncValidation  | `Field validation is pending...`                                                                                    |
+| invalidDate      | `Please enter a valid date.`                                                                                        |
+| futureDate       | `Date must be in the future.`                                                                                       |
+| pastDate         | `Date must be in the past.`                                                                                         |
+| strongPassword   | `Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.` |
+| phoneNumber      | `Please enter a valid phone number.`                                                                                |
+| url              | `Please enter a valid URL.`                                                                                         |
+| unique           | `This field is already taken.`                                                                                      |
+| fileSize         | `File size must be less than 2MB.`                                                                                  |
+| fileType         | `Only PDF, DOCX files are allowed.`                                                                                 |
 
 > **Note:** Some messages are parameterized and will display the actual field name or value as appropriate.
 
 ### Custom Error Messages
 
 ```typescript
-import { CustomErrorMessageMap } from '@spider-baby-repo/utils-forms';
+import { CustomErrorMessageMap } from '@spider-baby/utils-forms';
 
 const customMessages: CustomErrorMessageMap = new Map([
   ['email', (field, error) => {
@@ -300,67 +299,61 @@ const customMessages: CustomErrorMessageMap = new Map([
 </form>
 ```
 
-## Accessibility Features
 
-- **ARIA Live Regions**: Error messages are announced to screen readers
-- **Role Attributes**: Proper semantic roles for assistive technology
-- **Focus Management**: Works seamlessly with keyboard navigation
-- **Progressive Enhancement**: Graceful fallback without JavaScript
+#### 🌎 Example: Custom Error Messages in Spanish
 
-## Browser Support
-
-- **Angular**: 15+ (Standalone Components)
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge
-- **Accessibility**: WCAG 2.1 AA compliant
-
-## Best Practices
-
-### 1. Form Structure
-```html
-<!-- ✅ Good: Clear hierarchy and error placement -->
-<div class="form-group">
-  <label for="field">Field Label</label>
-  <input id="field" formControlName="field" />
-  <sb-first-error [control]="form.controls.field"/>
-</div>
-```
-
-### 2. Validation Strategy
 ```typescript
-// ✅ Good: Meaningful validation rules
-email: ['', [Validators.required, Validators.email]],
-password: ['', [Validators.required, Validators.minLength(8)]],
+import { CustomErrorMessageMap } from '@spider-baby/utils-forms';
+
+const customMessagesEs: CustomErrorMessageMap = new Map([
+  ['email', (field, error) => {
+    if (error.required) return 'El correo electrónico es obligatorio';
+    if (error.email) return 'Por favor, introduce un correo electrónico válido';
+    return '';
+  }],
+  ['password', (field, error) => {
+    if (error.required) return 'La contraseña no puede estar vacía';
+    if (error.minlength) return 'La contraseña debe tener al menos 8 caracteres';
+    return '';
+  }],
+]);
 ```
-
-### 3. User Experience
-- Use meaningful placeholder text
-- Provide clear validation requirements
-- Consider progressive disclosure for complex forms
-- Test with screen readers
-
-## Integration with Other Libraries
-
-### Material Design
-Works seamlessly with Angular Material:
 
 ```html
-<mat-form-field>
-  <mat-label>Email</mat-label>
-  <input matInput formControlName="email" />
-  <sb-first-error [control]="form.controls.email"/>
-</mat-form-field>
+<form [formGroup]="myForm" 
+      [sbFormControlFirstError]="myForm"
+      [customErrorMessages]="customMessagesEs">
+  <!-- form controls -->
+</form>
 ```
 
-### Bootstrap
-Compatible with Bootstrap form classes:
+#### Custom Error Template
+
+You can provide a custom error message template to `sb-first-error` using the `customErrorTemplate` input. This allows you to fully control the rendering and styling of error messages.
+
+**Usage:**
 
 ```html
-<div class="mb-3">
-  <label class="form-label">Email</label>
-  <input class="form-control" formControlName="email" />
-  <sb-first-error [control]="form.controls.email"/>
-</div>
+<sb-first-error [control]="form.controls.email" [customErrorTemplate]="customErrorMessageTemplate"/>
+
+<ng-template #customErrorMessageTemplate let-errorMessage="errorMessage">
+  <h3 class="custom-error">****{{errorMessage}}****</h3>
+</ng-template>
 ```
+
+**Inputs Table:**
+
+| Property              | Type                        | Description                                      |
+|-----------------------|-----------------------------|--------------------------------------------------|
+| `control`             | `AbstractControl`           | **Required.** The form control to display errors for |
+| `customErrorTemplate` | `TemplateRef<unknown>`      | Optional. Custom template for error message display |
+
+If `customErrorTemplate` is provided, it will be used to render the error message. The template receives an `errorMessage` context variable containing the error text.
+
+> **Limitation:**  
+> Dynamic form changes (adding or removing controls at runtime) are **not automatically handled** in this version.  
+> If you add or remove controls after initialization, you must manually re-run the error setup logic (e.g., by calling the directive's setup method again).  
+> Support for automatic handling of dynamic form changes is planned for a future release.
 
 ## Running unit tests
 

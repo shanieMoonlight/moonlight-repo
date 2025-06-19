@@ -1,17 +1,18 @@
 import { ApiRouteData } from "@sb-hub/ui-cards/api";
+import { AppRouteDefs } from "../../../app-route-defs";
 export const MAIN_ROUTES: ApiRouteData[] = [
   {
-    title: 'Example 1',
-    description: 'Description for Example 1. Add your specific details here.',
-    route: '/example_1',
-    icon: 'data_object',
+    title: 'Login Jwt',
+    description: 'Login and get a Json Web Token.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('login-jwt'),
+    icon: 'login',
     color: 'primary'
   },
   {
-    title: 'Example 2',
-    description: 'Description for Example 2. Add your specific details here.',
-    route: '/example_2',
-    icon: 'assignment',
+    title: 'Login Cookie',
+    description: 'Login and get a Cookie.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('login-cookie'),
+    icon: 'cookie',
     color: 'secondary'
   },
   {

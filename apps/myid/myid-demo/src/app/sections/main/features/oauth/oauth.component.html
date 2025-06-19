@@ -1,12 +1,13 @@
 <div class="container">
 
-<sb-team-form [team]="_testTeamSuper"/>
-
-        <sb-login-form 
-          (login)="loginCookie($event)" 
-          [showRemeberMe]="true"
-          [socialTemplate]="socialTemplate"/>
-    
+  
+  <sb-login-form 
+    (login)="loginCookie($event)" 
+    [showRemeberMe]="true"
+    [socialTemplate]="socialTemplate"/>
+  
+  <!-- <sb-team-form [team]="_testTeamSuper"/> -->
+  <sb-team-form />
   <!-- <sb-app-user-form [appUser]="_testUser"
     (addUser)="handleAddUser($event)"
     (updateUser)="handleEditUser($event)"/>

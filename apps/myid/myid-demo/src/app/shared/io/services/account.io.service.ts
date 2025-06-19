@@ -109,8 +109,8 @@ export class AccountIoService extends AServerIoService {
   googleCookieSignin = (
     dto: GoogleCookieSignInDto,
     opts?: unknown
-  ): Observable<JwtPackage> =>
-    this._postAction<JwtPackage>(
+  ): Observable<CookieSignInResultData> =>
+    this._postAction<CookieSignInResultData>(
       ServerRoutes.Account.action('googleCookieSignin'),
       dto,
       opts ?? {}

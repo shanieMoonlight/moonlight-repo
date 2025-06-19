@@ -46,7 +46,7 @@ export class FormErrors {
         const controls = form.controls
         for (const name in controls) {
             const control = controls[name]
-            if (control.invalid) 
+            if (control.invalid)
                 this.setFirstErrorMessage(name, control, customErrorMessages)
         }
     }
@@ -63,10 +63,10 @@ export class FormErrors {
         const currentErrors = control.errors
         const firstError = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
         if (firstError)
-                control.setErrors(
-                    { ...currentErrors, firstError: firstError }, 
-                    { emitEvent: false }  // This prevents statusChanges emission
-                )
+            control.setErrors(
+                { ...currentErrors, firstError: firstError },
+                { emitEvent: false }  // This prevents statusChanges emission
+            )
 
     }
 

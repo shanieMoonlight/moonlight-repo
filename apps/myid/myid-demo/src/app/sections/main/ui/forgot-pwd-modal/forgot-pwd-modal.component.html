@@ -1,0 +1,19 @@
+@if (openModal()) {
+<div class="forgot-modal-backdrop">
+  <div class="forgot-modal">
+    <div class="forgot-modal-header">
+        <h3>Forgot Password</h3>
+        <sb-button-icon-close 
+          (click)="dismissModal()" 
+          aria-label="Close forgot modal"/>
+    </div>  
+    
+      <div class="forgot-modal-body">
+        <p class="description">{{description()}}</p> 
+          <sb-forgot-pwd-form
+          [showLables]="false"
+          (forgotPassword)="onForgotPassword($event)"/>
+      </div>
+  </div>
+</div>
+}

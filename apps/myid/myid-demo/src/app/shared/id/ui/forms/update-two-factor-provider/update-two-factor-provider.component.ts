@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, Input, input, output } from
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
+// import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 
 //##########################//

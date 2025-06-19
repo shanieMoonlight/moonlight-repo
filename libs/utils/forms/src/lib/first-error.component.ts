@@ -1,16 +1,24 @@
-import { Component, input } from "@angular/core";
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, input, TemplateRef } from "@angular/core";
 import { AbstractControl } from "@angular/forms";
 
 @Component({
   selector: 'sb-first-error',
   standalone: true,
+  imports: [NgTemplateOutlet],
   template: `
     @if(this.control().errors?.['firstError']; as err) {
-      <span class="error" 
-            [attr.aria-live]="'polite'"
-            [attr.role]="'alert'">
-        {{err}}
-      </span>
+       @if(customErrorTemplate(); as template){
+         <ng-container 
+          [ngTemplateOutlet]="template" 
+          [ngTemplateOutletContext]="{errorMessage: err}"/>
+        }@else {
+          <span class="error" 
+                [attr.aria-live]="'polite'"
+                [attr.role]="'alert'">
+            {{err}}
+          </span>
+        }
     }
   `,
   styles: [`
@@ -35,4 +43,6 @@ import { AbstractControl } from "@angular/forms";
 export class FirstErrorComponent {
 
   control = input.required<AbstractControl>();
+  customErrorTemplate = input<TemplateRef<unknown> | undefined>(undefined)
+
 }

@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { IdTheme } from '../theme.type';
+import { IdTheme } from '../../theme.type';
 
 @Component({
   selector: 'sb-text-button',

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { IdentityAddressDto } from '../../../../io/models/identity-address-dto';
 import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbSelectComponent } from '../../../../ui/select/select.component';
