@@ -24,6 +24,22 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/login-cki/login-cki.component').then(m => m.LoginCkiComponent),
             },
             {
+                path: MainSectionRoutesDefs.route('confirm-email'),
+                loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('confirm-email-with-pwd'),
+                loadComponent: () => import('./features/confirm-email-with-pwd/confirm-email-with-pwd.component').then(m => m.ConfirmEmailWithPwdComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('confirm-phone'),
+                loadComponent: () => import('./features/confirm-phone/confirm-phone.component').then(m => m.ConfirmPhoneComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('reset-pwd'),
+                loadComponent: () => import('./features/reset-pwd/reset-pwd.component').then(m => m.ResetPwdComponent),
+            },
+            {
                 path: '',
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },

@@ -49,6 +49,7 @@ export class LoginJwtComponent implements OnInit {
 
   private _states = MiniStateCombined.Combine(
     this._loginState,
+    this._forgotPwdState,
     this._googleLoginState)
 
   protected _successMsg = this._states.successMsg

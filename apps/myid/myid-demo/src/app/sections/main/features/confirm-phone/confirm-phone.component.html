@@ -1,0 +1,16 @@
+<div class="container">
+    
+    <h2>Confirm Your Phone</h2>
+    <p class="description">Enter the verification code sent to your phone number.</p> 
+    
+    <sb-confirm-phone-form
+        (confirmPhone)="confirmPhone($event)"/>
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />

@@ -24,13 +24,15 @@ interface ConfirmEmailWithPwdForm {
 function passwordMatchValidator(control: AbstractControl) {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
-
+    
     if (!password || !confirmPassword) {
         return null;
     }
-
+    
     return password.value === confirmPassword.value ? null : { passwordMismatch: true };
 }
+
+//##########################//
 
 @Component({
     selector: 'sb-confirm-email-with-pwd-form',

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 96%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.description {
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.95rem;
+  margin-bottom: 3rem;
+  line-height: 1.4;
+}
+
+
+mat-card {
+  border: 1px solid var(--mat-sys-secondary-30);
+  max-width: 450px;
+  height: 100%;
+  width: 100%;
+}
+
+

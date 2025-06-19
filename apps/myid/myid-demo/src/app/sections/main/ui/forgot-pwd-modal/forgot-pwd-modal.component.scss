@@ -28,7 +28,9 @@
 
 .forgot-modal-header {
   background-color: var(--mat-sys-primary-container);
+  background-color: var(--mat-sys-surface-container);
   color: var(--mat-sys-on-primary-container);
+  color: var(--mat-sys-on-surface-container);
   padding: 16px;
   display: flex;
   align-items: center;

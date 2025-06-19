@@ -16,24 +16,31 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
-    title: 'Example 3',
-    description: 'Description for Example 3. Add your specific details here.',
-    route: '/example_3',
-    icon: 'edit_note',
+    title: 'Reset Password',
+    description: 'Reset your password.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('reset-pwd'),
+    icon: 'refresh',
     color: 'tertiary'
   },
   {
-    title: 'Example 4',
-    description: 'Description for Example 4. Add your specific details here.',
-    route: '/example_4',
-    icon: 'build',
+    title: 'Confirm Email',
+    description: 'Confirm your email address.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
+    icon: 'alternate_email',
+    color: 'tertiary'
+  },
+  {
+    title: 'Confirm Email with Password',
+    description: 'Confirm your email address with a password.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-pwd'),
+    icon: 'key',
     color: 'primary'
   },
   {
-    title: 'Example 5',
-    description: 'Description for Example 5. Add your specific details here.',
-    route: '/example_5',
-    icon: 'search',
+    title: 'Confirm Phone',
+    description: 'Confirm your phone number.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
+    icon: 'call',
     color: 'secondary'
-  }
+  },
 ]

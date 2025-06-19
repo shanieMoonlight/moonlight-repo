@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 
 //##########################//
@@ -38,7 +38,7 @@ export class SbConfirmPhoneFormComponent {
   confirmPhone = output<ConfirmPhoneFormDto>();
 
   protected _form: FormGroup<ConfirmPhoneForm> = this.fb.nonNullable.group({
-    confirmationToken: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
+    confirmationToken: ['', [Validators.required]]
   });
 
   
@@ -53,4 +53,5 @@ export class SbConfirmPhoneFormComponent {
 
     this.confirmPhone.emit(dto);
   }
+
 }

@@ -11,7 +11,10 @@ type CHILD_ROUTE =
   | 'oauth'
   | 'login-jwt'
   | 'login-cookie'
-  | 'custom-slider'
+  | 'confirm-email'
+  | 'confirm-email-with-pwd'
+  | 'confirm-phone'
+  | 'reset-pwd'
 
 //#################################################//
 

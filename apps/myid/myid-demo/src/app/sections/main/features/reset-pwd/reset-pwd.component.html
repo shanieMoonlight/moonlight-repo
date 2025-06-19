@@ -1,0 +1,16 @@
+<div class="container">
+
+    <h2>Reset Your Password</h2>
+    <p class="description">Enter your email address and create a new secure password for your account.</p>
+    
+
+    <sb-reset-pwd-form
+        (resetPassword)="resetPwd($event)"/>
+    
+</div>
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />
