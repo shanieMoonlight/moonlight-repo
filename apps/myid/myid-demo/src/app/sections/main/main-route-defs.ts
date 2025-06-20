@@ -9,7 +9,7 @@ export class MyIdRouteInfo {
         static readonly REDIRECT_URL_KEY = 'returnurl';
         static readonly LOGIN_EXTRA_INFO = 'extrainfo';
         static readonly USER_ID = 'userid'
-        static readonly CONFIRMATION_TOKEN_ID = 'confirmationtoken'
+        static readonly CONFIRMATION_TOKEN = 'confirmationtoken'
         static readonly RESET_PWD_TOKEN = 'resettoken'
     }
 
@@ -34,7 +34,7 @@ type CHILD_ROUTE =
   | 'login-jwt'
   | 'login-cookie'
   | 'confirm-email'
-  | 'confirm-email-with-pwd'
+  | 'confirm-email-with-password'
   | 'confirm-phone'
   | 'reset-password'
   | 'change-pwd'

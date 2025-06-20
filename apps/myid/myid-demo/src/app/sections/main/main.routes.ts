@@ -6,6 +6,8 @@ export const mainRoutes: Route[] = [
     {
         path: '',
         component: MainComponent,
+        providers: [
+        ],
         children: [
             {
                 path: MainSectionRoutesDefs.route('home'),
@@ -28,7 +30,7 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent),
             },
             {
-                path: MainSectionRoutesDefs.route('confirm-email-with-pwd'),
+                path: MainSectionRoutesDefs.route('confirm-email-with-password'),
                 loadComponent: () => import('./features/confirm-email-with-pwd/confirm-email-with-pwd.component').then(m => m.ConfirmEmailWithPwdComponent),
             },
             {

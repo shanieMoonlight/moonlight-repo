@@ -23,17 +23,23 @@ import { ResetPwdStateService } from './reset-pwd.state.service';
 export class ResetPwdComponent {
 
   private _state = inject(ResetPwdStateService)
+  // private _navService = inject(IdNavigationService)
+
+
 
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _readyToReset = this._state.readyToReset
 
+
   resetPwd = (data: ResetPwdFormDto) =>
     this._state.resetPwd(data);
 
+
   onForgotPwdClick = (dto: ForgotPasswordFormDto) =>
-    this._state.gorgotPassword(dto)
+    this._state.forgotPassword(dto)
+
 
 
 }//Cls

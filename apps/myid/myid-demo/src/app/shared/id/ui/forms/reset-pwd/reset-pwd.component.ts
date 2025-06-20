@@ -62,8 +62,8 @@ export class SbResetPwdFormComponent {
   protected showConfirmPassword = signal(false);
 
   protected _form: FormGroup<ResetPwdForm> = this.fb.nonNullable.group({
-    newPassword: ['Abc123!', [Validators.required, ...PasswordValidation.validationArray(6)]],
-    confirmPassword: ['Abc123!', [Validators.required]]
+    newPassword: ['', [Validators.required, ...PasswordValidation.validationArray(6)]],
+    confirmPassword: ['', [Validators.required]]
   }, { validators: PasswordValidation.matchValidator('newPassword', 'confirmPassword') });
 
   private static _count = 0;

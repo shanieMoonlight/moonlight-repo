@@ -1,6 +1,6 @@
 export interface ConfirmEmailWithPwdDto {
-  userId?: string;
-  confirmationToken?: string;
+  userId: string;
+  confirmationToken: string;
   password: string;
   confirmPassword: string;
 }

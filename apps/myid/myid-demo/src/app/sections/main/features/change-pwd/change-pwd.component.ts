@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ChangePwdFormComponent } from '../../../../shared/id/ui/forms/change-pwd/change-pwd.component';
 import { ChPwdDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
 import { ChangePwdStateService } from './change-pwd.state.service';
 
 @Component({

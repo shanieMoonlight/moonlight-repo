@@ -1,4 +1,4 @@
 export interface ConfirmEmailDto {
-  userId?: string;
-  confirmationToken?: string;
+  userId: string;
+  confirmationToken: string;
 }

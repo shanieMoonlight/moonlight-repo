@@ -39,7 +39,7 @@ export const MAIN_ROUTES: ApiRouteData[] = [
   {
     title: 'Confirm Email with Password',
     description: 'Confirm your email address with a password.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-pwd'),
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
     icon: 'key',
     color: 'primary'
   },

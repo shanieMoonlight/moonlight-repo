@@ -3,6 +3,18 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ConfirmEmailStateService } from './confirm-email.state.service';
+import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
+//###############################//
+
+
+const mockActRoute = {
+  queryParamMap: of({ get: () => null })
+}
+
+
+//###############################//
 
 describe('ConfirmEmailStateService', () => {
   let service: ConfirmEmailStateService;
@@ -12,7 +24,9 @@ describe('ConfirmEmailStateService', () => {
       providers:[
         provideHttpClient(),
         provideHttpClientTesting(),
-        ConfirmEmailStateService
+        ConfirmEmailStateService,
+        { provide: ActivatedRoute, useValue: mockActRoute} // <-- Add this line
+        
       ]
     });
     service = TestBed.inject(ConfirmEmailStateService);

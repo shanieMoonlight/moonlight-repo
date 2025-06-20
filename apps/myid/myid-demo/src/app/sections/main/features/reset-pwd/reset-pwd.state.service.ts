@@ -8,9 +8,13 @@ import { ForgotPwdDto, ResetPwdDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { MyIdRouteInfo } from '../../main-route-defs';
 
-@Injectable({
-  providedIn: 'root'
-})
+//###############################//
+
+export type ResetPwdDtoInput = Pick<ResetPwdDto, 'newPassword' | 'confirmPassword'>
+
+//###############################//
+
+@Injectable()
 export class ResetPwdStateService {
 
   private _actRoute = inject(ActivatedRoute);
@@ -38,23 +42,24 @@ export class ResetPwdStateService {
 
 
 
-  protected _resetFormData$ = new Subject<{ newPassword: string, confirmPassword: string }>();
+  protected _resetInputData$ = new Subject<ResetPwdDtoInput>();
 
-  private _resetDto$ = combineLatest([this._userId$, this._token$, this._resetFormData$])
+  private _resetDto$ = combineLatest([this._userId$, this._token$, this._resetInputData$])
     .pipe(
-      map(([userId, token, resetFormData]) => {
+      map(([userId, token, resetInputData]) => {
         return {
           userId: userId,
           resetToken: token,
-          newPassword: resetFormData.newPassword,
-          confirmPassword: resetFormData.confirmPassword,
+          ...resetInputData,
         } as ResetPwdDto
       })
     )
 
 
   protected _resetPwdState = MiniStateBuilder
-    .CreateWithObservableInput(this._resetDto$, (dto: ResetPwdDto) => this._ioService.resetPassword(dto))
+    .CreateWithObservableInput(
+      this._resetDto$,
+      (dto: ResetPwdDto) => this._ioService.resetPassword(dto))
     .setSuccessMsgFn((dto, response) => response.message || `Your password is successfully reset`)
 
 
@@ -77,12 +82,12 @@ export class ResetPwdStateService {
 
   //- - - - - - - - - - - - - //
 
-  resetPwd = (data: { newPassword: string, confirmPassword: string }) =>
-    this._resetFormData$.next(data)
+  resetPwd = (data: ResetPwdDtoInput) =>
+    this._resetInputData$.next(data)
 
 
 
-  gorgotPassword = (dto: ForgotPwdDto) =>
+  forgotPassword = (dto: ForgotPwdDto) =>
     this._forgotPwdState.trigger(dto)
 
 

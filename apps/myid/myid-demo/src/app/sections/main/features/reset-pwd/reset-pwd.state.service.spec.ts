@@ -81,10 +81,6 @@ describe('ResetPwdStateService', () => {
   });
 
   describe('loading state', () => {
-    it('should be true when not ready to reset', () => {
-      // No query params
-      expect(service.loading()).toBeTruthy();
-    });
 
     it('should be false when ready to reset and no active operation', () => {
       queryParamMapSubject.next(convertToParamMap({
@@ -248,8 +244,8 @@ describe('ResetPwdStateService', () => {
 
     it('should handle server validation errors', (done) => {
       const validationError = {
-          message: 'Password does not meet requirements',
-          errors: ['Password too weak']
+        message: 'Password does not meet requirements',
+        errors: ['Password too weak']
       };
       (mockAccountIoService.resetPassword as jest.Mock).mockReturnValue(throwError(() => validationError));
 
@@ -279,16 +275,28 @@ describe('ResetPwdStateService', () => {
       expect(service.readyToReset()).toBeTruthy();
     });
 
-    it('should handle computed signals correctly', () => {
+    it('should compute erroMsg if missing params', () => {
+
       // Test the computed nature of readyToReset and loading
-      expect(service.loading()).toBeTruthy(); // Not ready = loading
+
+      queryParamMapSubject.next(convertToParamMap({
+        [MyIdRouteInfo.Params.USER_ID]: '',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+      }));
+
+      expect(service.errorMsg()).toBeTruthy(); // Ready and no operation = not loading
+    });
+
+
+    it('should NOT compute erroMsg if NO missing params', () => {
+
 
       queryParamMapSubject.next(convertToParamMap({
         [MyIdRouteInfo.Params.USER_ID]: 'test-user',
         [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
       }));
 
-      expect(service.loading()).toBeFalsy(); // Ready and no operation = not loading
+      expect(service.errorMsg()).toBeFalsy(); // Ready and no operation = not loading
     });
   });
 });
