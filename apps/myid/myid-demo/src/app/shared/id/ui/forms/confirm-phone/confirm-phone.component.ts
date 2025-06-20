@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 
 //##########################//
 
 export interface ConfirmPhoneFormDto {
-  confirmationToken?: string;
+  confirmationToken: string;
 }
 
 interface ConfirmPhoneForm {
@@ -48,7 +48,7 @@ export class SbConfirmPhoneFormComponent {
       return;
 
     const dto: ConfirmPhoneFormDto = {
-      confirmationToken: this._form.controls.confirmationToken.value || undefined,
+      confirmationToken: this._form.controls.confirmationToken.value,
     };
 
     this.confirmPhone.emit(dto);

@@ -1,3 +1,3 @@
 export interface ConfirmPhoneDto {
-  confirmationToken?: string;
+  confirmationToken: string;
 }

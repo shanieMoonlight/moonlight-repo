@@ -9,7 +9,16 @@
         [disabled]="!_readyToReset()"
         (resetPassword)="resetPwd($event)"/>
     
+    @if(_errorMsg()){
+        <sb-forgot-pwd-modal-button 
+            (forgotPwd)="onForgotPwdClick($event)"
+            color="error">
+            Resend Verification Email  
+        </sb-forgot-pwd-modal-button>
+    }
+    
 </div>
+
 
 
 <sb-notifications-modal-mat 

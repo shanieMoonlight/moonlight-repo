@@ -9,12 +9,12 @@
 
 .container {
   width: 96%;
-  max-width: 1200px;
+  max-width: 450px;
   display: flex;
   align-items: center;
   flex-direction: column;
 
-  
+
 }
 
 h2 {
@@ -32,11 +32,11 @@ h2 {
 }
 
 
-mat-card {
-  border: 1px solid var(--mat-sys-secondary-30);
-  max-width: 450px;
-  height: 100%;
+sb-forgot-pwd-modal-button {
   width: 100%;
+  margin: 2rem 0;
 }
 
-
+sb-reset-pwd-form{
+  width: 100%;
+}

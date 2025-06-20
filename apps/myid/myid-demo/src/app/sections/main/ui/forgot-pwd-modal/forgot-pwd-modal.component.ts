@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, model, output } from '@angular/core';
 import { ForgotPasswordFormDto, SbForgotPwdFormComponent } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { SbButtonIconCloseComponent } from '../../../../shared/ui/buttons/button-close/button-close.component';
+import { SbButtonIconCloseComponent } from '../../../../shared/ui/buttons';
 
 @Component({
   selector: 'sb-forgot-pwd-modal',
+  standalone: true,
   imports: [
     SbForgotPwdFormComponent,
     SbButtonIconCloseComponent
@@ -18,7 +19,7 @@ export class ForgotPwdModalComponent {
   description = input<string>('Please enter your email address to receive a password reset link.');
 
 
-  email = output<ForgotPasswordFormDto>()
+    forgotPwd = output<ForgotPasswordFormDto>()
 
   //--------------------------//
 
@@ -28,7 +29,7 @@ export class ForgotPwdModalComponent {
 
   protected onForgotPassword(dto: ForgotPasswordFormDto) {
     this.openModal.update(() => false);
-    this.email.emit(dto);
+    this.forgotPwd.emit(dto);
   }
 
 }

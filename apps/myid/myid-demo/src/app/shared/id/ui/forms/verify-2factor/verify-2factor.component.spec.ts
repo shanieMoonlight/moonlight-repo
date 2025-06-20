@@ -3,7 +3,7 @@ import { SbVerify2FactorFormComponent } from './verify-2factor.component';
 import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 
 describe('SbVerify2FactorFormComponent', () => {

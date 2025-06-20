@@ -1,10 +1,10 @@
-import { computed, effect, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
-import { ResetPwdDto } from '../../../../shared/io/models';
+import { ForgotPwdDto, ResetPwdDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { MyIdRouteInfo } from '../../main-route-defs';
 
@@ -31,6 +31,10 @@ export class ResetPwdStateService {
   private _token = toSignal(this._token$)
 
   readyToReset = computed(() => !!this._userId() && !!this._token())
+  invalidDataErrorMsg = computed(() => !this.readyToReset()
+    ? `Invalid userId or token.`
+    : undefined
+  );
 
 
 
@@ -54,15 +58,21 @@ export class ResetPwdStateService {
     .setSuccessMsgFn((dto, response) => response.message || `Your password is successfully reset`)
 
 
+  protected _forgotPwdState = MiniStateBuilder
+    .CreateWithInput((dto: ForgotPwdDto) => this._ioService.forgotPassword(dto))
+    .setSuccessMsgFn((dto, response) => `${response.message}`)
+
+
   //- - - - - - - - - - - - - //
 
 
   private _states = MiniStateCombined.Combine(
+    this._forgotPwdState,
     this._resetPwdState)
 
   successMsg = this._states.successMsg
-  errorMsg = this._states.errorMsg
-  loading = computed(() => !this.readyToReset() || this._states.loading())
+  errorMsg = computed(() => this.invalidDataErrorMsg() || this._states.errorMsg())
+  loading = this._states.loading
 
 
   //- - - - - - - - - - - - - //
@@ -71,17 +81,10 @@ export class ResetPwdStateService {
     this._resetFormData$.next(data)
 
 
-  /**
-   *
-   */
-  constructor() {
 
-    effect(() => {
-      console.log(`ResetPwdStateService: userId: ${this._userId()}, token: ${this._token()}`);
+  gorgotPassword = (dto: ForgotPwdDto) =>
+    this._forgotPwdState.trigger(dto)
 
-    })
-
-  }
 
 
 }//Cls

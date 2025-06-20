@@ -5,6 +5,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { ChangePwdFormComponent } from '../../../../shared/id/ui/forms/change-pwd/change-pwd.component';
 import { ChPwdDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
+import { ChangePwdStateService } from './change-pwd.state.service';
 
 @Component({
   selector: 'sb-change-pwd',
@@ -12,37 +13,27 @@ import { AccountIoService } from '../../../../shared/io/services';
     SbMatNotificationsModalComponent,
     ChangePwdFormComponent
   ],
+  providers: [ChangePwdStateService],
   templateUrl: './change-pwd.component.html',
   styleUrl: './change-pwd.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePwdComponent {
 
-  private _ioService = inject(AccountIoService)
-  
-  //- - - - - - - - - - - - - //
-
-
-  protected _resetPwdState = MiniStateBuilder
-    .CreateWithInput((dto: ChPwdDto) => this._ioService.changePassword(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message}`)
+  private _state = inject(ChangePwdStateService)
 
   //- - - - - - - - - - - - - //
 
-  private _states = MiniStateCombined.Combine(
-    this._resetPwdState)
-
-  protected _successMsg = this._states.successMsg
-  protected _errorMsg = this._states.errorMsg
-  protected _loading = this._states.loading
+  protected _successMsg = this._state.successMsg
+  protected _errorMsg = this._state.errorMsg
+  protected _loading = this._state.loading
 
 
   //--------------------------//
 
 
-  changePassword = (dto: ChPwdDto) => {
-    console.log('ConfirmEmailWithPwdFormDto', dto)
-  }
+  changePassword = (dto: ChPwdDto) =>
+    this._state.changePassword(dto);
 
 }//Cls
 

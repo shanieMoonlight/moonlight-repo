@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbConfirmPhoneFormComponent } from './confirm-phone.component';
 

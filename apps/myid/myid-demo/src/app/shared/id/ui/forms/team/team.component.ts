@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { AppUserDto } from '../../../../io/models/app-user-dto';
 import { TeamType } from '../../../../io/models/team-type';
-import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 

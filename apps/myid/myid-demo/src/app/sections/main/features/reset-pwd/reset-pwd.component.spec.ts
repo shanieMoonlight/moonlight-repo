@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { of } from 'rxjs';
 import { SbResetPwdFormComponent } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
 import { ResetPwdComponent } from './reset-pwd.component';
 import { ResetPwdStateService } from './reset-pwd.state.service';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
 
 // Mock the state service
 class MockResetPwdStateService {
@@ -43,7 +42,7 @@ describe('ResetPwdComponent', () => {
         SbResetPwdFormComponent
       ],
       providers: [
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        // { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: ResetPwdStateService, useClass: MockResetPwdStateService }
       ]
     }).compileComponents();

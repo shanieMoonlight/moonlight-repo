@@ -1,5 +1,5 @@
 export interface Verify2FactorDto {
-  token: string;
+  code: string;
   deviceId?: string;
   userId: string;
 }

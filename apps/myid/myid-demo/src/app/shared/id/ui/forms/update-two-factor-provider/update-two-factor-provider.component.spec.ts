@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbUpdateTwoFactorProviderFormComponent } from './update-two-factor-provider.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons/button/button.component';
+import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbSelectComponent } from '../../../../ui/select/select.component';
 import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
 import { By } from '@angular/platform-browser';

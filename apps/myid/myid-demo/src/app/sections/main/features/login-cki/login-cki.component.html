@@ -2,18 +2,18 @@
   
   <sb-login-form 
     (login)="login($event)" 
-    (forgotPwd)="onForgotPwd()"
+    (forgotPwd)="onForgotPwdClick()"
     [showRemeberMe]="true"
     [socialTemplate]="socialTemplate"/>
   
   <sb-forgot-pwd-modal 
     [(openModal)]="_showForgotPwd"
-    (email)="onForgotPasswordResult($event)"/>
+    (forgotPwd)="onForgotPasswordResult($event)"/>
 
-    <sb-notifications-modal-mat 
-      [errorMsg]="_errorMsg()" 
-      [successMsg]="_successMsg()" 
-      [isLoading]="_loading()" />
+  <sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />
 
 
 <!-- ####################################### -->

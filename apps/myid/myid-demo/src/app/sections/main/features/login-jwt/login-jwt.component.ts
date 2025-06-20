@@ -1,14 +1,11 @@
-import { GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
-import { ForgotPwdDto, LoginDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
-import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
+import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
+import { LoginDto } from '../../../../shared/io/models';
+import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
+import { LoginJwtStateService } from './login-jwt.state.service';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -18,6 +15,7 @@ import { LoginService } from '../../../../shared/id/utils/services/login/login.s
     SbMatNotificationsModalComponent,
     ForgotPwdModalComponent
   ],
+  providers: [LoginJwtStateService],
   standalone: true,
   templateUrl: './login-jwt.component.html',
   styleUrl: './login-jwt.component.scss',
@@ -25,38 +23,14 @@ import { LoginService } from '../../../../shared/id/utils/services/login/login.s
 })
 export class LoginJwtComponent implements OnInit {
 
-  private _ioService = inject(AccountIoService)
-  private _loginService = inject(LoginService)
+  private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
 
-  protected _loginState = MiniStateBuilder
-    .CreateWithInput((dto: LoginDto) => this._loginService.loginJwt(dto))
-    .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
-    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', jwtPackage); })
-
-
-  protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: SocialUser) => this._loginService.loginGoogleJwt(dto))
-    .setSuccessMsgFn((dto) => `User,  ${dto.firstName}, is logged in successfully!`)
-    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
-
-    
-  protected _forgotPwdState = MiniStateBuilder
-    .CreateWithInput((dto: ForgotPwdDto) => this._ioService.forgotPassword(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message}`)
-
-  //- - - - - - - - - - - - - //
-
-  private _states = MiniStateCombined.Combine(
-    this._loginState,
-    this._forgotPwdState,
-    this._googleLoginState)
-
-  protected _successMsg = this._states.successMsg
-  protected _errorMsg = this._states.errorMsg
-  protected _loading = this._states.loading
+  protected _successMsg = this._state.successMsg
+  protected _errorMsg = this._state.errorMsg
+  protected _loading = this._state.loading
 
   protected _showForgotPwd = signal(false)
 
@@ -66,16 +40,15 @@ export class LoginJwtComponent implements OnInit {
 
   ngOnInit() {
     this._socialAuth.authState.subscribe((socialUser) => {
-      this._googleLoginState.trigger(socialUser)
+      this._state.loginGoogle(socialUser)
     })
   }
-
 
   //- - - - - - - - - - - - - //
 
 
   login = (dto: LoginDto) =>
-    this._loginState.trigger(dto)
+    this._state.login(dto)
 
 
   onForgotPwd = () =>
@@ -83,7 +56,7 @@ export class LoginJwtComponent implements OnInit {
 
 
   onForgotPasswordResult = (dto: ForgotPasswordFormDto) =>
-    this._forgotPwdState.trigger(dto)
+    this._state.forgotPassword(dto)
 
 
 }//Cls
