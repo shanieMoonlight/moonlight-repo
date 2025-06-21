@@ -32,8 +32,8 @@ export class ConfirmEmailComponent {
   protected _loading = this._state.loading
   protected _resendSuccess = this._state.resendSuccess
 
+  protected _emailConfirmedSuccessMsg = this._state.emailConfirmedSuccessMsg
   protected _resendSuccessMsg = this._state.resendSuccessMsg
-  protected _emailConfirmedSuccessMsg = this._state.emailConfirmedSucessMsg
 
   resendConfirmation = () =>
     this._state.resendConfirmation();

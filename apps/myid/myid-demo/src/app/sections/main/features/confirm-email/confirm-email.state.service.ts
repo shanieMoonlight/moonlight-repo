@@ -86,7 +86,7 @@ export class ConfirmEmailStateService {
   resendSuccessMsg = this._resendState.successMsg
 
   resendSuccess = computed(() => !!this._resendState.successMsg()?.length)
-  emailConfirmedSucessMsg = this._confirmPwdState.successMsg
+  emailConfirmedSuccessMsg = this._confirmPwdState.successMsg
 
 
   //--------------------------//
