@@ -1,16 +1,17 @@
-import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { GoogleSigninButtonDirective, GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
 import { LoginDto } from '../../../../shared/io/models';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 @Component({
   selector: 'sb-login-jwt',
   imports: [
-    GoogleSigninButtonModule,
+    GoogleSigninButtonDirective,
     LoginFormComponent,
     SbMatNotificationsModalComponent,
     ForgotPwdModalComponent
@@ -25,6 +26,7 @@ export class LoginJwtComponent implements OnInit {
 
   private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
+  private _router = inject(AMyIdRouter)
 
   //- - - - - - - - - - - - - //
 
@@ -37,6 +39,13 @@ export class LoginJwtComponent implements OnInit {
 
   //--------------------------//
 
+  constructor() {
+    effect(() => {      
+      if (this._state.loginSuccess())
+        this._router.navigateToHome()
+    })    
+  }
+
 
   ngOnInit() {
     this._socialAuth.authState.subscribe((socialUser) => {
@@ -48,7 +57,10 @@ export class LoginJwtComponent implements OnInit {
 
 
   login = (dto: LoginDto) =>
-    this._state.login(dto)
+    {
+      console.log('LoginJwtComponent.login', dto);
+      return this._state.login(dto);
+    }
 
 
   onForgotPwd = () =>

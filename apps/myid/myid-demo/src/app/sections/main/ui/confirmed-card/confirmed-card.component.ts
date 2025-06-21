@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { SbButtonComponent } from '../../../shared/ui/buttons';
-import { AMyIdRouter } from '../../../shared/id/utils/services/id-navigation/id-router.service';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { SbButtonComponent } from '../../../../shared/ui/buttons';
 
 @Component({
-  selector: 'sb-email-confirmed-card',
+  selector: 'sb-confirmed-card',
   imports: [SbButtonComponent],
   template: `
           <div class="icon-wrapper">
@@ -65,15 +65,15 @@ import { AMyIdRouter } from '../../../shared/id/utils/services/id-navigation/id-
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmailConfirmedCardComponent {
+export class ConfirmedCardComponent {
 
   private _router = inject(AMyIdRouter)
 
-  title = input('Email Confirmed!', {
-    transform: (value: string | undefined) => value || 'Email Confirmed!'
+  title = input('Confirmed!', {
+    transform: (value: string | undefined) => value || 'Confirmed!'
   });
-  message = input('Your email has been successfully confirmed. You can now log in to your account.', {
-    transform: (value: string | undefined) => value || 'Your email has been successfully confirmed. You can now log in to your account.'
+  message = input('Successfully confirmed. You can now log in to your account.', {
+    transform: (value: string | undefined) => value || 'Successfully confirmed. You can now log in to your account.'
   });
 
 

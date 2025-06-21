@@ -78,6 +78,7 @@ export class ResetPwdStateService {
   successMsg = this._states.successMsg
   errorMsg = computed(() => this.invalidDataErrorMsg() || this._states.errorMsg())
   loading = this._states.loading
+  resetSuccess = computed(() => !!this._resetPwdState.successMsg()?.length)
 
 
   //- - - - - - - - - - - - - //

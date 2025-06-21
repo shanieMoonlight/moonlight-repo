@@ -48,7 +48,7 @@ export class ConfirmEmailStateService {
       })
     )
 
-  protected _confirmPwdState = MiniStateBuilder
+  protected _confirmEmailState = MiniStateBuilder
     .CreateWithObservableInput(
       this._confirmDto$,
       (dto: ConfirmEmailDto) => this._ioService.confirmEmail(dto))
@@ -78,15 +78,16 @@ export class ConfirmEmailStateService {
 
   private _states = MiniStateCombined.Combine(
     this._resendState,
-    this._confirmPwdState)
+    this._confirmEmailState)
 
-  errorMsg = this._states.errorMsg
+  errorMsg = computed(() => this.invalidDataErrorMsg() || this._states.errorMsg())
   loading = this._states.loading
 
-  resendSuccessMsg = this._resendState.successMsg
-
   resendSuccess = computed(() => !!this._resendState.successMsg()?.length)
-  emailConfirmedSuccessMsg = this._confirmPwdState.successMsg
+  confirmationSuccess = computed(() => !!this._confirmEmailState.successMsg()?.length)
+  
+  resendSuccessMsg = this._resendState.successMsg
+  emailConfirmedSuccessMsg = this._confirmEmailState.successMsg
 
 
   //--------------------------//

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
@@ -33,13 +33,14 @@ export class LoginCkiStateService {
 
   private _states = MiniStateCombined.Combine(
     this._cookieLoginState,
-    this._forgotPwdState, 
+    this._forgotPwdState,
     this._googleLoginState)
 
- successMsg = this._states.successMsg
- errorMsg = this._states.errorMsg
- loading = this._states.loading
+  successMsg = this._states.successMsg
+  errorMsg = this._states.errorMsg
+  loading = this._states.loading
 
+  loginSuccess = computed(() => !!this._cookieLoginState.successMsg() || !!this._googleLoginState.successMsg())
 
   //- - - - - - - - - - - - - //
 

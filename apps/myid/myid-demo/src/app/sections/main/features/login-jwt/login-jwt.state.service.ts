@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
@@ -42,6 +42,8 @@ export class LoginJwtStateService {
   errorMsg = this._states.errorMsg
   loading = this._states.loading
 
+  loginSuccess = computed(() => !!this._loginState.successMsg() || !!this._googleLoginState.successMsg())
+
 
   //- - - - - - - - - - - - - //
 
@@ -51,7 +53,10 @@ export class LoginJwtStateService {
 
 
   loginGoogle = (dto: GoogleSignInDto) =>
-    this._googleLoginState.trigger(dto)
+    {
+      console.log('LoginJwtStateService.loginGoogle', dto);
+      return this._googleLoginState.trigger(dto);
+    }
 
 
   forgotPassword = (dto: ForgotPwdDto) =>

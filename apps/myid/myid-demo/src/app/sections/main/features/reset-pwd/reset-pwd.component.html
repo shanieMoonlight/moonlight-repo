@@ -16,6 +16,15 @@
             Resend Verification Email  
         </sb-forgot-pwd-modal-button>
     }
+
+    
+    <sb-button color="secondary" 
+        class="go-to-login-btn"
+        [class.show]="_resetSuccess()"
+        (click)="goToLogin()">
+        Login
+    </sb-button>
+    
     
 </div>
 

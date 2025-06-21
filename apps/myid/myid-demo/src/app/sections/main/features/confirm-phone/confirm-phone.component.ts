@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ConfirmPhoneFormDto, SbConfirmPhoneFormComponent } from '../../../../shared/id/ui/forms/confirm-phone/confirm-phone.component';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 import { ConfirmPhoneStateService } from './confirm-phone.state.service';
 
 @Component({
@@ -8,7 +10,8 @@ import { ConfirmPhoneStateService } from './confirm-phone.state.service';
   standalone: true,
   imports: [
     SbMatNotificationsModalComponent,
-    SbConfirmPhoneFormComponent
+    ConfirmedCardComponent,
+    SbButtonComponent
   ],
   providers: [ConfirmPhoneStateService],
   templateUrl: './confirm-phone.component.html',
@@ -18,20 +21,26 @@ import { ConfirmPhoneStateService } from './confirm-phone.state.service';
 export class ConfirmPhoneComponent {
 
   private _state = inject(ConfirmPhoneStateService)
+  private _router = inject(AMyIdRouter)
 
   //- - - - - - - - - - - - - //
 
 
-  protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
+  protected _resendSuccess = this._state.resendSuccess
+  protected _confirmationSuccess = this._state.confirmationSuccess
+
+  protected _phoneConfirmedSuccessMsg = this._state.phoneConfirmedSuccessMsg
+  protected _resendSuccessMsg = this._state.resendSuccessMsg
 
 
   //--------------------------//
 
+  resendConfirmation = () =>
+    this._state.resendConfirmation();
 
-  confirmPhone = (dto: ConfirmPhoneFormDto) =>
-    this._state.confirmPhone(dto.confirmationToken);
-
+  goToLogin = () =>
+    this._router.navigateToLogin();
 
 }//Cls

@@ -3,18 +3,20 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '../../../../shared/ui/buttons';
 import { ConfirmEmailStateService } from './confirm-email.state.service';
-import { EmailConfirmedCardComponent } from '../../ui/email-confirmed-card.component';
+import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 
 @Component({
   selector: 'sb-confirm-email',
   standalone: true,
   imports: [
     SbMatNotificationsModalComponent,
-    EmailConfirmedCardComponent,
+    ConfirmedCardComponent,
     SbButtonComponent
   ],
   providers: [
-    ConfirmEmailStateService
+    ConfirmEmailStateService,
+    ConfirmedCardComponent,
+    SbButtonComponent
   ],
   templateUrl: './confirm-email.component.html',
   styleUrl: './confirm-email.component.scss',
@@ -31,6 +33,7 @@ export class ConfirmEmailComponent {
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _resendSuccess = this._state.resendSuccess
+  protected _confirmationSuccess = this._state.confirmationSuccess
 
   protected _emailConfirmedSuccessMsg = this._state.emailConfirmedSuccessMsg
   protected _resendSuccessMsg = this._state.resendSuccessMsg

@@ -35,10 +35,12 @@ sb-button{
   opacity: 0;
   pointer-events: none;
   transform: translateY(40px) scale(0.98);
+  margin: 2rem 0;
+  width: 300px;
 }
 
 
-sb-email-confirmed-card { 
+sb-confirmed-card { 
   border-radius: 1.25rem;
   box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
   max-width: 400px;
@@ -49,40 +51,11 @@ sb-email-confirmed-card {
   transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
 }
 
-sb-email-confirmed-card.show, sb-button.show {
+sb-confirmed-card.show, sb-button.show {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
-.email-confirmed-card .icon-wrapper {
-  color: var(--mat-sys-primary);
-  border-radius: 50%;
-  padding: 1.2rem;
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.email-confirmed-card h3 {
-  color: var(--mat-sys-primary);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-}
-
-.email-confirmed-card p {
-  color: var(--mat-sys-on-surface-container);  
-  font-size: 1.05rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.email-confirmed-card sb-button {
-  margin-top: 0.5rem;
-  min-width: 120px;
-}
 
 

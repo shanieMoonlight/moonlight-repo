@@ -53,7 +53,10 @@ export class SbInputWithBtnDirective implements AfterContentChecked {
       this._renderer.setStyle(inputElement, 'all', 'unset');
       this._renderer.setStyle(inputElement, 'padding', '0.75rem 1rem');
       this._renderer.setStyle(inputElement, 'font-size', '1rem');
-      this._renderer.setStyle(inputElement, 'border-radius', 'inherit');
+      this._renderer.setStyle(inputElement, 'border-top-left-radius', 'inherit');
+      this._renderer.setStyle(inputElement, 'border-bottom-left-radius', 'inherit');
+      // this._renderer.setStyle(inputElement, 'border-radius', 'inherit');
+      // this._renderer.setStyle(inputElement, 'border-radius', 'inherit');
       this._renderer.setStyle(inputElement, 'background-color', 'transparent');
       this._renderer.setStyle(inputElement, 'outline', 'none');
       this._renderer.setStyle(inputElement, 'flex', '1');

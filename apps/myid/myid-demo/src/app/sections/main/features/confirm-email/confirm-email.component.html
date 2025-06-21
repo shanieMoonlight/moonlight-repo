@@ -1,22 +1,24 @@
 <div class="container">
 
-    <sb-email-confirmed-card  
-        [message]="_emailConfirmedSuccessMsg()"
-        [class.show]="_emailConfirmedSuccessMsg()"/>
+        <sb-confirmed-card  
+            [title]="'Email Confirmed!'"
+            [message]="_emailConfirmedSuccessMsg()"
+            [class.show]="_confirmationSuccess()"/>
 
-    <sb-button color="error" 
-        class="resend-confirmation-btn"
-        [class.show]="_errorMsg()"
-        (click)="resendConfirmation()">
-        Resend Email Confirmation
-    </sb-button>
-
-    <sb-button color="primary" 
-        class="go-to-login-btn"
-        [class.show]="_resendSuccess()"
-        (click)="goToLogin()">
-        Login
-    </sb-button>
+            
+        <sb-button color="primary" 
+            class="go-to-login-btn"
+            [class.show]="_resendSuccess()"
+            (click)="goToLogin()">
+            Login
+        </sb-button>
+    
+        <sb-button color="error" 
+            class="resend-confirmation-btn"
+            [class.show]="_errorMsg()"
+            (click)="resendConfirmation()">
+            Resend Email Confirmation
+        </sb-button>
     
 
     

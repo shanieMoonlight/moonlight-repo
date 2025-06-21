@@ -1,10 +1,34 @@
 <div class="container">
-    <h2>Set Your Password</h2>
-    <p class="description">Create a secure password for your account.</p>
-    
 
-<sb-confirm-email-with-pwd-form
- (confirmEmail)="confirmEmail($event)"/>
+    <div class="form"
+            [class.hide]="_emailConfirmedSuccessMsg()">
+
+        <h2>Set Your Password</h2>
+        <p class="description">Create a secure password for your account.</p>        
+        
+        <sb-confirm-email-with-pwd-form
+            (confirmEmail)="confirmEmail($event)"/>
+    </div>
+
+    <sb-confirmed-card  
+        [title]="'Email Confirmed!'"
+        [message]="_emailConfirmedSuccessMsg()"
+        [class.show]="_emailConfirmedSuccessMsg()"/>
+
+    <sb-button color="primary" 
+        class="go-to-login-btn"
+        [class.show]="_resendSuccess()"
+        (click)="goToLogin()">
+        Login
+    </sb-button>
+        
+   <sb-button color="error" 
+        class="resend-confirmation-btn"
+        [class.show]="_errorMsg()"
+        (click)="resendConfirmation()">
+        Resend Email Confirmation
+    </sb-button>
+
     
 </div>
 
@@ -12,5 +36,5 @@
 
 <sb-notifications-modal-mat 
     [errorMsg]="_errorMsg()" 
-    [successMsg]="_successMsg()" 
+    [successMsg]="_resendSuccessMsg()" 
     [isLoading]="_loading()" />

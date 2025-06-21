@@ -25,7 +25,7 @@ describe('ConfirmEmailStateService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         ConfirmEmailStateService,
-        { provide: ActivatedRoute, useValue: mockActRoute} // <-- Add this line
+        { provide: ActivatedRoute, useValue: mockActRoute} 
         
       ]
     });

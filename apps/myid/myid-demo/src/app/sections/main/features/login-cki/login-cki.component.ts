@@ -1,11 +1,12 @@
 import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
 import { LoginDto } from '../../../../shared/io/models';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
 import { LoginCkiStateService } from './login-cki.state.service';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 @Component({
   selector: 'sb-login-cki',
@@ -25,6 +26,7 @@ export class LoginCkiComponent implements OnInit {
 
   private _state = inject(LoginCkiStateService)
   private _socialAuth = inject(SocialAuthService)
+  private _router = inject(AMyIdRouter)
 
   //- - - - - - - - - - - - - //
 
@@ -36,6 +38,14 @@ export class LoginCkiComponent implements OnInit {
 
 
   //--------------------------//
+
+  constructor() {
+    effect(() => {      
+      if (this._state.loginSuccess())
+        this._router.navigateToHome()
+    })    
+  }
+
 
 
   ngOnInit() {

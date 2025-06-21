@@ -72,7 +72,8 @@ describe('SbInputWithBtnDirective', () => {
       expect(inputElement.style.all).toBe('unset');
       expect(inputElement.style.padding).toBe('0.75rem 1rem');
       expect(inputElement.style.fontSize).toBe('1rem');
-      expect(inputElement.style.borderRadius).toBe('inherit');
+      expect(inputElement.style.borderTopLeftRadius).toBe('inherit');
+      expect(inputElement.style.borderBottomLeftRadius).toBe('inherit');
       expect(inputElement.style.backgroundColor).toBe('transparent');
       expect(inputElement.style.outline).toBe('none');
       expect(inputElement.style.flex).toBe('1');

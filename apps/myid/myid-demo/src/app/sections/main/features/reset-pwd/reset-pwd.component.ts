@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { ResetPwdFormDto, SbResetPwdFormComponent } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { SbButtonComponent } from '../../../../shared/ui/buttons';
 import { ForgotPwdModalButtonComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal-button.component';
 import { ResetPwdStateService } from './reset-pwd.state.service';
 
@@ -10,7 +12,8 @@ import { ResetPwdStateService } from './reset-pwd.state.service';
   imports: [
     SbResetPwdFormComponent,
     SbMatNotificationsModalComponent,
-    ForgotPwdModalButtonComponent
+    ForgotPwdModalButtonComponent,
+    SbButtonComponent
   ],
   providers: [
     ResetPwdStateService
@@ -23,7 +26,7 @@ import { ResetPwdStateService } from './reset-pwd.state.service';
 export class ResetPwdComponent {
 
   private _state = inject(ResetPwdStateService)
-  // private _navService = inject(IdNavigationService)
+  private _router = inject(AMyIdRouter)
 
 
 
@@ -31,6 +34,7 @@ export class ResetPwdComponent {
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _readyToReset = this._state.readyToReset
+  protected _resetSuccess = this._state.resetSuccess
 
 
   resetPwd = (data: ResetPwdFormDto) =>
@@ -40,6 +44,9 @@ export class ResetPwdComponent {
   onForgotPwdClick = (dto: ForgotPasswordFormDto) =>
     this._state.forgotPassword(dto)
 
+
+  goToLogin = () =>
+    this._router.navigateToLogin();
 
 
 }//Cls

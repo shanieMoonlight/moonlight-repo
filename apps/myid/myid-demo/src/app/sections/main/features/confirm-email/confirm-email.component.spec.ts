@@ -76,20 +76,20 @@ describe('ConfirmEmailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-it('should show the email-confirmed-card when _emailConfirmedSuccessMsg() is non-empty', async () => {
-  // Spy on the component's method BEFORE triggering change detection
-  jest.spyOn(component as any, '_emailConfirmedSuccessMsg').mockReturnValue('Confirmed!');
-  
-  // Now trigger change detection with the spy in place
-  fixture.detectChanges();
-  
-  const card = nativeEl.querySelector('sb-email-confirmed-card');
-  expect(card).toBeTruthy();
+  it('should show the email-confirmed-card when _confirmationSuccess() is truthy', async () => {
+    // Spy on the component's method BEFORE triggering change detection
+    jest.spyOn(component as any, '_confirmationSuccess').mockReturnValue('Confirmed!');
+    
+    // Now trigger change detection with the spy in place
+    fixture.detectChanges();
+    
+    const card = nativeEl.querySelector('sb-confirmed-card');
+    expect(card).toBeTruthy();
 
-  console.log('component', component['_emailConfirmedSuccessMsg']());
-  
-  expect(card?.classList.contains('show')).toBe(true);
-});
+    console.log('component', component['_confirmationSuccess']());
+    
+    expect(card?.classList.contains('show')).toBe(true);
+  });
 
 
   it('should hide the email-confirmed-card when _emailConfirmedSuccessMsg() is empty', () => {
@@ -98,7 +98,7 @@ it('should show the email-confirmed-card when _emailConfirmedSuccessMsg() is non
     
     fixture.detectChanges();
     
-    const card = nativeEl.querySelector('sb-email-confirmed-card');
+    const card = nativeEl.querySelector('sb-confirmed-card');
     expect(card).toBeTruthy();
     expect(card?.classList.contains('show')).toBe(false);
   });
@@ -165,4 +165,57 @@ it('should show the email-confirmed-card when _emailConfirmedSuccessMsg() is non
     expect(modal).toBeTruthy();
     // Optionally, check attributes if needed
   });
+
+  it('should call goToLogin when login button is clicked', () => {
+    jest.spyOn(component as any, '_resendSuccess').mockReturnValue(true);
+    const goToLoginSpy = jest.spyOn(component, 'goToLogin');
+    fixture.detectChanges();
+
+    const loginBtn = nativeEl.querySelector('.go-to-login-btn') as HTMLElement;
+    expect(loginBtn).toBeTruthy();
+    loginBtn.click();
+    expect(goToLoginSpy).toHaveBeenCalled();
+  });
+
+  it('should call resendConfirmation when resend button is clicked', () => {
+    jest.spyOn(component as any, '_errorMsg').mockReturnValue('Some error');
+    const resendSpy = jest.spyOn(component, 'resendConfirmation');
+    fixture.detectChanges();
+
+    const resendBtn = nativeEl.querySelector('.resend-confirmation-btn') as HTMLElement;
+    expect(resendBtn).toBeTruthy();
+    resendBtn.click();
+    expect(resendSpy).toHaveBeenCalled();
+  });
+
+  it('should hide all UI elements when all signals are falsy', () => {
+    jest.spyOn(component as any, '_emailConfirmedSuccessMsg').mockReturnValue('');
+    jest.spyOn(component as any, '_confirmationSuccess').mockReturnValue(false);
+    jest.spyOn(component as any, '_errorMsg').mockReturnValue('');
+    jest.spyOn(component as any, '_resendSuccess').mockReturnValue(false);
+    jest.spyOn(component as any, '_resendSuccessMsg').mockReturnValue('');
+    jest.spyOn(component as any, '_loading').mockReturnValue(false);
+    fixture.detectChanges();
+
+    // Confirmed card should be hidden
+    const card = nativeEl.querySelector('sb-confirmed-card');
+    expect(card).toBeTruthy();
+    expect(card?.classList.contains('show')).toBe(false);
+
+    // Error button should be hidden
+    const errorBtn = nativeEl.querySelector('.resend-confirmation-btn');
+    expect(errorBtn).toBeTruthy();
+    expect(errorBtn?.classList.contains('show')).toBe(false);
+
+    // Login button should be hidden
+    const loginBtn = nativeEl.querySelector('.go-to-login-btn');
+    expect(loginBtn).toBeTruthy();
+    expect(loginBtn?.classList.contains('show')).toBe(false);
+
+    // Modal should still be present, but with empty/falsy values
+    const modal = nativeEl.querySelector('sb-notifications-modal-mat');
+    expect(modal).toBeTruthy();
+    // Optionally, check that modal props are empty/falsy
+  });
+  
 });

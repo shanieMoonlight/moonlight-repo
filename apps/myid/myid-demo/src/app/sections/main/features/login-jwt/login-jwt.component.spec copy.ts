@@ -1,49 +1,57 @@
 /* eslint-disable @angular-eslint/directive-selector */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Directive, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { LoginCkiComponent } from './login-cki.component';
-import { LoginCkiStateService } from './login-cki.state.service';
+import { LoginJwtComponent } from './login-jwt.component';
+import { LoginJwtStateService } from './login-jwt.state.service';
+import { signal, Directive, Input } from '@angular/core';
+import { GoogleSigninButtonDirective, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialAuthService } from '@abacritt/angularx-social-login';
+import { AccountIoService } from '../../../../shared/io/services';
+import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
 
 //##############################//
 
-const mockRouter = {
-  navigateToLogin: jest.fn(),
-  navigateToHome: jest.fn()
-};
-
-const mockStateService = {
-  loginCookie: jest.fn(),
+// Remove unused mockStateService
+const mockState = {
   forgotPassword: jest.fn(),
-  loginGoogleCookie: jest.fn(),
-  successMsg: () => 'Success',
-  errorMsg: () => 'Error',
+  login: jest.fn(),
+  loginGoogle: jest.fn(),
+  successMsg: () => 'Success message',
+  errorMsg: () => 'Error message',
   loading: () => false,
   loginSuccess: () => false,
 };
+
 
 const mockSocialAuthServiceConfig = {
   autoLogin: true,
   lang: 'en-Ie',
   providers: [],
   onError: (error: Error) => console.error('SocialAuthService Error:', error)
-};
+}
 
 // SocialAuthService mock
-const authStateSubject = new Subject<any>();
 const mockSocialAuth = {
-  authState: authStateSubject.asObservable(),
-  signInState: new Subject(),
+  authState: of({ id: '123', name: 'Test User' }),
+  signInState: new Subject(), 
   initState: new Subject(),
   getAuthState: jest.fn().mockReturnValue(of(null)),
   signIn: jest.fn(),
   signOut: jest.fn()
 };
+
+const mockRouter = {
+  navigateToLogin: jest.fn(),
+  navigateToHome: jest.fn()
+};
+
+const mockActRoute = {
+  queryParamMap: of({ get: () => null })
+}
 
 // Mock for asl-google-signin-button directive
 @Directive({
@@ -51,7 +59,7 @@ const mockSocialAuth = {
   standalone: true
 })
 class MockGoogleSigninButtonDirective {
-  @Input() type: 'icon' | 'standard' = 'icon';
+  @Input() type: 'icon' | 'standard' = 'icon'; 
   @Input() size: 'small' | 'medium' | 'large' = 'large';
   @Input() text: 'signin_with' | 'signup_with' | 'continue_with' = 'signin_with';
   @Input() shape: 'square' | 'circle' | 'pill' | 'rectangular' = 'rectangular';
@@ -63,27 +71,29 @@ class MockGoogleSigninButtonDirective {
 
 //##############################//
 
-describe('LoginCkiComponent', () => {
-  let component: LoginCkiComponent;
-  let fixture: ComponentFixture<LoginCkiComponent>;
-  let stateService: LoginCkiStateService;
+describe('LoginJwtComponent', () => {
+  let component: LoginJwtComponent;
+  let fixture: ComponentFixture<LoginJwtComponent>;
+  let stateService: LoginJwtStateService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginCkiComponent, MockGoogleSigninButtonDirective],
+      imports: [LoginJwtComponent, MockGoogleSigninButtonDirective],
       providers: [
-        { provide: LoginCkiStateService, useValue: mockStateService },
+        { provide: AccountIoService, useValue: mockAccountIoService },
+        { provide: LoginService, useValue: mockLoginService },
         { provide: SocialAuthService, useValue: mockSocialAuth },
         { provide: AMyIdRouter, useValue: mockRouter },
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: ActivatedRoute, useValue: mockActRoute },
         { provide: 'SocialAuthServiceConfig', useValue: mockSocialAuthServiceConfig }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginCkiComponent);
+    fixture = TestBed.createComponent(LoginJwtComponent);
     component = fixture.componentInstance;
-    stateService = fixture.debugElement.injector.get(LoginCkiStateService);
+    stateService = fixture.debugElement.injector.get(LoginJwtStateService);
     fixture.detectChanges();
   });
 
@@ -91,15 +101,15 @@ describe('LoginCkiComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('login() should call state.loginCookie with dto', () => {
-    const spy = jest.spyOn(stateService, 'loginCookie');
+  it('login() should call state.login with dto', () => {
+    const spy = jest.spyOn(stateService, 'login');
     const dto = { email: 'a', password: 'b' };
     component.login(dto as any);
     expect(spy).toHaveBeenCalledWith(dto);
   });
 
-  it('onForgotPwdClick() should set _showForgotPwd to true', () => {
-    component.onForgotPwdClick();
+  it('onForgotPwd() should set _showForgotPwd to true', () => {
+    component.onForgotPwd();
     expect(component['_showForgotPwd']()).toBe(true);
   });
 
@@ -110,13 +120,25 @@ describe('LoginCkiComponent', () => {
     expect(spy).toHaveBeenCalledWith(dto);
   });
 
-  it('should call loginGoogleCookie on social authState emit', () => {
-    const spy = jest.spyOn(stateService, 'loginGoogleCookie');
-    authStateSubject.next({ id: '123', name: 'Test User' });
+  it('should call loginGoogle on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginGoogle');
+    // ngOnInit already subscribes and calls loginGoogle
     expect(spy).toHaveBeenCalledWith({ id: '123', name: 'Test User' });
   });
+
+  // For loginSuccess, you may need to mock the computed signal if needed
+  // or test the effect by triggering the state change in the service's dependencies
 
   it('should hide forgot password modal by default', () => {
     expect(component['_showForgotPwd']()).toBe(false);
   });
 });
+
+// Integration-style test: mock dependencies of LoginJwtStateService, not the service itself
+const mockAccountIoService = {
+  forgotPassword: jest.fn(() => of({ message: 'Forgot password success' }))
+};
+const mockLoginService = {
+  loginJwt: jest.fn(() => of({ jwt: 'token' })),
+  loginGoogleJwt: jest.fn(() => of({ jwt: 'google-token' }))
+};

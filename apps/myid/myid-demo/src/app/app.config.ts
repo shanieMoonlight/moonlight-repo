@@ -1,4 +1,4 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -10,13 +10,17 @@ import { THEME_CONFIG } from './config/app-theme.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { SocialAuthSetup } from './config/oauth.config';
+import { idHttpInterceptors } from './shared/id/utils/io/interceptors/id-http-interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(
       withEventReplay()
     ),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([...idHttpInterceptors])
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideRouter(appRoutes,

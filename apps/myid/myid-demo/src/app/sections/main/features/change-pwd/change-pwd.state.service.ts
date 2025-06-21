@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { ChPwdDto } from '../../../../shared/io/models';
@@ -14,7 +14,7 @@ export class ChangePwdStateService {
 
   protected _changePwdState = MiniStateBuilder
     .CreateWithInput((dto: ChPwdDto) => this._ioService.changePassword(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message}`)
+    .setSuccessMsgFn((dto, response) => `${response.message || `Password changed successfully!`}`)
 
   //- - - - - - - - - - - - - //
 
@@ -24,6 +24,8 @@ export class ChangePwdStateService {
   successMsg = this._states.successMsg
   errorMsg = this._states.errorMsg
   loading = this._states.loading
+
+  changeSuccess = computed(() => !!this._changePwdState.successMsg()?.length)
 
 
   //--------------------------//
