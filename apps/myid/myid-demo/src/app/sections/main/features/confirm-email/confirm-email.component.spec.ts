@@ -1,10 +1,9 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AccountIoService } from '../../../../shared/io/services';
-import { ConfirmEmailComponent } from './confirm-email.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { ConfirmEmailComponent } from './confirm-email.component';
 import { ConfirmEmailStateService } from './confirm-email.state.service';
 
 
@@ -33,6 +32,7 @@ describe('ConfirmEmailComponent', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
+        
         { provide: ConfirmEmailStateService, useValue: mockStateService },
         { provide: ActivatedRoute, useValue: mockActRoute} // <-- Add this line
       ]

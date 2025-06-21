@@ -11,8 +11,7 @@ import { IdTheme } from '../../theme.type';
       [type]="type()"
       [disabled]="disabled()"
       class="sb-btn"
-      [ngClass]="color()"
-      (click)="clicked.emit()">
+      [ngClass]="color()">
       <ng-content/>
     </button>
   `,
@@ -22,7 +21,6 @@ import { IdTheme } from '../../theme.type';
 export class SbButtonComponent {
 
   disabled = input<boolean>(false);
-  clicked = output<void>()
 
   color = input<IdTheme>('primary')
   type = input<'button' | 'submit' | 'reset'>('button');

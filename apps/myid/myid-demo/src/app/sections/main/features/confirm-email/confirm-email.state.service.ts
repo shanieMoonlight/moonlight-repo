@@ -1,10 +1,10 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { combineLatest, filter, map } from 'rxjs';
-import { ConfirmEmailDto } from '../../../../shared/io/models';
+import { combineLatest, filter, map, Subject } from 'rxjs';
+import { ConfirmEmailDto, ResendEmailConfirmationDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { MyIdRouteInfo } from '../../main-route-defs';
 
@@ -33,6 +33,11 @@ export class ConfirmEmailStateService {
     ? `Invalid userId or token.`
     : undefined
   );
+  
+  
+  //- - - - - - - - - - - - - //
+
+
   private _confirmDto$ = combineLatest([this._userId$, this._token$])
     .pipe(
       map(([userId, token]) => {
@@ -43,31 +48,52 @@ export class ConfirmEmailStateService {
       })
     )
 
-
-
   protected _confirmPwdState = MiniStateBuilder
     .CreateWithObservableInput(
       this._confirmDto$,
       (dto: ConfirmEmailDto) => this._ioService.confirmEmail(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message}`)
+    .setSuccessMsgFn((dto, response) => `${response.message || 'Email confirmed!.'}`)
+
+  //- - - - - - - - - - - - - //
+
+  protected _resendClick$ = new Subject<void>();
+  private _resendDto$ = combineLatest([this._userId$, this._resendClick$])
+    .pipe(
+      map(([userId]) => {
+        return {
+          userId: userId
+        } as ConfirmEmailDto
+      })
+    )
+
+  protected _resendState = MiniStateBuilder
+    .CreateWithObservableInput(
+      this._resendDto$,
+      (dto: ResendEmailConfirmationDto) => this._ioService.resendEmailConfirmation(dto))
+    .setSuccessMsgFn((dto, response) => `${response.message || 'Resend confirmation email request is successful.'}`)
 
 
   //- - - - - - - - - - - - - //
 
 
   private _states = MiniStateCombined.Combine(
+    this._resendState,
     this._confirmPwdState)
 
-  successMsg = this._states.successMsg
   errorMsg = this._states.errorMsg
   loading = this._states.loading
+
+  resendSuccessMsg = this._resendState.successMsg
+
+  resendSuccess = computed(() => !!this._resendState.successMsg()?.length)
+  emailConfirmedSucessMsg = this._confirmPwdState.successMsg
 
 
   //--------------------------//
 
 
-  resend = (email: string) => {
-    console.log('ConfirmEmailStateService', email)
-  }
+  resendConfirmation = () =>       
+      this._resendClick$.next();
+
 
 }//Cls

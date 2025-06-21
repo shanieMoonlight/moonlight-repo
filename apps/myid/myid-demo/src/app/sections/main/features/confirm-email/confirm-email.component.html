@@ -1,6 +1,21 @@
 <div class="container">
-    <!-- <h2>Reset Your Password</h2>
-    <p class="description">Enter your email address and create a new secure password for your account.</p> -->
+
+    <sb-email-confirmed-card  
+        [message]="_emailConfirmedSuccessMsg()"
+        [class.show]="_emailConfirmedSuccessMsg()"/>
+
+    <sb-button color="error" 
+        class="resend-confirmation-btn"
+        [class.show]="_errorMsg()"
+        (click)="resendConfirmation()">
+        Resend Email Confirmation
+    </sb-button>
+
+    <sb-button color="primary" 
+        [class.show]="_resendSuccess()"
+        (click)="goToLogin()">
+        Login
+    </sb-button>
     
 
     
@@ -9,5 +24,5 @@
 
 <sb-notifications-modal-mat 
     [errorMsg]="_errorMsg()" 
-    [successMsg]="_successMsg()" 
+    [successMsg]="_resendSuccessMsg()" 
     [isLoading]="_loading()" />

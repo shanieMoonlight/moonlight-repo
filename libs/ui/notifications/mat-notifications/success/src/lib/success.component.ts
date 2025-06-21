@@ -50,7 +50,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
 
 .success-modal {
   width: 90%;
-  max-width: 500px;
+  max-width: 450px;
   background-color: var(--mat-sys-surface);
   border-radius: 8px;
   overflow: hidden;

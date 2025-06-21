@@ -13,7 +13,6 @@ import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
 import { HighlightModule } from 'ngx-highlightjs';
-import { Router } from 'express';
 
 //#######################################################//
 

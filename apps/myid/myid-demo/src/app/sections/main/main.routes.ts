@@ -1,12 +1,18 @@
 import { Route } from '@angular/router';
-import { MainComponent } from './main.component';
 import { MainSectionRoutesDefs } from './main-route-defs';
+import { MainComponent } from './main.component';
+import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdMainRouterService } from './utils/my-id-maing-router/my-id-main-router.service';
 
 export const mainRoutes: Route[] = [
     {
         path: '',
         component: MainComponent,
         providers: [
+            {
+                provide: AMyIdRouter,
+                useExisting: MyIdMainRouterService,
+            }
         ],
         children: [
             {
@@ -57,6 +63,6 @@ export const mainRoutes: Route[] = [
                 path: '**',
                 loadComponent: () => import('../../shared/features/not-found.component').then((m) => m.NotFoundComponent),
                 pathMatch: 'full',
-            },], 
+            },],
     },
 ];
