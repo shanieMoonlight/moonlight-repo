@@ -18,6 +18,11 @@ export class Verify2FactorStateService {
 
   //- - - - - - - - - - - - - //
 
+  private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
+    filter((x) => !!x)
+  )
+  redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
 
   private _token$ = this._actRoute.queryParamMap.pipe(
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.TWO_FACTOR_TOKEN)),

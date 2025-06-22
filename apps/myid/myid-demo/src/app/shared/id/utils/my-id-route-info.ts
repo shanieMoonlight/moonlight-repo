@@ -10,6 +10,7 @@ export class MyIdRouteInfo {
     static readonly CONFIRMATION_TOKEN = 'confirmationtoken';
     static readonly RESET_PWD_TOKEN = 'resettoken';
     static readonly TWO_FACTOR_TOKEN = 'twofactortoken';
+    static readonly REDIRECT = 'redirect';
   };
 
 }

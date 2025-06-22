@@ -1,5 +1,5 @@
 import { forwardRef, inject, Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlCreationOptions } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { MyIdRouteInfo } from '../../my-id-route-info';
 
@@ -14,8 +14,10 @@ import { MyIdRouteInfo } from '../../my-id-route-info';
 export abstract class AMyIdRouter {
   abstract navigateToLogin(): void;
   abstract navigateToChPwd(): void;
+  abstract navigateToChPwd(): void;
   abstract navigateToHome(): void;
   abstract navigateToVerify(token: string): void;
+  abstract navigate(commands: string[], opts?: UrlCreationOptions): void;
 }
 
 //###########################################################################//
@@ -73,6 +75,16 @@ export class MyIdFallbackRouter extends AMyIdRouter {
       'navigateToHome'
     );
     this._router.navigate(['/'], { relativeTo: this._actRoute })
+  }
+
+  //-------------------//
+
+  navigate = (commands: string[], opts?: UrlCreationOptions) => {
+    console.log(
+      'FallbackAccPagesRouter implements AAuthTeamsFeaturesRouter',
+      'navigate'
+    );
+    this._router.navigate(commands, opts);
   }
 
 

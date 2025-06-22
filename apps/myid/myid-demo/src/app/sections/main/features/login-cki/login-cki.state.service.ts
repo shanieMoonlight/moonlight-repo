@@ -5,6 +5,10 @@ import { LoginService } from '../../../../shared/id/utils/services/login/login.s
 import { PreconditionRequiredError } from '../../../../shared/io/data-service/io-errors';
 import { CookieSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, filter } from 'rxjs';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 
 @Injectable()
@@ -12,8 +16,17 @@ export class LoginCkiStateService {
 
   private _ioService = inject(AccountIoService)
   private _loginService = inject(LoginService)
+  private _actRoute = inject(ActivatedRoute)
 
   //- - - - - - - - - - - - - //
+  
+  private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
+    filter((x) => !!x)
+  )
+  redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
+
+
 
   protected _cookieLoginState = MiniStateBuilder
     .CreateWithInput((dto: CookieSignInDto) => this._loginService.loginCookie(dto))

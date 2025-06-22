@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { AppRouteDefs } from '../../../../app-route-defs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { Router } from '@angular/router';
+import { Router, UrlCreationOptions } from '@angular/router';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 @Injectable({
@@ -34,4 +34,7 @@ export class MyIdMainRouterService extends AMyIdRouter {
     );
   }
 
+  override navigate(commands: string[], opts?: UrlCreationOptions): void {
+    this._router.navigate(commands, opts);
+  }
 }

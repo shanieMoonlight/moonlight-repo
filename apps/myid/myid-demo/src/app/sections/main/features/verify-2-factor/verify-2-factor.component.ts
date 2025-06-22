@@ -33,9 +33,14 @@ export class Verify2FactorComponent {
   //--------------------------//
 
   constructor() {
-    effect(() => {
-      if (this._state.verifySuccess())
-        this._router.navigateToHome()
+   effect(() => {
+      if (this._state.verifySuccess()) {
+        const redirectUrl = this._state.redirectUrl();
+        if (redirectUrl)
+          this._router.navigate([redirectUrl])
+        else
+          this._router.navigateToHome()
+      }
     })
   }
 

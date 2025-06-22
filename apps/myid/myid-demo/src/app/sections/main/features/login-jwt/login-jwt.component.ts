@@ -1,12 +1,12 @@
-import { GoogleSigninButtonDirective, GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { LoginDto } from '../../../../shared/io/models';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -42,14 +42,19 @@ export class LoginJwtComponent implements OnInit {
   constructor() {
 
     effect(() => {
-      if (this._state.loginSuccess())
-        this._router.navigateToHome()
+      if (this._state.loginSuccess()) {
+        const redirectUrl = this._state.redirectUrl();
+        if (redirectUrl)
+          this._router.navigate([redirectUrl])
+        else
+          this._router.navigateToHome()
+      }
     })
 
     effect(() => {
       const token = this._state.twoFactorToken();
-      if (token) 
-        this._router.navigateToVerify(token)      
+      if (token)
+        this._router.navigateToVerify(token)
     });
   }
 

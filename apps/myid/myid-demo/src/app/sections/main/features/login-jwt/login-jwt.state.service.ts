@@ -5,15 +5,27 @@ import { LoginService } from '../../../../shared/id/utils/services/login/login.s
 import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { PreconditionRequiredError } from '../../../../shared/io/data-service/io-errors';
+import { ActivatedRoute } from '@angular/router';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { filter, map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable()
 export class LoginJwtStateService {
 
   private _ioService = inject(AccountIoService)
   private _loginService = inject(LoginService)
+  private _actRoute = inject(ActivatedRoute);
 
 
   //- - - - - - - - - - - - - //
+
+
+  private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
+    filter((x) => !!x)
+  )
+  redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
 
 
   private _loginState = MiniStateBuilder
