@@ -44,6 +44,12 @@ export class LoginCkiComponent implements OnInit {
       if (this._state.loginSuccess())
         this._router.navigateToHome()
     })    
+    
+    effect(() => {
+      const token = this._state.twoFactorToken();
+      if (token) 
+        this._router.navigateToVerify(token)      
+    });
   }
 
 

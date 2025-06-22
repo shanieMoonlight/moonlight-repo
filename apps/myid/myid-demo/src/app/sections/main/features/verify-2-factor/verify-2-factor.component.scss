@@ -9,7 +9,7 @@
 
 .container {
   width: 96%;
-  max-width: 1200px;
+  max-width: 450px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -34,4 +34,22 @@
 
   margin-bottom: 3rem;
 
+}
+
+.verify-2factor-form{
+  width: 100%;
+}
+
+sb-button{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px) scale(0.98);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+ sb-button.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }

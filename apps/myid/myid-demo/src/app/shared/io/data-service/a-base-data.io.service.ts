@@ -7,9 +7,11 @@ import { inject, isDevMode } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, timeout } from 'rxjs/operators';
 import {
+  BadRequestError,
   HttpError,
   INTERNAL_SERVER_ERROR_MESSAGE,
   NotFoundError,
+  PreconditionRequiredError,
   UnreadableResponseError,
 } from './io-errors';
 import { UrlUtils } from './url-utils';
@@ -23,7 +25,7 @@ import { Identifier } from './identifier';
 export abstract class ABaseHttpService {
   protected _http = inject(HttpClient);
 
-  constructor(private url: string) {}
+  constructor(private url: string) { }
 
   //----------------------//
 
@@ -299,9 +301,11 @@ export abstract class ABaseHttpService {
     const statusCode = httpErrorResponse.status
       ? httpErrorResponse.status
       : 666;
+
     const statusText = httpErrorResponse.statusText
       ? httpErrorResponse.statusText
       : 'Unknown Error';
+
     //This is where the model state errors would go
     const error = httpErrorResponse?.error;
 
@@ -312,6 +316,28 @@ export abstract class ABaseHttpService {
 
     if (statusCode === HttpStatusCode.NotFound)
       return throwError(() => new NotFoundError(error));
+
+    if (statusCode === HttpStatusCode.PreconditionRequired) {
+      return throwError(() =>
+        new PreconditionRequiredError(
+          httpErrorResponse,
+          error?.message,
+          error, // payload (contains twoFactorToken, etc.)
+          error.twoFactorVerificationRequired
+        )
+      );
+    }
+
+    if (statusCode === HttpStatusCode.BadRequest) {
+      return throwError(() =>
+        new BadRequestError(
+          error?.message,
+          error.errors,
+          error, 
+        )
+      );
+    }
+
 
     //Known error?
     const nonBadRequestHttpError =
@@ -338,7 +364,12 @@ export abstract class ABaseHttpService {
       nonBadRequestHttpError.message = INTERNAL_SERVER_ERROR_MESSAGE;
 
     //Just pass on Non-BadRequestErrors
-    if (nonBadRequestHttpError) return throwError(() => nonBadRequestHttpError);
+    if (nonBadRequestHttpError)
+      throwError(() => nonBadRequestHttpError);
+
+
+    console.log('badrequest error', httpErrorResponse);
+
 
     //Look for custom sever error header
     let applicationErrorMsg =
@@ -405,4 +436,8 @@ export abstract class ABaseHttpService {
     const idsArray = Array.isArray(ids) ? ids : [ids];
     return idsArray.map((x) => x?.toString());
   }
+
+  //----------------------//
+
+
 } //Cls

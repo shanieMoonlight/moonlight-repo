@@ -65,8 +65,6 @@ export class LoginFormComponent {
     rememberMe: [false, []]
   });
 
-  private static _count = 0;
-  protected _idSuffix = `-${LoginFormComponent._count++}`;
 
   //- - - - - - - - - - - -//
 
@@ -83,7 +81,7 @@ export class LoginFormComponent {
     this.login.emit(dto)
   }
 
-  protected forgotPwdClick = () => 
+  protected forgotPwdClick = () =>
     this.forgotPwd.emit()
 
   protected onPasswordToggle = (hide: boolean) =>

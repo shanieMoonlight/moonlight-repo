@@ -40,10 +40,17 @@ export class LoginJwtComponent implements OnInit {
   //--------------------------//
 
   constructor() {
-    effect(() => {      
+
+    effect(() => {
       if (this._state.loginSuccess())
         this._router.navigateToHome()
-    })    
+    })
+
+    effect(() => {
+      const token = this._state.twoFactorToken();
+      if (token) 
+        this._router.navigateToVerify(token)      
+    });
   }
 
 
@@ -56,11 +63,10 @@ export class LoginJwtComponent implements OnInit {
   //- - - - - - - - - - - - - //
 
 
-  login = (dto: LoginDto) =>
-    {
-      console.log('LoginJwtComponent.login', dto);
-      return this._state.login(dto);
-    }
+  login = (dto: LoginDto) => {
+    console.log('LoginJwtComponent.login', dto);
+    return this._state.login(dto);
+  }
 
 
   onForgotPwd = () =>

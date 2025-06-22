@@ -2,26 +2,36 @@ import { inject, Injectable } from '@angular/core';
 import { AppRouteDefs } from '../../../../app-route-defs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { Router } from '@angular/router';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MyIdMainRouterService extends AMyIdRouter  {
+export class MyIdMainRouterService extends AMyIdRouter {
 
   private _router = inject(Router);
 
   //- - - - - - - - - - - - - //
 
-  navigateToChPwd(): void {
+  override navigateToChPwd(): void {
     this._router.navigate([AppRouteDefs.fullPathsWithSlash.main.route('change-pwd')]);
   }
 
-  navigateToHome(): void {
+  override navigateToHome(): void {
     this._router.navigate([AppRouteDefs.fullPathsWithSlash.main.route('home')]);
   }
 
-  navigateToLogin() {
+  override navigateToLogin() {
     this._router.navigate([AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')]);
+  }
+
+  override  navigateToVerify(token: string): void {
+    const queryParams: any = {}
+    queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
+    this._router.navigate(
+      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      { queryParams }
+    );
   }
 
 }

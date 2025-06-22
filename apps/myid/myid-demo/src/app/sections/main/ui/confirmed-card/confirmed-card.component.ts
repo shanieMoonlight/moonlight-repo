@@ -71,10 +71,11 @@ export class ConfirmedCardComponent {
 
   title = input('Confirmed!', {
     transform: (value: string | undefined) => value || 'Confirmed!'
-  });
+  })
+
   message = input('Successfully confirmed. You can now log in to your account.', {
     transform: (value: string | undefined) => value || 'Successfully confirmed. You can now log in to your account.'
-  });
+  })
 
 
   goToLogin() {

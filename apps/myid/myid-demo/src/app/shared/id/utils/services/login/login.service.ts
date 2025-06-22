@@ -1,7 +1,7 @@
-import { Injectable, computed, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
-import { AccountIoService } from '../../../../io/services';
 import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorDto } from '../../../../io/models';
+import { AccountIoService } from '../../../../io/services';
 import { AuthTeamsService } from '../auth/auth.service';
 
 @Injectable({
@@ -12,15 +12,11 @@ export class LoginService {
   private _auth = inject(AuthTeamsService);
   private _accIoService = inject(AccountIoService);
 
-
   //-----------------//
-
 
   // isLoggedIn = computed(() => this._auth.isLoggedIn$())
 
-
   //-----------------//
-
 
   loginJwt(dto: LoginDto): Observable<JwtPackage> {
 
@@ -32,9 +28,7 @@ export class LoginService {
 
   }
 
-
   //-----------------//
-
 
   loginCookie(dto: CookieSignInDto): Observable<CookieSignInResultData> {
 
@@ -46,9 +40,7 @@ export class LoginService {
 
   }
 
-
   //-----------------//
-
 
   loginGoogleJwt(dto: GoogleSignInDto): Observable<JwtPackage> {
 
@@ -60,9 +52,7 @@ export class LoginService {
 
   }
 
-
   //-----------------//
-
 
   loginGoogleCookie(dto: GoogleSignInDto): Observable<CookieSignInResultData> {
 
@@ -74,12 +64,10 @@ export class LoginService {
 
   }
 
-
   //-----------------//
 
-
-
-  verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {
+   verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {
+console.log('verify2Factor dto, ', dto);
 
     return this._accIoService.twoFactorVerification(dto)
       .pipe(
@@ -88,7 +76,6 @@ export class LoginService {
       )
 
   }
-
 
   //-----------------//
 

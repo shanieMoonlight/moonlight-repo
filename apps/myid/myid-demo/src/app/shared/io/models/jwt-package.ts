@@ -1,11 +1,12 @@
 import { TwoFactorProvider } from './two-factor-provider';
 
 export interface JwtPackage {
-  accessToken?: string;
+  accessToken: string;
   refreshToken?: string;
   expiration?: number;
-  twoStepVerificationRequired?: boolean;
+  twoFactorVerificationRequired?: boolean;
   twoFactorProvider?: TwoFactorProvider;
+  twoFactorToken?: string;
   extraInfo?: string;
   expirationDate?: string;
 }

@@ -1,12 +1,12 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 import { ConfirmEmailDto, ResendEmailConfirmationDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
-import { MyIdRouteInfo } from '../../main-route-defs';
 
 @Injectable()
 export class ConfirmEmailStateService {

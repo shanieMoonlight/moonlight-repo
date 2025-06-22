@@ -2,28 +2,6 @@ import { RouteUtility } from '@spider-baby/utils-routes';
 
 //#################################################//
 
-/** Paths and Params that will be used in multiple levels of AuthTeams */
-export class MyIdRouteInfo {
-
-    static Params = class {
-        static readonly REDIRECT_URL_KEY = 'returnurl';
-        static readonly LOGIN_EXTRA_INFO = 'extrainfo';
-        static readonly USER_ID = 'userid'
-        static readonly CONFIRMATION_TOKEN = 'confirmationtoken'
-        static readonly RESET_PWD_TOKEN = 'resettoken'
-    }
-
-    // static Paths = class {
-    //     static readonly VERIFY_TWO_FACTOR = 'verify-two-factor'
-    //     static readonly EMAIL_CONFIRMED = 'email-confirmed'
-    //     static readonly PHONE_CONFIRMED = 'phone-confirmed'
-    // }
-}
-
-
-
-//#################################################//
-
 /** Base route for the Main application area. */
 const BaseRoute = '';
 

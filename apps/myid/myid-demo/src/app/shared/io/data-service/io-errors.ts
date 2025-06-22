@@ -2,6 +2,14 @@ import { StatusCodes } from './status-codes';
 
 //####################################//
 
+function validationErrorsToMessage(errors: Record<string, string[]>): string {
+  return Object.entries(errors)
+    .map(([field, messages]) => messages.join(' '))
+    .join(' ');
+}
+
+//####################################//
+
 interface MessageResponse {
   message?: string;
 }
@@ -27,7 +35,7 @@ export class HttpError {
     public statusCode?: number,
     public title?: string,
     public message?: string
-  ) {}
+  ) { }
 
   //----------------------------//
 
@@ -81,12 +89,18 @@ export class ForbiddenError extends HttpError {
 //####################################//
 
 export class BadRequestError extends HttpError {
+  
   constructor(
-    public override message: string,
-    public modelStateErrors: unknown = {},
-    public override originalError?: unknown
+    message?: string,
+    public validationErrors?: Record<string, string[]>,
+    originalError?: unknown
   ) {
-    super(originalError, StatusCodes.BAD_REQUEST, 'Bad Request', message);
+    super(
+      originalError, 
+      StatusCodes.BAD_REQUEST, 
+      'Bad Request', 
+      message || validationErrorsToMessage(validationErrors ?? {})
+    );
   }
 }
 
@@ -134,11 +148,13 @@ export class BadGatewayError extends HttpError {
 export class PreconditionRequiredError extends HttpError {
   constructor(
     originalError?: unknown,
-    originalMsg: string | undefined = undefined
+    originalMsg: string | undefined = undefined,
+    public payload?: unknown,
+    public isTwoFactorRequired: boolean = false
   ) {
     super(
       originalError,
-      StatusCodes.BAD_GATEWAY,
+      StatusCodes.PRECONDITION_REQUIRED,
       'Precondition Required',
       originalMsg
     );

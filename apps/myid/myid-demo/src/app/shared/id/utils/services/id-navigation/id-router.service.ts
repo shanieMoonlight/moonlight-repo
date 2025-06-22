@@ -1,6 +1,7 @@
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
+import { MyIdRouteInfo } from '../../my-id-route-info';
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
@@ -14,6 +15,7 @@ export abstract class AMyIdRouter {
   abstract navigateToLogin(): void;
   abstract navigateToChPwd(): void;
   abstract navigateToHome(): void;
+  abstract navigateToVerify(token: string): void;
 }
 
 //###########################################################################//
@@ -40,24 +42,39 @@ export class MyIdFallbackRouter extends AMyIdRouter {
 
   //------------------//
 
- override navigateToChPwd () :void {
+  override navigateToChPwd(): void {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToChPwd'
     );
-    this._router.navigate(['../ch-pwd'], { relativeTo: this._actRoute });
+    this._router.navigate(['../change-pwd'], { relativeTo: this._actRoute });
   }
 
   //------------------//
 
-  override navigateToHome () :void{
+  override navigateToVerify(token: string): void {
+    devConsole.log(
+      'MyIdFallbackRouter extends AMyIdRouter',
+      'navigateToVerify'
+    );
+    const queryParams: any = {}
+    queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
+    this._router.navigate(['../verify-2-factor'], {
+      relativeTo: this._actRoute,
+      queryParams
+    })
+  }
+
+  //------------------//
+
+  override navigateToHome(): void {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToHome'
     );
     this._router.navigate(['/'], { relativeTo: this._actRoute })
   }
-  
+
 
 }
 

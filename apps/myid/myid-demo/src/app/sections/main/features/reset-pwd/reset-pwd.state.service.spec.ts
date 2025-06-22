@@ -4,7 +4,7 @@ import { BehaviorSubject, of, throwError } from 'rxjs';
 import { ResetPwdStateService } from './reset-pwd.state.service';
 import { AccountIoService } from '../../../../shared/io/services';
 import { MessageResponseDto, ResetPwdDto } from '../../../../shared/io/models';
-import { MyIdRouteInfo } from '../../main-route-defs';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 describe('ResetPwdStateService', () => {
   let service: ResetPwdStateService;
