@@ -1,11 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpStatusCode,
-} from '@angular/common/http';
-import { inject, isDevMode } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpStatusCode, } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, timeout } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { DateUtils } from './date-utils';
+import { Identifier } from './identifier';
 import {
   BadRequestError,
   HttpError,
@@ -15,15 +13,16 @@ import {
   UnreadableResponseError,
 } from './io-errors';
 import { UrlUtils } from './url-utils';
-import { DateUtils } from './date-utils';
-import { Identifier } from './identifier';
+import { MyIdIoLoggerService } from './io-logger';
 
 /**
  * Base Service for all http services.
  * Provides basic CRUD operations and error handling. *
  **/
 export abstract class ABaseHttpService {
+
   protected _http = inject(HttpClient);
+  private  _logger = inject(MyIdIoLoggerService);
 
   constructor(private url: string) { }
 
@@ -69,22 +68,6 @@ export abstract class ABaseHttpService {
   }
 
   //----------------------//
-
-  protected _getTimeout<T>(
-    ids: Identifier | Identifier[],
-    timeoutMillis: number = 60000,
-    opts = {}
-  ): Observable<T> {
-    const url = UrlUtils.combine(this.url, ...this.idsToArray(ids));
-    return this._http.get<T>(url, opts ?? {}).pipe(
-      map(this.extractData),
-      timeout(timeoutMillis),
-      catchError((error) => this.handleError(error))
-    );
-  }
-
-  //----------------------//
-
   /**
    * Get a resource
    * @param action The method on the controller
@@ -165,21 +148,6 @@ export abstract class ABaseHttpService {
 
   //----------------------//
 
-  protected _getActionTimeout<T>(
-    action: string,
-    timeoutMillis: number = 60000,
-    opts = {}
-  ): Observable<T> {
-    const url = UrlUtils.combine(this.url, action);
-    return this._http.get<T>(url, opts ?? {}).pipe(
-      map(this.extractData),
-      timeout(timeoutMillis),
-      catchError((error) => this.handleError(error))
-    );
-  }
-
-  //----------------------//
-
   protected _post<T>(resource: unknown, opts = {}): Observable<T> {
     return this._http.post<T>(this.url, resource, opts ?? {}).pipe(
       map(this.extractData),
@@ -204,22 +172,6 @@ export abstract class ABaseHttpService {
     const url = UrlUtils.combine(this.url, action);
     return this._http.post<T>(url, resource, opts ?? {}).pipe(
       map(this.extractData),
-      catchError((error) => this.handleError(error))
-    );
-  }
-
-  //----------------------//
-
-  protected _postActionTimeout<T>(
-    action: string,
-    resource: unknown,
-    timeoutMillis: number = 60000,
-    opts = {}
-  ): Observable<T> {
-    const url = UrlUtils.combine(this.url, action);
-    return this._http.post<T>(url, resource, opts ?? {}).pipe(
-      map(this.extractData),
-      timeout(timeoutMillis),
       catchError((error) => this.handleError(error))
     );
   }
@@ -287,7 +239,8 @@ export abstract class ABaseHttpService {
   //----------------------//
 
   protected handleError(httpErrorResponse: HttpErrorResponse) {
-    if (isDevMode()) console.log('httpErrorResponse', httpErrorResponse);
+    
+      this._logger.error('httpErrorResponse', httpErrorResponse);
 
     //Do we have any idea what happened
     if (
@@ -333,15 +286,14 @@ export abstract class ABaseHttpService {
         new BadRequestError(
           error?.message,
           error.errors,
-          error, 
+          error,
         )
       );
     }
 
 
     //Known error?
-    const nonBadRequestHttpError =
-      HttpError.getNonBadRequestErrorFromStatusCode(statusCode);
+    const nonBadRequestHttpError = HttpError.getNonBadRequestErrorFromStatusCode(statusCode);
 
     //if error IS the message, get it.
     if (error && typeof error === 'string')
@@ -365,10 +317,7 @@ export abstract class ABaseHttpService {
 
     //Just pass on Non-BadRequestErrors
     if (nonBadRequestHttpError)
-      throwError(() => nonBadRequestHttpError);
-
-
-    console.log('badrequest error', httpErrorResponse);
+    return  throwError(() => nonBadRequestHttpError);
 
 
     //Look for custom sever error header

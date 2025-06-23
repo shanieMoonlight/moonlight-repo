@@ -30,9 +30,9 @@ export class MyIdMainRouterService extends AMyIdRouter {
 
     if (token)
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
-    queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
+    
     this._router.navigate(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
+      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
       { queryParams }
     );
   }
