@@ -2,11 +2,11 @@ const CONTROLLER = 'MiscellaneousAuthenticatorDemo';
 
 type ACTIONS =
   | 'leader'
-  | 'positionMinimum'
-  | 'positionMinimumWithLevel'
-  | 'positionMinimumResourceFilter'
-  | 'leaderResourceFilter'
-  | 'policyExample';
+  | 'position-minimum'
+  | 'position-minimum-with-level'
+  | 'position-minimum-resource-filter'
+  | 'leader-resource-filter'
+  | 'policy-example';
 
 //#################################################//
 

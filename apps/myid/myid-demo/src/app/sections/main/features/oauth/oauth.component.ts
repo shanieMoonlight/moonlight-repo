@@ -15,6 +15,7 @@ import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { googleSocialUser } from './secret';
 import { MaintenanceAuthenticatorDemoIoService } from '../../../../shared/io/services';
 import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 
 
 
@@ -26,7 +27,8 @@ import { SbButtonComponent } from '../../../../shared/ui/buttons';
     MatEverythingModule,
     LoginFormComponent,
     SbTeamFormComponent,
-    SbButtonComponent
+    SbButtonComponent,
+    SbMatNotificationsModalComponent
 ],
   standalone: true,
   templateUrl: './oauth.component.html',
@@ -42,7 +44,7 @@ export class OauthComponent implements OnInit {
   //- - - - - - - - - - - - - //
 
   protected _authFailTestState = MiniStateBuilder
-    .Create(() => this._ioMntcAuthTest.mntc())
+    .Create(() => this._ioMntcAuthTest.mntcMinimum())
     .setSuccessMsgFn((dto, response) => `Success!:${JSON.stringify(response)}}`)
     .setOnSuccessFn((dto, response) => { console.log('Success:', response); })
 
@@ -67,6 +69,7 @@ export class OauthComponent implements OnInit {
   private _states = MiniStateCombined.Combine(
     this._loginState,
     this._cookieLoginState,
+    this._authFailTestState,
     this._googleLoginState)
 
   protected _successMsg = this._states.successMsg

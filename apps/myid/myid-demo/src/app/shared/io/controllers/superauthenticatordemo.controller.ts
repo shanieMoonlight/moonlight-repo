@@ -2,10 +2,10 @@ const CONTROLLER = 'SuperAuthenticatorDemo';
 
 type ACTIONS =
   | 'super'
-  | 'superMinimum'
-  | 'superLeader'
-  | 'superMinimumOrDev'
-  | 'superResourceFilter';
+  | 'super-minimum'
+  | 'super-leader'
+  | 'super-minimum-or-dev'
+  | 'super-resource-filter';
 
 //#################################################//
 

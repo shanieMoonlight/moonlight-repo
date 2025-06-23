@@ -2,11 +2,11 @@ const CONTROLLER = 'MaintenanceAuthenticatorDemo';
 
 type ACTIONS =
   | 'mntc'
-  | 'mntcMinimum'
-  | 'mntcLeader'
-  | 'mntcLeaderMinimum'
-  | 'mntcMinimumOrDev'
-  | 'mntcResourceFilter';
+  | 'mntc-minimum'
+  | 'mntc-leader'
+  | 'mntc-leader-minimum'
+  | 'mntc-minimum-or-dev'
+  | 'mntc-resource-filter';
 
 //#################################################//
 

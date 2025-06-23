@@ -17,25 +17,25 @@ export class SuperAuthenticatorDemoIoService extends AServerIoService {
 
   superMinimum = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.SuperAuthenticatorDemo.action('superMinimum'),
+      ServerRoutes.SuperAuthenticatorDemo.action('super-minimum'),
       opts ?? {}
     );
 
   superLeader = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.SuperAuthenticatorDemo.action('superLeader'),
+      ServerRoutes.SuperAuthenticatorDemo.action('super-leader'),
       opts ?? {}
     );
 
   superMinimumOrDev = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.SuperAuthenticatorDemo.action('superMinimumOrDev'),
+      ServerRoutes.SuperAuthenticatorDemo.action('super-minimum-or-dev'),
       opts ?? {}
     );
 
   superResourceFilter = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.SuperAuthenticatorDemo.action('superResourceFilter'),
+      ServerRoutes.SuperAuthenticatorDemo.action('super-resource-filter'),
       opts ?? {}
     );
 }

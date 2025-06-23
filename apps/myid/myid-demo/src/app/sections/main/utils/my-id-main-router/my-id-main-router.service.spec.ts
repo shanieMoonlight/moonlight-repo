@@ -42,39 +42,39 @@ describe('MyIdMainRouterService', () => {
     expect(navigateMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.route('home')]);
   });
 
-  // it('should navigate to verify-2-factor with token(Cookie)', () => {
-  //   const token = 'abc123';
-  //   service.navigateToVerify(token);
-  //   expect(navigateMock).toHaveBeenCalledWith(
-  //     [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
-  //     { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: token } }
-  //   );
-  // });
-
-  // it('should navigate to verify-2-factor without token (Cookie)', () => {
-  //   service.navigateToVerify();
-  //   expect(navigateMock).toHaveBeenCalledWith(
-  //     [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
-  //     { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: undefined } }
-  //   );
-  // });
-
-    it('should navigate to verify-2-factor with token (JWT)', () => {
+  it('should navigate to verify-2-factor with token(Cookie)', () => {
     const token = 'abc123';
     service.navigateToVerify(token);
     expect(navigateMock).toHaveBeenCalledWith(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
       { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: token } }
     );
   });
 
-  it('should navigate to verify-2-factor without token (JWT)', () => {
+  it('should navigate to verify-2-factor without token (Cookie)', () => {
     service.navigateToVerify();
     expect(navigateMock).toHaveBeenCalledWith(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
       { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: undefined } }
     );
   });
+
+  //   it('should navigate to verify-2-factor with token (JWT)', () => {
+  //   const token = 'abc123';
+  //   service.navigateToVerify(token);
+  //   expect(navigateMock).toHaveBeenCalledWith(
+  //     [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+  //     { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: token } }
+  //   );
+  // });
+
+  // it('should navigate to verify-2-factor without token (JWT)', () => {
+  //   service.navigateToVerify();
+  //   expect(navigateMock).toHaveBeenCalledWith(
+  //     [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+  //     { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN]: undefined } }
+  //   );
+  // });
 
   it('should call navigate with commands and options', () => {
     const commands = ['/foo', 'bar'];

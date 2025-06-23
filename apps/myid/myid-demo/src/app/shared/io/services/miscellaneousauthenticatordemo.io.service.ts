@@ -17,14 +17,14 @@ export class MiscellaneousAuthenticatorDemoIoService extends AServerIoService {
 
   positionMinimum = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MiscellaneousAuthenticatorDemo.action('positionMinimum'),
+      ServerRoutes.MiscellaneousAuthenticatorDemo.action('position-minimum'),
       opts ?? {}
     );
 
   positionMinimumWithLevel = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
       ServerRoutes.MiscellaneousAuthenticatorDemo.action(
-        'positionMinimumWithLevel'
+        'position-minimum-with-level'
       ),
       opts ?? {}
     );
@@ -32,7 +32,7 @@ export class MiscellaneousAuthenticatorDemoIoService extends AServerIoService {
   positionMinimumResourceFilter = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
       ServerRoutes.MiscellaneousAuthenticatorDemo.action(
-        'positionMinimumResourceFilter'
+        'position-minimum-resource-filter'
       ),
       opts ?? {}
     );
@@ -40,14 +40,14 @@ export class MiscellaneousAuthenticatorDemoIoService extends AServerIoService {
   leaderResourceFilter = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
       ServerRoutes.MiscellaneousAuthenticatorDemo.action(
-        'leaderResourceFilter'
+        'leader-resource-filter'
       ),
       opts ?? {}
     );
 
   policyExample = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MiscellaneousAuthenticatorDemo.action('policyExample'),
+      ServerRoutes.MiscellaneousAuthenticatorDemo.action('policy-example'),
       opts ?? {}
     );
 }

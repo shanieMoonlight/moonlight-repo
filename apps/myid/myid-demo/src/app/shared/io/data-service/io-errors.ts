@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { StatusCodes } from './status-codes';
 
 //####################################//
@@ -13,6 +14,11 @@ function validationErrorsToMessage(errors: Record<string, string[]>): string {
 interface MessageResponse {
   message?: string;
 }
+
+//####################################//
+
+export const UNKNOWN_ERROR_CODE = 666
+export const APPLICATION_ERROR_HEADER = 'Application-Error';
 
 //####################################//
 
@@ -43,25 +49,81 @@ export class HttpError {
    * Returns a specific HttpError if it matches the stausCode.
    * Used when we want to create our own message for the error.
    */
-  static getNonBadRequestErrorFromStatusCode(statusCode: number): HttpError {
-    if (statusCode === StatusCodes.NOT_FOUND) return new NotFoundError();
+  static getErrorFromHttpResponse(httpErrorResponse: HttpErrorResponse): HttpError {
 
-    if (statusCode === StatusCodes.UNAUTHORIZED) return new UnauthorizedError();
+    //1. Do we have any idea what happened
+    if (!httpErrorResponse || (!httpErrorResponse.headers && !httpErrorResponse.error))
+      return new HttpError(httpErrorResponse, UNKNOWN_ERROR_CODE, 'Server Error');
 
-    if (statusCode === StatusCodes.FORBIDDEN) return new ForbiddenError();
+    const error = httpErrorResponse?.error;
+
+    const statusCode = httpErrorResponse.status
+      ? httpErrorResponse.status
+      : UNKNOWN_ERROR_CODE;
+
+    const statusText = httpErrorResponse.statusText
+      ? httpErrorResponse.statusText
+      : 'Unknown Error';
+
+
+    // 2. Check for application error header first
+    const applicationErrorMsg = httpErrorResponse.headers.get(APPLICATION_ERROR_HEADER);
+    if (applicationErrorMsg) {
+      return new HttpError(
+        httpErrorResponse,
+        statusCode,
+        statusText,
+        applicationErrorMsg
+      )
+    }
+
+    //3. If error is a string just pass it on as a message
+    if (typeof error === 'string')
+      return new HttpError(httpErrorResponse, statusCode, statusText, error);
+
+    //4. Check Status Codes
+    const errorMessage = error?.message;
+
+    if (statusCode === StatusCodes.BAD_REQUEST)
+      return new BadRequestError(errorMessage, error?.errors, error);
+
+    if (statusCode === StatusCodes.NOT_FOUND)
+      return new NotFoundError(error);
+
+    if (statusCode === StatusCodes.UNAUTHORIZED)
+      return new UnauthorizedError(error);
+
+    if (statusCode === StatusCodes.FORBIDDEN)
+      return new ForbiddenError(error);
 
     if (statusCode === StatusCodes.GATEWAY_TIMEOUT)
-      return new GatewayTimeoutError();
+      return new GatewayTimeoutError(error);
 
-    if (statusCode === StatusCodes.BAD_GATEWAY) return new BadGatewayError();
+    if (statusCode === StatusCodes.BAD_GATEWAY)
+      return new BadGatewayError(error);
 
     if (statusCode === StatusCodes.INTERNAL_SERVER_ERROR)
-      return new InternalServerError();
+      return new InternalServerError(error, errorMessage);
 
     if (statusCode === StatusCodes.PRECONDITION_REQUIRED)
-      return new PreconditionRequiredError();
+      return new PreconditionRequiredError(
+        httpErrorResponse,
+        errorMessage,
+        error,
+        error?.twoFactorVerificationRequired
+      );
 
-    return new UnknownError();
+    // Defensive: Unreadable response
+    if (statusCode === StatusCodes.OK)
+      return new UnreadableResponseError(error);
+
+    //5. Fallback to generic HttpError
+    return new HttpError(
+      httpErrorResponse,
+      statusCode,
+      statusText,
+      httpErrorResponse?.error?.message
+    );
   }
 }
 
@@ -89,16 +151,16 @@ export class ForbiddenError extends HttpError {
 //####################################//
 
 export class BadRequestError extends HttpError {
-  
+
   constructor(
     message?: string,
     public validationErrors?: Record<string, string[]>,
     originalError?: unknown
   ) {
     super(
-      originalError, 
-      StatusCodes.BAD_REQUEST, 
-      'Bad Request', 
+      originalError,
+      StatusCodes.BAD_REQUEST,
+      'Bad Request',
       message || validationErrorsToMessage(validationErrors ?? {})
     );
   }
@@ -137,7 +199,7 @@ export class BadGatewayError extends HttpError {
     super(
       originalError,
       StatusCodes.BAD_GATEWAY,
-      'Gateway Timeout',
+      'Bad Gateway',
       BAD_GATEWAY_ERROR_MESSAGE
     );
   }
@@ -201,7 +263,6 @@ export class UnreadableResponseError extends HttpError {
       'Unreadable response',
       UNREADABLE_RESPONSE_ERROR_MESSAGE
     );
-    console.log('WTF');
   }
 } //Cls
 

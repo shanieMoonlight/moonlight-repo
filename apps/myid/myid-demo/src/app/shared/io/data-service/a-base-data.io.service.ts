@@ -1,19 +1,13 @@
-import { HttpClient, HttpErrorResponse, HttpStatusCode, } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DateUtils } from './date-utils';
+import { HttpDeleteOptions, HttpGetOptions, HttpPatchOptions, HttpPostOptions } from './http-options.types';
 import { Identifier } from './identifier';
-import {
-  BadRequestError,
-  HttpError,
-  INTERNAL_SERVER_ERROR_MESSAGE,
-  NotFoundError,
-  PreconditionRequiredError,
-  UnreadableResponseError,
-} from './io-errors';
-import { UrlUtils } from './url-utils';
+import { HttpError } from './io-errors';
 import { MyIdIoLoggerService } from './io-logger';
+import { UrlUtils } from './url-utils';
 
 /**
  * Base Service for all http services.
@@ -22,7 +16,7 @@ import { MyIdIoLoggerService } from './io-logger';
 export abstract class ABaseHttpService {
 
   protected _http = inject(HttpClient);
-  private  _logger = inject(MyIdIoLoggerService);
+  private _logger = inject(MyIdIoLoggerService);
 
   constructor(private url: string) { }
 
@@ -32,8 +26,8 @@ export abstract class ABaseHttpService {
    * Get some resources - Action = 'get'
    * @param opts http options
    */
-  protected _get<T>(opts = {}): Observable<T> {
-    return this._http.get<T>(this.url, opts ?? {}).pipe(
+  protected _get<T>(opts: HttpGetOptions = {}): Observable<T> {
+    return this._http.get<T>(this.url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -43,10 +37,10 @@ export abstract class ABaseHttpService {
 
   protected _getById<T>(
     ids: Identifier | Identifier[],
-    opts = {}
+    opts: HttpGetOptions = {}
   ): Observable<T> {
-    const url = UrlUtils.combine(this.url, ...this.idsToArray(ids));
-    return this._http.get<T>(url, opts ?? {}).pipe(
+    const url = UrlUtils.combine(this.url, ...this.idsToArray(ids))
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -60,8 +54,8 @@ export abstract class ABaseHttpService {
    * @param opts http options
    * @returns Observable<?>
    */
-  protected _getQueryParams<T>(params: string, opts = {}): Observable<T> {
-    return this._http.get<T>(this.url + params, opts ?? {}).pipe(
+  protected _getQueryParams<T>(params: string, opts: HttpGetOptions = {}): Observable<T> {
+    return this._http.get<T>(this.url + params, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -74,9 +68,9 @@ export abstract class ABaseHttpService {
    * @param date resource identifier / date
    * @param opts http options
    */
-  protected _getByDate<T>(date: Date, opts = {}): Observable<T> {
+  protected _getByDate<T>(date: Date, opts: HttpGetOptions = {}): Observable<T> {
     const url = UrlUtils.combine(this.url, DateUtils.toIsoString(date));
-    return this._http.get<T>(url, opts ?? {}).pipe(
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -84,8 +78,8 @@ export abstract class ABaseHttpService {
 
   //----------------------//
 
-  protected _getUrl<T>(url: string, opts = {}): Observable<T> {
-    return this._http.get<T>(url, opts ?? {}).pipe(
+  protected _getUrl<T>(url: string, opts: HttpGetOptions = {}): Observable<T> {
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -98,9 +92,9 @@ export abstract class ABaseHttpService {
    * @param action The method on the controller
    * @param opts http options
    */
-  protected _getAction<T>(action: string, opts = {}): Observable<T> {
+  protected _getAction<T>(action: string, opts: HttpGetOptions = {}): Observable<T> {
     const url = UrlUtils.combine(this.url, action);
-    return this._http.get<T>(url, opts ?? {}).pipe(
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -117,10 +111,10 @@ export abstract class ABaseHttpService {
   protected _getActionById<T>(
     action: string,
     ids: Identifier | Identifier[],
-    opts = {}
+    opts: HttpGetOptions = {}
   ): Observable<T> {
     const url = UrlUtils.combine(this.url, action, ...this.idsToArray(ids));
-    return this._http.get<T>(url, opts ?? {}).pipe(
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -137,10 +131,10 @@ export abstract class ABaseHttpService {
   protected _getActionByDate<T>(
     action: string,
     date: Date,
-    opts = {}
+    opts: HttpGetOptions = {}
   ): Observable<T> {
     const url = UrlUtils.combine(this.url, action, DateUtils.toIsoString(date));
-    return this._http.get<T>(url, opts ?? {}).pipe(
+    return this._http.get<T>(url, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -148,8 +142,8 @@ export abstract class ABaseHttpService {
 
   //----------------------//
 
-  protected _post<T>(resource: unknown, opts = {}): Observable<T> {
-    return this._http.post<T>(this.url, resource, opts ?? {}).pipe(
+  protected _post<T>(resource: unknown, opts: HttpPostOptions = {}): Observable<T> {
+    return this._http.post<T>(this.url, resource, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -167,10 +161,10 @@ export abstract class ABaseHttpService {
   protected _postAction<T>(
     action: string,
     resource: unknown,
-    opts = {}
+    opts: HttpPostOptions = {}
   ): Observable<T> {
     const url = UrlUtils.combine(this.url, action);
-    return this._http.post<T>(url, resource, opts ?? {}).pipe(
+    return this._http.post<T>(url, resource, opts).pipe(
       map(this.extractData),
       catchError((error) => this.handleError(error))
     );
@@ -178,7 +172,7 @@ export abstract class ABaseHttpService {
 
   //----------------------//
 
-  protected _patch<T>(resource: unknown, opts = {}): Observable<T> {
+  protected _patch<T>(resource: unknown, opts: HttpPatchOptions = {}): Observable<T> {
     const url = UrlUtils.combine(this.url);
     return this._http.patch<T>(url, resource, opts).pipe(
       map(this.extractData),
@@ -191,7 +185,7 @@ export abstract class ABaseHttpService {
   protected _patchAction<T>(
     action: string,
     resource: unknown,
-    opts = {}
+    opts: HttpPatchOptions = {}
   ): Observable<T> {
     const url = UrlUtils.combine(this.url, action);
     return this._http.patch<T>(url, resource, opts).pipe(
@@ -204,7 +198,7 @@ export abstract class ABaseHttpService {
 
   protected _delete<T>(
     ids: Identifier | Identifier[],
-    opts = {}
+    opts: HttpDeleteOptions = {}
   ): Observable<T> {
     const deleteUrl = UrlUtils.combine(this.url, ...this.idsToArray(ids));
     return this._http.delete<T>(deleteUrl, opts).pipe(
@@ -223,7 +217,7 @@ export abstract class ABaseHttpService {
   protected _deleteAction<T>(
     action: string,
     ids: Identifier | Identifier[],
-    opts = {}
+    opts: HttpDeleteOptions = {}
   ): Observable<T> {
     const deleteUrl = UrlUtils.combine(
       this.url,
@@ -239,137 +233,13 @@ export abstract class ABaseHttpService {
   //----------------------//
 
   protected handleError(httpErrorResponse: HttpErrorResponse) {
+
+    this._logger.error('httpErrorResponse', httpErrorResponse);
+
+    // Centralized error mapping (handles all cases, including application error header)
+    const customError = HttpError.getErrorFromHttpResponse(httpErrorResponse);
+    return throwError(() => customError)
     
-      this._logger.error('httpErrorResponse', httpErrorResponse);
-
-    //Do we have any idea what happened
-    if (
-      !httpErrorResponse ||
-      (!httpErrorResponse.headers && !httpErrorResponse.error)
-    )
-      return throwError(
-        () => new HttpError(httpErrorResponse, 666, 'Server Error')
-      );
-
-    const statusCode = httpErrorResponse.status
-      ? httpErrorResponse.status
-      : 666;
-
-    const statusText = httpErrorResponse.statusText
-      ? httpErrorResponse.statusText
-      : 'Unknown Error';
-
-    //This is where the model state errors would go
-    const error = httpErrorResponse?.error;
-
-    //This means we're having a problem reading the response
-    if (statusCode === HttpStatusCode.Ok) {
-      return throwError(() => new UnreadableResponseError(error));
-    }
-
-    if (statusCode === HttpStatusCode.NotFound)
-      return throwError(() => new NotFoundError(error));
-
-    if (statusCode === HttpStatusCode.PreconditionRequired) {
-      return throwError(() =>
-        new PreconditionRequiredError(
-          httpErrorResponse,
-          error?.message,
-          error, // payload (contains twoFactorToken, etc.)
-          error.twoFactorVerificationRequired
-        )
-      );
-    }
-
-    if (statusCode === HttpStatusCode.BadRequest) {
-      return throwError(() =>
-        new BadRequestError(
-          error?.message,
-          error.errors,
-          error,
-        )
-      );
-    }
-
-
-    //Known error?
-    const nonBadRequestHttpError = HttpError.getNonBadRequestErrorFromStatusCode(statusCode);
-
-    //if error IS the message, get it.
-    if (error && typeof error === 'string')
-      nonBadRequestHttpError.message = error;
-
-    //if error HAS a message, get it.
-    if (error?.message) nonBadRequestHttpError.message = error.message;
-
-    // //if httpErrorResponse has a message, use it.
-    // if (httpErrorResponse?.message)
-    //     nonBadRequestHttpError.message = httpErrorResponse.message
-
-    //If it's an InternalServerError and still no message: Add our own.
-    //use '==' in case stasusCode is a string
-    // tslint:disable-next-line: triple-equals
-    if (
-      !nonBadRequestHttpError?.message &&
-      statusCode == HttpStatusCode.InternalServerError
-    )
-      nonBadRequestHttpError.message = INTERNAL_SERVER_ERROR_MESSAGE;
-
-    //Just pass on Non-BadRequestErrors
-    if (nonBadRequestHttpError)
-    return  throwError(() => nonBadRequestHttpError);
-
-
-    //Look for custom sever error header
-    let applicationErrorMsg =
-      httpErrorResponse.headers.get('Application-Error') ?? '';
-
-    //Either applicationError in header or model error in body
-    if (applicationErrorMsg)
-      return throwError(
-        () =>
-          new HttpError(
-            httpErrorResponse,
-            statusCode,
-            statusText,
-            applicationErrorMsg
-          )
-      );
-
-    //If error is a string just pass it on as a message
-    if (typeof error === 'string')
-      return throwError(
-        () => new HttpError(httpErrorResponse, statusCode, statusText, error)
-      );
-
-    //If we got an embedded error message use it
-    if (httpErrorResponse?.error?.message)
-      return throwError(
-        () =>
-          new HttpError(
-            httpErrorResponse,
-            statusCode,
-            statusText,
-            httpErrorResponse?.error?.message
-          )
-      );
-
-    //If it's not there look for other message
-    if (!applicationErrorMsg)
-      applicationErrorMsg = httpErrorResponse?.message
-        ? httpErrorResponse.message
-        : '';
-
-    //Last resort
-    return throwError(
-      () =>
-        new HttpError(
-          httpErrorResponse,
-          statusCode,
-          statusText,
-          applicationErrorMsg
-        )
-    );
   }
 
   //----------------------//

@@ -1,17 +1,18 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, PLATFORM_ID, Signal, WritableSignal, computed, inject, isDevMode, signal } from '@angular/core';
-import { StringHelpers } from '../../dates/string-helpers';
+import { Directive, PLATFORM_ID, WritableSignal, computed, inject, isDevMode, signal } from '@angular/core';
 import { DateHelpers } from '../../dates/date-helpers';
-import { MyIdClaimNames } from './claim-names';
+import { StringHelpers } from '../../dates/string-helpers';
 import { Claim } from './claim';
+import { MyIdClaimNames } from './claim-names';
 import { JwtHelper } from './jwt-helper';
+import { devConsole } from '@spider-baby/dev-console';
 
 @Directive({})
-export abstract class BaseAuthSignalService  {
+export abstract class BaseAuthSignalService {
 
   protected _platformId = inject(PLATFORM_ID)
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
 
   protected _accessToken: WritableSignal<string | null> = signal(null)
   accessToken$ = computed(() => this._accessToken())
@@ -21,10 +22,12 @@ export abstract class BaseAuthSignalService  {
   allClaimsRecord$ = computed(() => this.extractAllClaimsRecord(this.decodedToken$()))
   allClaims$ = computed(() => Object.values(this.allClaimsRecord$()))
 
-  //- - - - - - - - - - - - -//
-  abstract isLoggedIn$: Signal<boolean>
-  abstract isNotLoggedIn$: Signal<boolean>
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
+
+  isLoggedIn$ = computed(() => !!this.decodedToken$());
+  isNotLoggedIn$ = computed(() => !this.isLoggedIn$());
+
+  //- - - - - - - - - -//
 
   userName$ = computed(() => this.getClaimValue(MyIdClaimNames.NAME))
   userId$ = computed(() => this.getClaimValue(MyIdClaimNames.USER_ID))
@@ -39,7 +42,7 @@ export abstract class BaseAuthSignalService  {
   notBefore$ = computed(() => DateHelpers.fromSeconds(this.getClaimValue(MyIdClaimNames.NOT_VALID_BEFORE)))
   authTime$ = computed(() => DateHelpers.fromSeconds(this.getClaimValue(MyIdClaimNames.AUTH_TIME)))
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
 
   isInDevMode$ = signal(isDevMode())
 
@@ -55,20 +58,21 @@ export abstract class BaseAuthSignalService  {
    */
   constructor(storedToken?: (string | null | undefined) | Promise<string | null | undefined>) {
 
-// console.log('AuthRolesService', storedToken);
+    // console.log('AuthRolesService', storedToken);
 
 
     if (StringHelpers.isString(storedToken))
       this._accessToken.set(storedToken ?? null)
     else
       storedToken?.then(tkn => this._accessToken.set(tkn ?? null))
-    
+
   }
 
   //-------------------//
 
   /**Read in jwt info*/
   logIn(accessToken: string): void {
+    devConsole.log('Logged in successfully with token:', accessToken);
     this.storeJwt(accessToken)
     this._accessToken.set(accessToken ?? null)
   }
@@ -76,7 +80,10 @@ export abstract class BaseAuthSignalService  {
   //-------------------//
 
   /**Log out current user - delete jwt and reset all fields*/
-  logOut = (): void => this._accessToken.set(null)
+  logOut = (): void => {
+    devConsole.log('Logged out successfully');
+    return this._accessToken.set(null);
+  }
 
   //-------------------//
 
@@ -91,12 +98,15 @@ export abstract class BaseAuthSignalService  {
   hasClaimType = (claimName: string): boolean =>
     !!claimName && !!this.allClaimsRecord$()[claimName]
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
+
+  hasClaim0 = (type: string, value:unknown): boolean =>
+    this.allClaimsRecord$()?.[type]?.value == value
 
   hasClaim = (claim: Claim): boolean =>
     !!claim && this.allClaimsRecord$()?.[claim.type]?.value == claim.value
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
 
   getClaim(claimName: string): Claim | null {
 
@@ -107,7 +117,7 @@ export abstract class BaseAuthSignalService  {
 
   }
 
-  //- - - - - - - - - - - - -//
+  //- - - - - - - - - -//
 
   getClaimValue = (claimName: string): any =>
     this.decodedToken$()?.[claimName]

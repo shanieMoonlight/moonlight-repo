@@ -17,31 +17,31 @@ export class MaintenanceAuthenticatorDemoIoService extends AServerIoService {
 
   mntcMinimum = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntcMinimum'),
+      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntc-minimum'),
       opts ?? {}
     );
 
   mntcLeader = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntcLeader'),
+      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntc-leader'),
       opts ?? {}
     );
 
   mntcLeaderMinimum = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntcLeaderMinimum'),
+      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntc-leader-minimum'),
       opts ?? {}
     );
 
   mntcMinimumOrDev = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntcMinimumOrDev'),
+      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntc-minimum-or-dev'),
       opts ?? {}
     );
 
   mntcResourceFilter = (opts?: unknown): Observable<any> =>
     this._getAction<any>(
-      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntcResourceFilter'),
+      ServerRoutes.MaintenanceAuthenticatorDemo.action('mntc-resource-filter'),
       opts ?? {}
     );
 }
