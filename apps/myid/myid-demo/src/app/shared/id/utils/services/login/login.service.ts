@@ -116,7 +116,10 @@ export class LoginService {
 
   //-----------------//
 
-  // logout = () => this._auth.logOut()
+  logout = () =>{
+    console.log('logout');
+    this._auth.logOut();
+  }
 
 
 } //Cls

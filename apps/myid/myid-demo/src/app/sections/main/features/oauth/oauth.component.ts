@@ -13,6 +13,8 @@ import { AccountIoService } from '../../../../shared/io/services/account.io.serv
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { googleSocialUser } from './secret';
+import { MaintenanceAuthenticatorDemoIoService } from '../../../../shared/io/services';
+import { SbButtonComponent } from '../../../../shared/ui/buttons';
 
 
 
@@ -23,7 +25,8 @@ import { googleSocialUser } from './secret';
     GoogleSigninButtonModule,
     MatEverythingModule,
     LoginFormComponent,
-    SbTeamFormComponent
+    SbTeamFormComponent,
+    SbButtonComponent
 ],
   standalone: true,
   templateUrl: './oauth.component.html',
@@ -33,9 +36,15 @@ import { googleSocialUser } from './secret';
 export class OauthComponent implements OnInit {
 
   private _ioService = inject(AccountIoService)
+  private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
   // private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
+
+  protected _authFailTestState = MiniStateBuilder
+    .Create(() => this._ioMntcAuthTest.mntc())
+    .setSuccessMsgFn((dto, response) => `Success!:${JSON.stringify(response)}}`)
+    .setOnSuccessFn((dto, response) => { console.log('Success:', response); })
 
   protected _loginState = MiniStateBuilder
     .CreateWithInput((dto: LoginDto) => this._ioService.login(dto))
@@ -131,6 +140,11 @@ export class OauthComponent implements OnInit {
 
   handleEditUser(dto: AppUserDtoFormDto) {
     console.log('Updating User:', dto.teamPosition, dto);
+  }
+
+  authFailTest() {
+    console.log('authFailTest');
+    this._authFailTestState.trigger()
   }
 
 

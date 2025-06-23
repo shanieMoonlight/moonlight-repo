@@ -11,6 +11,7 @@ import { SEO_CONFIG } from './config/seo.config';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { SocialAuthSetup } from './config/oauth.config';
 import { idHttpInterceptors } from './shared/id/utils/io/interceptors/id-http-interceptors';
+import { myIdDemoAuthInterceptorFn } from './shared/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,10 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(
       withFetch(),
-      withInterceptors([...idHttpInterceptors])
+      withInterceptors([
+        ...idHttpInterceptors,
+        myIdDemoAuthInterceptorFn
+      ])
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
