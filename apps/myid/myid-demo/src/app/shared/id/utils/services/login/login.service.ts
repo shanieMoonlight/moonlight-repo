@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
-import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorDto } from '../../../../io/models';
+import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '../../../../io/models';
 import { AccountIoService } from '../../../../io/services';
 import { AuthTeamsService } from '../auth/auth.service';
 
@@ -66,8 +66,8 @@ export class LoginService {
 
   //-----------------//
 
-   verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {
-console.log('verify2Factor dto, ', dto);
+  verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {
+    console.log('verify2Factor dto, ', dto);
 
     return this._accIoService.twoFactorVerification(dto)
       .pipe(
@@ -79,6 +79,20 @@ console.log('verify2Factor dto, ', dto);
 
   //-----------------//
 
+  verify2FactorCookie(dto: Verify2FactorCookieDto): Observable<JwtPackage> {
+    console.log('verify2FactorCookie dto, ', dto);
+
+    return this._accIoService.twoFactorVerificationCookie(dto)
+      .pipe(
+        tap((ckData) => this.onLoginSuccessCookie(ckData)),
+        catchError((error) => this.onLoginError(error))
+      )
+
+  }
+
+  //-----------------//
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private onLoginError(error: any) {
     this._auth.logOut();
     return throwError(() => error);

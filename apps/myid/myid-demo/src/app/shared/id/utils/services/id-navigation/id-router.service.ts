@@ -1,5 +1,5 @@
 import { forwardRef, inject, Injectable } from '@angular/core';
-import { ActivatedRoute, Router, UrlCreationOptions } from '@angular/router';
+import { ActivatedRoute, Params, Router, UrlCreationOptions } from '@angular/router';
 import { devConsole } from '@spider-baby/dev-console';
 import { MyIdRouteInfo } from '../../my-id-route-info';
 
@@ -16,7 +16,7 @@ export abstract class AMyIdRouter {
   abstract navigateToChPwd(): void;
   abstract navigateToChPwd(): void;
   abstract navigateToHome(): void;
-  abstract navigateToVerify(token: string): void;
+  abstract navigateToVerify(token?: string): void;
   abstract navigate(commands: string[], opts?: UrlCreationOptions): void;
 }
 
@@ -54,13 +54,14 @@ export class MyIdFallbackRouter extends AMyIdRouter {
 
   //------------------//
 
-  override navigateToVerify(token: string): void {
+  override navigateToVerify(token?: string): void {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToVerify'
     );
-    const queryParams: any = {}
-    queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
+    const queryParams: Params = {}
+    if (token)
+      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
     this._router.navigate(['../verify-2-factor'], {
       relativeTo: this._actRoute,
       queryParams

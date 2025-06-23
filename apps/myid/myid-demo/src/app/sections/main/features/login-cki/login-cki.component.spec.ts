@@ -9,6 +9,7 @@ import { of, Subject } from 'rxjs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { LoginCkiComponent } from './login-cki.component';
 import { LoginCkiStateService } from './login-cki.state.service';
+import { ActivatedRoute } from '@angular/router';
 
 //##############################//
 
@@ -16,6 +17,10 @@ const mockRouter = {
   navigateToLogin: jest.fn(),
   navigateToHome: jest.fn()
 };
+
+const mockActRoute = {
+  queryParamMap: of({ get: () => null })
+}
 
 const mockStateService = {
   loginCookie: jest.fn(),
@@ -77,6 +82,7 @@ describe('LoginCkiComponent', () => {
         { provide: AMyIdRouter, useValue: mockRouter },
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: ActivatedRoute, useValue: mockActRoute },
         { provide: 'SocialAuthServiceConfig', useValue: mockSocialAuthServiceConfig }
       ]
     }).compileComponents();

@@ -3,7 +3,7 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
 import { PreconditionRequiredError } from '../../../../shared/io/data-service/io-errors';
-import { CookieSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/io/models';
+import { CookieSignInDto, CookieSignInResultData, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/io/models';
 import { AccountIoService } from '../../../../shared/io/services';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -19,7 +19,7 @@ export class LoginCkiStateService {
   private _actRoute = inject(ActivatedRoute)
 
   //- - - - - - - - - - - - - //
-  
+
   private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
     filter((x) => !!x)
@@ -65,16 +65,13 @@ export class LoginCkiStateService {
 
   twoFactorRequired = computed(() => {
     const error = this._loginStateError();
-    // Check for PreconditionRequiredError and the flag
-    return !!(error && error instanceof PreconditionRequiredError && error.isTwoFactorRequired)
-  })
+    console.log('Checking for two-factor token...', error);
 
-  twoFactorToken = computed(() => {
-    const error = this._loginStateError();
     if (!error || !(error instanceof PreconditionRequiredError))
       return undefined;
-    const payload = error.payload as (JwtPackage | undefined);
-    return payload?.twoFactorToken
+
+    return error.twoFactorRequired
+      || (error.payload as CookieSignInResultData)?.twoFactorRequired;
   })
 
   //- - - - - - - - - - - - - //

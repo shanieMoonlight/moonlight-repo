@@ -1,7 +1,17 @@
-import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { LoginCkiStateService } from './login-cki.state.service';
+
+
+//#############################//
+const mockActRoute = {
+  queryParamMap: of({ get: () => null })
+}
+
+//#############################//
 
 describe('LoginCkiStateService', () => {
   let service: LoginCkiStateService;
@@ -11,6 +21,7 @@ describe('LoginCkiStateService', () => {
       providers:[
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: ActivatedRoute, useValue: mockActRoute },
         LoginCkiStateService
       ]
     });

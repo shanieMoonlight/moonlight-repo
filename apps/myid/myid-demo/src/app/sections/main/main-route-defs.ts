@@ -17,6 +17,7 @@ type CHILD_ROUTE =
   | 'reset-password'
   | 'change-pwd'
   | 'verify-2-factor'
+  | 'verify-2-factor-cookie'
 
 //#################################################//
 

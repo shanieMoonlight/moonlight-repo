@@ -66,7 +66,7 @@ export class LoginJwtStateService {
   twoFactorRequired = computed(() => {
     const error = this._loginStateError();
     // Check for PreconditionRequiredError and the flag
-    return !!(error && error instanceof PreconditionRequiredError && error.isTwoFactorRequired)
+    return !!(error && error instanceof PreconditionRequiredError && error.twoFactorRequired)
   })
 
   twoFactorToken = computed(() => {

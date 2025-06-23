@@ -150,7 +150,7 @@ export class PreconditionRequiredError extends HttpError {
     originalError?: unknown,
     originalMsg: string | undefined = undefined,
     public payload?: unknown,
-    public isTwoFactorRequired: boolean = false
+    public twoFactorRequired: boolean = false
   ) {
     super(
       originalError,

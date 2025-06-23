@@ -1,6 +1,4 @@
 export interface Verify2FactorCookieDto {
-  token: string;
+  code: string;
   deviceId?: string;
-  userId: string;
-  rememberMe?: boolean;
 }

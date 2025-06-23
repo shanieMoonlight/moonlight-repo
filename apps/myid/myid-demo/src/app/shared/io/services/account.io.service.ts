@@ -292,8 +292,18 @@ export class AccountIoService extends AServerIoService {
     opts?: unknown
   ): Observable<MessageResponseDto> =>
     this._postAction<MessageResponseDto>(
-      ServerRoutes.Account.action('twoFactorResend'),
+      ServerRoutes.Account.action('resendTwoFactor'),
       dto,
+      opts ?? {}
+    );
+
+
+  twoFactorResendCookie = (
+    opts?: unknown
+  ): Observable<MessageResponseDto> =>
+    this._postAction<MessageResponseDto>(
+      ServerRoutes.Account.action('resendTwoFactorCookie'),
+      {},
       opts ?? {}
     );
 

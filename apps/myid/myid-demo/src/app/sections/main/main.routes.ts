@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
-import { MyIdMainRouterService } from './utils/my-id-maing-router/my-id-main-router.service';
+import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
 
 export const mainRoutes: Route[] = [
     {
@@ -54,6 +54,10 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('verify-2-factor'),
                 loadComponent: () => import('./features/verify-2-factor/verify-2-factor.component').then(m => m.Verify2FactorComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('verify-2-factor-cookie'),
+                loadComponent: () => import('./features/verify-2-factor-cki/verify-2-factor-cki.component').then(m => m.Verify2FactorComponent),
             },
             {
                 path: '',
