@@ -9,6 +9,7 @@ export class TeamPositionInfo {
 
 //#############################//
 
+const TEAM_POSITION_GUEST = new TeamPositionInfo('Guest', 0)
 const TEAM_POSITION_USER = new TeamPositionInfo('User', 1)
 const TEAM_POSITION_MGR = new TeamPositionInfo('Mananger', 2)
 const TEAM_POSITION_ADMIN = new TeamPositionInfo('Admin', 3)
@@ -17,12 +18,14 @@ const TEAM_POSITION_ADMIN = new TeamPositionInfo('Admin', 3)
 
 export class TeamPositions {
 
+    static readonly GUEST = TEAM_POSITION_GUEST
     static readonly USER = TEAM_POSITION_USER
     static readonly MGR = TEAM_POSITION_MGR
     static readonly ADMIN = TEAM_POSITION_ADMIN
 }
 
 //#############################//
+
 
 export class TeamPositionUtils{
 

@@ -43,7 +43,7 @@ export class JwtHelper {
 
     return JSON.parse(decoded)
 
-  } 
+  }
 
   //-------------------//
 
@@ -58,13 +58,13 @@ export class JwtHelper {
       const decoded = this.decodeToken(rawToken);
       return this.isTokenExpired(decoded)
 
-    } catch (error) {
+    } catch {
 
       //Any error means we can't trust the token
       return true
     }
 
-  } 
+  }
 
   //-------------------//
 
@@ -87,7 +87,7 @@ export class JwtHelper {
 
       return false
 
-    } catch (error) {
+    } catch {
 
       //Any error means we can't trust the token
       return true

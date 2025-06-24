@@ -1,5 +1,5 @@
-import { StringHelpers } from './string-helpers';
 import { TimeInMillis } from './time-in';
+import { isNumber } from '../numbers/is-number';
 
 //#########################################################//
 
@@ -10,26 +10,24 @@ export type DaysShort = typeof daysShort[number]
 
 //#########################################################//
 
-export function isNumber(n: any) { return !isNaN(parseFloat(n)) && isFinite(n); }
-
-//#########################################################//
-
 export class DateHelpers {
 
-  static FromMilliseconds(millis: number): Date {
+  static fromMilliSeconds(millis: number): Date | undefined {
     try {
-      if (!isNumber(millis) || millis < 0) return new Date();
+
+      if (!isNumber(millis) || millis < 0)
+        return undefined;
 
       return new Date(millis);
-    } catch (error: unknown) {
-      return new Date();
+    } catch {
+      return undefined
     }
   }
 
   //-------------------//
 
-  static fromSeconds = (secs?: number): Date =>
-    DateHelpers.FromMilliseconds((secs ?? 0) * TimeInMillis.Second);
+  static fromSeconds = (secs?: number): Date | undefined =>
+    DateHelpers.fromMilliSeconds((secs ?? 0) * TimeInMillis.Second);
 
   //-------------------//
 
@@ -76,8 +74,8 @@ export class DateHelpers {
     const day = dt.toLocaleString('default', { day: '2-digit' });
     const month = dt.toLocaleString('default', { month: 'short' });
     const year = dt.toLocaleString('default', { year: 'numeric' });
-    const hours = StringHelpers.pad(dt.getHours(), 2)
-    const mins = StringHelpers.pad(dt.getMinutes(), 2)
+    const hours = String(dt.getHours()).padStart(2, '0');
+    const mins = String(dt.getMinutes()).padStart(2, '0');
 
     return `${day}-${month}-${year} ${hours}:${mins}`
 
@@ -106,11 +104,13 @@ export class DateHelpers {
 
     if (!date)
       return new Date()
+
     try {
       return new Date(date)
-    } catch (error) {
+    } catch {
       return new Date()
     }
+
   }
 
   //-------------------//
@@ -121,21 +121,14 @@ export class DateHelpers {
    */
   static toIonicDate(date?: Date | string): string {
 
-    console.log(date);
-
-    date = new Date(date ??= new Date())
-
-    const day = date.toLocaleString('default', { day: '2-digit' })
-    const mnt = date.toLocaleString('default', { month: '2-digit' })
-    console.log(mnt);
-
-    const year = date.toLocaleString('default', { year: 'numeric' })
-    const hours = StringHelpers.pad(date.getHours(), 2)
-    const mins = StringHelpers.pad(date.getMinutes(), 2)
-
-
-    return `${year}-${mnt}-${day}T${hours}:${mins}`
-
+    const d = date ? new Date(date) : new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const mins = String(d.getMinutes()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${mins}`;
   }
 
 
@@ -154,7 +147,7 @@ export class DateHelpers {
   //-------------------//
 
 
-  static tsToday(date?: Date): boolean {
+  static isToday(date?: Date): boolean {
 
     if (!date)
       return false
@@ -168,7 +161,7 @@ export class DateHelpers {
   //-------------------//
 
 
-  static IsTomorrow(date?: Date): boolean {
+  static isTomorrow(date?: Date): boolean {
 
     if (!date)
       return false
@@ -183,14 +176,14 @@ export class DateHelpers {
 
   //-------------------//
 
-  static DaysAgo(date: Date | string) {
+  static daysAgo(date: Date | string) {
     // The number of milliseconds in one day
     const ONE_DAY = 1000 * 60 * 60 * 24;
 
     const safeDate = new Date(date)
 
     // Calculate the difference in milliseconds
-    const differenceMs = Math.abs(new Date().getMilliseconds() - safeDate.getMilliseconds());
+    const differenceMs = Math.abs(new Date().getTime() - safeDate.getTime());
 
     // Convert back to days and return
     return Math.round(differenceMs / ONE_DAY);
