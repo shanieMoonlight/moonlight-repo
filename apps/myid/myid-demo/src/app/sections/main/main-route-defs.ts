@@ -18,6 +18,7 @@ type CHILD_ROUTE =
   | 'change-pwd'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'
+  | 'auth-test'
 
 //#################################################//
 

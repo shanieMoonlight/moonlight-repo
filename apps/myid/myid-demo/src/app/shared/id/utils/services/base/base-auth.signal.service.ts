@@ -130,11 +130,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    */
   constructor() {
 
-    setTimeout(() => {
-      console.log('BaseAuthSignalService.constructor()');
-
-    }, 100);
-
     if (!this.isPlatformBrowser())
       return
 
@@ -187,34 +182,33 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   //-------------------//
 
   /**
-   * True if a claim type exists in the JWT
+   * True if a claim type exists in the JWT.
+   * @template K extends keyof JWT
+   * @param claimType The claim key to check for existence (must be a key of JWT).
+   * @returns True if the claim exists in the decoded token.
    */
-  hasClaimType = (claimType: string): boolean =>
-    !!claimType && !!this.allClaimsRecord()[claimType]
+  hasClaimType = <K extends keyof JWT>(claimType: K): boolean =>
+    !!claimType && !!this.decodedToken()?.[claimType]
 
   //- - - - - - - - - -//
 
   /**
-   * True if a claim has a specific value
+   * True if a claim has a specific value.
+   * @template K extends keyof JWT
+   * @param claimType The claim key to check (must be a key of JWT).
+   * @param value The value to compare against the claim's value.
+   * @returns True if the claim exists and equals the given value.
    */
-  hasClaim = (type: string, value: unknown): boolean =>
-    this.allClaimsRecord()?.[type]?.value == value
+  hasClaim = <K extends keyof JWT>(claimType: K, value: unknown): boolean =>
+    this.decodedToken()?.[claimType] == value
 
   //- - - - - - - - - -//
 
   /**
-   * Get a claim object by name
-   */
-  getClaim(claimName: string): Claim | null {
-    if (!claimName)
-      return null
-    return this.allClaimsRecord()[claimName]
-  }
-
-  //- - - - - - - - - -//
-
-  /**
-   * Get the value of a claim by name
+   * Get the value of a claim by name.
+   * @template K extends keyof JWT
+   * @param claimName The claim key to retrieve (must be a key of JWT).
+   * @returns The value of the claim, or undefined if not present.
    */
   getClaimValue = <K extends keyof JWT>(claimName: K): JWT[K] | undefined =>
     this.decodedToken()?.[claimName];
@@ -232,7 +226,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
         : null;
 
     } catch (error) {
-      console.log('decodeTokenError', error)
       this.logError?.({
         error,
         method: 'decodeToken',
@@ -248,14 +241,16 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Extract all claims from a parsed JWT token into a record of Claim objects
    */
   private extractAllClaimsRecord<T extends object = JWT>(parsedToken?: T | null): Record<string, Claim> {
+  
     const claimsRecord: Record<string, Claim> = {}
     if (!parsedToken)
       return claimsRecord
+
     for (const key in parsedToken)
       claimsRecord[key] = Claim.Create(key, parsedToken[key])
+
     return claimsRecord
   }
-
 
 
   //-------------------//

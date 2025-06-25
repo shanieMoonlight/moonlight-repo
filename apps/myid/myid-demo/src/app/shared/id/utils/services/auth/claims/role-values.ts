@@ -4,7 +4,7 @@
  */
 export class MyIdRoleValues{
     
-  //Registered
+  
   public static TEAM_LEADER = 'team_leader'; 
 
 

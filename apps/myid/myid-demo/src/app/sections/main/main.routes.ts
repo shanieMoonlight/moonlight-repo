@@ -60,6 +60,10 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/verify-2-factor-cki/verify-2-factor-cki.component').then(m => m.Verify2FactorComponent),
             },
             {
+                path: MainSectionRoutesDefs.route('auth-test'),
+                loadComponent: () => import('./features/auth-service-test/auth-service-test.component').then(m => m.AuthServiceTestComponent),
+            },
+            {
                 path: '',
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },

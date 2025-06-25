@@ -2,19 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '../../../../io/models';
 import { AccountIoService } from '../../../../io/services';
-import { AuthTeamsService } from '../auth/auth.service';
+import { MyIdAuthService } from '../auth/myid-auth.browser.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
 
-  private _auth = inject(AuthTeamsService);
+  private _auth = inject(MyIdAuthService);
   private _accIoService = inject(AccountIoService);
-
-  //-----------------//
-
-  // isLoggedIn = computed(() => this._auth.isLoggedIn$())
 
   //-----------------//
 

@@ -9,14 +9,13 @@ import { MyIdJwtPayload } from './myid-jwt-payload';
 @Directive({})
 export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayload> {
 
-   
     //------------- TEAMS -------------//    
 
     isSpr = computed(() => this.hasTeamTypeClaim('super'));
     isMntc = computed(() => this.hasTeamTypeClaim('maintenance'));
     isCus = computed(() => this.hasTeamTypeClaim('customer'));
 
-    
+
     //-------- TEAM POSITION ----------//    
 
     isLdr = computed(() => this.hasRole(MyIdRoleValues.TEAM_LEADER));
@@ -27,13 +26,9 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isGuest = computed(() => this.hasPosition(TeamPositions.GUEST));
 
     teamId = computed(() => this.getClaimValue('myid.team_id') ?? '');
-    position = computed(() => {
-        const posStr = this.getClaimValue('myid.team_position') ?? '';
-        const posNum = Number(posStr);
-        return Number.isNaN(posNum) ? -1 : posNum;
-    });
+    position = computed(() => this.getTeamPositionValue());
 
-    
+
     //----------- SUPER TEAM ----------//    
 
     isSprLdr = computed(() => this.isSpr() && this.isLdr());
@@ -43,7 +38,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isSprUser = computed(() => this.isSpr() && this.isUser());
     isSprGuest = computed(() => this.isSpr() && this.isGuest());
 
-    
+
     //-------- MAINTENANCE TEAM -------//    
 
     isMntcLdr = computed(() => this.isMntc() && this.isLdr());
@@ -53,9 +48,9 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isMntcUser = computed(() => this.isMntc() && this.isUser());
     isMntcGuest = computed(() => this.isMntc() && this.isGuest());
 
-    
+
     //--------- CUSTOMER TEAM ---------//
-    
+
 
     isCusLdr = computed(() => this.isCus() && this.isLdr());
 
@@ -64,7 +59,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isCusUser = computed(() => this.isCus() && this.isUser());
     isCusGuest = computed(() => this.isCus() && this.isGuest());
 
-    
+
     //------------ Minimums -----------//    
 
     isSprLdrMinimum = computed(() => this.isSprLdr());
@@ -92,7 +87,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isCusGuestMinimum = computed(() => this.isCusGuest() || this.isCusUserMinimum());
     isCusMinimum = computed(() => this.isCusGuestMinimum());
 
-    
+
     //------------  DevMode -----------//
 
     isMntcOrDev = computed(() => this.isDevMode() || this.isMntc());
@@ -102,7 +97,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
     //-------------------//
 
-    
+
     private hasPosition = (position: TeamPositionInfo) =>
         this.position() == position.value;
 
@@ -111,6 +106,12 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
 
     hasTeamTypeClaim = (type: TeamType): boolean =>
-        this.allClaimsRecord()?.[type]?.value == type
+        this.hasClaim('myid.team_type', type)
+
+    getTeamPositionValue = () => {
+        const posStr = this.getClaimValue("myid.team_position") ?? '';
+        const posNum = Number(posStr);
+        return Number.isNaN(posNum) ? -1 : posNum;
+    }
 
 } //Cls

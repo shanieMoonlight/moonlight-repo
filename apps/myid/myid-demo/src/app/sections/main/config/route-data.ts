@@ -55,6 +55,13 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     description: 'Verify 2 Factor Provider.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor'),
     icon: 'shield',
-    color: 'secondary'
+    color: 'tertiary'
+  },
+  {
+    title: 'Auth Test',
+    description: 'View the decoded JWT and the Auth Service Props.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('auth-test'),
+    icon: 'quiz',
+    color: 'tertiary'
   },
 ]
