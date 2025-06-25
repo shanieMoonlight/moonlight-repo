@@ -31,23 +31,11 @@ const rhsNavbarItems: NavbarItem[] = [
     text: 'Oauth'
   },
   // {
-  //   routerLink: 'route2',
-  //   tooltip: 'Route 2',
-  //   icon: 'join_inner',
-  //   text: 'Route 2'
+  //   routerLink: '/api',
+  //   tooltip: 'Api Documentation',
+  //   icon: 'api',
+  //   text: 'Api'
   // },
-  // {
-  //   routerLink: 'route3',
-  //   tooltip: 'Route 3',
-  //   icon: 'oil_barrel',
-  //   text: 'Route 3'
-  // },
-  {
-    routerLink: '/api',
-    tooltip: 'Api Documentation',
-    icon: 'api',
-    text: 'Api'
-  },
 ]
 
 //##############################################################//

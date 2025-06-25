@@ -1,0 +1,76 @@
+:host {
+    --color-icon: var(--mat-sys-primary);
+    --color-icon-hover: var(--mat-sys-primary-container);
+    --color-icon-disabled: var(--mat-sys-outline);
+    font-size: 1rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+button {
+    font: inherit;
+    /* Inherits font styles from parent (like body) */
+    color: inherit;
+    /* Inherits text color from parent */
+    text-align: inherit;
+}
+
+.sb-icon-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-size: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    color: var(--color-icon);
+    transition: color 0.2s, background-color 0.2s;
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    outline: none;
+}
+
+
+.sb-icon-btn:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--mat-sys-surface-variant);
+}
+
+.sb-icon-btn:focus-visible {
+    background-color: rgba(0, 0, 0, 0.08);
+    outline: 2px solid var(--color-icon);
+    outline-offset: 2px;
+}
+
+.sb-icon-btn:active:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.sb-icon-btn:disabled {
+    color: var(--color-icon-disabled);
+    cursor: not-allowed;
+}
+
+.sb-icon-btn.primary {
+    --color-icon: var(--mat-sys-primary);
+    --color-icon-hover: var(--mat-sys-primary-container);
+}
+
+.sb-icon-btn.secondary {
+    --color-icon: var(--mat-sys-secondary);
+    --color-icon-hover: var(--mat-sys-secondary-container);
+}
+
+.sb-icon-btn.tertiary {
+    --color-icon: var(--mat-sys-tertiary);
+    --color-icon-hover: var(--mat-sys-tertiary-container);
+}
+
+.sb-icon-btn.error {
+    --color-icon: var(--mat-sys-error);
+    --color-icon-hover: var(--mat-sys-error-container);
+}

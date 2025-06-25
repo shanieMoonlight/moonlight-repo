@@ -11,7 +11,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
   <div class="success-modal-backdrop">
     <div class="success-modal">
       <div class="success-modal-header">
-        <mat-icon>success</mat-icon>
+        <mat-icon>check</mat-icon>
         <h3>Success</h3>
         <button mat-icon-button 
           (click)="dismissSuccess()" aria-label="Close success modal">
@@ -80,7 +80,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
 
 .success-modal-body {
   padding: 24px;
-  color: var(--mat-sys-on-surface);
+  color: var(--mat-sys-on-primary-container);
   font-size: 16px;
   line-height: 1.5;
   overflow-x: auto;
@@ -135,5 +135,4 @@ export class SuccessModalComponent {
   private isBrowser = (): boolean =>    
     isPlatformBrowser(this._platformId)
   
-  //--------------------------//
 }

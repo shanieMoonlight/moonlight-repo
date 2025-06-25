@@ -235,6 +235,9 @@
       "@spider-baby/ui-mat-notifications/utils": [
         "libs/ui/notifications/mat-notifications/utils/src/index.ts"
       ],
+      "@spider-baby/ui-notifications": [
+        "libs/ui/notifications/sb-notifications/src/index.ts"
+      ],
       "@spider-baby/ui-toast": ["libs/ui/toast/src/index.ts"],
       "@spider-baby/ui-toast/dynamic-provider": [
         "libs/ui/toast/dynamic-provider/src/index.ts"

@@ -1,20 +1,19 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { SbTextButtonComponent } from '../text-button/text-button.component';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IdTheme } from '../../theme.type';
+import { SbIconButtonComponent } from '../icon-button/icon-button.component';
 
 @Component({
   selector: 'sb-button-icon-close',
   standalone: true,
-  imports: [SbTextButtonComponent],
+  imports: [SbIconButtonComponent],
   template: `
-    <sb-text-button
+    <sb-icon-button
       [type]="'button'"
-      [disabled]="disabled()"
-      (click)="clicked.emit()">
+      [disabled]="disabled()">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
         <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
       </svg>
-    </sb-text-button>
+    </sb-icon-button>
   `,
   styleUrls: ['./button-close.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +21,6 @@ import { IdTheme } from '../../theme.type';
 export class SbButtonIconCloseComponent {
 
   disabled = input<boolean>(false);
-  clicked = output<void>()
 
   color = input<IdTheme>('primary')
 

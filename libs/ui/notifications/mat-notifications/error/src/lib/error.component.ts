@@ -76,7 +76,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
   }
   
   button {
-    color: var(--mat-sys-on-error);
+    color: var(--mat-sys-on-error-container);
   }
 }
 
