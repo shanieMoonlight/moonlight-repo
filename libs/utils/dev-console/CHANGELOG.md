@@ -1,6 +1,11 @@
 # Changelog
 
-## [1.1.1] - 2025-05-12
+## [1.1.3] - 2025-06-25
+
+### Changed
+- Added callerLine() for more accurate tracing in broswer console window.
+- 
+## [1.1.2] - 2025-06-24
 
 ### Changed
 - Added console.trace()

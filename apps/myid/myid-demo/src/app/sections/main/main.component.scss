@@ -20,3 +20,14 @@ sb-main-navbar {
         margin: 5px;
     }
 }
+
+
+.testing{
+
+    width: calc(100% - 4rem); ;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

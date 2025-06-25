@@ -6,28 +6,28 @@
         alt="SpiderBaby Material" 
         [routerLink]="'home'"
         routerLinkActive="active" 
-        [matTooltip]="'Home'"
+        [sbTooltip]="'Home'"
         [attr.aria-label]="'home'"/>   
     
     @if(!isSmallScreen()){  
         <button mat-icon-button 
             aria-label="Git repo for project"
             [sbNavigateNewWindow]="_gitRepoUrl()" 
-            [matTooltip]="'Git repo'">
+            [sbTooltip]="'Git repo'">
             <mat-icon svgIcon="git" />
         </button>    
         
         <button mat-icon-button 
             aria-label="Npm Package"
             [sbNavigateNewWindow]="_npmPkgUrl()" 
-            [matTooltip]="'Npm Package'">
+            [sbTooltip]="'Npm Package'">
             <mat-icon svgIcon="npm" />
         </button>
 
         <button mat-icon-button 
             aria-label="Share current page"
             (click)="share()"
-            matTooltip="Share this page">
+            sbTooltip="Share this page">
             <mat-icon>share</mat-icon>
         </button> 
     } 
@@ -71,8 +71,7 @@
         [routerLink]="routerLink"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: routerLink === 'home' }">
-      <div
-        [matTooltip]="tooltip">
+      <div>
         {{ text }}
       </div>
   </a>
@@ -83,7 +82,7 @@
         [routerLinkActiveOptions]="{ exact: routerLink === 'home' }">
       <button
         mat-icon-button
-        [matTooltip]="tooltip"
+        [sbTooltip]="tooltip"
         [attr.aria-label]="tooltip">
         <mat-icon>{{ iconName }}</mat-icon>
       </button>

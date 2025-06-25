@@ -1,5 +1,7 @@
 :host{
     --color:var(--mat-sys-primary)
+    --color-text-hover: var(--mat-sys-primary-container);
+    display: inline-block;
 }
 
 .toggle-icon-btn {
@@ -13,17 +15,15 @@
   justify-content: center;
   transition: color 0.2s;
   border-radius: 0.25rem;
+  color: var(--color);
 }
 
 
 
 .toggle-icon-btn:hover {
-  color: var(--color);
+    background-color: var(--mat-sys-surface-variant);
 }
 
-.toggle-icon-btn:focus {
-  color: var(--color);
-}
 
 .toggle-icon-btn.color-without-focus {
   color: var(--color);

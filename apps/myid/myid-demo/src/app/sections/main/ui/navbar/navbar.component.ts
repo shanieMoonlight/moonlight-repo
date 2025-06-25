@@ -9,6 +9,7 @@ import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
+import { SbTooltipDirective } from '../../../../shared/ui/tooltip/tooltip.directive';
 
 //##############################################################//
 
@@ -60,6 +61,7 @@ const rhsNavbarItems: NavbarItem[] = [
     SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
+    SbTooltipDirective
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

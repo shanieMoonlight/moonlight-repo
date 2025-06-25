@@ -1,18 +1,19 @@
-<sb-main-navbar
-    [rhsOutletTemplate]="rhsOutletTemplate"/>
+<sb-main-navbar [rhsOutletTemplate]="rhsOutletTemplate" />
+
 
 <router-outlet />
 
 
-<sb-service-worker-update-mat/>
+<sb-service-worker-update-mat />
 
 <!-- ======================================= -->
 
 <ng-template #rhsOutletTemplate>
-    <div class="theming">        
-        <sb-theme-picker-mat/>
-        <sb-dark-mode-toggle-mat/>
-    </div>     
+    <sb-auth-login-button/>
+    <div class="theming">
+        <sb-theme-picker-mat />
+        <sb-dark-mode-toggle-mat />
+    </div>
 </ng-template>
 
 <!-- ======================================= -->

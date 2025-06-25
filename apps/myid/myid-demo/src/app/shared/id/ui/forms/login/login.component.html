@@ -26,7 +26,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onPasswordToggle($event)"/>
+                (toggled)="onPasswordToggle($event)"/>
         </div>    
             <sb-first-error [control]="_form.controls.password"/>
         </div>

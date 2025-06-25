@@ -15,7 +15,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onPasswordToggle($event)"/>
+                (toggled)="onPasswordToggle($event)"/>
         </div>
         <sb-first-error [control]="_form.controls.newPassword"/>
     </div>
@@ -33,7 +33,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onConfirmPasswordToggle($event)"/>
+                (toggled)="onConfirmPasswordToggle($event)"/>
         </div>
         <sb-first-error [control]="_form.controls.confirmPassword"/>
         @if(_form.hasError('passwordMismatch') && _form.controls.confirmPassword.touched) {

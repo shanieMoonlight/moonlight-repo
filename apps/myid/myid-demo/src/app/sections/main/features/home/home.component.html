@@ -9,10 +9,10 @@
     [actionsTemplate]="bannerActionsTemplate"/> -->
     
   <section class="features-section">
-    <h2 class="section-title">Examples</h2>
-    <p class="section-description">
+    <h2 class="section-title">Auth Pages</h2>
+    <!-- <p class="section-description">
       Explore these examples to see how our solution can help with your projects.
-    </p>
+    </p> -->
 
     <div class="features-grid">
       @for (feature of _features(); track feature.title ) {
@@ -31,78 +31,6 @@
       }
     </div>
   </section>
-
-  <!-- <mat-divider/>
-  <section class="benefits-section">
-    <h2 class="section-title">Key Benefits</h2>
-    <p class="section-description">
-      Discover the advantages of using our solution for your projects.
-    </p>
-
-    <div class="benefits-grid">
-      @for (benefit of _benefits(); track benefit.title) {
-        <div class="benefit-item">
-          <mat-icon class="benefit-icon">{{ benefit.icon }}</mat-icon>
-          <div class="benefit-content">
-            <h3 class="benefit-title">{{ benefit.title }}</h3>
-            <p class="benefit-description">{{ benefit.description }}</p>
-          </div>
-        </div>
-      }
-    </div>
-  </section>
-  <section class="quick-start">
-    <h2 class="section-title">Getting Started</h2>
-    <p>Install the package in your Angular application:</p>
-    
-    <div class="code-block">
-      <pre><code 
-          [highlight]="`npm install @your-org/package-name`" 
-          [language]="'typescript'" ></code></pre>
-    </div>
-    
-    <p>Basic usage example:</p>
-    
-    <div class="code-block">
-      <pre><code 
-        [highlight]="`
-import { SomeService } from '@your-org/package-name';
-
-// Initialize service
-const service = new SomeService(config);
-
-// Example usage
-const result = service.doSomething();
-
-// Access properties
-const data = result.data;
-const isLoading = result.loading;
-        `" 
-        [language]="'typescript'" ></code></pre>
-    </div>
-
-
-    <div class="code-block">
-      <pre><code 
-        [highlight]="`
-import { OtherService } from '@your-org/package-name';
-
-// Advanced configuration
-const config = {
-  apiKey: 'your-api-key',
-  endpoint: 'https://api.example.com',
-  timeout: 5000
-};
-
-// Create instance with options
-const service = new OtherService(config);
-
-// Use the service methods
-service.initialize();
-        `" 
-        [language]="'typescript'" ></code></pre>
-    </div>
-  </section> -->
   <footer class="home-footer">
     <p>myid-demo</p>
     <p><small>Built with Angular</small></p>

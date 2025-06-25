@@ -4,6 +4,10 @@ import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
+import { SbButtonIconLogoutComponent } from '../../shared/ui/buttons/button-logout/button-logout.component';
+import { MyIdAuthService } from '../../shared/id/utils/services/auth/myid-auth.browser.service';
+import { SbButtonIconLogoutToggleComponent } from '../../shared/ui/buttons/button-logout-toggle/button-logout-toggle.component';
+import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
 
 
 @Component({
@@ -13,7 +17,11 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
     MlDarkModeToggleMatComponent,
     MlThemePickerMatComponent,
     RouterModule,
-    ServiceWorkerUpdateMatComponent
+    ServiceWorkerUpdateMatComponent,
+    SbButtonIconLogoutComponent,
+    SbButtonIconLogoutToggleComponent,
+    SbAuthLoginButtonComponent
+    
   ],
   providers: [
   ],
@@ -24,6 +32,9 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
 })
 export class MainComponent {
   
-  iconsService = inject(IconsService)
+  _iconsService = inject(IconsService)
+  _authService = inject(MyIdAuthService)
+
+  logout = ()=> this._authService.logOut()
 
 }//Cls

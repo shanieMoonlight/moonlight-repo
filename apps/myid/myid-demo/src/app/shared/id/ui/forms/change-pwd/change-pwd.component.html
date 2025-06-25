@@ -25,7 +25,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onCurrentPasswordToggle($event)"/>
+                (toggled)="onCurrentPasswordToggle($event)"/>
         </div>
         <sb-first-error [control]="_form.controls.password"/>
     </div>
@@ -43,7 +43,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onNewPasswordToggle($event)"/>
+                (toggled)="onNewPasswordToggle($event)"/>
         </div>
         <sb-first-error [control]="_form.controls.newPassword"/>
     </div>
@@ -61,7 +61,7 @@
             <sb-toggle-icon-button
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
-                (toggled$)="onConfirmPasswordToggle($event)"/>
+                (toggled)="onConfirmPasswordToggle($event)"/>
         </div>
         <sb-first-error [control]="_form.controls.confirmPassword"/>
         
