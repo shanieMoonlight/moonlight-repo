@@ -5,8 +5,8 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, startWith, Subject, switchMap, takeWhile, timer } from 'rxjs';
 import { LoginService } from '../../../../shared/auth/services/login/login.service';
-import { Resend2FactorDto, Verify2FactorDto } from '../../../../shared/id/io/models';
-import { AccountIoService } from '../../../../shared/id/io/services';
+import { Resend2FactorDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
+import { AccountIoService } from '@spider-baby/myid-io';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 @Injectable()

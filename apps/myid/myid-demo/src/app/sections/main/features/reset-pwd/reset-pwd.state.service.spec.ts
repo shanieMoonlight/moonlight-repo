@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
 import { BehaviorSubject, of, throwError } from 'rxjs';
 import { ResetPwdStateService } from './reset-pwd.state.service';
-import { AccountIoService } from '../../../../shared/id/io/services';
-import { MessageResponseDto, ResetPwdDto } from '../../../../shared/id/io/models';
+import { AccountIoService } from '@spider-baby/myid-io';
+import { MessageResponseDto, ResetPwdDto } from '@spider-baby/myid-io/models';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 describe('ResetPwdStateService', () => {

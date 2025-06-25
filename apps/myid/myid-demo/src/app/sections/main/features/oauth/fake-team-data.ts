@@ -1,5 +1,5 @@
 import { TeamFormDto } from "../../../../shared/id/ui/forms/team/team.component";
-import { TeamType } from "../../../../shared/id/io/models/team-type";
+import { TeamType } from "@spider-baby/myid-io/models";
 import { demoAppUserDataArray } from "./fake-user-data";
 
 // Single team with full data including leader and members

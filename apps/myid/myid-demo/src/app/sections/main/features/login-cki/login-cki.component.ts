@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } fr
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
-import { LoginDto } from '../../../../shared/id/io/models';
+import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
 import { LoginCkiStateService } from './login-cki.state.service';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';

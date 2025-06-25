@@ -2,11 +2,10 @@ import { GoogleSigninButtonModule, SocialUser } from '@abacritt/angularx-social-
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { AccountIoService, MaintenanceAuthenticatorDemoIoService } from '@spider-baby/myid-io';
+import { LoginDto } from '@spider-baby/myid-io/models';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { LoginDto } from '../../../../shared/id/io/models';
-import { MaintenanceAuthenticatorDemoIoService } from '../../../../shared/id/io/services';
-import { AccountIoService } from '../../../../shared/id/io/services/account.io.service';
 import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';

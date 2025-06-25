@@ -1,9 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { AppUserDto } from '../../../../id/io/models/app-user-dto';
-import { TeamType } from '../../../../id/io/models/team-type';
 import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';

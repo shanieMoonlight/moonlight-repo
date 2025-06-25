@@ -1,5 +1,5 @@
 import { computed, Directive } from '@angular/core';
-import { TeamType } from '../../../id/io/models';
+import { TeamType } from '@spider-baby/myid-io/models';
 import { TeamPositionInfo, TeamPositions } from '../../../id/utils/team-position-info';
 import { BaseAuthSignalService } from '@spider-baby/auth-signal';
 import { MyIdRoleValues } from '../../claims/role-values';

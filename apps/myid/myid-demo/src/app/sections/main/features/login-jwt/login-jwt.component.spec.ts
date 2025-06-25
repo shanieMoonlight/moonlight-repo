@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { LoginService } from '../../../../shared/auth/services/login/login.service';
-import { AccountIoService } from '../../../../shared/id/io/services';
+import { AccountIoService } from '@spider-baby/myid-io';
 import { LoginJwtComponent } from './login-jwt.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
 

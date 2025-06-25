@@ -5,9 +5,9 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Verify2FactorStateService } from './verify-2-factor.state.service';
-import { AccountIoService } from '../../../../shared/id/io/services';
+import { AccountIoService } from '@spider-baby/myid-io';
 import { LoginService } from '../../../../shared/auth/services/login/login.service';
-import { TwoFactorProvider } from '../../../../shared/id/io/models';
+import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 //###############################//

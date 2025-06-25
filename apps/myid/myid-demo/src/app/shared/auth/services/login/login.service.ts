@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
-import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '../../../id/io/models';
+import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
   //  import { AccountIoService } from '../../../id/io/services';
    import { AccountIoService } from '@spider-baby/myid-io';
 import { MyIdAuthService } from '../auth/myid-auth.browser.service';
