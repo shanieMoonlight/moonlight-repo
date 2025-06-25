@@ -263,7 +263,20 @@
         "libs/utils/seo/sw-updater-mat/src/index.ts"
       ],
       "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
-      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
+      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"],
+      "@spider-baby/utils-common": ["libs/utils/common/src/index.ts"],
+      "@spider-baby/utils-common/collections": [
+        "libs/utils/common/collections/src/index.ts"
+      ],
+      "@spider-baby/utils-common/dates": [
+        "libs/utils/common/dates/src/index.ts"
+      ],
+      "@spider-baby/utils-common/numbers": [
+        "libs/utils/common/numbers/src/index.ts"
+      ],
+      "@spider-baby/utils-common/strings": [
+        "libs/utils/common/strings/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

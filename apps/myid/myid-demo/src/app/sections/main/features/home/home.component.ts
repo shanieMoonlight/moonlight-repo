@@ -9,7 +9,6 @@ import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
-import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
 import { MAIN_ROUTES } from '../../config/route-data';
 
 //##############################################//
@@ -76,7 +75,7 @@ const BENEFITS: Benefit[] = [
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
-    HeroBannerComponent,
+    // HeroBannerComponent,
     HighlightModule
   ],
   templateUrl: './home.component.html',

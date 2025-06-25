@@ -1,5 +1,5 @@
+import { isNumber } from '@spider-baby/utils-common/numbers';
 import { TimeInMillis } from './time-in';
-import { isNumber } from '../numbers/is-number';
 
 //#########################################################//
 
