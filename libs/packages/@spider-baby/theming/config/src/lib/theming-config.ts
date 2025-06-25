@@ -105,7 +105,6 @@ export class ThemingConfig {
    * @returns A new validated ThemeConfig instance
    */
   static create(options: ThemingConfigOptions = {}): ThemingConfig {
-    // The constructor now handles applying defaults
     return new ThemingConfig(options);
   }
 

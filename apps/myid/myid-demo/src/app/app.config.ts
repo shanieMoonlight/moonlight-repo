@@ -1,15 +1,17 @@
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { MyIdIoSetup } from '@spider-baby/myid-io/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { SEO_CONFIG } from './config/seo.config';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { SocialAuthSetup } from './config/oauth.config';
+import { SEO_CONFIG } from './config/seo.config';
 import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
 
 export const appConfig: ApplicationConfig = {
@@ -20,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
-        ...authHttpInterceptors        
+        ...authHttpInterceptors
       ])
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -52,6 +54,7 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    MyIdIoSetup.provideMyIdIo({ baseUrl: environment.serverUrl })
   ],
 };

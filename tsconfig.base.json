@@ -208,6 +208,9 @@
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
       ],
+      "@spider-baby/myid-io": ["libs/myid/io/src/index.ts"],
+      "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
+      "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"
       ],

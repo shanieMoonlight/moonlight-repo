@@ -1,13 +1,14 @@
 import { Route } from '@angular/router';
+import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
-import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
 
 export const mainRoutes: Route[] = [
     {
         path: '',
         component: MainComponent,
+        
         providers: [
             {
                 provide: AMyIdRouter,
