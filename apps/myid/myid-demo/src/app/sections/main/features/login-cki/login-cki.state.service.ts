@@ -1,10 +1,10 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
-import { PreconditionRequiredError } from '../../../../shared/io/data-service/io-errors';
-import { CookieSignInDto, CookieSignInResultData, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
+import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { PreconditionRequiredError } from '../../../../shared/id/io/data-service/io-errors';
+import { CookieSignInDto, CookieSignInResultData, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '../../../../shared/id/io/models';
+import { AccountIoService } from '../../../../shared/id/io/services';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, filter } from 'rxjs';

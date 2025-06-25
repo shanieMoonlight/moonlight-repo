@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyIdAuthService } from '../../../../shared/id/utils/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../../shared/auth/services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-auth-service-test',

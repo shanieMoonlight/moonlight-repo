@@ -1,8 +1,8 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { ChPwdDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
+import { ChPwdDto } from '../../../../shared/id/io/models';
+import { AccountIoService } from '../../../../shared/id/io/services';
 
 @Injectable()
 export class ChangePwdStateService {

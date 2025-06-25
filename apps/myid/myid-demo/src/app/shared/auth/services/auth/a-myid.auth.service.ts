@@ -1,8 +1,8 @@
 import { computed, Directive } from '@angular/core';
-import { TeamType } from '../../../../io/models';
-import { TeamPositionInfo, TeamPositions } from '../../team-position-info';
+import { TeamType } from '../../../id/io/models';
+import { TeamPositionInfo, TeamPositions } from '../../../id/utils/team-position-info';
 import { BaseAuthSignalService } from '@spider-baby/auth-signal';
-import { MyIdRoleValues } from './claims/role-values';
+import { MyIdRoleValues } from '../../claims/role-values';
 import { MyIdJwtPayload } from './myid-jwt-payload';
 
 

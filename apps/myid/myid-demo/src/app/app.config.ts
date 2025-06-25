@@ -10,8 +10,7 @@ import { THEME_CONFIG } from './config/app-theme.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { SocialAuthSetup } from './config/oauth.config';
-import { idHttpInterceptors } from './shared/id/utils/io/interceptors/id-http-interceptors';
-import { myIdDemoAuthInterceptorFn } from './shared/interceptors/auth.interceptor';
+import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,8 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
-        ...idHttpInterceptors,
-        myIdDemoAuthInterceptorFn
+        ...authHttpInterceptors        
       ])
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),

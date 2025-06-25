@@ -1,11 +1,11 @@
 import { HttpContext, HttpContextToken, HttpErrorResponse, HttpInterceptorFn, HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Params, Router } from '@angular/router';
-import { AppRouteDefs } from '../../app-route-defs';
-import { MyIdRouteInfo } from '../id/utils/my-id-route-info';
+import { AppRouteDefs } from '../../../app-route-defs';
+import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
 import { EMPTY, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LoginService } from '../id/utils/services/login/login.service';
+import { LoginService } from '../services/login/login.service';
 
 //########################################//
 

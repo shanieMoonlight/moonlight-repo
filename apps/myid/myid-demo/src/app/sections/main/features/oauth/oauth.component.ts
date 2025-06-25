@@ -1,15 +1,15 @@
 import { GoogleSigninButtonModule, SocialUser } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
+import { LoginDto } from '../../../../shared/id/io/models';
+import { MaintenanceAuthenticatorDemoIoService } from '../../../../shared/id/io/services';
+import { AccountIoService } from '../../../../shared/id/io/services/account.io.service';
 import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
-import { LoginDto } from '../../../../shared/io/models';
-import { MaintenanceAuthenticatorDemoIoService } from '../../../../shared/io/services';
-import { AccountIoService } from '../../../../shared/io/services/account.io.service';
 import { SbButtonComponent } from '../../../../shared/ui/buttons';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
@@ -23,8 +23,6 @@ import { googleSocialUser } from './secret';
   imports: [
     GoogleSigninButtonModule,
     MatEverythingModule,
-    // LoginFormComponent,
-    // SbTeamFormComponent,
     SbButtonComponent,
     SbMatNotificationsModalComponent
 ],
@@ -33,7 +31,7 @@ import { googleSocialUser } from './secret';
   styleUrl: './oauth.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OauthComponent implements OnInit {
+export class OauthComponent {
 
   private _ioService = inject(AccountIoService)
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
@@ -43,7 +41,7 @@ export class OauthComponent implements OnInit {
 
   protected _authFailTestState = MiniStateBuilder
     .Create(() => this._ioMntcAuthTest.mntcMinimum())
-    .setSuccessMsgFn((dto, response) => `Success!:${JSON.stringify(response)}}`)
+    .setSuccessMsgFn((dto, response) => `Message: ${response.message}\nAuthenticator: ${response.authenticator}`)
     .setOnSuccessFn((dto, response) => { console.log('Success:', response); })
 
   protected _loginState = MiniStateBuilder
@@ -82,30 +80,6 @@ export class OauthComponent implements OnInit {
   protected _testTeamMinimal = demoTeamDataMinimal;
 
 
-
-  //--------------------------//
-
-  constructor() {
-    // Initialization logic can go here if needed
-    // console.log('OauthComponent initialized');
-    // console.log(environment.oauth);
-    // console.log(SocialAuthSetup.provideSocialLoginConfig());
-
-
-  }
-
-  //- - - - - - - - - - - - - //
-
-  ngOnInit() {
-    console.log('');
-
-    // this._socialAuth.authState.subscribe((socialUser) => {
-    //   console.log('Google Auth State:', socialUser);
-    //   console.log('Google Auth State Stringified:', JSON.stringify(socialUser).replace(/,/g, ',\n'));
-    //   this._googleLoginState.trigger(socialUser)
-
-    // });
-  }
 
   //--------------------------//
 

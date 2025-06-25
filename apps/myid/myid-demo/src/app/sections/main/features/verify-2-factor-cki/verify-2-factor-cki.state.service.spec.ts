@@ -5,9 +5,9 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Verify2FactorCookieStateService } from './verify-2-factor-cki.state.service';
-import { AccountIoService } from '../../../../shared/io/services';
-import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
-import { TwoFactorProvider } from '../../../../shared/io/models';
+import { AccountIoService } from '../../../../shared/id/io/services';
+import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { TwoFactorProvider } from '../../../../shared/id/io/models';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 //###############################//

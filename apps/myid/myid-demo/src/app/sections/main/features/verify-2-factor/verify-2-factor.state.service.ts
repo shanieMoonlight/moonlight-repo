@@ -1,13 +1,13 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { combineLatest, filter, map, merge, of, startWith, Subject, switchMap, takeWhile, timer } from 'rxjs';
-import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
+import { combineLatest, filter, map, startWith, Subject, switchMap, takeWhile, timer } from 'rxjs';
+import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { Resend2FactorDto, Verify2FactorDto } from '../../../../shared/id/io/models';
+import { AccountIoService } from '../../../../shared/id/io/services';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
-import { Resend2FactorDto, Verify2FactorDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
 
 @Injectable()
 export class Verify2FactorStateService {

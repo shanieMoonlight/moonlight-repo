@@ -4,7 +4,7 @@ import { of, throwError } from 'rxjs';
 
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { LoginService } from '../id/utils/services/login/login.service';
+import { LoginService } from '../services/login/login.service';
 import { myIdDemoAuthInterceptorFn } from './auth.interceptor';
 
 describe('myIdDemoAuthInterceptorFn', () => {

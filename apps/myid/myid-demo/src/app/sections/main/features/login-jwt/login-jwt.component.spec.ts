@@ -8,8 +8,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { LoginService } from '../../../../shared/id/utils/services/login/login.service';
-import { AccountIoService } from '../../../../shared/io/services';
+import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { AccountIoService } from '../../../../shared/id/io/services';
 import { LoginJwtComponent } from './login-jwt.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
 

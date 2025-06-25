@@ -83,6 +83,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
   color: var(--mat-sys-on-surface);
   font-size: 16px;
   line-height: 1.5;
+  overflow-x: auto;
   
   p {
     margin: 0;

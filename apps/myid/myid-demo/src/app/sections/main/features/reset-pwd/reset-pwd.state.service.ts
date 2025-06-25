@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
-import { ForgotPwdDto, ResetPwdDto } from '../../../../shared/io/models';
-import { AccountIoService } from '../../../../shared/io/services';
+import { ForgotPwdDto, ResetPwdDto } from '../../../../shared/id/io/models';
+import { AccountIoService } from '../../../../shared/id/io/services';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 //###############################//

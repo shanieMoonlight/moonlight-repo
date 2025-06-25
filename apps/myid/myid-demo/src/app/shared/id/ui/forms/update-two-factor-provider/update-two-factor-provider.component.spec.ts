@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '../../../../ui/buttons';
 import { SbSelectComponent } from '../../../../ui/select/select.component';
-import { TwoFactorProvider } from '../../../../io/models/two-factor-provider';
+import { TwoFactorProvider } from '../../../../id/io/models/two-factor-provider';
 import { By } from '@angular/platform-browser';
 
 describe('SbUpdateTwoFactorProviderFormComponent', () => {

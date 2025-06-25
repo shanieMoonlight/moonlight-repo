@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
-import { MyIdAuthService } from '../../shared/id/utils/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../shared/auth/services/auth/myid-auth.browser.service';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 

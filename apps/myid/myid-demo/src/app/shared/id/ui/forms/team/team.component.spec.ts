@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SbTeamFormComponent } from './team.component';
-import { TeamType } from '../../../../io/models/team-type';
-import { TwoFactorProvider } from '../../../../io/models';
+import { TeamType } from '../../../../id/io/models/team-type';
+import { TwoFactorProvider } from '../../../../id/io/models';
 
 describe('SbTeamFormComponent', () => {
   let component: SbTeamFormComponent;

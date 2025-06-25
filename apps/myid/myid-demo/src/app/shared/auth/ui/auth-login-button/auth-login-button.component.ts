@@ -1,6 +1,6 @@
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID, TemplateRef } from '@angular/core';
-import { MyIdAuthService } from '../../../id/utils/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 import { AMyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
 import { IdTheme } from '../../../ui/theme.type';
 import { SbTooltipDirective } from '../../../ui/tooltip/tooltip.directive';

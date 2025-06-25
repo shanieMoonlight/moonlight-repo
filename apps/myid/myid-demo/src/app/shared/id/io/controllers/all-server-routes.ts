@@ -1,5 +1,5 @@
-import { environment } from '../../../../environments/environment';
-import { AardvaarkController } from './aardvaark.controller';
+
+import { environment } from '../../../../../environments/environment';
 import { AccountController } from './account.controller';
 import { AuthenticatorDemoController } from './authenticatordemo.controller';
 import { CookieDebuggingController } from './cookiedebugging.controller';
@@ -19,7 +19,6 @@ export class ServerRoutes {
   static readonly BASE_URL = environment.serverUrl;
 
   //controllers
-  static readonly Aardvaark = AardvaarkController;
   static readonly Account = AccountController;
   static readonly AuthenticatorDemo = AuthenticatorDemoController;
   static readonly CookieDebugging = CookieDebuggingController;

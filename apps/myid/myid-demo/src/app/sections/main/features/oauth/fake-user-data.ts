@@ -1,4 +1,4 @@
-import { AppUserDto, TwoFactorProvider } from "../../../../shared/io/models";
+import { AppUserDto, TwoFactorProvider } from "../../../../shared/id/io/models";
 
 
 // export interface IdentityAddressDto {
