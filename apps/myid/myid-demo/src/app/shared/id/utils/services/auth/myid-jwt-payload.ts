@@ -1,4 +1,4 @@
-import { JwtPayload } from "../base/jwt/jwt-payload";
+import { JwtPayload } from "@spider-baby/auth-signal";
 
 export interface MyIdJwtPayload extends JwtPayload {
 

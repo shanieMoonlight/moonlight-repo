@@ -1,5 +1,5 @@
 import { Injectable, effect, inject } from '@angular/core';
-import { LogErrorContext } from '../base/logging/log-error-context';
+import { LogErrorContext } from '@spider-baby/auth-signal';
 import { JwtStorageService } from '../jwt-storage/jwt-storage.service';
 import { AMyIdAuthService } from './a-myid.auth.service';
 
