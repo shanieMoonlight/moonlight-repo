@@ -16,7 +16,7 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
-    title: 'Auth Test',
+    title: 'Auth Info',
     description: 'View the decoded JWT and the Auth Service Props.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('auth-test'),
     icon: 'quiz',

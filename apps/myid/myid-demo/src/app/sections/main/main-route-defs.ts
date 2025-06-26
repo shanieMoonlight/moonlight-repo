@@ -8,7 +8,7 @@ const BaseRoute = '';
 /** Type alias for the child routes of the main application area: 'home' | 'about'. */
 type CHILD_ROUTE =
   | 'home'
-  | 'oauth'
+  | 'scratchpad'
   | 'login-jwt'
   | 'login-cookie'
   | 'confirm-email'

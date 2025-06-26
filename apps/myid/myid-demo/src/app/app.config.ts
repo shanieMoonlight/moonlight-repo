@@ -13,6 +13,7 @@ import { THEME_CONFIG } from './config/app-theme.config';
 import { SocialAuthSetup } from './config/oauth.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
       ])
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
+    provideAnimationsAsync(),
     provideRouter(appRoutes,
       // Use withInMemoryScrolling for scroll options
       withInMemoryScrolling({

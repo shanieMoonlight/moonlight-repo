@@ -26,20 +26,19 @@ import { googleSocialUser } from './secret';
     SbMatNotificationsModalComponent
 ],
   standalone: true,
-  templateUrl: './oauth.component.html',
-  styleUrl: './oauth.component.scss',
+  templateUrl: './scratchpad.component.html',
+  styleUrl: './scratchpad.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OauthComponent {
+export class ScratchpadComponent {
 
   private _ioService = inject(AccountIoService)
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
-  // private _socialAuth = inject(SocialAuthService)
 
   //- - - - - - - - - - - - - //
 
   protected _authFailTestState = MiniStateBuilder
-    .Create(() => this._ioMntcAuthTest.mntcMinimum())
+    .Create(() => this._ioMntcAuthTest.mntc())
     .setSuccessMsgFn((dto, response) => `Message: ${response.message}\nAuthenticator: ${response.authenticator}`)
     .setOnSuccessFn((dto, response) => { console.log('Success:', response); })
 

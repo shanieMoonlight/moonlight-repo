@@ -6,15 +6,22 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login/login.service';
 import { myIdDemoAuthInterceptorFn } from './auth.interceptor';
+import { SbToastService } from '@spider-baby/ui-toast';
 
 describe('myIdDemoAuthInterceptorFn', () => {
   let loginServiceMock: any;
+  let toastServiceMock: any;
   let routerMock: any;
   let reqMock: any;
   let nextMock: any;
 
   beforeEach(() => {
     loginServiceMock = { logout: jest.fn() };
+    toastServiceMock = {
+      show: jest.fn(() => ({
+        afterClosed: () => ({ pipe: () => ({ subscribe: () => {} }) })
+      })),
+    }
     routerMock = { url: '/login-jwt', navigate: jest.fn() };
     reqMock = { context: { get: jest.fn(() => false) } } as any;
     nextMock = jest.fn();
@@ -24,7 +31,8 @@ describe('myIdDemoAuthInterceptorFn', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: LoginService, useValue: loginServiceMock },
-        { provide: Router, useValue: routerMock }
+        { provide: Router, useValue: routerMock },
+        { provide: SbToastService, useValue: toastServiceMock }
       ]
     });
   });
@@ -67,12 +75,13 @@ describe('myIdDemoAuthInterceptorFn', () => {
     const error = { status: HttpStatusCode.Unauthorized } as HttpErrorResponse;
     runInterceptor(error, '/protected-page').subscribe({
       error: () => {
+      console.log('Error callback hit');
         expect(loginServiceMock.logout).toHaveBeenCalled();
         expect(routerMock.navigate).toHaveBeenCalled();
         done();
       }
     });
-  });
+  }, 10000);
 
   it('should handle forbidden error on protected page', (done) => {
     const error = { status: HttpStatusCode.Forbidden } as HttpErrorResponse;

@@ -21,8 +21,8 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
             },
             {
-                path: MainSectionRoutesDefs.route('oauth'),
-                loadComponent: () => import('./features/oauth/oauth.component').then(m => m.OauthComponent),
+                path: MainSectionRoutesDefs.route('scratchpad'),
+                loadComponent: () => import('./features/scrachpad/scratchpad.component').then(m => m.ScratchpadComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('login-jwt'),

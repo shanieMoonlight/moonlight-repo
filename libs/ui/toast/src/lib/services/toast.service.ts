@@ -11,7 +11,7 @@ import { ToastRef } from '../toast-ref';
 @Injectable({
   providedIn: 'root',
 })
-export class ToastService {
+export class SbToastService {
 
   private overlay = inject(Overlay)
   private parentInjector = inject(Injector)

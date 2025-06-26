@@ -11,6 +11,7 @@ const mockSwUpdate = {
   isEnabled: false,
   versionUpdates: {
     pipe: () => ({
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       subscribe: () => { }
     })
   },

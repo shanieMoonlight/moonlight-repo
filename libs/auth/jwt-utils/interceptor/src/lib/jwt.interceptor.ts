@@ -1,6 +1,6 @@
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { JwtStorageService } from '../services/jwt-storage/jwt-storage.service';
+import { JwtStorageService } from '@spider-baby/auth-jwt-utils/storage';
 
 //###########################//
 

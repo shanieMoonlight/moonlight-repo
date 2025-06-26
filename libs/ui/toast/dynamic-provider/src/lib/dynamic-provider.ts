@@ -1,5 +1,5 @@
 import { EnvironmentProviders, Provider } from '@angular/core';
-import { ToastService } from '@spider-baby/ui-toast';
+import { SbToastService } from '@spider-baby/ui-toast';
 import { TOAST_CONFIG_TOKEN, ToastConfig } from '@spider-baby/ui-toast/setup';
 
 /**
@@ -44,7 +44,7 @@ export class ToastDynamicSetup {
                 provide: TOAST_CONFIG_TOKEN,
                 useValue: config,
             },
-            ToastService
+            SbToastService
         ]
 
     }

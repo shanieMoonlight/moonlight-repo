@@ -2,9 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { TeamType, TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { SbTeamFormComponent } from './team.component';
-import { TeamType } from '../../../../id/io/models/team-type';
-import { TwoFactorProvider } from '../../../../id/io/models';
 
 describe('SbTeamFormComponent', () => {
   let component: SbTeamFormComponent;

@@ -10,6 +10,7 @@ import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 import { SbTooltipDirective } from '../../../../shared/ui/tooltip/tooltip.directive';
+import { AppRouteDefs } from '../../../../app-route-defs';
 
 //##############################################################//
 
@@ -25,10 +26,10 @@ interface NavbarItem {
 
 const rhsNavbarItems: NavbarItem[] = [
   {
-    routerLink: 'oauth',
-    tooltip: 'Oauth',
-    icon: 'verified_user',
-    text: 'Oauth'
+    routerLink: AppRouteDefs.routes.main.route('scratchpad'),
+    tooltip: 'Scratchpad',
+    icon: 'draw',
+    text: 'ScratchPad'
   },
   // {
   //   routerLink: '/api',

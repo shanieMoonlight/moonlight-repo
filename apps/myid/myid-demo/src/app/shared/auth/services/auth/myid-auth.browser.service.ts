@@ -1,6 +1,6 @@
 import { Injectable, effect, inject } from '@angular/core';
 import { LogErrorContext } from '@spider-baby/auth-signal';
-import { JwtStorageService } from '../jwt-storage/jwt-storage.service';
+import { JwtStorageService } from '@spider-baby/auth-jwt-utils/storage';
 import { AMyIdAuthService } from './a-myid.auth.service';
 
 @Injectable({

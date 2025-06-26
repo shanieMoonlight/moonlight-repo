@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ToastData, ToastService } from '@spider-baby/ui-toast';
+import { ToastData, SbToastService } from '@spider-baby/ui-toast';
 import { ToastDynamicSetup } from '@spider-baby/ui-toast/dynamic-provider';
 import { matToastConfig } from '@spider-baby/ui-toast/setup';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -20,7 +20,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 })
 export class HubMainTesterComponent {
  
-  private _toast = inject(ToastService);
+  private _toast = inject(SbToastService);
 
   static count = 0;
 

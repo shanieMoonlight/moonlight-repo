@@ -164,6 +164,13 @@
       "@spider-baby-repo/swagger-codegen-plugin": [
         "tools/swagger-codegen-plugin/src/index.ts"
       ],
+      "@spider-baby/auth-jwt-utils": ["libs/auth/jwt-utils/src/index.ts"],
+      "@spider-baby/auth-jwt-utils/interceptor": [
+        "libs/auth/jwt-utils/interceptor/src/index.ts"
+      ],
+      "@spider-baby/auth-jwt-utils/storage": [
+        "libs/auth/jwt-utils/storage/src/index.ts"
+      ],
       "@spider-baby/auth-signal": ["libs/auth/auth-signal/src/index.ts"],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [

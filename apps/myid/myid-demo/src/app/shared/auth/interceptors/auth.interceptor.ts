@@ -6,6 +6,8 @@ import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
 import { EMPTY, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginService } from '../services/login/login.service';
+import { devConsole } from '@spider-baby/dev-console';
+import { SbToastService, ToastData } from '@spider-baby/ui-toast';
 
 //########################################//
 
@@ -20,6 +22,7 @@ export const myIdDemoAuthInterceptorFn: HttpInterceptorFn = (req, next) => {
 
   const loginService = inject(LoginService);
   const router = inject(Router)
+  const toast = inject(SbToastService)
 
   if (req.context.get(BYPASS_AUTH_INTERCEPTOR_CTX_TKN))
     return next(req)
@@ -29,12 +32,12 @@ export const myIdDemoAuthInterceptorFn: HttpInterceptorFn = (req, next) => {
 
       if (!isAuthError(errorResponse.status))
         return throwError(() => errorResponse)
-      
+
       // Ignore auth errors on allow-anonymous pages
       if (isOnAllowAnonymousPage(router.url))
         return EMPTY;
 
-      handleUnauthorized(req, errorResponse, loginService, router)
+      handleUnauthorized(req, errorResponse, loginService, router, toast)
       return throwError(() => errorResponse)
     })
   )
@@ -47,17 +50,21 @@ const isAuthError = (status: number): boolean =>
 
 //----------------------------------------//
 
-function handleUnauthorized(req: HttpRequest<unknown>, errorResponse: HttpErrorResponse, loginService: LoginService, router: Router) {
+function handleUnauthorized(
+  req: HttpRequest<unknown>,
+  errorResponse: HttpErrorResponse,
+  loginService: LoginService,
+  router: Router,
+  toast: SbToastService) {
 
-  console.log('handleUnauthorized', errorResponse);
 
   if (errorResponse.status === HttpStatusCode.Unauthorized) {
-    console.log(errorResponse);
+    devConsole.log(errorResponse);
 
-    console.log('Unauthorized', 'You must be logged in to access this page.');
+    toast.show(ToastData.Warning('You must be logged in to access this page.'), 5000)
     loginService.logout(); //Log out Unauthorized only
   } else {
-    console.log('Forbidden', 'You do not have the correct permissions to access this page.');
+    toast.show(ToastData.Warning('You do not have the correct permissions to access this page.'), 5000)
   }
 
   const queryParams = getRedirectQueryParams(router.url);
@@ -88,10 +95,6 @@ function isOnAllowAnonymousPage(url: string) {
     AppRouteDefs.fullPaths.main.route('verify-2-factor'),
     AppRouteDefs.fullPaths.main.route('verify-2-factor-cookie')
   ]
-
-
-  console.log('routesToIgnore', routesToIgnore);
-
 
   if (!routesToIgnore?.length)
     return false
