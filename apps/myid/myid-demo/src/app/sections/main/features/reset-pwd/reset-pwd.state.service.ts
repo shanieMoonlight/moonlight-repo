@@ -23,14 +23,14 @@ export class ResetPwdStateService {
   //- - - - - - - - - - - - - //
 
   private _userId$ = this._actRoute.queryParamMap.pipe(
-    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.USER_ID)),
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.USER_ID_KEY)),
     filter((x) => !!x)
   );
   private _userId = toSignal(this._userId$);
 
 
   private _token$ = this._actRoute.queryParamMap.pipe(
-    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.RESET_PWD_TOKEN)),
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY)),
     filter((x) => !!x))
   private _token = toSignal(this._token$)
 

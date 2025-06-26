@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, PLATFORM_ID, WritableSignal, computed, effect, inject, isDevMode, signal } from '@angular/core';
+import { Directive, OnDestroy, PLATFORM_ID, WritableSignal, computed, effect, inject, isDevMode, signal } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
 import { DateHelpers } from '@spider-baby/utils-common/dates';
 import { Claim } from './claims/claim';
@@ -12,13 +12,14 @@ import { LogErrorContext } from './logging/log-error-context';
  * Base class for JWT authentication using Angular signals.
  * Provides type-safe, reactive access to claims and handles token expiry.
  */
-export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload> {
+export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload> implements OnDestroy {
 
   protected _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - -//
 
   protected isPlatformBrowser = computed(() => isPlatformBrowser(this._platformId))
+  private expiryTimeout?: ReturnType<typeof setTimeout>;
 
   private _accessToken: WritableSignal<string | null> = signal(null)
 
@@ -26,10 +27,10 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   accessToken = computed(() => this._accessToken())
 
   /** Decoded JWT payload (signal) */
-  decodedToken = computed(() => this.decodeToken(this._accessToken()))
+  jwtPayload = computed(() => this.decodeToken(this._accessToken()))
 
   /** All claims as a record (signal) */
-  allClaimsRecord = computed(() => this.extractAllClaimsRecord(this.decodedToken()))
+  allClaimsRecord = computed(() => this.extractAllClaimsRecord(this.jwtPayload()))
   /** All claims as an array (signal) */
   allClaims = computed(() => Object.values(this.allClaimsRecord()))
 
@@ -38,15 +39,15 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
     const roles = this.getClaimValue('role');
     if (!roles)
       return new Array<string>()
-    if (Array.isArray(roles))
-      return roles as string[]
-    return [roles] as string[];
+    return Array.isArray(roles)
+      ? roles as string[]
+      : [roles] as string[]
   });
 
   //- - - - - - - - - -//
 
   /** True if a valid JWT is present (signal) */
-  isLoggedIn = computed(() => !!this.decodedToken());
+  isLoggedIn = computed(() => !!this.jwtPayload());
   /** True if no valid JWT is present (signal) */
   isNotLoggedIn = computed(() => !this.isLoggedIn());
 
@@ -119,6 +120,16 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   protected abstract storeJwt(accessToken: string): void
 
   /**
+   * Remove the JWT the storage (must be implemented by subclass)
+   */
+  protected abstract removeJwt(): void
+
+  /**
+   * Get the stored JWT access token (must be implemented by subclass)
+   */
+  protected abstract getStoredToken(): Promise<string | null>;
+
+  /**
    * Log an error with context (must be implemented by subclass)
    */
   protected abstract logError?(logData: LogErrorContext): void
@@ -139,6 +150,23 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
 
   }
 
+  //- - - - - - - - - -//
+
+  async initAsync(): Promise<void> {
+    if (!this.isPlatformBrowser())
+      return;
+
+    const storedToken = await this.getStoredToken();
+    devConsole.log('init, storedToken', storedToken);
+    if (storedToken)
+      this.logIn(storedToken);
+  }
+
+  //- - - - - - - - - -//
+
+  ngOnDestroy(): void {
+    clearTimeout(this.expiryTimeout);
+  }
 
   //-------------------//
 
@@ -158,6 +186,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    */
   logOut(): void {
     devConsole.log('Logged out successfully');
+    this.removeJwt();
     return this._accessToken.set(null);
   }
 
@@ -188,7 +217,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * @returns True if the claim exists in the decoded token.
    */
   hasClaimType = <K extends keyof JWT>(claimType: K): boolean =>
-    !!claimType && !!this.decodedToken()?.[claimType]
+    !!claimType && !!this.jwtPayload()?.[claimType]
 
   //- - - - - - - - - -//
 
@@ -200,7 +229,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * @returns True if the claim exists and equals the given value.
    */
   hasClaim = <K extends keyof JWT>(claimType: K, value: unknown): boolean =>
-    this.decodedToken()?.[claimType] == value
+    this.jwtPayload()?.[claimType] == value
 
   //- - - - - - - - - -//
 
@@ -211,7 +240,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * @returns The value of the claim, or undefined if not present.
    */
   getClaimValue = <K extends keyof JWT>(claimName: K): JWT[K] | undefined =>
-    this.decodedToken()?.[claimName];
+    this.jwtPayload()?.[claimName];
 
   //-------------------//
 
@@ -241,7 +270,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Extract all claims from a parsed JWT token into a record of Claim objects
    */
   private extractAllClaimsRecord<T extends object = JWT>(parsedToken?: T | null): Record<string, Claim> {
-  
+
     const claimsRecord: Record<string, Claim> = {}
     if (!parsedToken)
       return claimsRecord
@@ -259,6 +288,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Called when the JWT expires (default: logs out)
    */
   protected onExpiry() {
+    devConsole.log('onExpiry');
     this.logOut();
   }
 
@@ -267,7 +297,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   /**
    * Sets a timer to call onExpiry() when the JWT expires
    */
-  private expiryTimeout?: ReturnType<typeof setTimeout>;
   private setupExpiryTimer(expiry?: Date) {
     clearTimeout(this.expiryTimeout);
     if (!expiry)

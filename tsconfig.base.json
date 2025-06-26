@@ -172,6 +172,12 @@
         "libs/auth/jwt-utils/storage/src/index.ts"
       ],
       "@spider-baby/auth-signal": ["libs/auth/auth-signal/src/index.ts"],
+      "@spider-baby/auth-signal/default": [
+        "libs/auth/auth-signal/default/src/index.ts"
+      ],
+      "@spider-baby/auth-signal/firebase": [
+        "libs/auth/auth-signal/firebase/src/index.ts"
+      ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [
         "libs/tools/generators/swagger-io-codegen/src/index.ts"

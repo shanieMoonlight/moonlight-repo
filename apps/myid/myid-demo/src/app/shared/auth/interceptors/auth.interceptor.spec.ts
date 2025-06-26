@@ -63,7 +63,7 @@ describe('myIdDemoAuthInterceptorFn', () => {
   it('should swallow auth errors on allow-anonymous pages', (done) => {
     const error = { status: HttpStatusCode.Unauthorized } as HttpErrorResponse;
     runInterceptor(error, '/login-jwt').subscribe({
-      complete: () => {
+      error: () => {
         expect(loginServiceMock.logout).not.toHaveBeenCalled();
         expect(routerMock.navigate).not.toHaveBeenCalled();
         done();

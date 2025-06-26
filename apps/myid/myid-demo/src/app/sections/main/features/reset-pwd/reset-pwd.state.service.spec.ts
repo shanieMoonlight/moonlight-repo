@@ -47,7 +47,7 @@ describe('ResetPwdStateService', () => {
 
     it('should return false when only userId is present', () => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user-id'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user-id'
       }));
 
       expect(service.readyToReset()).toBeFalsy();
@@ -55,7 +55,7 @@ describe('ResetPwdStateService', () => {
 
     it('should return false when only reset token is present', () => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.readyToReset()).toBeFalsy();
@@ -63,8 +63,8 @@ describe('ResetPwdStateService', () => {
 
     it('should return true when both userId and reset token are present', () => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user-id',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user-id',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.readyToReset()).toBeTruthy();
@@ -72,8 +72,8 @@ describe('ResetPwdStateService', () => {
 
     it('should handle empty string values as falsy', () => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: '',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: '',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.readyToReset()).toBeFalsy();
@@ -84,8 +84,8 @@ describe('ResetPwdStateService', () => {
 
     it('should be false when ready to reset and no active operation', () => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user-id',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user-id',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.loading()).toBeFalsy();
@@ -96,8 +96,8 @@ describe('ResetPwdStateService', () => {
     beforeEach(() => {
       // Setup valid query params for reset
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user-id',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-reset-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user-id',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-reset-token'
       }));
     });
 
@@ -200,17 +200,17 @@ describe('ResetPwdStateService', () => {
     it('should handle multiple rapid state changes', () => {
       // Rapid changes
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'user1'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'user1'
       }));
 
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'user1',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'token1'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'user1',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'token1'
       }));
 
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'user2',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'token2'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'user2',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'token2'
       }));
 
       // Should end up being ready
@@ -221,8 +221,8 @@ describe('ResetPwdStateService', () => {
   describe('error handling', () => {
     beforeEach(() => {
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user-id',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user-id',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
     });
 
@@ -267,8 +267,8 @@ describe('ResetPwdStateService', () => {
       expect(service.readyToReset()).toBeFalsy();
 
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       // Signal should immediately reflect the new value
@@ -280,8 +280,8 @@ describe('ResetPwdStateService', () => {
       // Test the computed nature of readyToReset and loading
 
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: '',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: '',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.errorMsg()).toBeTruthy(); // Ready and no operation = not loading
@@ -292,8 +292,8 @@ describe('ResetPwdStateService', () => {
 
 
       queryParamMapSubject.next(convertToParamMap({
-        [MyIdRouteInfo.Params.USER_ID]: 'test-user',
-        [MyIdRouteInfo.Params.RESET_PWD_TOKEN]: 'test-token'
+        [MyIdRouteInfo.Params.USER_ID_KEY]: 'test-user',
+        [MyIdRouteInfo.Params.RESET_PWD_TOKEN_KEY]: 'test-token'
       }));
 
       expect(service.errorMsg()).toBeFalsy(); // Ready and no operation = not loading

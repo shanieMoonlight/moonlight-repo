@@ -5,13 +5,13 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": ["node"]
   },
   "exclude": [
-    "src/**/*.spec.ts",
-    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "test-setup.ts",
     "jest.config.ts",
-    "src/**/*.test.ts"
+    "**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["**/*.ts", "../../../apps/myid/myid-demo/src/app/shared/auth/services/login/test-data.ts"]
 }

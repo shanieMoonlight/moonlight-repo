@@ -1,28 +1,31 @@
 export class JwtHelper {
 
   private static urlBase64Decode(str: string) {
-
-    let output = str.replace(/-/g, '+').replace(/_/g, '/')
+    let output = str.replace(/-/g, '+').replace(/_/g, '/');
 
     switch (output.length % 4) {
-      case 0: {
+      case 0:
         break;
-      }
-      case 2: {
-        output += '=='
+      case 2:
+        output += '==';
         break;
-      }
-      case 3: {
-        output += '='
+      case 3:
+        output += '=';
         break;
-      }
-      default: {
+      default:
         throw new Error('Illegal base64url string!');
-      }
     }
 
-    return decodeURIComponent(encodeURI(window.atob(output)))
-
+    // Universal base64 decode
+    if (typeof window !== 'undefined' && typeof window.atob === 'function') {
+      // Browser
+      return decodeURIComponent(encodeURI(window.atob(output)));
+    } else if (typeof Buffer !== 'undefined') {
+      // Node.js
+      return Buffer.from(output, 'base64').toString('utf-8');
+    } else {
+      throw new Error('No base64 decoder available in this environment');
+    }
   }
 
   //-------------------//
@@ -54,12 +57,9 @@ export class JwtHelper {
   static isRawTokenExpired(rawToken: string): boolean {
 
     try {
-
       const decoded = this.decodeToken(rawToken);
       return this.isTokenExpired(decoded)
-
     } catch {
-
       //Any error means we can't trust the token
       return true
     }
@@ -75,20 +75,14 @@ export class JwtHelper {
   static isTokenExpired(decodedToken: any): boolean {
 
     try {
-
       const now = Date.now().valueOf() / 1000;
-
       // if (!decodedToken?.exp || !decodedToken?.nbf) return true;
       //Token should have expiry
       if (!decodedToken?.exp || decodedToken.exp < now) return true;
-
       //Token may not have notBefore
       if (decodedToken?.nbf && decodedToken.nbf > now) return true;
-
       return false
-
     } catch {
-
       //Any error means we can't trust the token
       return true
     }

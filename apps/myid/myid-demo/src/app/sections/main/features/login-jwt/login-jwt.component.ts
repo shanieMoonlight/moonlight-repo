@@ -7,6 +7,7 @@ import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/
 import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
+import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -43,6 +44,7 @@ export class LoginJwtComponent implements OnInit {
 
     effect(() => {
       if (this._state.loginSuccess()) {
+        devConsole.log('LoginJwtComponent: loginSuccess effect triggered',this._state.redirectUrl());
         const redirectUrl = this._state.redirectUrl();
         if (redirectUrl)
           this._router.navigate([redirectUrl])

@@ -29,7 +29,7 @@ export class MyIdMainRouterService extends AMyIdRouter {
     const queryParams: Params = {}
 
     if (token)
-      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN] = token
+      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY] = token
 
     this._router.navigate(
       [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],

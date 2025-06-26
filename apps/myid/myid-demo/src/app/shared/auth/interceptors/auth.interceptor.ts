@@ -1,13 +1,13 @@
 import { HttpContext, HttpContextToken, HttpErrorResponse, HttpInterceptorFn, HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Params, Router } from '@angular/router';
-import { AppRouteDefs } from '../../../app-route-defs';
-import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
-import { EMPTY, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { LoginService } from '../services/login/login.service';
 import { devConsole } from '@spider-baby/dev-console';
 import { SbToastService, ToastData } from '@spider-baby/ui-toast';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AppRouteDefs } from '../../../app-route-defs';
+import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
+import { LoginService } from '../services/login/login.service';
 
 //########################################//
 
@@ -35,7 +35,7 @@ export const myIdDemoAuthInterceptorFn: HttpInterceptorFn = (req, next) => {
 
       // Ignore auth errors on allow-anonymous pages
       if (isOnAllowAnonymousPage(router.url))
-        return EMPTY;
+        return throwError(() => errorResponse); // propagate error for UI feedback
 
       handleUnauthorized(req, errorResponse, loginService, router, toast)
       return throwError(() => errorResponse)

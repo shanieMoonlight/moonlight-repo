@@ -19,7 +19,7 @@ export class Verify2FactorCookieStateService {
   //- - - - - - - - - - - - - //
 
   private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
-    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)),
     filter((x) => !!x)
   )
   redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });

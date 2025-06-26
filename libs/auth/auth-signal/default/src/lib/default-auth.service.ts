@@ -1,12 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { JwtStorageService } from '@spider-baby/auth-jwt-utils/storage';
-import { LogErrorContext } from '@spider-baby/auth-signal';
-import { AMyIdAuthService } from './a-myid.auth.service';
+import { BaseAuthSignalService, JwtPayload, LogErrorContext } from '@spider-baby/auth-signal';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MyIdAuthService extends AMyIdAuthService {
+export class SbAuthSignalService extends BaseAuthSignalService<JwtPayload> {
 
   protected jwtStore = inject(JwtStorageService);
 
@@ -33,7 +32,7 @@ export class MyIdAuthService extends AMyIdAuthService {
 
   //- - - - - - - - - -//
 
-  protected override getStoredToken(): Promise<string | null> {
+  protected override getStoredToken():Promise<string | null> {
     return Promise.resolve(this.jwtStore.getStoredToken())
   }
 

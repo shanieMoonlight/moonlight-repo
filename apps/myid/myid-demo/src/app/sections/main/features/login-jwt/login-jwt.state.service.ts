@@ -7,7 +7,7 @@ import { AccountIoService } from '@spider-baby/myid-io';
 import { PreconditionRequiredError } from '@spider-baby/myid-io';
 import { ActivatedRoute } from '@angular/router';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
-import { filter, map } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable()
@@ -22,7 +22,8 @@ export class LoginJwtStateService {
 
 
   private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
-    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT)),
+    tap((paramMap) => console.log('LoginJwtStateService: redirectUrl paramMap:', paramMap)),
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)),
     filter((x) => !!x)
   )
   redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
