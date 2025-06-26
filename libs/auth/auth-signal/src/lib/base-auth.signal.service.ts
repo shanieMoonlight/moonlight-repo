@@ -157,7 +157,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
       return;
 
     const storedToken = await this.getStoredToken();
-    devConsole.log('init, storedToken', storedToken);
+    devConsole.log('init, storedToken', storedToken?.substring(0, 15) + '...');
     if (storedToken)
       this.logIn(storedToken);
   }
@@ -288,7 +288,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Called when the JWT expires (default: logs out)
    */
   protected onExpiry() {
-    devConsole.log('onExpiry');
     this.logOut();
   }
 
@@ -298,15 +297,31 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Sets a timer to call onExpiry() when the JWT expires
    */
   private setupExpiryTimer(expiry?: Date) {
+
     clearTimeout(this.expiryTimeout);
+    
     if (!expiry)
       return
 
     const msUntilExpiry = expiry.getTime() - Date.now();
-    if (msUntilExpiry > 0)
-      this.expiryTimeout = setTimeout(() => this.onExpiry(), msUntilExpiry);
-    else
-      this.onExpiry()
+    if (msUntilExpiry <= 0) {
+      this.onExpiry();
+      return;
+    }
+
+    // setTimeout has a 32-bit signed integer limit (2^31 - 1 = ~24.8 days)
+    // If the delay is too large, set up a shorter timer and re-check later
+    const MAX_TIMEOUT_MS = 2147483647; // 2^31 - 1
+    const timeoutDelay = Math.min(msUntilExpiry, MAX_TIMEOUT_MS);
+    
+    this.expiryTimeout = setTimeout(() => {
+      // If we hit the max timeout, check again with remaining time
+      if (timeoutDelay === MAX_TIMEOUT_MS) 
+        this.setupExpiryTimer(expiry);
+       else 
+        this.onExpiry();
+      
+    }, timeoutDelay);
   }
 
 

@@ -3,7 +3,6 @@ import { AccountIoService } from '@spider-baby/myid-io';
 import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { MyIdAuthService } from '../auth/myid-auth.browser.service';
-import { SbFirebaseSignalService } from '@spider-baby/auth-signal/firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +63,6 @@ export class LoginService {
   //-----------------//
 
   verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {
-    console.log('verify2Factor dto, ', dto);
 
     return this._accIoService.twoFactorVerification(dto)
       .pipe(
@@ -77,7 +75,6 @@ export class LoginService {
   //-----------------//
 
   verify2FactorCookie(dto: Verify2FactorCookieDto): Observable<JwtPackage> {
-    console.log('verify2FactorCookie dto, ', dto);
 
     return this._accIoService.twoFactorVerificationCookie(dto)
       .pipe(
@@ -98,7 +95,6 @@ export class LoginService {
   //- - - - - - - - -//
 
   private onLoginSuccessJwt(jwt: JwtPackage): Observable<JwtPackage> {
-    console.log('login jwt, ', jwt)
     if (jwt.accessToken)
       this._auth.logIn(jwt.accessToken);
     return of(jwt);
@@ -107,16 +103,13 @@ export class LoginService {
   //- - - - - - - - -//
 
   private onLoginSuccessCookie(ckData: CookieSignInResultData): Observable<CookieSignInResultData> {
-    console.log('login cookie, ', ckData)
     return of(ckData);
   }
 
   //-----------------//
 
-  logout = () =>{
-    console.log('logout');
+  logout = () =>
     this._auth.logOut();
-  }
 
 
 } //Cls

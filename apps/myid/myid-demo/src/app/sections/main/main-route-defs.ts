@@ -19,6 +19,7 @@ type CHILD_ROUTE =
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'
   | 'auth-test'
+  | 'auth-test-firebase'
 
 //#################################################//
 

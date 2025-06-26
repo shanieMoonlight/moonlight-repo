@@ -27,6 +27,8 @@ function fakeJwt(payload: object): string {
 }
 
 class TestAuthService extends BaseAuthSignalService<JwtPayload> {
+    protected override removeJwt(): void { this.storedToken = null; }
+    protected override getStoredToken(): Promise<string | null> {return Promise.resolve(this.storedToken)     }
     public storedToken: string | null = null;
     public errorLog: LogErrorContext[] = [];
     protected storeJwt(token: string) { this.storedToken = token; }
@@ -67,7 +69,7 @@ describe('BaseAuthSignalService', () => {
         service.logOut();
         expect(service.isLoggedIn()).toBe(false);
         expect(service.userName()).toBeUndefined();
-        expect(service.storedToken).toBe(jwt); // storeJwt is not called on logout
+        expect(service.storedToken).toBeNull(); // storeJwt is not called on logout
     });
 
     it('should detect claim presence and value', () => {
@@ -90,12 +92,12 @@ describe('BaseAuthSignalService', () => {
 
 
     it('should handle token expiry and call onExpiry 2', async () => {
-    const soonExpiring = { ...TEST_JWT, exp: Math.floor(Date.now() / 1000) + 0.01 };
-    const soonJwt = fakeJwt(soonExpiring);
-    service.logIn(soonJwt);
-    expect(service.isLoggedIn()).toBe(true);
-    await new Promise(res => setTimeout(res, 20));
-    expect(service.isLoggedIn()).toBe(false);
+        const soonExpiring = { ...TEST_JWT, exp: Math.floor(Date.now() / 1000) + 0.01 };
+        const soonJwt = fakeJwt(soonExpiring);
+        service.logIn(soonJwt);
+        expect(service.isLoggedIn()).toBe(true);
+        await new Promise(res => setTimeout(res, 20));
+        expect(service.isLoggedIn()).toBe(false);
     });
 
     it('should log errors on decode failure', () => {

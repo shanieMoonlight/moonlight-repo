@@ -67,11 +67,11 @@
       <tr><td>updatedAt</td><td>{{ _authService.updatedAt() }}</td></tr>
       <tr><td>birthdate</td><td>{{ _authService.birthdate() }}</td></tr>
       <tr><td>gender</td><td>{{ _authService.gender() }}</td></tr>
-      <tr><td>address</td><td>{{ _authService.address() }}</td></tr>
+      <tr><td>address</td><td>{{ _authService.address() | json}}</td></tr>
       <tr><td>profile</td><td>{{ _authService.profile() }}</td></tr>
       <tr><td>website</td><td>{{ _authService.website() }}</td></tr>
       <!-- AMyIdAuthService signals (team/position/role) -->
-      <!-- <tr><td>isSpr</td><td>{{ _authService.isSpr() }}</td></tr>
+      <tr><td>isSpr</td><td>{{ _authService.isSpr() }}</td></tr>
       <tr><td>isMntc</td><td>{{ _authService.isMntc() }}</td></tr>
       <tr><td>isCus</td><td>{{ _authService.isCus() }}</td></tr>
       <tr><td>isLdr</td><td>{{ _authService.isLdr() }}</td></tr>
@@ -117,7 +117,7 @@
       <tr><td>isMntcOrDev</td><td>{{ _authService.isMntcOrDev() }}</td></tr>
       <tr><td>isMntcMinimumOrDev</td><td>{{ _authService.isMntcMinimumOrDev() }}</td></tr>
       <tr><td>isSuperOrDev</td><td>{{ _authService.isSuperOrDev() }}</td></tr>
-      <tr><td>isSuperMinimumOrDev</td><td>{{ _authService.isSuperMinimumOrDev() }}</td></tr> -->
+      <tr><td>isSuperMinimumOrDev</td><td>{{ _authService.isSuperMinimumOrDev() }}</td></tr>
     </tbody>
   </table>
 </div>

@@ -62,7 +62,11 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test'),
-                loadComponent: () => import('./features/auth-service-test/auth-service-test.component').then(m => m.AuthServiceTestComponent),
+                loadComponent: () => import('./features/auth-service-test/default/auth-service-test.component').then(m => m.AuthServiceTestComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('auth-test-firebase'),
+                loadComponent: () => import('./features/auth-service-test/firebase/auth-service-firebase-test.component').then(m => m.AuthServiceFirebaseTestComponent),
             },
             {
                 path: '',
