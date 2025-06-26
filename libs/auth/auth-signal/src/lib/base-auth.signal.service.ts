@@ -117,12 +117,12 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   /**
    * Store the JWT access token (must be implemented by subclass)
    */
-  protected abstract storeJwt(accessToken: string): void
+  protected abstract storeJwt(accessToken: string): Promise<void>
 
   /**
    * Remove the JWT the storage (must be implemented by subclass)
    */
-  protected abstract removeJwt(): void
+  protected abstract removeJwt(): Promise<void>
 
   /**
    * Get the stored JWT access token (must be implemented by subclass)
@@ -174,7 +174,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Log in with a new JWT access token
    */
   logIn(accessToken: string): void {
-    devConsole.log('Logged in successfully with token:', accessToken.substring(0, 15) + '...');
     this.storeJwt(accessToken)
     this._accessToken.set(accessToken ?? null)
   }
@@ -185,7 +184,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * Log out the current user, clearing the JWT and all claims
    */
   logOut(): void {
-    devConsole.log('Logged out successfully');
     this.removeJwt();
     return this._accessToken.set(null);
   }

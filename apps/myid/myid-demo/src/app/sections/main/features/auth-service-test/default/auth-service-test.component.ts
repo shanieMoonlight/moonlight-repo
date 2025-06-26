@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MyIdAuthService } from '../../../../../shared/auth/services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-auth-service-test',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [JsonPipe],
   templateUrl: './auth-service-test.component.html',
   styleUrl: './auth-service-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

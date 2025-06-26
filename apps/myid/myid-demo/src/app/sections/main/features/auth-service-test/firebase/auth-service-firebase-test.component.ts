@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbFirebaseSignalService } from '@spider-baby/auth-signal/firebase';
 
 @Component({
   selector: 'sb-auth-service-test',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [JsonPipe],
   templateUrl: './auth-service-firebase-test.component.html',
   styleUrl: './auth-service-firebase-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

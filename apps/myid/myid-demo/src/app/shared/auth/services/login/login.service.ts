@@ -3,6 +3,7 @@ import { AccountIoService } from '@spider-baby/myid-io';
 import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { MyIdAuthService } from '../auth/myid-auth.browser.service';
+import { sampleJwt } from './test-data';
 
 @Injectable({
   providedIn: 'root',
@@ -97,6 +98,7 @@ export class LoginService {
   private onLoginSuccessJwt(jwt: JwtPackage): Observable<JwtPackage> {
     if (jwt.accessToken)
       this._auth.logIn(jwt.accessToken);
+      // this._auth.logIn(sampleJwt);
     return of(jwt);
   }
 

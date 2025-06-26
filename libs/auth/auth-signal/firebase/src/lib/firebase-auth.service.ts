@@ -20,19 +20,21 @@ export class SbFirebaseSignalService extends AFirebaseSignalService {
 
   //-------------------//
 
-  protected override storeJwt(accessToken: string): void {
-    return this.jwtStore.storeJwt(accessToken);
+  protected override storeJwt(accessToken: string): Promise<void> {
+    this.jwtStore.storeJwt(accessToken);
+    return Promise.resolve();
   }
 
   //- - - - - - - - - -//
 
-  protected override removeJwt(): void {
-    return this.jwtStore.removeJwt();
+  protected override removeJwt(): Promise<void> {
+    this.jwtStore.removeJwt();
+    return Promise.resolve();
   }
 
   //- - - - - - - - - -//
 
-  protected override getStoredToken():Promise<string | null> {
+  protected override getStoredToken(): Promise<string | null> {
     return Promise.resolve(this.jwtStore.getStoredToken())
   }
 

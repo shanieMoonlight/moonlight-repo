@@ -27,11 +27,17 @@ function fakeJwt(payload: object): string {
 }
 
 class TestAuthService extends BaseAuthSignalService<JwtPayload> {
-    protected override removeJwt(): void { this.storedToken = null; }
-    protected override getStoredToken(): Promise<string | null> {return Promise.resolve(this.storedToken)     }
+    protected override removeJwt(): Promise<void> {
+        this.storedToken = null;
+        return Promise.resolve();
+    }
+    protected override getStoredToken(): Promise<string | null> { return Promise.resolve(this.storedToken) }
     public storedToken: string | null = null;
     public errorLog: LogErrorContext[] = [];
-    protected storeJwt(token: string) { this.storedToken = token; }
+    protected storeJwt(token: string): Promise<void> {
+        this.storedToken = token;
+        return Promise.resolve();
+    }
     protected logError(logData: LogErrorContext) { this.errorLog.push(logData); }
 }
 
