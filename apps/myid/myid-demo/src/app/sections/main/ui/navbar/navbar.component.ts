@@ -11,7 +11,7 @@ import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 import { SbTooltipDirective } from '../../../../shared/ui/tooltip/tooltip.directive';
 import { AppRouteDefs } from '../../../../app-route-defs';
-import { GithubCornerComponent } from '../../../../shared/ui/corner-link/git-corner.component';
+import { GithubCornerComponent } from '@spider-baby/ui-git/corner';
 import { SbIconButtonComponent } from '../../../../shared/ui/buttons/icon-button/icon-button.component';
 import { AppSvgs } from '../../../../config/svgs';
 
