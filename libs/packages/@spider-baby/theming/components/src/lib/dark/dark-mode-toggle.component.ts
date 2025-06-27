@@ -1,8 +1,9 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ThemePalette } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SbThemePalette } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
 
 /**
@@ -28,6 +29,9 @@ import { ThemeService } from '@spider-baby/material-theming/service';
   templateUrl: './dark-mode-toggle.component.html',
   styleUrls: ['./dark-mode-toggle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class]': '_color()',
+  },
 })
 export class MlDarkModeToggleMatComponent {
 
@@ -48,6 +52,7 @@ export class MlDarkModeToggleMatComponent {
  * @internal Use the [hideSwitch] template binding - do not access this property directly
  */
   _hideSwitch = input(true, { alias: 'hideSwitch' })
+  _color = input<SbThemePalette>('primary', { alias: 'color' })
 
   //- - - - - - - - - - - - - - -//
 
@@ -55,7 +60,7 @@ export class MlDarkModeToggleMatComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  toggleDarkTheme = (isDark: boolean) =>{
+  toggleDarkTheme = (isDark: boolean) => {
     this._themeService.setDarkMode(isDark ? 'dark' : 'light')
     this._isDarkEvent.emit(isDark)
   }

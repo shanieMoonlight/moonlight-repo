@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ThemeOption } from '@spider-baby/material-theming/config';
+import { SbThemePalette, ThemeOption } from '@spider-baby/material-theming/config';
 import { ThemeService } from '@spider-baby/material-theming/service';
 import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
-import { MatEverythingModule } from '@spider-baby/material-theming/utils'; 
+import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { Subject, merge, tap } from 'rxjs';
 
 /**
@@ -27,6 +27,9 @@ import { Subject, merge, tap } from 'rxjs';
     templateUrl: './theme-picker.component.html',
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class]': '"icon-"+_color()',
+    },
 })
 export class MlThemePickerMatComponent {
 
@@ -47,6 +50,7 @@ export class MlThemePickerMatComponent {
      * Defaults to `true`.
      */
     _includeCustomThemes = input(true, { alias: 'includeCustomThemes' })
+    _color = input<SbThemePalette|undefined>('primary', { alias: 'color' })
 
     /**
      * Emits the currently selected `ThemeOption` whenever the theme changes.

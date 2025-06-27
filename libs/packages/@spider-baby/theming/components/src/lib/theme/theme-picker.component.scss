@@ -1,27 +1,50 @@
 :host {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .selected {
-    background-color: rgba(128, 128, 128, 0.25) !important;
-  }
-  
-  #btn-icon {
-    cursor: pointer;
-    color: inherit;
-  }
-  
-  sb-theme-avatar{
-    width: 22px;
-    height: 22px;
-    border: 1px solid var(--mat-sys-outline-variant);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out 0s;
+  // --color-icon: var(--mat-sys-primary);
+  --color-icon: inherit;
+}
 
-  mat-divider{
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
+:host:hover {
+  color: var(--color-icon);
+}
+
+.selected {
+  background-color: rgba(128, 128, 128, 0.25) !important;
+}
+
+#btn-icon {
+  cursor: pointer;
+  color: inherit;
+}
+
+sb-theme-avatar {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+mat-divider {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+:host.icon-primary {
+    --color-icon: var(--mat-sys-primary);
+}
+
+:host.icon-secondary {
+    --color-icon: var(--mat-sys-secondary);
+}
+
+:host.icon-tertiary {
+    --color-icon: var(--mat-sys-tertiary);
+}
+
+:host.icon-error {
+    --color-icon: var(--mat-sys-error);
+}
