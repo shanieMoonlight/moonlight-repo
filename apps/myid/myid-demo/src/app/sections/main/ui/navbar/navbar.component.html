@@ -10,26 +10,38 @@
         [attr.aria-label]="'home'"/>   
     
     @if(!isSmallScreen()){  
-        <button mat-icon-button 
+
+        <sb-icon-button 
+            [svgString]="_gitSvg"
             aria-label="Git repo for project"
-            [sbNavigateNewWindow]="_gitRepoUrl()" 
-            [sbTooltip]="'Git repo'">
-            <mat-icon svgIcon="git" />
-        </button>    
-        
-        <button mat-icon-button 
+            [sbNavigateNewWindow]="_gitRepoUrl" 
+            [sbTooltip]="'Git repo'"/>
+
+        <sb-icon-button 
+            [svgString]="_npmSvg"
             aria-label="Npm Package"
-            [sbNavigateNewWindow]="_npmPkgUrl()" 
+            [sbNavigateNewWindow]="_npmPkgUrl" 
+            [sbTooltip]="'Npm Package'"/>
+            
+        <sb-icon-button 
+            [svgString]="_shareSvg"
+            aria-label="Share current page"
+            (click)="share()"
+            sbTooltip="Share this page"/>
+        
+        <!-- <button mat-icon-button 
+            aria-label="Npm Package"
+            [sbNavigateNewWindow]="_npmPkgUrl" 
             [sbTooltip]="'Npm Package'">
             <mat-icon svgIcon="npm" />
-        </button>
-
+        </button> -->
+<!-- 
         <button mat-icon-button 
             aria-label="Share current page"
             (click)="share()"
             sbTooltip="Share this page">
             <mat-icon>share</mat-icon>
-        </button> 
+        </button>  -->
     } 
      <div class="lhs-outlet">
         @if(_lhsOutletTemplate(); as template){
@@ -61,6 +73,8 @@
 
 </mat-toolbar>
 
+
+<sb-github-corner [repoUrl]="_gitRepoUrl"/>
 
 <!-- ---------------------------------------------- -->
  

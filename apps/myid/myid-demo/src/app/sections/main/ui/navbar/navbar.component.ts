@@ -11,6 +11,9 @@ import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
 import { SbTooltipDirective } from '../../../../shared/ui/tooltip/tooltip.directive';
 import { AppRouteDefs } from '../../../../app-route-defs';
+import { GithubCornerComponent } from '../../../../shared/ui/corner-link/git-corner.component';
+import { SbIconButtonComponent } from '../../../../shared/ui/buttons/icon-button/icon-button.component';
+import { AppSvgs } from '../../../../config/svgs';
 
 //##############################################################//
 
@@ -50,7 +53,9 @@ const rhsNavbarItems: NavbarItem[] = [
     SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
-    SbTooltipDirective
+    SbTooltipDirective,
+    GithubCornerComponent,
+    SbIconButtonComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -63,8 +68,8 @@ export class MainNavbarComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  _lhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'lhsOutletTemplate' })
-  _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
+  _lhsOutletTemplate = input<TemplateRef<unknown> | undefined>(undefined, { alias: 'lhsOutletTemplate' })
+  _rhsOutletTemplate = input<TemplateRef<unknown> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
 
   //- - - - - - - - - - - - - - -//
 
@@ -72,9 +77,14 @@ export class MainNavbarComponent {
   protected _logoSml = signal(AppImages.Logo.small) 
   
 
-  protected _gitRepoUrl = signal(AppConstants.GIT_REP_URL)
-  protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL)
+  protected _gitRepoUrl = AppConstants.GIT_REP_URL
+  protected _npmPkgUrl = AppConstants.NPM_PKG_URL
   protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems)
+
+  protected _npmSvg = AppSvgs.NPM_ICON
+  protected _gitSvg = AppSvgs.GIT_ICON
+  protected _shareSvg = AppSvgs.SHARE_ICON
+
 
 
   isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])

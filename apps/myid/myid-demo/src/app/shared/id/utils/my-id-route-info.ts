@@ -13,7 +13,6 @@ export class MyIdRouteInfo {
     static readonly SWAGGER_TOKEN_KEY = 'tkn';
     static readonly HANGFIRE_TOKEN_KEY = 'tkn';
     static readonly EXTERNAL_PAGE_TOKEN_KEY = 'tkn';
-
   };
 
 }

@@ -8,9 +8,10 @@ import { MyIdAuthService } from '../../shared/auth/services/auth/myid-auth.brows
 import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
 import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/hangfire-button.component';
 import { SwaggerButtonComponent } from '../../shared/auth/ui/swagger-button/swagger-button.component';
-import { SbIconButtonComponent } from '../../shared/ui/buttons/icon-button/icon-button.component';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
+import { GithubCornerComponent } from '../../shared/ui/corner-link/git-corner.component';
+import { AppConstants } from '../../config/constants';
 
 
 @Component({
@@ -22,7 +23,6 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
     RouterModule,
     ServiceWorkerUpdateMatComponent,
     SbAuthLoginButtonComponent,
-    SbIconButtonComponent,
     SwaggerButtonComponent,
     HangfireButtonComponent
 
@@ -38,13 +38,10 @@ export class MainComponent {
 
   protected _iconsService = inject(IconsService)
   _authService = inject(MyIdAuthService)
-  private _sanitizer = inject(DomSanitizer)
-
-  protected _swgIconSvg = AppSvgs.SWAGGER_ICON
-  protected _hangfireIconSvg = AppSvgs.HANGFIRE_ICON
 
   protected logout = () => this._authService.logOut()
 
+  protected _gitRepo = AppConstants.GIT_REP_URL
 
   // // Create a sanitized version for safe HTML rendering
   // protected get sanitizedSwaggerSvg(): SafeHtml {

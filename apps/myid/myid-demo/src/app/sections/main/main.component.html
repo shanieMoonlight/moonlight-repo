@@ -2,6 +2,8 @@
     [lhsOutletTemplate]="lhsOutletTemplate"
     [rhsOutletTemplate]="rhsOutletTemplate" />
 
+<!-- <sb-github-corner [repoUrl]="_gitRepo"/> -->
+
 <router-outlet />
 
 
@@ -10,13 +12,13 @@
 <!-- ======================================= -->
 
 <ng-template #lhsOutletTemplate>
-    <sb-swagger-button/>
-    <sb-hangfire-button/>
+    <sb-swagger-button />
+    <sb-hangfire-button [style.color]="'var(--mat-sys-neutral)'"/>
 </ng-template>
 
 
 <ng-template #rhsOutletTemplate>
-    <sb-auth-login-button/>
+    <sb-auth-login-button />
     <div class="theming">
         <sb-theme-picker-mat />
         <sb-dark-mode-toggle-mat />

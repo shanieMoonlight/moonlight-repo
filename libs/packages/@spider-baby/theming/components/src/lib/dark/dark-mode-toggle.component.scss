@@ -5,6 +5,12 @@
   cursor: pointer;
 }
 
+
+:host:hover {
+  opacity: 0.9;
+  color: red;
+}
+
 .fade-in,
 .fade-out {
   transition-duration: 1s;

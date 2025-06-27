@@ -27,7 +27,7 @@ button {
     font-size: inherit;
     font-weight: inherit;
     cursor: pointer;
-    color: var(--color-icon);
+    // color: var(--color-icon);
     transition: color 0.2s, background-color 0.2s;
     display: inline-flex;
     align-items: center;
@@ -40,6 +40,7 @@ button {
 .sb-icon-btn:hover:not(:disabled) {
     background-color: rgba(0, 0, 0, 0.04);
     background-color: var(--mat-sys-surface-variant);
+     color: var(--color-icon);
 }
 
 .sb-icon-btn:focus-visible {
