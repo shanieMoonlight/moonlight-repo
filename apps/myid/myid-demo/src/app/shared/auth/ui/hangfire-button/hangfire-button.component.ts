@@ -4,7 +4,7 @@ import { AppSvgs } from '../../../../config/svgs';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
 import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { IdTheme } from '../../../ui/theme.type';
-import { SbTooltipDirective } from '../../../ui/tooltip/tooltip.directive';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 
 @Component({

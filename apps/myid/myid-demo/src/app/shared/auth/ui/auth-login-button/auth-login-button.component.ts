@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_I
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 import { AMyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
 import { IdTheme } from '../../../ui/theme.type';
-import { SbTooltipDirective } from '../../../ui/tooltip/tooltip.directive';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 
 @Component({
   selector: 'sb-auth-login-button',

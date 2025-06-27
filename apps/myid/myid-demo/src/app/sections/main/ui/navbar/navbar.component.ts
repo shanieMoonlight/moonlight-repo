@@ -9,7 +9,7 @@ import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
-import { SbTooltipDirective } from '../../../../shared/ui/tooltip/tooltip.directive';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { AppRouteDefs } from '../../../../app-route-defs';
 import { GithubCornerComponent } from '@spider-baby/ui-git/corner';
 import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';

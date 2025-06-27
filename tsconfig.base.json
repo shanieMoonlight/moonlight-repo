@@ -239,6 +239,8 @@
         "libs/ui/ui-kit/checkboxes/src/index.ts"
       ],
       "@spider-baby/ui-kit/inputs": ["libs/ui/ui-kit/inputs/src/index.ts"],
+      "@spider-baby/ui-kit/select": ["libs/ui/ui-kit/select/src/index.ts"],
+      "@spider-baby/ui-kit/tooltip": ["libs/ui/ui-kit/tooltip/src/index.ts"],
       "@spider-baby/ui-kit/types": ["libs/ui/ui-kit/types/src/index.ts"],
       "@spider-baby/ui-kit/utils": ["libs/ui/ui-kit/utils/src/index.ts"],
       "@spider-baby/ui-mat-notifications": [
