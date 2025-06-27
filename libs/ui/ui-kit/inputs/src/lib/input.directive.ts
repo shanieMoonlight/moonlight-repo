@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
-import { IdTheme } from '../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Directive({
   selector: '[sbInputStyle]',
@@ -10,7 +10,7 @@ export class SbInputStyleDirective {
   private _el = inject(ElementRef)
   private _renderer = inject(Renderer2)
 
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
   
   private _input = this._el.nativeElement as HTMLInputElement;
 

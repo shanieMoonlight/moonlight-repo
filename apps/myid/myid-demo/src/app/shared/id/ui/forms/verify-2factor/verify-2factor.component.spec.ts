@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 
 describe('SbVerify2FactorFormComponent', () => {
   let component: SbVerify2FactorFormComponent;

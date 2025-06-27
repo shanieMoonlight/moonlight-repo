@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbForgotPwdFormComponent } from './forgot-pwd.component';
 
 describe('SbForgotPwdFormComponent', () => {

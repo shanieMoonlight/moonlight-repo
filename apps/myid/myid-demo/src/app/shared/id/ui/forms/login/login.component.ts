@@ -4,8 +4,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent, SbTextButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
-import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 
 //##########################//
 

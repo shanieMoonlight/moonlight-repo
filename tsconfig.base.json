@@ -235,6 +235,10 @@
       "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
       "@spider-baby/ui-kit": ["libs/ui/ui-kit/src/index.ts"],
       "@spider-baby/ui-kit/buttons": ["libs/ui/ui-kit/buttons/src/index.ts"],
+      "@spider-baby/ui-kit/checkboxes": [
+        "libs/ui/ui-kit/checkboxes/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/inputs": ["libs/ui/ui-kit/inputs/src/index.ts"],
       "@spider-baby/ui-kit/types": ["libs/ui/ui-kit/types/src/index.ts"],
       "@spider-baby/ui-kit/utils": ["libs/ui/ui-kit/utils/src/index.ts"],
       "@spider-baby/ui-mat-notifications": [

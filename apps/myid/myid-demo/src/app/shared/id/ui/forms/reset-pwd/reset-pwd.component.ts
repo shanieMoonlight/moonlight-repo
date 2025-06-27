@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
+import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { PasswordValidation } from '../utils/validators/password-validators';
 
 //##########################//

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 
 //##########################//
 

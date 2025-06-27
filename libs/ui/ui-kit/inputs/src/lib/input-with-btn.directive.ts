@@ -1,5 +1,5 @@
 import { AfterContentChecked, Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
-import { IdTheme } from '../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 
 @Directive({
@@ -10,7 +10,7 @@ export class SbInputWithBtnDirective implements AfterContentChecked {
   private _el = inject(ElementRef)
   private _renderer = inject(Renderer2)
 
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
 
   private _container = this._el.nativeElement as HTMLElement;
 

@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbResetPwdFormComponent } from './reset-pwd.component';
 
 describe('SbResetPwdFormComponent', () => {

@@ -4,7 +4,7 @@ import { IdentityAddressDto, TwoFactorProvider } from '@spider-baby/myid-io/mode
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
-import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
+import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent } from '../../../../ui/select/select.component';
 import { teamPositionOptions } from '../../../utils/team-position-options';
 import { twoFactorProviderOptions } from '../../../utils/two-factor-provider-options';
