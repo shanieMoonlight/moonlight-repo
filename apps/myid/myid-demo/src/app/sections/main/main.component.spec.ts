@@ -69,6 +69,6 @@ describe('MainComponent', () => {
   });
 
   it('should inject IconsService', () => {
-    expect(component._iconsService).toBeInstanceOf(IconsService);
+    expect(component['_iconsService']).toBeInstanceOf(IconsService);
   });
 });

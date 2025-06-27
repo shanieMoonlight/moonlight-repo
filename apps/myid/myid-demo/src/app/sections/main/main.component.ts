@@ -1,9 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
-import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
+import { AppSvgs } from '../../config/svgs';
 import { MyIdAuthService } from '../../shared/auth/services/auth/myid-auth.browser.service';
+import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
+import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/hangfire-button.component';
+import { SwaggerButtonComponent } from '../../shared/auth/ui/swagger-button/swagger-button.component';
+import { SbIconButtonComponent } from '../../shared/ui/buttons/icon-button/icon-button.component';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 
@@ -16,8 +21,11 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
     MlThemePickerMatComponent,
     RouterModule,
     ServiceWorkerUpdateMatComponent,
-    SbAuthLoginButtonComponent
-    
+    SbAuthLoginButtonComponent,
+    SbIconButtonComponent,
+    SwaggerButtonComponent,
+    HangfireButtonComponent
+
   ],
   providers: [
   ],
@@ -27,10 +35,21 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent {
-  
-  _iconsService = inject(IconsService)
-  _authService = inject(MyIdAuthService)
 
-  logout = ()=> this._authService.logOut()
+  protected _iconsService = inject(IconsService)
+  _authService = inject(MyIdAuthService)
+  private _sanitizer = inject(DomSanitizer)
+
+  protected _swgIconSvg = AppSvgs.SWAGGER_ICON
+  protected _hangfireIconSvg = AppSvgs.HANGFIRE_ICON
+
+  protected logout = () => this._authService.logOut()
+
+
+  // // Create a sanitized version for safe HTML rendering
+  // protected get sanitizedSwaggerSvg(): SafeHtml {
+  //   return this._sanitizer.bypassSecurityTrustHtml(this._swgIconSvg);
+  // }
+
 
 }//Cls

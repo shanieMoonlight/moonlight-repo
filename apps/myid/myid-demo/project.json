@@ -23,7 +23,10 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/myid/myid-demo/public"
+            "input": "apps/myid/myid-demo/public",
+            "ignore": [
+              "dev-assets/**"
+            ]
           }
         ],
         "styles": [
@@ -38,6 +41,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/myid/myid-demo/src/environments/environment.ts",
+              "with": "apps/myid/myid-demo/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",

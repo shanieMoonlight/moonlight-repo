@@ -47,7 +47,7 @@ describe('MyIdMainRouterService', () => {
     service.navigateToVerify(token);
     expect(navigateMock).toHaveBeenCalledWith(
       [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
-      { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: token } }
+      { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token } }
     );
   });
 
@@ -55,7 +55,7 @@ describe('MyIdMainRouterService', () => {
     service.navigateToVerify();
     expect(navigateMock).toHaveBeenCalledWith(
       [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
-      { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: undefined } }
+      { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: undefined } }
     );
   });
 

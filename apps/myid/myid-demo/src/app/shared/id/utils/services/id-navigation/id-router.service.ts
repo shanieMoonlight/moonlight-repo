@@ -61,7 +61,7 @@ export class MyIdFallbackRouter extends AMyIdRouter {
     );
     const queryParams: Params = {}
     if (token)
-      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY] = token
+      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY] = token
     this._router.navigate(['../verify-2-factor'], {
       relativeTo: this._actRoute,
       queryParams

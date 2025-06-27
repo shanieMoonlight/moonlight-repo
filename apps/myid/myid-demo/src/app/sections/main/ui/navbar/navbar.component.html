@@ -31,6 +31,11 @@
             <mat-icon>share</mat-icon>
         </button> 
     } 
+     <div class="lhs-outlet">
+        @if(_lhsOutletTemplate(); as template){
+        <ng-container [ngTemplateOutlet]="template" />
+        }
+    </div>
 </div>
 
 

@@ -63,6 +63,7 @@ export class MainNavbarComponent {
 
   //- - - - - - - - - - - - - - -//
 
+  _lhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'lhsOutletTemplate' })
   _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
 
   //- - - - - - - - - - - - - - -//

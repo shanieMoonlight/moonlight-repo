@@ -74,7 +74,7 @@ describe('Verify2FactorStateService', () => {
   });
 
   it('should start cooldown countdown at 30 and decrement to 0', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     const state = TestBed.inject(Verify2FactorStateService);
     state.resend2Factor();
     tick(0); // Allow the signal to update
@@ -86,7 +86,7 @@ describe('Verify2FactorStateService', () => {
   }));
 
   it('should not decrement below 0', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     const state = TestBed.inject(Verify2FactorStateService);
     state.resend2Factor();
     tick(31000); // 31 seconds
@@ -116,7 +116,7 @@ describe('Verify2FactorStateService', () => {
 
   it('should call twoFactorVerification with correct DTO', () => {
     queryParamMapSubject.next(convertToParamMap({
-      [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id'
+      [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id'
     }))
     state.verify2Factor('123456');
     expect(verifySpy).toHaveBeenCalledWith({ token: expect.any(String), code: '123456' })
@@ -124,7 +124,7 @@ describe('Verify2FactorStateService', () => {
 
   it('should set verifySuccess to true on successful verification', fakeAsync(() => {
     queryParamMapSubject.next(convertToParamMap({
-      [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id'
+      [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id'
     }))
     state.verify2Factor('123456');
     tick(0);
@@ -133,20 +133,20 @@ describe('Verify2FactorStateService', () => {
   }));
 
   it('should call twoFactorResend with correct DTO', () => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     state.resend2Factor();
     expect(resendSpy).toHaveBeenCalledWith({ token: expect.any(String) });
   });
 
   it('should set successMsg after successful resend', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     state.resend2Factor();
     tick(0);
     expect(state.successMsg()).toContain('resent');
   }));
 
   it('should set loading to true during async operation', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     // Simulate a long-running observable
     verifySpy.mockReturnValue(new Subject());
     state.verify2Factor('123456');

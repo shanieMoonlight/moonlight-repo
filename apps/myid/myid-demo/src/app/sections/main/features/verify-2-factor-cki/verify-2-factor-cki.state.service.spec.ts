@@ -72,7 +72,7 @@ describe('Verify2FactorStateService', () => {
   });
 
   it('should start cooldown countdown at 30 and decrement to 0', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     const state = TestBed.inject(Verify2FactorCookieStateService);
     state.resend2Factor();
     tick(0); // Allow the signal to update
@@ -84,7 +84,7 @@ describe('Verify2FactorStateService', () => {
   }));
 
   it('should not decrement below 0', fakeAsync(() => {
-    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: 'test-user-id' }));
+    queryParamMapSubject.next(convertToParamMap({ [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: 'test-user-id' }));
     const state = TestBed.inject(Verify2FactorCookieStateService);
     state.resend2Factor();
     tick(31000); // 31 seconds

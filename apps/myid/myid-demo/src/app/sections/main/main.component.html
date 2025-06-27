@@ -1,5 +1,6 @@
-<sb-main-navbar [rhsOutletTemplate]="rhsOutletTemplate" />
-
+<sb-main-navbar 
+    [lhsOutletTemplate]="lhsOutletTemplate"
+    [rhsOutletTemplate]="rhsOutletTemplate" />
 
 <router-outlet />
 
@@ -7,6 +8,12 @@
 <sb-service-worker-update-mat />
 
 <!-- ======================================= -->
+
+<ng-template #lhsOutletTemplate>
+    <sb-swagger-button/>
+    <sb-hangfire-button/>
+</ng-template>
+
 
 <ng-template #rhsOutletTemplate>
     <sb-auth-login-button/>

@@ -51,7 +51,7 @@ describe('MyIdFallbackRouter', () => {
       ['../verify-2-factor'],
       {
         relativeTo: actRouteMock,
-        queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_JEY]: token },
+        queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token },
       }
     );
   });

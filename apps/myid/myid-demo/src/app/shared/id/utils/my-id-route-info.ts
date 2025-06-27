@@ -9,7 +9,11 @@ export class MyIdRouteInfo {
     static readonly USER_ID_KEY = 'userid';
     static readonly CONFIRMATION_TOKEN_KEY = 'confirmationtoken';
     static readonly RESET_PWD_TOKEN_KEY = 'resettoken';
-    static readonly TWO_FACTOR_TOKEN_JEY = 'twofactortoken';
+    static readonly TWO_FACTOR_TOKEN_KEY = 'twofactortoken';
+    static readonly SWAGGER_TOKEN_KEY = 'tkn';
+    static readonly HANGFIRE_TOKEN_KEY = 'tkn';
+    static readonly EXTERNAL_PAGE_TOKEN_KEY = 'tkn';
+
   };
 
 }

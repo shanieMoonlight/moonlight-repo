@@ -31,7 +31,7 @@ export class SbTooltipDirective {
   private showTooltip() {
     this._tooltipElement = this._renderer.createElement('span');
 
-    if (!this._tooltipElement)
+    if (!this._tooltipElement || !this.tooltipText?.trim())
       return
 
     this._tooltipElement.innerText = this.tooltipText;
