@@ -3,7 +3,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { ConfirmEmailWithPwdFormComponent, ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { ConfirmEmailWithPwdStateService } from './confirm-email-with-pwd.state.service';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 
 @Component({

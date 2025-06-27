@@ -2,8 +2,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons';
-import { SbToggleIconButtonComponent } from '../../../../ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { ChangePwdFormComponent } from './change-pwd.component';

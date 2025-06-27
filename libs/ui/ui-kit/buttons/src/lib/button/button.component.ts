@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { IdTheme } from '../../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
   selector: 'sb-button',
@@ -22,7 +22,7 @@ export class SbButtonComponent {
 
   disabled = input<boolean>(false);
 
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
   type = input<'button' | 'submit' | 'reset'>('button');
 
 

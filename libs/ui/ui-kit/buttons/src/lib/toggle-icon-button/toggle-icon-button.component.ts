@@ -1,6 +1,6 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, TemplateRef } from '@angular/core';
-import { IdTheme } from '../../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
     selector: 'sb-toggle-icon-button',
@@ -12,7 +12,7 @@ import { IdTheme } from '../../theme.type';
 })
 export class SbToggleIconButtonComponent {
 
-    color = input<IdTheme>('primary');
+    color = input<UiKitTheme>('primary');
     colorOnFocus = input<boolean>(true);
     // size = input<number>(20);
     toggledLabel = input<string>('Hide');

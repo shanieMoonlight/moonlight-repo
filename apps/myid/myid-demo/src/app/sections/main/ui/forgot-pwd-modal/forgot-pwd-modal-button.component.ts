@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { SbButtonComponent } from "../../../../shared/ui/buttons";
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { IdTheme } from '../../../../shared/ui/theme.type';
 import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
 

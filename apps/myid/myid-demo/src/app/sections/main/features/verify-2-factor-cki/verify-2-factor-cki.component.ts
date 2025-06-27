@@ -3,7 +3,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { SbVerify2FactorFormComponent, Verify2FactorTknFormDto } from '../../../../shared/id/ui/forms/verify-2factor/verify-2factor.component';
 import { Verify2FactorCookieStateService } from './verify-2-factor-cki.state.service';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 
 
 @Component({

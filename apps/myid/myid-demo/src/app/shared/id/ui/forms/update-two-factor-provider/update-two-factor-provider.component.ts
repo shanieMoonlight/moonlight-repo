@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 // import { SbButtonComponent } from '../../../../ui/button/button.component';
-import { SbButtonComponent } from '../../../../ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 
 //##########################//

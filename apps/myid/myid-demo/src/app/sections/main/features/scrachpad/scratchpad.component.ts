@@ -9,7 +9,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
 import { UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
-import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { googleSocialUser } from './secret';

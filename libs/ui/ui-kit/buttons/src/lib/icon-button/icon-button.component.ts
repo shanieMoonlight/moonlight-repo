@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { IdTheme } from '../../theme.type';
-import { SvgRendererComponent } from '../../svg/svg-renderer.component';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
 
 @Component({
   selector: 'sb-icon-button',
@@ -29,7 +29,7 @@ export class SbIconButtonComponent {
 
   disabled = input<boolean>(false);
 
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
   type = input<'button' | 'submit' | 'reset'>('button');
   svgString = input<string>();
 

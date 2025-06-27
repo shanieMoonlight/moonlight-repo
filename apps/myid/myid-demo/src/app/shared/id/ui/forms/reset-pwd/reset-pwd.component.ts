@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, Input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons';
-import { SbToggleIconButtonComponent } from '../../../../ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
 import { PasswordValidation } from '../utils/validators/password-validators';
 

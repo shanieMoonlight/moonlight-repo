@@ -3,7 +3,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { ResetPwdFormDto, SbResetPwdFormComponent } from '../../../../shared/id/ui/forms/reset-pwd/reset-pwd.component';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { ForgotPwdModalButtonComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal-button.component';
 import { ResetPwdStateService } from './reset-pwd.state.service';
 

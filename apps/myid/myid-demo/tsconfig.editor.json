@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts", "src/app/shared/ui/checkbox/checkbox.component.html"],
+  "include": ["src/**/*.ts", "src/app/shared/ui/checkbox/checkbox.component.html", "../../../libs/ui/ui-kit/utils/src/lib/svg-renderer.component.ts"],
   "compilerOptions": {},
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

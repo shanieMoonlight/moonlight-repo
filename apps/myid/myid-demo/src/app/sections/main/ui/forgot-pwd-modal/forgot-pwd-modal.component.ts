@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, model, output } from '@angular/core';
 import { ForgotPasswordFormDto, SbForgotPwdFormComponent } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { SbButtonIconCloseComponent } from '../../../../shared/ui/buttons';
+import { SbButtonIconCloseComponent } from '@spider-baby/ui-kit/buttons';
 
 @Component({
   selector: 'sb-forgot-pwd-modal',

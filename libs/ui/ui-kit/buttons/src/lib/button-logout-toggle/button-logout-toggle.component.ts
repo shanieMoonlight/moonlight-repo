@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { IdTheme } from '../../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToggleIconButtonComponent } from '../toggle-icon-button/toggle-icon-button.component';
 
 @Component({
@@ -40,7 +40,7 @@ export class SbButtonIconLogoutToggleComponent {
 
   disabled = input<boolean>(false);
 
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
   colorOnFocus = input<boolean>(false);
 
   loggedIn = output<boolean>();

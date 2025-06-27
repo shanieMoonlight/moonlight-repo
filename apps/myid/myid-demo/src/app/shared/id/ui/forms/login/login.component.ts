@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent, SbTextButtonComponent, SbToggleIconButtonComponent } from '../../../../ui/buttons';
+import { SbButtonComponent, SbTextButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
 import { SbInputWithBtnDirective } from '../../../../ui/input/input-with-btn.directive';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';

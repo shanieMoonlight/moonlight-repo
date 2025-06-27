@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output, signal } from '@angu
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
 import { IdTheme } from '../../../../shared/ui/theme.type';
-import { SbTextButtonComponent } from '../../../../shared/ui/buttons';
+import { SbTextButtonComponent } from '@spider-baby/ui-kit/buttons';
 
 @Component({
   selector: 'sb-forgot-pwd-modal-text-button',

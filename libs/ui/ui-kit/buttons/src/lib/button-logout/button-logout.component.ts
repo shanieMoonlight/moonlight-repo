@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { IdTheme } from '../../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbTextButtonComponent } from '../text-button/text-button.component';
 
 @Component({
@@ -22,6 +22,6 @@ export class SbButtonIconLogoutComponent {
 
   disabled = input<boolean>(false);
 
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
 
 }

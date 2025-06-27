@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, Input, input, output, signa
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '../../../../ui/buttons';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '../../../../ui/input/input.directive';
 import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
 

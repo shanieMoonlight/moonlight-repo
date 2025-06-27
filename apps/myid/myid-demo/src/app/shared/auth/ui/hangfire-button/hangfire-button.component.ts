@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { SbToastService } from '@spider-baby/ui-toast';
 import { AppSvgs } from '../../../../config/svgs';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
-import { SbIconButtonComponent } from '../../../ui/buttons/icon-button/icon-button.component';
+import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { IdTheme } from '../../../ui/theme.type';
 import { SbTooltipDirective } from '../../../ui/tooltip/tooltip.directive';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';

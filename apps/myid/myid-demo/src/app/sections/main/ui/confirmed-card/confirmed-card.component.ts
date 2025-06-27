@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { SbButtonComponent } from '../../../../shared/ui/buttons';
+import { SbButtonComponent } from'@spider-baby/ui-kit/buttons';
 
 @Component({
   selector: 'sb-confirmed-card',
