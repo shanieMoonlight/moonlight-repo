@@ -5,7 +5,7 @@ import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent, SelectOption } from '../../../../ui/select/select.component';
+import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
 
 //##########################//
 

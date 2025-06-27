@@ -1,4 +1,4 @@
-import { SelectOption } from "../../ui/select/select.component";
+import { SelectOption } from "@spider-baby/ui-kit/select";
 import { TeamPositions } from "./team-position-info";
 
 export const teamPositionOptions: SelectOption[] = [

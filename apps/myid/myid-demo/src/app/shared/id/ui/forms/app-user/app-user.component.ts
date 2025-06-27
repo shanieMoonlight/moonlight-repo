@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IdentityAddressDto, TwoFactorProvider } from '@spider-baby/myid-io/models';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent } from '../../../../ui/select/select.component';
+import { SbSelectComponent } from "@spider-baby/ui-kit/select";
+import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { teamPositionOptions } from '../../../utils/team-position-options';
 import { twoFactorProviderOptions } from '../../../utils/two-factor-provider-options';
 

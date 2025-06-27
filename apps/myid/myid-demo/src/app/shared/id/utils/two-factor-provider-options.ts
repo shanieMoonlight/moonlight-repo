@@ -1,4 +1,4 @@
-import { SelectOption } from "../../ui/select/select.component";
+import { SelectOption } from "@spider-baby/ui-kit/select";
 
 export const twoFactorProviderOptions: SelectOption[] = [
     { value: 'authenticatorApp', label: 'Authenticator App' },
