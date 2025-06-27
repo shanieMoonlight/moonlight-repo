@@ -1,1 +1,1 @@
-export * from './lib/checkboxes.module';
+export * from './lib/checkbox/checkbox.component';

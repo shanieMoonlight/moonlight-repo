@@ -4,7 +4,7 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, Optional, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, Validators } from '@angular/forms';
-import { IdTheme } from '../theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
   selector: 'sb-checkbox',
@@ -17,7 +17,7 @@ import { IdTheme } from '../theme.type';
 })
 export class SbCheckboxComponent implements ControlValueAccessor {
 
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
 
   protected _checked = signal(false);
   protected _disabled = signal(false);

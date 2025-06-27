@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output, signal, Temp
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent, SbTextButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbCheckboxComponent } from '../../../../ui/checkbox/checkbox.component';
+import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 
