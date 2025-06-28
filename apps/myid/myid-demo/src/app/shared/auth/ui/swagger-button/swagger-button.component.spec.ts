@@ -13,6 +13,11 @@ class MockToastService {
   warning = jest.fn();
 }
 
+jest.mock('../../../../../environments/environment', () => ({
+  environment: {
+    serverBaseUrl: 'https://localhost:12312'
+  }
+}));
 describe('SwaggerButtonComponent', () => {
   let component: SwaggerButtonComponent;
   let fixture: ComponentFixture<SwaggerButtonComponent>;
@@ -59,7 +64,7 @@ describe('SwaggerButtonComponent', () => {
     authService.accessToken.mockReturnValue('abc123');
     fixture.detectChanges();
     (component as unknown as { goToSwagger: () => void }).goToSwagger();
-    expect(windowOpenSpy).toHaveBeenCalledWith('/custom-swagger?tkn=abc123', '_blank', 'noopener,noreferrer');
+    expect(windowOpenSpy).toHaveBeenCalledWith('https://localhost:12312/custom-swagger?tkn=abc123', '_blank', 'noopener,noreferrer');
   });
 
   it('should show warning toast if no access token', () => {

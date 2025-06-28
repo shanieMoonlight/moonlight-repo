@@ -6,6 +6,8 @@ import { SbToastService } from '@spider-baby/ui-toast';
 import { AppSvgs } from '../../../../config/svgs';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { environment } from '../../../../../environments/environment';
+import { UrlUtils } from '@spider-baby/myid-io';
 
 @Component({
   selector: 'sb-hangfire-button',
@@ -50,7 +52,7 @@ export class HangfireButtonComponent {
   showTooltip = input(true);
   hangfireIconSvg = input(AppSvgs.HANGFIRE_ICON);
 
-  protected _hangfireUrlWithParams = computed(() => `${this.hangfirePath()}?${MyIdRouteInfo.Params.HANGFIRE_TOKEN_KEY}=${this._authService.accessToken()}`)
+  private serverUrl = environment.serverBaseUrl;  
   
   //- - - - - - - - - - -//
 
@@ -60,7 +62,7 @@ export class HangfireButtonComponent {
       this._toast.warning('You must be logged in to access Swagger')
     
 
-    const url = `${this.hangfirePath()}?tkn=${token}`;
+    const url = UrlUtils.combine(this.serverUrl,`${this.hangfirePath()}?tkn=${token}`);
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 

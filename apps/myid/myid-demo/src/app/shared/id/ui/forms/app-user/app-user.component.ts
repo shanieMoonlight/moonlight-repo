@@ -128,7 +128,7 @@ protected _isUpdateForm = signal(false);
         email: user.email,
         teamId: user.teamId,
         teamPosition: user.teamPosition,
-        twoFactorProvider: user.twoFactorProvider || 'email',
+        twoFactorProvider: user.twoFactorProvider || 'Email',
         twoFactorEnabled: user.twoFactorEnabled || false,
         line1: user.address?.line1 || '',
         line2: user.address?.line2 || '',

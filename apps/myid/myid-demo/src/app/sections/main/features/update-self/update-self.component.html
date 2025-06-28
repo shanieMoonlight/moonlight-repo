@@ -13,16 +13,18 @@
             [appUser]="user"
             (updateSelf)="updateSelf($event)"/>
     }@else {        
-        <div class="info-card">
-            <h4>Error</h4>
-            <p>User data not available make sure you are logged in.</p>            
-            <sb-button 
-                color="error" 
-                class="go-to-login-btn"
-                (click)="goToLogin()">
-                Login
-            </sb-button>
-        </div>
+        @if (!_loading()) {            
+            <div class="info-card">
+                <h4>Error</h4>
+                <p>User data not available make sure you are logged in.</p>            
+                <sb-button 
+                    color="error" 
+                    class="go-to-login-btn"
+                    (click)="goToLogin()">
+                    Login
+                </sb-button>
+            </div>
+        }
     }
     </div>
     

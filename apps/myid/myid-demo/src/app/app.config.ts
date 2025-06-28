@@ -56,6 +56,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    MyIdIoSetup.provideMyIdIo({ baseUrl: environment.serverUrl })
+    MyIdIoSetup.provideMyIdIo({ baseUrl: environment.identityServerUrl })
   ],
 };

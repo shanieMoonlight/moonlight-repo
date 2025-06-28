@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { UrlUtils } from '@spider-baby/myid-io';
 import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
+import { environment } from '../../../../../environments/environment';
 import { AppSvgs } from '../../../../config/svgs';
-import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+
 
 @Component({
   selector: 'sb-swagger-button',
@@ -53,7 +55,7 @@ export class SwaggerButtonComponent {
   showTooltip = input(true);
   swaggerIconSvg = input(AppSvgs.SWAGGER_ICON);
 
-  protected _swaggerUrlWithParams = computed(() => `${this.swaggerPath()}?${MyIdRouteInfo.Params.SWAGGER_TOKEN_KEY}=${this._authService.accessToken()}`)
+  private serverUrl = environment.serverBaseUrl;  
   
   //- - - - - - - - - - -//
 
@@ -63,7 +65,8 @@ export class SwaggerButtonComponent {
       this._toast.warning('You must be logged in to access Swagger')
     
 
-    const url = `${this.swaggerPath()}?tkn=${token}`;
+    // const url = `${this.serverUrl}/${this.swaggerPath()}?tkn=${token}`;
+    const url = UrlUtils.combine(this.serverUrl,`${this.swaggerPath()}?tkn=${token}`);
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 

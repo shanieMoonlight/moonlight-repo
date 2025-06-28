@@ -37,10 +37,10 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
-    title: 'Confirm Email',
-    description: 'Confirm your email address.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
-    icon: 'alternate_email',
+    title: 'My Details',
+    description: 'Update your info.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('my-details'),
+    icon: '/manage_accounts',
     color: 'tertiary'
   },
   {
@@ -70,5 +70,12 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
     icon: 'refresh',
     color: 'primary'
+  },
+  {
+    title: 'Confirm Email',
+    description: 'Confirm your email address.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
+    icon: 'alternate_email',
+    color: 'secondary'
   },
 ]

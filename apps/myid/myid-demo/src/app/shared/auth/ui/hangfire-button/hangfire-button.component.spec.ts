@@ -13,6 +13,12 @@ class MockToastService {
   warning = jest.fn();
 }
 
+jest.mock('../../../../../environments/environment', () => ({
+  environment: {
+    serverBaseUrl: 'https://localhost:12312'
+  }
+}));
+
 describe('HangfireButtonComponent', () => {
   let component: HangfireButtonComponent;
   let fixture: ComponentFixture<HangfireButtonComponent>;
@@ -59,7 +65,7 @@ describe('HangfireButtonComponent', () => {
     authService.accessToken.mockReturnValue('abc123');
     fixture.detectChanges();
     (component as unknown as { goToSwagger: () => void }).goToSwagger();
-    expect(windowOpenSpy).toHaveBeenCalledWith('/custom-hangfire?tkn=abc123', '_blank', 'noopener,noreferrer');
+    expect(windowOpenSpy).toHaveBeenCalledWith('https://localhost:12312/custom-hangfire?tkn=abc123', '_blank', 'noopener,noreferrer');
   });
 
   it('should show warning toast if no access token', () => {

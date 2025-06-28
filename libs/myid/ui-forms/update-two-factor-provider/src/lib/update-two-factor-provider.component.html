@@ -19,19 +19,19 @@
 
     <div class="provider-info">
         @switch(_form.controls.provider.value) {
-            @case('authenticatorApp') {
+            @case('AuthenticatorApp') {
                 <div class="info-card">
                     <h4>Authenticator App</h4>
                     <p>Use apps like Google Authenticator, Authy, or Microsoft Authenticator to generate time-based codes.</p>
                 </div>
             }
-            @case('sms') {
+            @case('Sms') {
                 <div class="info-card">
                     <h4>SMS</h4>
                     <p>Receive verification codes via text message to your registered phone number.</p>
                 </div>
             }
-            @case('email') {
+            @case('Email') {
                 <div class="info-card">
                     <h4>Email</h4>
                     <p>Receive verification codes via email to your registered email address.</p>

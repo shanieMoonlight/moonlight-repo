@@ -61,7 +61,7 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/verify-2-factor-cki/verify-2-factor-cki.component').then(m => m.Verify2FactorComponent),
             },
             {
-                path: MainSectionRoutesDefs.route('update-self'),
+                path: MainSectionRoutesDefs.route('my-details'),
                 loadComponent: () => import('./features/update-self/update-self.component').then(m => m.UpdateSelfComponent),
             },
             {

@@ -1,7 +1,8 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { AccountIoService, UpdateSelfDto, UserManagementIoService } from '@spider-baby/myid-io';
+import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
+import { UpdateSelfDto } from '@spider-baby/myid-io/models';
 
 @Injectable({
   providedIn: 'root'
