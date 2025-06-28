@@ -5,11 +5,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 3rem;
 }
 
 .container {
   width: 96%;
-  max-width: 450px;
+  max-width: 800px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -43,6 +44,34 @@
 
 }
 
-.form{
+.form {
+  width: 100%;
+}
+
+// Info Card Styling
+.info-card {
+  background: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+
+  h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--mat-sys-error);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    color: var(--mat-sys-on-surface);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+sb-button {
+  margin: 2rem 0;
   width: 100%;
 }

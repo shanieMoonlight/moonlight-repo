@@ -50,9 +50,9 @@
         font-size: 0.875rem;
       }
 
-    //   input, sb-select {
-    //     width: 100%;
-    //   }
+      //   input, sb-select {
+      //     width: 100%;
+      //   }
 
       // Error styling
       sb-first-error {
@@ -62,22 +62,22 @@
     }
   }
 
-    .form-row.error{
-      color: var(--mat-sys-error);
-      justify-content: center;
-    }
+  .form-row.error {
+    color: var(--mat-sys-error);
+    justify-content: center;
+  }
 
   // Info Card Styling
   .info-card {
     background: var(--mat-sys-surface-container);
-    border: 1px solid var(--mat-outline);
+    border: 1px solid var(--mat-sys-outline-variant);
     border-radius: 8px;
     padding: 1rem;
     margin-top: 1rem;
 
     h4 {
       margin: 0 0 0.5rem 0;
-      color: var(--mat-primary);
+      color: var(--mat-sys-primary);
       font-size: 1rem;
       font-weight: 500;
     }
@@ -97,7 +97,6 @@
     gap: 0.5rem;
     margin-top: 0.5rem;
     padding: 0.5rem;
-    background-color: #e3f2fd;
     background-color: var(--mat-sys-surface-container);
     border-radius: 4px;
     // color: #0d47a1;
@@ -120,7 +119,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    border: 1px solid var(--mat-outline-variant);
+    border: 1px solid var(--mat-sys-outline-variant);
     border-radius: 4px;
     background: var(--mat-surface-container-highest);
 

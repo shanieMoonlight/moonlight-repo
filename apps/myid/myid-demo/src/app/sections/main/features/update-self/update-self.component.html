@@ -6,13 +6,24 @@
             <h2>Update Your Details</h2>
             <!-- <p class="description">Create a secure password for your account.</p> -->
         </div>
-    {{_userData() | json}}
+    <!-- {{_userData() | json}} -->
     @if(_userData(); as user) {
         <sb-update-self-form
             class="form"
             [appUser]="user"
             (updateSelf)="updateSelf($event)"/>
-        }
+    }@else {        
+        <div class="info-card">
+            <h4>Error</h4>
+            <p>User data not available make sure you are logged in.</p>            
+            <sb-button 
+                color="error" 
+                class="go-to-login-btn"
+                (click)="goToLogin()">
+                Login
+            </sb-button>
+        </div>
+    }
     </div>
     
 </div>

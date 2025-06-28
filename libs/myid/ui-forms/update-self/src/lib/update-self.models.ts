@@ -1,17 +1,18 @@
 
 import { FormControl } from "@angular/forms";
-import { TwoFactorProvider } from "@spider-baby/myid-io/models";
+import { AppUserDto, TwoFactorProvider } from "@spider-baby/myid-io/models";
 
-export interface UpdateSelfFormDto {
-  id: string;
-  firstName?: string;
-  lastName?: string;
-  userName?: string;
-  email: string;
-  phoneNumber: string;
-  twoFactorProvider?: TwoFactorProvider
-  twoFactorEnabled?: boolean;
-}
+export type UpdateSelfFormDto = Pick<
+  AppUserDto,
+  'id'
+  | 'firstName'
+  | 'lastName'
+  | 'userName'
+  | 'email'
+  | 'phoneNumber'
+  | 'twoFactorProvider'
+  | 'twoFactorEnabled'
+>;
 
 export interface UpdateSelfForm {
   id: FormControl<string>;

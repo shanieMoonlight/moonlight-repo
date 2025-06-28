@@ -32,7 +32,7 @@ export const demoAppUserData: AppUserDto = {
   email: 'sarah.johnson@company.com',
   teamId: 'team_dev_001',
   teamPosition: 3,
-  twoFactorProvider: 'authenticatorApp',
+  twoFactorProvider: 'AuthenticatorApp',
   twoFactorEnabled: true,
   address: {
     line1: '123 Main Street',
@@ -54,7 +54,7 @@ export const demoAppUserDataMinimal: AppUserDto = {
   email: 'john.doe@example.com',
   teamId: 'team_qa_002',
   teamPosition: 1,
-  twoFactorProvider: 'sms',
+  twoFactorProvider: 'Sms',
   twoFactorEnabled: false
   // No address provided (optional)
 };
@@ -69,7 +69,7 @@ export const demoAppUserDataArray: AppUserDto[] = [
     email: 'alice.williams@company.com',
     teamId: 'team_design_001',
     teamPosition: 3,
-    twoFactorProvider: 'email',
+    twoFactorProvider: 'Email',
     twoFactorEnabled: true,
     address: {
       line1: '456 Oak Avenue',
@@ -90,7 +90,7 @@ export const demoAppUserDataArray: AppUserDto[] = [
     email: 'michael.chen@company.com',
     teamId: 'team_backend_001',
     teamPosition: 1,
-    twoFactorProvider: 'authenticatorApp',
+    twoFactorProvider: 'AuthenticatorApp',
     twoFactorEnabled: true,
     address: {
       line1: '789 Pine Street',
@@ -111,7 +111,7 @@ export const demoAppUserDataArray: AppUserDto[] = [
     email: 'emma.rodriguez@company.com',
     teamId: 'team_frontend_001',
     teamPosition: 2,
-    twoFactorProvider: 'sms',
+    twoFactorProvider: 'Sms',
     twoFactorEnabled: false
     // No address (testing optional field)
   }

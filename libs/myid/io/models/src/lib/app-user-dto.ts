@@ -2,11 +2,11 @@ import { TwoFactorProvider } from './two-factor-provider';
 import { IdentityAddressDto } from './identity-address-dto';
 
 export interface AppUserDto {
+  id: string;
   administratorUsername?: string;
   administratorId?: string;
   dateCreated?: string;
   lastModifiedDate?: string;
-  id: string;
   firstName: string;
   lastName: string;
   phoneNumber: string;

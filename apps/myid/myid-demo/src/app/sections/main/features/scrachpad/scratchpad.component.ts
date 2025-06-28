@@ -9,7 +9,7 @@ import { UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/updat
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
+import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
 import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
@@ -25,7 +25,9 @@ import { googleSocialUser } from './secret';
     MatEverythingModule,
     SbButtonComponent,
     SbMatNotificationsModalComponent,
-    SbTeamFormComponent
+    SbTeamFormComponent,
+    SbAppUserFormComponent
+    
 ],
   standalone: true,
   templateUrl: './scratchpad.component.html',

@@ -1,19 +1,18 @@
 
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
+import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
-import { AppUserDto, TwoFactorProvider } from '@spider-baby/myid-io/models';
-import { UpdateSelfFormDto, UpdateSelfForm } from './update-self.models';
-import { JsonPipe } from '@angular/common';
+import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
+import { UpdateSelfForm, UpdateSelfFormDto } from './update-self.models';
 
 export const twoFactorProviderOptions: SelectOption[] = [
-  { value: 'authenticatorApp', label: 'Authenticator App' },
-  { value: 'sms', label: 'SMS' },
-  { value: 'email', label: 'Email' }
+  { value: 'AuthenticatorApp', label: 'Authenticator App' },
+  { value: 'Sms', label: 'SMS' },
+  { value: 'Email', label: 'Email' }
 ];
 
 @Component({
@@ -26,8 +25,7 @@ export const twoFactorProviderOptions: SelectOption[] = [
     SbButtonComponent,
     SbInputStyleDirective,
     SbSelectComponent,
-    SbCheckboxComponent,
-    JsonPipe
+    SbCheckboxComponent
   ],
   templateUrl: './update-self.component.html',
   styleUrl: './update-self.component.scss',
@@ -42,13 +40,13 @@ export class SbUpdateSelfFormComponent {
   showLables = input<boolean>(true);
 
   @Input({ required: true })
-  public set appUser(user: AppUserDto) {
+  public set appUser(user: UpdateSelfFormDto) {
     console.log('UpdateSelfFormComponent: appUser input set', user);
 
     this.setFormValues(user);
     this._appUser.set(user);
   }
-  protected _appUser = signal<AppUserDto | undefined>(undefined);
+  protected _appUser = signal<UpdateSelfFormDto | undefined>(undefined);
   protected _twoFactorProviderOptions = twoFactorProviderOptions;
 
   protected _form: FormGroup<UpdateSelfForm> = this.fb.nonNullable.group({
@@ -58,7 +56,7 @@ export class SbUpdateSelfFormComponent {
     userName: ['', [Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     phoneNumber: ['', [Validators.required, Validators.pattern(/^\+?[\d\s\-()]+$/)]],
-    twoFactorProvider: ['email' as TwoFactorProvider, [Validators.required]],
+    twoFactorProvider: ['Email' as TwoFactorProvider, [Validators.required]],
     twoFactorEnabled: [false],
   });
 
@@ -68,6 +66,9 @@ export class SbUpdateSelfFormComponent {
       return
     }
 
+    console.log('UpdateSelfFormComponent: setFormValues', user.twoFactorProvider);
+    
+
     this._form.patchValue({
       id: user.id,
       firstName: user.firstName,
@@ -75,7 +76,7 @@ export class SbUpdateSelfFormComponent {
       userName: user.userName,
       email: user.email,
       phoneNumber: user.phoneNumber,
-      twoFactorProvider: user.twoFactorProvider || 'email',
+      twoFactorProvider: user.twoFactorProvider || 'Email',
       twoFactorEnabled: user.twoFactorEnabled || false,
     });
 
