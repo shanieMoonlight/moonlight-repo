@@ -2,7 +2,7 @@ export default {
   displayName: 'spider-baby-myid-ui-forms',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/myid/spider-baby-myid-ui-forms',
+  coverageDirectory: '../../../coverage/libs/myid/ui-forms',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

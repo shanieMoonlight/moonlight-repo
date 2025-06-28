@@ -43,7 +43,8 @@ export default [
       '@angular-eslint/no-output-rename': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/no-empty-interface': 'off',    },
+      '@typescript-eslint/no-empty-interface': 'off',
+    },
   },
   {
     files: ['**/*.html'],

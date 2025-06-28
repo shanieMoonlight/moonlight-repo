@@ -1,7 +1,7 @@
 {
   "name": "spider-baby-myid-ui-forms",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/myid/spider-baby-myid-ui-forms/src",
+  "sourceRoot": "libs/myid/ui-forms/src",
   "prefix": "sb",
   "projectType": "library",
   "release": {
@@ -17,14 +17,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/myid/spider-baby-myid-ui-forms/ng-package.json"
+        "project": "libs/myid/ui-forms/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/myid/spider-baby-myid-ui-forms/tsconfig.lib.prod.json"
+          "tsConfig": "libs/myid/ui-forms/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/myid/spider-baby-myid-ui-forms/tsconfig.lib.json"
+          "tsConfig": "libs/myid/ui-forms/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -38,7 +38,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/myid/spider-baby-myid-ui-forms/jest.config.ts"
+        "jestConfig": "libs/myid/ui-forms/jest.config.ts"
       }
     },
     "lint": {
