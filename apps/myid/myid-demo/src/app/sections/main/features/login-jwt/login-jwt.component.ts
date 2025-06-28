@@ -1,13 +1,13 @@
 import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { devConsole } from '@spider-baby/dev-console';
 import { LoginDto } from '@spider-baby/myid-io/models';
+import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
-import { devConsole } from '@spider-baby/dev-console';
 
 @Component({
   selector: 'sb-login-jwt',

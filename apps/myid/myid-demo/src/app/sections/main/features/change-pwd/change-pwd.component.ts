@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ChangePwdFormComponent } from '../../../../shared/id/ui/forms/change-pwd/change-pwd.component';
 import { ChPwdDto } from '@spider-baby/myid-io/models';
 import { ChangePwdStateService } from './change-pwd.state.service';
+import { ChangePwdFormComponent } from '@spider-baby/myid-ui-forms/change-pwd';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 

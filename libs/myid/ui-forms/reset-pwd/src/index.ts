@@ -1,1 +1,1 @@
-export * from './lib/reset-pwd.module';
+export * from './lib/reset-pwd.component';

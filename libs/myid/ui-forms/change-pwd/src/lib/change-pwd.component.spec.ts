@@ -4,8 +4,6 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { PasswordValidation } from '@spider-baby/utils-forms/validators';
-import {UseSecondaryEntryPoints  } from '@spider-baby/myid-ui-forms';
 import { ChangePwdFormComponent } from './change-pwd.component';
 
 describe('ChangePwdFormComponent', () => {

@@ -1,1 +1,1 @@
-export * from './lib/confirm-phone.module';
+export * from './lib/confirm-phone.component';

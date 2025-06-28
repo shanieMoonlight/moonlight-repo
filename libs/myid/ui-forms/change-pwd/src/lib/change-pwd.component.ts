@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
-import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
+import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { PasswordValidation } from '@spider-baby/utils-forms/validators';
-import {UseSecondaryEntryPoints  } from '@spider-baby/myid-ui-forms';
 
 export interface ChangePwdFormDto {
     email: string;

@@ -5,7 +5,9 @@
     <div class="form-group">
         @if(showLables()) {
             <label [for]="'provider'">Authentication Method</label>
-        }        <sb-select
+        }       
+        
+        <sb-select
             [id]="'provider'"
             [options]="_providerOptions"
             placeholder="Select authentication method"

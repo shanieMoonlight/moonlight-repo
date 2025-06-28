@@ -1,1 +1,1 @@
-export * from './lib/forgot-pwd.module';
+export * from './lib/forgot-pwd.component';

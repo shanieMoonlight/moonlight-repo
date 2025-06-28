@@ -4,16 +4,16 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, MaintenanceAuthenticatorDemoIoService } from '@spider-baby/myid-io';
 import { LoginDto } from '@spider-baby/myid-io/models';
+import { ConfirmEmailWithPwdFormDto } from '@spider-baby/myid-ui-forms/confirm-email-with-pwd';
+import { UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
+import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AppUserDtoFormDto } from '../../../../shared/id/ui/forms/app-user/app-user.component';
-import { ConfirmEmailWithPwdFormDto } from '../../../../shared/id/ui/forms/confirm-email-with-pwd/confirm-email-with-pwd.component';
-import { UpdateTwoFactorProviderFormDto } from '../../../../shared/id/ui/forms/update-two-factor-provider/update-two-factor-provider.component';
-import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { googleSocialUser } from './secret';
-import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
 
 
 

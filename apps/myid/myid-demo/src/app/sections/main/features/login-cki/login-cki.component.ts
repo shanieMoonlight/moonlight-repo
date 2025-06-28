@@ -1,12 +1,12 @@
 import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
-import { LoginFormComponent } from '../../../../shared/id/ui/forms/login/login.component';
 import { LoginDto } from '@spider-baby/myid-io/models';
+import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
 import { LoginCkiStateService } from './login-cki.state.service';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 @Component({
   selector: 'sb-login-cki',

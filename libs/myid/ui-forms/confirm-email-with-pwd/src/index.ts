@@ -1,1 +1,1 @@
-export * from './lib/confirm-email-with-pwd.module';
+export * from './lib/confirm-email-with-pwd.component';
