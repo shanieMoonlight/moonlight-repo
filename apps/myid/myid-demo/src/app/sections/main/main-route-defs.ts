@@ -17,6 +17,7 @@ type CHILD_ROUTE =
   | 'login-cookie'
   | 'login-jwt'
   | 'reset-password'
+  | 'update-self'
   | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'

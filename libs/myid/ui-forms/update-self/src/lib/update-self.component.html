@@ -1,0 +1,67 @@
+
+<form [formGroup]="_form" (ngSubmit)="update()" [sbFormControlFirstError]="_form">
+  <div class="form-container">
+
+    @if(showLables()) {
+      <h3>Personal Information</h3>
+    }
+
+    @if(showLables()) {
+      <label for="firstName">First Name</label>
+    }
+    <input sbInputStyle formControlName="firstName" id="firstName" placeholder="First Name">
+    <sb-first-error [control]="_form.controls.firstName"/>
+
+    @if(showLables()) {
+      <label for="lastName">Last Name</label>
+    }
+    <input sbInputStyle formControlName="lastName" id="lastName" placeholder="Last Name">
+    <sb-first-error [control]="_form.controls.lastName"/>
+
+    @if(showLables()) {
+      <label for="phoneNumber">Phone Number</label>
+    }
+    <input sbInputStyle formControlName="phoneNumber" id="phoneNumber" placeholder="Phone Number">
+    <sb-first-error [control]="_form.controls.phoneNumber"/>
+
+    @if(showLables()) {
+      <h3>Account Information</h3>
+    }
+
+    @if(showLables()) {
+      <label for="username">Username</label>
+    }
+    <input sbInputStyle formControlName="userName" id="username" placeholder="Username">
+    <sb-first-error [control]="_form.controls.userName"/>
+
+    @if(showLables()) {
+      <label for="email">Email</label>
+    }
+    <input sbInputStyle formControlName="email" id="email" placeholder="Email">
+    <sb-first-error [control]="_form.controls.email"/>
+
+    @if(showLables()) {
+      <h3>Security Settings</h3>
+    }
+
+    <sb-select
+      formControlName="twoFactorProvider"
+      [options]="_twoFactorProviderOptions"
+      placeholder="Two-Factor Provider">
+    </sb-select>
+    <sb-first-error [control]="_form.controls.twoFactorProvider"/>
+
+    <sb-checkbox formControlName="twoFactorEnabled">
+      Enable Two-Factor Authentication
+    </sb-checkbox>
+
+  </div>
+
+  <div class="form-actions">
+    <sb-button 
+      type="submit" 
+      [disabled]="_form.invalid || !_appUser()">
+      Update
+    </sb-button>
+  </div>
+</form>

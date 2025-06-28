@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 96%;
+  max-width: 450px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+
+  h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .description {
+    text-align: center;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  margin-bottom: 3rem;
+
+}
+
+.form{
+  width: 100%;
+}

@@ -1,0 +1,27 @@
+
+<div class="container">
+
+    <div class="form-container">
+        <div class="header">
+            <h2>Update Your Details</h2>
+            <!-- <p class="description">Create a secure password for your account.</p> -->
+        </div>
+    {{_userData() | json}}
+    @if(_userData(); as user) {
+        <sb-update-self-form
+            class="form"
+            [appUser]="user"
+            (updateSelf)="updateSelf($event)"/>
+        }
+    </div>
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />
+
+    

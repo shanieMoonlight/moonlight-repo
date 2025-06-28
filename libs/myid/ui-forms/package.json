@@ -5,8 +5,9 @@
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/forms": "19.2.9",
-    "@spider-baby/utils-forms": "0.0.1",
-    "@spider-baby/ui-kit": "0.0.1"
+    "@spider-baby/utils-forms": "1.0.0",
+    "@spider-baby/ui-kit": "1.0.0",
+    "@spider-baby/myid-io": "1.0.0"
   },
   "sideEffects": false
 }

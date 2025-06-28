@@ -30,10 +30,10 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'primary'
   },
   {
-    title: 'Reset Password',
-    description: 'Reset your password.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
-    icon: 'refresh',
+    title: 'Udpate 2-Factor',
+    description: 'Udpate 2 Factor Provider.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('update-2-factor'),
+    icon: 'add_moderator',
     color: 'secondary'
   },
   {
@@ -65,10 +65,10 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'tertiary'
   },
   {
-    title: 'Udpate 2-Factor',
-    description: 'Udpate 2 Factor Provider.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('update-2-factor'),
-    icon: 'add_moderator',
-    color: 'priary'
+    title: 'Reset Password',
+    description: 'Reset your password.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
+    icon: 'refresh',
+    color: 'primary'
   },
 ]
