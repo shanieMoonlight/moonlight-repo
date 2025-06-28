@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { AppSvgs } from '../../../../config/svgs';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
-import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { IdTheme } from '../../../ui/theme.type';
-import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class HangfireButtonComponent {
   //- - - - - - - - - - -//
 
   hangfirePath = input('/myid-hangfire')
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
   showTooltip = input(true);
   hangfireIconSvg = input(AppSvgs.HANGFIRE_ICON);
 

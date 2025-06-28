@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { IdTheme } from '../../../../shared/ui/theme.type';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
 
 @Component({
@@ -27,17 +27,14 @@ import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
 export class ForgotPwdModalButtonComponent {
 
 
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
   forgotPwd = output<ForgotPasswordFormDto>()
   protected _showForgotPwd = signal(false)
 
   //--------------------------//
 
-  protected onForgotPassword(dto: ForgotPasswordFormDto) {
-    console.log('ForgotPwdModalButtonComponent.onForgotPassword', dto);
-    
-    this.forgotPwd.emit(dto);
-  }
+  protected onForgotPassword = (dto: ForgotPasswordFormDto) => 
+    this.forgotPwd.emit(dto)
 
 }
 

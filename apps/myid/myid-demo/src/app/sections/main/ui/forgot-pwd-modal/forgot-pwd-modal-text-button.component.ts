@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { SbTextButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { ForgotPasswordFormDto } from '../../../../shared/id/ui/forms/forgot-pwd/forgot-pwd.component';
 import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
-import { IdTheme } from '../../../../shared/ui/theme.type';
-import { SbTextButtonComponent } from '@spider-baby/ui-kit/buttons';
 
 @Component({
   selector: 'sb-forgot-pwd-modal-text-button',
@@ -27,7 +27,7 @@ import { SbTextButtonComponent } from '@spider-baby/ui-kit/buttons';
 export class ForgotPwdModaTextlButtonComponent {
 
 
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
   forgotPwd = output<ForgotPasswordFormDto>()
   protected _showForgotPwd = signal(false)
 

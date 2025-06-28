@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
@@ -11,8 +11,7 @@ import { UiKitTheme } from '@spider-baby/ui-kit/types';
       [type]="type()"
       [disabled]="disabled()"
       class="sb-text-btn"
-      [ngClass]="color()"
-      (click)="clicked.emit()">
+      [ngClass]="color()">
       <ng-content/>
     </button>
   `,
@@ -22,7 +21,6 @@ import { UiKitTheme } from '@spider-baby/ui-kit/types';
 export class SbTextButtonComponent {
 
   disabled = input<boolean>(false);
-  clicked = output<void>();
 
   color = input<UiKitTheme>('primary');
   type = input<'button' | 'submit' | 'reset'>('button');

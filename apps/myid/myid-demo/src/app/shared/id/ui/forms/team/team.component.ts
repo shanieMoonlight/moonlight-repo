@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
@@ -6,6 +6,7 @@ import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-for
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
+import { NumericValidation } from '../utils/validators/numberic-validators';
 
 //##########################//
 
@@ -42,7 +43,8 @@ interface TeamForm {
     SbButtonComponent,
     SbInputStyleDirective,
     TitleCasePipe,
-    SbSelectComponent
+    SbSelectComponent,
+    JsonPipe
   ],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss',
@@ -65,7 +67,7 @@ export class SbTeamFormComponent {
   protected _isUpdateForm = signal(false);
   protected _memberOptions = signal<SelectOption[]>([]);
 
-  public form: FormGroup<TeamForm> = this.fb.nonNullable.group({
+  public _form: FormGroup<TeamForm> = this.fb.nonNullable.group({
     // Basic Team Information
     id: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -79,7 +81,7 @@ export class SbTeamFormComponent {
     
     // Team Type (read-only, determined by server)
     teamType: ['customer' as TeamType]
-  });
+  }, { validators: NumericValidation.lessThanValidator('minPosition', 'maxPosition') });
 
   //---------------------//
 
@@ -87,7 +89,7 @@ export class SbTeamFormComponent {
   setFormValues(team: TeamFormDto | undefined) {
     if (team) {
       // Update form values
-      this.form.patchValue({
+      this._form.patchValue({
         id: team.id,
         name: team.name,
         description: team.description || '',
@@ -100,7 +102,7 @@ export class SbTeamFormComponent {
       // Generate member options for the dropdown
       this.updateMemberOptions(team.members || []);
     } else {
-      this.form.reset({
+      this._form.reset({
         id: '',
         name: '',
         description: '',
@@ -138,13 +140,13 @@ export class SbTeamFormComponent {
   extractFormValues(): TeamFormDto {
 
     const dto: TeamFormDto = {
-      id: this.form.controls.id.value,
-      name: this.form.controls.name.value,
-      description: this.form.controls.description.value || undefined,
-      minPosition: this.form.controls.minPosition.value,
-      maxPosition: this.form.controls.maxPosition.value,
-      leaderId: this.form.controls.leaderId.value || undefined,
-      teamType: this.form.controls.teamType.value
+      id: this._form.controls.id.value,
+      name: this._form.controls.name.value,
+      description: this._form.controls.description.value || undefined,
+      minPosition: this._form.controls.minPosition.value,
+      maxPosition: this._form.controls.maxPosition.value,
+      leaderId: this._form.controls.leaderId.value || undefined,
+      teamType: this._form.controls.teamType.value
     };
 
     return dto;
@@ -154,7 +156,7 @@ export class SbTeamFormComponent {
 
 
   add() {
-    if (!this.form.valid)
+    if (!this._form.valid)
       return;
 
     const dto: TeamFormDto = this.extractFormValues();
@@ -164,7 +166,7 @@ export class SbTeamFormComponent {
   //- - - - - - - - - - -//
 
   update() {
-    if (!this.form.valid)
+    if (!this._form.valid)
       return;
 
     const dto: TeamFormDto = this.extractFormValues();

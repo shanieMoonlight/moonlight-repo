@@ -36,7 +36,7 @@ public static readonly HANGFIRE_ICON0= `
 `
 public static readonly HANGFIRE_ICON = `
 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="100" height="100" rx="4" ry="4" fill="currentColor" />
+  <rect x="5" y="5" width="90" height="90" rx="5" ry="5" fill="currentColor" />
 
   <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="70" fill="#FFFFFF" font-weight="bold">H</text>
 </svg>`

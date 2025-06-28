@@ -1,9 +1,9 @@
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID, TemplateRef } from '@angular/core';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
-import { AMyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
-import { IdTheme } from '../../../ui/theme.type';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { AMyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
+import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
   selector: 'sb-auth-login-button',
@@ -32,7 +32,7 @@ export class SbAuthLoginButtonComponent {
   
   disabled = input<boolean>(false);
   
-  color = input<IdTheme>('primary')
+  color = input<UiKitTheme>('primary')
   
   protected _isBrowser = computed(() => isPlatformBrowser(this._platformId))
   protected _isLoggedIn = this._authService.isLoggedIn

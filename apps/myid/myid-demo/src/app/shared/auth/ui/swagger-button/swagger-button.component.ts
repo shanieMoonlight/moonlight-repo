@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { AppSvgs } from '../../../../config/svgs';
-import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { IdTheme } from '../../../ui/theme.type';
-import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
+import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-swagger-button',
@@ -49,7 +49,7 @@ export class SwaggerButtonComponent {
   //- - - - - - - - - - -//
 
   swaggerPath = input('/swagger/index.html')
-  color = input<IdTheme>('primary');
+  color = input<UiKitTheme>('primary');
   showTooltip = input(true);
   swaggerIconSvg = input(AppSvgs.SWAGGER_ICON);
 

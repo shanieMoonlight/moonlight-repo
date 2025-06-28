@@ -13,6 +13,7 @@ import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { googleSocialUser } from './secret';
+import { SbTeamFormComponent } from '../../../../shared/id/ui/forms/team/team.component';
 
 
 
@@ -23,7 +24,8 @@ import { googleSocialUser } from './secret';
     GoogleSigninButtonModule,
     MatEverythingModule,
     SbButtonComponent,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    SbTeamFormComponent
 ],
   standalone: true,
   templateUrl: './scratchpad.component.html',
@@ -36,6 +38,8 @@ export class ScratchpadComponent {
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
 
   //- - - - - - - - - - - - - //
+
+  _demoTeam  =demoTeamData
 
   protected _authFailTestState = MiniStateBuilder
     .Create(() => this._ioMntcAuthTest.mntc())
