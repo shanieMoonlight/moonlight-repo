@@ -30,6 +30,12 @@ export class Verify2FactorStateService {
   )
   private _token = toSignal(this._token$,  { initialValue: null });
 
+  private _provider$ = this._actRoute.queryParamMap.pipe(
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY)),
+    filter((x) => !!x)
+  )
+  provider = toSignal(this._provider$,  { initialValue: null });
+
   invalidDataErrorMsg = computed(() => !this._token()
     ? `Invalid token.`
     : undefined

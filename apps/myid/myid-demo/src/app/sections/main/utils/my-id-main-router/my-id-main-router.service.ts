@@ -25,14 +25,17 @@ export class MyIdMainRouterService extends AMyIdRouter {
     this._router.navigate([AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')]);
   }
 
-  override  navigateToVerify(token?: string): void {
+  override  navigateToVerify(token?: string, provider?:string): void {
     const queryParams: Params = {}
 
     if (token)
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY] = token
+    if (provider)
+      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY] = provider
 
     this._router.navigate(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
+      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      // [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor-cookie')],
       { queryParams }
     );
   }

@@ -54,9 +54,9 @@ export class LoginJwtComponent implements OnInit {
     })
 
     effect(() => {
-      const token = this._state.twoFactorToken();
-      if (token)
-        this._router.navigateToVerify(token)
+      const data = this._state.twoFactorData();
+      if (data)
+        this._router.navigateToVerify(data.token, data.provider);
     });
   }
 

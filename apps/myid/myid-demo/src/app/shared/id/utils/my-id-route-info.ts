@@ -10,6 +10,7 @@ export class MyIdRouteInfo {
     static readonly CONFIRMATION_TOKEN_KEY = 'confirmationtoken';
     static readonly RESET_PWD_TOKEN_KEY = 'resettoken';
     static readonly TWO_FACTOR_TOKEN_KEY = 'twofactortoken';
+    static readonly TWO_FACTOR_PROVIDER_KEY = 'twofactorprovider';
     static readonly SWAGGER_TOKEN_KEY = 'tkn';
     static readonly HANGFIRE_TOKEN_KEY = 'tkn';
     static readonly EXTERNAL_PAGE_TOKEN_KEY = 'tkn';

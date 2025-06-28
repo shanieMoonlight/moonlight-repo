@@ -9,6 +9,16 @@ import { filter, map } from 'rxjs';
 import { LoginService } from '../../../../shared/auth/services/login/login.service';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
+//######################//
+
+export class TwoFactorRequiredData {
+  constructor(
+    public provider?: string
+  ) { }
+}
+
+//######################//
+
 
 @Injectable()
 export class LoginCkiStateService {
@@ -62,15 +72,18 @@ export class LoginCkiStateService {
     this._cookieLoginState,
     this._googleLoginState)
 
-  twoFactorRequired = computed(() => {
+  twoFactorData = computed(() => {
     const error = this._loginStateError();
     console.log('Checking for two-factor token...', error);
 
     if (!error || !(error instanceof PreconditionRequiredError))
       return undefined;
 
-    return error.twoFactorRequired
-      || (error.payload as CookieSignInResultData)?.twoFactorRequired;
+    const payload = error.payload as (CookieSignInResultData | undefined);
+    const twoFactorRequired = error.twoFactorRequired || payload?.twoFactorRequired;
+    return twoFactorRequired
+      ? new TwoFactorRequiredData(payload?.twoFactorProvider)
+      : undefined;
   })
 
   //- - - - - - - - - - - - - //

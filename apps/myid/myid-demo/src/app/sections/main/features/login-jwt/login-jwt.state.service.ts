@@ -10,6 +10,17 @@ import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 import { filter, map, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
+//######################//
+
+export class TwoFactorRequiredData {
+  constructor(
+    public token?: string,
+    public provider?: string
+  ) { }
+}
+
+//######################//
+
 @Injectable()
 export class LoginJwtStateService {
 
@@ -70,12 +81,15 @@ export class LoginJwtStateService {
     return !!(error && error instanceof PreconditionRequiredError && error.twoFactorRequired)
   })
 
-  twoFactorToken = computed(() => {
+  twoFactorData = computed(() => {
     const error = this._loginStateError();
     if (!error || !(error instanceof PreconditionRequiredError))
       return undefined;
     const payload = error.payload as (JwtPackage | undefined);
-    return payload?.twoFactorToken
+    return new  TwoFactorRequiredData(
+      payload?.twoFactorToken,
+      payload?.twoFactorProvider
+    )
   })
 
 

@@ -29,6 +29,7 @@ export class Verify2FactorComponent {
   protected _loading = this._state.loading
   protected _resendCooldownCountdown= this._state.resendCooldownCountdown
 
+  protected _provider = this._state.provider
 
   //--------------------------//
 

@@ -52,9 +52,9 @@ export class LoginCkiComponent implements OnInit {
     })
 
     effect(() => {
-      const twoFactorRequired = this._state.twoFactorRequired();      
-      if (twoFactorRequired)
-        this._router.navigateToVerify()
+      const data = this._state.twoFactorData();      
+      if (data)
+        this._router.navigateToVerify(undefined, data.provider);
     });
   }
 

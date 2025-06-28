@@ -24,6 +24,14 @@ export class Verify2FactorCookieStateService {
   )
   redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
 
+  
+
+  private _provider$ = this._actRoute.queryParamMap.pipe(
+    map((paramMap) => paramMap.get(MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY)),
+    filter((x) => !!x)
+  )
+  provider = toSignal(this._provider$,  { initialValue: null });
+
   //- - - - - - - - - - - - - //
 
   protected _verifyCode$ = new Subject<string>();

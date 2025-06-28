@@ -64,4 +64,11 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     icon: 'shield',
     color: 'tertiary'
   },
+  {
+    title: 'Udpate 2-Factor',
+    description: 'Udpate 2 Factor Provider.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('update-2-factor'),
+    icon: 'add_moderator',
+    color: 'priary'
+  },
 ]

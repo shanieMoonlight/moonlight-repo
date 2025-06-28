@@ -16,7 +16,7 @@ export abstract class AMyIdRouter {
   abstract navigateToChPwd(): void;
   abstract navigateToChPwd(): void;
   abstract navigateToHome(): void;
-  abstract navigateToVerify(token?: string): void;
+  abstract navigateToVerify(token?: string, provider?: string): void;
   abstract navigate(commands: string[], opts?: UrlCreationOptions): void;
 }
 
@@ -54,7 +54,7 @@ export class MyIdFallbackRouter extends AMyIdRouter {
 
   //------------------//
 
-  override navigateToVerify(token?: string): void {
+  override navigateToVerify(token?: string, provider?: string): void {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToVerify'
@@ -62,6 +62,8 @@ export class MyIdFallbackRouter extends AMyIdRouter {
     const queryParams: Params = {}
     if (token)
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY] = token
+    if (provider)
+      queryParams[MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY] = provider
     this._router.navigate(['../verify-2-factor'], {
       relativeTo: this._actRoute,
       queryParams

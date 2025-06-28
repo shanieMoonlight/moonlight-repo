@@ -1,7 +1,9 @@
 <div class="container">
     <div class="header">
         <h2>Verify 2-Factor</h2>
-        <!-- <p class="description">Create a secure password for your account.</p> -->
+        @if(_provider();as provider){
+            <p class="description">Provider: {{provider}}</p>
+        }
     </div>
     
 

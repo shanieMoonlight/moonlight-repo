@@ -28,7 +28,8 @@ export class Verify2FactorComponent {
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _resendCooldownCountdown= this._state.resendCooldownCountdown
-
+  
+  protected _provider = this._state.provider
 
   //--------------------------//
 

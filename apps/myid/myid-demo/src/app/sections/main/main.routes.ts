@@ -61,6 +61,10 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/verify-2-factor-cki/verify-2-factor-cki.component').then(m => m.Verify2FactorComponent),
             },
             {
+                path: MainSectionRoutesDefs.route('update-2-factor'),
+                loadComponent: () => import('./features/update-2-factor/update-2-factor.component').then(m => m.Update2FactorComponent),
+            },
+            {
                 path: MainSectionRoutesDefs.route('auth-test'),
                 loadComponent: () => import('./features/auth-service-test/default/auth-service-test.component').then(m => m.AuthServiceTestComponent),
             },

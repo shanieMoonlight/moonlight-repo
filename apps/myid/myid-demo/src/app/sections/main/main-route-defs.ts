@@ -8,18 +8,19 @@ const BaseRoute = '';
 /** Type alias for the child routes of the main application area: 'home' | 'about'. */
 type CHILD_ROUTE =
   | 'home'
-  | 'scratchpad'
-  | 'login-jwt'
-  | 'login-cookie'
+  | 'auth-test'
+  | 'auth-test-firebase'
+  | 'change-pwd'
   | 'confirm-email'
   | 'confirm-email-with-password'
   | 'confirm-phone'
+  | 'login-cookie'
+  | 'login-jwt'
   | 'reset-password'
-  | 'change-pwd'
+  | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'
-  | 'auth-test'
-  | 'auth-test-firebase'
+  | 'scratchpad'
 
 //#################################################//
 
