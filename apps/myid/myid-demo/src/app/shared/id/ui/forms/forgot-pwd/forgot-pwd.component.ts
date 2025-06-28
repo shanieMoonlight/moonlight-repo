@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -36,13 +37,11 @@ export class SbForgotPwdFormComponent {
 
   showLables = input<boolean>(true);
   forgotPassword = output<ForgotPasswordFormDto>()
+  color = input<UiKitTheme>('primary');
 
   protected _form: FormGroup<ForgotPasswordForm> = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]]
   });
-
-  private static _count = 20;
-  protected _idSuffix = `-${SbForgotPwdFormComponent._count++}`;
 
   //- - - - - - - - - - - -//
 

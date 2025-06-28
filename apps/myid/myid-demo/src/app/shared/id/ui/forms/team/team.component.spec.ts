@@ -27,7 +27,7 @@ describe('SbTeamFormComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should initialize form with default values', () => {
-    expect(component.form.value).toEqual({
+    expect(component['_form'].value).toEqual({
       id: '',
       name: '',
       description: '',
@@ -38,16 +38,16 @@ describe('SbTeamFormComponent', () => {
     });
   });
   it('should validate required fields', () => {
-    expect(component.form.controls.name.valid).toBeFalsy();
-    expect(component.form.controls.teamType.valid).toBeTruthy(); // has default value
-    expect(component.form.controls.minPosition.valid).toBeTruthy(); // has default value
-    expect(component.form.controls.maxPosition.valid).toBeTruthy(); // has default value
+    expect(component['_form'].controls.name.valid).toBeFalsy();
+    expect(component['_form'].controls.teamType.valid).toBeTruthy(); // has default value
+    expect(component['_form'].controls.minPosition.valid).toBeTruthy(); // has default value
+    expect(component['_form'].controls.maxPosition.valid).toBeTruthy(); // has default value
   });
 
   it('should emit addTeam when form is valid and not in update mode', () => {
     jest.spyOn(component.addTeam, 'emit');
     
-    component.form.patchValue({
+    component['_form'].patchValue({
       id: 'team-1',
       name: 'Customer Team',
       teamType: 'customer'
@@ -62,7 +62,7 @@ describe('SbTeamFormComponent', () => {
     jest.spyOn(component.updateTeam, 'emit');
     component['_isUpdateForm'].set(true);
     
-    component.form.patchValue({
+    component['_form'].patchValue({
       id: 'team-1',
       name: 'Customer Team',
       teamType: 'customer'
@@ -94,7 +94,7 @@ describe('SbTeamFormComponent', () => {
 
     component.team = mockTeam;
 
-    expect(component.form.value).toEqual({
+    expect(component['_form'].value).toEqual({
       id: 'team-1',
       name: 'Test Team',
       description: 'Test Description',
@@ -107,7 +107,7 @@ describe('SbTeamFormComponent', () => {
 
   it('should reset form when team input is undefined', () => {
     // First set some values
-    component.form.patchValue({
+    component['_form'].patchValue({
       name: 'Test Team',
       description: 'Test Description'
     });
@@ -115,7 +115,7 @@ describe('SbTeamFormComponent', () => {
     // Then set team to undefined
     component.team = undefined;
 
-    expect(component.form.value).toEqual({
+    expect(component['_form'].value).toEqual({
       id: '',
       name: '',
       description: '',

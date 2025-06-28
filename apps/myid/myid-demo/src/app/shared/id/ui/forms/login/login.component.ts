@@ -6,6 +6,7 @@ import { SbButtonComponent, SbTextButtonComponent, SbToggleIconButtonComponent }
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -51,6 +52,7 @@ export class LoginFormComponent {
   showForgotPwd = input<boolean>(true);
   socialTemplate = input<TemplateRef<unknown> | undefined>(undefined)
   showLables = input<boolean>(true);
+  color = input<UiKitTheme>('primary');
 
 
 

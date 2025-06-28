@@ -13,11 +13,12 @@
             placeholder="" 
             maxlength="6"
             sbInputStyle 
-            class="token-input" />
+            class="token-input"
+            [color]="color()" />
         <sb-first-error [control]="form.controls.token"/>
     </div>
 
-    <sb-button type="submit" [disabled]="form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="form.invalid" [color]="color()">
         Verify Code
     </sb-button>
 </form>

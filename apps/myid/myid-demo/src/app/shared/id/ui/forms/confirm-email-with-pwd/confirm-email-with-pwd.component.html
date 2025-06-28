@@ -6,13 +6,14 @@
         @if(showLables()){
             <label [for]="'password'">Password</label>
         }
-        <div class="password-input-container" sbInputWithBtn color="primary">
+        <div class="password-input-container" sbInputWithBtn [color]="color()">
             <input 
                 [id]="'password'" 
                 [type]="showPassword() ? 'text' : 'password'" 
                 formControlName="password" 
                 placeholder="Enter your password" />
             <sb-toggle-icon-button
+                [color]="color()"
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
                 (toggled)="onPasswordToggle($event)"/>
@@ -24,13 +25,14 @@
         @if(showLables()){
             <label [for]="'confirmPassword'">Confirm Password</label>
         }
-        <div class="password-input-container" sbInputWithBtn color="primary">
+        <div class="password-input-container" sbInputWithBtn [color]="color()">
             <input 
                 [id]="'confirmPassword'" 
                 [type]="showConfirmPassword() ? 'text' : 'password'" 
                 formControlName="confirmPassword" 
                 placeholder="Confirm your password" />
             <sb-toggle-icon-button
+                [color]="color()"
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
                 (toggled)="onConfirmPasswordToggle($event)"/>
@@ -42,7 +44,7 @@
         }
     </div>
 
-    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
         Set Password
     </sb-button>
 </form>

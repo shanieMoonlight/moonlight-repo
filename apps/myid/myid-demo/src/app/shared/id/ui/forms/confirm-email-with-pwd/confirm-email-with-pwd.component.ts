@@ -5,6 +5,7 @@ import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { PasswordValidation } from '../utils/validators/password-validators';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -45,6 +46,7 @@ export class ConfirmEmailWithPwdFormComponent {
 
 
     showLables = input<boolean>(true);
+    color = input<UiKitTheme>('primary');
 
     /**
      * Allows consumers to customize the password field's validation.

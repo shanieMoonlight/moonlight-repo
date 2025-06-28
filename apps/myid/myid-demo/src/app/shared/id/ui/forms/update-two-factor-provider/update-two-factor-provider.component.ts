@@ -5,6 +5,7 @@ import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-for
 // import { SbButtonComponent } from '../../../../ui/button/button.component';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -39,6 +40,7 @@ export class SbUpdateTwoFactorProviderFormComponent {
 
   showLables = input<boolean>(true);
   updateProvider = output<UpdateTwoFactorProviderFormDto>();
+  color = input<UiKitTheme>('primary');
 
   @Input()
   set currentProvider(value: TwoFactorProvider) {

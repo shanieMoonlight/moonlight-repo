@@ -4,18 +4,19 @@
     
     <div class="form-group">
         @if(showLables()){
-            <label [for]="'email'+_idSuffix">Email Address</label>
+            <label [for]="'email'">Email Address</label>
         }
         <input 
-            [id]="'email'+_idSuffix" 
+            [id]="'email'" 
             type="email" 
             formControlName="email" 
             placeholder="Enter your email address" 
-            sbInputStyle />
+            sbInputStyle 
+            [color]="color()" />
             <sb-first-error [control]="_form.controls.email"/>
     </div>
 
-    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
         Send Reset Link
     </sb-button>
 </form>

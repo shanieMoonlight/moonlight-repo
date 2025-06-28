@@ -124,16 +124,16 @@
             <p>Set the minimum and maximum position levels for team members. Position 1 is typically the lowest level, and higher numbers represent senior positions.</p>
         </div>
     </div>
-
-    <!-- Submit Button -->
-    @if (_isUpdateForm()) {
-        <sb-button (click)="update()" [disabled]="_form.invalid" color="primary">
-            Save Changes
-        </sb-button>
-    }@else {
-        <sb-button (click)="add()" [disabled]="_form.invalid" color="primary">
-            Create Team
-        </sb-button>
-    }
-
+    <div class="btn-row">        
+        <!-- Submit Button -->
+        @if (_isUpdateForm()) {
+            <sb-button (click)="update()" [disabled]="_form.invalid" color="primary">
+                Save Changes
+            </sb-button>
+        }@else {
+            <sb-button (click)="add()" [disabled]="_form.invalid" color="primary">
+                Create Team
+            </sb-button>
+        }
+    </div>
 </form>

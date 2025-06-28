@@ -43,8 +43,7 @@ interface TeamForm {
     SbButtonComponent,
     SbInputStyleDirective,
     TitleCasePipe,
-    SbSelectComponent,
-    JsonPipe
+    SbSelectComponent
   ],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss',
@@ -67,7 +66,7 @@ export class SbTeamFormComponent {
   protected _isUpdateForm = signal(false);
   protected _memberOptions = signal<SelectOption[]>([]);
 
-  public _form: FormGroup<TeamForm> = this.fb.nonNullable.group({
+  protected _form: FormGroup<TeamForm> = this.fb.nonNullable.group({
     // Basic Team Information
     id: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -81,7 +80,7 @@ export class SbTeamFormComponent {
     
     // Team Type (read-only, determined by server)
     teamType: ['customer' as TeamType]
-  }, { validators: NumericValidation.lessThanValidator('minPosition', 'maxPosition') });
+  }, { validators: NumericValidation.lessThanValidator('minPosition', 'maxPosition', false) });
 
   //---------------------//
 
@@ -155,7 +154,7 @@ export class SbTeamFormComponent {
   //- - - - - - - - - - -//
 
 
-  add() {
+  add() {    
     if (!this._form.valid)
       return;
 

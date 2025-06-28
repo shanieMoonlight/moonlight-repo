@@ -8,6 +8,7 @@
         }
         <input [id]="'email'" 
             sbInputStyle
+            [color]="color()"
             type="email" 
             formControlName="email" 
             placeholder="Enter your email"/>
@@ -17,13 +18,14 @@
         @if(showLables()){
             <label [for]="'password'">Password</label>
         }
-        <div class="password-input-container" sbInputWithBtn color="secondary">
+        <div class="password-input-container" sbInputWithBtn [color]="color()">
             <input 
                 [id]="'password'" 
                 [type]="showPassword() ? 'text' : 'password'" 
                 formControlName="password" 
                 placeholder="Enter your password" />
             <sb-toggle-icon-button
+                [color]="color()"
                 toggledLabel="Hide password"
                 untoggledLabel="Show password"
                 (toggled)="onPasswordToggle($event)"/>
@@ -33,12 +35,14 @@
 
     @if(showRemeberMe()){
     <div class="form-group remember-me">
-        <sb-checkbox formControlName="rememberMe">Remember me</sb-checkbox>
+        <sb-checkbox formControlName="rememberMe" [color]="color()">Remember me</sb-checkbox>
     </div>
     }
 
     @if(showForgotPwd()){
-        <sb-text-button color="primary" (clicked)="forgotPwdClick()">
+        <sb-text-button 
+            [color]="color()"
+            (click)="forgotPwdClick()">
             Forgot Password?
         </sb-text-button>
     }

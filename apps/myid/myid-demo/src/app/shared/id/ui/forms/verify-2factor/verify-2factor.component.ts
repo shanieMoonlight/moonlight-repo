@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -36,6 +37,7 @@ export class SbVerify2FactorFormComponent {
 
   showLables = input<boolean>(true);
   verify2Factor = output<Verify2FactorTknFormDto>();
+  color = input<UiKitTheme>('primary');
 
   protected form: FormGroup<Verify2FactorForm> = this.fb.nonNullable.group({
     token: ['', [Validators.required]]

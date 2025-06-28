@@ -6,6 +6,7 @@ import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { PasswordValidation } from '../utils/validators/password-validators';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 export interface ChangePwdFormDto {
     email: string;
@@ -44,10 +45,11 @@ export class ChangePwdFormComponent {
     private fb = inject(FormBuilder);
 
     //- - - - - - - - - - - -//
-    
+
     changePassword = output<ChangePwdFormDto>();
 
     showLables = input<boolean>(true);
+    color = input<UiKitTheme>('primary');
 
 
     /**
@@ -82,10 +84,8 @@ export class ChangePwdFormComponent {
         password: ['', [Validators.required]],
         newPassword: ['', [Validators.required, ...PasswordValidation.validationArray(6)]],
         confirmPassword: ['', [Validators.required]]
-  }, { validators: PasswordValidation.matchValidator('newPassword', 'confirmPassword') });
+    }, { validators: PasswordValidation.matchValidator('newPassword', 'confirmPassword') });
 
-    private static _count = 0;
-    protected _idSuffix = `-${ChangePwdFormComponent._count++}`;
 
     //- - - - - - - - - - - -//
 

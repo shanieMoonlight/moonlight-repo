@@ -10,7 +10,7 @@
             [options]="_providerOptions"
             placeholder="Select authentication method"
             formControlName="provider"
-            color="primary">
+            [color]="color()">
         </sb-select>
         <sb-first-error [control]="_form.controls.provider"/>
     </div>
@@ -38,7 +38,7 @@
         }
     </div>
 
-    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
         Update Method
     </sb-button>
 </form>

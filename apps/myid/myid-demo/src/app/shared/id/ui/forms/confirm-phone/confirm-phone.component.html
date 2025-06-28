@@ -15,11 +15,12 @@
             formControlName="confirmationToken" 
             placeholder=""
             sbInputStyle 
-            class="token-input" />
+            class="token-input"
+            [color]="color()" />
             <sb-first-error [control]="_form.controls.confirmationToken"/>
     </div>
 
-    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
         Confirm Phone
     </sb-button>
 </form>

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -36,6 +37,7 @@ export class SbConfirmPhoneFormComponent {
 
   showLables = input<boolean>(true);
   confirmPhone = output<ConfirmPhoneFormDto>();
+  color = input<UiKitTheme>('primary');
 
   protected _form: FormGroup<ConfirmPhoneForm> = this.fb.nonNullable.group({
     confirmationToken: ['', [Validators.required]]
