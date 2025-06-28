@@ -3,7 +3,7 @@
     
     <!-- Basic Team Information Section -->
     <div class="form-section">
-        <h3>Team Information</h3>
+        <!-- <h3>Team Information</h3> -->
         <div class="form-row">
             <input hidden
                 [id]="'id'" 
@@ -42,61 +42,56 @@
         </div>
     </div>
 
-    <!-- Team Configuration Section -->
-    <div class="form-section">
-        <h3>Team Configuration</h3>
-        <div class="form-row">
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'minPosition'">Minimum Position</label>
-                }
-                <input 
-                    [id]="'minPosition'" 
-                    type="number" 
-                    formControlName="minPosition" 
-                    placeholder="Minimum Position" 
-                    min="1"
-                    sbInputStyle />
-                <sb-first-error [control]="_form.controls.minPosition"/>
-            </div>
-            
-            <div class="form-group">
-                @if(showLables()) {
-                    <label [for]="'maxPosition'">Maximum Position</label>
-                }
-                <input 
-                    [id]="'maxPosition'" 
-                    type="number" 
-                    formControlName="maxPosition" 
-                    placeholder="Maximum Position" 
-                    min="1"
-                    sbInputStyle />
-                <sb-first-error [control]="_form.controls.maxPosition"/>
-            </div>
-            
-        </div>
-        <div class="form-row error">
-            @if(_form.controls.minPosition.touched || _form.controls.maxPosition.touched) {
-                @if(_form.getError('minMaxError'); as err) {
-                    <span class="error">{{err.message}}</span>
-                }
-            }
-        </div>
-          <div class="form-row">
-            <div class="form-group">                                
-                @if(showLables()) {
-                    <label [for]="'teamType'">Team Type</label>
-                }    
-                <div class="team-type-display">
-                    <!-- <span class="team-type-value">{{ form.controls.teamType.value | titlecase }}</span> -->
-                    <span class="team-type-badge" [attr.data-type]="_form.controls.teamType.value">
-                        {{ _form.controls.teamType.value | titlecase }}
-                    </span>
+    <!-- Team Position Configuration Section -->
+     @if(canChangeTeamPositionRange()){
+        <div class="form-section">
+            <div class="form-row">
+                <div class="form-group">
+                    @if(showLables()) {
+                        <label [for]="'minPosition'">Minimum Position</label>
+                    }
+                    <input 
+                        [id]="'minPosition'" 
+                        type="number" 
+                        formControlName="minPosition" 
+                        placeholder="Minimum Position" 
+                        min="1"
+                        sbInputStyle />
+                    <sb-first-error [control]="_form.controls.minPosition"/>
                 </div>
-                <!-- Hidden form control to maintain form structure -->
-                <input type="hidden" formControlName="teamType" />
+                
+                <div class="form-group">
+                    @if(showLables()) {
+                        <label [for]="'maxPosition'">Maximum Position</label>
+                    }
+                    <input 
+                        [id]="'maxPosition'" 
+                        type="number" 
+                        formControlName="maxPosition" 
+                        placeholder="Maximum Position" 
+                        min="1"
+                        sbInputStyle />
+                    <sb-first-error [control]="_form.controls.maxPosition"/>
+                </div>
+                
             </div>
-              <div class="form-group">
+            <div class="form-row error">
+                @if(_form.controls.minPosition.touched || _form.controls.maxPosition.touched) {
+                    @if(_form.getError('minMaxError'); as err) {
+                        <span class="error">{{err.message}}</span>
+                    }
+                }
+            </div>
+            <div class="info-card">
+                <h4>Position Configuration</h4>
+                <p>Set the minimum and maximum position levels for team members. Position 1 is typically the lowest level, and higher numbers represent senior positions.</p>
+        </div>
+        </div>
+     }
+    
+    @if(_isUpdateForm()){
+        <div class="form-section">
+            <div class="form-group">
                 @if(showLables()) {
                     <label [for]="'leaderId'">Team Leader</label>
                 }
@@ -105,33 +100,23 @@
                     [options]="_memberOptions()"
                     placeholder="Select Team Leader"
                     formControlName="leaderId"
-                    color="primary"/>
+                    [color]="color()"/>
                 <sb-first-error [control]="_form.controls.leaderId"/>
-                @if(_memberOptions().length <= 1) {
-                    <div class="info-message">
-                        <span class="info-icon">ℹ️</span>
-                        Add team members first to select a leader
-                    </div>
-                }
             </div>
         </div>
-    </div>
+    }
 
-    <!-- Position Configuration Info -->
-    <div class="form-section">
-        <div class="info-card">
-            <h4>Position Configuration</h4>
-            <p>Set the minimum and maximum position levels for team members. Position 1 is typically the lowest level, and higher numbers represent senior positions.</p>
-        </div>
-    </div>
-    <div class="btn-row">        
-        <!-- Submit Button -->
+
+    
+
+
+    <div class="form-section">       
         @if (_isUpdateForm()) {
-            <sb-button (click)="update()" [disabled]="_form.invalid" color="primary">
+            <sb-button (click)="update()" [disabled]="_form.invalid" [color]="color()">
                 Save Changes
             </sb-button>
         }@else {
-            <sb-button (click)="add()" [disabled]="_form.invalid" color="primary">
+            <sb-button (click)="add()" [disabled]="_form.invalid" [color]="color()">
                 Create Team
             </sb-button>
         }

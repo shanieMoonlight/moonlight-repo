@@ -1,12 +1,13 @@
-import { JsonPipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
+import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { NumericValidation } from '../utils/validators/numberic-validators';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -36,13 +37,13 @@ interface TeamForm {
 
 @Component({
   selector: 'sb-team-form',
-  standalone: true,  imports: [
+  standalone: true,  
+  imports: [
     ReactiveFormsModule,
     FirstErrorDirective,
     FirstErrorComponent,
     SbButtonComponent,
     SbInputStyleDirective,
-    TitleCasePipe,
     SbSelectComponent
   ],
   templateUrl: './team.component.html',
@@ -54,6 +55,9 @@ export class SbTeamFormComponent {
   private fb = inject(FormBuilder);
 
   showLables = input<boolean>(true);
+  color = input<UiKitTheme>('primary');
+  canChangeTeamPositionRange = input(true);
+
   addTeam = output<TeamFormDto>();
   updateTeam = output<TeamFormDto>();
 
@@ -106,7 +110,7 @@ export class SbTeamFormComponent {
         name: '',
         description: '',
         minPosition: 1,
-        maxPosition: 10,
+        maxPosition: 1,
         leaderId: '',
         teamType: 'customer'
       });

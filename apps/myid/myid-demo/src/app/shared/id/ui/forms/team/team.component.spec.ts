@@ -120,7 +120,7 @@ describe('SbTeamFormComponent', () => {
       name: '',
       description: '',
       minPosition: 1,
-      maxPosition: 10,
+      maxPosition: 1,
       leaderId: '',
       teamType: 'customer'
     });
