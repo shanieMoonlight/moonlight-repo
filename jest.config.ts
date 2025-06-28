@@ -38,6 +38,9 @@ export default async (): Promise<Config> => ({
     '^@spider-baby/material-theming/ui$': '<rootDir>/libs/packages/@spider-baby/theming/ui/src/index.ts',
     '^@spider-baby/material-theming/utils$': '<rootDir>/libs/packages/@spider-baby/theming/utils/src/index.ts',
     '^@spider-baby/ssr-storage$': '<rootDir>/libs/packages/@spider-baby/ssr/storage/src/index.ts',
+    '^@spider-baby/ui-kit/inputs$': '<rootDir>/libs/ui/ui-kit/inputs/src/index.ts',
+    '^@spider-baby/ui-kit/buttons$': '<rootDir>/libs/ui/ui-kit/buttons/src/index.ts',
+    // '^@spider-baby/utils-forms$': '<rootDir>/libs/utils/forms/src/index.ts',
 
     // Keep a generic one as a fallback if needed, but ensure it's correct
     // '^@spider-baby/(.*)$': '<rootDir>/libs/packages/@spider-baby/$1', // This might still be too generic

@@ -1,14 +1,13 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
-import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
 import { SEO_CONFIG } from './config/seo.config';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [

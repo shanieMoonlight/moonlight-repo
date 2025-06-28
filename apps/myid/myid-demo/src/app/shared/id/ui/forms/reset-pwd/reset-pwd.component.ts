@@ -4,7 +4,7 @@ import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-for
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
-import { PasswordValidation } from '../utils/validators/password-validators';
+import { PasswordValidation } from '@spider-baby/utils-forms/validators';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//

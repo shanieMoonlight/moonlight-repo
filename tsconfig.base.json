@@ -225,6 +225,27 @@
       "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
       "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
       "@spider-baby/myid-ui-forms": ["libs/myid/ui-forms/src/index.ts"],
+      "@spider-baby/myid-ui-forms/change-pwd": [
+        "libs/myid/ui-forms/change-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/confirm-email-with-pwd": [
+        "libs/myid/ui-forms/confirm-email-with-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/confirm-phone": [
+        "libs/myid/ui-forms/confirm-phone/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/forgot-pwd": [
+        "libs/myid/ui-forms/forgot-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/login": [
+        "libs/myid/ui-forms/login/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/reset-pwd": [
+        "libs/myid/ui-forms/reset-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/update-two-factor-provider": [
+        "libs/myid/ui-forms/update-two-factor-provider/src/index.ts"
+      ],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"
       ],
@@ -286,6 +307,9 @@
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
       "@spider-baby/utils-forms": ["libs/utils/forms/src/index.ts"],
+      "@spider-baby/utils-forms/validators": [
+        "libs/utils/forms/validators/src/index.ts"
+      ],
       "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
       "@spider-baby/utils-img/progressive": [
         "libs/utils/imgs/progressive/src/index.ts"

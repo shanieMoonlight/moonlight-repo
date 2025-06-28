@@ -1,13 +1,12 @@
-import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUserDto, TeamType } from '@spider-baby/myid-io/models';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { NumericValidation } from '../utils/validators/numberic-validators';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
+import { NumericValidation } from '@spider-baby/utils-forms/validators';
 
 //##########################//
 

@@ -1,5 +1,5 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { NumericValidation } from './numberic-validators';
+import { NumericValidation } from './numeric-validators';
 
 describe('NumericValidation.lessThanValidator', () => {
   it('should return null when min < max (strict)', () => {

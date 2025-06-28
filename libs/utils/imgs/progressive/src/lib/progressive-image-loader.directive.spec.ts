@@ -1,7 +1,7 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, PLATFORM_ID, ElementRef, Renderer2 } from '@angular/core';
-import { SbProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SbProgressiveImageLoaderDirective } from './progressive-image-loader.directive';
 
 // Create a dummy component to host the directive for testing
 @Component({
