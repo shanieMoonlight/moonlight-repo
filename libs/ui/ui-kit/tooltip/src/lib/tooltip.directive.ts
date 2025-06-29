@@ -14,6 +14,9 @@ export class SbTooltipDirective {
 
   private _tooltipElement: HTMLElement | null = null;
 
+  private _scrollHandler = () => this.updateTooltipPosition();
+  private _resizeHandler = () => this.updateTooltipPosition();
+
 
   @HostListener('mouseenter')
   onMouseEnter() {
@@ -30,21 +33,22 @@ export class SbTooltipDirective {
 
   private showTooltip() {
     this._tooltipElement = this._renderer.createElement('span');
-
-    if (!this._tooltipElement || !this.tooltipText?.trim())
-      return
-
+    if (!this._tooltipElement || !this.tooltipText?.trim()) return;
     this._tooltipElement.innerText = this.tooltipText;
     this._renderer.addClass(this._tooltipElement, 'sb-tooltip');
     this._renderer.addClass(this._tooltipElement, `sb-tooltip-${this.tooltipPosition}`);
     this.setShowStyles();
-
-
-    // Positioning
-    const hostPos = this._el.nativeElement.getBoundingClientRect();
     this._renderer.appendChild(document.body, this._tooltipElement);
-    const tooltipPos = this._tooltipElement.getBoundingClientRect();
+    this.updateTooltipPosition();
+    window.addEventListener('scroll', this._scrollHandler, true);
+    window.addEventListener('resize', this._resizeHandler, true);
+    this.animate();
+  }
 
+  private updateTooltipPosition() {
+    if (!this._tooltipElement) return;
+    const hostPos = this._el.nativeElement.getBoundingClientRect();
+    const tooltipPos = this._tooltipElement.getBoundingClientRect();
     let top = 0, left = 0;
     switch (this.tooltipPosition) {
       case 'top':
@@ -64,11 +68,8 @@ export class SbTooltipDirective {
         left = hostPos.right + 8;
         break;
     }
-
-    this._renderer.setStyle(this._tooltipElement, 'top', `${top}px`);
-    this._renderer.setStyle(this._tooltipElement, 'left', `${left}px`);
-
-    this.animate();
+    this._renderer.setStyle(this._tooltipElement, 'top', `${top + window.scrollY}px`);
+    this._renderer.setStyle(this._tooltipElement, 'left', `${left + window.scrollX}px`);
   }
 
   //-------------------//
@@ -111,6 +112,8 @@ export class SbTooltipDirective {
     if (this._tooltipElement) {
       this._renderer.removeChild(document.body, this._tooltipElement);
       this._tooltipElement = null;
+      window.removeEventListener('scroll', this._scrollHandler, true);
+      window.removeEventListener('resize', this._resizeHandler, true);
     }
   }
 
