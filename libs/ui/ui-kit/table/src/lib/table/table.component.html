@@ -1,4 +1,3 @@
-
 <!-- {{_data() | json}} -->
 
 <div class="sb-data-table-container">
@@ -16,7 +15,7 @@
     <tbody>
       @if (_data().length) {
         @for (row of _data(); let i = $index; track i) {
-          <tr (click)="onRowClick(row, i)">
+          <tr class="row" (click)="onRowClick(row, i)">
             @for (col of columns(); track col.name) {
               <td>
                 <sb-data-table-cell
@@ -33,4 +32,12 @@
       }
     </tbody>
   </table>
+</div>
+<!-- Table Actions Section -->
+<div class="sb-data-table-actions">
+  <sb-button-icon-add 
+    [sbTooltip]="'Add Item'"
+    (click)="onAddItem()"
+    [circle]="true"/>
+  <!-- More actions can be added here -->
 </div>

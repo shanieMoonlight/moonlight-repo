@@ -2,6 +2,8 @@
     --color-icon: var(--mat-sys-primary);
     --color-icon-hover: var(--mat-sys-primary-container);
     --color-icon-disabled: var(--mat-sys-outline);
+    --color-ripple-rgb: var(--mat-sys-primary-rgb);
+    --ripple-opacity: 0.15;
     font-size: 1rem;
     font-weight: 500;
     display: inline-block;
@@ -34,12 +36,14 @@ button {
     justify-content: center;
     text-decoration: none;
     outline: none;
+    position: relative;
+    overflow: hidden;
 }
 
 
 .sb-icon-btn:hover:not(:disabled) {
     background-color: var(--mat-sys-surface-variant);
-     color: var(--color-icon);
+    color: var(--color-icon);
 }
 
 .sb-icon-btn:focus-visible {
@@ -60,19 +64,51 @@ button {
 .sb-icon-btn.primary {
     --color-icon: var(--mat-sys-primary);
     --color-icon-hover: var(--mat-sys-primary-container);
+    --color-ripple-rgb: var(--mat-sys-primary-rgb);
 }
 
 .sb-icon-btn.secondary {
     --color-icon: var(--mat-sys-secondary);
     --color-icon-hover: var(--mat-sys-secondary-container);
+    --color-ripple-rgb: var(--mat-sys-secondary-rgb);
 }
 
 .sb-icon-btn.tertiary {
     --color-icon: var(--mat-sys-tertiary);
     --color-icon-hover: var(--mat-sys-tertiary-container);
+    --color-ripple-rgb: var(--mat-sys-tertiary-rgb);
 }
 
 .sb-icon-btn.error {
     --color-icon: var(--mat-sys-error);
     --color-icon-hover: var(--mat-sys-error-container);
+    --color-ripple-rgb: var(--mat-sys-error-rgb);
+}
+
+$duration : 0.35s;
+.sb-ripple {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(var(--color-ripple-rgb, 0,0,0), var(--ripple-opacity));
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform $duration cubic-bezier(0.4, 0, 0.2, 1),
+        opacity $duration cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    will-change: transform, opacity;
+}
+
+.sb-ripple.active {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition: 
+    transform $duration cubic-bezier(0.4, 0, 0.2, 1), 
+    opacity $duration cubic-bezier(0.4, 0, 0.2, 1);
 }

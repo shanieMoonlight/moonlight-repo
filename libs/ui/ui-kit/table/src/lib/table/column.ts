@@ -1,6 +1,6 @@
-import { BaseDataTableRowDtata } from "./base-row-data";
+import { BaseDataTableRowData } from "./base-row-data";
 
-export class ColumnData<T = BaseDataTableRowDtata> {
+export class ColumnData<T = BaseDataTableRowData> {
     
     handleNestedProperty?: (x: T) => unknown
 
@@ -9,7 +9,7 @@ export class ColumnData<T = BaseDataTableRowDtata> {
         this.name = name;
     }
 
-    static create(name: string): ColumnData {
+    static create<T extends BaseDataTableRowData>(name: string): ColumnData<T> {
         return new ColumnData(name);
     }
 

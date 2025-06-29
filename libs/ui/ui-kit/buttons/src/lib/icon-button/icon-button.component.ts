@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, input, signal, viewChild, ViewChild } from '@angular/core';
+import { RippleComponent } from '@spider-baby/ui-kit/ripple';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
 
@@ -8,14 +9,19 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
   standalone: true,
   imports: [
     NgClass,
-    SvgRendererComponent
+    SvgRendererComponent,
+    RippleComponent
   ],
   template: `
     <button
+      #btn
       [type]="type()"
       [disabled]="disabled()"
       class="sb-icon-btn"
-      [ngClass]="color()">
+      [ngClass]="color()"
+      (click)="showRipple()">
+      <!-- <span class="sb-ripple" [class.active]="_rippleActive()"></span> -->
+       <sb-ripple/>
       <ng-content/>
       @if (svgString(); as svg) {
         <sb-svg-renderer [svgString]="svg"/>
@@ -26,11 +32,21 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbIconButtonComponent {
-
   disabled = input<boolean>(false);
-
-  color = input<UiKitTheme>('primary');
+  color = input<UiKitTheme>('error');
   type = input<'button' | 'submit' | 'reset'>('button');
   svgString = input<string>();
 
+  protected _btn = viewChild.required<ElementRef<HTMLButtonElement>>('btn');
+  protected _rippleActive = signal(false)
+
+  showRipple() {
+    this._rippleActive.set(false)
+    // Force reflow to restart animation if needed
+    void (this._btn().nativeElement.offsetWidth);
+    this._rippleActive.set(true);
+    setTimeout(() => {
+      this._rippleActive.set(false)
+    }, 350);
+  }
 }

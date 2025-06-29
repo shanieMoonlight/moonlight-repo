@@ -1,4 +1,5 @@
 export * from './lib/button-close/button-close.component';
+export * from './lib/button-add/button-add.component';
 export * from './lib/button-logout-toggle/button-logout-toggle.component';
 export * from './lib/button/button.component';
 export * from './lib/icon-button/icon-button.component';

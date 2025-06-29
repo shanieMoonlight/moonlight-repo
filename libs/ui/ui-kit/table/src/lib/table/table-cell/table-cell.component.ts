@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { BaseDataTableRowDtata } from '../base-row-data';
+import { BaseDataTableRowData } from '../base-row-data';
 import { ColumnData } from '../column';
 
 @Component({
@@ -9,10 +9,10 @@ import { ColumnData } from '../column';
     styleUrls: ['./table-cell.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbDataTableCellComponent<T extends BaseDataTableRowDtata> {
+export class SbDataTableCellComponent<T extends BaseDataTableRowData> {
 
     item = input.required<T>();
-    column = input.required<ColumnData>();
+    column = input.required<ColumnData<T>>();
 
     value = computed(() => {
         const item = this.item();

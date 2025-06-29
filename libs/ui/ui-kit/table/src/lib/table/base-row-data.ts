@@ -1,3 +1,3 @@
-export interface BaseDataTableRowDtata{
+export interface BaseDataTableRowData{
   id?: string | number;
 }
