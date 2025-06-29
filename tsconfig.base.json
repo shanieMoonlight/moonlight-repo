@@ -249,6 +249,9 @@
       "@spider-baby/myid-ui-forms/update-two-factor-provider": [
         "libs/myid/ui-forms/update-two-factor-provider/src/index.ts"
       ],
+      "@spider-baby/myid-ui-forms/utils": [
+        "libs/myid/ui-forms/utils/src/index.ts"
+      ],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"
       ],

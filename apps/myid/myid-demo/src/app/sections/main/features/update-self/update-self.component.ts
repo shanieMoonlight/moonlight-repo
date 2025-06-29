@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { UpdateSelfStateService } from './update-self.state.service';
 import { UpdateSelfFormDto, SbUpdateSelfFormComponent } from '@spider-baby/myid-ui-forms/update-self';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 
@@ -24,6 +24,7 @@ export class UpdateSelfComponent {
 
   private _state = inject(UpdateSelfStateService)
   private _router = inject(AMyIdRouter)
+  private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - //
 
@@ -32,6 +33,7 @@ export class UpdateSelfComponent {
   protected _loading = this._state.loading
   protected _updateSuccess = this._state.updateSuccess
   protected _userData = this._state.userData
+  protected _showErrors = computed(() =>  !this._loading() && isPlatformBrowser(this._platformId) )
 
 
   //--------------------------//

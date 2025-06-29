@@ -13,7 +13,7 @@
             [appUser]="user"
             (updateSelf)="updateSelf($event)"/>
     }@else {        
-        @if (!_loading()) {            
+        @if (_showErrors()) {            
             <div class="info-card">
                 <h4>Error</h4>
                 <p>User data not available make sure you are logged in.</p>            

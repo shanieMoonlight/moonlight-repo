@@ -49,13 +49,13 @@ export class SbUpdateTwoFactorProviderFormComponent {
 
 
   protected _providerOptions: SelectOption[] = [
-    { value: 'authenticatorApp', label: 'Authenticator App' },
-    { value: 'sms', label: 'SMS' },
-    { value: 'email', label: 'Email' }
+    { value: 'AuthenticatorApp', label: 'Authenticator App' },
+    { value: 'Sms', label: 'SMS' },
+    { value: 'Email', label: 'Email' }
   ];
 
   protected _form: FormGroup<UpdateTwoFactorProviderForm> = this.fb.nonNullable.group({
-    provider: ['email' as TwoFactorProvider, [Validators.required]]
+    provider: ['Email' as TwoFactorProvider, [Validators.required]]
   });
 
   submit() {

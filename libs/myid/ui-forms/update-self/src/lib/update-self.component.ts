@@ -8,6 +8,8 @@ import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { UpdateSelfForm, UpdateSelfFormDto } from './update-self.models';
+import { MyIdPhoneFormatProvider } from '@spider-baby/myid-ui-forms/utils';
+import { PhoneValidation } from '@spider-baby/utils-forms/validators';
 
 export const twoFactorProviderOptions: SelectOption[] = [
   { value: 'AuthenticatorApp', label: 'Authenticator App' },
@@ -33,7 +35,8 @@ export const twoFactorProviderOptions: SelectOption[] = [
 })
 export class SbUpdateSelfFormComponent {
 
-  private fb = inject(FormBuilder);
+  private _fb = inject(FormBuilder);
+  private _phoneFormatter = inject(MyIdPhoneFormatProvider)
 
   updateSelf = output<UpdateSelfFormDto>();
 
@@ -49,16 +52,34 @@ export class SbUpdateSelfFormComponent {
   protected _appUser = signal<UpdateSelfFormDto | undefined>(undefined);
   protected _twoFactorProviderOptions = twoFactorProviderOptions;
 
-  protected _form: FormGroup<UpdateSelfForm> = this.fb.nonNullable.group({
+  protected _form: FormGroup<UpdateSelfForm> = this._fb.nonNullable.group({
     id: ['', [Validators.required]],
     firstName: ['', [Validators.minLength(2)]],
     lastName: ['', [Validators.minLength(2)]],
     userName: ['', [Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    phoneNumber: ['', [Validators.required, Validators.pattern(/^\+?[\d\s\-()]+$/)]],
+    phoneNumber: ['', [Validators.required, PhoneValidation.validator()]],
     twoFactorProvider: ['Email' as TwoFactorProvider, [Validators.required]],
     twoFactorEnabled: [false],
   });
+
+
+
+  /**
+   *
+   */
+  constructor() {
+    this._form.controls.phoneNumber.valueChanges.subscribe(phone => {
+      if (!phone)
+        return
+      const formattedPhone = this._phoneFormatter.formatPhoneInternational(phone);
+      if (phone != formattedPhone)
+        this._form.controls.phoneNumber.setValue(formattedPhone);
+    })
+
+  }
+
+  //-------------------------//
 
   setFormValues(user: UpdateSelfFormDto | undefined) {
     if (!user) {
@@ -66,8 +87,6 @@ export class SbUpdateSelfFormComponent {
       return
     }
 
-    console.log('UpdateSelfFormComponent: setFormValues', user.twoFactorProvider);
-    
 
     this._form.patchValue({
       id: user.id,
@@ -81,6 +100,8 @@ export class SbUpdateSelfFormComponent {
     });
 
   }
+  
+  //-------------------------//
 
   extractFormValues(form: FormGroup<UpdateSelfForm>): UpdateSelfFormDto {
     const formValue = form.getRawValue();
@@ -97,6 +118,8 @@ export class SbUpdateSelfFormComponent {
     return dto;
   }
 
+  //-------------------------//
+
   update() {
     if (!this._form.valid)
       return;
@@ -104,4 +127,5 @@ export class SbUpdateSelfFormComponent {
     const dto: UpdateSelfFormDto = this.extractFormValues(this._form);
     this.updateSelf.emit(dto);
   }
-}
+
+}//Cls

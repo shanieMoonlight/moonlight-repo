@@ -31,12 +31,12 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
   });
 
   it('should initialize with default provider value', () => {
-    expect(component['\u005fform'].controls.provider.value).toBe('email');
+    expect(component['\u005fform'].controls.provider.value).toBe('Email');
   });
 
   it('should update provider when currentProvider is set', () => {
-    component.currentProvider = 'sms';
-    expect(component['\u005fform'].controls.provider.value).toBe('sms');
+    component.currentProvider = 'Sms';
+    expect(component['\u005fform'].controls.provider.value).toBe('Sms');
   });
 
   it('should be invalid if provider is not set', () => {
@@ -45,15 +45,15 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
   });
 
   it('should be valid with a valid provider', () => {
-    component['\u005fform'].controls.provider.setValue('authenticatorApp');
+    component['\u005fform'].controls.provider.setValue('AuthenticatorApp');
     expect(component['\u005fform'].valid).toBeTruthy();
   });
 
   it('should emit updateProvider with correct dto on submit when valid', () => {
     const emitSpy = jest.spyOn(component.updateProvider, 'emit');
-    component['\u005fform'].controls.provider.setValue('sms');
+    component['\u005fform'].controls.provider.setValue('Sms');
     component.submit();
-    expect(emitSpy).toHaveBeenCalledWith({ provider: 'sms' });
+    expect(emitSpy).toHaveBeenCalledWith({ provider: 'Sms' });
   });
 
   it('should not emit updateProvider on submit when form is invalid', () => {
@@ -65,9 +65,9 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
 
   it('should have correct provider options', () => {
     expect(component['\u005fproviderOptions']).toEqual([
-      { value: 'authenticatorApp', label: 'Authenticator App' },
-      { value: 'sms', label: 'SMS' },
-      { value: 'email', label: 'Email' },
+      { value: 'AuthenticatorApp', label: 'Authenticator App' },
+      { value: 'Sms', label: 'SMS' },
+      { value: 'Email', label: 'Email' },
     ]);
   });
 });
