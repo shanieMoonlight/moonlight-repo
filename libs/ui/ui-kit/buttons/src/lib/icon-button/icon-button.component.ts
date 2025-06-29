@@ -21,7 +21,7 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
       [ngClass]="color()"
       (click)="showRipple()">
       <!-- <span class="sb-ripple" [class.active]="_rippleActive()"></span> -->
-       <sb-ripple/>
+       <sb-ripple [color]="color()"/>
       <ng-content/>
       @if (svgString(); as svg) {
         <sb-svg-renderer [svgString]="svg"/>
@@ -33,7 +33,7 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
 })
 export class SbIconButtonComponent {
   disabled = input<boolean>(false);
-  color = input<UiKitTheme>('error');
+  color = input<UiKitTheme>('primary');
   type = input<'button' | 'submit' | 'reset'>('button');
   svgString = input<string>();
 

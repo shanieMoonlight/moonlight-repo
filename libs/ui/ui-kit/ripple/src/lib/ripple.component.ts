@@ -1,34 +1,47 @@
-import { ChangeDetectionStrategy, Component, HostListener, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Renderer2, inject, input } from '@angular/core';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({
   selector: 'sb-ripple',
   standalone: true,
   imports: [],
-  template: '<span class="sb-ripple"></span>',
+  template: '',
   styleUrl: './ripple.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': 'color()',
-    '[class.active]': '_rippleActive()'
   },
 })
 export class RippleComponent {
+ 
+  private el: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>)
+  private renderer = inject(Renderer2)
+  color = input<UiKitTheme>('primary');
 
-  color = input<UiKitTheme>('error');
 
-  protected _rippleActive = signal(false)
   @HostListener('click', ['$event'])
   onHostClick(event: MouseEvent) {
-
     if (event.button !== 0)
-      return
-    console.log('Host element clicked with event:', event);
-    this._rippleActive.set(true);
-
+      return;
+    const host = this.el.nativeElement;
+    const rect = host.getBoundingClientRect();
+    const ripple = this.renderer.createElement('span');
+    this.renderer.addClass(ripple, 'sb-ripple');
+    const size = Math.max(rect.width, rect.height) * 2;
+    
+    this.renderer.setStyle(ripple, 'width', `${size}px`);
+    this.renderer.setStyle(ripple, 'height', `${size}px`);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    console.log(`Ripple at: (${x}, ${y}) with size: ${size}`);
+    this.renderer.setStyle(ripple, 'left', `${x}px`);
+    this.renderer.setStyle(ripple, 'top', `${y}px`);
+    this.renderer.appendChild(host, ripple);
+    // Force reflow to enable transition
+    void ripple.offsetWidth;
+    this.renderer.addClass(ripple, 'active');
     setTimeout(() => {
-      this._rippleActive.set(false)
-    }, 350);
+      this.renderer.removeChild(host, ripple);
+    }, 400);
   }
-
 }
