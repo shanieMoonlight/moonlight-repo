@@ -4,10 +4,21 @@
     Auth Fail
   </sb-button>
 
+<sb-modal
+  [(open)]="_showAddForm"
+  [template]="addMntcMemberForm"/>
 
-<!-- <sb-add-mntc-member-form/> -->
 
-<sb-app-user-form/>
+<!-- 
+<sb-add-mntc-member-form/>
+
+<sb-app-user-form/> -->
+
+
+<ng-template #addMntcMemberForm>
+  <sb-add-mntc-member-form 
+    (addMember)="addMntcMember($event)"/>
+</ng-template>
 
   <sb-data-table  
    [data]="_superTeamData()"

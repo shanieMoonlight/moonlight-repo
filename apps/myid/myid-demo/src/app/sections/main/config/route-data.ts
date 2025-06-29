@@ -44,10 +44,10 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'tertiary'
   },
   {
-    title: 'Confirm Email with Password',
-    description: 'Confirm your email address with a password.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
-    icon: 'key',
+    title: 'Mntc Team',
+    description: 'Manage maintenance team.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('mntc-team'),
+    icon: 'groups',
     color: 'primary'
   },
   {
@@ -77,5 +77,12 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
     icon: 'alternate_email',
     color: 'secondary'
+  },
+  {
+    title: 'Confirm Email with Password',
+    description: 'Confirm your email address with a password.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
+    icon: 'key',
+    color: 'tertiary'
   },
 ]

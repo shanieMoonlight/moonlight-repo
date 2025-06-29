@@ -19,7 +19,7 @@ export class ForgotPwdModalComponent {
   description = input<string>('Please enter your email address to receive a password reset link.');
 
 
-    forgotPwd = output<ForgotPasswordFormDto>()
+  forgotPwd = output<ForgotPasswordFormDto>()
 
   //--------------------------//
 

@@ -18,6 +18,7 @@ type CHILD_ROUTE =
   | 'login-jwt'
   | 'reset-password'
   | 'my-details'
+  | 'mntc-team'
   | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'

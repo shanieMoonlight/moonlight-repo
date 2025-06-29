@@ -1,5 +1,5 @@
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentRef, computed, inject, signal } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, MaintenanceAuthenticatorDemoIoService, UserManagementIoService } from '@spider-baby/myid-io';
@@ -15,8 +15,9 @@ import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-tea
 import { superTeam } from './fake-super-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { tableColumns } from './fake-super-data-table-columns';
-import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
+import { AddMntcMemberFormDto, SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
 import { AppUserDto } from '@spider-baby/myid-io/models';
+import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
 
 
 
@@ -31,7 +32,8 @@ import { AppUserDto } from '@spider-baby/myid-io/models';
     SbTeamFormComponent,
     SbAppUserFormComponent,
     SbDataTableComponent,
-    SbAddMntcMemberFormComponent
+    SbAddMntcMemberFormComponent,
+    SbModalComponent
 
   ],
   standalone: true,
@@ -80,15 +82,26 @@ export class ScratchpadComponent {
   protected _superTeamDataColumns = computed(() => tableColumns);
 
 
+  // protected _addMemberRef: ComponentRef<SbAddMntcMemberFormComponent>;
+  protected _showAddForm = signal(false)
+
+
 
   //--------------------------//
 
   handleRowClick(rowData: SbDataTableRowData<AppUserDto>) {
     console.log('Row clicked:', rowData);
-    
+
   }
   handleAddItem() {
     console.log('handleAddItem');
+    this._showAddForm.set(true);
+  }
+
+
+  addMntcMember(dto: AddMntcMemberFormDto) {
+    console.log('addMntcMember', dto);
+    this._showAddForm.set(false);
   }
 
 

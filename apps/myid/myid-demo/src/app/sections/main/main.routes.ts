@@ -69,6 +69,10 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/update-2-factor/update-2-factor.component').then(m => m.Update2FactorComponent),
             },
             {
+                path: MainSectionRoutesDefs.route('mntc-team'),
+                loadComponent: () => import('./features/mntc-team/mntc-team.component').then(m => m.MntcTeamComponent),
+            },
+            {
                 path: MainSectionRoutesDefs.route('auth-test'),
                 loadComponent: () => import('./features/auth-service-test/default/auth-service-test.component').then(m => m.AuthServiceTestComponent),
             },
