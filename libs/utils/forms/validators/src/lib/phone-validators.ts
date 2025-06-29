@@ -24,7 +24,6 @@ export class PhoneValidation {
                 return null;
             try {
                 const result = validatePhoneNumberLength(value, defaultCountry);
-                devConsole.log('PhoneValidation.validator', value, defaultCountry, result);
                 
                 if (!result)
                     return null; // valid length

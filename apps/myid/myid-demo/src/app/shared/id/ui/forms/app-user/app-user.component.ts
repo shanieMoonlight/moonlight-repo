@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IdentityAddressDto, TwoFactorProvider } from '@spider-baby/myid-io/models';
+import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent } from "@spider-baby/ui-kit/select";
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { teamPositionOptions } from '../../../utils/team-position-options';
-import { twoFactorProviderOptions } from '../../../utils/two-factor-provider-options';
 
 //##########################//
 
@@ -67,7 +67,8 @@ interface AppUserForm {
 })
 export class SbAppUserFormComponent {
 
-  private fb = inject(FormBuilder);
+  private _fb = inject(FormBuilder);
+  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
   showLables = input<boolean>(true);
   addUser = output<AppUserDtoFormDto>();
@@ -83,11 +84,11 @@ export class SbAppUserFormComponent {
 
 protected _isUpdateForm = signal(false);
 
-  protected _twoFactorProviderOptions = twoFactorProviderOptions
+  protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
   protected _teamPositionOptions= teamPositionOptions
 
-  protected form: FormGroup<AppUserForm> = this.fb.nonNullable.group({
+  protected form: FormGroup<AppUserForm> = this._fb.nonNullable.group({
     // Personal Information Section
     id: ['', [Validators.required]],
     firstName: ['', [Validators.required, Validators.minLength(2)]],

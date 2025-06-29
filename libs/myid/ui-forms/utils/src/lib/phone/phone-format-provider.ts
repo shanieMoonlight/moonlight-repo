@@ -1,7 +1,7 @@
 import { Injectable, InjectionToken, forwardRef, inject } from '@angular/core';
-import { CountryCode, parsePhoneNumberWithError } from 'libphonenumber-js';
+import { CountryCode, ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { DefaultPhoneCode, PhoneCountryCode } from './country-codes';
-import {devConsole } from '@spider-baby/dev-console';
+import { devConsole } from '@spider-baby/dev-console';
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
@@ -67,9 +67,10 @@ export class FallbackPhoneFormatProvider implements MyIdPhoneFormatProvider {
       const number = parsePhoneNumberWithError(phone, libCode)
       return number ? number.formatInternational() : phone;
 
-    } catch(error:any) {
+    } catch (error: unknown) {
+      if (error instanceof ParseError)
+        devConsole.log(error.message)
       //ignore bad numbers
-    devConsole.log(error.message)
       return phone;
     }
   }
