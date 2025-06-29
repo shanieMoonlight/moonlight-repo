@@ -4,7 +4,7 @@ import {
   AddCustomerMemberDto,
   AddCustomerMember_MntcDto,
   AddMntcMemberDto,
-  AddSprMemberDto,
+  AddSuperMemberDto,
   AppUserDto,
   AppUser_Customer_Dto,
   AuthAppSetupDto,
@@ -246,7 +246,7 @@ export class AccountIoService extends AServerIoService {
     );
 
   addSuperTeamMember = (
-    dto: AddSprMemberDto,
+    dto: AddSuperMemberDto,
     opts?: unknown
   ): Observable<AppUserDto> =>
     this._postAction<AppUserDto>(

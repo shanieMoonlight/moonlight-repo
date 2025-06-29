@@ -1,31 +1,30 @@
 :host {
   display: block;
-  --color-border: var(--mat-sys-primary-80);
+  --color-border-rgb: var(--mat-sys-primary-rgb);
+  --ripple-opacity: 0.35;
   --color-header-bg: var(--mat-sys-surface-container);
   --color-header-txt: var(--mat-sys-on-surface);
-  // --color-row-bg: var(--mat-sys-surface);
   --color-row-hover: var(--mat-sys-surface-container-highest);
   --color-txt: var(--mat-sys-on-surface);
-
   --color-bg: var(--mat-sys-surface);
-  // --color-bg: var(--mat-sys-surface-container-high);
-
   --padding-container: 1rem;
+   --color-border: rgba(var(--color-border-rgb, 0, 0, 0), var(--ripple-opacity));
+  
+  
   background: var(--color-bg);
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
-  // box-shadow: 0 2px 8px 0 var(--mat-sys-shadow);
 }
 
 :host(.secondary) {
-  --color-border: var(--mat-sys-secondary-40);
+  --color-border-rgb: var(--mat-sys-secondary-rgb);
 }
 
 :host(.tertiary) {
-  --color-border: var(--mat-sys-tertiary-40);
+  --color-border-rgb: var(--mat-sys-tertiary-rgb);
 }
 
 :host(.error) {
-  --color-border: var(--mat-sys-error-40);
+  --color-border-rgb: var(--mat-sys-error-rgb);
 }
 
 .sb-data-table-container {
@@ -96,10 +95,6 @@
 }
 
 
-.sb-btn.sb-btn-add:hover {
-  background: linear-gradient(90deg, var(--color-row-hover) 0%, var(--color-header-bg) 100%);
-  color: var(--color-txt);
-}
 
 /* Responsive tweaks */
 @media (max-width: 600px) {

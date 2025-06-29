@@ -15,6 +15,7 @@ import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-tea
 import { superTeam } from './fake-super-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { tableColumns } from './fake-super-data-table-columns';
+import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
 
 
 
@@ -28,7 +29,8 @@ import { tableColumns } from './fake-super-data-table-columns';
     SbMatNotificationsModalComponent,
     SbTeamFormComponent,
     SbAppUserFormComponent,
-    SbDataTableComponent
+    SbDataTableComponent,
+    SbAddMntcMemberFormComponent
 
   ],
   standalone: true,

@@ -1,4 +1,4 @@
-export interface AddSprMemberDto {
+export interface AddSuperMemberDto {
   firstName?: string;
   lastName?: string;
   username?: string;

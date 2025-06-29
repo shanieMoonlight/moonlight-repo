@@ -15,7 +15,7 @@
                     sbInputStyle />
             
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'firstName'">First Name</label>
                 }                <input 
                     [id]="'firstName'" 
@@ -29,7 +29,7 @@
         
         <div class="form-row">
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'lastName'">Last Name</label>
                 }                <input 
                     [id]="'lastName'" 
@@ -41,7 +41,7 @@
             </div>
             
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'phoneNumber'">Phone Number</label>
                 }                <input 
                     [id]="'phoneNumber'" 
@@ -59,7 +59,7 @@
         <h3>Account Information</h3>
         <div class="form-row">
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'userName'">Username</label>
                 }                <input 
                     [id]="'userName'" 
@@ -71,7 +71,7 @@
             </div>
             
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'email'">Email</label>
                 }                <input 
                     [id]="'email'" 
@@ -85,7 +85,7 @@
         
         <div class="form-row">
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'teamId'">Team ID</label>
                 }                <input 
                     [id]="'teamId'" 
@@ -97,7 +97,7 @@
             </div>
             
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'teamPosition'">Team Position</label>
                 }                <sb-select
                     [id]="'teamPosition'"
@@ -116,7 +116,7 @@
         <h3>Security Settings</h3>
         <div class="form-row">
             <div class="form-group">
-                @if(showLables()) {
+                @if(showLabels()) {
                     <label [for]="'twoFactorProvider'">2FA Method</label>
                 }                <sb-select
                     [id]="'twoFactorProvider'"
@@ -134,7 +134,7 @@
                 </sb-checkbox>
             </div>
         </div>
-    </div>    <!-- Address Section (Optional) -->
+    </div>    
 
     
         @if(showAddressSection()) {
@@ -143,7 +143,7 @@
                     <h3>Address (Optional)</h3>
                     <div class="form-row">
                         <div class="form-group full-width">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'line1'">Address Line 1</label>
                             }
                             <input 
@@ -157,7 +157,7 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'line2'">Address Line 2</label>
                             }
                             <input 
@@ -169,7 +169,7 @@
                         </div>
                         
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'line3'">Address Line 3</label>
                             }
                             <input 
@@ -183,7 +183,7 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'line4'">Address Line 4</label>
                             }
                             <input 
@@ -195,7 +195,7 @@
                         </div>
                         
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'line5'">Address Line 5</label>
                             }
                             <input 
@@ -209,7 +209,7 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'areaCode'">Area Code</label>
                             }
                             <input 
@@ -221,7 +221,7 @@
                         </div>
                         
                         <div class="form-group">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'appUserId'">App User ID</label>
                             }
                             <input 
@@ -235,7 +235,7 @@
                     
                     <div class="form-row">
                         <div class="form-group full-width">
-                            @if(showLables()) {
+                            @if(showLabels()) {
                                 <label [for]="'notes'">Notes</label>
                             }
                             <input 

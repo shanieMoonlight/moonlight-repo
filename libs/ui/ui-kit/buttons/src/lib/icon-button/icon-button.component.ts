@@ -20,7 +20,6 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
       class="sb-icon-btn"
       [ngClass]="color()"
       (click)="showRipple()">
-      <!-- <span class="sb-ripple" [class.active]="_rippleActive()"></span> -->
        <sb-ripple [color]="color()"/>
       <ng-content/>
       @if (svgString(); as svg) {

@@ -70,7 +70,7 @@ export class SbAppUserFormComponent {
   private _fb = inject(FormBuilder);
   private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   addUser = output<AppUserDtoFormDto>();
   updateUser = output<AppUserDtoFormDto>();
 
@@ -82,11 +82,11 @@ export class SbAppUserFormComponent {
     this._isUpdateForm.set(!!user);
   }
 
-protected _isUpdateForm = signal(false);
+  protected _isUpdateForm = signal(false);
 
   protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
-  protected _teamPositionOptions= teamPositionOptions
+  protected _teamPositionOptions = teamPositionOptions
 
   protected form: FormGroup<AppUserForm> = this._fb.nonNullable.group({
     // Personal Information Section
@@ -102,7 +102,7 @@ protected _isUpdateForm = signal(false);
     teamPosition: [1 as number, [Validators.required]],
 
     // Security Settings Section
-    twoFactorProvider: ['email' as TwoFactorProvider, [Validators.required]],
+    twoFactorProvider: ['Email' as TwoFactorProvider, [Validators.required]],
     twoFactorEnabled: [false],    // Address Section (Optional)
     line1: [''],
     line2: [''],
@@ -182,7 +182,7 @@ protected _isUpdateForm = signal(false);
 
     return dto;
   }
-  
+
 
   //- - - - - - - - - - -//
 
