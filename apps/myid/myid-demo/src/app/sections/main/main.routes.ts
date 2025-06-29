@@ -22,7 +22,7 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: MainSectionRoutesDefs.route('scratchpad'),
-                loadComponent: () => import('./features/scrachpad/scratchpad.component').then(m => m.ScratchpadComponent),
+                loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('login-jwt'),

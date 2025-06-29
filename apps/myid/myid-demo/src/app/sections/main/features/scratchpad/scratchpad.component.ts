@@ -6,7 +6,7 @@ import { AccountIoService, MaintenanceAuthenticatorDemoIoService, UserManagement
 import { ConfirmEmailWithPwdFormDto } from '@spider-baby/myid-ui-forms/confirm-email-with-pwd';
 import { UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbDataTableComponent } from '@spider-baby/ui-kit/table';
+import { SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
@@ -16,6 +16,7 @@ import { superTeam } from './fake-super-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { tableColumns } from './fake-super-data-table-columns';
 import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
+import { AppUserDto } from '@spider-baby/myid-io/models';
 
 
 
@@ -40,6 +41,7 @@ import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add
 })
 export class ScratchpadComponent {
 
+
   private _ioService = inject(AccountIoService)
   private _ioUserMgmt = inject(UserManagementIoService)
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
@@ -53,7 +55,7 @@ export class ScratchpadComponent {
     .setSuccessMsgFn((dto, response) => `Message: ${response.message}\nAuthenticator: ${response.authenticator}`)
     .setOnSuccessFn((dto, response) => { console.log('Success:', response); })
 
-    
+
   protected _superTeamState = MiniStateBuilder
     .Create(() => this._ioUserMgmt.getSuperTeamMembers())
     .trigger()
@@ -80,6 +82,14 @@ export class ScratchpadComponent {
 
 
   //--------------------------//
+
+  handleRowClick(rowData: SbDataTableRowData<AppUserDto>) {
+    console.log('Row clicked:', rowData);
+    
+  }
+  handleAddItem() {
+    console.log('handleAddItem');
+  }
 
 
   handlePasswordSet(dto: ConfirmEmailWithPwdFormDto) {

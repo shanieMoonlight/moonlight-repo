@@ -16,13 +16,17 @@ export class RippleComponent {
  
   private el: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>)
   private renderer = inject(Renderer2)
+
+  
   color = input<UiKitTheme>('primary');
 
 
   @HostListener('click', ['$event'])
   onHostClick(event: MouseEvent) {
+
     if (event.button !== 0)
       return;
+    
     const host = this.el.nativeElement;
     const rect = host.getBoundingClientRect();
     const ripple = this.renderer.createElement('span');
@@ -33,7 +37,7 @@ export class RippleComponent {
     this.renderer.setStyle(ripple, 'height', `${size}px`);
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
-    console.log(`Ripple at: (${x}, ${y}) with size: ${size}`);
+    
     this.renderer.setStyle(ripple, 'left', `${x}px`);
     this.renderer.setStyle(ripple, 'top', `${y}px`);
     this.renderer.appendChild(host, ripple);
