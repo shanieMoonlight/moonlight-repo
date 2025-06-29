@@ -4,9 +4,17 @@
     Auth Fail
   </sb-button>
 
-  <sb-app-user-form/>
+
+
+  <sb-data-table  
+   [data]="_superTeamData()"
+   [columns]="_superTeamDataColumns()"
+  />
+
+
+  <!-- <sb-app-user-form/>
   <sb-team-form [team]="_testTeam"/>
-  <sb-team-form [team]="undefined"/>
+  <sb-team-form [team]="undefined"/> -->
   
   <!-- <sb-login-form 
     (login)="loginCookie($event)" 

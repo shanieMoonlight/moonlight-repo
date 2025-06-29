@@ -1,0 +1,94 @@
+
+
+:host {
+  display: block;
+  --color-border: var(--mat-sys-primary-80);
+  --color-header-bg: var(--mat-sys-surface-container);
+  --color-header-txt: var(--mat-sys-on-surface);
+  // --color-row-bg: var(--mat-sys-surface);
+  --color-row-hover: var(--mat-sys-surface-container-highest);
+  --color-txt: var(--mat-sys-on-surface);
+
+  --color-bg: var(--mat-sys-surface);
+  // --color-bg: var(--mat-sys-surface-container-high);
+
+  --padding-container: 1rem;
+  background: var(--color-bg);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  // box-shadow: 0 2px 8px 0 var(--mat-sys-shadow);
+}
+
+:host(.secondary) {
+  --color-border: var(--mat-sys-secondary-40);
+}
+:host(.tertiary) {
+  --color-border: var(--mat-sys-tertiary-40);
+}
+:host(.error) {
+  --color-border: var(--mat-sys-error-40);
+}
+
+.sb-data-table-container {
+  width:calc(100% - var(--padding-container, 1rem));
+  overflow-x: auto;
+  background: inherit;
+  border-radius: 0.75rem;
+  padding: var(--padding-container, 1rem);
+}
+
+.sb-data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+
+.sb-data-table th,
+.sb-data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  color: var(--color-txt);
+}
+
+.sb-data-table th {
+  background: var(--color-header-bg);
+  color: var(--color-header-txt);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.sb-data-table td {
+  background: var(--color-row-bg);
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s;
+}
+
+.sb-data-table tr:hover td {
+  background: var(--color-row-hover);
+}
+
+.sb-data-table tr:nth-child(even) td {
+  background: var(--mat-sys-surface-container-highest);
+}
+
+.sb-no-data {
+  text-align: center;
+  color: var(--color-txt);
+  padding: 2rem 0;
+  font-style: italic;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .sb-data-table th,
+  .sb-data-table td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.95rem;
+  }
+  .sb-data-table-container {
+    padding: 0.5rem;
+  }
+}
