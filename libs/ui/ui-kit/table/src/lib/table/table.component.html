@@ -20,7 +20,8 @@
               <td>
                 <sb-data-table-cell
                   [item]="row"
-                  [column]="col"/>
+                  [column]="col"
+                  (action)="onActionClick($event, i)"/>
               </td>
             }
           </tr>
@@ -35,7 +36,7 @@
   <div class="sb-data-table-actions">
     <sb-button-icon-add 
       [sbTooltip]="'Add Item'"
-      (click)="onAddItem()"
+      (click)="onAddItemClick()"
       [circle]="true"/>
   </div>
 </div>

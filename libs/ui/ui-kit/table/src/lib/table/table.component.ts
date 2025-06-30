@@ -7,6 +7,7 @@ import { ColumnData } from './column';
 import { SbDataTableCellComponent } from './table-cell/table-cell.component';
 import { SbTableHeaderCellComponent } from './table-header-cell/table-header-cell.component';
 import { SbDataTableRowData } from './table-row-data';
+import { ActionEvent } from './table-cell/action-event';
 
 @Component({
   selector: 'sb-data-table',
@@ -41,6 +42,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
   // Example output for row click (can add more as needed)
   rowClick = output<SbDataTableRowData<T>>();
   addItem = output<void>();
+  action = output<ActionEvent<T>>();
 
   /** Mat Color theme. Default = 'primary  */
   color = input<UiKitTheme>('primary')
@@ -49,8 +51,14 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
   //------------------------//
 
 
-  protected onRowClick = (row: T, index: number) => this.rowClick.emit({ row, index });
-  protected onAddItem =() => this.addItem.emit();
+  protected onRowClick = (row: T, index: number) =>
+    this.rowClick.emit({ row, index });
+
+  protected onAddItemClick = () =>
+    this.addItem.emit();
+
+  protected onActionClick = (actEv: ActionEvent<T>, rowIdx: number) =>
+    this.action.emit(actEv.setRowIdx(rowIdx));
 
 
 }

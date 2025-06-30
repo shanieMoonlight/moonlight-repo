@@ -2,7 +2,7 @@ import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
-import { AddMntcMemberDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
+import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { superTeam } from './fake-super-data';
 
 @Injectable({
@@ -26,21 +26,25 @@ export class MntcTeamStateService {
   private _updatePositionState = MiniStateBuilder
     .CreateWithInput((dto: UpdatePositionDto) => this._ioService.updatePosition(dto))
 
+      private _deleteMemberState = MiniStateBuilder
+    .CreateWithInput((dto: AppUserDto) => this._ioService.deleteMntcMemberByUserId(dto.id))
+
 
   private _states = MiniStateCombined.Combine(
     this._addState,
+    this._deleteMemberState,
     this._updatePositionState,
     this._mntcTeamState)
 
     
-  // successMsg = this._states.successMsg
-  // errorMsg = this._states.errorMsg
-  // loading = this._states.loading
-  successMsg = computed(() => '')
-  errorMsg =   computed(() => '')
-  loading =    computed(() => false)
-  // data = this._mntcTeamState.data
-  data = computed(() => superTeam)
+  successMsg = this._states.successMsg
+  errorMsg = this._states.errorMsg
+  loading = this._states.loading
+  data = this._mntcTeamState.data
+  // successMsg = computed(() => '')
+  // errorMsg =   computed(() => '')
+  // loading =    computed(() => false)
+  // data = computed(() => superTeam)
 
   //- - - - - - - - - - - - - //
 
@@ -52,6 +56,11 @@ export class MntcTeamStateService {
   addMember(dto: AddMntcMemberDto) {
     console.log('addMember');
     this._addState.trigger(dto);
+  }
+
+  deleteMember(dto: AppUserDto) {
+    console.log('deleteMember');
+    this._deleteMemberState.trigger(dto);
   }
 
 

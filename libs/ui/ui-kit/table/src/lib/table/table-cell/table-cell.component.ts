@@ -35,9 +35,7 @@ export class SbDataTableCellComponent<T extends BaseDataTableRowData> {
     filterDataType = computed(() => this.column().filterDataType)
 
 
-    protected actionClick(event: Event) {
-        console.log('Action Clicked', this.column().name, this.item());
-        
+    protected actionClick(event: Event) {        
 
         event.stopPropagation()
         const item = this.item()

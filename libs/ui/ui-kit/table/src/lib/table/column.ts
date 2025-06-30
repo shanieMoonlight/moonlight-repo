@@ -1,12 +1,12 @@
 import { Type } from "@angular/core";
 import { BaseDataTableRowData } from "./base-row-data";
-import { CustomTableCell } from "./custom-cell";
+import { ActionTableCell } from "./custom-cell";
 import { FilterDataType } from "./types";
 
 export class ColumnData<T = BaseDataTableRowData> {
 
     handleNestedProperty?: (x: T) => unknown
-    customTableCell?: CustomTableCell<T>
+    actionTableCell?: ActionTableCell
 
 
     private constructor(
@@ -38,7 +38,7 @@ export class ColumnData<T = BaseDataTableRowData> {
   */
   setActionComponent(component: Type<unknown>, inputs?: Record<string, unknown>): ColumnData<T> {
 
-    this.customTableCell = new CustomTableCell(component, inputs)
+    this.actionTableCell = new ActionTableCell(component, inputs)
     this.setFilterDataType('action')
     return this
 

@@ -1,7 +1,7 @@
 @switch (filterDataType()) {
 
     @case ('action') {
-        @if(column().customTableCell; as actionCell){
+        @if(column().actionTableCell; as actionCell){
             <div (click)="actionClick($event)" 
                     (keydown.enter)="actionClick($event)"
                     (keydown.space)="actionClick($event)"

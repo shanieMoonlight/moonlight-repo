@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
+import { ActionEvent, SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
 import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
 import { MntcTeamStateService } from './mntc-team.state.service';
-import { tableColumns } from './data-table-columns';
+import { MntcTeamTableActions, tableColumns } from './data-table-columns';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 
 @Component({
@@ -41,7 +41,18 @@ export class MntcTeamComponent {
 
   }
 
-  handleAddItem() {
+
+  onAction(actionEvent: ActionEvent<AppUserDto>) {
+
+    if (actionEvent.action !== MntcTeamTableActions.delete)
+      return
+
+    console.log('Action event:', actionEvent);
+    this._state.deleteMember(actionEvent.item);
+
+  }
+
+  onAddItem() {
     console.log('handleAddItem');
     this._showAddForm.set(true);
   }
