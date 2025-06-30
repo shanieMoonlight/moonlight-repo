@@ -14,7 +14,8 @@
                 (click)="close()" 
                 aria-label="Close modal"/>
             <ng-container 
-                [ngTemplateOutlet]="template()"/>
+                [ngTemplateOutlet]="template()"
+                [ngTemplateOutletContext]="{ $implicit: templateData() }"/>
         </div>
     </div>
     

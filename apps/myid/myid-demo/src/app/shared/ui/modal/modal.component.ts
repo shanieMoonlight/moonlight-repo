@@ -18,6 +18,7 @@ export class SbModalComponent {
 
     open = model<boolean>(false);
     template = input.required<TemplateRef<unknown>>();
+    templateData = input<unknown>(undefined);
     closeBackdropClick = input<boolean>(true);
 
     close = () =>

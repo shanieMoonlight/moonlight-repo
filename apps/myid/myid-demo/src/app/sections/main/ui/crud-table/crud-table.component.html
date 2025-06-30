@@ -10,14 +10,15 @@
   
 <sb-modal
   [(open)]="_showUpdateForm"
-  [template]="updateFormTemplate()"/>
+  [template]="updateFormTemplate()"
+  [templateData]="_updateItem()"/>
     
 
 <sb-modal
   [(open)]="_showAddForm"
   [template]="addFormTemplate()"/>
 
-  
+
   
 <sb-notifications-modal-mat 
     [errorMsg]="errorMsg()" 

@@ -1,39 +1,25 @@
 
-  
-  <sb-data-table  
-   [data]="_data()"
-   [columns]="_tableColumns"
-   (addItem)="onAddItem()"
-   (action)="onAction($event)"
-   (rowClick)="onRowClick($event)"/>
-   
-  
-<sb-modal
-  [(open)]="_showUpdateForm"
-  [template]="updateMemberForm"/>
+<sb-crud-table
+  [addFormTemplate]="addSuperMemberForm"
+  [updateFormTemplate]="updateMemberForm"
+  [tableColumns]="_tableColumns"
+  [data]="_data()"
+  [loading]="_loading()"
+  [errorMsg]="_errorMsg()"
+  [successMsg]="_successMsg()"
+  (deleteItem)="deleteMember($event)"/>
     
-<ng-template #updateMemberForm>
+  
+<ng-template #updateMemberForm let-member>
   <sb-update-team-position-form 
-    [member]="_updateUser()!"
+    [member]="member"
     [teamPositionOptions]="_teamPositionOptions"
     (updatePosition)="updatePosition($event)"/>
 </ng-template>
 
 
-
-<sb-modal
-  [(open)]="_showAddForm"
-  [template]="addSuperMemberForm"/>
     
 <ng-template #addSuperMemberForm>
   <sb-add-super-member-form 
     (addMember)="addMember($event)"/>
 </ng-template>
-
-
-  
-<sb-notifications-modal-mat 
-    [errorMsg]="_errorMsg()" 
-    [toastMsg]="_successMsg()" 
-    [isLoading]="_loading()" 
-    [loadingMessage]="'Loading ...'" />
