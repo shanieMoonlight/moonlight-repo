@@ -246,6 +246,9 @@
       "@spider-baby/myid-ui-forms/update-self": [
         "libs/myid/ui-forms/update-self/src/index.ts"
       ],
+      "@spider-baby/myid-ui-forms/update-team-position": [
+        "libs/myid/ui-forms/update-team-position/src/index.ts"
+      ],
       "@spider-baby/myid-ui-forms/update-two-factor-provider": [
         "libs/myid/ui-forms/update-two-factor-provider/src/index.ts"
       ],

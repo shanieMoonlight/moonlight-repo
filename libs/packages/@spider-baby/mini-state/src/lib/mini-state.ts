@@ -233,7 +233,7 @@ export class MiniState<Input, Output, TError = any> {
      */
     trigger(input: Input) {
 
-        // devConsole.log('trigger', input);
+        devConsole.log('trigger', input);
         this._loadingBs.next(true)
         this._errorMsgBs.next(undefined); // Clear previous error message
         this._successMsgBs.next(undefined); // Clear previous success message
@@ -261,7 +261,7 @@ export class MiniState<Input, Output, TError = any> {
 
         this._loadingBs.next(false); //Close the loader
         this._wasTriggeredBs.next(true); // Mark as triggered
-        // devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
+        devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
 
     }
 

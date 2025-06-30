@@ -52,7 +52,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
 
 
   protected onRowClick = (row: T, index: number) =>
-    this.rowClick.emit({ row, index });
+    this.rowClick.emit({ element: row, index });
 
   protected onAddItemClick = () =>
     this.addItem.emit();

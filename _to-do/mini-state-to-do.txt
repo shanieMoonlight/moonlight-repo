@@ -1,0 +1,1 @@
+MiniCrudState - make it generic in AddDto, UpdateDto, DeleteDto

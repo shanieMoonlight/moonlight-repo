@@ -1,4 +1,4 @@
 export interface SbDataTableRowData<T> {
-  row: T;
+  element: T;
   index: number;
 }

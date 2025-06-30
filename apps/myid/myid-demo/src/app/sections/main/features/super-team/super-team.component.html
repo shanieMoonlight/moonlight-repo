@@ -1,7 +1,4 @@
 
-<sb-modal
-  [(open)]="_showAddForm"
-  [template]="addSuperMemberForm"/>
   
   <sb-data-table  
    [data]="_data()"
@@ -9,18 +6,35 @@
    (addItem)="onAddItem()"
    (action)="onAction($event)"
    (rowClick)="onRowClick($event)"/>
-
-
    
+   {{_dataSimple()|json}}
+  
+<sb-modal
+  [(open)]="_showUpdateForm"
+  [template]="updateMemberForm"/>
+    
+<ng-template #updateMemberForm>
+  <sb-update-team-position-form 
+    [member]="_updateUser()!"
+    [teamPositionOptions]="_teamPositionOptions"
+    (updatePosition)="updatePostion($event)"/>
+</ng-template>
+
+
+
+<sb-modal
+  [(open)]="_showAddForm"
+  [template]="addSuperMemberForm"/>
+    
+<ng-template #addSuperMemberForm>
+  <sb-add-super-member-form 
+    (addMember)="addSuperMember($event)"/>
+</ng-template>
+
+
+  
 <sb-notifications-modal-mat 
     [errorMsg]="_errorMsg()" 
     [toastMsg]="_successMsg()" 
     [isLoading]="_loading()" 
     [loadingMessage]="'Loading ...'" />
-  
-
-    
-  <ng-template #addSuperMemberForm>
-    <sb-add-super-member-form 
-      (addMember)="addSuperMember($event)"/>
-  </ng-template>
