@@ -7,7 +7,6 @@
    (action)="onAction($event)"
    (rowClick)="onRowClick($event)"/>
    
-   {{_dataSimple()|json}}
   
 <sb-modal
   [(open)]="_showUpdateForm"
@@ -17,7 +16,7 @@
   <sb-update-team-position-form 
     [member]="_updateUser()!"
     [teamPositionOptions]="_teamPositionOptions"
-    (updatePosition)="updatePostion($event)"/>
+    (updatePosition)="updatePosition($event)"/>
 </ng-template>
 
 
@@ -28,7 +27,7 @@
     
 <ng-template #addSuperMemberForm>
   <sb-add-super-member-form 
-    (addMember)="addSuperMember($event)"/>
+    (addMember)="addMember($event)"/>
 </ng-template>
 
 

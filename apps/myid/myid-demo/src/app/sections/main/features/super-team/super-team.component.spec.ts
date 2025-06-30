@@ -10,7 +10,7 @@ import { SuperTeamStateService } from './super-team.state.service';
 
 const mockSuperTeamStateService: Partial<SuperTeamStateService> = {
   addMember: jest.fn(),
-  updatePostion: jest.fn(),
+  updatePosition: jest.fn(),
   // Computed properties can be mocked as simple functions or values
   successMsg: signal(''),
   errorMsg: signal(''),

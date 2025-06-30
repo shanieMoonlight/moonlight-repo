@@ -1,0 +1,26 @@
+
+  
+  <sb-data-table  
+   [data]="data()"
+   [columns]="tableColumns()"
+   (addItem)="onAddItem()"
+   (action)="onAction($event)"
+   (rowClick)="onRowClick($event)"/>
+   
+  
+<sb-modal
+  [(open)]="_showUpdateForm"
+  [template]="updateFormTemplate()"/>
+    
+
+<sb-modal
+  [(open)]="_showAddForm"
+  [template]="addFormTemplate()"/>
+
+  
+  
+<sb-notifications-modal-mat 
+    [errorMsg]="errorMsg()" 
+    [toastMsg]="successMsg()" 
+    [isLoading]="loading()" 
+    [loadingMessage]="'Loading ...'" />

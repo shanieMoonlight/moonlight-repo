@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
@@ -12,7 +12,7 @@ export class SuperTeamStateService {
 
   private _ioAccService = inject(AccountIoService)
   private _ioService = inject(UserManagementIoService)
-  
+
 
   private _crudSignalOps = new CrudArraySignalOps<AppUserDto>();
 
@@ -36,7 +36,7 @@ export class SuperTeamStateService {
   private _deleteMemberState = MiniStateBuilder
     .CreateWithInput((dto: AppUserDto) => this._ioService.deleteSuperMemberByUserId(dto.id))
     .setSuccessMsgFn((dto) => `Member, ${dto.email} deleted successfully 🗑️`)
-    .setOnSuccessFn((dto, response) => this._crudSignalOps.delete(dto))
+    .setOnSuccessFn((dto) => this._crudSignalOps.delete(dto))
 
 
   private _states = MiniStateCombined.Combine(
@@ -51,10 +51,13 @@ export class SuperTeamStateService {
   loading = this._states.loading
   data = this._crudSignalOps.data
 
+  addSuccess = computed(() => !!this._addState.successMsg())
+  updateSuccess = computed(() => !!this._addState.successMsg())
+
 
   //- - - - - - - - - - - - - //
 
-  updatePostion(dto: UpdatePositionDto) {
+  updatePosition(dto: UpdatePositionDto) {
     console.log('updatePostion:', dto);
     this._updatePositionState.trigger(dto);
   }
