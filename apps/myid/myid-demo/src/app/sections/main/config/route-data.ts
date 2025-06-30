@@ -51,38 +51,45 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'primary'
   },
   {
+    title: 'Super Team',
+    description: 'Manage super team.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('super-team'),
+    icon: 'superscript',
+    color: 'secondary'
+  },
+  {
     title: 'Confirm Phone',
     description: 'Confirm your phone number.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
     icon: 'call',
-    color: 'secondary'
+    color: 'tertiary'
   },
   {
     title: 'Verify 2-Factor',
     description: 'Verify 2 Factor Provider.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor'),
     icon: 'shield',
-    color: 'tertiary'
+    color: 'primary'
   },
   {
     title: 'Reset Password',
     description: 'Reset your password.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
     icon: 'refresh',
-    color: 'primary'
+    color: 'secondary'
   },
   {
     title: 'Confirm Email',
     description: 'Confirm your email address.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
     icon: 'alternate_email',
-    color: 'secondary'
+    color: 'tertiary'
   },
   {
     title: 'Confirm Email with Password',
     description: 'Confirm your email address with a password.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
     icon: 'key',
-    color: 'tertiary'
+    color: 'primary'
   },
 ]

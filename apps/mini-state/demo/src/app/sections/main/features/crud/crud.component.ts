@@ -167,18 +167,18 @@ export class MainDemoCrudComponent {
 
   //- - - - - - - - - - - - - //
 
-  private _crudState = MiniCrudState
-    .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
-    .setAddState(
-      (album: Album) => this._ioService.create(album),
-      (album) => `Album  ${album.title} added!`)
-    .setUpdateState(
-      (album: Album) => this._ioService.update(album),
-      (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
-    .setDeleteState(
-      (album: Album) => this._ioService.delete(album.id!),
-      (album) => `Album ${album.title} deleted successfully 🗑️`)
-    .trigger(undefined)//Trigger immediately with no filter
+  // private _crudState = MiniCrudState
+  //   .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
+  //   .setAddState(
+  //     (album: Album) => this._ioService.create(album),
+  //     (album) => `Album  ${album.title} added!`)
+  //   .setUpdateState(
+  //     (album: Album) => this._ioService.update(album),
+  //     (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
+  //   .setDeleteState(
+  //     (album: Album) => this._ioService.delete(album.id!),
+  //     (album) => `Album ${album.title} deleted successfully 🗑️`)
+  //   .trigger(undefined)//Trigger immediately with no filter
 
   protected _data = computed(() => this._crudState.data() ?? [])
   protected _successMsg = this._crudState.successMsg

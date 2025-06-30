@@ -52,7 +52,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     private _operationsTracker: ActiveOperationsTracker<MiniState<Item, any>>;
 
     protected _addState?: MiniState<Item, Item | undefined>
-    protected _updateState?: MiniState<Item, Item | undefined>
+    protected _updateState?: MiniState<any, Item | undefined>
     protected _deleteState?: MiniState<Item, any>
 
     /**

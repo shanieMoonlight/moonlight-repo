@@ -19,6 +19,7 @@ type CHILD_ROUTE =
   | 'reset-password'
   | 'my-details'
   | 'mntc-team'
+  | 'super-team'
   | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'

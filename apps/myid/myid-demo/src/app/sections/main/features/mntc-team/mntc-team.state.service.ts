@@ -1,9 +1,8 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
-import { superTeam } from './fake-super-data';
 
 @Injectable({
   providedIn: 'root'
