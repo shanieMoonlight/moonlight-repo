@@ -10,7 +10,7 @@ import { MntcTeamStateService } from './mntc-team.state.service';
 
 const mockMntcTeamStateService: Partial<MntcTeamStateService> = {
   addMember: jest.fn(),
-  updatePostion: jest.fn(),
+  updatePosition: jest.fn(),
   // Computed properties can be mocked as simple functions or values
   successMsg: signal(''),
   errorMsg: signal(''),

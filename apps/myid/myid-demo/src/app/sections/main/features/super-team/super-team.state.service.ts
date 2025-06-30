@@ -53,20 +53,14 @@ export class SuperTeamStateService {
 
   //- - - - - - - - - - - - - //
 
-  updatePosition(dto: UpdatePositionDto) {
-    console.log('updatePostion:', dto);
+  updatePosition = (dto: UpdatePositionDto) => 
     this._updatePositionState.trigger(dto);
-  }
 
-  addMember(dto: AddSuperMemberDto) {
-    console.log('addMember');
+  addMember=(dto: AddSuperMemberDto)=>  
     this._addState.trigger(dto);
-  }
 
-  deleteMember(dto: AppUserDto) {
-    console.log('deleteMember');
-    this._deleteMemberState.trigger(dto);
-  }
+  deleteMember=(dto: AppUserDto) => 
+    this._deleteMemberState.trigger(dto)
 
 
 

@@ -1,20 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { ActionEvent, SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
-import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
-import { MntcTeamStateService } from './mntc-team.state.service';
-import { MntcTeamTableActions, tableColumns } from './data-table-columns';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
+import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
+import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
+import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
+import { tableColumns } from './data-table-columns';
+import { MntcTeamStateService } from './mntc-team.state.service';
 
 @Component({
   selector: 'sb-mntc-team',
   standalone: true,
   imports: [
-    SbDataTableComponent,
     SbAddMntcMemberFormComponent,
-    SbModalComponent,
-    SbMatNotificationsModalComponent,
+    SbUpdateTeamPositionFormComponent,
+    CrudTableComponent
   ],
   providers: [MntcTeamStateService],
   templateUrl: './mntc-team.component.html',
@@ -36,42 +35,18 @@ export class MntcTeamComponent {
 
   protected _showAddForm = signal(false)
 
-  onRowClick(rowData: SbDataTableRowData<AppUserDto>) {
-    console.log('Row clicked:', rowData);
-
-  }
+  protected _teamPositionOptions = teamPositionOptions
 
 
-  onAction(actionEvent: ActionEvent<AppUserDto>) {
 
-    if (actionEvent.action !== MntcTeamTableActions.delete)
-      return
-
-    console.log('Action event:', actionEvent);
-    this._state.deleteMember(actionEvent.item);
-
-  }
-
-  onAddItem() {
-    console.log('handleAddItem');
-    this._showAddForm.set(true);
-  }
-
-  addMntcMember(dto: AddMntcMemberDto) {
-    console.log('addMember');
+  addMntcMember = (dto: AddMntcMemberDto) => 
     this._state.addMember(dto);
-    this._showAddForm.set(false);
-  }
 
 
-  handleRowClick() {
-    console.log('handleAddItem');
-    this._showAddForm.set(true);
-  }
+  updatePosition = (dto: UpdatePositionDto) =>
+    this._state.updatePosition(dto);
 
-  updatePostion(dto: UpdatePositionDto) {
-    console.log('updatePostion:', dto);
-    this._state.updatePostion(dto);
-  }
+  deleteMember = (dto: AppUserDto) =>
+    this._state.deleteMember(dto);
 
 }

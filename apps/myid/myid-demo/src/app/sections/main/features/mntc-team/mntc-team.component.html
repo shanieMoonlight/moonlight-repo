@@ -1,26 +1,24 @@
 
-<sb-modal
-  [(open)]="_showAddForm"
-  [template]="addMntcMemberForm"/>
-  
-  <sb-data-table  
-   [data]="_data()"
-   [columns]="_tableColumns"
-   (addItem)="onAddItem()"
-   (action)="onAction($event)"
-   (rowClick)="onRowClick($event)"/>
-
-
-   
-<sb-notifications-modal-mat 
-    [errorMsg]="_errorMsg()" 
-    [toastMsg]="_successMsg()" 
-    [isLoading]="_loading()" 
-    [loadingMessage]="'Loading ...'" />
-  
-
+<sb-crud-table
+  [addFormTemplate]="addMntcMemberForm"
+  [updateFormTemplate]="updateMemberForm"
+  [tableColumns]="_tableColumns"
+  [data]="_data()"
+  [loading]="_loading()"
+  [errorMsg]="_errorMsg()"
+  [successMsg]="_successMsg()"
+  (deleteItem)="deleteMember($event)"/>
+    
     
   <ng-template #addMntcMemberForm>
     <sb-add-mntc-member-form 
       (addMember)="addMntcMember($event)"/>
   </ng-template>
+
+  
+<ng-template #updateMemberForm let-member>
+  <sb-update-team-position-form 
+    [member]="member"
+    [teamPositionOptions]="_teamPositionOptions"
+    (updatePosition)="updatePosition($event)"/>
+</ng-template>
