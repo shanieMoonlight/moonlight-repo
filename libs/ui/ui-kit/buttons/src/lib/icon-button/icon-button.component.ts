@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, input, signal, viewChild, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, signal, viewChild } from '@angular/core';
 import { RippleComponent } from '@spider-baby/ui-kit/ripple';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
-import { SvgRendererComponent } from '@spider-baby/ui-kit/utils'
+import { SvgRendererComponent } from '@spider-baby/ui-kit/utils';
 
 @Component({
   selector: 'sb-icon-button',

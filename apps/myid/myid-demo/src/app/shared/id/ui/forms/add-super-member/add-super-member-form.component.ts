@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent } from '@spider-baby/ui-kit/select';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
+import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
 import { AddSuperMemberDto } from '@spider-baby/myid-io/models';
 import { FormControl } from '@angular/forms';
 import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
@@ -49,6 +49,9 @@ export interface AddSuperMemberForm {
 export class SbAddSuperMemberFormComponent {
   private _fb = inject(FormBuilder);
   private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
+  private _removeNulls = inject(RemoveNullsService);
+
+  //--------------------------//
 
   addMember = output<AddSuperMemberFormDto>();
 
@@ -66,8 +69,13 @@ export class SbAddSuperMemberFormComponent {
     teamPosition: this._fb.control<number | null>(null),
   });
 
+  //--------------------------//
+
   submit() {
-    if (!this._form.valid) return;
-    this.addMember.emit(this._form.getRawValue() as AddSuperMemberFormDto);
+    if (!this._form.valid)
+      return;
+
+    const cleanedForm = this._removeNulls.remove(this._form.getRawValue())
+    this.addMember.emit(cleanedForm as AddSuperMemberFormDto);
   }
 }

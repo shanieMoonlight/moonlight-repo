@@ -1,26 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input, input, output, signal } from '@angular/core';
-import { SbButtonComponent, SbButtonIconCloseComponent, SbIconButtonComponent, SbButtonIconAddComponent } from '@spider-baby/ui-kit/buttons';
-import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
-import { SbSelectComponent } from '@spider-baby/ui-kit/select';
-import { ColumnData } from './column';
-import { SbDataTableRowData } from './table-row-data';
-import { CommonModule } from '@angular/common';
+import { SbButtonIconAddComponent } from '@spider-baby/ui-kit/buttons';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { BaseDataTableRowData } from './base-row-data';
+import { ColumnData } from './column';
 import { SbDataTableCellComponent } from './table-cell/table-cell.component';
 import { SbTableHeaderCellComponent } from './table-header-cell/table-header-cell.component';
-import { UiKitTheme } from '@spider-baby/ui-kit/types';
-import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { SbDataTableRowData } from './table-row-data';
 
 @Component({
   selector: 'sb-data-table',
   standalone: true,
   imports: [
-    CommonModule,
-    SbButtonComponent,
-    SbButtonIconCloseComponent,
-    SbIconButtonComponent,
-    SbSelectComponent,
-    SbCheckboxComponent,
     SbDataTableCellComponent,
     SbTableHeaderCellComponent,
     SbButtonIconAddComponent,

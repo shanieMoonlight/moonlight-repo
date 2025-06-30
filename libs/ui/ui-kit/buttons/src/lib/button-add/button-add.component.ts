@@ -9,6 +9,7 @@ import { SbIconButtonComponent } from '../icon-button/icon-button.component';
   template: `
     <sb-icon-button
       [type]="'button'"
+      [color]="color()"
       [disabled]="disabled()">
       @if (circle()) {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
@@ -21,7 +22,11 @@ import { SbIconButtonComponent } from '../icon-button/icon-button.component';
       }
     </sb-icon-button>
   `,
-  styleUrls: ['./button-add.component.scss'],
+  styles: `
+    :host {
+      display: inline-block;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbButtonIconAddComponent {

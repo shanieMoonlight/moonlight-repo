@@ -1,8 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { AddMntcMemberDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
+import { superTeam } from './fake-super-data';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +33,14 @@ export class MntcTeamStateService {
     this._mntcTeamState)
 
     
-  successMsg = this._states.successMsg
-  errorMsg = this._states.errorMsg
-  loading = this._states.loading
-  data = this._mntcTeamState.data
+  // successMsg = this._states.successMsg
+  // errorMsg = this._states.errorMsg
+  // loading = this._states.loading
+  successMsg = computed(() => '')
+  errorMsg =   computed(() => '')
+  loading =    computed(() => false)
+  // data = this._mntcTeamState.data
+  data = computed(() => superTeam)
 
   //- - - - - - - - - - - - - //
 

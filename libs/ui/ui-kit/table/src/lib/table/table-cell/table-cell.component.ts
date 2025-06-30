@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { BaseDataTableRowData } from '../base-row-data';
 import { ColumnData } from '../column';
+import { JsonPipe, NgComponentOutlet } from '@angular/common';
+import { ActionEvent } from './action-event';
 
 @Component({
     selector: 'sb-data-table-cell',
     standalone: true,
+    imports: [
+        NgComponentOutlet,
+        JsonPipe
+    ],
     templateUrl: './table-cell.component.html',
     styleUrls: ['./table-cell.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,6 +19,8 @@ export class SbDataTableCellComponent<T extends BaseDataTableRowData> {
 
     item = input.required<T>();
     column = input.required<ColumnData<T>>();
+
+    actionEvent = output<ActionEvent<T>>({ alias: 'action' })
 
     value = computed(() => {
         const item = this.item();
@@ -23,5 +31,21 @@ export class SbDataTableCellComponent<T extends BaseDataTableRowData> {
         // }
         return item[col.name as keyof T];
     })
+
+    filterDataType = computed(() => this.column().filterDataType)
+
+
+    protected actionClick(event: Event) {
+        console.log('Action Clicked', this.column().name, this.item());
+        
+
+        event.stopPropagation()
+        const item = this.item()
+        if (!item)
+            return
+
+        this.actionEvent.emit(new ActionEvent<T>(item, this.column()))
+
+    }
 
 }

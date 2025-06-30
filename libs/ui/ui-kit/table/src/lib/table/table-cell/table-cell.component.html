@@ -1,1 +1,22 @@
-{{ value() }}
+@switch (filterDataType()) {
+
+    @case ('action') {
+        @if(column().customTableCell; as actionCell){
+            <div (click)="actionClick($event)" 
+                    (keydown.enter)="actionClick($event)"
+                    (keydown.space)="actionClick($event)"
+                    tabindex="0"
+                    role="button">
+                <ng-container 
+                    [ngComponentOutlet]="actionCell.component"
+                    [ngComponentOutletInputs]="actionCell.inputs"/>
+            </div>
+        }
+    }
+
+
+    @default {
+        {{ value() }}
+    }
+
+}
