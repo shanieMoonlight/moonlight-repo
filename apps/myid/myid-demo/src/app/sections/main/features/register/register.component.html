@@ -1,0 +1,31 @@
+
+<div class="container">
+
+    <div class="form-container">
+        <div class="header">
+            <h2>Register</h2>
+            <!-- <p class="description">Create a secure password for your account.</p> -->
+        </div>
+   
+    <sb-reg-customer-form
+        class="form"
+        (register)="register($event)"
+        [class.hide]="_successMsg()"/>
+
+    <sb-confirmed-card  
+        [title]="'Email Confirmed!'"
+        [message]="_successMsg()"
+        [class.show]="_successMsg()"/>
+
+    </div>
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()"    
+    [toastMsg]="_successMsg()" 
+    [isLoading]="_loading()" />
+
+    

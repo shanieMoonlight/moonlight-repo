@@ -53,7 +53,7 @@ export class SbTeamFormComponent {
 
   private fb = inject(FormBuilder);
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   color = input<UiKitTheme>('primary');
   canChangeTeamPositionRange = input(true);
 

@@ -3,7 +3,7 @@ export interface RegisterCustomer_NoPwdDto {
   lastName?: string;
   username?: string;
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   subscriptionPlanId?: string;
   teamPosition?: number;
 }

@@ -35,7 +35,7 @@ export class SbForgotPwdFormComponent {
 
   private fb = inject(FormBuilder);
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   forgotPassword = output<ForgotPasswordFormDto>()
   color = input<UiKitTheme>('primary');
 

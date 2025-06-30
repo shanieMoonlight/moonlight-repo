@@ -1,15 +1,18 @@
-<sb-icon-button class="btn-user"
-    [class.hide]="_hideUserButton()"
-    (click)="openInfo()"
-    [svgString]="_userIcon"/>
-    
 
-<div class="card-container" 
-    [class.show]="_showInfo()">
-    <sb-button-icon-close class="btn-close"
-        (click)="closeInfo()"/>
-    <sb-user-info-card
-    [username]="_username()"
-    [email]="_email()"
-    [teamType]="_teamType()|titlecase"/>
-</div>
+@if (_loggedIn()) {
+    <sb-icon-button class="btn-user"
+        [class.hide]="this._showInfo()"
+        (click)="openInfo()"
+        [svgString]="_userIcon"/>
+        
+
+    <div class="card-container" 
+        [class.show]="_showInfo()">
+        <sb-button-icon-close class="btn-close"
+            (click)="closeInfo()"/>
+        <sb-user-info-card
+            [username]="_username()"
+            [email]="_email()"
+            [teamType]="_teamType()|titlecase"/>
+    </div>
+}

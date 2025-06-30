@@ -53,7 +53,7 @@ export class SbUpdateTeamPositionFormComponent {
   //- - - - - - - - - - - - -//
 
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   color = input<UiKitTheme>('primary');
 
   teamPositionOptions = input<SelectOption[]>()

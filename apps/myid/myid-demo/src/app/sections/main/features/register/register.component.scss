@@ -1,0 +1,82 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+.container {
+  width: 96%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+
+  h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .description {
+    text-align: center;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  margin-bottom: 3rem;
+
+}
+
+
+.form {
+  width: 100%;
+  transition: opacity 0.5s 0.25s cubic-bezier(.4, 0, .2, 1), transform 0.5s 0.25s cubic-bezier(.4, 0, .2, 1); //Delay to wait for max-height transition
+}
+
+.form.hide {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+sb-confirmed-card {
+  max-height: 1px;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
+  max-width: 400px;
+  margin: 2rem auto 1.5rem auto;
+  transform: translateY(40px) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s 0.25s cubic-bezier(.4, 0, .2, 1), transform 0.5s 0.25s cubic-bezier(.4, 0, .2, 1); //Delay to wait for max-height transition
+  transition: 0.5s 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+
+sb-confirmed-card.show,
+sb-button.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+
+  max-height: unset;
+  overflow: hidden;
+}

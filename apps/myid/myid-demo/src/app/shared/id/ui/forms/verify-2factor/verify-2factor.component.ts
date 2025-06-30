@@ -35,7 +35,7 @@ export class SbVerify2FactorFormComponent {
 
   private fb = inject(FormBuilder);
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   verify2Factor = output<Verify2FactorTknFormDto>();
   color = input<UiKitTheme>('primary');
 

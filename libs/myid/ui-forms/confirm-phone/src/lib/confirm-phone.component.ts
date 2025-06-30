@@ -35,7 +35,7 @@ export class SbConfirmPhoneFormComponent {
 
   private fb = inject(FormBuilder);
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   confirmPhone = output<ConfirmPhoneFormDto>();
   color = input<UiKitTheme>('primary');
 

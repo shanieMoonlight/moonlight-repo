@@ -3,7 +3,7 @@ export interface RegisterCustomerDto {
   lastName?: string;
   username?: string;
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   subscriptionPlanId?: string;
   teamPosition?: number;
   password: string;

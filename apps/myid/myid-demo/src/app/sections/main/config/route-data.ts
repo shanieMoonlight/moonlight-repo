@@ -58,10 +58,10 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
-    title: 'Confirm Phone',
-    description: 'Confirm your phone number.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
-    icon: 'call',
+    title: 'Customer Regististration',
+    description: 'Register.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('register'),
+    icon: 'how_to_reg',
     color: 'tertiary'
   },
   {
@@ -91,5 +91,12 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
     icon: 'key',
     color: 'primary'
+  },
+  {
+    title: 'Confirm Phone',
+    description: 'Confirm your phone number.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
+    icon: 'call',
+    color: 'secondary'
   },
 ]

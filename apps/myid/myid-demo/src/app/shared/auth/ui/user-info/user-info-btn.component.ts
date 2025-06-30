@@ -31,6 +31,7 @@ export class UserInfoButtonComponent {
 
     protected _showInfo = signal(false);
     protected _hideUserButton = computed(() => !this._auth.isLoggedIn() || this._showInfo());
+    protected _loggedIn = this._auth.isLoggedIn
 
 
     closeInfo = () => {

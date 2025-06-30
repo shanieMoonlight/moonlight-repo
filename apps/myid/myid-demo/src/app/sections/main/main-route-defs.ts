@@ -23,6 +23,7 @@ type CHILD_ROUTE =
   | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'
+  | 'register'
   | 'scratchpad'
 
 //#################################################//

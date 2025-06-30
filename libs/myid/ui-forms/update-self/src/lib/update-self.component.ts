@@ -36,7 +36,7 @@ export class SbUpdateSelfFormComponent {
 
   updateSelf = output<UpdateSelfFormDto>();
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
 
   @Input({ required: true })
   public set appUser(user: UpdateSelfFormDto) {

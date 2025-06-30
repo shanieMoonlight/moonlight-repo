@@ -4,7 +4,7 @@
 <input type="hidden" [formControlName]="'userId'" />
 
      <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
             <label [for]="'user'">User</label>
         }             
         <div id="user" 
@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
             <label [for]="'provider'">Authentication Method</label>
         }       
         

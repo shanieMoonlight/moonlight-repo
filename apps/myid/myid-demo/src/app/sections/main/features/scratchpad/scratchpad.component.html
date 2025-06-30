@@ -1,12 +1,14 @@
 <div class="container">
 
-  <sb-button (click)="authFailTest()">
+  <!-- <sb-button (click)="authFailTest()">
     Auth Fail
-  </sb-button>
+  </sb-button> -->
 
-<sb-modal
+<sb-reg-customer-form/>
+
+<!-- <sb-modal
   [(open)]="_showAddForm"
-  [template]="addMntcMemberForm"/>
+  [template]="addMntcMemberForm"/> -->
 
 
 <!-- 
@@ -20,12 +22,12 @@
     (addMember)="addMntcMember($event)"/>
 </ng-template>
 
-  <sb-data-table  
+  <!-- <sb-data-table  
    [data]="_superTeamData()"
    [columns]="_superTeamDataColumns()"
    (addItem)="handleAddItem()"
    (rowClick)="handleRowClick($event)"
-  />
+  /> -->
 
   <!-- 
   <sb-team-form [team]="_testTeam"/>

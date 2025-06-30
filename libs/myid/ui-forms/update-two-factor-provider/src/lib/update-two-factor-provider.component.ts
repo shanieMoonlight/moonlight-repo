@@ -40,7 +40,7 @@ export class SbUpdateTwoFactorProviderFormComponent {
   private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   updateProvider = output<UpdateTwoFactorProviderFormDto>();
   color = input<UiKitTheme>('primary');
 

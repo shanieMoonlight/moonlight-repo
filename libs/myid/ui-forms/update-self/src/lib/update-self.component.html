@@ -5,7 +5,7 @@
     <div class="form-row">
       <input hidden [id]="'id'" type="text" formControlName="id" placeholder="User ID" sbInputStyle />
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'firstName'">First Name</label>
         }
         <input [id]="'firstName'" type="text" formControlName="firstName" placeholder="First Name" sbInputStyle />
@@ -14,14 +14,14 @@
     </div>
     <div class="form-row">
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'lastName'">Last Name</label>
         }
         <input [id]="'lastName'" type="text" formControlName="lastName" placeholder="Last Name" sbInputStyle />
         <sb-first-error [control]="_form.controls.lastName"/>
       </div>
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'phoneNumber'">Phone Number</label>
         }
         <input [id]="'phoneNumber'" type="tel" formControlName="phoneNumber" placeholder="Phone Number" sbInputStyle />
@@ -35,14 +35,14 @@
     <h3>Account Information</h3>
     <div class="form-row">
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'username'">Username</label>
         }
         <input [id]="'username'" type="text" formControlName="userName" placeholder="Username" sbInputStyle />
         <sb-first-error [control]="_form.controls.userName"/>
       </div>
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'email'">Email</label>
         }
         <input [id]="'email'" type="email" formControlName="email" placeholder="Email Address" sbInputStyle />
@@ -56,7 +56,7 @@
     <h3>Security Settings</h3>
     <div class="form-row">
       <div class="form-group">
-        @if(showLables()) {
+        @if(showLabels()) {
           <label [for]="'twoFactorProvider'">2FA Method</label>
         }
         <sb-select [id]="'twoFactorProvider'" [options]="_twoFactorProviderOptions" placeholder="Select 2FA method" formControlName="twoFactorProvider" color="primary"></sb-select>

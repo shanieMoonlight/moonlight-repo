@@ -45,7 +45,7 @@ export class ConfirmEmailWithPwdFormComponent {
     confirmEmail = output<ConfirmEmailWithPwdFormDto>();
 
 
-    showLables = input<boolean>(true);
+    showLabels = input<boolean>(true);
     color = input<UiKitTheme>('primary');
 
     /**

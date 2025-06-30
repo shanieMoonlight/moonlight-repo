@@ -46,7 +46,7 @@ export class ChangePwdFormComponent {
 
     changePassword = output<ChangePwdFormDto>();
 
-    showLables = input<boolean>(true);
+    showLabels = input<boolean>(true);
     color = input<UiKitTheme>('primary');
 
 

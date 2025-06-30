@@ -44,7 +44,7 @@ export class SbResetPwdFormComponent {
 
   resetPassword = output<ResetPwdFormDto>();
 
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   disabled = input<boolean>(true);
   color = input<UiKitTheme>('primary');
 

@@ -51,7 +51,7 @@ export class LoginFormComponent {
   showRemeberMe = input<boolean>(false);
   showForgotPwd = input<boolean>(true);
   socialTemplate = input<TemplateRef<unknown> | undefined>(undefined)
-  showLables = input<boolean>(true);
+  showLabels = input<boolean>(true);
   color = input<UiKitTheme>('primary');
 
 
