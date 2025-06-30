@@ -1,15 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
+import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
-import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
 import { MyIdAuthService } from '../../../../shared/auth/services/auth/myid-auth.browser.service';
+import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
 
 @Injectable()
 export class MntcTeamStateService {
 
-  private _ioAccService = inject(AccountIoService)
   private _ioService = inject(UserManagementIoService)
   private _auth = inject(MyIdAuthService)
 
@@ -24,7 +23,7 @@ export class MntcTeamStateService {
     .trigger()
 
   private _addState = MiniStateBuilder
-    .CreateWithInput((dto: AddMntcMemberDto) => this._ioAccService.addMntcTeamMember(dto))
+    .CreateWithInput((dto: AddMntcMemberDto) => this._ioService.addMntcTeamMember(dto))
     .setSuccessMsgFn((dto) => `Member, ${dto.email} added!`)
     .setOnSuccessFn((dto, response) => this._crudSignalOps.append(response))
 

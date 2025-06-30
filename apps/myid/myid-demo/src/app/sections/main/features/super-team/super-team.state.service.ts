@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
+import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
 
@@ -10,7 +10,6 @@ import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud
 })
 export class SuperTeamStateService {
 
-  private _ioAccService = inject(AccountIoService)
   private _ioService = inject(UserManagementIoService)
 
 
@@ -24,7 +23,7 @@ export class SuperTeamStateService {
     .trigger()
 
   private _addState = MiniStateBuilder
-    .CreateWithInput((dto: AddSuperMemberDto) => this._ioAccService.addSuperTeamMember(dto))
+    .CreateWithInput((dto: AddSuperMemberDto) => this._ioService.addSuperTeamMember(dto))
     .setSuccessMsgFn((dto) => `Member, ${dto.email} added!`)
     .setOnSuccessFn((dto, response) => this._crudSignalOps.append(response))
 

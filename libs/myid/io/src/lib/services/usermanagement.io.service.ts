@@ -1,6 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { MyIdIoConfigService } from '@spider-baby/myid-io/config';
 import {
+  AddCustomerMember_MntcDto,
+  AddCustomerMemberDto,
+  AddMntcMemberDto,
+  AddSuperMemberDto,
   AppUser_Customer_Dto,
   AppUser_Customer_DtoPagedResponse,
   AppUserDto,
@@ -24,6 +28,47 @@ export class UserManagementIoService extends AServerIoService {
     super(inject(MyIdIoConfigService).baseUrl, ServerRoutes.UserManagement.Controller);
   }
 
+  addMntcTeamMember = (
+    dto: AddMntcMemberDto,
+    opts?: unknown
+  ): Observable<AppUserDto> =>
+    this._postAction<AppUserDto>(
+      ServerRoutes.Account.action('addMntcTeamMember'),
+      dto,
+      opts ?? {}
+    );
+
+  addSuperTeamMember = (
+    dto: AddSuperMemberDto,
+    opts?: unknown
+  ): Observable<AppUserDto> =>
+    this._postAction<AppUserDto>(
+      ServerRoutes.Account.action('addSuperTeamMember'),
+      dto,
+      opts ?? {}
+    );
+
+
+  addCustomerTeamMember = (
+    dto: AddCustomerMemberDto,
+    opts?: unknown
+  ): Observable<AppUser_Customer_Dto> =>
+    this._postAction<AppUser_Customer_Dto>(
+      ServerRoutes.Account.action('addCustomerTeamMember'),
+      dto,
+      opts ?? {}
+    );
+
+  addCustomerTeamMemberMntc = (
+    dto: AddCustomerMember_MntcDto,
+    opts?: unknown
+  ): Observable<AppUser_Customer_Dto> =>
+    this._postAction<AppUser_Customer_Dto>(
+      ServerRoutes.Account.action('addCustomerTeamMemberMntc'),
+      dto,
+      opts ?? {}
+    );
+    
   deleteCustomerByUserId = (
     userId: string,
     opts?: unknown

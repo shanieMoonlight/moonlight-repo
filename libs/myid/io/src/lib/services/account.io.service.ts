@@ -1,10 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { MyIdIoConfigService } from '@spider-baby/myid-io/config';
 import {
-  AddCustomerMemberDto,
-  AddCustomerMember_MntcDto,
-  AddMntcMemberDto,
-  AddSuperMemberDto,
   AppUserDto,
   AppUser_Customer_Dto,
   AuthAppSetupDto,
@@ -29,7 +25,7 @@ import {
   ResetPwdDto,
   TwoFactorAuthAppCompleteRegDto,
   Verify2FactorCookieDto,
-  Verify2FactorDto,
+  Verify2FactorDto
 } from '@spider-baby/myid-io/models';
 import { Observable } from 'rxjs';
 import { ServerRoutes } from '../controllers/all-server-routes';
@@ -74,26 +70,6 @@ export class AccountIoService extends AServerIoService {
   ): Observable<AppUser_Customer_Dto> =>
     this._postAction<AppUser_Customer_Dto>(
       ServerRoutes.Account.action('createCustomer'),
-      dto,
-      opts ?? {}
-    );
-
-  addCustomerTeamMember = (
-    dto: AddCustomerMemberDto,
-    opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._postAction<AppUser_Customer_Dto>(
-      ServerRoutes.Account.action('addCustomerTeamMember'),
-      dto,
-      opts ?? {}
-    );
-
-  addCustomerTeamMemberMntc = (
-    dto: AddCustomerMember_MntcDto,
-    opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._postAction<AppUser_Customer_Dto>(
-      ServerRoutes.Account.action('addCustomerTeamMemberMntc'),
       dto,
       opts ?? {}
     );
@@ -232,26 +208,6 @@ export class AccountIoService extends AServerIoService {
   myInfo = (opts?: unknown): Observable<AppUserDto> =>
     this._getAction<AppUserDto>(
       ServerRoutes.Account.action('myInfo'),
-      opts ?? {}
-    );
-
-  addMntcTeamMember = (
-    dto: AddMntcMemberDto,
-    opts?: unknown
-  ): Observable<AppUserDto> =>
-    this._postAction<AppUserDto>(
-      ServerRoutes.Account.action('addMntcTeamMember'),
-      dto,
-      opts ?? {}
-    );
-
-  addSuperTeamMember = (
-    dto: AddSuperMemberDto,
-    opts?: unknown
-  ): Observable<AppUserDto> =>
-    this._postAction<AppUserDto>(
-      ServerRoutes.Account.action('addSuperTeamMember'),
-      dto,
       opts ?? {}
     );
 
