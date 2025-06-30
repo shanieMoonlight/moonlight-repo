@@ -2,7 +2,7 @@ import { DeviceDto } from './device-dto';
 import { SubscriptionPlanDto } from './subscription-plan-dto';
 import { SubscriptionRenewalTypes } from './subscription-renewal-types';
 import { SubscriptionStatus } from './subscription-status';
-import { Team } from './team';
+import { TeamDto } from './team-dto';
 
 export interface SubscriptionDto {
   administratorUsername?: string;
@@ -21,7 +21,7 @@ export interface SubscriptionDto {
   lastPaymentDate?: string;
   lastPaymenAmount?: number;
   teamId?: string;
-  team?: Team;
+  team?: TeamDto;
   devices?: DeviceDto[];
   name?: string;
   description?: string;
