@@ -41,6 +41,8 @@ export class SuperTeamComponent {
   protected _showUpdateForm = signal(false)
 
   protected _teamPositionOptions = teamPositionOptions
+  protected _deleteMessageFn = (member: AppUserDto) =>
+    `Are you sure you want to delete ${member.userName || member.email}? \nThis action cannot be undone.`
 
   //- - - - - - - - - - - -//
 

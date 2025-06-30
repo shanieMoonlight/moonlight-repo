@@ -1,18 +1,39 @@
+import { Injectable, computed, inject } from '@angular/core';
 import { AppUserDto } from '@spider-baby/myid-io/models';
 import { SbButtonIconDeleteComponent } from '@spider-baby/ui-kit/buttons';
 import { ColumnData } from '@spider-baby/ui-kit/table';
+import { MyIdAuthService } from '../../../../shared/auth/services/auth/myid-auth.browser.service';
 
-export class MntcTeamTableActions{
+//########################//
+
+export class MntcTeamTableActions {
     static delete = 'delete';
 }
 
-
-export const tableColumns: ColumnData<AppUserDto>[] = [
+const readOnlyTableColumns: ColumnData<AppUserDto>[] = [
 
     ColumnData.create<AppUserDto>('userName'),
     ColumnData.create<AppUserDto>('email'),
     ColumnData.create<AppUserDto>('firstName'),
-    ColumnData.create<AppUserDto>('lastName'),
-    ColumnData.create<AppUserDto>(MntcTeamTableActions.delete)
-        .setActionComponent(SbButtonIconDeleteComponent, {'color': 'error'}),
+    ColumnData.create<AppUserDto>('lastName')
 ]
+
+const mntcTeamTableColumns: ColumnData<AppUserDto>[] = [
+    ColumnData.create<AppUserDto>(MntcTeamTableActions.delete)
+        .setActionComponent(SbButtonIconDeleteComponent, { 'color': 'error' }),
+]
+
+//########################//
+
+@Injectable({
+    providedIn: 'root'
+})
+export class MntcTeamtableColumnsService {
+
+    private _auth = inject(MyIdAuthService)
+
+    tableColumns = computed(() => this._auth.isMntc()
+        ? [...readOnlyTableColumns, ...mntcTeamTableColumns]
+        : readOnlyTableColumns
+    )
+}

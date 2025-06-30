@@ -5,6 +5,7 @@
    [columns]="tableColumns()"
    (addItem)="onAddItem()"
    (action)="onAction($event)"
+   [rowClickable]="rowClickable()"
    (rowClick)="onRowClick($event)"/>
    
   
@@ -17,6 +18,12 @@
 <sb-modal
   [(open)]="_showAddForm"
   [template]="addFormTemplate()"/>
+
+  <sb-confirm-modal 
+    [title]="deleteModalTitle()"
+    [description]="_deleteModalMessage()"
+    (confirm)="onConfirmDelete($event)"
+    [(openModal)]="_showConfirm"  />
 
 
   

@@ -34,9 +34,11 @@
     </tbody>
   </table>
   <div class="sb-data-table-actions">
-    <sb-button-icon-add 
-      [sbTooltip]="'Add Item'"
-      (click)="onAddItemClick()"
-      [circle]="true"/>
+    @if(canAddItem()){
+      <sb-button-icon-add 
+        [sbTooltip]="'Add Item'"
+        (click)="onAddItemClick()"
+        [circle]="true"/>
+    }
   </div>
 </div>

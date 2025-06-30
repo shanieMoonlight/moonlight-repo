@@ -2,11 +2,13 @@
 <sb-crud-table
   [addFormTemplate]="addMntcMemberForm"
   [updateFormTemplate]="updateMemberForm"
-  [tableColumns]="_tableColumns"
+  [tableColumns]="_tableColumns()"
   [data]="_data()"
   [loading]="_loading()"
   [errorMsg]="_errorMsg()"
   [successMsg]="_successMsg()"
+  [deleteModalMessageFn]="_deleteMessageFn"
+  [rowClickable]="_canUpdateMember()"
   (deleteItem)="deleteMember($event)"/>
     
     

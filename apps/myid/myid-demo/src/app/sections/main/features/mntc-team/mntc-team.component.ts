@@ -4,8 +4,9 @@ import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/up
 import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
 import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
-import { tableColumns } from './data-table-columns';
+import { MntcTeamtableColumnsService } from './data-table-columns';
 import { MntcTeamStateService } from './mntc-team.state.service';
+import { MyIdAuthService } from '../../../../shared/auth/services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-mntc-team',
@@ -24,6 +25,7 @@ export class MntcTeamComponent {
 
 
   private _state = inject(MntcTeamStateService)
+  private _columnService = inject(MntcTeamtableColumnsService)
 
   //- - - - - - - - - - - -//
 
@@ -31,15 +33,19 @@ export class MntcTeamComponent {
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _data = this._state.data
-  protected _tableColumns = tableColumns
+  protected _tableColumns = this._columnService.tableColumns
 
   protected _showAddForm = signal(false)
 
   protected _teamPositionOptions = teamPositionOptions
+  protected _deleteMessageFn = (member: AppUserDto) =>
+    `Are you sure you want to delete ${member.userName || member.email}? \nThis action cannot be undone.`
+
+  protected _canUpdateMember = this._state.canUpdateMember
 
 
 
-  addMntcMember = (dto: AddMntcMemberDto) => 
+  addMntcMember = (dto: AddMntcMemberDto) =>
     this._state.addMember(dto);
 
 

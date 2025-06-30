@@ -7,9 +7,10 @@
   [loading]="_loading()"
   [errorMsg]="_errorMsg()"
   [successMsg]="_successMsg()"
+  [deleteModalMessageFn]="_deleteMessageFn"
   (deleteItem)="deleteMember($event)"/>
     
-  
+
 <ng-template #updateMemberForm let-member>
   <sb-update-team-position-form 
     [member]="member"

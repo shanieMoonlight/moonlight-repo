@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
-import { BehaviorSubject, of, throwError } from 'rxjs';
-import { ResetPwdStateService } from './reset-pwd.state.service';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { MessageResponseDto, ResetPwdDto } from '@spider-baby/myid-io/models';
+import { BehaviorSubject, of, throwError } from 'rxjs';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { ResetPwdStateService } from './reset-pwd.state.service';
 
 describe('ResetPwdStateService', () => {
   let service: ResetPwdStateService;

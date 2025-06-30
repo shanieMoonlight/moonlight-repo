@@ -1,15 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, input, output, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { ActionEvent, BaseDataTableRowData, ColumnData, SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
 import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ConfirmModalService } from '../confirm-modal/confirm-modal.service';
 
 //##############################//
 
 export class CrudTableableActions {
   static delete = 'delete';
 }
+
+
+const DefaultDeleteMessage = 'Are you sure you want to delete this item?';
 
 //##############################//
 
@@ -20,13 +25,18 @@ export class CrudTableableActions {
     SbDataTableComponent,
     SbModalComponent,
     SbMatNotificationsModalComponent,
-    CommonModule
+    ConfirmModalComponent
   ],
   templateUrl: './crud-table.component.html',
   styleUrl: './crud-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrudTableComponent<T extends BaseDataTableRowData> {
+
+
+  private _confirmService = inject(ConfirmModalService)
+
+
 
   successMsg = input<string | undefined>(undefined)
   errorMsg = input<string | undefined>(undefined)
@@ -35,12 +45,19 @@ export class CrudTableComponent<T extends BaseDataTableRowData> {
   tableColumns = input<ColumnData<T>[]>([])
   data = input<T[]>([])
 
+  deleteModalTitle = input<string>('Delete?')
+  deleteModalMessageFn = input<(t: T) => string>(() => DefaultDeleteMessage)
+
   updateFormTemplate = input.required<TemplateRef<undefined>>()
   addFormTemplate = input.required<TemplateRef<undefined>>()
 
+  rowClickable = input(true);
+  
 
   deleteItem = output<T>()
 
+
+  protected _showConfirm = signal(false)
 
   protected _showAddForm = signal(false)
 
@@ -48,6 +65,8 @@ export class CrudTableComponent<T extends BaseDataTableRowData> {
   protected _showUpdateForm = signal(false)
 
   protected _teamPositionOptions = teamPositionOptions
+
+  protected _deleteModalMessage = signal<string>(DefaultDeleteMessage)
 
   //- - - - - - - - - - - -//
 
@@ -62,12 +81,25 @@ export class CrudTableComponent<T extends BaseDataTableRowData> {
 
   //- - - - - - - - - - - -//
 
-  onAction(actionEvent: ActionEvent<T>) {
+  async onAction(actionEvent: ActionEvent<T>) {
 
     if (actionEvent.action !== CrudTableableActions.delete)
       return
 
-    this.deleteItem.emit(actionEvent.item)
+    const description = this.deleteModalMessageFn()?.(actionEvent.item) || DefaultDeleteMessage;
+    this._deleteModalMessage.set(description);
+    
+    console.log('Delete Action:', actionEvent.item, description);
+
+    const result = await this._confirmService.open(this.deleteModalTitle(), description)
+    if (result)
+      this.deleteItem.emit(actionEvent.item);
+
+  }
+
+  onConfirmDelete(confirmed: boolean) {
+    console.log('Confirmed:', confirmed);
+
   }
 
 

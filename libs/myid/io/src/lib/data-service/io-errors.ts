@@ -55,6 +55,9 @@ export class HttpError {
     if (!httpErrorResponse || (!httpErrorResponse.headers && !httpErrorResponse.error))
       return new HttpError(httpErrorResponse, UNKNOWN_ERROR_CODE, 'Server Error');
 
+    console.log('httpErrorResponse', httpErrorResponse);
+
+
     const error = httpErrorResponse?.error;
 
     const statusCode = httpErrorResponse.status
@@ -135,7 +138,7 @@ export class UnauthorizedError extends HttpError {
       originalError,
       StatusCodes.UNAUTHORIZED,
       'Unauthorized',
-      'Unauthorized'
+      (originalError as MessageResponse)?.message || 'Unauthorized'
     );
   }
 }
@@ -144,7 +147,11 @@ export class UnauthorizedError extends HttpError {
 
 export class ForbiddenError extends HttpError {
   constructor(originalError?: unknown) {
-    super(originalError, StatusCodes.FORBIDDEN, 'Forbidden', 'Forbidden');
+    super(
+      originalError,
+      StatusCodes.FORBIDDEN,
+      'Forbidden',
+      (originalError as MessageResponse)?.message || 'Forbidden');
   }
 } //Cls
 
