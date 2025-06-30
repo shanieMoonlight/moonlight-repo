@@ -23,18 +23,18 @@ export class SuperTeamStateService {
 
     
 
-  private _crudState = MiniCrudState
-    .Create<void, AppUserDto>(() => this._ioService.getSuperTeamMembers())
-    .setAddState(
-      (dto: AddSuperMemberDto) => this._ioAccService.addSuperTeamMember(dto),
-      (dto) => `Member  ${dto.email} added!`)
-    .setUpdateState(
-      (dto: UpdatePositionDto) => this._ioService.updatePosition(dto),
-      (dto) => `Member ${dto.email} updated successfully!`)
-    .setDeleteState(
-      (dto: AppUserDto) => this._ioService.deleteSuperMemberByUserId(dto.id),
-      (dto) => `Member ${dto.e} deleted successfully 🗑️`)
-    .trigger(undefined)//Trigger immediately with no filter
+  // private _crudState = MiniCrudState
+  //   .Create<void, AppUserDto>(() => this._ioService.getSuperTeamMembers())
+  //   .setAddState(
+  //     (dto: AddSuperMemberDto) => this._ioAccService.addSuperTeamMember(dto),
+  //     (dto) => `Member  ${dto.email} added!`)
+  //   .setUpdateState(
+  //     (dto: UpdatePositionDto) => this._ioService.updatePosition(dto),
+  //     (dto) => `Member ${dto.email} updated successfully!`)
+  //   .setDeleteState(
+  //     (dto: AppUserDto) => this._ioService.deleteSuperMemberByUserId(dto.id),
+  //     (dto) => `Member ${dto.e} deleted successfully 🗑️`)
+  //   .trigger(undefined)//Trigger immediately with no filter
 
   private _addState = MiniStateBuilder
     .CreateWithInput((dto: AddSuperMemberDto) => this._ioAccService.addSuperTeamMember(dto))
