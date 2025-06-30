@@ -3,6 +3,7 @@
     --color-icon-hover: var(--mat-sys-primary-container);
     --color-icon-disabled: var(--mat-sys-outline);
     --color-ripple-rgb: var(--mat-sys-primary-rgb);
+    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
     --ripple-opacity: 0.15;
     font-size: 1rem;
     font-weight: 500;
@@ -43,6 +44,7 @@ button {
 
 .sb-icon-btn:hover:not(:disabled) {
     background-color: var(--mat-sys-surface-variant);
+    background-color: rgba(var(--color-hover-rgb), 0.25);
     color: var(--color-icon);
 }
 
@@ -65,22 +67,26 @@ button {
     --color-icon: var(--mat-sys-primary);
     --color-icon-hover: var(--mat-sys-primary-container);
     --color-ripple-rgb: var(--mat-sys-primary-rgb);
+    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
 }
 
 .sb-icon-btn.secondary {
     --color-icon: var(--mat-sys-secondary);
     --color-icon-hover: var(--mat-sys-secondary-container);
     --color-ripple-rgb: var(--mat-sys-secondary-rgb);
+    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
 }
 
 .sb-icon-btn.tertiary {
     --color-icon: var(--mat-sys-tertiary);
     --color-icon-hover: var(--mat-sys-tertiary-container);
     --color-ripple-rgb: var(--mat-sys-tertiary-rgb);
+    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
 }
 
 .sb-icon-btn.error {
     --color-icon: var(--mat-sys-error);
     --color-icon-hover: var(--mat-sys-error-container);
     --color-ripple-rgb: var(--mat-sys-error-rgb);
+    --color-hover-rgb: var(--mat-sys-error-container-rgb);
 }

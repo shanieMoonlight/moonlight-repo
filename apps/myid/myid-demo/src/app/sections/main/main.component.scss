@@ -20,27 +20,9 @@ sb-main-navbar {
     }
 }
 
-
-.testing{
-
-    width: calc(100% - 4rem); ;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-sb-svg-renderer{
-    color: var(--mat-sys-primary);
-    width: 48px ;
-    height: 48px;
-}
-
-.butts{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btn-user-info {
+    position: absolute;
+    top: 65px;
+    left: 10px;
+    z-index: 1000;
 }

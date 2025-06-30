@@ -26,6 +26,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     isGuest = computed(() => this.hasPosition(TeamPositions.GUEST));
 
     teamId = computed(() => this.getClaimValue('myid.team_id') ?? '');
+    teamType = computed(() => this.getClaimValue('myid.team_type') ?? '');
     position = computed(() => this.getTeamPositionValue());
 
 

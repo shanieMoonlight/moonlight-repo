@@ -38,11 +38,11 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
     console.log('DataTable data set:', this._data());
   }
   rowClickable = input(true);
-  canAddItem = input<boolean>(false);
-  
-    /** Mat Color theme. Default = 'primary  */
-    color = input<UiKitTheme>('primary')
-    
+  canAddItem = input<boolean>(true);
+
+  /** Mat Color theme. Default = 'primary  */
+  color = input<UiKitTheme>('primary')
+
 
   // Example output for row click (can add more as needed)
   rowClick = output<SbDataTableRowData<T>>();

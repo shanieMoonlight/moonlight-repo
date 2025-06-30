@@ -316,10 +316,12 @@ export class ThemeGeneratorService {
     // Secondary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-secondary-rgb', p.secondary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-secondary-rgb', p.secondary[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-secondary-rgb', p.secondary[isDark ? 30 : 90]);
     
     // Tertiary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-rgb', p.tertiary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-tertiary-rgb', p.tertiary[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-container-rgb', p.tertiary[isDark ? 30 : 90]);
 
     // Surface colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
@@ -328,6 +330,7 @@ export class ThemeGeneratorService {
     // Error colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-error-rgb', p.error[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-container-rgb', p.error[isDark ? 30 : 90]);
 
     // Background
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])

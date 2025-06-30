@@ -7,6 +7,8 @@ import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/ha
 import { SwaggerButtonComponent } from '../../shared/auth/ui/swagger-button/swagger-button.component';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
+import { UserInfoCardComponent } from '../../shared/auth/ui/user-info/user-info.component';
+import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-info-btn.component';
 
 
 @Component({
@@ -19,7 +21,9 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
     ServiceWorkerUpdateMatComponent,
     SbAuthLoginButtonComponent,
     SwaggerButtonComponent,
-    HangfireButtonComponent
+    HangfireButtonComponent,
+    UserInfoCardComponent,
+    UserInfoButtonComponent
 
   ],
   providers: [
