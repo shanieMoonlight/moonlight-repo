@@ -5,10 +5,10 @@ import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updat
 import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
 import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/hangfire-button.component';
 import { SwaggerButtonComponent } from '../../shared/auth/ui/swagger-button/swagger-button.component';
+import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-info-btn.component';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
-import { UserInfoCardComponent } from '../../shared/auth/ui/user-info/user-info.component';
-import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-info-btn.component';
+import { TeamBadgeComponent } from '../../shared/auth/ui/team-badge/team-badge.component';
 
 
 @Component({
@@ -22,8 +22,8 @@ import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-inf
     SbAuthLoginButtonComponent,
     SwaggerButtonComponent,
     HangfireButtonComponent,
-    UserInfoCardComponent,
-    UserInfoButtonComponent
+    UserInfoButtonComponent,
+    TeamBadgeComponent
 
   ],
   providers: [
