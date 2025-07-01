@@ -1,0 +1,66 @@
+.sb-progress-bar-container {
+  width: 100%;
+  height: 4px;
+  position: relative;
+  overflow: hidden;
+  --color-bg: var(--mat-sys-primary);
+}
+
+.sb-progress-bar-track {
+  width: 100%;
+  height: 100%;
+  background: var(--mat-sys-surface-variant, #e0e0e0);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sb-progress-bar-fill {
+  height: 100%;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--color-bg, #3f51b5);
+  /* Default to Material blue */
+}
+
+:host(.indeterminate) .sb-progress-bar-fill {
+  position: absolute;
+  left: 0;
+  width: 40%;
+  animation: sb-progress-bar-indeterminate 1.2s infinite linear;
+}
+
+
+:host(.primary) .sb-progress-bar-fill {
+  --color-bg: var(--mat-sys-primary);
+}
+
+:host(.secondary) .sb-progress-bar-fill {
+  --color-bg: var(--mat-sys-secondary);
+}
+
+:host(.tertiary) .sb-progress-bar-fill {
+  --color-bg: var(--mat-sys-tertiary);
+}
+
+:host(.error) .sb-progress-bar-fill {
+  --color-bg: var(--mat-sys-error);
+}
+
+
+
+
+@keyframes sb-progress-bar-indeterminate {
+  0% {
+    left: -40%;
+    width: 40%;
+  }
+
+  60% {
+    left: 100%;
+    width: 60%;
+  }
+
+  100% {
+    left: 100%;
+    width: 60%;
+  }
+}

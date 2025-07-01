@@ -10,17 +10,26 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moonlight/tools": ["tools/src/index.ts"],
-      "@sb-hub/app/entry-point": ["libs/@apps/hub/@entry-point/src/index.ts"],
+      "@moonlight/tools": [
+        "tools/src/index.ts"
+      ],
+      "@sb-hub/app/entry-point": [
+        "libs/@apps/hub/@entry-point/src/index.ts"
+      ],
       "@sb-hub/app/route-definitions": [
         "libs/@apps/hub/@route-defs/src/index.ts"
       ],
-      "@sb-hub/core-config": ["libs/@apps/hub/@core/config/src/index.ts"],
+      "@sb-hub/core-config": [
+        "libs/@apps/hub/@core/config/src/index.ts"
+      ],
       "@sb-hub/core-config/constants": [
         "libs/@apps/hub/@core/config/constants/src/index.ts"
       ],
@@ -150,35 +159,51 @@
       "@sb-hub/shared-utils/router": [
         "libs/@apps/hub/shared/utils/router/src/index.ts"
       ],
-      "@sb-hub/ui-cards": ["libs/ui/cards/src/index.ts"],
-      "@sb-hub/ui-cards/api": ["libs/ui/cards/api/src/index.ts"],
-      "@sb-hub/ui-cards/fancy-nav": ["libs/ui/cards/fancy-nav/src/index.ts"],
-      "@scripts-ts": ["scripts-ts"],
+      "@sb-hub/ui-cards": [
+        "libs/ui/cards/src/index.ts"
+      ],
+      "@sb-hub/ui-cards/api": [
+        "libs/ui/cards/api/src/index.ts"
+      ],
+      "@sb-hub/ui-cards/fancy-nav": [
+        "libs/ui/cards/fancy-nav/src/index.ts"
+      ],
+      "@scripts-ts": [
+        "scripts-ts"
+      ],
       "@spider-baby-repo/app-libs-plugin": [
         "tools/app-libs-plugin/src/index.ts"
       ],
-      "@spider-baby-repo/demo-plugin": ["tools/demo-plugin/src/index.ts"],
+      "@spider-baby-repo/demo-plugin": [
+        "tools/demo-plugin/src/index.ts"
+      ],
       "@spider-baby-repo/shortcuts-plugin": [
         "tools/shortcuts-plugin/src/index.ts"
       ],
       "@spider-baby-repo/swagger-codegen-plugin": [
         "tools/swagger-codegen-plugin/src/index.ts"
       ],
-      "@spider-baby/auth-jwt-utils": ["libs/auth/jwt-utils/src/index.ts"],
+      "@spider-baby/auth-jwt-utils": [
+        "libs/auth/jwt-utils/src/index.ts"
+      ],
       "@spider-baby/auth-jwt-utils/interceptor": [
         "libs/auth/jwt-utils/interceptor/src/index.ts"
       ],
       "@spider-baby/auth-jwt-utils/storage": [
         "libs/auth/jwt-utils/storage/src/index.ts"
       ],
-      "@spider-baby/auth-signal": ["libs/auth/auth-signal/src/index.ts"],
+      "@spider-baby/auth-signal": [
+        "libs/auth/auth-signal/src/index.ts"
+      ],
       "@spider-baby/auth-signal/default": [
         "libs/auth/auth-signal/default/src/index.ts"
       ],
       "@spider-baby/auth-signal/firebase": [
         "libs/auth/auth-signal/firebase/src/index.ts"
       ],
-      "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
+      "@spider-baby/dev-console": [
+        "libs/utils/dev-console/src/index.ts"
+      ],
       "@spider-baby/generators-swagger-io-codegen": [
         "libs/tools/generators/swagger-io-codegen/src/index.ts"
       ],
@@ -221,10 +246,18 @@
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
       ],
-      "@spider-baby/myid-io": ["libs/myid/io/src/index.ts"],
-      "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
-      "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
-      "@spider-baby/myid-ui-forms": ["libs/myid/ui-forms/src/index.ts"],
+      "@spider-baby/myid-io": [
+        "libs/myid/io/src/index.ts"
+      ],
+      "@spider-baby/myid-io/config": [
+        "libs/myid/io/config/src/index.ts"
+      ],
+      "@spider-baby/myid-io/models": [
+        "libs/myid/io/models/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms": [
+        "libs/myid/ui-forms/src/index.ts"
+      ],
       "@spider-baby/myid-ui-forms/change-pwd": [
         "libs/myid/ui-forms/change-pwd/src/index.ts"
       ],
@@ -261,21 +294,48 @@
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ],
-      "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
-      "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
-      "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
-      "@spider-baby/ui-kit": ["libs/ui/ui-kit/src/index.ts"],
-      "@spider-baby/ui-kit/buttons": ["libs/ui/ui-kit/buttons/src/index.ts"],
+      "@spider-baby/ui-code-samples": [
+        "libs/ui/code-samples/src/index.ts"
+      ],
+      "@spider-baby/ui-git": [
+        "libs/ui/git/src/index.ts"
+      ],
+      "@spider-baby/ui-git/corner": [
+        "libs/ui/git/corner/src/index.ts"
+      ],
+      "@spider-baby/ui-kit": [
+        "libs/ui/ui-kit/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/buttons": [
+        "libs/ui/ui-kit/buttons/src/index.ts"
+      ],
       "@spider-baby/ui-kit/checkboxes": [
         "libs/ui/ui-kit/checkboxes/src/index.ts"
       ],
-      "@spider-baby/ui-kit/inputs": ["libs/ui/ui-kit/inputs/src/index.ts"],
-      "@spider-baby/ui-kit/ripple": ["libs/ui/ui-kit/ripple/src/index.ts"],
-      "@spider-baby/ui-kit/select": ["libs/ui/ui-kit/select/src/index.ts"],
-      "@spider-baby/ui-kit/table": ["libs/ui/ui-kit/table/src/index.ts"],
-      "@spider-baby/ui-kit/tooltip": ["libs/ui/ui-kit/tooltip/src/index.ts"],
-      "@spider-baby/ui-kit/types": ["libs/ui/ui-kit/types/src/index.ts"],
-      "@spider-baby/ui-kit/utils": ["libs/ui/ui-kit/utils/src/index.ts"],
+      "@spider-baby/ui-kit/inputs": [
+        "libs/ui/ui-kit/inputs/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/progress-bar": [
+        "libs/ui/ui-kit/progress-bar/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/ripple": [
+        "libs/ui/ui-kit/ripple/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/select": [
+        "libs/ui/ui-kit/select/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/table": [
+        "libs/ui/ui-kit/table/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/tooltip": [
+        "libs/ui/ui-kit/tooltip/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/types": [
+        "libs/ui/ui-kit/types/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/utils": [
+        "libs/ui/ui-kit/utils/src/index.ts"
+      ],
       "@spider-baby/ui-mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
       ],
@@ -297,12 +357,18 @@
       "@spider-baby/ui-notifications": [
         "libs/ui/notifications/sb-notifications/src/index.ts"
       ],
-      "@spider-baby/ui-toast": ["libs/ui/toast/src/index.ts"],
+      "@spider-baby/ui-toast": [
+        "libs/ui/toast/src/index.ts"
+      ],
       "@spider-baby/ui-toast/dynamic-provider": [
         "libs/ui/toast/dynamic-provider/src/index.ts"
       ],
-      "@spider-baby/ui-toast/setup": ["libs/ui/toast/setup/src/index.ts"],
-      "@spider-baby/utils-common": ["libs/utils/common/src/index.ts"],
+      "@spider-baby/ui-toast/setup": [
+        "libs/ui/toast/setup/src/index.ts"
+      ],
+      "@spider-baby/utils-common": [
+        "libs/utils/common/src/index.ts"
+      ],
       "@spider-baby/utils-common/collections": [
         "libs/utils/common/collections/src/index.ts"
       ],
@@ -315,35 +381,64 @@
       "@spider-baby/utils-common/strings": [
         "libs/utils/common/strings/src/index.ts"
       ],
-      "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
-      "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
-      "@spider-baby/utils-forms": ["libs/utils/forms/src/index.ts"],
+      "@spider-baby/utils-file-saver": [
+        "libs/utils/file-saver/src/index.ts"
+      ],
+      "@spider-baby/utils-firebase": [
+        "libs/utils/firebase/src/index.ts"
+      ],
+      "@spider-baby/utils-forms": [
+        "libs/utils/forms/src/index.ts"
+      ],
       "@spider-baby/utils-forms/validators": [
         "libs/utils/forms/validators/src/index.ts"
       ],
-      "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
+      "@spider-baby/utils-img": [
+        "libs/utils/imgs/src/index.ts"
+      ],
       "@spider-baby/utils-img/progressive": [
         "libs/utils/imgs/progressive/src/index.ts"
       ],
       "@spider-baby/utils-mat-everything": [
         "libs/utils/mat/everything/src/index.ts"
       ],
-      "@spider-baby/utils-memoization": ["libs/utils/memoization/src/index.ts"],
-      "@spider-baby/utils-open-in-new-window": ["libs/utils/oinw/src/index.ts"],
-      "@spider-baby/utils-portal": ["libs/utils/portal/src/index.ts"],
-      "@spider-baby/utils-routes": ["libs/utils/routes/src/index.ts"],
+      "@spider-baby/utils-memoization": [
+        "libs/utils/memoization/src/index.ts"
+      ],
+      "@spider-baby/utils-open-in-new-window": [
+        "libs/utils/oinw/src/index.ts"
+      ],
+      "@spider-baby/utils-portal": [
+        "libs/utils/portal/src/index.ts"
+      ],
+      "@spider-baby/utils-routes": [
+        "libs/utils/routes/src/index.ts"
+      ],
       "@spider-baby/utils-routes/builder": [
         "libs/utils/routes/builder/src/index.ts"
       ],
-      "@spider-baby/utils-rxjs": ["libs/utils/rxjs/src/index.ts"],
-      "@spider-baby/utils-seo": ["libs/utils/seo/src/index.ts"],
-      "@spider-baby/utils-seo/config": ["libs/utils/seo/config/src/index.ts"],
+      "@spider-baby/utils-rxjs": [
+        "libs/utils/rxjs/src/index.ts"
+      ],
+      "@spider-baby/utils-seo": [
+        "libs/utils/seo/src/index.ts"
+      ],
+      "@spider-baby/utils-seo/config": [
+        "libs/utils/seo/config/src/index.ts"
+      ],
       "@spider-baby/utils-seo/sw-updater-mat": [
         "libs/utils/seo/sw-updater-mat/src/index.ts"
       ],
-      "@spider-baby/utils-share": ["libs/utils/share/src/index.ts"],
-      "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"]
+      "@spider-baby/utils-share": [
+        "libs/utils/share/src/index.ts"
+      ],
+      "@spider-baby/utils-testing": [
+        "libs/utils/testing/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

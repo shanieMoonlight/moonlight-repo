@@ -1,6 +1,9 @@
 <!-- {{_data() | json}} -->
 
 <div class="sb-data-table-container">
+  @if(loading()) {
+    <sb-progress-bar mode="indeterminate" [color]="color()" style="margin-bottom: 8px;"></sb-progress-bar>
+  }
   <table class="sb-data-table">
     <thead>
       <tr>

@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AppUserCustomerDto } from '@spider-baby/myid-io/models';
-import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { CustomersStateService } from './customers.state.service';
 import { CustomersTableColumnsService } from './data-table-columns';

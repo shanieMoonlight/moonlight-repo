@@ -8,6 +8,7 @@ import { SbDataTableCellComponent } from './table-cell/table-cell.component';
 import { SbTableHeaderCellComponent } from './table-header-cell/table-header-cell.component';
 import { SbDataTableRowData } from './table-row-data';
 import { ActionEvent } from './table-cell/action-event';
+import { SbProgressBarComponent } from '@spider-baby/ui-kit/progress-bar';
 
 @Component({
   selector: 'sb-data-table',
@@ -16,7 +17,8 @@ import { ActionEvent } from './table-cell/action-event';
     SbDataTableCellComponent,
     SbTableHeaderCellComponent,
     SbButtonIconAddComponent,
-    SbTooltipDirective
+    SbTooltipDirective,
+    SbProgressBarComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -41,6 +43,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
 
   /** Mat Color theme. Default = 'primary  */
   color = input<UiKitTheme>('primary')
+  loading = input<boolean>(true)
 
 
   // Example output for row click (can add more as needed)
