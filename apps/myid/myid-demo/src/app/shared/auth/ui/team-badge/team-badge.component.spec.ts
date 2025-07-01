@@ -38,19 +38,19 @@ describe('TeamBadgeComponent', () => {
 
 
     it('should use correct badge styles for known team types', () => {
-        (component as any).auth.teamType.set('maintenance');
+        (component as any)._auth.teamType.set('maintenance');
         fixture.detectChanges();
 
         expect((component as any)._badgeStyles().background).toBe(TEAM_COLORS['maintenance'].background);
 
 
-        (component as any).auth.teamType.set('customer');
+        (component as any)._auth.teamType.set('customer');
         fixture.detectChanges();
 
         expect((component as any)._badgeStyles().background).toBe(TEAM_COLORS['customer'].background);
 
 
-        (component as any).auth.teamType.set('super');
+        (component as any)._auth.teamType.set('super');
         fixture.detectChanges();
 
         expect((component as any)._badgeStyles().background).toBe(TEAM_COLORS['super'].background);
@@ -58,13 +58,13 @@ describe('TeamBadgeComponent', () => {
 
 
     it('should use default badge styles for unknown team types', () => {
-        (component as any).auth.teamType.set('unknown');
+        (component as any)._auth.teamType.set('unknown');
         expect((component as any)._badgeStyles().background).toBe(TEAM_COLORS['default'].background);
     });
 
 
     it('should NOT render badge when NOT logged in ', () => {
-        (component as any).auth.isLoggedIn.set(false);
+        (component as any)._auth.isLoggedIn.set(false);
         fixture.detectChanges();
         const badge = fixture.debugElement.queryAll(By.css(`.team-badge`));
         console.log('badge', badge);
@@ -74,7 +74,7 @@ describe('TeamBadgeComponent', () => {
     });
 
     it('should render badge when logged in ', () => {
-        (component as any).auth.isLoggedIn.set(true);
+        (component as any)._auth.isLoggedIn.set(true);
         fixture.detectChanges();
         const badge = fixture.debugElement.queryAll(By.css(`.team-badge`));
         expect((component as any)._isLoggedIn()).toBe(true);
@@ -83,21 +83,21 @@ describe('TeamBadgeComponent', () => {
 
 
       it('should render teamType name ', () => {
-       (component as any).auth.teamType.set('maintenance');
+       (component as any)._auth.teamType.set('maintenance');
         fixture.detectChanges();
 
         let badge = fixture.debugElement.query(By.css(`.team-badge`));
         expect(badge.nativeElement?.textContent).toContain('Maintenance');
 
 
-        (component as any).auth.teamType.set('customer');
+        (component as any)._auth.teamType.set('customer');
         fixture.detectChanges();
 
          badge = fixture.debugElement.query(By.css(`.team-badge`));
         expect(badge.nativeElement?.textContent).toContain('Customer');
 
 
-        (component as any).auth.teamType.set('super');
+        (component as any)._auth.teamType.set('super');
         fixture.detectChanges();
 
          badge = fixture.debugElement.query(By.css(`.team-badge`));

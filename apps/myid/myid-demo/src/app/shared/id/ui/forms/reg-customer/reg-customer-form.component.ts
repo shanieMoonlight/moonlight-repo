@@ -104,8 +104,8 @@ export class SbRegisterCustomerFormComponent {
         username: this._fb.control<string | null>(''),
         email: this._fb.nonNullable.control<string>('', [Validators.required, Validators.email]),
         phoneNumber: this._fb.control<string | null>('', [PhoneValidation.validator()]),
-        password: this._fb.nonNullable.control<string>('Abc123!', [Validators.required, ...PasswordValidation.validationArray(6)]),
-        confirmPassword: this._fb.nonNullable.control<string>('Abc123!', [Validators.required])
+        password: this._fb.nonNullable.control<string>('', [Validators.required, ...PasswordValidation.validationArray(6)]),
+        confirmPassword: this._fb.nonNullable.control<string>('', [Validators.required])
     }, { validators: PasswordValidation.matchValidator() });
 
     //--------------------------//

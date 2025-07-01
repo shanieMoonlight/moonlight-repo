@@ -29,11 +29,11 @@ export const TEAM_COLORS: Record<string, TeamStyle> = {
 })
 export class TeamBadgeComponent {
 
-    auth = inject(MyIdAuthService);
+    private _auth = inject(MyIdAuthService);
 
 
-    protected _teamType = this.auth.teamType;
-    protected _isLoggedIn = this.auth.isLoggedIn;
+    protected _teamType = this._auth.teamType;
+    protected _isLoggedIn = this._auth.isLoggedIn;
 
 
     protected _badgeStyles = computed(() => {

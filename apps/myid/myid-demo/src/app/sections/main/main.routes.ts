@@ -77,6 +77,10 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/super-team/super-team.component').then(m => m.SuperTeamComponent),
             },
             {
+                path: MainSectionRoutesDefs.route('customers'),
+                loadComponent: () => import('./features/customers/customers.component').then(m => m.CustomersComponent),
+            },
+            {
                 path: MainSectionRoutesDefs.route('register'),
                 loadComponent: () => import('./features/register/register.component').then(m => m.RegisterCustomerComponent),
             },

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { MyIdIoConfigService } from '@spider-baby/myid-io/config';
 import {
   AppUserDto,
-  AppUser_Customer_Dto,
+  AppUserCustomerDto,
   AuthAppSetupDto,
   ChPwdDto,
   ConfirmEmailDto,
@@ -48,8 +48,18 @@ export class AccountIoService extends AServerIoService {
       opts ?? {}
     );
 
-  myInfoCustomer = (opts?: unknown): Observable<AppUser_Customer_Dto> =>
-    this._getAction<AppUser_Customer_Dto>(
+  closeMyAccountByTeamId = (
+    teamId: string,
+    opts?: unknown
+  ): Observable<MessageResponseDto> =>
+    this._deleteAction<MessageResponseDto>(
+      ServerRoutes.Account.action('closeMyAccount'),
+      [teamId],
+      opts ?? {}
+    );
+
+  myInfoCustomer = (opts?: unknown): Observable<AppUserCustomerDto> =>
+    this._getAction<AppUserCustomerDto>(
       ServerRoutes.Account.action('myInfoCustomer'),
       opts ?? {}
     );
@@ -67,8 +77,8 @@ export class AccountIoService extends AServerIoService {
   createCustomer = (
     dto: RegisterCustomer_NoPwdDto,
     opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._postAction<AppUser_Customer_Dto>(
+  ): Observable<AppUserCustomerDto> =>
+    this._postAction<AppUserCustomerDto>(
       ServerRoutes.Account.action('createCustomer'),
       dto,
       opts ?? {}

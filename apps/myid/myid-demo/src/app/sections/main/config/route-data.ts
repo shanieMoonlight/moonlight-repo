@@ -58,6 +58,13 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     color: 'secondary'
   },
   {
+    title: 'Customer List',
+    description: 'View all customers.',
+    route: AppRouteDefs.fullPathsWithSlash.main.route('customers'),
+    icon: 'diversity_1',
+    color: 'tertiary'
+  },
+  {
     title: 'Customer Regististration',
     description: 'Register.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('register'),

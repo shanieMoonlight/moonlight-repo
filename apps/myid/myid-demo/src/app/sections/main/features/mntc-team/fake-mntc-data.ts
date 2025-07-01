@@ -23,7 +23,7 @@ import { AppUserDto } from "@spider-baby/myid-io/models";
 //   address?: IdentityAddressDto;
 // }
 
-export const mntcTeam: AppUserDto[] = [
+export const fakeMntcTeam: AppUserDto[] = [
     {
         id: "08dda81d-8f47-0aa9-4d95-0a2ba8920000",
         firstName: "John",

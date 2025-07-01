@@ -1,0 +1,24 @@
+
+<sb-crud-table
+  [tableColumns]="_tableColumns()"
+  [data]="_data()"
+  [loading]="_loading()"
+  [errorMsg]="_errorMsg()"
+  [successMsg]="_successMsg()"
+  [deleteModalMessageFn]="_deleteMessageFn"
+  (deleteItem)="deleteCustomer($event)"/>
+    
+
+<!-- <ng-template #updateMemberForm let-member>
+  <sb-update-team-position-form 
+    [member]="member"
+    [teamPositionOptions]="_teamPositionOptions"
+    (updatePosition)="updatePosition($event)"/>
+</ng-template> -->
+
+<!-- 
+    
+<ng-template #addSuperMemberForm>
+  <sb-add-super-member-form 
+    (addMember)="addMember($event)"/>
+</ng-template> -->

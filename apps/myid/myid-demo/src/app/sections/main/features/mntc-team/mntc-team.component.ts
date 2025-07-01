@@ -4,9 +4,8 @@ import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/up
 import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
 import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
-import { MntcTeamtableColumnsService } from './data-table-columns';
+import { MntcTeamTableColumnsService } from './data-table-columns';
 import { MntcTeamStateService } from './mntc-team.state.service';
-import { MyIdAuthService } from '../../../../shared/auth/services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-mntc-team',
@@ -25,7 +24,7 @@ export class MntcTeamComponent {
 
 
   private _state = inject(MntcTeamStateService)
-  private _columnService = inject(MntcTeamtableColumnsService)
+  private _columnService = inject(MntcTeamTableColumnsService)
 
   //- - - - - - - - - - - -//
 

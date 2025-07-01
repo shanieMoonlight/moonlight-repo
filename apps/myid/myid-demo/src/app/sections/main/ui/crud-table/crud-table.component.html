@@ -5,26 +5,23 @@
    [columns]="tableColumns()"
    (addItem)="onAddItem()"
    (action)="onAction($event)"
-   [rowClickable]="rowClickable()"
+   [rowClickable]="rowClickable() && !!updateFormTemplate()"
+   [canAddItem]="!!addFormTemplate()"
    (rowClick)="onRowClick($event)"/>
    
-  
-<sb-modal
-  [(open)]="_showUpdateForm"
-  [template]="updateFormTemplate()"
-  [templateData]="_updateItem()"/>
+  @if (updateFormTemplate(); as updateFormTemplate) {
+    <sb-modal
+      [(open)]="_showUpdateForm"
+      [template]="updateFormTemplate"
+      [templateData]="_updateItem()"/>
+  }
     
-
-<sb-modal
-  [(open)]="_showAddForm"
-  [template]="addFormTemplate()"/>
-
-  <sb-confirm-modal 
-    [title]="deleteModalTitle()"
-    [description]="_deleteModalMessage()"
-    (confirm)="onConfirmDelete($event)"
-    [(openModal)]="_showConfirm"  />
-
+  @if (addFormTemplate(); as addFormTemplate) {
+      <sb-modal
+        [(open)]="_showAddForm"
+        [template]="addFormTemplate"/>        
+  }
+    
 
   
 <sb-notifications-modal-mat 

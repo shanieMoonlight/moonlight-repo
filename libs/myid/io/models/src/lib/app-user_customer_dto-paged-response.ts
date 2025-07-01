@@ -1,8 +1,8 @@
-import { AppUser_Customer_Dto } from './app-user_customer_dto';
+import { AppUserCustomerDto } from './app-user_customer_dto';
 import { PagedRequest } from './paged-request';
 
 export interface AppUser_Customer_DtoPagedResponse {
-  data?: AppUser_Customer_Dto[];
+  data?: AppUserCustomerDto[];
   pageNumber?: number;
   pageSize?: number;
   totalPages?: number;

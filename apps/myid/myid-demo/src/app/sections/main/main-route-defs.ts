@@ -20,6 +20,7 @@ type CHILD_ROUTE =
   | 'my-details'
   | 'mntc-team'
   | 'super-team'
+  | 'customers'
   | 'update-2-factor'
   | 'verify-2-factor'
   | 'verify-2-factor-cookie'

@@ -28,7 +28,7 @@ const mntcTeamTableColumns: ColumnData<AppUserDto>[] = [
 @Injectable({
     providedIn: 'root'
 })
-export class MntcTeamtableColumnsService {
+export class MntcTeamTableColumnsService {
 
     private _auth = inject(MyIdAuthService)
 

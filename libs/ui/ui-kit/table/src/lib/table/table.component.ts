@@ -35,7 +35,6 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
   /** What to display. Default = [] */
   @Input('data') set data(array: T[] | undefined | null) {
     this._data.set(array ?? []);
-    console.log('DataTable data set:', this._data());
   }
   rowClickable = input(true);
   canAddItem = input<boolean>(true);

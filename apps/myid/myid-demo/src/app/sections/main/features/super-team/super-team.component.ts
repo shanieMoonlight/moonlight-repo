@@ -35,10 +35,6 @@ export class SuperTeamComponent {
   protected _data = this._state.data
   protected _tableColumns = tableColumns
 
-  protected _showAddForm = signal(false)
-
-  protected _updateUser = signal<AppUserDto | undefined>(undefined)
-  protected _showUpdateForm = signal(false)
 
   protected _teamPositionOptions = teamPositionOptions
   protected _deleteMessageFn = (member: AppUserDto) =>

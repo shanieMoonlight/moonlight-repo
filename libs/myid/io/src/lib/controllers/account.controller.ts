@@ -2,6 +2,7 @@ const CONTROLLER = 'Account';
 
 type ACTIONS =
   | 'closeAccount'
+  | 'closeMyAccount'
   | 'myInfoCustomer'
   | 'registerCustomer'
   | 'createCustomer'

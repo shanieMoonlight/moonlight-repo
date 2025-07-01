@@ -5,7 +5,7 @@ import {
   AddCustomerMemberDto,
   AddMntcMemberDto,
   AddSuperMemberDto,
-  AppUser_Customer_Dto,
+  AppUserCustomerDto,
   AppUser_Customer_DtoPagedResponse,
   AppUserDto,
   AppUserDtoPagedResponse,
@@ -52,8 +52,8 @@ export class UserManagementIoService extends AServerIoService {
   addCustomerTeamMember = (
     dto: AddCustomerMemberDto,
     opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._postAction<AppUser_Customer_Dto>(
+  ): Observable<AppUserCustomerDto> =>
+    this._postAction<AppUserCustomerDto>(
       ServerRoutes.Account.action('addCustomerTeamMember'),
       dto,
       opts ?? {}
@@ -62,8 +62,8 @@ export class UserManagementIoService extends AServerIoService {
   addCustomerTeamMemberMntc = (
     dto: AddCustomerMember_MntcDto,
     opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._postAction<AppUser_Customer_Dto>(
+  ): Observable<AppUserCustomerDto> =>
+    this._postAction<AppUserCustomerDto>(
       ServerRoutes.Account.action('addCustomerTeamMemberMntc'),
       dto,
       opts ?? {}
@@ -79,8 +79,8 @@ export class UserManagementIoService extends AServerIoService {
       opts ?? {}
     );
 
-  getCustomers = (opts?: unknown): Observable<AppUser_Customer_Dto[]> =>
-    this._getAction<AppUser_Customer_Dto[]>(
+  getCustomers = (opts?: unknown): Observable<AppUserCustomerDto[]> =>
+    this._getAction<AppUserCustomerDto[]>(
       ServerRoutes.UserManagement.action('getCustomers'),
       opts ?? {}
     );
@@ -99,8 +99,8 @@ export class UserManagementIoService extends AServerIoService {
     teamId: string,
     userId: string,
     opts?: unknown
-  ): Observable<AppUser_Customer_Dto> =>
-    this._getActionById<AppUser_Customer_Dto>(
+  ): Observable<AppUserCustomerDto> =>
+    this._getActionById<AppUserCustomerDto>(
       ServerRoutes.UserManagement.action('getCustomer'),
       [teamId, userId],
       opts ?? {}
