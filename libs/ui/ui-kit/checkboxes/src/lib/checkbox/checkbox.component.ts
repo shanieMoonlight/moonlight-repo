@@ -64,7 +64,6 @@ export class SbCheckboxComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    console.log(`Setting disabled state to: ${isDisabled}`);
     this._disabled.set(isDisabled);
   }
 

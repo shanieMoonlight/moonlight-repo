@@ -1,11 +1,12 @@
+import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SbRegisterCustomerFormComponent } from './reg-customer-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { RegisterCustomerFormDto } from './reg-customer-form.component';
-import { RemoveNullsService } from '@spider-baby/utils-forms';
+import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { MyIdPhoneFormatProvider } from '@spider-baby/myid-ui-forms/utils';
-import { ComponentRef } from '@angular/core';
+import { RemoveNullsService } from '@spider-baby/utils-forms';
+import { SbUpdateSelfFormComponent } from './update-self.component';
+import { UpdateSelfFormDto } from './update-self.models';
 
 //############################//
 
@@ -18,15 +19,15 @@ const mockPhoneFormatProvider = {
 
 //############################//
 
-describe('SbRegisterCustomerFormComponent', () => {
-  let component: SbRegisterCustomerFormComponent;
-  let fixture: ComponentFixture<SbRegisterCustomerFormComponent>;
-  let componentRef: ComponentRef<SbRegisterCustomerFormComponent>;
+describe('SbUpdateSelfFormComponent', () => {
+  let component: SbUpdateSelfFormComponent;
+  let fixture: ComponentFixture<SbUpdateSelfFormComponent>;
+  let componentRef: ComponentRef<SbUpdateSelfFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        SbRegisterCustomerFormComponent,
+        SbUpdateSelfFormComponent,
         ReactiveFormsModule
       ],
       providers: [
@@ -34,7 +35,7 @@ describe('SbRegisterCustomerFormComponent', () => {
         { provide: MyIdPhoneFormatProvider, useValue: mockPhoneFormatProvider }
       ]
     }).compileComponents();
-    fixture = TestBed.createComponent(SbRegisterCustomerFormComponent);
+    fixture = TestBed.createComponent(SbUpdateSelfFormComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
     fixture.detectChanges();
@@ -42,6 +43,14 @@ describe('SbRegisterCustomerFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render an element with id for each UpdateSelfFormDto property', () => {
+    const dtoKeys = Object.keys({} as UpdateSelfFormDto)
+    for (const key of dtoKeys) {
+      const el = fixture.debugElement.query(By.css(`#${key}`));
+      expect(el).toBeTruthy();
+    }
   });
 
   it('should render labels when showLabels it true', () => {
@@ -62,14 +71,6 @@ describe('SbRegisterCustomerFormComponent', () => {
 
   });
 
-  it('should render an element with id for each RegisterCustomerFormDto property', () => {
-    const dtoKeys = Object.keys({} as RegisterCustomerFormDto)
-    for (const key of dtoKeys) {
-      const el = fixture.debugElement.query(By.css(`#${key}`));
-      expect(el).toBeTruthy();
-    }
-  });
-
   it('should require email and validate format', () => {
     const emailControl = component['_form'].controls.email;
     emailControl.setValue('');
@@ -80,60 +81,55 @@ describe('SbRegisterCustomerFormComponent', () => {
     expect(emailControl.valid).toBe(true);
   });
 
-  
-  it('should require password', () => {
-    const pwdControl = component['_form'].controls.password;
-    pwdControl.setValue('');
-    expect(pwdControl.valid).toBe(false);
-    pwdControl.setValue('pa$$worD1');
-    expect(pwdControl.valid).toBe(true);
+
+  it('should require TwoFactorProvider', () => {
+    const twoFactorProviderControl = component['_form'].controls.twoFactorProvider;
+    twoFactorProviderControl.setValue('' as TwoFactorProvider);
+    expect(twoFactorProviderControl.valid).toBe(false);
+    twoFactorProviderControl.setValue('Email' as TwoFactorProvider);
+    expect(twoFactorProviderControl.valid).toBe(true);
   });
 
-  
-  it('should require confirmPassword', () => {
-    const pwdControl = component['_form'].controls.confirmPassword;
-    pwdControl.setValue('');
-    expect(pwdControl.valid).toBe(false);
-    pwdControl.setValue('pa$$worD1');
-    expect(pwdControl.valid).toBe(true);
-  });
 
-  it('should emit addMember with correct value on submit', () => {
-    const spy = jest.spyOn(component.register, 'emit');
+  it('should emit addMember with correct value on update', () => {
+    const spy = jest.spyOn(component.updateSelf, 'emit');
     component['_form'].setValue({
+      id: '123',
       firstName: 'John',
       lastName: 'Doe',
-      username: 'johndoe',
+      userName: 'johndoe',
       email: 'john@example.com',
       phoneNumber: '1234567890',
-      password: 'pA$$Word1',
-      confirmPassword: 'pA$$Word1',
+      twoFactorProvider: 'Email',
+      twoFactorEnabled: false,
     });
-    component.submit();
+    component.update();
 
     expect(spy).toHaveBeenCalledWith({
+      id: '123',
       firstName: 'John',
       lastName: 'Doe',
-      username: 'johndoe',
+      userName: 'johndoe',
       email: 'john@example.com',
       phoneNumber: '1234567890',
-      password: 'pA$$Word1',
-      confirmPassword: 'pA$$Word1',
+      twoFactorProvider: 'Email' as TwoFactorProvider,
+      twoFactorEnabled: false,
     });
   });
 
   it('should not emit if form is invalid', () => {
-    const spy = jest.spyOn(component.register, 'emit');
+    const spy = jest.spyOn(component.updateSelf, 'emit');
     component['_form'].setValue({
+      id: '',
       firstName: '',
       lastName: '',
-      username: '',
+      userName: '',
       email: '',
       phoneNumber: '',
-      password: 'pA$$Word1',
-      confirmPassword: '',
+      twoFactorProvider: '' as TwoFactorProvider,
+      twoFactorEnabled: false,
     });
-    component.submit();
+    component.update();
     expect(spy).not.toHaveBeenCalled();
   });
 });

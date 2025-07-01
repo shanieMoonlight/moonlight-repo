@@ -54,7 +54,7 @@ export class SbUpdateSelfFormComponent {
     lastName: ['', [Validators.minLength(2)]],
     userName: ['', [Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    phoneNumber: ['', [Validators.required, PhoneValidation.validator()]],
+    phoneNumber: ['', [PhoneValidation.validator()]],
     twoFactorProvider: ['Email' as TwoFactorProvider, [Validators.required]],
     twoFactorEnabled: [false],
   });

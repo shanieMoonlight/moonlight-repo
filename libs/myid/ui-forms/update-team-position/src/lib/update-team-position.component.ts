@@ -16,7 +16,7 @@ export type UpdateTeamPositionFormDto = Pick<
   | 'newPosition'
 >;
 
-export type UserInputDateDto = Pick<
+export type UserInputDataDto = Pick<
   AppUserDto,
   | 'id'
   | 'email'
@@ -58,12 +58,10 @@ export class SbUpdateTeamPositionFormComponent {
 
   teamPositionOptions = input<SelectOption[]>()
 
-  protected _member = signal<UserInputDateDto | undefined>(undefined);
+  protected _member = signal<UserInputDataDto | undefined>(undefined);
   @Input({required: true})
-  set member(value: UserInputDateDto) {
-    this._member.set(value);
-    console.log('UpdateTeamPositionFormComponent: member input set', this._member());
-    
+  set member(value: UserInputDataDto) {
+    this._member.set(value);    
     this.setFormValues(value);
   }
 
@@ -80,7 +78,7 @@ export class SbUpdateTeamPositionFormComponent {
   //-------------------------//
 
 
-  setFormValues(dto: UserInputDateDto ) {
+  setFormValues(dto: UserInputDataDto ) {
     if (!dto) {
       this._form.reset();
       return

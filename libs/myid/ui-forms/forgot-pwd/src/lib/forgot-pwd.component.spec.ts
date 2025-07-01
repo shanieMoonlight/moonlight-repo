@@ -5,10 +5,13 @@ import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-for
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbForgotPwdFormComponent } from './forgot-pwd.component';
+import { ComponentRef } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('SbForgotPwdFormComponent', () => {
   let component: SbForgotPwdFormComponent;
   let fixture: ComponentFixture<SbForgotPwdFormComponent>;
+  let componentRef: ComponentRef<SbForgotPwdFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -23,11 +26,30 @@ describe('SbForgotPwdFormComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(SbForgotPwdFormComponent);
     component = fixture.componentInstance;
+    componentRef = fixture.componentRef;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render labels when showLabels it true', () => {
+
+    const cbs = fixture.debugElement.queryAll(By.css(`sb-checkbox`));
+   const checkBoxCount = cbs.length
+
+    componentRef.setInput('showLabels', true);
+    fixture.detectChanges();
+    let labels = fixture.debugElement.queryAll(By.css(`label`));
+    expect(labels.length).toBeGreaterThan(checkBoxCount);
+
+
+    componentRef.setInput('showLabels', false);
+    fixture.detectChanges();
+    labels = fixture.debugElement.queryAll(By.css(`label`));
+    expect(labels.length).toBe(checkBoxCount);
+
   });
 
   it('should initialize form with default value', () => {

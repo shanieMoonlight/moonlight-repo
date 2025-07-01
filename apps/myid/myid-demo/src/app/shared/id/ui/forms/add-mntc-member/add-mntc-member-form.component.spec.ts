@@ -3,6 +3,15 @@ import { SbAddMntcMemberFormComponent } from './add-mntc-member-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { AddMntcMemberFormDto } from './add-mntc-member-form.component';
+import { RemoveNullsService } from '@spider-baby/utils-forms';
+
+//############################//
+
+const mockRemoveNullsService = {
+  remove: (obj: any) => obj
+}
+
+//############################//
 
 describe('SbAddMntcMemberFormComponent', () => {
   let component: SbAddMntcMemberFormComponent;
@@ -11,6 +20,9 @@ describe('SbAddMntcMemberFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SbAddMntcMemberFormComponent, ReactiveFormsModule],
+      providers: [
+        { provide: RemoveNullsService, useValue: mockRemoveNullsService }
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(SbAddMntcMemberFormComponent);
     component = fixture.componentInstance;

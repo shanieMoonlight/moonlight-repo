@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpdateSelfStateService } from './register..state.service';
+import { RegisterCustomerStateService } from './register.state.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ParamMap, convertToParamMap, ActivatedRoute } from '@angular/router';
@@ -9,8 +9,8 @@ import { Subject, BehaviorSubject } from 'rxjs';
 const paramMapSubject: Subject<ParamMap> = new BehaviorSubject<ParamMap>(convertToParamMap({}));
 const mockActivatedRoute: Partial<ActivatedRoute> = { paramMap: paramMapSubject.asObservable() };
 
-describe('UpdateSelfStateService', () => {
-  let service: UpdateSelfStateService;
+describe('RegisterCustomerStateService', () => {
+  let service: RegisterCustomerStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,7 +21,7 @@ describe('UpdateSelfStateService', () => {
       ]
 
     });
-    service = TestBed.inject(UpdateSelfStateService);
+    service = TestBed.inject(RegisterCustomerStateService);
   });
 
   it('should be created', () => {

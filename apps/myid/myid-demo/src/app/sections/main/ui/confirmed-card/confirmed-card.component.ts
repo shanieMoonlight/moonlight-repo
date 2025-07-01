@@ -25,7 +25,7 @@ import { SbButtonComponent } from'@spider-baby/ui-kit/buttons';
       align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, var(--mat-sys-neutral-container) 0%, var(--mat-sys-surface-container) 100%);
-      border-radius: 1.25rem;
+      border-radius: 8px;
       box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
       padding: 2.5rem 2rem 2rem 2rem;
       max-width: 400px;

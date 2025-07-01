@@ -1,9 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginFormComponent } from './login.component';
+import { By } from '@angular/platform-browser';
+import { ComponentRef } from '@angular/core';
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
+  let componentRef: ComponentRef<LoginFormComponent>;
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -12,6 +16,7 @@ describe('LoginFormComponent', () => {
 
     fixture = TestBed.createComponent(LoginFormComponent);
     component = fixture.componentInstance;
+    componentRef = fixture.componentRef;
     fixture.detectChanges();
   });
 
@@ -19,6 +24,23 @@ describe('LoginFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should render labels when showLabels it true', () => {
+
+    const cbs = fixture.debugElement.queryAll(By.css(`sb-checkbox`));
+   const checkBoxCount = cbs.length
+
+    componentRef.setInput('showLabels', true);
+    fixture.detectChanges();
+    let labels = fixture.debugElement.queryAll(By.css(`label`));
+    expect(labels.length).toBeGreaterThan(checkBoxCount);
+
+
+    componentRef.setInput('showLabels', false);
+    fixture.detectChanges();
+    labels = fixture.debugElement.queryAll(By.css(`label`));
+    expect(labels.length).toBe(checkBoxCount);
+
+  });
   it('should initialize form with default values', () => {
     expect(component['_form'].controls.email.value).toBe('');
     expect(component['_form'].controls.password.value).toBe('');

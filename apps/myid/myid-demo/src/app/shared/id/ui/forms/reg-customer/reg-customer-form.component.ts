@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { RegisterCustomerDto } from '@spider-baby/myid-io/models';
-import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
+import { MyIdPhoneFormatProvider, MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent } from '@spider-baby/ui-kit/select';
-import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
-import { teamPositionOptions } from '../../../utils/team-position-options';
-import { PasswordValidation } from '@spider-baby/utils-forms/validators';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
+import { PasswordValidation, PhoneValidation } from '@spider-baby/utils-forms/validators';
+import { teamPositionOptions } from '../../../utils/team-position-options';
 
 //###########################//
 
@@ -30,7 +30,6 @@ interface RegisterCustomerForm {
     username: FormControl<string | null>;
     email: FormControl<string>;
     phoneNumber: FormControl<string | null>;
-    teamPosition: FormControl<number | null>;
     password: FormControl<string>;
     confirmPassword: FormControl<string>;
 }
@@ -46,7 +45,7 @@ interface RegisterCustomerForm {
         FirstErrorComponent,
         SbButtonComponent,
         SbInputStyleDirective,
-        SbSelectComponent,
+        NgTemplateOutlet,
         SbToggleIconButtonComponent,
         SbInputWithBtnDirective
     ],
@@ -59,6 +58,7 @@ export class SbRegisterCustomerFormComponent {
     private _fb = inject(FormBuilder);
     private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
     private _removeNulls = inject(RemoveNullsService);
+  private _phoneFormatter = inject(MyIdPhoneFormatProvider)
 
     //--------------------------//
 
@@ -66,6 +66,7 @@ export class SbRegisterCustomerFormComponent {
 
     showLabels = input<boolean>(true);
     color = input<UiKitTheme>('primary');
+    socialTemplate = input<TemplateRef<unknown> | undefined>(undefined)
 
     /**
      * Allows consumers to customize the password field's validation.
@@ -102,13 +103,23 @@ export class SbRegisterCustomerFormComponent {
         lastName: this._fb.control<string | null>(''),
         username: this._fb.control<string | null>(''),
         email: this._fb.nonNullable.control<string>('', [Validators.required, Validators.email]),
-        phoneNumber: this._fb.control<string | null>(''),
-        teamPosition: this._fb.control<number | null>(null),
+        phoneNumber: this._fb.control<string | null>('', [PhoneValidation.validator()]),
         password: this._fb.nonNullable.control<string>('Abc123!', [Validators.required, ...PasswordValidation.validationArray(6)]),
         confirmPassword: this._fb.nonNullable.control<string>('Abc123!', [Validators.required])
     }, { validators: PasswordValidation.matchValidator() });
 
     //--------------------------//
+
+    constructor() {
+        this._form.controls.phoneNumber.valueChanges.subscribe(phone => {
+            if (!phone)
+                return
+            const formattedPhone = this._phoneFormatter.formatPhoneInternational(phone);
+            if (phone != formattedPhone)
+                this._form.controls.phoneNumber.setValue(formattedPhone);
+        })
+
+    }
 
     submit() {
         if (!this._form.valid)

@@ -1,7 +1,7 @@
 
 <div class="container">
 
-    <div class="form-container">
+    <div class="form-container" [class.hide]="_successMsg()">
         <div class="header">
             <h2>Register</h2>
             <!-- <p class="description">Create a secure password for your account.</p> -->
@@ -10,14 +10,14 @@
     <sb-reg-customer-form
         class="form"
         (register)="register($event)"
-        [class.hide]="_successMsg()"/>
+        [socialTemplate]="socialTemplate"/>
+        
+    </div>
 
     <sb-confirmed-card  
-        [title]="'Email Confirmed!'"
+        [title]="'Registered!'"
         [message]="_successMsg()"
         [class.show]="_successMsg()"/>
-
-    </div>
     
 </div>
 
@@ -29,3 +29,15 @@
     [isLoading]="_loading()" />
 
     
+
+  
+
+<!-- ####################################### -->
+
+
+<ng-template #socialTemplate>
+     <asl-google-signin-button type='standard' size='large' />
+</ng-template>
+
+
+<!-- ####################################### -->
