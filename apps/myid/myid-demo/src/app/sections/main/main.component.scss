@@ -21,16 +21,29 @@ sb-main-navbar {
 }
 
 .btn-user-info {
-    position: absolute;
+    position: fixed;
     top: 65px;
     left: 10px;
     z-index: 10;
 }
 
-.team-badge{
-    position: absolute;
+.team-badge {
+    position: fixed;
     top: 70px;
     right: 15px;
     z-index: 10;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-user-info,
+.team-badge {
+    transition: 0.35s ease-out;
+}
+
+:host(.scrolled) {
+
+    .btn-user-info,
+    .team-badge {
+        opacity: 0.5;
+    }
 }

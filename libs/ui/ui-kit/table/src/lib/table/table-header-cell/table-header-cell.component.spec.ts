@@ -10,7 +10,7 @@ const mockColumn:Partial<ColumnData<BaseDataTableRowData>> = {
   name: 'testColumn',
   filterDataType: 'string',
   handleNestedProperty: (x) => x,
-  customTableCell: undefined
+  actionTableCell: undefined
 }
 
 

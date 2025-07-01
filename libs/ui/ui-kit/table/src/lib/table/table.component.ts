@@ -43,7 +43,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
 
   /** Mat Color theme. Default = 'primary  */
   color = input<UiKitTheme>('primary')
-  loading = input<boolean>(true)
+  loading = input<boolean>(false)
 
 
   // Example output for row click (can add more as needed)

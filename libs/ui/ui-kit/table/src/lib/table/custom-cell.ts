@@ -11,11 +11,3 @@ export class ActionTableCell{
 }
 
 //#############################//
-
-// @Directive({})
-// export abstract class BaseCustomActionComponent<T>{    
-//   item = input.required<T>()
-//   column = input.required<ColumnData>()
-// }
-
-// //#############################//
