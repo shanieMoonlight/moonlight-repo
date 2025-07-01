@@ -5,7 +5,7 @@ import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
 import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
 
@@ -27,7 +27,7 @@ export class LoginJwtComponent implements OnInit {
 
   private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   //- - - - - - - - - - - - - //
 

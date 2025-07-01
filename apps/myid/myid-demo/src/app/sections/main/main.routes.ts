@@ -1,21 +1,14 @@
 import { Route } from '@angular/router';
-import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
+import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards/auth.guards';
+import { MyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
-import { MyIdAuthService } from '../../shared/auth/services/auth/myid-auth.browser.service';
-import { createCustomGuard, createLoggedInGuard } from '@spider-baby/auth-signal';
-import { AppRouteDefs } from '../../app-route-defs';
 
 
-export const loggedInGuard = createLoggedInGuard(
-    MyIdAuthService,
-    AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')
-);
-export const customerOnlyGuard = createCustomGuard(
-    MyIdAuthService,
-    (authService) => authService.isLoggedIn() && authService.isCustomer(),
-    AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')
+export const loggedInGuard = myIdLoggedInGuard();
+export const customerOnlyGuard = createMyIdCustomGuard(
+    (authService) => authService.isLoggedIn() && authService.isCustomer()
 );
 
 export const mainRoutes: Route[] = [
@@ -25,7 +18,7 @@ export const mainRoutes: Route[] = [
 
         providers: [
             {
-                provide: AMyIdRouter,
+                provide: MyIdRouter,
                 useExisting: MyIdMainRouterService,
             }
         ],

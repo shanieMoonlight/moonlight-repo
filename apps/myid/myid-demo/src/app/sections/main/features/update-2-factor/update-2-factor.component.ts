@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UpdateTwoFactorProviderFormDto, SbUpdateTwoFactorProviderFormComponent } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { Update2FactorStateService } from './update-2-factor.state.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
@@ -22,7 +22,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 export class Update2FactorComponent {
 
   private _state = inject(Update2FactorStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   //- - - - - - - - - - - - - //
 

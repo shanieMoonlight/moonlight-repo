@@ -11,13 +11,13 @@ import { MyIdRouteInfo } from '../../my-id-route-info';
   providedIn: 'root',
   useClass: forwardRef(() => MyIdFallbackRouter),
 })
-export abstract class AMyIdRouter {
-  abstract navigateToLogin(): void;
-  abstract navigateToChPwd(): void;
-  abstract navigateToChPwd(): void;
-  abstract navigateToHome(): void;
-  abstract navigateToVerify(token?: string, provider?: string): void;
-  abstract navigate(commands: string[], opts?: UrlCreationOptions): void;
+export abstract class MyIdRouter {
+  abstract navigateToLogin(): Promise<boolean>;
+  abstract navigateToChPwd(): Promise<boolean>;
+  abstract navigateToChPwd(): Promise<boolean>;
+  abstract navigateToHome(): Promise<boolean>;
+  abstract navigateToVerify(token?: string, provider?: string): Promise<boolean>;
+  abstract navigate(commands: string[], opts?: UrlCreationOptions): Promise<boolean>;
 }
 
 //#########################################################//
@@ -27,34 +27,34 @@ export abstract class AMyIdRouter {
 @Injectable({
   providedIn: 'root',
 })
-export class MyIdFallbackRouter extends AMyIdRouter {
+export class MyIdFallbackRouter extends MyIdRouter {
 
   private _router = inject(Router);
   private _actRoute = inject(ActivatedRoute);
 
   //- - - - - - - - - //
 
-  override navigateToLogin(): void {
+  override navigateToLogin(): Promise<boolean> {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'login'
     );
-    this._router.navigate([`../login`], { relativeTo: this._actRoute });
+    return this._router.navigate([`../login`], { relativeTo: this._actRoute });
   }
 
   //------------------//
 
-  override navigateToChPwd(): void {
+  override navigateToChPwd(): Promise<boolean> {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToChPwd'
     );
-    this._router.navigate(['../change-pwd'], { relativeTo: this._actRoute });
+    return this._router.navigate(['../change-pwd'], { relativeTo: this._actRoute });
   }
 
   //------------------//
 
-  override navigateToVerify(token?: string, provider?: string): void {
+  override navigateToVerify(token?: string, provider?: string): Promise<boolean> {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToVerify'
@@ -64,7 +64,7 @@ export class MyIdFallbackRouter extends AMyIdRouter {
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY] = token
     if (provider)
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY] = provider
-    this._router.navigate(['../verify-2-factor'], {
+    return this._router.navigate(['../verify-2-factor'], {
       relativeTo: this._actRoute,
       queryParams
     })
@@ -72,22 +72,22 @@ export class MyIdFallbackRouter extends AMyIdRouter {
 
   //------------------//
 
-  override navigateToHome(): void {
+  override navigateToHome(): Promise<boolean> {
     devConsole.log(
       'MyIdFallbackRouter extends AMyIdRouter',
       'navigateToHome'
     );
-    this._router.navigate(['/'], { relativeTo: this._actRoute })
+    return this._router.navigate(['/'], { relativeTo: this._actRoute })
   }
 
   //-------------------//
 
-  navigate = (commands: string[], opts?: UrlCreationOptions) => {
+  navigate(commands: string[], opts?: UrlCreationOptions): Promise<boolean> {
     console.log(
       'FallbackAccPagesRouter implements AAuthTeamsFeaturesRouter',
       'navigate'
     );
-    this._router.navigate(commands, opts);
+    return this._router.navigate(commands, opts);
   }
 
 

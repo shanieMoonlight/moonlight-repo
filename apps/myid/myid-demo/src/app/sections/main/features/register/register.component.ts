@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from 
 import { RegisterCustomerDto } from '@spider-baby/myid-io/models';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { SbRegisterCustomerFormComponent } from '../../../../shared/id/ui/forms/reg-customer/reg-customer-form.component';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 import { RegisterCustomerStateService } from './register.state.service';
 
@@ -24,7 +24,7 @@ import { RegisterCustomerStateService } from './register.state.service';
 export class RegisterCustomerComponent  implements OnInit{
 
   private _state = inject(RegisterCustomerStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
   private _socialAuth = inject(SocialAuthService)
   private _platformId = inject(PLATFORM_ID)
 

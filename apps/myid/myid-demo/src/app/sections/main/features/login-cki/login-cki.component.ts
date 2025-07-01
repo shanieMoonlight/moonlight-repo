@@ -4,7 +4,7 @@ import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
 import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
 import { LoginCkiStateService } from './login-cki.state.service';
 
@@ -26,7 +26,7 @@ export class LoginCkiComponent implements OnInit {
 
   private _state = inject(LoginCkiStateService)
   private _socialAuth = inject(SocialAuthService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   //- - - - - - - - - - - - - //
 

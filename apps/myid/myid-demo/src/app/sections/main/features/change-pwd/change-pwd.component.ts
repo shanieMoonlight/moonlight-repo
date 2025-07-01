@@ -4,7 +4,7 @@ import { ChPwdDto } from '@spider-baby/myid-io/models';
 import { ChangePwdStateService } from './change-pwd.state.service';
 import { ChangePwdFormComponent } from '@spider-baby/myid-ui-forms/change-pwd';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 @Component({
   selector: 'sb-change-pwd',
@@ -21,7 +21,7 @@ import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/
 export class ChangePwdComponent {
 
   private _state = inject(ChangePwdStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   //- - - - - - - - - - - - - //
 

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
 import { ResetPwdFormDto, SbResetPwdFormComponent } from '@spider-baby/myid-ui-forms/reset-pwd';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { ForgotPwdModalButtonComponent } from '../../ui/forgot-pwd-modal/forgot-pwd-modal-button.component';
 import { ResetPwdStateService } from './reset-pwd.state.service';
@@ -26,7 +26,7 @@ import { ResetPwdStateService } from './reset-pwd.state.service';
 export class ResetPwdComponent {
 
   private _state = inject(ResetPwdStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
 
 

@@ -3,7 +3,7 @@ import { UpdateSelfStateService } from './update-self.state.service';
 import { UpdateSelfFormDto, SbUpdateSelfFormComponent } from '@spider-baby/myid-ui-forms/update-self';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 
 @Component({
@@ -23,7 +23,7 @@ import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 export class UpdateSelfComponent {
 
   private _state = inject(UpdateSelfStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
   private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - //

@@ -7,10 +7,6 @@ import { BaseAuthSignalService } from '../base-auth.signal.service';
  */
 export type AuthServiceToken = Type<BaseAuthSignalService> | InjectionToken<BaseAuthSignalService>;
 
-
-//-------------------------//
-
-
 /**
  * Generic function to create guards with custom redirect logic
  * @param serviceToken The injection token for your auth service

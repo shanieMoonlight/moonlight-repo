@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from'@spider-baby/ui-kit/buttons';
 
 @Component({
@@ -67,7 +67,7 @@ import { SbButtonComponent } from'@spider-baby/ui-kit/buttons';
 })
 export class ConfirmedCardComponent {
 
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   title = input('Confirmed!', {
     transform: (value: string | undefined) => value || 'Confirmed!'

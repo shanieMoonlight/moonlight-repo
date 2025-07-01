@@ -1,7 +1,7 @@
 import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID, TemplateRef } from '@angular/core';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
-import { AMyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
 import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
@@ -20,7 +20,7 @@ import { UiKitTheme } from '@spider-baby/ui-kit/types';
 export class SbAuthLoginButtonComponent {
 
   private _platformId = inject(PLATFORM_ID)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
   private _authService = inject(MyIdAuthService)
 
   //------------------//

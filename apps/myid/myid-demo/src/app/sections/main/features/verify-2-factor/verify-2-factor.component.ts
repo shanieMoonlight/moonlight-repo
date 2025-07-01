@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/cor
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { SbVerify2FactorFormComponent, Verify2FactorTknFormDto } from '../../../../shared/id/ui/forms/verify-2factor/verify-2factor.component';
 import { Verify2FactorStateService } from './verify-2-factor.state.service';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 
 
@@ -22,7 +22,7 @@ import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 export class Verify2FactorComponent {
   
   private _state = inject(Verify2FactorStateService)
-  private _router = inject(AMyIdRouter)
+  private _router = inject(MyIdRouter)
 
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
