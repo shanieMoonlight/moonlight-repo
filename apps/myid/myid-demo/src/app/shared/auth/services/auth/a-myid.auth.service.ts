@@ -13,7 +13,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
     isSpr = computed(() => this.hasTeamTypeClaim('super'));
     isMntc = computed(() => this.hasTeamTypeClaim('maintenance'));
-    isCus = computed(() => this.hasTeamTypeClaim('customer'));
+    isCustomer = computed(() => this.hasTeamTypeClaim('customer'));
 
 
     //-------- TEAM POSITION ----------//    
@@ -53,12 +53,12 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     //--------- CUSTOMER TEAM ---------//
 
 
-    isCusLdr = computed(() => this.isCus() && this.isLdr());
+    isCusLdr = computed(() => this.isCustomer() && this.isLdr());
 
-    isCusAdmin = computed(() => this.isCus() && this.isAdmin());
-    isCusMgr = computed(() => this.isCus() && this.isMgr());
-    isCusUser = computed(() => this.isCus() && this.isUser());
-    isCusGuest = computed(() => this.isCus() && this.isGuest());
+    isCusAdmin = computed(() => this.isCustomer() && this.isAdmin());
+    isCusMgr = computed(() => this.isCustomer() && this.isMgr());
+    isCusUser = computed(() => this.isCustomer() && this.isUser());
+    isCusGuest = computed(() => this.isCustomer() && this.isGuest());
 
 
     //------------ Minimums -----------//    

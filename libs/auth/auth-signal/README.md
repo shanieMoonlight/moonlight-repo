@@ -1,5 +1,9 @@
 # @spider-baby/auth-signal
 
+[![npm version](https://img.shields.io/npm/v/@spider-baby/auth-signal.svg)](https://www.npmjs.com/package/@spider-baby/auth-signal)
+[![license](https://img.shields.io/npm/l/@spider-baby/auth-signal.svg)](LICENSE)
+[![Angular](https://img.shields.io/badge/Angular-12%2B-red.svg)](https://angular.io/)
+
 A powerful Angular library that converts JWT tokens into reactive Angular signals, making it easy to build authentication-aware applications with automatic token expiry handling, type-safe claim access, and seamless integration with Angular's signal-based architecture.
 
 ## Features
@@ -191,7 +195,97 @@ import { SbFirebaseSignalService } from '@spider-baby/auth-signal/firebase';
 
 ## Route Guards
 
-Create authentication guards using the signals:
+The library provides predefined guard factory functions that work with any `BaseAuthSignalService` implementation:
+
+### Basic Guards
+
+```typescript
+import { 
+  createAuthGuard, 
+  createRoleGuard, 
+  createEmailVerifiedGuard 
+} from '@spider-baby/auth-signal';
+
+// Basic authentication guard
+export const authGuard = createAuthGuard(MyAuthService);
+
+// Role-based guard
+export const adminGuard = createRoleGuard(MyAuthService, 'admin');
+
+// Email verification guard
+export const emailVerifiedGuard = createEmailVerifiedGuard(MyAuthService);
+
+// Use in routes
+const routes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [adminGuard]
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    canActivate: [emailVerifiedGuard]
+  }
+];
+```
+
+### Advanced Guards
+
+```typescript
+import { 
+  createAnyRoleGuard, 
+  createAllRolesGuard, 
+  createClaimGuard,
+  createCustomGuard,
+  createGuestOnlyGuard 
+} from '@spider-baby/auth-signal';
+
+// User needs ANY of these roles
+export const moderatorGuard = createAnyRoleGuard(
+  MyAuthService, 
+  ['admin', 'moderator', 'super-user']
+);
+
+// User needs ALL of these roles
+export const seniorModeratorGuard = createAllRolesGuard(
+  MyAuthService, 
+  ['moderator', 'senior']
+);
+
+// Custom claim-based guard
+export const premiumGuard = createClaimGuard(
+  MyAuthService, 
+  'subscription', 
+  'premium'
+);
+
+// Guest-only guard (redirects authenticated users)
+export const loginPageGuard = createGuestOnlyGuard(
+  MyAuthService, 
+  '/dashboard'
+);
+
+// Custom logic with optional redirect
+export const complexGuard = createCustomGuard(
+  MyAuthService,
+  (authService) => {
+    return authService.isLoggedIn() && 
+           authService.hasRole('user') && 
+           authService.emailVerified();
+  },
+  '/login' // optional redirect URL
+);
+```
+
+### Manual Guard Creation
+
+For simple cases, you can still create guards manually:
 
 ```typescript
 import { inject } from '@angular/core';

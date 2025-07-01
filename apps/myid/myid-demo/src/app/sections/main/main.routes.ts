@@ -3,12 +3,26 @@ import { AMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-rou
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
+import { MyIdAuthService } from '../../shared/auth/services/auth/myid-auth.browser.service';
+import { createCustomGuard, createLoggedInGuard } from '@spider-baby/auth-signal';
+import { AppRouteDefs } from '../../app-route-defs';
+
+
+export const loggedInGuard = createLoggedInGuard(
+    MyIdAuthService,
+    AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')
+);
+export const customerOnlyGuard = createCustomGuard(
+    MyIdAuthService,
+    (authService) => authService.isLoggedIn() && authService.isCustomer(),
+    AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')
+);
 
 export const mainRoutes: Route[] = [
     {
         path: '',
         component: MainComponent,
-        
+
         providers: [
             {
                 provide: AMyIdRouter,
@@ -23,6 +37,7 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('scratchpad'),
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
+                canActivate: [loggedInGuard],
             },
             {
                 path: MainSectionRoutesDefs.route('login-jwt'),
@@ -30,11 +45,11 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: MainSectionRoutesDefs.route('login-cookie'),
-                loadComponent: () => import('./features/login-cki/login-cki.component').then(m => m.LoginCkiComponent),
+                loadComponent: () => import('./features/login-cki/login-cki.component').then(m => m.LoginCkiComponent)
             },
             {
                 path: MainSectionRoutesDefs.route('confirm-email'),
-                loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent),
+                loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent)
             },
             {
                 path: MainSectionRoutesDefs.route('confirm-email-with-password'),
