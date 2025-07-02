@@ -37,13 +37,13 @@ describe('Team Type Guards', () => {
 
   describe('myIdIsSprGuard', () => {
     it('allows activation if isSpr is true', () => {
-      mockAuthService.isSpr.set(true);
+      mockAuthService.isSuper.set(true);
       const guard = myIdIsSprGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
     it('redirects if isSpr is false', () => {
-      mockAuthService.isSpr.set(false);
+      mockAuthService.isSuper.set(false);
       const guard = myIdIsSprGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);

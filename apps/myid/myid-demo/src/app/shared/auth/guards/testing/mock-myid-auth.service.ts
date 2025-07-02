@@ -1,4 +1,5 @@
 import { signal, computed } from '@angular/core';
+import { IMyIdAuthService } from '../../services/auth/i-myid.auth.service';
 
 // Minimal role/position values for testing
 export const MockRoleValues = {
@@ -16,7 +17,7 @@ export const MockTeamPositions = {
 };
 
 // Plain mock class for MyIdAuthService/AMyIdAuthService, no extends, no DI
-export class MockMyIdAuthService {
+export class MockMyIdAuthService implements IMyIdAuthService{
   // Signals for claims and roles
   position = signal<number>(-1);
   roles = signal<string[]>([]);
@@ -34,42 +35,51 @@ export class MockMyIdAuthService {
   isGuest = computed(() => this.hasPosition(MockTeamPositions.GUEST));
 
   // Add all minimum/composite signals as plain signals for test overrides
-  isSpr = signal<boolean>(false);
+  isSuper = signal<boolean>(false);
   isMntc = signal<boolean>(false);
   isCustomer = signal<boolean>(false);
-  isSprLdr = signal<boolean>(false);
-  isSprAdmin = signal<boolean>(false);
-  isSprMgr = signal<boolean>(false);
-  isSprUser = signal<boolean>(false);
-  isSprGuest = signal<boolean>(false);
+
+  isSuperLdr = signal<boolean>(false);
+  isSuperPosition = (position: number) => signal<boolean>(false);
+  isSuperAdmin = signal<boolean>(false);
+  isSuperMgr = signal<boolean>(false);
+  isSuperUser = signal<boolean>(false);
+  isSuperGuest = signal<boolean>(false);
+  
   isMntcLdr = signal<boolean>(false);
+  isMntcPosition = (position: number) => signal<boolean>(false);
   isMntcAdmin = signal<boolean>(false);
   isMntcMgr = signal<boolean>(false);
   isMntcUser = signal<boolean>(false);
   isMntcGuest = signal<boolean>(false);
+  
   isCusLdr = signal<boolean>(false);
   isCusAdmin = signal<boolean>(false);
   isCusMgr = signal<boolean>(false);
   isCusUser = signal<boolean>(false);
   isCusGuest = signal<boolean>(false);
-  isSprLdrMinimum = signal<boolean>(false);
-  isSprAdminMinimum = signal<boolean>(false);
-  isSprMgrMinimum = signal<boolean>(false);
-  isSprUserMinimum = signal<boolean>(false);
-  isSprGuestMinimum = signal<boolean>(false);
-  isSprMinimum = signal<boolean>(false);
+  
+  isSuperLdrMinimum = signal<boolean>(false);
+  isSuperAdminMinimum = signal<boolean>(false);
+  isSuperMgrMinimum = signal<boolean>(false);
+  isSuperUserMinimum = signal<boolean>(false);
+  isSuperGuestMinimum = signal<boolean>(false);
+  isSuperMinimum = signal<boolean>(false);
+  
   isMntcLdrMinimum = signal<boolean>(false);
   isMntcAdminMinimum = signal<boolean>(false);
   isMntcMgrMinimum = signal<boolean>(false);
   isMntcUserMinimum = signal<boolean>(false);
   isMntcGuestMinimum = signal<boolean>(false);
   isMntcMinimum = signal<boolean>(false);
+  
   isCusLdrMinimum = signal<boolean>(false);
   isCusAdminMinimum = signal<boolean>(false);
   isCusMgrMinimum = signal<boolean>(false);
   isCusUserMinimum = signal<boolean>(false);
   isCusGuestMinimum = signal<boolean>(false);
   isCusMinimum = signal<boolean>(false);
+  
   isMntcOrDev = signal<boolean>(false);
   isMntcMinimumOrDev = signal<boolean>(false);
   isSuperOrDev = signal<boolean>(false);

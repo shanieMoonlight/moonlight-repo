@@ -24,7 +24,7 @@ import { LoginJwtStateService } from './login-jwt.state.service';
   styleUrl: './login-jwt.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginJwtComponent implements OnInit, OnDestroy {
+export class LoginJwtComponent implements OnInit {
 
   private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
@@ -61,10 +61,6 @@ export class LoginJwtComponent implements OnInit, OnDestroy {
         this._router.navigateToVerify(data.token, data.provider);
     });
   }
-  ngOnDestroy(): void {
-    console.log('LoginJwtComponent.ngOnDestroy: Cleaning up resources');
-  }
-
 
   ngOnInit() {
     this._socialAuth.authState

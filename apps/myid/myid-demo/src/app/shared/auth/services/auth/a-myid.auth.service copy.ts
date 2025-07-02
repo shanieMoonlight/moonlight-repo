@@ -8,7 +8,7 @@ import { IMyIdAuthService } from './i-myid.auth.service';
 
 
 @Directive({})
-export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayload> implements IMyIdAuthService {
+export abstract class AMyIdAuthService0 extends BaseAuthSignalService<MyIdJwtPayload> implements IMyIdAuthService {
 
     //------------- TEAMS -------------//    
 
@@ -69,7 +69,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
     isSuperLdrMinimum = computed(() => this.isSuperLdr());
     isSuperPositionMinimum = (position: number) => computed(() => this.isSuper() && this.hasPositionOrHigher(position));
-    isSuperMinimum = computed(() => this.isSuperPositionMinimum(0)());
+    isSuperMinimum = computed(() => this.isSuperUserMinimum());
 
     isSuperAdminMinimum = computed(() => this.isSuperAdmin() || this.isSuperLdrMinimum());
     isSuperMgrMinimum = computed(() => this.isSuperMgr() || this.isSuperAdminMinimum());
@@ -79,29 +79,22 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     //- - - - - - - - - - - - - - - - -//
 
     isMntcLdrMinimum = computed(() => this.isMntcLdr() || this.isSuperMinimum());
-    isMntcPositionMinimum = (position: number) => computed(() =>
-        (this.isMntc() && this.hasPositionOrHigher(position)) || this.isSuperMinimum());
-    isMntcMinimum = computed(() => this.isMntcPositionMinimum(0)());
+    // isSuperPositionMinimum = (position: number) => computed(() => this.isSuper() && this.hasPositionOrHigher(position));
 
     isMntcAdminMinimum = computed(() => this.isMntcAdmin() || this.isMntcLdrMinimum());
     isMntcMgrMinimum = computed(() => this.isMntcMgr() || this.isMntcAdminMinimum());
     isMntcUserMinimum = computed(() => this.isMntcUser() || this.isMntcMgrMinimum());
     isMntcGuestMinimum = computed(() => this.isMntcGuest() || this.isMntcUserMinimum());
-    // isMntcMinimum = computed(() => this.isMntcGuestMinimum());
+    isMntcMinimum = computed(() => this.isMntcGuestMinimum());
 
     //- - - - - - - - - - - - -//
 
     isCusLdrMinimum = computed(() => this.isCusLdr() || this.isMntcMinimum());
-    isCusPositionMinimum = (position: number) => computed(() =>
-        (this.isCustomer() && this.hasPositionOrHigher(position)) || this.isMntcMinimum());
-    isCusMinimum = computed(() => this.isCusPositionMinimum(0)());
-
-
     isCusAdminMinimum = computed(() => this.isCusAdmin() || this.isCusLdrMinimum());
     isCusMgrMinimum = computed(() => this.isCusMgr() || this.isCusAdminMinimum());
     isCusUserMinimum = computed(() => this.isCusUser() || this.isCusMgrMinimum());
     isCusGuestMinimum = computed(() => this.isCusGuest() || this.isCusUserMinimum());
-    // isCusMinimum = computed(() => this.isCusGuestMinimum());
+    isCusMinimum = computed(() => this.isCusGuestMinimum());
 
 
     //------------  DevMode -----------//
@@ -116,7 +109,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
     private hasPosition = (position: number) =>
         this.position() == position;
-
+    
     private hasPositionOrHigher = (position: number) =>
         this.position() >= position;
 

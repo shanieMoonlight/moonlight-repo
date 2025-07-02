@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
-import { myIdIsSprAdminMinimumGuard, myIdIsSprMgrMinimumGuard, myIdIsMntcUserMinimumGuard, myIdIsCusLdrMinimumGuard } from './team-minimum-guards';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
+import { myIdIsCusLdrMinimumGuard, myIdIsMntcUserMinimumGuard, myIdIsSprAdminMinimumGuard, myIdIsSprMgrMinimumGuard } from './team-minimum-guards';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
 
 const mockActRoute = {
@@ -35,15 +35,15 @@ describe('Team Minimum Guards', () => {
     });
   });
 
-  describe('myIdIsSprAdminMinimumGuard', () => {
-    it('allows activation if isSprAdminMinimum is true', () => {
-      mockAuthService.isSprAdminMinimum.set(true);
+  describe('myIdIsSuperAdminMinimumGuard', () => {
+    it('allows activation if isSuperAdminMinimum is true', () => {
+      mockAuthService.isSuperAdminMinimum.set(true);
       const guard = myIdIsSprAdminMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
-    it('redirects if isSprAdminMinimum is false', () => {
-      mockAuthService.isSprAdminMinimum.set(false);
+    it('redirects if isSuperAdminMinimum is false', () => {
+      mockAuthService.isSuperAdminMinimum.set(false);
       const guard = myIdIsSprAdminMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
@@ -51,15 +51,15 @@ describe('Team Minimum Guards', () => {
     });
   });
 
-  describe('myIdIsSprMgrMinimumGuard', () => {
-    it('allows activation if isSprMgrMinimum is true', () => {
-      mockAuthService.isSprMgrMinimum.set(true);
+  describe('myIdIsSuperMgrMinimumGuard', () => {
+    it('allows activation if isSuperMgrMinimum is true', () => {
+      mockAuthService.isSuperMgrMinimum.set(true);
       const guard = myIdIsSprMgrMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
-    it('redirects if isSprMgrMinimum is false', () => {
-      mockAuthService.isSprMgrMinimum.set(false);
+    it('redirects if isSuperMgrMinimum is false', () => {
+      mockAuthService.isSuperMgrMinimum.set(false);
       const guard = myIdIsSprMgrMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
