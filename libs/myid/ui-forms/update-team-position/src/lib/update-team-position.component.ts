@@ -56,12 +56,12 @@ export class SbUpdateTeamPositionFormComponent {
   showLabels = input<boolean>(true);
   color = input<UiKitTheme>('primary');
 
-  teamPositionOptions = input<SelectOption[]>()
+  teamPositionOptions = input<SelectOption[] | undefined>()
 
   protected _member = signal<UserInputDataDto | undefined>(undefined);
-  @Input({required: true})
+  @Input({ required: true })
   set member(value: UserInputDataDto) {
-    this._member.set(value);    
+    this._member.set(value);
     this.setFormValues(value);
   }
 
@@ -78,7 +78,7 @@ export class SbUpdateTeamPositionFormComponent {
   //-------------------------//
 
 
-  setFormValues(dto: UserInputDataDto ) {
+  setFormValues(dto: UserInputDataDto) {
     if (!dto) {
       this._form.reset();
       return

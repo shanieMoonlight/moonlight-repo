@@ -23,7 +23,7 @@
         
         @if(teamPositionOptions(); as positionOptions){
             <sb-select
-                [id]="'provider'"
+                [id]="'newPosition'"
                 [options]="positionOptions"
                 placeholder="Select new position"
                 formControlName="newPosition"
@@ -33,7 +33,8 @@
                 sbInputStyle 
                 formControlName="newPosition" 
                 type="number"
-                placeholder="new Position" />
+                placeholder="new Position" 
+                [color]="color()"/>
         }
             
         <sb-first-error [control]="_form.controls.newPosition"/>

@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, Input, input, output } from
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent } from '@spider-baby/ui-kit/select';
+import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
 import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
 import { AddSuperMemberDto } from '@spider-baby/myid-io/models';
 import { FormControl } from '@angular/forms';
 import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
 import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //###########################//
 
@@ -47,8 +48,8 @@ export interface AddSuperMemberForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbAddSuperMemberFormComponent {
+  
   private _fb = inject(FormBuilder);
-  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
   private _removeNulls = inject(RemoveNullsService);
 
   //--------------------------//
@@ -56,9 +57,9 @@ export class SbAddSuperMemberFormComponent {
   addMember = output<AddSuperMemberFormDto>();
 
   showLabels = input<boolean>(true);
+  teamPositionOptions = input<SelectOption[] | undefined>()
+  color = input<UiKitTheme>('primary');
 
-
-  protected _teamPositionOptions = teamPositionOptions
 
   protected _form: FormGroup<AddSuperMemberForm> = this._fb.nonNullable.group<AddSuperMemberForm>({
     firstName: this._fb.control<string | null>(''),

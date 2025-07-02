@@ -5,9 +5,10 @@ import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent } from "@spider-baby/ui-kit/select";
+import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
+import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 //##########################//
 
@@ -70,11 +71,14 @@ export class SbAppUserFormComponent {
   private _fb = inject(FormBuilder);
   private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
-  showLabels = input<boolean>(true);
   addUser = output<AppUserDtoFormDto>();
   updateUser = output<AppUserDtoFormDto>();
+  
+  showLabels = input<boolean>(true);
+  teamPositionOptions = input<SelectOption[] | undefined>()
+  color = input<UiKitTheme>('primary');
 
-  protected showAddressSection = input(false);
+  showAddressSection = input(false);
 
   @Input()
   public set appUser(user: AppUserDtoFormDto | undefined) {
@@ -85,8 +89,6 @@ export class SbAppUserFormComponent {
   protected _isUpdateForm = signal(false);
 
   protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
-
-  protected _teamPositionOptions = teamPositionOptions
 
   protected form: FormGroup<AppUserForm> = this._fb.nonNullable.group({
     // Personal Information Section

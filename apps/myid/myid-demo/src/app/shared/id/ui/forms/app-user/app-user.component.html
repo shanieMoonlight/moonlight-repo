@@ -17,8 +17,10 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'firstName'">First Name</label>
-                }                <input 
+                }                
+                <input 
                     [id]="'firstName'" 
+                    [color]="color()"
                     type="text" 
                     formControlName="firstName" 
                     placeholder="First Name" 
@@ -31,8 +33,10 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'lastName'">Last Name</label>
-                }                <input 
+                }                
+                <input 
                     [id]="'lastName'" 
+                    [color]="color()"
                     type="text" 
                     formControlName="lastName" 
                     placeholder="Last Name" 
@@ -43,8 +47,10 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'phoneNumber'">Phone Number</label>
-                }                <input 
+                }                
+                <input 
                     [id]="'phoneNumber'" 
+                    [color]="color()"
                     type="tel" 
                     formControlName="phoneNumber" 
                     placeholder="Phone Number" 
@@ -61,9 +67,11 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'userName'">Username</label>
-                }                <input 
+                }                
+                <input 
                     [id]="'userName'" 
                     type="text" 
+                    [color]="color()"
                     formControlName="userName" 
                     placeholder="Username" 
                     sbInputStyle />
@@ -73,9 +81,11 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'email'">Email</label>
-                }                <input 
+                }               
+                 <input 
                     [id]="'email'" 
                     type="email" 
+                    [color]="color()"
                     formControlName="email" 
                     placeholder="Email Address" 
                     sbInputStyle />
@@ -99,13 +109,22 @@
             <div class="form-group">
                 @if(showLabels()) {
                     <label [for]="'teamPosition'">Team Position</label>
-                }                <sb-select
-                    [id]="'teamPosition'"
-                    [options]="_teamPositionOptions"
-                    placeholder="Select position"
-                    formControlName="teamPosition"
-                    color="primary">
-                </sb-select>
+                }               
+                @if(teamPositionOptions(); as positionOptions){
+                    <sb-select
+                        [id]="'teamPosition'"
+                        [options]="positionOptions"
+                        placeholder="Select new position"
+                        formControlName="teamPosition"
+                        [color]="color()"/>
+                }@else {
+                    <input id="teamPosition" 
+                        sbInputStyle 
+                        formControlName="teamPosition" 
+                        type="number"
+                        placeholder="new Position" 
+                        [color]="color()"/>
+                }
                 <sb-first-error [control]="form.controls.teamPosition"/>
             </div>
         </div>

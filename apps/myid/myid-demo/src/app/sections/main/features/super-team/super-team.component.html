@@ -23,5 +23,6 @@
     
 <ng-template #addSuperMemberForm>
   <sb-add-super-member-form 
+    [teamPositionOptions]="_teamPositionOptions"
     (addMember)="addMember($event)"/>
 </ng-template>
