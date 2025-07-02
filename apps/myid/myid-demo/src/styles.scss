@@ -3,3 +3,31 @@
 @import 'highlight.js/styles/github.css';
 @import 'highlight.js/styles/vs2015.css'; // Dark theme
 
+
+
+
+
+/* Styles for ANY img tag that has a view-transition-name style attribute */
+img[style*="view-transition-name"] {
+  // display: block; /* Ensures consistent layout behavior for the transitioning image */
+  // width: 100%;    /* Makes the image fill its (already sized) parent container */
+  // height: 100%;   /* Makes the image fill its (already sized) parent container */
+  // object-fit: cover; /* Ensures the image content covers the area, maintaining aspect ratio */
+}
+
+/* Target any view transition group */
+::view-transition-group(*) {
+  animation-duration: 0.35s; /* Adjust as needed */
+  animation-timing-function: ease-in-out;
+  /* You can add more specific animation properties here if needed */
+}
+
+/* Ensure the old and new elements in any transition maintain consistent styling */
+::view-transition-old(*),
+::view-transition-new(*) {
+  width: 100%;    // Ensure the transition element itself fills its space
+  height: 100%;
+  // object-fit: cover; /* Consistent object-fit, primarily for images */
+  /* Mix-blend-mode can sometimes cause issues if not intended for the transition */
+}
+

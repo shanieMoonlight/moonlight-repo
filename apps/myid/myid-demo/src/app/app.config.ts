@@ -1,7 +1,7 @@
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withRouterConfig, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { MyIdIoSetup } from '@spider-baby/myid-io/config';
@@ -14,6 +14,7 @@ import { SocialAuthSetup } from './config/oauth.config';
 import { SEO_CONFIG } from './config/seo.config';
 import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { appViewTransition } from './app.view-transitions';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,7 +34,8 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled' // Or 'top'
       }),
-      withRouterConfig({})),
+      withRouterConfig({}),
+      withViewTransitions(appViewTransition)),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     SocialAuthSetup.provideSocialLoginConfig(),

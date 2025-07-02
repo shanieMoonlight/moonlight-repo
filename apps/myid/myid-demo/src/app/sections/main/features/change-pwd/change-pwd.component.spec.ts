@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ChangePwdComponent } from './change-pwd.component';
 
 //#############################//
@@ -31,7 +31,7 @@ describe('ChangePwdComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: AMyIdRouter, useValue: mockRouter }
+        { provide: MyIdRouter, useValue: mockRouter }
       ]
     }).compileComponents();
 

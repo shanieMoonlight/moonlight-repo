@@ -40,6 +40,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
   }
   rowClickable = input(true);
   canAddItem = input<boolean>(true);
+  addItemTooltip = input('Add Item');
 
   /** Mat Color theme. Default = 'primary  */
   color = input<UiKitTheme>('primary')

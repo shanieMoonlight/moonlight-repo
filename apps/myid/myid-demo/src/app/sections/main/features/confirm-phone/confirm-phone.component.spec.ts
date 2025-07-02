@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ConfirmPhoneComponent } from './confirm-phone.component';
 import { signal } from '@angular/core';
 
@@ -49,7 +49,7 @@ describe('ConfirmPhoneComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: AMyIdRouter, useValue: mockRouter },
+        { provide: MyIdRouter, useValue: mockRouter },
         { provide: 'ConfirmPhoneStateService', useValue: mockStateService },
       ]
     }).compileComponents();

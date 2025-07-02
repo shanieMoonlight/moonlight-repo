@@ -6,7 +6,6 @@ import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
 
 
-export const loggedInGuard = myIdLoggedInGuard();
 export const customerOnlyGuard = createMyIdCustomGuard(
     (authService) => authService.isLoggedIn() && authService.isCustomer()
 );
@@ -30,7 +29,7 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('scratchpad'),
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
-                canActivate: [loggedInGuard],
+                canActivate: [myIdLoggedInGuard],
             },
             {
                 path: MainSectionRoutesDefs.route('login-jwt'),

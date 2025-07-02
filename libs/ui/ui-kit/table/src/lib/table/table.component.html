@@ -39,7 +39,7 @@
   <div class="sb-data-table-actions">
     @if(canAddItem()){
       <sb-button-icon-add 
-        [sbTooltip]="'Add Item'"
+        [sbTooltip]="addItemTooltip()"
         (click)="onAddItemClick()"
         [circle]="true"/>
     }

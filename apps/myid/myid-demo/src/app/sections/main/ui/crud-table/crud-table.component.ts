@@ -49,6 +49,7 @@ export class CrudTableComponent<T extends BaseDataTableRowData> {
   addFormTemplate = input<TemplateRef<unknown> | undefined>()
   rowClickable = input<boolean>(true)
 
+  addItemTooltip = input('Add Item');
 
   deleteItem = output<T>()
 

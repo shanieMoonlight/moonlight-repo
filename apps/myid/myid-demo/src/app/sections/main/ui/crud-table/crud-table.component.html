@@ -8,6 +8,7 @@
    [rowClickable]="rowClickable() && !!updateFormTemplate()"
    [canAddItem]="!!addFormTemplate()"
    [loading]="loading()"
+   [addItemTooltip]="addItemTooltip()"
    (rowClick)="onRowClick($event)"/>
    
   @if (updateFormTemplate(); as updateFormTemplate) {

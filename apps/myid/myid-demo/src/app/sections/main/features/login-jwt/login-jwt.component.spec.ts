@@ -7,7 +7,7 @@ import { Directive, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { LoginService } from '../../../../shared/auth/services/login/login.service';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { LoginJwtComponent } from './login-jwt.component';
@@ -96,7 +96,7 @@ describe('LoginJwtComponent', () => {
         { provide: AccountIoService, useValue: mockAccountIoService },
         { provide: LoginService, useValue: mockLoginService },
         { provide: SocialAuthService, useValue: mockSocialAuth },
-        { provide: AMyIdRouter, useValue: mockRouter },
+        { provide: MyIdRouter, useValue: mockRouter },
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },

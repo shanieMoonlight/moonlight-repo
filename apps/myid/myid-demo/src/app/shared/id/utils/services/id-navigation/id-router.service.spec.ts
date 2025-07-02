@@ -4,8 +4,14 @@ import { MyIdRouteInfo } from '../../my-id-route-info';
 import { TestBed } from '@angular/core/testing';
 
 // Mocks
+const navigateByUrlMock = jest.fn();
+const createUrlTreeMock = jest.fn();
 const navigateMock = jest.fn();
-const routerMock = { navigate: navigateMock } as unknown as Router;
+const routerMock = {
+  navigate: navigateMock,
+  navigateByUrl: navigateByUrlMock,
+  createUrlTree: createUrlTreeMock,
+} as unknown as Router;
 const actRouteMock = {} as ActivatedRoute;
 
 jest.mock('@angular/router', () => ({
@@ -24,6 +30,8 @@ describe('MyIdFallbackRouter', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    createUrlTreeMock.mockImplementation((commands, opts) => ({ commands, opts }));
+    navigateByUrlMock.mockResolvedValue(true);
     TestBed.configureTestingModule({
       providers: [
         { provide: Router, useValue: routerMock },
@@ -35,41 +43,68 @@ describe('MyIdFallbackRouter', () => {
   });
 
   it('should navigate to login', () => {
+    const urlTree = { commands: ['../login'], opts: { relativeTo: actRouteMock } };
+    createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToLogin();
-    expect(navigateMock).toHaveBeenCalledWith(['../login'], { relativeTo: actRouteMock });
+    expect(createUrlTreeMock).toHaveBeenCalledWith(['../login'], { relativeTo: actRouteMock });
+    expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
   it('should navigate to change password', () => {
+    const urlTree = { commands: ['../change-pwd'], opts: { relativeTo: actRouteMock } };
+    createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToChPwd();
-    expect(navigateMock).toHaveBeenCalledWith(['../change-pwd'], { relativeTo: actRouteMock });
+    expect(createUrlTreeMock).toHaveBeenCalledWith(['../change-pwd'], { relativeTo: actRouteMock });
+    expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
   it('should navigate to verify-2-factor with token', () => {
     const token = 'abc123';
+    const urlTree = {
+      commands: ['../verify-2-factor'],
+      opts: {
+        relativeTo: actRouteMock,
+        queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token },
+      },
+    };
+    createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToVerify(token);
-    expect(navigateMock).toHaveBeenCalledWith(
+    expect(createUrlTreeMock).toHaveBeenCalledWith(
       ['../verify-2-factor'],
       {
         relativeTo: actRouteMock,
         queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token },
       }
     );
+    expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
   it('should navigate to verify-2-factor without token', () => {
+    const urlTree = {
+      commands: ['../verify-2-factor'],
+      opts: {
+        relativeTo: actRouteMock,
+        queryParams: {},
+      },
+    };
+    createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToVerify();
-    expect(navigateMock).toHaveBeenCalledWith(
+    expect(createUrlTreeMock).toHaveBeenCalledWith(
       ['../verify-2-factor'],
       {
         relativeTo: actRouteMock,
         queryParams: {},
       }
     );
+    expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
   it('should navigate to home', () => {
+    const urlTree = { commands: ['/'], opts: { relativeTo: actRouteMock } };
+    createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToHome();
-    expect(navigateMock).toHaveBeenCalledWith(['/' ], { relativeTo: actRouteMock });
+    expect(createUrlTreeMock).toHaveBeenCalledWith(['/' ], { relativeTo: actRouteMock });
+    expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
   it('should call navigate with commands and options', () => {

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ConfirmEmailComponent } from './confirm-email.component';
 import { ConfirmEmailStateService } from './confirm-email.state.service';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { signal } from '@angular/core';
 
 
@@ -61,7 +61,7 @@ describe('ConfirmEmailComponent', () => {
         provideHttpClientTesting(),
         { provide: ConfirmEmailStateService, useValue: mockStateService },
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: AMyIdRouter, useValue: mockRouter }
+        { provide: MyIdRouter, useValue: mockRouter }
       ]
     }).compileComponents();
 

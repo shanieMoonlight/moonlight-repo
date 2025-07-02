@@ -6,7 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 //#############################//
 
@@ -29,7 +29,7 @@ describe('LoginJwtStateService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: AMyIdRouter, useValue: mockRouter },
+        { provide: MyIdRouter, useValue: mockRouter },
         LoginJwtStateService
       ]
     });

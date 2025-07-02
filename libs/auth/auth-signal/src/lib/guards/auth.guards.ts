@@ -23,14 +23,12 @@ export function createCustomGuard<T extends BaseAuthSignalService>(
         const authService = inject(serviceToken);
         const router = redirectUrl ? inject(Router) : null;
 
-        const hasAccess = checkFn(authService);
-
-        if (!hasAccess && router) {
-            router.navigate([redirectUrl]);
-            return false;
-        }
-
-        return hasAccess;
+        // If redirectUrl is provided, return a UrlTree for declarative redirect
+        if (!checkFn(authService) && router) 
+            return router.createUrlTree([redirectUrl])
+        
+        // Otherwise, allow navigation if check passes
+        return checkFn(authService);
     };
 }
 

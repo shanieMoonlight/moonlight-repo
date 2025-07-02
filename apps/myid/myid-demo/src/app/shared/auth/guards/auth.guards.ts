@@ -11,34 +11,19 @@ import { MyIdAuthService } from '../services/auth/myid-auth.browser.service';
  * @param checkFn Custom function to determine access
  * @returns CanActivateFn
  */
-export function createMyIdCustomGuard(checkFn: (authService: MyIdAuthService) => boolean
-): CanActivateFn {
+export function createMyIdCustomGuard(checkFn: (authService: MyIdAuthService) => boolean)
+    : CanActivateFn {
     return () => {
         const authService = inject(MyIdAuthService);
         const router = inject(MyIdRouter)
 
-        const hasAccess = checkFn(authService);
-
-        return !hasAccess || router.navigateToLogin();
+        return checkFn(authService) || router.createLoginUrlTree();
     };
 }
 
 
 //-------------------------//
 
-
-/**
- * Generic function to create auth guards that work with any BaseAuthSignalService implementation
- * @returns CanActivateFn
- */
-export function myIdLoggedInGuard(): CanActivateFn {
-    return createMyIdCustomGuard(
-        (authService) => authService.isLoggedIn()
-    );
-}
-
-
-//-------------------------//
 
 
 /**
@@ -111,13 +96,21 @@ export function createMyIdAllRolesGuard(requiredRoles: string[]): CanActivateFn 
 
 //-------------------------//
 
-
 /**
  * Generic function to create email verification guards
  * @returns CanActivateFn
  */
-export function myIdEmailVerifiedGuard(): CanActivateFn {
-    return createMyIdCustomGuard(
-        (authService) => authService.isLoggedIn() && authService.emailVerified()
-    );
-}
+export const myIdEmailVerifiedGuard: CanActivateFn = createMyIdCustomGuard(
+    (authService) => authService.isLoggedIn()&& authService.emailVerified())
+
+//-------------------------//
+
+/**
+ * Generic function to create auth guards that work with any BaseAuthSignalService implementation
+ * @returns CanActivateFn
+ */
+export const myIdLoggedInGuard: CanActivateFn = createMyIdCustomGuard(
+    (authService) => authService.isLoggedIn());
+
+
+//-------------------------//

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { PLATFORM_ID, signal, Type } from '@angular/core';
 import { BaseAuthSignalService } from '../base-auth.signal.service';
 import { JwtPayload } from '../jwt/jwt-payload';
@@ -14,16 +14,16 @@ import {
 } from './auth.guards';
 
 // Mock auth service for testing
-class MockAuthService{
+class MockAuthService {
 
     private _isLoggedIn = signal(false);
     private _roles = signal<string[]>([]);
     private _emailVerified = signal(false);
     private _claims = signal<Record<string, unknown>>({});
 
-     isLoggedIn = this._isLoggedIn.asReadonly();
-     roles = this._roles.asReadonly();
-     emailVerified = this._emailVerified.asReadonly();
+    isLoggedIn = this._isLoggedIn.asReadonly();
+    roles = this._roles.asReadonly();
+    emailVerified = this._emailVerified.asReadonly();
 
     // Test helpers
     setLoggedIn(value: boolean) { this._isLoggedIn.set(value); }
@@ -31,23 +31,24 @@ class MockAuthService{
     setEmailVerified(value: boolean) { this._emailVerified.set(value); }
     setClaims(claims: Record<string, unknown>) { this._claims.set(claims); }
 
-     hasRole = (role: string): boolean => {
+    hasRole = (role: string): boolean => {
         return this.roles().includes(role);
     }
 
-     hasClaim = (claimType: string, value: unknown): boolean => {
+    hasClaim = (claimType: string, value: unknown): boolean => {
         return this._claims()[claimType] === value;
     }
 
-    protected  storeJwt(): Promise<void> { return Promise.resolve(); }
-    protected  removeJwt(): Promise<void> { return Promise.resolve(); }
-    protected  getStoredToken(): Promise<string | null> { return Promise.resolve(null); }
-    protected  logError(): void {
+    protected storeJwt(): Promise<void> { return Promise.resolve(); }
+    protected removeJwt(): Promise<void> { return Promise.resolve(); }
+    protected getStoredToken(): Promise<string | null> { return Promise.resolve(null); }
+    protected logError(): void {
         // Empty implementation for testing
     }
 }
 
 describe('Auth Guards', () => {
+    const mockUrlTree = Symbol('mockUrlTree') as unknown as UrlTree;
     let mockAuthService: MockAuthService;
     let mockRouter: jest.Mocked<Router>;
     let mockRoute: ActivatedRouteSnapshot;
@@ -57,6 +58,7 @@ describe('Auth Guards', () => {
         mockAuthService = new MockAuthService();
         mockRouter = {
             navigate: jest.fn().mockResolvedValue(true),
+            createUrlTree: jest.fn().mockReturnValue(mockUrlTree),
         } as unknown as jest.Mocked<Router>;
 
         mockRoute = {} as ActivatedRouteSnapshot;
@@ -209,7 +211,7 @@ describe('Auth Guards', () => {
             expect(result).toBe(false);
         });
 
-        it('should redirect when custom check fails and redirect URL is provided', () => {
+        it('should return correct UrlTree when custom check fails and redirect URL is provided', () => {
             mockAuthService.setLoggedIn(false);
 
             const customCheck = (authService: BaseAuthSignalService) =>
@@ -217,8 +219,8 @@ describe('Auth Guards', () => {
 
             const guard = createCustomGuard(MockAuthService as unknown as Type<BaseAuthSignalService>, customCheck, '/login');
             const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(false);
-            expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
+            expect(result).toBe(mockUrlTree);
+            expect(mockRouter.createUrlTree).toHaveBeenCalledWith(['/login']);
         });
     });
 });

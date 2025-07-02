@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 
 //#############################//
 
@@ -29,7 +29,7 @@ describe('EmailConfirmedCardComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: AMyIdRouter, useValue: mockRouter }
+        { provide: MyIdRouter, useValue: mockRouter }
       ]
     }).compileComponents();
 

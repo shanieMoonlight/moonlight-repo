@@ -6,7 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Directive, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, Subject } from 'rxjs';
-import { AMyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { LoginCkiComponent } from './login-cki.component';
 import { LoginCkiStateService } from './login-cki.state.service';
 import { ActivatedRoute } from '@angular/router';
@@ -79,7 +79,7 @@ describe('LoginCkiComponent', () => {
       providers: [
         { provide: LoginCkiStateService, useValue: mockStateService },
         { provide: SocialAuthService, useValue: mockSocialAuth },
-        { provide: AMyIdRouter, useValue: mockRouter },
+        { provide: MyIdRouter, useValue: mockRouter },
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: mockActRoute },
