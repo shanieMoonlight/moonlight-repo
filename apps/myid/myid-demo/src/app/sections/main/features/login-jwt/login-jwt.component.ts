@@ -1,5 +1,6 @@
 import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
 import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
@@ -23,11 +24,12 @@ import { LoginJwtStateService } from './login-jwt.state.service';
   styleUrl: './login-jwt.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginJwtComponent implements OnInit {
+export class LoginJwtComponent implements OnInit, OnDestroy {
 
   private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
+  private _destroyRef = inject(DestroyRef)
 
   //- - - - - - - - - - - - - //
 
@@ -44,7 +46,7 @@ export class LoginJwtComponent implements OnInit {
 
     effect(() => {
       if (this._state.loginSuccess()) {
-        devConsole.log('LoginJwtComponent: loginSuccess effect triggered',this._state.redirectUrl());
+        devConsole.log('LoginJwtComponent: loginSuccess effect triggered', this._state.redirectUrl());
         const redirectUrl = this._state.redirectUrl();
         if (redirectUrl)
           this._router.navigate([redirectUrl])
@@ -59,12 +61,22 @@ export class LoginJwtComponent implements OnInit {
         this._router.navigateToVerify(data.token, data.provider);
     });
   }
+  ngOnDestroy(): void {
+    console.log('LoginJwtComponent.ngOnDestroy: Cleaning up resources');
+  }
 
 
   ngOnInit() {
-    this._socialAuth.authState.subscribe((socialUser) => {
-      this._state.loginGoogle(socialUser)
-    })
+    this._socialAuth.authState
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((socialUser) => {
+        if (socialUser) {
+          this._state.loginGoogle(socialUser);
+          // Sign out from the social provider after using the token. We're storing a JWT token in the backend, 
+          // so we don't need to keep the user signed in on the social provider.
+          this._socialAuth.signOut();
+        }
+      })
   }
 
   //- - - - - - - - - - - - - //

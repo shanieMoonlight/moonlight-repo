@@ -1,5 +1,5 @@
 import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { LoginDto } from '@spider-baby/myid-io/models';
 import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
 import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
@@ -7,6 +7,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
 import { LoginCkiStateService } from './login-cki.state.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'sb-login-cki',
@@ -27,6 +28,7 @@ export class LoginCkiComponent implements OnInit {
   private _state = inject(LoginCkiStateService)
   private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
+  private _destroyRef = inject(DestroyRef)
 
   //- - - - - - - - - - - - - //
 
@@ -52,7 +54,7 @@ export class LoginCkiComponent implements OnInit {
     })
 
     effect(() => {
-      const data = this._state.twoFactorData();      
+      const data = this._state.twoFactorData();
       if (data)
         this._router.navigateToVerify(undefined, data.provider);
     });
@@ -61,9 +63,16 @@ export class LoginCkiComponent implements OnInit {
 
 
   ngOnInit() {
-    this._socialAuth.authState.subscribe((socialUser) => {
-      this._state.loginGoogleCookie(socialUser)
-    });
+    this._socialAuth.authState
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((socialUser) => {
+        if (socialUser) {
+          this._state.loginGoogleCookie(socialUser);
+          // Sign out from the social provider after using the token. We're storing a JWT token in the backend, 
+          // so we don't need to keep the user signed in on the social provider.
+          this._socialAuth.signOut();
+        }
+      })
   }
 
 

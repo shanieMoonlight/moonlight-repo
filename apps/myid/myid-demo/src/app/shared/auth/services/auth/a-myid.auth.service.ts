@@ -20,10 +20,10 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
 
     isLdr = computed(() => this.hasRole(MyIdRoleValues.TEAM_LEADER));
 
-    isUser = computed(() => this.hasPosition(TeamPositions.USER));
-    isMgr = computed(() => this.hasPosition(TeamPositions.MGR));
-    isAdmin = computed(() => this.hasPosition(TeamPositions.ADMIN));
-    isGuest = computed(() => this.hasPosition(TeamPositions.GUEST));
+    isUser = computed(() => this.hasPosition(TeamPositions.USER.value));
+    isMgr = computed(() => this.hasPosition(TeamPositions.MGR.value));
+    isAdmin = computed(() => this.hasPosition(TeamPositions.ADMIN.value));
+    isGuest = computed(() => this.hasPosition(TeamPositions.GUEST.value));
 
     teamId = computed(() => this.getClaimValue('myid.team_id') ?? '');
     teamType = computed(() => this.getClaimValue('myid.team_type') ?? '');
@@ -33,6 +33,7 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     //----------- SUPER TEAM ----------//    
 
     isSprLdr = computed(() => this.isSpr() && this.isLdr());
+    isSprPosition = (position: number) => computed(() => this.isSpr() && this.hasPosition(position));
 
     isSprAdmin = computed(() => this.isSpr() && this.isAdmin());
     isSprMgr = computed(() => this.isSpr() && this.isMgr());
@@ -99,8 +100,8 @@ export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayl
     //-------------------//
 
 
-    private hasPosition = (position: TeamPositionInfo) =>
-        this.position() == position.value;
+    private hasPosition = (position: number) =>
+        this.position() == position;
 
 
     //-------------------//
