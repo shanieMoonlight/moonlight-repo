@@ -1,26 +1,26 @@
 import { CanActivateFn } from '@angular/router';
-import { createMyIdCustomGuard } from './core-auth-guards';
+import { createUserMgrAdminCustomGuard } from './core-auth-guards';
 
 // Guards for minimums: isSprAdminMinimum, isMntcUserMinimum, etc.
 
-export const myIdIsSprAdminMinimumGuard: CanActivateFn = createMyIdCustomGuard(
+export const sprAdminMinimumGuard: CanActivateFn = createUserMgrAdminCustomGuard(
     (authService) => authService.isSuperAdminMinimum()
 );
 
 //-------------------//
 
-export const myIdIsSprMgrMinimumGuard: CanActivateFn = createMyIdCustomGuard(
+export const sprMgrMinimumGuard: CanActivateFn = createUserMgrAdminCustomGuard(
     (authService) => authService.isSuperMgrMinimum()
 );
 
 //-------------------//
 
-export const myIdIsMntcUserMinimumGuard: CanActivateFn = createMyIdCustomGuard(
+export const mntcUserMinimumGuard: CanActivateFn = createUserMgrAdminCustomGuard(
     (authService) => authService.isMntcUserMinimum()
 );
 
 //-------------------//
 
-export const myIdIsCusLdrMinimumGuard: CanActivateFn = createMyIdCustomGuard(
+export const cusLdrMinimumGuard: CanActivateFn = createUserMgrAdminCustomGuard(
     (authService) => authService.isCusLdrMinimum()
 );

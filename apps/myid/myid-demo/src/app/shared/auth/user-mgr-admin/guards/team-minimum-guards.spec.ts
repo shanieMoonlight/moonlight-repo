@@ -1,17 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
-import { positionGuard, positionRangeGuard, positionMinimumGuard, leaderGuard } from './team-position-guards';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { of } from 'rxjs';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
+import { cusLdrMinimumGuard, mntcUserMinimumGuard, sprAdminMinimumGuard, sprMgrMinimumGuard } from './team-minimum-guards';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
-
-
 
 const mockActRoute = {
   queryParamMap: of({ get: () => null })
-}
+};
 
-describe('Position/Range Guards', () => {
+describe('Team Minimum Guards', () => {
   let mockAuthService: MockMyIdAuthService;
   let mockRouter: jest.Mocked<Router>;
   let mockUrlTree: UrlTree;
@@ -37,73 +35,64 @@ describe('Position/Range Guards', () => {
     });
   });
 
-  describe('myIdHasPositionGuard', () => {
-    it('allows activation if user has position', () => {
-      mockAuthService.hasPosition.mockReturnValue(true);
-      mockAuthService.position.set(2);
-      const guard = positionGuard(2);
+  describe('myIdIsSuperAdminMinimumGuard', () => {
+    it('allows activation if isSuperAdminMinimum is true', () => {
+      mockAuthService.isSuperAdminMinimum.set(true);
+      const guard = sprAdminMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
-
-    it('redirects if user does not have position', () => {
-      mockAuthService.position.set(0);
-      let guard = positionGuard(2);
-      let result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-      mockAuthService.position.set(5);
-       guard = positionGuard(2);
-       result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-    });
-  });
-
-  describe('myIdHasPositionRangeGuard', () => {
-    it('allows activation if user has position in range', () => {
-      mockAuthService.position.set(2);
-      const guard = positionRangeGuard(1, 3);
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
-    });
-
-    it('redirects if user does not have position in range', () => {
-      mockAuthService.position.set(5);
-      const guard = positionRangeGuard(1, 3);
+    it('redirects if isSuperAdminMinimum is false', () => {
+      mockAuthService.isSuperAdminMinimum.set(false);
+      const guard = sprAdminMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
 
-  describe('myIdHasPositionMinimumGuard', () => {
-    it('allows activation if user has position >= minimum', () => {
-      mockAuthService.position.set(5);
-      const guard = positionMinimumGuard(3);
+  describe('myIdIsSuperMgrMinimumGuard', () => {
+    it('allows activation if isSuperMgrMinimum is true', () => {
+      mockAuthService.isSuperMgrMinimum.set(true);
+      const guard = sprMgrMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
-
-    it('redirects if user has position < minimum', () => {
-      mockAuthService.position.set(2);
-      const guard = positionMinimumGuard(3);
+    it('redirects if isSuperMgrMinimum is false', () => {
+      mockAuthService.isSuperMgrMinimum.set(false);
+      const guard = sprMgrMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
 
-  
-  describe('isLeaderGuard', () => {
-    it('allows activation if user is leader', () => {
-      mockAuthService.isLdr.set(true);
-      const guard = leaderGuard;
+  describe('myIdIsMntcUserMinimumGuard', () => {
+    it('allows activation if isMntcUserMinimum is true', () => {
+      mockAuthService.isMntcUserMinimum.set(true);
+      const guard = mntcUserMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
+    it('redirects if isMntcUserMinimum is false', () => {
+      mockAuthService.isMntcUserMinimum.set(false);
+      const guard = mntcUserMinimumGuard;
+      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+      expect(result).toBe(mockUrlTree);
+      expect(mockRouter.createUrlTree).toHaveBeenCalled();
+    });
+  });
 
-    it('redirects if user is NOT leader', () => {
-      mockAuthService.isLdr.set(false);
-      const guard = leaderGuard;
+  describe('myIdIsCusLdrMinimumGuard', () => {
+    it('allows activation if isCusLdrMinimum is true', () => {
+      mockAuthService.isCusLdrMinimum.set(true);
+      const guard = cusLdrMinimumGuard;
+      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+      expect(result).toBe(true);
+    });
+    it('redirects if isCusLdrMinimum is false', () => {
+      mockAuthService.isCusLdrMinimum.set(false);
+      const guard = cusLdrMinimumGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();

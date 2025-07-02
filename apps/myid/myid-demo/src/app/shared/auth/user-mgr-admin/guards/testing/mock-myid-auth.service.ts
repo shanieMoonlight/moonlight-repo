@@ -1,5 +1,5 @@
 import { signal, computed, Signal } from '@angular/core';
-import { IMyIdAuthService } from '../../services/auth/i-myid.auth.service';
+import { IMyIdAuthService } from '../../../services/auth/i-myid.auth.service';
 
 // Minimal role/position values for testing
 export const MockRoleValues = {
@@ -44,8 +44,8 @@ export class MockMyIdAuthService implements IMyIdAuthService {
   isCustomer = signal<boolean>(false);
 
   isSuperLdr = signal<boolean>(false);
-  isSuperPosition = (position: number) => computed(() => this.isSuper() && this.hasPosition(position));
-  isSuperPositionMinimum = (position: number) =>  computed(() => this.isSuper() && this.hasPositionOrHigher(position));
+  isSuperPosition = (position: number) => signal<boolean>(false);
+  isSuperPositionMinimum = (position: number): Signal<boolean> => signal<boolean>(false);
 
   isSuperAdmin = signal<boolean>(false);
   isSuperMgr = signal<boolean>(false);
@@ -112,7 +112,4 @@ export class MockMyIdAuthService implements IMyIdAuthService {
   getClaimValue = jest.fn((key: string) => this.claims()[key]);
   getTeamPositionValue = jest.fn(() => this.position());
   hasPosition = jest.fn((pos: number) => this.position() === pos);
-
- hasPositionOrHigher = (position: number) =>
-        this.position() >= position;
 }

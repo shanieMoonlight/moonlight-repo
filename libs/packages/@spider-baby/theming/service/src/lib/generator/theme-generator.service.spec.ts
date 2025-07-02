@@ -522,7 +522,7 @@ describe('ThemeGeneratorService', () => {
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-on-primary-rgb', mockPalettes.primary['100']);
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-surface-rgb', mockPalettes.neutral['99']);
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-on-surface-rgb', mockPalettes.neutral['10']);
-      expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledTimes(9); // 9 RGB variables are set
+      expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledTimes(17); // 9 RGB variables are set
     });
 
     it('should call colorUtils.setRGBVariable for RGB variables (dark)', () => {
@@ -532,7 +532,7 @@ describe('ThemeGeneratorService', () => {
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-on-primary-rgb', mockPalettes.primary['20']);
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-surface-rgb', mockPalettes.neutral['6']);
       expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledWith(mockElement, '--mat-sys-on-surface-rgb', mockPalettes.neutral['90']);
-      expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledTimes(9); // 9 RGB variables are set
+      expect(colorUtilsMock.setRGBVariable).toHaveBeenCalledTimes(17); // 9 RGB variables are set
     });
   });
 

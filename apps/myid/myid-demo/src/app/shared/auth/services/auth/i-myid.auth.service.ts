@@ -1,65 +1,39 @@
 import { Signal } from '@angular/core';
 
 
-
+//Helps with testing and mocking
 export interface IMyIdAuthService {
-  // Signals and computed properties
-  isSuper: Signal<boolean>;
-  isMntc: Signal<boolean>;
-  isCustomer: Signal<boolean>;
+  // Signals and computed properties (generic only)
   isLdr: Signal<boolean>;
-  isUser: Signal<boolean>;
-  isMgr: Signal<boolean>;
-  isAdmin: Signal<boolean>;
-  isGuest: Signal<boolean>;
   teamId: Signal<string>;
   teamType: Signal<string>;
   position: Signal<number>;
+
+  isSuper: Signal<boolean>;
+  isMntc: Signal<boolean>;
+  isCustomer: Signal<boolean>;
   isSuperLdr: Signal<boolean>;
-  isSuperAdmin: Signal<boolean>;
-  isSuperMgr: Signal<boolean>;
-  isSuperUser: Signal<boolean>;
-  isSuperGuest: Signal<boolean>;
+  isSuperPosition(position: number): Signal<boolean>;
   isMntcLdr: Signal<boolean>;
-  isMntcAdmin: Signal<boolean>;
-  isMntcMgr: Signal<boolean>;
-  isMntcUser: Signal<boolean>;
-  isMntcGuest: Signal<boolean>;
+  isMntcPosition(position: number): Signal<boolean>;
   isCusLdr: Signal<boolean>;
-  isCusAdmin: Signal<boolean>;
-  isCusMgr: Signal<boolean>;
-  isCusUser: Signal<boolean>;
-  isCusGuest: Signal<boolean>;
-  isSuperLdrMinimum: Signal<boolean>;
-  isSuperAdminMinimum: Signal<boolean>;
-  isSuperMgrMinimum: Signal<boolean>;
-  isSuperUserMinimum: Signal<boolean>;
-  isSuperGuestMinimum: Signal<boolean>;
+  isCusPosition(position: number): Signal<boolean>;
+  isSuperPositionMinimum(position: number): Signal<boolean>;
   isSuperMinimum: Signal<boolean>;
   isMntcLdrMinimum: Signal<boolean>;
-  isMntcAdminMinimum: Signal<boolean>;
-  isMntcMgrMinimum: Signal<boolean>;
-  isMntcUserMinimum: Signal<boolean>;
-  isMntcGuestMinimum: Signal<boolean>;
+  isMntcPositionMinimum(position: number): Signal<boolean>;
   isMntcMinimum: Signal<boolean>;
   isCusLdrMinimum: Signal<boolean>;
-  isCusAdminMinimum: Signal<boolean>;
-  isCusMgrMinimum: Signal<boolean>;
-  isCusUserMinimum: Signal<boolean>;
-  isCusGuestMinimum: Signal<boolean>;
+  isCusPositionMinimum(position: number): Signal<boolean>;
   isCusMinimum: Signal<boolean>;
   isMntcOrDev: Signal<boolean>;
   isMntcMinimumOrDev: Signal<boolean>;
   isSuperOrDev: Signal<boolean>;
   isSuperMinimumOrDev: Signal<boolean>;
 
-  // Parameterized computed properties
-  isSuperPosition(position: number): Signal<boolean>;
-  isMntcPosition(position: number): Signal<boolean>;
-
   // Methods
   hasTeamTypeClaim(type: string): boolean;
-  getTeamPositionValue(): number;
+  getPositionValue(): number;
   hasClaim(claimType: string, value: unknown): boolean;
   hasRole(role: string): boolean;
 }

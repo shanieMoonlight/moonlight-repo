@@ -18,7 +18,7 @@ export function createMyIdCustomGuard<T extends AMyIdAuthService = AMyIdAuthServ
   };
 }
 
-  //-------------------//
+//-------------------//
 
 export function createMyIdRoleGuard(requiredRole: string, authServiceToken: InjectionToken<AMyIdAuthService> = MY_ID_AUTH_SERVICE_TOKEN): CanActivateFn {
   return createMyIdCustomGuard(
@@ -27,7 +27,7 @@ export function createMyIdRoleGuard(requiredRole: string, authServiceToken: Inje
   );
 }
 
-  //-------------------//
+//-------------------//
 
 export function createMyIdClaimGuard<K extends keyof MyIdJwtPayload>(
   claimType: K,
@@ -40,9 +40,12 @@ export function createMyIdClaimGuard<K extends keyof MyIdJwtPayload>(
   );
 }
 
-  //-------------------//
+//-------------------//
 
-export function createMyIdAnyRoleGuard(requiredRoles: string[], authServiceToken: InjectionToken<AMyIdAuthService> = MY_ID_AUTH_SERVICE_TOKEN): CanActivateFn {
+export function createMyIdAnyRoleGuard(
+  requiredRoles: string[],
+  authServiceToken: InjectionToken<AMyIdAuthService> = MY_ID_AUTH_SERVICE_TOKEN)
+  : CanActivateFn {
   return createMyIdCustomGuard(
     (authService) => {
       const userRoles = authService.roles();
@@ -52,9 +55,12 @@ export function createMyIdAnyRoleGuard(requiredRoles: string[], authServiceToken
   );
 }
 
-  //-------------------//
+//-------------------//
 
-export function createMyIdAllRolesGuard(requiredRoles: string[], authServiceToken: InjectionToken<AMyIdAuthService> = MY_ID_AUTH_SERVICE_TOKEN): CanActivateFn {
+export function createMyIdAllRolesGuard(
+  requiredRoles: string[],
+  authServiceToken: InjectionToken<AMyIdAuthService> = MY_ID_AUTH_SERVICE_TOKEN)
+  : CanActivateFn {
   return createMyIdCustomGuard(
     (authService) => {
       const userRoles = authService.roles();
@@ -64,17 +70,16 @@ export function createMyIdAllRolesGuard(requiredRoles: string[], authServiceToke
   );
 }
 
-  //-------------------//
+//-------------------//
 
-export const myIdEmailVerifiedGuard: CanActivateFn = createMyIdCustomGuard(
+export const emailVerifiedGuard = createMyIdCustomGuard(
   (authService) => authService.isLoggedIn() && authService.emailVerified()
 );
 
-  //-------------------//
+//-------------------//
 
-export const myIdLoggedInGuard: CanActivateFn = createMyIdCustomGuard(
+export const loggedInGuard = createMyIdCustomGuard(
   (authService) => {
-    console.log('myIdLoggedInGuard check', authService.isLoggedIn());
     return authService.isLoggedIn();
   }
 );

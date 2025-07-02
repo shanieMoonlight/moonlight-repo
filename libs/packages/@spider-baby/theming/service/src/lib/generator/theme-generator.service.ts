@@ -215,13 +215,13 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-on-error', palettes.error[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-error-container', palettes.error[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-error-container', palettes.error[isDark ? 90 : 10]);
-    
+
     // M3 colors - Neutral
     this.setVariable(targetElement, '--mat-sys-neutral', palettes.neutral[isDark ? 80 : 40]);
     this.setVariable(targetElement, '--mat-sys-on-neutral', palettes.neutral[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-neutral-container', palettes.neutral[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-neutral-container', palettes.neutral[isDark ? 90 : 10]);
-    
+
     // M3 colors - NeutralVariant
     this.setVariable(targetElement, '--mat-sys-neutral-variant', palettes.neutralVariant[isDark ? 80 : 40]);
     this.setVariable(targetElement, '--mat-sys-on-neutral-variant', palettes.neutralVariant[isDark ? 20 : 100]);
@@ -317,20 +317,22 @@ export class ThemeGeneratorService {
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-secondary-rgb', p.secondary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-secondary-rgb', p.secondary[isDark ? 20 : 100]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-secondary-rgb', p.secondary[isDark ? 30 : 90]);
-    
+
     // Tertiary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-rgb', p.tertiary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-tertiary-rgb', p.tertiary[isDark ? 20 : 100]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-container-rgb', p.tertiary[isDark ? 30 : 90]);
 
-    // Surface colors
-    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
-    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
-
     // Error colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-error-rgb', p.error[isDark ? 20 : 100]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-container-rgb', p.error[isDark ? 30 : 90]);
+
+    // Surface colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-container', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
 
     // Background
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])

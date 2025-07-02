@@ -5,8 +5,8 @@ import {
   createMyIdClaimGuard,
   createMyIdAnyRoleGuard,
   createMyIdAllRolesGuard,
-  myIdEmailVerifiedGuard,
-  myIdLoggedInGuard,
+  emailVerifiedGuard,
+  loggedInGuard,
   createMyIdCustomGuard
 } from './core-auth-guards';
 import { of } from 'rxjs';
@@ -50,13 +50,13 @@ describe('Core Auth Guards', () => {
   describe('myIdLoggedInGuard', () => {
     it('allows activation if logged in', () => {
       mockAuthService.isLoggedIn.set(true);
-      const guard = myIdLoggedInGuard;
+      const guard = loggedInGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
     it('redirects if not logged in', () => {
       mockAuthService.isLoggedIn.set(false);
-      const guard = myIdLoggedInGuard;
+      const guard = loggedInGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
       expect(mockMyIdRouter.createLoginUrlTree).toHaveBeenCalled();
@@ -67,14 +67,14 @@ describe('Core Auth Guards', () => {
     it('allows activation if logged in and email verified', () => {
       mockAuthService.isLoggedIn.set(true);
       mockAuthService.emailVerified.set(true);
-      const guard = myIdEmailVerifiedGuard;
+      const guard = emailVerifiedGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(true);
     });
     it('redirects if not logged in or email not verified', () => {
       mockAuthService.isLoggedIn.set(false);
       mockAuthService.emailVerified.set(false);
-      const guard = myIdEmailVerifiedGuard;
+      const guard = emailVerifiedGuard;
       const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
       expect(result).toBe(mockUrlTree);
       expect(mockMyIdRouter.createLoginUrlTree).toHaveBeenCalled();

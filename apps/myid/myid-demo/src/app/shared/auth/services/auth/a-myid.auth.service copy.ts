@@ -1,14 +1,13 @@
-import { computed, Directive, Signal } from '@angular/core';
+import { computed, Directive } from '@angular/core';
 import { BaseAuthSignalService } from '@spider-baby/auth-signal';
 import { TeamType } from '@spider-baby/myid-io/models';
 import { TeamPositions } from '../../../id/utils/team-position-info';
 import { MyIdRoleValues } from '../../claims/role-values';
 import { MyIdJwtPayload } from './myid-jwt-payload';
-import { IMyIdAuthService } from './i-myid.auth.service';
 
 
 @Directive({})
-export abstract class AMyIdAuthService0 extends BaseAuthSignalService<MyIdJwtPayload> implements IMyIdAuthService {
+export abstract class AMyIdAuthService0 extends BaseAuthSignalService<MyIdJwtPayload>{//implements IMyIdAuthService {
 
     //------------- TEAMS -------------//    
 
@@ -28,7 +27,7 @@ export abstract class AMyIdAuthService0 extends BaseAuthSignalService<MyIdJwtPay
 
     teamId = computed(() => this.getClaimValue('myid.team_id') ?? '');
     teamType = computed(() => this.getClaimValue('myid.team_type') ?? '');
-    position = computed(() => this.getTeamPositionValue());
+    position = computed(() => this.getPositionValue());
 
 
     //----------- SUPER TEAM ----------//    
@@ -120,7 +119,7 @@ export abstract class AMyIdAuthService0 extends BaseAuthSignalService<MyIdJwtPay
     hasTeamTypeClaim = (type: TeamType): boolean =>
         this.hasClaim('myid.team_type', type)
 
-    getTeamPositionValue = () => {
+    getPositionValue = () => {
         const posStr = this.getClaimValue("myid.team_position") ?? '';
         const posNum = Number(posStr);
         return Number.isNaN(posNum) ? -1 : posNum;
