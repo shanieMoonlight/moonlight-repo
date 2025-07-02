@@ -1,8 +1,9 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
-import { superGuard, superLdrGuard, superMinimumGuard, superMinimumOrDevGuard, superOrDevGuard, superPositionGuard, superPositionMinimumGuard, superPositionRangeGuard } from './super-team-guards';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
+import { superGuard, superLdrGuard, superMinimumGuard, superMinimumOrDevGuard, superOrDevGuard, superPositionGuard, superPositionMinimumGuard, superPositionRangeGuard } from './super-team-guards';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
 
 const mockActRoute = {
@@ -125,70 +126,41 @@ describe('DevMode/Combined Guards', () => {
 
 //-------------------//
 
+ describe('superPositionGuard', () => {
+        it('allows activation if user has super position', () => {
+            mockAuthService.isSuperPosition.mockReturnValue(signal(true));
+            const guard = superPositionGuard(2);
+            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+            expect(result).toBe(true);
+        });
 
 
-  describe('superPositionGuard', () => {
-    it('allows activation if  user has super position', () => {
-      mockAuthService.hasPosition.mockReturnValue(true);
-      mockAuthService.isSuper.set(true);
-      const guard = superPositionGuard(2);
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+        it('redirects if user does not have super position', () => {
+            const guard = superPositionGuard(2);
+            mockAuthService.isSuperPosition.mockReturnValue(signal(false));
+            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+            expect(result).toBe(mockUrlTree);
+        });
     });
-
-    it('redirects if user does not have super position', () => {
-      const guard = superPositionGuard(2);
-
-      mockAuthService.hasPosition.mockReturnValue(false);//has position
-      mockAuthService.isSuper.set(true);// super
-      let result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-
-      
-      mockAuthService.hasPosition.mockReturnValue(false);//does not have position
-      mockAuthService.isSuper.set(false);// not super
-       result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-      
-      mockAuthService.hasPosition.mockReturnValue(true);//has position
-      mockAuthService.isSuper.set(false);// not super
-       result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-    });
-  });
 
 //-------------------//
 
+    describe('superPositionMinimumGuard', () => {
+        it('allows activation if user has super positionMinimum', () => {
+            mockAuthService.isSuperPositionMinimum.mockReturnValue(signal(true));
+            const guard = superPositionMinimumGuard(2);
+            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+            expect(result).toBe(true);
+        });
 
-  describe('superPositionMinimumGuard', () => {
-    it('allows activation if  user has super positionMinimum', () => {
-      mockAuthService.position.set(5);
-      mockAuthService.isSuper.set(true);
-      const guard = superPositionMinimumGuard(2);
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+
+        it('redirects if user does not have super positionMinimum', () => {
+            const guard = superPositionMinimumGuard(3);
+            mockAuthService.isSuperPositionMinimum.mockReturnValue(signal(false));
+            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
+            expect(result).toBe(mockUrlTree);
+        });
     });
-
-    it('redirects if user does not have super positionMinimum', () => {
-      const guard = superPositionMinimumGuard(3);
-
-      mockAuthService.position.set(2);//below minimum
-      mockAuthService.isSuper.set(true);// super
-      let result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-
-      
-      mockAuthService.position.set(2); //lower than minimum
-      mockAuthService.isSuper.set(false); // not super
-       result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-      
-      mockAuthService.position.set(5); //above minimum
-      mockAuthService.isSuper.set(false);// not super
-       result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
-    });
-  });
 
 //-------------------//
 

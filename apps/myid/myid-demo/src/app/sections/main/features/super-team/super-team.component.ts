@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
 import { SbAddSuperMemberFormComponent } from '../../../../shared/id/ui/forms/add-super-member/add-super-member-form.component';
-import { teamPositionOptions } from '../../../../shared/id/utils/team-position-options';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { tableColumns } from './data-table-columns';
 import { SuperTeamStateService } from './super-team.state.service';
+import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 
 @Component({
   selector: 'sb-super-team',

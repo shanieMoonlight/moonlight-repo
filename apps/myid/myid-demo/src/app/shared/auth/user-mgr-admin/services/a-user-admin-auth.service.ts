@@ -1,6 +1,6 @@
 import { computed } from "@angular/core";
-import { TeamPositions } from "../../../id/utils/team-position-info";
 import { AMyIdAuthService } from "../../services/auth/a-myid.auth.service";
+import { TeamPositions } from "../utils/posiition/team-position-info";
 
 
 // New subclass for app-specific roles
@@ -18,7 +18,7 @@ export abstract class AUserMgrAdminAuthService extends AMyIdAuthService {
     isSuperUser = computed(() => this.isSuper() && this.isUser());
     isSuperGuest = computed(() => this.isSuper() && this.isGuest());
     
-    isSuperAdminMinimum = computed(() => this.isSuperAdmin() || this.isSuperLdrMinimum());
+    isSuperAdminMinimum = computed(() => this.isSuperAdmin() || this.isSuperLdr());
     isSuperMgrMinimum = computed(() => this.isSuperMgr() || this.isSuperAdminMinimum());
     isSuperUserMinimum = computed(() => this.isSuperUser() || this.isSuperMgrMinimum());
     isSuperGuestMinimum = computed(() => this.isSuperGuest() || this.isSuperMgrMinimum());

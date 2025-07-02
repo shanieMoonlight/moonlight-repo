@@ -8,7 +8,6 @@ import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
 import { PasswordValidation, PhoneValidation } from '@spider-baby/utils-forms/validators';
-import { teamPositionOptions } from '../../../utils/team-position-options';
 
 //###########################//
 
@@ -93,7 +92,6 @@ export class SbRegisterCustomerFormComponent {
 
 
     protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
-    protected _teamPositionOptions = teamPositionOptions
 
     protected showPassword = signal(false);
     protected showConfirmPassword = signal(false);

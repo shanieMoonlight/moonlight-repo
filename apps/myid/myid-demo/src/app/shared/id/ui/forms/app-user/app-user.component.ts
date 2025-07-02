@@ -7,7 +7,7 @@ import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent } from "@spider-baby/ui-kit/select";
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
-import { teamPositionOptions } from '../../../utils/team-position-options';
+import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
 
 //##########################//
 

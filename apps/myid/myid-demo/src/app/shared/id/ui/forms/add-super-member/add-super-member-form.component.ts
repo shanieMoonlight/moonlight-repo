@@ -7,7 +7,7 @@ import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@s
 import { AddSuperMemberDto } from '@spider-baby/myid-io/models';
 import { FormControl } from '@angular/forms';
 import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
-import { teamPositionOptions } from '../../../utils/team-position-options';
+import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
 
 //###########################//
 
