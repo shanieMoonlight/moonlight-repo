@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
-import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
+import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
 import { isAdminGuard, isGuestGuard, isMgrGuard, isUserGuard } from './team-position-guards';
 
 
@@ -12,7 +12,7 @@ const mockActRoute = {
 }
 
 describe('Position/Range Guards', () => {
-  let mockAuthService: MockMyIdAuthService;
+  let mockAuthService: MockUserMgrAdminAuthService;
   let mockRouter: jest.Mocked<Router>;
   let mockUrlTree: UrlTree;
   let mockRoute: ActivatedRouteSnapshot;
@@ -20,7 +20,7 @@ describe('Position/Range Guards', () => {
 
   beforeEach(() => {
     mockUrlTree = {} as UrlTree;
-    mockAuthService = new MockMyIdAuthService();
+    mockAuthService = new MockUserMgrAdminAuthService();
     mockRouter = {
       createUrlTree: jest.fn().mockReturnValue(mockUrlTree),
       navigate: jest.fn(),
@@ -30,7 +30,7 @@ describe('Position/Range Guards', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: MockMyIdAuthService, useValue: mockAuthService },
+        { provide: MockUserMgrAdminAuthService, useValue: mockAuthService },
         { provide: MY_ID_AUTH_SERVICE_TOKEN, useValue: mockAuthService },
         { provide: Router, useValue: mockRouter },
       ],

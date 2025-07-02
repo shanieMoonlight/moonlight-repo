@@ -1,6 +1,5 @@
 import { CanActivateFn } from '@angular/router';
 import { createUserMgrAdminCustomGuard } from './core-auth-guards';
-// Guards for positions: isLdr, isAdmin, isUser, isMgr, isGuest, etc.
 
 export const isAdminGuard: CanActivateFn = createUserMgrAdminCustomGuard(
   (authService) => authService.isAdmin()

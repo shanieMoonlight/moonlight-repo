@@ -1,4 +1,4 @@
-import { signal, computed, Signal } from '@angular/core';
+import { signal, Signal } from '@angular/core';
 import { IMyIdAuthService } from '../../../services/auth/i-myid.auth.service';
 
 // Minimal role/position values for testing
@@ -17,7 +17,7 @@ export const MockTeamPositions = {
 };
 
 // Plain mock class for MyIdAuthService/AMyIdAuthService, no extends, no DI
-export class MockMyIdAuthService implements IMyIdAuthService {
+export class MockUserMgrAdminAuthService  {
 
   getPositionValue(): number {
     throw new Error('Method not implemented.');
@@ -44,8 +44,8 @@ export class MockMyIdAuthService implements IMyIdAuthService {
   isCustomer = signal<boolean>(false);
 
   isSuperLdr = signal<boolean>(false);
-  isSuperPosition = (position: number) => signal<boolean>(false);
-  isSuperPositionMinimum = (position: number): Signal<boolean> => signal<boolean>(false);
+  isSuperPosition = jest.fn((position: number) => signal(false))
+  isSuperPositionMinimum = jest.fn((position: number) => signal(false))
 
   isSuperAdmin = signal<boolean>(false);
   isSuperMgr = signal<boolean>(false);
@@ -53,8 +53,9 @@ export class MockMyIdAuthService implements IMyIdAuthService {
   isSuperGuest = signal<boolean>(false);
 
   isMntcLdr = signal<boolean>(false);
-  isMntcPosition = (position: number) => signal<boolean>(false);
-  isMntcPositionMinimum = (position: number): Signal<boolean> => signal<boolean>(false);
+
+  isMntcPosition = jest.fn((position: number) => signal(false))
+  isMntcPositionMinimum = jest.fn((position: number) => signal(false))
 
   isMntcAdmin = signal<boolean>(false);
   isMntcMgr = signal<boolean>(false);
@@ -63,8 +64,8 @@ export class MockMyIdAuthService implements IMyIdAuthService {
 
 
   isCusLdr = signal<boolean>(false);
-  isCusPosition = (position: number): Signal<boolean> => signal<boolean>(false);
-  isCusPositionMinimum = (position: number): Signal<boolean> => signal<boolean>(false);
+  isCusPosition = jest.fn((position: number) => signal(false))
+  isCusPositionMinimum = jest.fn((position: number) => signal(false))
 
   isCusAdmin = signal<boolean>(false);
   isCusMgr = signal<boolean>(false);
@@ -112,4 +113,7 @@ export class MockMyIdAuthService implements IMyIdAuthService {
   getClaimValue = jest.fn((key: string) => this.claims()[key]);
   getTeamPositionValue = jest.fn(() => this.position());
   hasPosition = jest.fn((pos: number) => this.position() === pos);
+
+  hasPositionOrHigher = (position: number) =>
+    this.position() >= position;
 }

@@ -3,14 +3,14 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, Ur
 import { of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
 import { cusLdrMinimumGuard, mntcUserMinimumGuard, sprAdminMinimumGuard, sprMgrMinimumGuard } from './team-minimum-guards';
-import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
+import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
 
 const mockActRoute = {
   queryParamMap: of({ get: () => null })
 };
 
 describe('Team Minimum Guards', () => {
-  let mockAuthService: MockMyIdAuthService;
+  let mockAuthService: MockUserMgrAdminAuthService;
   let mockRouter: jest.Mocked<Router>;
   let mockUrlTree: UrlTree;
   let mockRoute: ActivatedRouteSnapshot;
@@ -18,7 +18,7 @@ describe('Team Minimum Guards', () => {
 
   beforeEach(() => {
     mockUrlTree = {} as UrlTree;
-    mockAuthService = new MockMyIdAuthService();
+    mockAuthService = new MockUserMgrAdminAuthService();
     mockRouter = {
       createUrlTree: jest.fn().mockReturnValue(mockUrlTree),
       navigate: jest.fn(),
@@ -28,7 +28,7 @@ describe('Team Minimum Guards', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ActivatedRoute, useValue: mockActRoute },
-        { provide: MockMyIdAuthService, useValue: mockAuthService },
+        { provide: MockUserMgrAdminAuthService, useValue: mockAuthService },
         { provide: MY_ID_AUTH_SERVICE_TOKEN, useValue: mockAuthService },
         { provide: Router, useValue: mockRouter },
       ],
