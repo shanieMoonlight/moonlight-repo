@@ -1,16 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { PLATFORM_ID, signal, Type } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { BaseAuthSignalService } from '../base-auth.signal.service';
-import { JwtPayload } from '../jwt/jwt-payload';
 import {
+    createAllRolesGuard,
+    createAnyRoleGuard,
+    createClaimGuard,
+    createCustomGuard,
+    createEmailVerifiedGuard,
     createLoggedInGuard,
     createRoleGuard,
-    createClaimGuard,
-    createAnyRoleGuard,
-    createAllRolesGuard,
-    createEmailVerifiedGuard,
-    createCustomGuard,
 } from './auth.guards';
 
 // Mock auth service for testing

@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
-import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards/auth.guards';
 import { MyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
+import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
 
 export const customerOnlyGuard = createMyIdCustomGuard(
