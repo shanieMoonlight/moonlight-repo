@@ -11,6 +11,7 @@
         <sb-update-self-form
             class="form"
             [appUser]="user"
+            [twoFactorProviderOptions]="_twoFactorProviderOptions"
             (updateSelf)="updateSelf($event)"/>
     }@else {        
         @if (_showErrors()) {            

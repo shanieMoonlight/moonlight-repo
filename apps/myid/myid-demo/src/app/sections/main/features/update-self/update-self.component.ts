@@ -5,6 +5,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
 
 @Component({
   selector: 'sb-update-self',
@@ -25,6 +26,7 @@ export class UpdateSelfComponent {
   private _state = inject(UpdateSelfStateService)
   private _router = inject(MyIdRouter)
   private _platformId = inject(PLATFORM_ID)
+  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider)
 
   //- - - - - - - - - - - - - //
 
@@ -35,6 +37,7 @@ export class UpdateSelfComponent {
   protected _userData = this._state.userData
   protected _showErrors = computed(() =>  !this._loading() && isPlatformBrowser(this._platformId) )
 
+  protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
   //--------------------------//
 

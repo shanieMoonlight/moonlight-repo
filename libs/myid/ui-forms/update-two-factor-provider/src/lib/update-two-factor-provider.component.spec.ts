@@ -5,10 +5,29 @@ import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-for
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbSelectComponent } from '@spider-baby/ui-kit/select';
 import { SbUpdateTwoFactorProviderFormComponent } from './update-two-factor-provider.component';
+import { ComponentRef } from '@angular/core';
+
+//##########################//
+
+interface TwoFactorOption {
+  value: string,
+  label: string
+}
+
+
+const twoFactorProviderOptions: TwoFactorOption[] = [
+  { value: 'AuthenticatorApp', label: 'Authenticator App' },
+  { value: 'Sms', label: 'SMS' },
+  { value: 'Email', label: 'Email' }
+]
+
+//##########################//
+
 
 describe('SbUpdateTwoFactorProviderFormComponent', () => {
   let component: SbUpdateTwoFactorProviderFormComponent;
   let fixture: ComponentFixture<SbUpdateTwoFactorProviderFormComponent>;
+  let componentRef: ComponentRef<SbUpdateTwoFactorProviderFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -23,11 +42,14 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(SbUpdateTwoFactorProviderFormComponent);
     component = fixture.componentInstance;
+    componentRef = fixture.componentRef;
+    componentRef.setInput('twoFactorProviderOptions', twoFactorProviderOptions);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    componentRef.setInput('twoFactorProviderOptions', twoFactorProviderOptions);
   });
 
   it('should initialize with default provider value', () => {
@@ -63,11 +85,4 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
     expect(emitSpy).not.toHaveBeenCalled();
   });
 
-  it('should have correct provider options', () => {
-    expect(component['\u005fproviderOptions']).toEqual([
-      { value: 'AuthenticatorApp', label: 'Authenticator App' },
-      { value: 'Sms', label: 'SMS' },
-      { value: 'Email', label: 'Email' },
-    ]);
-  });
 });

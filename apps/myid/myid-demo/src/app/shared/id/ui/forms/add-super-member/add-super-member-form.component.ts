@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, Input, input, output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AddSuperMemberDto } from '@spider-baby/myid-io/models';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
-import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
-import { AddSuperMemberDto } from '@spider-baby/myid-io/models';
-import { FormControl } from '@angular/forms';
-import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
-import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
 
 //###########################//
 

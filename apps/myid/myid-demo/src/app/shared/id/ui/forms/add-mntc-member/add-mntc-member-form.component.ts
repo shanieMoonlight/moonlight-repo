@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, Input, input, output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AddMntcMemberDto } from '@spider-baby/myid-io/models';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
 import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
-import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
-import { AddMntcMemberDto } from '@spider-baby/myid-io/models';
-import { FormControl } from '@angular/forms';
-import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
-import { teamPositionOptions } from '../../../../auth/user-mgr-admin/utils/posiition/team-position-options';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { FirstErrorComponent, FirstErrorDirective, RemoveNullsService } from '@spider-baby/utils-forms';
 
 //###########################//
 
@@ -51,7 +48,6 @@ interface AddMntcMemberForm {
 export class SbAddMntcMemberFormComponent {
 
     private _fb = inject(FormBuilder);
-    private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
     private _removeNulls = inject(RemoveNullsService);
 
     //--------------------------//
@@ -62,8 +58,6 @@ export class SbAddMntcMemberFormComponent {
     teamPositionOptions = input<SelectOption[] | undefined>()
     color = input<UiKitTheme>('primary');
 
-
-    protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
     protected _form: FormGroup<AddMntcMemberForm> = this._fb.nonNullable.group<AddMntcMemberForm>({
         firstName: this._fb.control<string | null>(''),

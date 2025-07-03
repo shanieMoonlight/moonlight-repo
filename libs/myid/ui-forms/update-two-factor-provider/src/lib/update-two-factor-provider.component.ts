@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 // import { SbButtonComponent } from '../../../../ui/button/button.component';
-import { MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbSelectComponent, SelectOption } from "@spider-baby/ui-kit/select";
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
@@ -37,7 +36,6 @@ interface UpdateTwoFactorProviderForm {
 export class SbUpdateTwoFactorProviderFormComponent {
 
   private _fb = inject(FormBuilder);
-  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
 
   showLabels = input<boolean>(true);
@@ -50,7 +48,7 @@ export class SbUpdateTwoFactorProviderFormComponent {
   }
 
 
-  protected _providerOptions: SelectOption[] = this._twoFactorOptionsProvider.getOptions()
+  twoFactorProviderOptions = input.required<SelectOption[]>()
 
   protected _form: FormGroup<UpdateTwoFactorProviderForm> = this._fb.nonNullable.group({
     provider: ['Email' as TwoFactorProvider, [Validators.required]]

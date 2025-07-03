@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { RegisterCustomerDto } from '@spider-baby/myid-io/models';
-import { MyIdPhoneFormatProvider, MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-ui-forms/utils';
+import { MyIdPhoneFormatProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
@@ -55,9 +55,8 @@ interface RegisterCustomerForm {
 export class SbRegisterCustomerFormComponent {
 
     private _fb = inject(FormBuilder);
-    private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
     private _removeNulls = inject(RemoveNullsService);
-  private _phoneFormatter = inject(MyIdPhoneFormatProvider)
+    private _phoneFormatter = inject(MyIdPhoneFormatProvider)
 
     //--------------------------//
 
@@ -89,9 +88,6 @@ export class SbRegisterCustomerFormComponent {
     }
 
 
-
-
-    protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
     protected showPassword = signal(false);
     protected showConfirmPassword = signal(false);

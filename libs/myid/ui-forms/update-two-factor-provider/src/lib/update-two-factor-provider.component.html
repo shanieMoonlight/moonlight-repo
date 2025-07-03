@@ -9,7 +9,7 @@
         
         <sb-select
             [id]="'provider'"
-            [options]="_providerOptions"
+            [options]="twoFactorProviderOptions()"
             placeholder="Select authentication method"
             formControlName="provider"
             [color]="color()"/>

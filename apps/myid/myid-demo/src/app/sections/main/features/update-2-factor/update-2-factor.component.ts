@@ -5,6 +5,7 @@ import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/i
 import { Update2FactorStateService } from './update-2-factor.state.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
 
 @Component({
   selector: 'sb-update-2-factor',
@@ -23,6 +24,7 @@ export class Update2FactorComponent {
 
   private _state = inject(Update2FactorStateService)
   private _router = inject(MyIdRouter)
+  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider)
 
   //- - - - - - - - - - - - - //
 
@@ -30,6 +32,7 @@ export class Update2FactorComponent {
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
   protected _changeSuccess = this._state.updateSuccess
+  protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
 
   //--------------------------//

@@ -1,13 +1,22 @@
 <mat-toolbar >
     
 <div class="left-links">
-    <img class="navlink" 
+    <!-- <img class="navlink" 
         [src]="_logoSml()" 
         alt="SpiderBaby Material" 
         [routerLink]="'home'"
         routerLinkActive="active" 
         [sbTooltip]="'Home'"
-        [attr.aria-label]="'home'"/>   
+        [attr.aria-label]="'home'"/>    -->
+        
+        <a class="navlink"  [routerLink]="'home'">
+            <img
+                [src]="_logoSml()" 
+                alt="SpiderBaby Material" 
+                routerLinkActive="active" 
+                [sbTooltip]="'Home'"
+                [attr.aria-label]="'home'"/>   
+        </a>
     
     @if(!isSmallScreen()){  
 

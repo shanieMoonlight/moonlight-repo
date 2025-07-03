@@ -139,7 +139,7 @@
                     <label [for]="'twoFactorProvider'">2FA Method</label>
                 }                <sb-select
                     [id]="'twoFactorProvider'"
-                    [options]="_twoFactorProviderOptions"
+                    [options]="twoFactorProviderOptions()"
                     placeholder="Select 2FA method"
                     formControlName="twoFactorProvider"
                     color="primary">

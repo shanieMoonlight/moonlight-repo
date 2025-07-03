@@ -2,11 +2,11 @@
 import { ChangeDetectionStrategy, Component, inject, Input, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TwoFactorProvider } from '@spider-baby/myid-io/models';
-import { MyIdPhoneFormatProvider, MyIdTwoFactorOptionsProvider, } from '@spider-baby/myid-ui-forms/utils';
+import { MyIdPhoneFormatProvider } from '@spider-baby/myid-ui-forms/utils';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbCheckboxComponent } from '@spider-baby/ui-kit/checkboxes';
 import { SbInputStyleDirective } from '@spider-baby/ui-kit/inputs';
-import { SbSelectComponent } from '@spider-baby/ui-kit/select';
+import { SbSelectComponent, SelectOption } from '@spider-baby/ui-kit/select';
 import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
 import { PhoneValidation } from '@spider-baby/utils-forms/validators';
 import { UpdateSelfForm, UpdateSelfFormDto } from './update-self.models';
@@ -32,7 +32,6 @@ export class SbUpdateSelfFormComponent {
 
   private _fb = inject(FormBuilder);
   private _phoneFormatter = inject(MyIdPhoneFormatProvider)
-  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider);
 
   updateSelf = output<UpdateSelfFormDto>();
 
@@ -45,8 +44,11 @@ export class SbUpdateSelfFormComponent {
     this.setFormValues(user);
     this._appUser.set(user);
   }
+
+  twoFactorProviderOptions = input<SelectOption[]>()
+
+
   protected _appUser = signal<UpdateSelfFormDto | undefined>(undefined);
-  protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
   protected _form: FormGroup<UpdateSelfForm> = this._fb.nonNullable.group({
     id: ['', [Validators.required]],

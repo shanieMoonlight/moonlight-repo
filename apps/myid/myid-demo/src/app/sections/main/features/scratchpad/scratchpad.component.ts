@@ -22,6 +22,7 @@ import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { SbUpdateTeamPositionFormComponent, UpdateTeamPositionFormDto } from '@spider-baby/myid-ui-forms/update-team-position';
 import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { SbSelectComponent } from '@spider-baby/ui-kit/select';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
 
 
 
@@ -55,6 +56,7 @@ export class ScratchpadComponent {
   private _ioService = inject(AccountIoService)
   private _ioUserMgmt = inject(UserManagementIoService)
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
+  private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider)
 
   //- - - - - - - - - - - - - //
 
@@ -90,6 +92,7 @@ export class ScratchpadComponent {
   protected _superTeamDataColumns = computed(() => tableColumns);
 
   protected _teamPositionOptions = teamPositionOptions
+  protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
 
   // protected _addMemberRef: ComponentRef<SbAddMntcMemberFormComponent>;
