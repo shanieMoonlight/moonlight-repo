@@ -46,14 +46,14 @@ export const MAIN_ROUTES: ApiRouteData[] = [
   {
     title: 'Mntc Team',
     description: 'Manage maintenance team.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('mntc-team'),
+    route: AppRouteDefs.fullPathsWithSlash.main.account.route('mntc-team'),
     icon: 'groups',
     color: 'primary'
   },
   {
     title: 'Super Team',
     description: 'Manage super team.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('super-team'),
+    route: AppRouteDefs.fullPathsWithSlash.main.account.route('super-team'),
     icon: 'superscript',
     color: 'secondary'
   },

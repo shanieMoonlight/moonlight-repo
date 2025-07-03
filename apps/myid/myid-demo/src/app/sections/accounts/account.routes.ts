@@ -15,6 +15,8 @@ import { update2FactorRoutes } from './features/update-2-factor/update-2-factor.
 import { myDetailsRoutes } from './features/update-self/update-self.routes';
 import { verify2FactorCookieRoutes } from './features/verify-2-factor-cki/verify-2-factor-cki.routes';
 import { verify2FactorRoutes } from './features/verify-2-factor/verify-2-factor.routes';
+import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
+import { superTeamRoutes } from './features/super-team/super-team.routes';
 
 
 //##############################//
@@ -65,20 +67,23 @@ export type MyIdRouteOptions = {
  * //   }
  * // ]
  */
-export function getMainMyIdAccountRoutes(options: MyIdRouteOptions): Route[] {
+export function getMainMyIdAccountRoutes(options?: MyIdRouteOptions): Route[] {
+    
+    const showSocialLinks = !!options?.showSocialLinks
+
     return [
         {
-            path: options.basePath ?? AccountSectionRoutesDefs.BASE,
+            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
             providers: [],
             children: [
                 ...confirmPhoneRoutes(),
                 ...changePwdRoutes(),
                 ...confirmEmailRoutes(),
                 ...loginJwtRoutes({
-                    showSocialLinks: options.showSocialLinks,
+                    showSocialLinks: showSocialLinks,
                 }),
                 ...loginCookieRoutes({
-                    showSocialLinks: options.showSocialLinks,
+                    showSocialLinks: showSocialLinks,
                 }),
                 ...resetPwdRoutes(),
                 ...update2FactorRoutes(),
@@ -94,16 +99,38 @@ export function getMainMyIdAccountRoutes(options: MyIdRouteOptions): Route[] {
 //##############################//
 
 
-export function getMyIdCustomerRoutes(options: MyIdRouteOptions): Route[] {
+export function getMyIdCustomerRoutes(options?: MyIdRouteOptions): Route[] {
+
+    const showSocialLinks = !!options?.showSocialLinks
     return [
         {
-            path: options.basePath ?? AccountSectionRoutesDefs.BASE,
+            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
             providers: [],
             children: [
                 ...customersRoutes(),
                 ...registerCustomerRoutes({
-                    showSocialLinks: options.showSocialLinks,
+                    showSocialLinks: showSocialLinks,
                 })
+            ],
+        },
+    ];
+}
+
+
+//##############################//
+
+export type MyIdMntcRouteOptions = {
+    basePath?: string;
+}
+
+export function getMyIdMntsAndSuperRoutes(options?: MyIdMntcRouteOptions): Route[] {
+    return [
+        {
+            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
+            providers: [],
+            children: [
+                ...mntcTeamRoutes(),
+                ...superTeamRoutes()
             ],
         },
     ];

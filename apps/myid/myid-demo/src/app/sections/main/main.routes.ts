@@ -3,7 +3,7 @@ import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posi
 import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
 import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
 import { provideMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.config';
-import { getMyIdCustomerRoutes, getMainMyIdAccountRoutes } from '../accounts/account.routes';
+import { getMyIdCustomerRoutes, getMainMyIdAccountRoutes, getMyIdMntsAndSuperRoutes } from '../accounts/account.routes';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
@@ -31,6 +31,7 @@ export const mainRoutes: Route[] = [
             ...getMyIdCustomerRoutes({
                 showSocialLinks: true,
             }),
+            ...getMyIdMntsAndSuperRoutes(),
             {
                 path: MainSectionRoutesDefs.route('home'),
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
@@ -39,14 +40,6 @@ export const mainRoutes: Route[] = [
                 path: MainSectionRoutesDefs.route('scratchpad'),
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
                 // canActivate: [customerOnlyGuard],
-            },
-            {
-                path: MainSectionRoutesDefs.route('mntc-team'),
-                loadComponent: () => import('./features/mntc-team/mntc-team.component').then(m => m.MntcTeamComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('super-team'),
-                loadComponent: () => import('./features/super-team/super-team.component').then(m => m.SuperTeamComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test'),

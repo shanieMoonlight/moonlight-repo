@@ -12,8 +12,6 @@ type CHILD_ROUTE =
   | 'auth-test'
   | 'auth-test-firebase'
   | 'auth-test-user-mgr-admin'
-  | 'mntc-team'
-  | 'super-team'
   | 'scratchpad'
 
 //#################################################//
