@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { superAdminGuard, superAdminMinimumGuard, superGuestGuard, superGuestMinimumGuard, superMgrGuard, superMgrMinimumGuard, superUserGuard, superUserMinimumGuard } from './super-team-guards';
 import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
@@ -38,17 +39,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superAdminGuard', () => {
-    it('allows activation if isSprAdmin is true', () => {
+    it('allows activation if isSprAdmin is true', async () => {
       mockAuthService.isSuperAdmin.set(true);
       const guard = superAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprAdmin is false', () => {
+    it('redirects if isSprAdmin is false', async () => {
       mockAuthService.isSuperAdmin.set(false);
       const guard = superAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -56,17 +57,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superMgrGuard', () => {
-    it('allows activation if isSprMgr is true', () => {
+    it('allows activation if isSprMgr is true', async () => {
       mockAuthService.isSuperMgr.set(true);
       const guard = superMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprMgr is false', () => {
+    it('redirects if isSprMgr is false', async () => {
       mockAuthService.isSuperMgr.set(false);
       const guard = superMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -74,17 +75,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superUserGuard', () => {
-    it('allows activation if isSprUser is true', () => {
+    it('allows activation if isSprUser is true', async () => {
       mockAuthService.isSuperUser.set(true);
       const guard = superUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprUser is false', () => {
+    it('redirects if isSprUser is false', async () => {
       mockAuthService.isSuperUser.set(false);
       const guard = superUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -92,17 +93,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superGuestGuard', () => {
-    it('allows activation if isSprGuest is true', () => {
+    it('allows activation if isSprGuest is true', async () => {
       mockAuthService.isSuperGuest.set(true);
       const guard = superGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprGuest is false', () => {
+    it('redirects if isSprGuest is false', async () => {
       mockAuthService.isSuperGuest.set(false);
       const guard = superGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -110,17 +111,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
    
     describe('superAdminMinimumGuard', () => {
-    it('allows activation if isSprAdminMinimum is true', () => {
+    it('allows activation if isSprAdminMinimum is true', async () => {
       mockAuthService.isSuperAdminMinimum.set(true);
       const guard = superAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprAdminMinimum is false', () => {
+    it('redirects if isSprAdminMinimum is false', async () => {
       mockAuthService.isSuperAdminMinimum.set(false);
       const guard = superAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -128,17 +129,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superMgrMinimumMinimumGuard', () => {
-    it('allows activation if isSprMgrMinimumMinimum is true', () => {
+    it('allows activation if isSprMgrMinimumMinimum is true', async () => {
       mockAuthService.isSuperMgrMinimum.set(true);
       const guard = superMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprMgrMinimumMinimum is false', () => {
+    it('redirects if isSprMgrMinimumMinimum is false', async () => {
       mockAuthService.isSuperMgrMinimum.set(false);
       const guard = superMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -146,17 +147,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superUserMinimumGuard', () => {
-    it('allows activation if isSprUserMinimum is true', () => {
+    it('allows activation if isSprUserMinimum is true', async () => {
       mockAuthService.isSuperUserMinimum.set(true);
       const guard = superUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprUserMinimum is false', () => {
+    it('redirects if isSprUserMinimum is false', async () => {
       mockAuthService.isSuperUserMinimum.set(false);
       const guard = superUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -164,17 +165,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('superGuestMinimumGuard', () => {
-    it('allows activation if isSprGuestMinimum is true', () => {
+    it('allows activation if isSprGuestMinimum is true', async () => {
       mockAuthService.isSuperGuestMinimum.set(true);
       const guard = superGuestMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprGuestMinimum is false', () => {
+    it('redirects if isSprGuestMinimum is false', async () => {
       mockAuthService.isSuperGuestMinimum.set(false);
       const guard = superGuestMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });

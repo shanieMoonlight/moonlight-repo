@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
 import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
 import { isAdminGuard, isGuestGuard, isMgrGuard, isUserGuard } from './team-position-guards';
@@ -38,68 +39,66 @@ describe('Position/Range Guards', () => {
   });
 
   describe('is Admin guard', () => {
-    it('allows activation if user isAdmin', () => {
+    it('allows activation if user isAdmin', async () => {
       mockAuthService.isAdmin.set(true);
       const guard = isAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
 
-    it('redirects if user is not Admin', () => {
+    it('redirects if user is not Admin', async () => {
       mockAuthService.isAdmin.set(false);
       const guard = isAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
     });
   });
 
-  
   describe('is Mgr guard', () => {
-    it('allows activation if user isMgr', () => {
+    it('allows activation if user isMgr', async () => {
       mockAuthService.isMgr.set(true);
       const guard = isMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
 
-    it('redirects if user is not Mgr', () => {
+    it('redirects if user is not Mgr', async () => {
       mockAuthService.isMgr.set(false);
       const guard = isMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
     });
   });
 
-  
   describe('is User guard', () => {
-    it('allows activation if user isUser', () => {
+    it('allows activation if user isUser', async () => {
       mockAuthService.isUser.set(true);
       const guard = isUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
 
-    it('redirects if user is not User', () => {
+    it('redirects if user is not User', async () => {
       mockAuthService.isUser.set(false);
       const guard = isUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
     });
   });
 
   describe('is Guest guard', () => {
-    it('allows activation if user isGuest', () => {
+    it('allows activation if user isGuest', async () => {
       mockAuthService.isGuest.set(true);
       const guard = isGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
 
-    it('redirects if user is not Guest', () => {
+    it('redirects if user is not Guest', async () => {
       mockAuthService.isGuest.set(false);
       const guard = isGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
     });
   });
 

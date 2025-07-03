@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { customerAdminGuard, customerAdminMinimumGuard, customerGuestGuard, customerGuestMinimumGuard, customerMgrGuard, customerMgrMinimumGuard, customerUserGuard, customerUserMinimumGuard } from './customer-team-guards';
 import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
@@ -38,17 +39,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerAdminGuard', () => {
-    it('allows activation if isSprAdmin is true', () => {
+    it('allows activation if isSprAdmin is true', async () => {
       mockAuthService.isCusAdmin.set(true);
       const guard = customerAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprAdmin is false', () => {
+    it('redirects if isSprAdmin is false', async () => {
       mockAuthService.isCusAdmin.set(false);
       const guard = customerAdminGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -56,17 +57,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerMgrGuard', () => {
-    it('allows activation if isSprMgr is true', () => {
+    it('allows activation if isSprMgr is true', async () => {
       mockAuthService.isCusMgr.set(true);
       const guard = customerMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprMgr is false', () => {
+    it('redirects if isSprMgr is false', async () => {
       mockAuthService.isCusMgr.set(false);
       const guard = customerMgrGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -74,17 +75,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerUserGuard', () => {
-    it('allows activation if isSprUser is true', () => {
+    it('allows activation if isSprUser is true', async () => {
       mockAuthService.isCusUser.set(true);
       const guard = customerUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprUser is false', () => {
+    it('redirects if isSprUser is false', async () => {
       mockAuthService.isCusUser.set(false);
       const guard = customerUserGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -92,17 +93,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerGuestGuard', () => {
-    it('allows activation if isSprGuest is true', () => {
+    it('allows activation if isSprGuest is true', async () => {
       mockAuthService.isCusGuest.set(true);
       const guard = customerGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprGuest is false', () => {
+    it('redirects if isSprGuest is false', async () => {
       mockAuthService.isCusGuest.set(false);
       const guard = customerGuestGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -110,17 +111,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerAdminMinimumGuard', () => {
-    it('allows activation if isSprAdminMinimum is true', () => {
+    it('allows activation if isSprAdminMinimum is true', async () => {
       mockAuthService.isCusAdminMinimum.set(true);
       const guard = customerAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprAdminMinimum is false', () => {
+    it('redirects if isSprAdminMinimum is false', async () => {
       mockAuthService.isCusAdminMinimum.set(false);
       const guard = customerAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -128,17 +129,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerMgrMinimumMinimumGuard', () => {
-    it('allows activation if isSprMgrMinimumMinimum is true', () => {
+    it('allows activation if isSprMgrMinimumMinimum is true', async () => {
       mockAuthService.isCusMgrMinimum.set(true);
       const guard = customerMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprMgrMinimumMinimum is false', () => {
+    it('redirects if isSprMgrMinimumMinimum is false', async () => {
       mockAuthService.isCusMgrMinimum.set(false);
       const guard = customerMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -146,17 +147,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerUserMinimumGuard', () => {
-    it('allows activation if isSprUserMinimum is true', () => {
+    it('allows activation if isSprUserMinimum is true', async () => {
       mockAuthService.isCusUserMinimum.set(true);
       const guard = customerUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprUserMinimum is false', () => {
+    it('redirects if isSprUserMinimum is false', async () => {
       mockAuthService.isCusUserMinimum.set(false);
       const guard = customerUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
@@ -164,17 +165,17 @@ describe('DevMode/Combined Guards', () => {
   //-------------------//
 
   describe('customerGuestMinimumGuard', () => {
-    it('allows activation if isSprGuestMinimum is true', () => {
+    it('allows activation if isSprGuestMinimum is true', async () => {
       mockAuthService.isCusGuestMinimum.set(true);
       const guard = customerGuestMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSprGuestMinimum is false', () => {
+    it('redirects if isSprGuestMinimum is false', async () => {
       mockAuthService.isCusGuestMinimum.set(false);
       const guard = customerGuestMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });

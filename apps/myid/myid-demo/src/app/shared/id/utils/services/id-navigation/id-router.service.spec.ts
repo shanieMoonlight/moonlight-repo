@@ -2,6 +2,7 @@ import { MyIdFallbackRouter } from './id-router.service';
 import { Router, ActivatedRoute, UrlCreationOptions } from '@angular/router';
 import { MyIdRouteInfo } from '../../my-id-route-info';
 import { TestBed } from '@angular/core/testing';
+import { query } from '@angular/animations';
 
 // Mocks
 const navigateByUrlMock = jest.fn();
@@ -46,7 +47,7 @@ describe('MyIdFallbackRouter', () => {
     const urlTree = { commands: ['../login'], opts: { relativeTo: actRouteMock } };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToLogin();
-    expect(createUrlTreeMock).toHaveBeenCalledWith(['../login'], { relativeTo: actRouteMock });
+    expect(createUrlTreeMock).toHaveBeenCalledWith(['../login'], { relativeTo: actRouteMock , queryParams: {} });
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 

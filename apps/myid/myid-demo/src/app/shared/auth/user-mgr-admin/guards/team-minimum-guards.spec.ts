@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
 import { cusLdrMinimumGuard, mntcUserMinimumGuard, sprAdminMinimumGuard, sprMgrMinimumGuard } from './team-minimum-guards';
 import { MockUserMgrAdminAuthService } from './testing/mock-myid-auth.service';
@@ -36,65 +37,65 @@ describe('Team Minimum Guards', () => {
   });
 
   describe('myIdIsSuperAdminMinimumGuard', () => {
-    it('allows activation if isSuperAdminMinimum is true', () => {
+    it('allows activation if isSuperAdminMinimum is true', async () => {
       mockAuthService.isSuperAdminMinimum.set(true);
       const guard = sprAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSuperAdminMinimum is false', () => {
+    it('redirects if isSuperAdminMinimum is false', async () => {
       mockAuthService.isSuperAdminMinimum.set(false);
       const guard = sprAdminMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
 
   describe('myIdIsSuperMgrMinimumGuard', () => {
-    it('allows activation if isSuperMgrMinimum is true', () => {
+    it('allows activation if isSuperMgrMinimum is true', async () => {
       mockAuthService.isSuperMgrMinimum.set(true);
       const guard = sprMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isSuperMgrMinimum is false', () => {
+    it('redirects if isSuperMgrMinimum is false', async () => {
       mockAuthService.isSuperMgrMinimum.set(false);
       const guard = sprMgrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
 
   describe('myIdIsMntcUserMinimumGuard', () => {
-    it('allows activation if isMntcUserMinimum is true', () => {
+    it('allows activation if isMntcUserMinimum is true', async () => {
       mockAuthService.isMntcUserMinimum.set(true);
       const guard = mntcUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isMntcUserMinimum is false', () => {
+    it('redirects if isMntcUserMinimum is false', async () => {
       mockAuthService.isMntcUserMinimum.set(false);
       const guard = mntcUserMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });
 
   describe('myIdIsCusLdrMinimumGuard', () => {
-    it('allows activation if isCusLdrMinimum is true', () => {
+    it('allows activation if isCusLdrMinimum is true', async () => {
       mockAuthService.isCusLdrMinimum.set(true);
       const guard = cusLdrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(true);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(true);
     });
-    it('redirects if isCusLdrMinimum is false', () => {
+    it('redirects if isCusLdrMinimum is false', async () => {
       mockAuthService.isCusLdrMinimum.set(false);
       const guard = cusLdrMinimumGuard;
-      const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-      expect(result).toBe(mockUrlTree);
+      const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+      await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
       expect(mockRouter.createUrlTree).toHaveBeenCalled();
     });
   });

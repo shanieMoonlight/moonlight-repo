@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { of } from 'rxjs';
+import { lastValueFrom, of, Observable } from 'rxjs';
 import { cusLdrGuard, cusMinimumGuard, cusPositionGuard, cusPositionMinimumGuard, cusPositionRangeGuard, customerGuard } from './customer-team-guards';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
@@ -37,19 +37,20 @@ describe('Customer Team Guards', () => {
     });
 
     //-------------------//
-
+    
+    
     describe('customerGuard', () => {
-        it('allows activation if isCustomer is true', () => {
+        it('allows activation if isCustomer is true', async () => {
             mockAuthService.isCustomer.set(true);
             const guard = customerGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-        it('redirects if isCustomer is false', () => {
+        it('redirects if isCustomer is false', async () => {
             mockAuthService.isCustomer.set(false);
             const guard = customerGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             expect(mockRouter.createUrlTree).toHaveBeenCalled();
         });
     });
@@ -57,17 +58,17 @@ describe('Customer Team Guards', () => {
     //-------------------//
 
     describe('cusLdrGuard', () => {
-        it('allows activation if isCusLdr is true', () => {
+        it('allows activation if isCusLdr is true', async () => {
             mockAuthService.isCusLdr.set(true);
             const guard = cusLdrGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-        it('redirects if isCusLdr is false', () => {
+        it('redirects if isCusLdr is false', async () => {
             mockAuthService.isCusLdr.set(false);
             const guard = cusLdrGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             expect(mockRouter.createUrlTree).toHaveBeenCalled();
         });
     });
@@ -75,19 +76,17 @@ describe('Customer Team Guards', () => {
     //-------------------//
 
     describe('cusMinimumGuard', () => {
-        it('allows activation if isCusMinimum is true', () => {
+        it('allows activation if isCusMinimum is true', async () => {
             mockAuthService.isCusMinimum.set(true);
             const guard = cusMinimumGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-
-
-        it('redirects if isCusMinimum is false', () => {
+        it('redirects if isCusMinimum is false', async () => {
             mockAuthService.isCusMinimum.set(false);
             const guard = cusMinimumGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             expect(mockRouter.createUrlTree).toHaveBeenCalled();
         });
     });
@@ -95,78 +94,69 @@ describe('Customer Team Guards', () => {
     //-------------------//
 
     describe('cusPositionGuard', () => {
-        it('allows activation if user has cus position', () => {
+        it('allows activation if user has cus position', async () => {
             mockAuthService.isCusPosition.mockReturnValue(signal(true));
             const guard = cusPositionGuard(2);
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-
-
-        it('redirects if user does not have cus position', () => {
+        it('redirects if user does not have cus position', async () => {
             const guard = cusPositionGuard(2);
             mockAuthService.isCusPosition.mockReturnValue(signal(false));
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
         });
     });
 
     //-------------------//
 
-
     describe('cusPositionMinimumGuard', () => {
-        it('allows activation if user has cus positionMinimum', () => {
+        it('allows activation if user has cus positionMinimum', async () => {
             mockAuthService.isCusPositionMinimum.mockReturnValue(signal(true));
             const guard = cusPositionMinimumGuard(2);
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-
-
-        it('redirects if user does not have cus positionMinimum', () => {
-            const guard = cusPositionMinimumGuard(3);
+        it('redirects if user does not have cus positionMinimum', async () => {
+            const guard = cusPositionMinimumGuard(2);
             mockAuthService.isCusPositionMinimum.mockReturnValue(signal(false));
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
         });
     });
 
     //-------------------//
 
     describe('cusPositionRangeGuard', () => {
-        it('allows activation if user has cus positionRange', () => {
+        it('allows activation if user has cus positionRange', async () => {
             mockAuthService.position.set(2);
             mockAuthService.isCustomer.set(true);
             const guard = cusPositionRangeGuard(1, 3);
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
-
-        it('redirects if user does not have cus positionRange', () => {
+        it('redirects if user does not have cus positionRange', async () => {
             const guard = cusPositionRangeGuard(1, 3);
             mockAuthService.position.set(0);
             mockAuthService.isCustomer.set(true);
-            let result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            let result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             mockAuthService.position.set(0);
             mockAuthService.isCustomer.set(false);
-            result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
-
+            result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             mockAuthService.position.set(5);
             mockAuthService.isCustomer.set(true);
-            result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
-
+            result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             mockAuthService.position.set(5);
             mockAuthService.isCustomer.set(false);
-            result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
-
+            result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
             mockAuthService.position.set(2);
             mockAuthService.isCustomer.set(false);
-            result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(mockUrlTree);
+            result$ = TestBed.runInInjectionContext(() => guard(mockRoute, mockState)) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(mockUrlTree);
         });
     });
 
