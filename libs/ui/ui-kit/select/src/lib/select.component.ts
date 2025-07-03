@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { CommonModule, DOCUMENT, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, inject, input, OnDestroy, Optional, Self, signal, TemplateRef } from '@angular/core';
+import { CommonModule, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, input, Optional, Self, signal, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, Validators } from '@angular/forms';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
-import { SbClickOutsideDirective } from './click-outside.directive';
+import { SbClickOutsideDirective } from '@spider-baby/ui-utils';
 
 //##########################//
 
@@ -76,13 +76,13 @@ export class SbSelectComponent implements ControlValueAccessor {
 
   protected selectOption(option?: SelectOption) {
 
-    this._selectedOption.set(option);
-    this._isOpen = false;
-
-    const value = !option?.value ? null : option.value;
-
+    this._isOpen = false;     
+    
     if (option?.disabled)
       return;
+    
+    this._selectedOption.set(option);
+    const value = !option?.value ? null : option.value;
 
     this._value.set(value);
 
@@ -90,9 +90,8 @@ export class SbSelectComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  onOutsideClick = () => {
-    return this._isOpen = false;
-  }
+  onOutsideClick = () => 
+    this._isOpen = false
 
   //-------------------------//
 
