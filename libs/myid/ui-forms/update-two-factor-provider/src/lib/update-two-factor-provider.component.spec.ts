@@ -53,34 +53,34 @@ describe('SbUpdateTwoFactorProviderFormComponent', () => {
   });
 
   it('should initialize with default provider value', () => {
-    expect(component['\u005fform'].controls.provider.value).toBe('Email');
+    expect(component['_form'].controls.provider.value).toBe('');
   });
 
   it('should update provider when currentProvider is set', () => {
     component.currentProvider = 'Sms';
-    expect(component['\u005fform'].controls.provider.value).toBe('Sms');
+    expect(component['_form'].controls.provider.value).toBe('Sms');
   });
 
   it('should be invalid if provider is not set', () => {
-    component['\u005fform'].controls.provider.setValue(null!);
-    expect(component['\u005fform'].valid).toBeFalsy();
+    component['_form'].controls.provider.setValue(null!);
+    expect(component['_form'].valid).toBeFalsy();
   });
 
   it('should be valid with a valid provider', () => {
-    component['\u005fform'].controls.provider.setValue('AuthenticatorApp');
-    expect(component['\u005fform'].valid).toBeTruthy();
+    component['_form'].controls.provider.setValue('AuthenticatorApp');
+    expect(component['_form'].valid).toBeTruthy();
   });
 
   it('should emit updateProvider with correct dto on submit when valid', () => {
     const emitSpy = jest.spyOn(component.updateProvider, 'emit');
-    component['\u005fform'].controls.provider.setValue('Sms');
+    component['_form'].controls.provider.setValue('Sms');
     component.submit();
     expect(emitSpy).toHaveBeenCalledWith({ provider: 'Sms' });
   });
 
   it('should not emit updateProvider on submit when form is invalid', () => {
     const emitSpy = jest.spyOn(component.updateProvider, 'emit');
-    component['\u005fform'].controls.provider.setValue(null!);
+    component['_form'].controls.provider.setValue(null!);
     component.submit();
     expect(emitSpy).not.toHaveBeenCalled();
   });

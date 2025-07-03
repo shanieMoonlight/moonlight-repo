@@ -19,9 +19,9 @@ export const customerOnlyGuard = createMyIdCustomGuard(
 
 
 const twoFactorProviderOptions: TwoFactorOption[] = [
-  { value: 'Test 1', label: 'Authenticator App' },
-  { value: 'Test 2', label: 'SMS' },
-  { value: 'Test 3', label: 'Email' }
+  { value: 'AuthenticatorApp', label: 'Authenticator App' },
+//   { value: 'Sms', label: 'SMS' },
+  { value: 'Email', label: 'Email' }
 ]
 
 export const mainRoutes: Route[] = [
@@ -33,7 +33,7 @@ export const mainRoutes: Route[] = [
             provideMyIdRouter(MyIdMainRouterService),
             provideMyIdTeamPositionOptions(teamPositionOptions),
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
-            provideMyIdTwoFactorOptions(twoFactorProviderOptions),
+            // provideMyIdTwoFactorOptions(twoFactorProviderOptions),
         ],
         children: [
             ...getMainMyIdAccountRoutes({

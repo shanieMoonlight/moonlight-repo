@@ -1,19 +1,19 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
+import { signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { lastValueFrom, Observable, of } from 'rxjs';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import {
     mntcGuard,
     mntcLdrGuard,
     mntcMinimumGuard,
-    mntcOrDevGuard,
     mntcMinimumOrDevGuard,
+    mntcOrDevGuard,
     mntcPositionGuard,
     mntcPositionMinimumGuard,
     mntcPositionRangeGuard
 } from './mntc-team-guards';
-import { lastValueFrom, Observable, of } from 'rxjs';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
-import { signal } from '@angular/core';
 
 const mockActRoute = {
     queryParamMap: of({ get: () => null })
@@ -33,7 +33,12 @@ describe('Mntc Team Guards', () => {
             createUrlTree: jest.fn().mockReturnValue(mockUrlTree),
             navigate: jest.fn(),
         } as unknown as jest.Mocked<Router>;
-        mockRoute = {} as ActivatedRouteSnapshot;
+        mockRoute = {
+            queryParamMap: {
+                get: () => null,
+                has: () => false // or true, depending on your test
+            }
+        } as unknown as ActivatedRouteSnapshot;
         mockState = {} as RouterStateSnapshot;
         TestBed.configureTestingModule({
             providers: [

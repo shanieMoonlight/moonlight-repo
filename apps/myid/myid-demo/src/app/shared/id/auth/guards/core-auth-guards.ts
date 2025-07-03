@@ -5,6 +5,7 @@ import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service
 import { AMyIdAuthService } from '../services/auth/a-myid.auth.service';
 import { MyIdJwtPayload } from '../services/auth/myid-jwt-payload';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
+import { MyIdRouteInfo } from '../../utils/my-id-route-info';
 
 // Core generic guards: logged in, email verified, claim, role, any/all roles, etc.
 
@@ -16,11 +17,16 @@ export function createMyIdCustomGuard<T extends AMyIdAuthService = AMyIdAuthServ
     const authService = inject(authServiceToken);
     const router = inject(MyIdRouter);
 
+    const hasRedirect = route.queryParamMap.has(MyIdRouteInfo.Params.REDIRECT_URL_KEY);
+    const redirectUrl = hasRedirect
+      ? route.queryParamMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)
+      : state.url
+
     // Wait for auth state to be ready before checking
     return authService.isReady$.pipe(
       filter(Boolean),
       take(1),
-      map(() => checkFn(authService) || router.createLoginUrlTree(state.url ))
+      map(() => checkFn(authService) || router.createLoginUrlTree(redirectUrl ?? undefined))
     );
   };
 }

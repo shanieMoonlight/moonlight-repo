@@ -17,8 +17,12 @@ import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service
 import { lastValueFrom } from 'rxjs';
 
 const mockActRoute = {
-  queryParamMap: of({ get: () => null })
+  queryParamMap: of({
+    get: () => null
+  })
 };
+
+
 
 describe('Core Auth Guards', () => {
   let mockAuthService: MockMyIdAuthService;
@@ -36,7 +40,12 @@ describe('Core Auth Guards', () => {
       navigate: jest.fn(),
     } as unknown as jest.Mocked<Router>;
     mockMyIdRouter = { createLoginUrlTree: jest.fn().mockReturnValue(mockUrlTree) };
-    mockRoute = {} as ActivatedRouteSnapshot;
+    mockRoute = {
+      queryParamMap: {
+        get: () => null,
+        has: () => false // or true, depending on your test
+      }
+    } as unknown as ActivatedRouteSnapshot;
     mockState = {} as RouterStateSnapshot;
     TestBed.configureTestingModule({
       providers: [

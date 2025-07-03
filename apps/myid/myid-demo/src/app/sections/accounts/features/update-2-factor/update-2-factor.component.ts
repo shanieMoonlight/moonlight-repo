@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UpdateTwoFactorProviderFormDto, SbUpdateTwoFactorProviderFormComponent } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { Update2FactorStateService } from './update-2-factor.state.service';
+import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
+import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { Update2FactorStateService } from './update-2-factor.state.service';
 
 @Component({
   selector: 'sb-update-2-factor',
@@ -13,7 +13,8 @@ import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/option
   imports: [
     SbUpdateTwoFactorProviderFormComponent,
     SbMatNotificationsModalComponent,
-    SbButtonComponent
+    SbButtonComponent,
+    JsonPipe
   ],
   templateUrl: './update-2-factor.component.html',
   styleUrl: './update-2-factor.component.scss',
@@ -33,6 +34,7 @@ export class Update2FactorComponent {
   protected _loading = this._state.loading
   protected _changeSuccess = this._state.updateSuccess
   protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
+  protected _currentProvider = this._state.currentProvider;  
 
 
   //--------------------------//

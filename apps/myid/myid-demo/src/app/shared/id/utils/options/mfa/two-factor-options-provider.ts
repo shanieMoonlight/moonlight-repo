@@ -1,4 +1,5 @@
 import { Injectable, InjectionToken, forwardRef, inject } from '@angular/core';
+import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
@@ -6,7 +7,7 @@ import { Injectable, InjectionToken, forwardRef, inject } from '@angular/core';
 
 
 export interface TwoFactorOption {
-  value: string,
+  value: TwoFactorProvider,
   label: string
 }
 

@@ -42,7 +42,7 @@ export class SbUpdateTwoFactorProviderFormComponent {
   updateProvider = output<UpdateTwoFactorProviderFormDto>();
   color = input<UiKitTheme>('primary');
 
-  @Input()
+  @Input({required: true})
   set currentProvider(value: TwoFactorProvider) {
     this._form.controls.provider.setValue(value);
   }
@@ -51,7 +51,7 @@ export class SbUpdateTwoFactorProviderFormComponent {
   twoFactorProviderOptions = input.required<SelectOption[]>()
 
   protected _form: FormGroup<UpdateTwoFactorProviderForm> = this._fb.nonNullable.group({
-    provider: ['Email' as TwoFactorProvider, [Validators.required]]
+    provider: ['' as TwoFactorProvider, [Validators.required]]
   });
 
   submit() {

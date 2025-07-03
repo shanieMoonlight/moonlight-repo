@@ -6,9 +6,10 @@
             <h2>Change Your 2-Factor Provider</h2>
             <!-- <p class="description">Create a secure password for your account.</p> -->
         </div>
-    
+    {{_twoFactorProviderOptions|json}}
         <sb-update-two-factor-provider-form 
             class="form"
+            [currentProvider]="_currentProvider()"
             [twoFactorProviderOptions]="_twoFactorProviderOptions"
             (updateProvider)="updateProvider($event)"/>
     </div>

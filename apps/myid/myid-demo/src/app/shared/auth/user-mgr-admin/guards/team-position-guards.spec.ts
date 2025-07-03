@@ -26,7 +26,12 @@ describe('Position/Range Guards', () => {
       createUrlTree: jest.fn().mockReturnValue(mockUrlTree),
       navigate: jest.fn(),
     } as unknown as jest.Mocked<Router>;
-    mockRoute = {} as ActivatedRouteSnapshot;
+    mockRoute = {
+      queryParamMap: {
+        get: () => null,
+        has: () => false // or true, depending on your test
+      }
+    } as unknown as ActivatedRouteSnapshot;
     mockState = {} as RouterStateSnapshot;
     TestBed.configureTestingModule({
       providers: [
