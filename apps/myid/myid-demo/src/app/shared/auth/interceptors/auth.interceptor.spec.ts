@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../id/auth/services/login/login.service';
 import { myIdDemoAuthInterceptorFn } from './auth.interceptor';
 import { SbToastService } from '@spider-baby/ui-toast';
+import { AppRouteDefs } from '../../../app-route-defs';
 
 describe('myIdDemoAuthInterceptorFn', () => {
   let loginServiceMock: any;
@@ -64,7 +65,7 @@ describe('myIdDemoAuthInterceptorFn', () => {
 
   it('should swallow auth errors on allow-anonymous pages', (done) => {
     const error = { status: HttpStatusCode.Unauthorized } as HttpErrorResponse;
-    runInterceptor(error, '/login-jwt').subscribe({
+    runInterceptor(error, AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')).subscribe({
       error: () => {
         expect(loginServiceMock.logout).not.toHaveBeenCalled();
         expect(routerMock.navigate).not.toHaveBeenCalled();

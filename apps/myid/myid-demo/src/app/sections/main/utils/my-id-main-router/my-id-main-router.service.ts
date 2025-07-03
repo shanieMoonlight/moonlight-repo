@@ -15,11 +15,11 @@ export class MyIdMainRouterService extends MyIdRouter {
   }
 
   override createLoginUrlTree(): UrlTree {
-    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')]);
+    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')]);
   }
 
   override createChPwdUrlTree(): UrlTree {
-    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.route('change-pwd')]);
+    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.account.route('change-password')]);
   }
 
   override createHomeUrlTree(): UrlTree {
@@ -33,7 +33,7 @@ export class MyIdMainRouterService extends MyIdRouter {
     if (provider)
       queryParams[MyIdRouteInfo.Params.TWO_FACTOR_PROVIDER_KEY] = provider;
     return this._router.createUrlTree([
-      AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')
+      AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor')
     ], { queryParams });
   }
 

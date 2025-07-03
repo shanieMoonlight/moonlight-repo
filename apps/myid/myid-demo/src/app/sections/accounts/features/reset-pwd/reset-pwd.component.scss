@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 96%;
+  height: 100%;
+  max-width: 450px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.description {
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.95rem;
+  margin-bottom: 3rem;
+  line-height: 1.4;
+}
+
+
+sb-forgot-pwd-modal-button {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+sb-reset-pwd-form {
+  width: 100%;
+}
+
+
+sb-button {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px) scale(0.98);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+sb-button.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}

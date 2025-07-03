@@ -39,7 +39,7 @@ describe('MyIdMainRouterService', () => {
     const urlTree = { commands: ['/login-jwt'], opts: undefined };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToLogin();
-    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.route('login-jwt')]);
+    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')]);
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
@@ -47,7 +47,7 @@ describe('MyIdMainRouterService', () => {
     const urlTree = { commands: ['/change-pwd'], opts: undefined };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToChPwd();
-    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.route('change-pwd')]);
+    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.account.route('change-password')]);
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 
@@ -62,13 +62,13 @@ describe('MyIdMainRouterService', () => {
   it('should navigate to verify-2-factor with token (JWT)', () => {
     const token = 'abc123';
     const urlTree = {
-      commands: [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      commands: [AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor')],
       opts: { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token } },
     };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToVerify(token);
     expect(createUrlTreeMock).toHaveBeenCalledWith(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      [AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor')],
       { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: token } }
     );
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
@@ -76,13 +76,13 @@ describe('MyIdMainRouterService', () => {
 
   it('should navigate to verify-2-factor without token (JWT)', () => {
     const urlTree = {
-      commands: [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      commands: [AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor')],
       opts: { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: undefined } },
     };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToVerify();
     expect(createUrlTreeMock).toHaveBeenCalledWith(
-      [AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor')],
+      [AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor')],
       { queryParams: { [MyIdRouteInfo.Params.TWO_FACTOR_TOKEN_KEY]: undefined } }
     );
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);

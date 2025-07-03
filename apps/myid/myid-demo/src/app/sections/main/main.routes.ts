@@ -3,8 +3,7 @@ import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posi
 import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
 import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
 import { provideMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.config';
-import { loginCookieRoutes } from './features/login-cki/login-cki.routes';
-import { loginJwtRoutes } from './features/login-jwt/login-jwt.routes';
+import { getMainMyIdAccountRoutes } from '../accounts/account.routes';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
@@ -26,6 +25,9 @@ export const mainRoutes: Route[] = [
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
         ],
         children: [
+            ...getMainMyIdAccountRoutes({
+                showSocialLinks: true,
+            }),
             {
                 path: MainSectionRoutesDefs.route('home'),
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
@@ -34,48 +36,6 @@ export const mainRoutes: Route[] = [
                 path: MainSectionRoutesDefs.route('scratchpad'),
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
                 // canActivate: [customerOnlyGuard],
-            },
-            ...loginJwtRoutes({
-                showSocialLinks: true, 
-            }), 
-            ...loginCookieRoutes({
-                showSocialLinks: true, 
-            }), 
-            {
-                path: MainSectionRoutesDefs.route('confirm-email'),
-                loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent)
-            },
-            {
-                path: MainSectionRoutesDefs.route('confirm-email-with-password'),
-                loadComponent: () => import('./features/confirm-email-with-pwd/confirm-email-with-pwd.component').then(m => m.ConfirmEmailWithPwdComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('confirm-phone'),
-                loadComponent: () => import('./features/confirm-phone/confirm-phone.component').then(m => m.ConfirmPhoneComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('reset-password'),
-                loadComponent: () => import('./features/reset-pwd/reset-pwd.component').then(m => m.ResetPwdComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('change-pwd'),
-                loadComponent: () => import('./features/change-pwd/change-pwd.component').then(m => m.ChangePwdComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('verify-2-factor'),
-                loadComponent: () => import('./features/verify-2-factor/verify-2-factor.component').then(m => m.Verify2FactorComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('verify-2-factor-cookie'),
-                loadComponent: () => import('./features/verify-2-factor-cki/verify-2-factor-cki.component').then(m => m.Verify2FactorComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('my-details'),
-                loadComponent: () => import('./features/update-self/update-self.component').then(m => m.UpdateSelfComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('update-2-factor'),
-                loadComponent: () => import('./features/update-2-factor/update-2-factor.component').then(m => m.Update2FactorComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('mntc-team'),

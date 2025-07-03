@@ -1,0 +1,31 @@
+<div class="container">
+
+        <sb-confirmed-card  
+            [title]="'Phone Number Confirmed!'"
+            [message]="_phoneConfirmedSuccessMsg()"
+            [class.show]="_confirmationSuccess()"/>
+
+            
+        <sb-button color="primary" 
+            class="go-to-login-btn"
+            [class.show]="_resendSuccess()"
+            (click)="goToLogin()">
+            Login
+        </sb-button>
+    
+        <sb-button color="error" 
+            class="resend-confirmation-btn"
+            [class.show]="_errorMsg()"
+            (click)="resendConfirmation()">
+            Resend Phone Confirmation
+        </sb-button>
+    
+
+    
+</div>
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_resendSuccessMsg()" 
+    [isLoading]="_loading()" />

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="header">
+        <h2>Verify 2-Factor</h2>
+        @if(_provider();as provider){
+            <p class="description">Provider: {{provider}}</p>
+        }
+    </div>
+    
+
+    <sb-verify-2factor-form
+        class="verify-2factor-form"
+        (verify2Factor)="verify2Factor($event)"/>
+
+    <sb-button color="error" 
+        class="resend-confirmation-btn"
+        [disabled]="_resendCooldownCountdown() > 0"
+        [class.show]="_errorMsg()"
+        (click)="resend2Factor()">
+        Resend Code {{ _resendCooldownCountdown() > 0 ? `(${_resendCooldownCountdown()})` : '' }}
+    </sb-button>
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />

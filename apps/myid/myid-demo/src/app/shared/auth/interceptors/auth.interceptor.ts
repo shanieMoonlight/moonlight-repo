@@ -70,7 +70,7 @@ function handleUnauthorized(
   const queryParams = getRedirectQueryParams(router.url);
 
   router.navigate(
-    [AppRouteDefs.fullPaths.main.route('login-jwt')],
+    [AppRouteDefs.fullPaths.main.account.route('login-jwt')],
     { queryParams: queryParams }
   )
 
@@ -87,13 +87,13 @@ function getRedirectQueryParams(url: string): Params {
 function isOnAllowAnonymousPage(url: string) {
 
   const routesToIgnore: string[] = [
-    AppRouteDefs.fullPaths.main.route('login-jwt'),
-    AppRouteDefs.fullPaths.main.route('login-cookie'),
-    AppRouteDefs.fullPaths.main.route('confirm-email'),
-    AppRouteDefs.fullPaths.main.route('confirm-email-with-password'),
-    AppRouteDefs.fullPaths.main.route('reset-password'),
-    AppRouteDefs.fullPaths.main.route('verify-2-factor'),
-    AppRouteDefs.fullPaths.main.route('verify-2-factor-cookie')
+    AppRouteDefs.fullPaths.main.account.route('login-jwt'),
+    AppRouteDefs.fullPaths.main.account.route('login-cookie'),
+    AppRouteDefs.fullPaths.main.account.route('confirm-email'),
+    AppRouteDefs.fullPaths.main.account.route('confirm-email-with-password'),
+    AppRouteDefs.fullPaths.main.account.route('reset-password'),
+    AppRouteDefs.fullPaths.main.account.route('verify-2-factor'),
+    AppRouteDefs.fullPaths.main.account.route('verify-2-factor-cookie')
   ]
 
   if (!routesToIgnore?.length)
