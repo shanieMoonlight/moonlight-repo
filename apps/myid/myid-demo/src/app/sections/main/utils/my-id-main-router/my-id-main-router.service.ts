@@ -10,12 +10,19 @@ import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 export class MyIdMainRouterService extends MyIdRouter {
   private _router = inject(Router);
 
+  
+  url = this._router.url;
+
   override navigateByUrl(url: UrlTree): Promise<boolean> {
     return this._router.navigateByUrl(url);
   }
 
-  override createLoginUrlTree(): UrlTree {
-    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')]);
+  override createLoginUrlTree(redirectUrl?: string): UrlTree {
+    const queryParams: Params = {};
+    if (redirectUrl)
+      queryParams[MyIdRouteInfo.Params.REDIRECT_URL_KEY] = redirectUrl;
+    return this._router.createUrlTree([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')],
+      { queryParams });
   }
 
   override createChPwdUrlTree(): UrlTree {

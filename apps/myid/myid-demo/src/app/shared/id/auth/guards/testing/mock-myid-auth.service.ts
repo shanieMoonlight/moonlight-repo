@@ -1,4 +1,5 @@
 import { signal } from '@angular/core';
+import { of } from 'rxjs';
 
 // Minimal role/position values for testing
 export const MockRoleValues = {
@@ -18,6 +19,7 @@ export const MockTeamPositions = {
 // Plain mock class for MyIdAuthService/AMyIdAuthService, no extends, no DI
 export class MockMyIdAuthService{
 
+  isReady$ = of(true) 
   getPositionValue(): number {
     throw new Error('Method not implemented.');
   }

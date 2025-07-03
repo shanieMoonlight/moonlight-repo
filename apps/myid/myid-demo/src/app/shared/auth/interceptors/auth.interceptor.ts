@@ -68,6 +68,8 @@ function handleUnauthorized(
   }
 
   const queryParams = getRedirectQueryParams(router.url);
+  console.log('Redirecting to login with query params:', queryParams);
+  
 
   router.navigate(
     [AppRouteDefs.fullPaths.main.account.route('login-jwt')],

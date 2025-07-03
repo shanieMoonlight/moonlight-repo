@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import {
     mntcGuard,
@@ -10,7 +10,7 @@ import {
     mntcPositionMinimumGuard,
     mntcPositionRangeGuard
 } from './mntc-team-guards';
-import { of } from 'rxjs';
+import { lastValueFrom, Observable, of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
 import { signal } from '@angular/core';
@@ -44,14 +44,15 @@ describe('Mntc Team Guards', () => {
             ],
         });
     });
-
-    describe('mntcGuard', () => {
-        it('allows activation if isMntc is true', () => {
+        it('allows activation if isMntc is true', async () => {
             mockAuthService.isMntc.set(true);
             const guard = mntcGuard;
-            const result = TestBed.runInInjectionContext(() => guard(mockRoute, mockState));
-            expect(result).toBe(true);
+            const result$ = TestBed.runInInjectionContext(() =>
+                guard(mockRoute, mockState)
+            ) as Observable<boolean | UrlTree>;
+            await expect(lastValueFrom(result$)).resolves.toBe(true);
         });
+
         it('redirects if isMntc is false', () => {
             mockAuthService.isMntc.set(false);
             const guard = mntcGuard;

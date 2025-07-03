@@ -39,7 +39,7 @@ describe('MyIdMainRouterService', () => {
     const urlTree = { commands: ['/login-jwt'], opts: undefined };
     createUrlTreeMock.mockReturnValueOnce(urlTree);
     service.navigateToLogin();
-    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')]);
+    expect(createUrlTreeMock).toHaveBeenCalledWith([AppRouteDefs.fullPathsWithSlash.main.account.route('login-jwt')], expect.anything());
     expect(navigateByUrlMock).toHaveBeenCalledWith(urlTree);
   });
 

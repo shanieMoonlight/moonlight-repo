@@ -1,9 +1,10 @@
 import { inject, InjectionToken } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
+import { filter, map, take } from 'rxjs';
+import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service';
 import { AMyIdAuthService } from '../services/auth/a-myid.auth.service';
 import { MyIdJwtPayload } from '../services/auth/myid-jwt-payload';
-import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 
 // Core generic guards: logged in, email verified, claim, role, any/all roles, etc.
 
@@ -11,10 +12,16 @@ export function createMyIdCustomGuard<T extends AMyIdAuthService = AMyIdAuthServ
   checkFn: (authService: T) => boolean,
   authServiceToken: InjectionToken<T> = MY_ID_AUTH_SERVICE_TOKEN as InjectionToken<T>
 ): CanActivateFn {
-  return () => {
+  return (route, state) => {
     const authService = inject(authServiceToken);
     const router = inject(MyIdRouter);
-    return checkFn(authService) || router.createLoginUrlTree();
+
+    // Wait for auth state to be ready before checking
+    return authService.isReady$.pipe(
+      filter(Boolean),
+      take(1),
+      map(() => checkFn(authService) || router.createLoginUrlTree(state.url ))
+    );
   };
 }
 

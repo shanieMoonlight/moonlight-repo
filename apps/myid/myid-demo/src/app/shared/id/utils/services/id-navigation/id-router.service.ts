@@ -1,6 +1,7 @@
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router, UrlCreationOptions, UrlTree } from '@angular/router';
 import { MyIdRouteInfo } from '../../my-id-route-info';
+import { q } from '@angular/cdk/overlay-module.d-B3qEQtts';
 
 //#########################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
@@ -12,7 +13,8 @@ import { MyIdRouteInfo } from '../../my-id-route-info';
 })
 export abstract class MyIdRouter {
 
-  abstract createLoginUrlTree(): UrlTree;
+  abstract url: string
+  abstract createLoginUrlTree(redirectUrl?: string): UrlTree;
   abstract createChPwdUrlTree(): UrlTree;
   abstract createHomeUrlTree(): UrlTree;
   abstract createVerifyUrlTree(token?: string, provider?: string): UrlTree;
@@ -21,8 +23,8 @@ export abstract class MyIdRouter {
   abstract navigate(commands: string[], opts?: UrlCreationOptions): Promise<boolean>;
 
 
-  navigateToLogin(): Promise<boolean> {
-    return this.navigateByUrl(this.createLoginUrlTree());
+  navigateToLogin(redirectUrl?: string): Promise<boolean> {
+    return this.navigateByUrl(this.createLoginUrlTree(redirectUrl));
   }
   navigateToChPwd(): Promise<boolean> {
     return this.navigateByUrl(this.createChPwdUrlTree());
@@ -45,14 +47,24 @@ export class MyIdFallbackRouter extends MyIdRouter {
   private _router = inject(Router);
   private _actRoute = inject(ActivatedRoute);
 
+  url = this._router.url;
+
+
   override navigateByUrl(url: UrlTree): Promise<boolean> {
     return this._router.navigateByUrl(url);
   }
 
   //------------------//
 
-  override createLoginUrlTree(): UrlTree {
-    return this._router.createUrlTree(['../login'], { relativeTo: this._actRoute });
+  override createLoginUrlTree(redirectUrl?: string): UrlTree {
+    const queryParams: Params = {};
+    if (redirectUrl)
+      queryParams[MyIdRouteInfo.Params.REDIRECT_URL_KEY] = redirectUrl;
+
+    return this._router.createUrlTree(['../login'], {
+      relativeTo: this._actRoute,
+      queryParams
+    });
   }
 
   //------------------//

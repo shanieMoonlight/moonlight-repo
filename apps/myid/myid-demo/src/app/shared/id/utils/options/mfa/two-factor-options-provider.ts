@@ -1,8 +1,9 @@
-import { Injectable, forwardRef } from '@angular/core';
+import { Injectable, InjectionToken, forwardRef, inject } from '@angular/core';
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
 //###########################################################################//
+
 
 export interface TwoFactorOption {
   value: string,
@@ -15,6 +16,18 @@ const twoFactorProviderOptions: TwoFactorOption[] = [
   { value: 'Sms', label: 'SMS' },
   { value: 'Email', label: 'Email' }
 ]
+
+
+//###########################################################################//
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
+//###########################################################################//
+
+
+export const MY_ID_TWO_FACTOR_OPTIONS_TOKEN = new InjectionToken<TwoFactorOption[]>(
+  'MY_ID_TWO_FACTOR_OPTIONS', {
+  factory: () => twoFactorProviderOptions
+});
+
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
@@ -36,12 +49,12 @@ export abstract class MyIdTwoFactorOptionsProvider {
 //###########################################################################//
 
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FallbackTwoFactorOptionsProvider extends MyIdTwoFactorOptionsProvider {
 
+  private _twoFactorProviderOptions = inject(MY_ID_TWO_FACTOR_OPTIONS_TOKEN, { optional: true, }) || []
+
   override getOptions(): TwoFactorOption[] {
-    return twoFactorProviderOptions;
+    return this._twoFactorProviderOptions;
   }
 }

@@ -41,9 +41,9 @@ export abstract class MyIdTeamPositionOptionsProvider {
 @Injectable()
 export class FallbackTeamPositionOptionsProvider extends MyIdTeamPositionOptionsProvider {
 
-  positionOptions = inject(MY_ID_TEAM_POSITION_OPTIONS_TOKEN, { optional: true, }) || []
+private   _positionOptions = inject(MY_ID_TEAM_POSITION_OPTIONS_TOKEN, { optional: true, }) || []
 
   override getOptions(): TeamPositionOption[] {    
-    return this.positionOptions;
+    return this._positionOptions;
   }
 }

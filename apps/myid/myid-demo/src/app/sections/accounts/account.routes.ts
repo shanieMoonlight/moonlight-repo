@@ -1,7 +1,6 @@
-
 // import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
-import { Route } from '@angular/router';
+import { CanActivate, CanActivateFn, CanLoadFn, CanMatch, CanMatchFn, Route } from '@angular/router';
 import { AccountSectionRoutesDefs } from './account-route-defs';
 import { changePwdRoutes } from './features/change-pwd/change-pwd.routes';
 import { confirmEmailRoutes } from './features/confirm-email/confirm-email.routes';
@@ -17,6 +16,7 @@ import { verify2FactorCookieRoutes } from './features/verify-2-factor-cki/verify
 import { verify2FactorRoutes } from './features/verify-2-factor/verify-2-factor.routes';
 import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
 import { superTeamRoutes } from './features/super-team/super-team.routes';
+import { Type } from '@angular/core';
 
 
 //##############################//
@@ -24,6 +24,8 @@ import { superTeamRoutes } from './features/super-team/super-team.routes';
 export type MyIdRouteOptions = {
     showSocialLinks?: boolean;
     basePath?: string;
+    canActivate?: Array<Type<CanActivate> | CanActivateFn>;
+    canLoad?: Array<Type<CanMatch> | CanMatchFn>;
 }
 
 
@@ -68,13 +70,15 @@ export type MyIdRouteOptions = {
  * // ]
  */
 export function getMainMyIdAccountRoutes(options?: MyIdRouteOptions): Route[] {
-    
+
     const showSocialLinks = !!options?.showSocialLinks
 
     return [
         {
             path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
             providers: [],
+            ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
+            ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
             children: [
                 ...confirmPhoneRoutes(),
                 ...changePwdRoutes(),
@@ -99,13 +103,45 @@ export function getMainMyIdAccountRoutes(options?: MyIdRouteOptions): Route[] {
 //##############################//
 
 
+/**
+ * Generates the customer-related Angular routes for the MyID application.
+ *
+ * This factory function returns a single root route (with optional custom base path, defaults to AccountSectionRoutesDefs.BASE)
+ * whose children include customer management and customer registration features.
+ *
+ * @param options - Configuration options for the customer routes.
+ * @param options.showSocialLinks - If true, enables social login buttons on supported registration routes.
+ * @param options.basePath - Optionally override the default base path for the customer section.
+ *
+ * @returns An array containing a single root Route object with all customer feature child routes.
+ *
+ * @example
+ * // Add customer routes under the default base path, with social logins enabled:
+ * const routes = getMyIdCustomerRoutes({ showSocialLinks: true });
+ *
+ * // Add customer routes under a custom path:
+ * const routes = getMyIdCustomerRoutes({ basePath: 'clients', showSocialLinks: false });
+ *
+ * // Resulting structure:
+ * // [
+ * //   {
+ * //     path: 'accounts' | options.basePath,
+ * //     providers: [],
+ * //     children: [
+ * //       ...customersRoutes(),
+ * //       ...registerCustomerRoutes({ showSocialLinks }),
+ * //     ]
+ * //   }
+ * // ]
+ */
 export function getMyIdCustomerRoutes(options?: MyIdRouteOptions): Route[] {
-
-    const showSocialLinks = !!options?.showSocialLinks
+    const showSocialLinks = !!options?.showSocialLinks;
     return [
         {
             path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
             providers: [],
+            ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
+            ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
             children: [
                 ...customersRoutes(),
                 ...registerCustomerRoutes({
@@ -119,15 +155,50 @@ export function getMyIdCustomerRoutes(options?: MyIdRouteOptions): Route[] {
 
 //##############################//
 
+
 export type MyIdMntcRouteOptions = {
     basePath?: string;
+    canActivate?: Array<Type<CanActivate> | CanActivateFn>;
+    canLoad?: Array<Type<CanMatch> | CanMatchFn>;
 }
 
+/**
+ * Generates the maintenance and super team Angular routes for the MyID application.
+ *
+ * This factory function returns a single root route (with optional custom base path, defaults to AccountSectionRoutesDefs.BASE)
+ * whose children include the maintenance team and super team features.
+ *
+ * @param options - Configuration options for the maintenance and super team routes.
+ * @param options.basePath - Optionally override the default base path for this section.
+ *
+ * @returns An array containing a single root Route object with maintenance and super team child routes.
+ *
+ * @example
+ * // Add maintenance and super team routes under the default base path:
+ * const routes = getMyIdMntsAndSuperRoutes();
+ *
+ * // Add routes under a custom path:
+ * const routes = getMyIdMntsAndSuperRoutes({ basePath: 'teams' });
+ *
+ * // Resulting structure:
+ * // [
+ * //   {
+ * //     path: 'accounts' | options.basePath,
+ * //     providers: [],
+ * //     children: [
+ * //       ...mntcTeamRoutes(),
+ * //       ...superTeamRoutes(),
+ * //     ]
+ * //   }
+ * // ]
+ */
 export function getMyIdMntsAndSuperRoutes(options?: MyIdMntcRouteOptions): Route[] {
     return [
         {
             path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
             providers: [],
+            ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
+            ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
             children: [
                 ...mntcTeamRoutes(),
                 ...superTeamRoutes()

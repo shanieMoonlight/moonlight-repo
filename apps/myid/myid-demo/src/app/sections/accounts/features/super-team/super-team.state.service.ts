@@ -22,7 +22,7 @@ export class SuperTeamStateService {
   private _superTeamState = MiniStateBuilder
     .Create(() => this._ioService.getSuperTeamMembers())
     .setOnSuccessFn((dto, response) => this._crudSignalOps.refresh(response))
-    // .trigger()
+    .trigger()
 
   private _addState = MiniStateBuilder
     .CreateWithInput((dto: AddSuperMemberDto) => this._ioService.addSuperTeamMember(dto))

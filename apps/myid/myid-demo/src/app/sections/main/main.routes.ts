@@ -7,12 +7,22 @@ import { getMyIdCustomerRoutes, getMainMyIdAccountRoutes, getMyIdMntsAndSuperRou
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
+import { TwoFactorOption } from '../../shared/id/utils/options/mfa/two-factor-options-provider';
+import { provideMyIdTwoFactorOptions } from '../../shared/id/utils/options/mfa/two-factor-options.config';
 // import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
 
 export const customerOnlyGuard = createMyIdCustomGuard(
     (authService) => authService.isLoggedIn() && authService.isCustomer()
 );
+
+
+
+const twoFactorProviderOptions: TwoFactorOption[] = [
+  { value: 'Test 1', label: 'Authenticator App' },
+  { value: 'Test 2', label: 'SMS' },
+  { value: 'Test 3', label: 'Email' }
+]
 
 export const mainRoutes: Route[] = [
     {
@@ -23,6 +33,7 @@ export const mainRoutes: Route[] = [
             provideMyIdRouter(MyIdMainRouterService),
             provideMyIdTeamPositionOptions(teamPositionOptions),
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
+            provideMyIdTwoFactorOptions(twoFactorProviderOptions),
         ],
         children: [
             ...getMainMyIdAccountRoutes({
@@ -43,15 +54,15 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test'),
-                loadComponent: () => import('./features/auth-service-test/default/auth-service-test.component').then(m => m.AuthServiceTestComponent),
+                loadComponent: () => import('../accounts/features/auth-service-test/default/auth-service-test.component').then(m => m.AuthServiceTestComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test-firebase'),
-                loadComponent: () => import('./features/auth-service-test/firebase/auth-service-firebase-test.component').then(m => m.AuthServiceFirebaseTestComponent),
+                loadComponent: () => import('../accounts/features/auth-service-test/firebase/auth-service-firebase-test.component').then(m => m.AuthServiceFirebaseTestComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test-user-mgr-admin'),
-                loadComponent: () => import('./features/auth-service-test/user-mgr-admin/user-mgr-admin.component').then(m => m.AuthServiceUserMgrAdminComponent),
+                loadComponent: () => import('../accounts/features/auth-service-test/user-mgr-admin/user-mgr-admin.component').then(m => m.AuthServiceUserMgrAdminComponent),
             },
             {
                 path: '',

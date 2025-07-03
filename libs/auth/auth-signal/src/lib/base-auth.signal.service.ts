@@ -6,6 +6,7 @@ import { Claim } from './claims/claim';
 import { JwtHelper } from './jwt/jwt-helper';
 import { JwtPayload } from './jwt/jwt-payload';
 import { LogErrorContext } from './logging/log-error-context';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Directive({})
 /**
@@ -17,6 +18,10 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   protected _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - -//
+
+  private _isReady = signal(false);
+  isReady = computed(() => this._isReady());
+  isReady$ = toObservable(this.isReady);
 
   protected isPlatformBrowser = computed(() => isPlatformBrowser(this._platformId))
   private expiryTimeout?: ReturnType<typeof setTimeout>;
@@ -153,13 +158,17 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   //- - - - - - - - - -//
 
   async initAsync(): Promise<void> {
-    if (!this.isPlatformBrowser())
-      return;
+  if (!this.isPlatformBrowser()) {
+    this._isReady.set(true); // Ensure SSR never blocks
+    return;
+  }
 
     const storedToken = await this.getStoredToken();
     devConsole.log('init, storedToken', storedToken?.substring(0, 15) + '...');
     if (storedToken)
       this.logIn(storedToken);
+
+    this._isReady.set(true);
   }
 
   //- - - - - - - - - -//
@@ -297,7 +306,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   private setupExpiryTimer(expiry?: Date) {
 
     clearTimeout(this.expiryTimeout);
-    
+
     if (!expiry)
       return
 
@@ -311,14 +320,14 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
     // If the delay is too large, set up a shorter timer and re-check later
     const MAX_TIMEOUT_MS = 2147483647; // 2^31 - 1
     const timeoutDelay = Math.min(msUntilExpiry, MAX_TIMEOUT_MS);
-    
+
     this.expiryTimeout = setTimeout(() => {
       // If we hit the max timeout, check again with remaining time
-      if (timeoutDelay === MAX_TIMEOUT_MS) 
+      if (timeoutDelay === MAX_TIMEOUT_MS)
         this.setupExpiryTimer(expiry);
-       else 
+      else
         this.onExpiry();
-      
+
     }, timeoutDelay);
   }
 
