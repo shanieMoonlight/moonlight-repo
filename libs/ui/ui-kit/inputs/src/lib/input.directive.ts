@@ -21,7 +21,8 @@ export class SbInputStyleDirective {
     // Apply styles from login.component.scss:34-49
     this._renderer.setStyle(this._input, 'padding', '0.75rem 1rem');
     this._renderer.setStyle(this._input, 'border', '1px solid var(--mat-sys-outline)');
-    this._renderer.setStyle(this._input, 'border-radius', '0.5rem');
+    // this._renderer.setStyle(this._input, 'border-radius', '0.5rem');
+    this._renderer.setStyle(this._input, 'border-radius', 'var(--mat-sys-corner-extra-small) ');
     this._renderer.setStyle(this._input, 'font-size', '1rem');
     this._renderer.setStyle(this._input, 'transition', 'border-color 0.2s');
     this._renderer.setStyle(this._input, 'background-color', 'transparent');

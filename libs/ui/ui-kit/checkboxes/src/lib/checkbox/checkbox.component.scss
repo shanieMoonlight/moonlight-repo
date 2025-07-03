@@ -6,6 +6,7 @@
   --color-check: var(--mat-sys-primary-100);
   --color-txt: var(--mat-sys-on-surface);
   --color-icon: var(--mat-sys-surface);
+  --border-radius: var(--mat-sys-corner-extra-small);
 }
 
 .sb-checkbox-label {
@@ -31,7 +32,9 @@
   width: 1.2rem;
   height: 1.2rem;
   border: 2px solid var(--color-border);
-  border-radius: 0.3rem;
+  // border-radius: 0.3rem;
+  border-radius: var(--border-radius);
+
   background: var(--color-bg);
   position: relative;
   transition: border-color 0.2s, background 0.2s;

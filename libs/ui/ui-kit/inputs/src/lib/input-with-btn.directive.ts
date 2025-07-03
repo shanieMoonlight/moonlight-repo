@@ -31,7 +31,8 @@ export class SbInputWithBtnDirective implements AfterContentChecked {
     this._renderer.setStyle(this._container, 'border-style', 'solid');
     // this._renderer.setStyle(this._container, 'border', '1px solid var(--mat-sys-outline)');
     this._renderer.setStyle(this._container, 'transition', 'border-color 0.3s ease-in-out');
-    this._renderer.setStyle(this._container, 'border-radius', '0.5rem');
+    // this._renderer.setStyle(this._container, 'border-radius', '0.5rem');
+    this._renderer.setStyle(this._container, 'border-radius', 'var(--mat-sys-corner-extra-small) ');
     this._renderer.setStyle(this._container, 'padding-right', '1rem');
 
     this._renderer.listen(this._container, 'focusin', () => {

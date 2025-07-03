@@ -2,6 +2,7 @@
   --color: var(--mat-sys-primary);
   display: inline-block;
   color: inherit;
+  --border-radius: var(--mat-sys-corner-extra-small);
 
 }
 
@@ -16,6 +17,7 @@
   justify-content: center;
   transition: color 0.2s;
   border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   // border-radius: 50%;
   // color: var(--color);
   color: inherit;

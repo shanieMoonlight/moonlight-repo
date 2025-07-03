@@ -107,8 +107,7 @@ export class ThemeGeneratorService {
 
       // Then apply the M3 system variables using the direct mapper approach
       this.applySystemVariables(theme, isDark, palettes, targetElement)
-
-
+      this.applyShapeVariables(targetElement); // <-- Add this line
       this.applyThemeAndModeClassess(themeClass, isDark, targetElement)
 
     })
@@ -412,5 +411,24 @@ export class ThemeGeneratorService {
  */
   private camelToKebabCase = (str: string): string =>
     str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+
+  /**
+   * Apply Material Design 3 shape (corner radius) variables to the target element
+   */
+  private applyShapeVariables(targetElement: HTMLElement) {
+    // Material Design 3 shape tokens (border radius)
+    this.setVariable(targetElement, '--mat-sys-corner-extra-large', '28px');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-large-top', '28px 28px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-small', '4px');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-small-top', '4px 4px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-full', '9999px');
+    this.setVariable(targetElement, '--mat-sys-corner-large', '16px');
+    this.setVariable(targetElement, '--mat-sys-corner-large-end', '0 16px 16px 0');
+    this.setVariable(targetElement, '--mat-sys-corner-large-start', '16px 0 0 16px');
+    this.setVariable(targetElement, '--mat-sys-corner-large-top', '16px 16px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-medium', '12px');
+    this.setVariable(targetElement, '--mat-sys-corner-none', '0');
+    this.setVariable(targetElement, '--mat-sys-corner-small', '8px');
+  }
 
 }//Cls
