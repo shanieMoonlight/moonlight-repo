@@ -3,7 +3,7 @@ import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posi
 import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
 import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
 import { provideMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.config';
-import { getMainMyIdAccountRoutes } from '../accounts/account.routes';
+import { getMyIdCustomerRoutes, getMainMyIdAccountRoutes } from '../accounts/account.routes';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
@@ -28,6 +28,9 @@ export const mainRoutes: Route[] = [
             ...getMainMyIdAccountRoutes({
                 showSocialLinks: true,
             }),
+            ...getMyIdCustomerRoutes({
+                showSocialLinks: true,
+            }),
             {
                 path: MainSectionRoutesDefs.route('home'),
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),
@@ -44,14 +47,6 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('super-team'),
                 loadComponent: () => import('./features/super-team/super-team.component').then(m => m.SuperTeamComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('customers'),
-                loadComponent: () => import('./features/customers/customers.component').then(m => m.CustomersComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('register'),
-                loadComponent: () => import('./features/register/register.component').then(m => m.RegisterCustomerComponent),
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test'),

@@ -14,8 +14,6 @@ type CHILD_ROUTE =
   | 'auth-test-user-mgr-admin'
   | 'mntc-team'
   | 'super-team'
-  | 'customers'
-  | 'register'
   | 'scratchpad'
 
 //#################################################//
