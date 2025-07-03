@@ -1,14 +1,13 @@
-import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { computed, inject, Injectable } from '@angular/core';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
-import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '@spider-baby/myid-io/models';
-import { AccountIoService } from '@spider-baby/myid-io';
-import { PreconditionRequiredError } from '@spider-baby/myid-io';
-import { ActivatedRoute } from '@angular/router';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
-import { filter, map, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
+import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '@spider-baby/myid-io/models';
+import { filter, map } from 'rxjs';
+import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
+import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 //######################//
 
@@ -17,6 +16,22 @@ export class TwoFactorRequiredData {
     public token?: string,
     public provider?: string
   ) { }
+}
+
+//######################//
+
+export type LoginJwtRouteDataOptions = {
+  showSocialLinks?: boolean
+}
+
+export class LoginJwtRouteData {
+
+  private constructor(
+    public showSocialLinks: boolean
+  ) { }
+
+  static create = (options?: LoginJwtRouteDataOptions) =>
+    new LoginJwtRouteData(options?.showSocialLinks ?? false);
 }
 
 //######################//
@@ -31,9 +46,14 @@ export class LoginJwtStateService {
 
   //- - - - - - - - - - - - - //
 
+  private _showSocialLinks$ = this._actRoute.data.pipe(
+    map((data) => data as LoginJwtRouteData),
+    map((data) => data.showSocialLinks ?? false),
+  )
+  showSocialLinks = toSignal(this._showSocialLinks$, { initialValue: false });
+
 
   private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
-    tap((paramMap) => console.log('LoginJwtStateService: redirectUrl paramMap:', paramMap)),
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)),
     filter((x) => !!x)
   )
@@ -86,7 +106,7 @@ export class LoginJwtStateService {
     if (!error || !(error instanceof PreconditionRequiredError))
       return undefined;
     const payload = error.payload as (JwtPackage | undefined);
-    return new  TwoFactorRequiredData(
+    return new TwoFactorRequiredData(
       payload?.twoFactorToken,
       payload?.twoFactorProvider
     )

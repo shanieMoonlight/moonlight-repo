@@ -63,7 +63,8 @@ const mockRouter = {
 };
 
 const mockActRoute = {
-  queryParamMap: of({ get: () => null })
+  queryParamMap: of({ get: () => null }),
+  data: of({ get: () => null })
 }
 
 // Mock for asl-google-signin-button directive

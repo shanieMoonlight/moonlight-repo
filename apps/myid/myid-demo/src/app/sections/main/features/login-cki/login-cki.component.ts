@@ -35,6 +35,7 @@ export class LoginCkiComponent implements OnInit {
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
+  protected _showSocialLinks = this._state.showSocialLinks
 
   protected _showForgotPwd = signal(false)
 

@@ -39,9 +39,7 @@ export abstract class MyIdRouter {
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
 //#########################################################//
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MyIdFallbackRouter extends MyIdRouter {
 
   private _router = inject(Router);

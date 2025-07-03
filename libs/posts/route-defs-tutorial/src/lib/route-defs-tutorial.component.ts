@@ -43,8 +43,8 @@ export class PostRouteDefsTutorialComponent implements OnInit {
 
   private _codeSampleDownloader = inject(LocalFileDownloadServiceService);
   private _seoService = inject(SeoService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
 
   //- - - - - - - - - - - - - - //
 
@@ -88,7 +88,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
   protected _isLoading = this._dlState.loading
 
 
-  _transitionId = computed(() => this.router.url);
+  _transitionId = computed(() => this._router.url);
 
 
   //----------------------------//
@@ -112,7 +112,7 @@ export class PostRouteDefsTutorialComponent implements OnInit {
     if(showDemoLink != undefined) {
       this._showDemoLink.set(showDemoLink)
     }else{
-      const staticData = this.route.snapshot.data;
+      const staticData = this._route.snapshot.data;
       devConsole.log('Static data:', staticData);
       this._showDemoLink.set(staticData['showDemoLink']);
     }

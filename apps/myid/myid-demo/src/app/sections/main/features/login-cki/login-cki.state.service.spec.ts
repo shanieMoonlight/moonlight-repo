@@ -7,8 +7,10 @@ import { LoginCkiStateService } from './login-cki.state.service';
 
 
 //#############################//
+
 const mockActRoute = {
-  queryParamMap: of({ get: () => null })
+  queryParamMap: of({ get: () => null }),
+  data: of({ get: () => null })
 }
 
 //#############################//

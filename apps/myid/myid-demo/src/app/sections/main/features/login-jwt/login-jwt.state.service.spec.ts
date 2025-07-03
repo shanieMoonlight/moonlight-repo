@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoginJwtStateService } from './login-jwt.state.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { signal } from '@angular/core';
-import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { LoginJwtStateService } from './login-jwt.state.service';
 
 //#############################//
 
@@ -15,7 +14,8 @@ const mockRouter = {
 };
 
 const mockActRoute = {
-  queryParamMap: of({ get: () => null })
+  queryParamMap: of({ get: () => null }),
+  data: of({ get: () => null })
 }
 
 //#############################//

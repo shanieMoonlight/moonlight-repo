@@ -19,6 +19,23 @@ export class TwoFactorRequiredData {
 
 //######################//
 
+export type LoginCookieRouteDataOptions = {
+  showSocialLinks?: boolean
+}
+
+
+export class LoginCookieRouteData {
+
+  private constructor(
+    public showSocialLinks = false
+  ) { }
+
+  static create = (options? : LoginCookieRouteDataOptions) =>
+    new LoginCookieRouteData(options?.showSocialLinks ?? false);
+}
+
+//######################//
+
 
 @Injectable()
 export class LoginCkiStateService {
@@ -28,6 +45,12 @@ export class LoginCkiStateService {
   private _actRoute = inject(ActivatedRoute)
 
   //- - - - - - - - - - - - - //
+
+  private _showSocialLinks$ = this._actRoute.data.pipe(
+    map((data) => data as LoginCookieRouteData),
+    map((data) => data.showSocialLinks ?? false),
+  )
+  showSocialLinks = toSignal(this._showSocialLinks$, { initialValue: false });
 
   private _redirectUrl$ = this._actRoute.queryParamMap.pipe(
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)),

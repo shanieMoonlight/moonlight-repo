@@ -2,7 +2,9 @@ import { Route } from '@angular/router';
 import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
 import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
-import { MyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
+import { provideMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.config';
+import { loginCookieRoutes } from './features/login-cki/login-cki.routes';
+import { loginJwtRoutes } from './features/login-jwt/login-jwt.routes';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
@@ -19,10 +21,7 @@ export const mainRoutes: Route[] = [
         component: MainComponent,
 
         providers: [
-            {
-                provide: MyIdRouter,
-                useExisting: MyIdMainRouterService,
-            },
+            provideMyIdRouter(MyIdMainRouterService),
             provideMyIdTeamPositionOptions(teamPositionOptions),
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
         ],
@@ -36,14 +35,12 @@ export const mainRoutes: Route[] = [
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
                 // canActivate: [customerOnlyGuard],
             },
-            {
-                path: MainSectionRoutesDefs.route('login-jwt'),
-                loadComponent: () => import('./features/login-jwt/login-jwt.component').then(m => m.LoginJwtComponent),
-            },
-            {
-                path: MainSectionRoutesDefs.route('login-cookie'),
-                loadComponent: () => import('./features/login-cki/login-cki.component').then(m => m.LoginCkiComponent)
-            },
+            ...loginJwtRoutes({
+                showSocialLinks: true, 
+            }), 
+            ...loginCookieRoutes({
+                showSocialLinks: true, 
+            }), 
             {
                 path: MainSectionRoutesDefs.route('confirm-email'),
                 loadComponent: () => import('./features/confirm-email/confirm-email.component').then(m => m.ConfirmEmailComponent)
