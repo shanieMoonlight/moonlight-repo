@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import {
@@ -10,9 +11,9 @@ import {
   createMyIdCustomGuard
 } from './core-auth-guards';
 import { of } from 'rxjs';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
-import { MyIdRouter } from '../../id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service';
 
 const mockActRoute = {
   queryParamMap: of({ get: () => null })

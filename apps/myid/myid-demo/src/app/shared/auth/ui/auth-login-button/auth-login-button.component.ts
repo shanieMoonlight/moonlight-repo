@@ -2,7 +2,7 @@ import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID, TemplateRef } from '@angular/core';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { MyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 
 @Component({

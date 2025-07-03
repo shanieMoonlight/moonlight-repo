@@ -1,7 +1,7 @@
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { computed, inject, Injectable } from '@angular/core';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
 import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { PreconditionRequiredError } from '@spider-baby/myid-io';

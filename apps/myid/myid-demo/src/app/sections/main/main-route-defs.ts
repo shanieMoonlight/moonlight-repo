@@ -10,6 +10,7 @@ type CHILD_ROUTE =
   | 'home'
   | 'auth-test'
   | 'auth-test-firebase'
+  | 'auth-test-user-mgr-admin'
   | 'change-pwd'
   | 'confirm-email'
   | 'confirm-email-with-password'

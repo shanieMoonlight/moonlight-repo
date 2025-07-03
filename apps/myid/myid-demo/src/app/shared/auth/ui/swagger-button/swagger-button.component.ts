@@ -7,7 +7,7 @@ import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { environment } from '../../../../../environments/environment';
 import { AppSvgs } from '../../../../config/svgs';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 
 
 @Component({

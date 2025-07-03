@@ -1,10 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
+import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
 import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
-import { fakeSuperTeam } from './fake-super-data';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { fakeSuperTeam } from './fake-super-data';
 export class SuperTeamStateService {
 
   private _ioService = inject(UserManagementIoService)
+  private _teamPositionProvider = inject(MyIdTeamPositionOptionsProvider)
 
 
   private _crudSignalOps = new CrudArraySignalOps<AppUserDto>();
@@ -49,8 +50,8 @@ export class SuperTeamStateService {
   successMsg = this._states.successMsg
   errorMsg = this._states.errorMsg
   loading = this._states.loading
-  // data = this._crudSignalOps.data
-  data = signal(fakeSuperTeam)
+  data = this._crudSignalOps.data
+  // data = signal(fakeSuperTeam)
 
   //- - - - - - - - - - - - - //
 

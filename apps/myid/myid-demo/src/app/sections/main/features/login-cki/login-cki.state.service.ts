@@ -6,7 +6,7 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
 import { CookieSignInDto, CookieSignInResultData, ForgotPwdDto, GoogleSignInDto, LoginDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
-import { LoginService } from '../../../../shared/auth/services/login/login.service';
+import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 
 //######################//

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
-import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { SbAddSuperMemberFormComponent } from '../../../../shared/id/ui/forms/add-super-member/add-super-member-form.component';
+import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { tableColumns } from './data-table-columns';
 import { SuperTeamStateService } from './super-team.state.service';
@@ -15,7 +15,9 @@ import { SuperTeamStateService } from './super-team.state.service';
     SbUpdateTeamPositionFormComponent,
     CrudTableComponent
   ],
-  providers: [SuperTeamStateService],
+  providers: [
+    SuperTeamStateService
+  ],
   templateUrl: './super-team.component.html',
   styleUrl: './super-team.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +26,7 @@ export class SuperTeamComponent {
 
 
   private _state = inject(SuperTeamStateService)
+  private _teamPositionProvider = inject(MyIdTeamPositionOptionsProvider)
 
   //- - - - - - - - - - - -//
 
@@ -34,7 +37,8 @@ export class SuperTeamComponent {
   protected _tableColumns = tableColumns
 
 
-  protected _teamPositionOptions = teamPositionOptions
+  protected _teamPositionOptions = this._teamPositionProvider.getOptions()
+  
   protected _deleteMessageFn = (member: AppUserDto) =>
     `Are you sure you want to delete ${member.userName || member.email}? \nThis action cannot be undone.`
 

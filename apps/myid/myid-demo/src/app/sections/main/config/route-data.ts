@@ -18,7 +18,7 @@ export const MAIN_ROUTES: ApiRouteData[] = [
   {
     title: 'Auth Info',
     description: 'View the decoded JWT and the Auth Service Props.',
-    route: AppRouteDefs.fullPathsWithSlash.main.route('auth-test'),
+    route: AppRouteDefs.fullPathsWithSlash.main.route('auth-test-user-mgr-admin'),
     icon: 'quiz',
     color: 'tertiary'
   },
@@ -69,41 +69,41 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     description: 'Register.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('register'),
     icon: 'how_to_reg',
-    color: 'tertiary'
+    color: 'primary'
   },
   {
     title: 'Verify 2-Factor',
     description: 'Verify 2 Factor Provider.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('verify-2-factor'),
     icon: 'shield',
-    color: 'primary'
+    color: 'secondary'
   },
   {
     title: 'Reset Password',
     description: 'Reset your password.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('reset-password'),
     icon: 'refresh',
-    color: 'secondary'
+    color: 'tertiary'
   },
   {
     title: 'Confirm Email',
     description: 'Confirm your email address.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email'),
     icon: 'alternate_email',
-    color: 'tertiary'
+    color: 'primary'
   },
   {
     title: 'Confirm Email with Password',
     description: 'Confirm your email address with a password.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-email-with-password'),
     icon: 'key',
-    color: 'primary'
+    color: 'secondary'
   },
   {
     title: 'Confirm Phone',
     description: 'Confirm your phone number.',
     route: AppRouteDefs.fullPathsWithSlash.main.route('confirm-phone'),
     icon: 'call',
-    color: 'secondary'
+    color: 'tertiary'
   },
 ]

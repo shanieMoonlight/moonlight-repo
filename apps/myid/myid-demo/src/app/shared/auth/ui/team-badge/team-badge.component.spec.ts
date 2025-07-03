@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEAM_COLORS, TeamBadgeComponent } from './team-badge.component';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 import { ComponentRef, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 

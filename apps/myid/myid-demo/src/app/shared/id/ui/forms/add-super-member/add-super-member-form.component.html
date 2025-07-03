@@ -47,10 +47,10 @@
                     <label [for]="'teamPosition'">Team Position</label>
                 }          
 
-                @if(teamPositionOptions(); as positionOptions){
+                @if(teamPositionOptions()?.length){
                     <sb-select
                         [id]="'teamPosition'"
-                        [options]="positionOptions"
+                        [options]="teamPositionOptions() ?? []"
                         placeholder="Select new position"
                         formControlName="teamPosition"
                         [color]="color()"/>
@@ -60,6 +60,8 @@
                             formControlName="teamPosition" 
                             type="number"
                             placeholder="new Position" 
+                            [min]="minPosition()"
+                            [max]="maxPosition()"
                             [color]="color()"/>
                 }
 

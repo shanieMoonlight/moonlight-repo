@@ -5,7 +5,7 @@ import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/i
 import { Update2FactorStateService } from './update-2-factor.state.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
 
 @Component({
   selector: 'sb-update-2-factor',

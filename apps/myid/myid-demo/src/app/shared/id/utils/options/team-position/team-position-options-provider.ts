@@ -1,11 +1,19 @@
-import { Injectable, forwardRef } from '@angular/core';
+import { Injectable, InjectionToken, forwardRef, inject } from '@angular/core';
+
+//###########################################################################//
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
+//###########################################################################//
+
+export const MY_ID_TEAM_POSITION_OPTIONS_TOKEN = new InjectionToken<TeamPositionOption[]>(
+  'MY_ID_TEAM_POSITION_OPTIONS'
+);
 
 //###########################################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #//
 //###########################################################################//
 
 export interface TeamPositionOption {
-  value: string,
+  value: number,
   label: string
 }
 
@@ -30,12 +38,12 @@ export abstract class MyIdTeamPositionOptionsProvider {
 //###########################################################################//
 
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FallbackTeamPositionOptionsProvider extends MyIdTeamPositionOptionsProvider {
 
-  override getOptions(): TeamPositionOption[] {
-    return [];
+  positionOptions = inject(MY_ID_TEAM_POSITION_OPTIONS_TOKEN, { optional: true, }) || []
+
+  override getOptions(): TeamPositionOption[] {    
+    return this.positionOptions;
   }
 }

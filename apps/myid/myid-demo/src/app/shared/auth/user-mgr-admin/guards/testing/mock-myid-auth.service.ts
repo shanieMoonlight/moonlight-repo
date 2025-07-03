@@ -1,5 +1,5 @@
 import { signal, Signal } from '@angular/core';
-import { IMyIdAuthService } from '../../../services/auth/i-myid.auth.service';
+import { IMyIdAuthService } from '../../../../id/auth/services/auth/i-myid.auth.service';
 
 // Minimal role/position values for testing
 export const MockRoleValues = {

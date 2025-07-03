@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { positionGuard, positionRangeGuard, positionMinimumGuard, leaderGuard } from './team-position-guards';
 import { of } from 'rxjs';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { MockMyIdAuthService } from './testing/mock-myid-auth.service';
 
 

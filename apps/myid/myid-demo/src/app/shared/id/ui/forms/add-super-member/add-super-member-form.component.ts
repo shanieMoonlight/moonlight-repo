@@ -56,6 +56,8 @@ export class SbAddSuperMemberFormComponent {
   showLabels = input<boolean>(true);
   teamPositionOptions = input<SelectOption[] | undefined>()
   color = input<UiKitTheme>('primary');
+  minPosition = input(1);
+  maxPosition = input(3);
 
 
   protected _form: FormGroup<AddSuperMemberForm> = this._fb.nonNullable.group<AddSuperMemberForm>({

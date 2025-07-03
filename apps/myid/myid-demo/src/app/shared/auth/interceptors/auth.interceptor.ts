@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AppRouteDefs } from '../../../app-route-defs';
 import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
-import { LoginService } from '../services/login/login.service';
+import { LoginService } from '../../id/auth/services/login/login.service';
 
 //########################################//
 

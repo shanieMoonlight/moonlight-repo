@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { SbButtonIconCloseComponent, SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { AppSvgs } from '../../../../config/svgs';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 import { UserInfoCardComponent } from './user-info.component';
 import { TitleCasePipe } from '@angular/common';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 
 @Component({
     selector: 'sb-user-info-btn',

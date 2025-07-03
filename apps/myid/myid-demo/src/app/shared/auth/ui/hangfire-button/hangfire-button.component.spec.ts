@@ -2,7 +2,7 @@ import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SbToastService } from '@spider-baby/ui-toast';
-import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 import { HangfireButtonComponent } from './hangfire-button.component';
 
 // Mock services

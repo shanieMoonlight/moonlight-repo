@@ -5,7 +5,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
 
 @Component({
   selector: 'sb-update-self',

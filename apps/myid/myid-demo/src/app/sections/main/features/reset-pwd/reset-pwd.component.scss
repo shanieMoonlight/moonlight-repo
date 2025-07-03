@@ -9,12 +9,12 @@
 
 .container {
   width: 96%;
+  height: 100%;
   max-width: 450px;
   display: flex;
   align-items: center;
   flex-direction: column;
-
-
+  justify-content: center;
 }
 
 h2 {

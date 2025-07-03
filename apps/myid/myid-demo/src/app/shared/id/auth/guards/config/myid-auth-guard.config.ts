@@ -1,6 +1,6 @@
 import { inject, InjectionToken, Provider, Type } from '@angular/core';
-import { AMyIdAuthService } from '../services/auth/a-myid.auth.service';
-import { MyIdAuthService } from '../services/auth/myid-auth.browser.service';
+import { AMyIdAuthService } from '../../services/auth/a-myid.auth.service';
+import { MyIdAuthService } from '../../services/auth/myid-auth.browser.service';
 // import { MyIdIonicAuthService } from '../services/auth/myid-auth.ionic.service'; // if you have one
 
 export const MY_ID_AUTH_SERVICE_TOKEN = new InjectionToken<AMyIdAuthService>(

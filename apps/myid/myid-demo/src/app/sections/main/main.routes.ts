@@ -1,9 +1,11 @@
 import { Route } from '@angular/router';
+import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
+import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
+import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
 import { MyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.service';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
-import { createMyIdCustomGuard ,loggedInGuard} from '../../shared/auth/guards';
 // import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
 
@@ -20,7 +22,9 @@ export const mainRoutes: Route[] = [
             {
                 provide: MyIdRouter,
                 useExisting: MyIdMainRouterService,
-            }
+            },
+            provideMyIdTeamPositionOptions(teamPositionOptions),
+            // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
         ],
         children: [
             {
@@ -99,6 +103,10 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('auth-test-firebase'),
                 loadComponent: () => import('./features/auth-service-test/firebase/auth-service-firebase-test.component').then(m => m.AuthServiceFirebaseTestComponent),
+            },
+            {
+                path: MainSectionRoutesDefs.route('auth-test-user-mgr-admin'),
+                loadComponent: () => import('./features/auth-service-test/user-mgr-admin/user-mgr-admin.component').then(m => m.AuthServiceUserMgrAdminComponent),
             },
             {
                 path: '',

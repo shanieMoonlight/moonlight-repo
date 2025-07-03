@@ -1,9 +1,9 @@
 import { inject, InjectionToken } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { MyIdRouter } from '../../id/utils/services/id-navigation/id-router.service';
+import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { AMyIdAuthService } from '../services/auth/a-myid.auth.service';
-import { MY_ID_AUTH_SERVICE_TOKEN } from './myid-auth-guard.config';
 import { MyIdJwtPayload } from '../services/auth/myid-jwt-payload';
+import { MyIdRouter } from '../../utils/services/id-navigation/id-router.service';
 
 // Core generic guards: logged in, email verified, claim, role, any/all roles, etc.
 

@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MyIdAuthService } from '../../../../../shared/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '../../../../../shared/id/auth/services/auth/myid-auth.browser.service';
 
 @Component({
   selector: 'sb-auth-service-test',

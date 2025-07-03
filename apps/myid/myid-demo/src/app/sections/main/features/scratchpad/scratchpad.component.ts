@@ -20,9 +20,10 @@ import { tableColumns } from './fake-super-data-table-columns';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 import { SbUpdateTeamPositionFormComponent, UpdateTeamPositionFormDto } from '@spider-baby/myid-ui-forms/update-team-position';
-import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
+// import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { SbSelectComponent } from '@spider-baby/ui-kit/select';
-import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/two-factor-options-provider';
+import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
+import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
 
 
 
@@ -57,6 +58,7 @@ export class ScratchpadComponent {
   private _ioUserMgmt = inject(UserManagementIoService)
   private _ioMntcAuthTest = inject(MaintenanceAuthenticatorDemoIoService)
   private _twoFactorOptionsProvider = inject(MyIdTwoFactorOptionsProvider)
+  private _teamPositionProvider = inject(MyIdTeamPositionOptionsProvider)
 
   //- - - - - - - - - - - - - //
 
@@ -90,8 +92,8 @@ export class ScratchpadComponent {
 
   protected _superTeamData = computed(() => superTeam);
   protected _superTeamDataColumns = computed(() => tableColumns);
-
-  protected _teamPositionOptions = teamPositionOptions
+  
+  protected _teamPositionOptions = this._teamPositionProvider.getOptions()
   protected _twoFactorProviderOptions = this._twoFactorOptionsProvider.getOptions();
 
 
@@ -103,8 +105,7 @@ export class ScratchpadComponent {
   //--------------------------//
 
   updatePositionTest($event: UpdateTeamPositionFormDto) {
-    console.log('SuperTeamComponent: updatePositionTest called with:', $event);
-
+    console.log('SuperTeamComponent: updatePositionTest called with:', $event)
   }
 
 

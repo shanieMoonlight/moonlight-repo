@@ -1,5 +1,6 @@
 
 <sb-crud-table
+  class="table"
   [addFormTemplate]="addMntcMemberForm"
   [updateFormTemplate]="updateMemberForm"
   [tableColumns]="_tableColumns()"
@@ -11,6 +12,8 @@
   [deleteModalMessageFn]="_deleteMessageFn"
   [rowClickable]="_canUpdateMember()"
   (deleteItem)="deleteMember($event)"/>
+
+  
     
     
   <ng-template #addMntcMemberForm>

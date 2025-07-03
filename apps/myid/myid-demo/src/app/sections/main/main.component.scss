@@ -1,6 +1,12 @@
 :host {
     display: block;
-    padding-top: 72px;
+    --padding-top: 72px;
+    --fill-height: calc(100% - var(--padding-top));
+    padding-top: var(--padding-top);
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 sb-main-navbar {

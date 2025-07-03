@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserInfoButtonComponent } from './user-info-btn.component';
+import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
 
 // Mock MyIdAuthService
 class MockMyIdAuthService {
@@ -17,7 +18,7 @@ describe('UserInfoButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [UserInfoButtonComponent],
       providers: [
-        { provide: require('../../services/auth/myid-auth.browser.service').MyIdAuthService, useClass: MockMyIdAuthService }
+        { provide: MyIdAuthService, useClass: MockMyIdAuthService }
       ]
     }).compileComponents();
 

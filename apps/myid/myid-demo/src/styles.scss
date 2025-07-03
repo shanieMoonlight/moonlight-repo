@@ -4,7 +4,12 @@
 @import 'highlight.js/styles/vs2015.css'; // Dark theme
 
 
-
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 
 /* Styles for ANY img tag that has a view-transition-name style attribute */

@@ -5,7 +5,7 @@ import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { MntcTeamTableColumnsService } from './data-table-columns';
 import { MntcTeamStateService } from './mntc-team.state.service';
-import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
+import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
 
 @Component({
   selector: 'sb-mntc-team',
@@ -25,6 +25,7 @@ export class MntcTeamComponent {
 
   private _state = inject(MntcTeamStateService)
   private _columnService = inject(MntcTeamTableColumnsService)
+  private _teamPositionProvider = inject(MyIdTeamPositionOptionsProvider)
 
   //- - - - - - - - - - - -//
 
@@ -36,7 +37,7 @@ export class MntcTeamComponent {
 
   protected _showAddForm = signal(false)
 
-  protected _teamPositionOptions = teamPositionOptions
+  protected _teamPositionOptions = this._teamPositionProvider.getOptions()
   protected _deleteMessageFn = (member: AppUserDto) =>
     `Are you sure you want to delete ${member.userName || member.email}? \nThis action cannot be undone.`
 
