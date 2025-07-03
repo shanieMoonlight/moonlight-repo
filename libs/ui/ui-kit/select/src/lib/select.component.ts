@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, Optional, Self, signal } from '@angular/core';
+import { CommonModule, DOCUMENT, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, inject, input, OnDestroy, Optional, Self, signal, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, Validators } from '@angular/forms';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
+import { SbClickOutsideDirective } from './click-outside.directive';
 
 //##########################//
 
@@ -19,46 +20,90 @@ export interface SelectOption {
 @Component({
   selector: 'sb-select',
   standalone: true,
-  imports: [NgClass],
+  imports: [
+    NgClass,
+    CommonModule,
+    SbClickOutsideDirective
+  ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    "[class.disabled]": "_disabled()"
+  }
 })
 export class SbSelectComponent implements ControlValueAccessor {
-  
+
   color = input<UiKitTheme>('primary');
   options = input<SelectOption[]>([]);
   placeholder = input<string>('');
+  optionTemplate = input<TemplateRef<unknown> | undefined>(undefined);
+
+  protected _isOpen = false;
+  protected _selectedOption = signal<SelectOption | undefined>(undefined);
 
   protected _value = signal<any>('');
   protected _disabled = signal(false);
+
 
   protected get _required(): boolean {
     return Boolean(this.parent?.control?.hasValidator(Validators.required));
   }
 
+  //- - - - - - - - - - - - -//
+
   constructor(@Self() @Optional() private parent?: NgControl) {
-    if (this.parent) {
+
+    if (this.parent)
       this.parent.valueAccessor = this;
-    }
+
+    effect(() => {
+      if (this._disabled())
+        this._isOpen = false
+    })
   }
 
-  setValue(event: Event) {
-    if (this._disabled()) return;
+  //-------------------------//
 
-    const select = event.target as HTMLSelectElement;
-    const value = select.value === '' ? null : select.value;
+
+  protected toggleDropdown() {
+    if (this._disabled())
+      return;
+
+    return this._isOpen = !this._isOpen;
+  }
+
+
+  protected selectOption(option?: SelectOption) {
+
+    this._selectedOption.set(option);
+    this._isOpen = false;
+
+    const value = !option?.value ? null : option.value;
+
+    if (option?.disabled)
+      return;
+
     this._value.set(value);
+
     this.onChange(value);
     this.onTouched();
   }
 
+  onOutsideClick = () => {
+    return this._isOpen = false;
+  }
+
+  //-------------------------//
+
   // ControlValueAccessor methods
-  onChange = (_: unknown) => {};
-  onTouched = () => {};
+  onChange = (_: unknown) => { };
+  onTouched = () => { };
 
   writeValue(val: any): void {
-    this._value.set(val ?? '');
+    const opts = this.options();
+    const selectedOption = opts.find(opt => opt.value === val) ?? undefined;
+    this.selectOption(selectedOption)
   }
 
   registerOnChange(fn: any): void {
@@ -72,5 +117,6 @@ export class SbSelectComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this._disabled.set(isDisabled);
   }
+
 
 }//Cls

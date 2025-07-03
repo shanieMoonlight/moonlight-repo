@@ -1,12 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
+import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { SbAddSuperMemberFormComponent } from '../../../../shared/id/ui/forms/add-super-member/add-super-member-form.component';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { tableColumns } from './data-table-columns';
 import { SuperTeamStateService } from './super-team.state.service';
-import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 
 @Component({
   selector: 'sb-super-team',
@@ -14,7 +13,6 @@ import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/util
   imports: [
     SbAddSuperMemberFormComponent,
     SbUpdateTeamPositionFormComponent,
-    CommonModule,
     CrudTableComponent
   ],
   providers: [SuperTeamStateService],
@@ -51,5 +49,7 @@ export class SuperTeamComponent {
 
   deleteMember = (dto: AppUserDto) =>
     this._state.deleteMember(dto);
+  
+
 
 }

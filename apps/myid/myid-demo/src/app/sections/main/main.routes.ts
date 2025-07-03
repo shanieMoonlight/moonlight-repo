@@ -30,7 +30,7 @@ export const mainRoutes: Route[] = [
             {
                 path: MainSectionRoutesDefs.route('scratchpad'),
                 loadComponent: () => import('./features/scratchpad/scratchpad.component').then(m => m.ScratchpadComponent),
-                canActivate: [customerOnlyGuard],
+                // canActivate: [customerOnlyGuard],
             },
             {
                 path: MainSectionRoutesDefs.route('login-jwt'),

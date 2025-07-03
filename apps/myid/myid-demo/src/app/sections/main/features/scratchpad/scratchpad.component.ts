@@ -19,6 +19,9 @@ import { superTeam } from './fake-super-data';
 import { tableColumns } from './fake-super-data-table-columns';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
+import { SbUpdateTeamPositionFormComponent, UpdateTeamPositionFormDto } from '@spider-baby/myid-ui-forms/update-team-position';
+import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
+import { SbSelectComponent } from '@spider-baby/ui-kit/select';
 
 
 
@@ -35,13 +38,16 @@ import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
     SbDataTableComponent,
     SbAddMntcMemberFormComponent,
     SbModalComponent,
-    SbRegisterCustomerFormComponent
+    SbRegisterCustomerFormComponent,
+    SbUpdateTeamPositionFormComponent,
+    SbUpdateTeamPositionFormComponent,
+    SbSelectComponent,
 
   ],
   standalone: true,
   templateUrl: './scratchpad.component.html',
   styleUrl: './scratchpad.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScratchpadComponent {
 
@@ -83,6 +89,8 @@ export class ScratchpadComponent {
   protected _superTeamData = computed(() => superTeam);
   protected _superTeamDataColumns = computed(() => tableColumns);
 
+  protected _teamPositionOptions = teamPositionOptions
+
 
   // protected _addMemberRef: ComponentRef<SbAddMntcMemberFormComponent>;
   protected _showAddForm = signal(false)
@@ -90,6 +98,12 @@ export class ScratchpadComponent {
 
 
   //--------------------------//
+
+  updatePositionTest($event: UpdateTeamPositionFormDto) {
+    console.log('SuperTeamComponent: updatePositionTest called with:', $event);
+
+  }
+
 
   handleRowClick(rowData: SbDataTableRowData<AppUserDto>) {
     console.log('Row clicked:', rowData);

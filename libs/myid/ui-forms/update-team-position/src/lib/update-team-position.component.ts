@@ -90,6 +90,8 @@ export class SbUpdateTeamPositionFormComponent {
       newPosition: dto.teamPosition
     });
 
+    //  this._form.controls.newPosition.disable();
+
   }
 
   //-------------------------//

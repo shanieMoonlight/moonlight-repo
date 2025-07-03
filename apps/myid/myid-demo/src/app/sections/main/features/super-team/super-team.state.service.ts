@@ -1,9 +1,10 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
+import { fakeSuperTeam } from './fake-super-data';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class SuperTeamStateService {
   private _superTeamState = MiniStateBuilder
     .Create(() => this._ioService.getSuperTeamMembers())
     .setOnSuccessFn((dto, response) => this._crudSignalOps.refresh(response))
-    .trigger()
+    // .trigger()
 
   private _addState = MiniStateBuilder
     .CreateWithInput((dto: AddSuperMemberDto) => this._ioService.addSuperTeamMember(dto))
@@ -48,7 +49,8 @@ export class SuperTeamStateService {
   successMsg = this._states.successMsg
   errorMsg = this._states.errorMsg
   loading = this._states.loading
-  data = this._crudSignalOps.data
+  // data = this._crudSignalOps.data
+  data = signal(fakeSuperTeam)
 
   //- - - - - - - - - - - - - //
 

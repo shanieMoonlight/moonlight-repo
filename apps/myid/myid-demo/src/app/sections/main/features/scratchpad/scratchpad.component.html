@@ -1,10 +1,21 @@
 <div class="container">
 
+
+<!-- <sb-select
+
+/> -->
+
+
+  <sb-update-team-position-form 
+      [member]="_superTeamData()[0]"
+      [teamPositionOptions]="_teamPositionOptions"
+      (updatePosition)="updatePositionTest($event)"/>
+
   <!-- <sb-button (click)="authFailTest()">
     Auth Fail
   </sb-button> -->
 
-<sb-reg-customer-form/>
+<!-- <sb-reg-customer-form/> -->
 
 <!-- <sb-modal
   [(open)]="_showAddForm"

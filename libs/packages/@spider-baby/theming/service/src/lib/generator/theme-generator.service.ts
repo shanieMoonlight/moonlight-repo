@@ -331,7 +331,7 @@ export class ThemeGeneratorService {
     // Surface colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
-    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-container', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-container-rgb', p.neutral[isDark ? 6 : 99]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
 
     // Background
