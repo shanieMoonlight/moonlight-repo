@@ -1,2 +1,5 @@
  nx g @nx/angular:library libs/ui/utils --name=spider-baby-ui-utils --import-path=@spider-baby/ui-utils   --tags="ui,utils" --buildable=true --publishable=true --displayBlock=true --prefix=sb --strict=true --standalone=true --style=scss
  nx generate @spider-baby-repo/shortcuts-plugin:component --name=auth-service-user-mgr-admin --directory=user-mgr-admin --prefix=sb  --dryRun
+ nx g @nx/angular:library-secondary-entry-point --library=spider-baby- --name=button
+ nx g @nx/angular:library-secondary-entry-point --library=spider-baby-myid-ui-forms --name=verify-2factor
+ 

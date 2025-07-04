@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
-import { SbAddMntcMemberFormComponent } from '../../../../shared/id/ui/forms/add-mntc-member/add-mntc-member-form.component';
+import { SbAddMntcMemberFormComponent } from '../../../../../../../../../libs/myid/ui-forms/add-mntc-member/src/lib/add-mntc-member-form.component';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { MntcTeamTableColumnsService } from './data-table-columns';
 import { MntcTeamStateService } from './mntc-team.state.service';

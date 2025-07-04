@@ -9,6 +9,8 @@ import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
 import { TwoFactorOption } from '../../shared/id/utils/options/mfa/two-factor-options-provider';
 import { provideMyIdTwoFactorOptions } from '../../shared/id/utils/options/mfa/two-factor-options.config';
+import { getMyIdAuthTestRoutes } from '../accounts/features/auth-service-test/default/auth-service-test.routes';
+import { getAuthTestFirebaseRoutes } from '../accounts/features/auth-service-test/firebase/auth-service-firebase-test.routes';
 // import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
 
@@ -43,6 +45,8 @@ export const mainRoutes: Route[] = [
                 showSocialLinks: true,
             }),
             ...getMyIdMntsAndSuperRoutes(),
+            ...getMyIdAuthTestRoutes(),
+            ...getAuthTestFirebaseRoutes(),
             {
                 path: MainSectionRoutesDefs.route('home'),
                 loadComponent: () => import('./features/home/home.component').then(m => m.MainHomeComponent),

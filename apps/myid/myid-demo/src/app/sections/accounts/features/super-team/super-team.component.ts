@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
-import { SbAddSuperMemberFormComponent } from '../../../../shared/id/ui/forms/add-super-member/add-super-member-form.component';
+import { SbAddSuperMemberFormComponent } from '../../../../../../../../../libs/myid/ui-forms/add-super-member/src/lib/add-super-member-form.component';
 import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
 import { CrudTableComponent } from '../../../main/ui/crud-table/crud-table.component';
 import { tableColumns } from './data-table-columns';

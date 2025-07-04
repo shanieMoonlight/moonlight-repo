@@ -225,6 +225,12 @@
       "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
       "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
       "@spider-baby/myid-ui-forms": ["libs/myid/ui-forms/src/index.ts"],
+      "@spider-baby/myid-ui-forms/add-mntc-member": [
+        "libs/myid/ui-forms/add-mntc-member/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/add-super-member": [
+        "libs/myid/ui-forms/add-super-member/src/index.ts"
+      ],
       "@spider-baby/myid-ui-forms/change-pwd": [
         "libs/myid/ui-forms/change-pwd/src/index.ts"
       ],
@@ -240,8 +246,14 @@
       "@spider-baby/myid-ui-forms/login": [
         "libs/myid/ui-forms/login/src/index.ts"
       ],
+      "@spider-baby/myid-ui-forms/reg-customer": [
+        "libs/myid/ui-forms/reg-customer/src/index.ts"
+      ],
       "@spider-baby/myid-ui-forms/reset-pwd": [
         "libs/myid/ui-forms/reset-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/team": [
+        "libs/myid/ui-forms/team/src/index.ts"
       ],
       "@spider-baby/myid-ui-forms/update-self": [
         "libs/myid/ui-forms/update-self/src/index.ts"
@@ -254,6 +266,9 @@
       ],
       "@spider-baby/myid-ui-forms/utils": [
         "libs/myid/ui-forms/utils/src/index.ts"
+      ],
+      "@spider-baby/myid-ui-forms/verify-2factor": [
+        "libs/myid/ui-forms/verify-2factor/src/index.ts"
       ],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"

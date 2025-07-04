@@ -146,6 +146,7 @@ sb-button {
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
+    width: 100%;
   }
   
   .form-group.full-width {

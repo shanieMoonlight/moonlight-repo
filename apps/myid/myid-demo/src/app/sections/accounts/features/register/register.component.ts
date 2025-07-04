@@ -2,7 +2,7 @@ import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angula
 import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RegisterCustomerDto } from '@spider-baby/myid-io/models';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { SbRegisterCustomerFormComponent } from '../../../../shared/id/ui/forms/reg-customer/reg-customer-form.component';
+import { SbRegisterCustomerFormComponent } from '@spider-baby/myid-ui-forms/reg-customer';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ConfirmedCardComponent } from '../../../main/ui/confirmed-card/confirmed-card.component';
 import { RegisterCustomerStateService } from './register.state.service';
