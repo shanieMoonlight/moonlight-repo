@@ -18,7 +18,7 @@ import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
 import { superTeamRoutes } from './features/super-team/super-team.routes';
 import { Type } from '@angular/core';
 import { confirmEmailWithPasswordRoutes } from './features/confirm-email-with-pwd/confirm-email-with-pwd.routes';
-import { customerTeamsRoutes } from './features/teams-table-feature/teams.routes';
+import { customerTeamsRoutes } from './features/teams/teams.routes';
 
 
 //##############################//
