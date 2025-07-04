@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TeamsTableComponent } from './teams-table.component';
 import { TeamsTableStateService } from './teams-table.state.service';
 import { TeamsTableColumnsService } from './data-table-columns';
-import { SbAddTeamFormComponent } from '../../../../shared/id/ui/forms/team/add/add-team.component';
+import { SbAddTeamFormComponent } from '../../../../../../../../../libs/myid/ui-forms/team/src/lib/add/add-team.component';
 import { SbUpdateTeamFormComponent } from '../../../../shared/id/ui/forms/team/update/update-team.component';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { ComponentRef, signal } from '@angular/core';

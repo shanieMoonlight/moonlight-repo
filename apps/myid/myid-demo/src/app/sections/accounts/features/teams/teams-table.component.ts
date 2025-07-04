@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TeamDto } from '@spider-baby/myid-io/models';
-import { SbUpdateTeamFormComponent, UpdateTeamFormDto } from '../../../../shared/id/ui/forms/team/update/update-team.component';
+import { AddTeamFormDto, SbAddTeamFormComponent, SbUpdateTeamFormComponent, UpdateTeamFormDto } from "@spider-baby/myid-ui-forms/team";
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { TeamsTableColumnsService } from './data-table-columns';
 import { TeamsTableStateService } from './teams-table.state.service';
-import { AddTeamFormDto, SbAddTeamFormComponent } from '../../../../shared/id/ui/forms/team/add/add-team.component';
-import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 
 @Component({
     selector: 'sb-teams-table',

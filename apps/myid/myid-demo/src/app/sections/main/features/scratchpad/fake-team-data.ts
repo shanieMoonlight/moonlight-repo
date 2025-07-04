@@ -1,4 +1,4 @@
-import { UpdateTeamFormDto } from "../../../../shared/id/ui/forms/team/update/update-team.component";
+import { UpdateTeamFormDto } from "@spider-baby/myid-ui-forms/team";
 import { TeamType } from "@spider-baby/myid-io/models";
 import { demoAppUserDataArray } from "./fake-user-data";
 
