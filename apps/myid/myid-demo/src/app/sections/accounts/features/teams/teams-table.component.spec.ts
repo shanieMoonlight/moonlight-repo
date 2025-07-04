@@ -1,18 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TeamsTableComponent } from './teams-table.component';
-import { TeamsTableStateService } from './teams-table.state.service';
-import { TeamsTableColumnsService } from './data-table-columns';
-import { SbAddTeamFormComponent } from '../../../../../../../../../libs/myid/ui-forms/team/src/lib/add/add-team.component';
-import { SbUpdateTeamFormComponent } from '../../../../shared/id/ui/forms/team/update/update-team.component';
-import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
-import { ComponentRef, signal } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ParamMap, convertToParamMap, ActivatedRoute } from '@angular/router';
-import { Subject, BehaviorSubject, of } from 'rxjs';
-import { TeamDto } from '@spider-baby/myid-io/models';
-import { ColumnData } from '@spider-baby/ui-kit/table';
+import { ComponentRef, signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap, convertToParamMap } from '@angular/router';
+import { TeamDto } from '@spider-baby/myid-io/models';
+import { SbAddTeamFormComponent, SbUpdateTeamFormComponent } from '@spider-baby/myid-ui-forms/team';
+import { ColumnData } from '@spider-baby/ui-kit/table';
+import { BehaviorSubject, Subject, of } from 'rxjs';
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
+import { TeamsTableColumnsService } from './data-table-columns';
+import { TeamsTableComponent } from './teams-table.component';
+import { TeamsTableStateService } from './teams-table.state.service';
 
 const paramMapSubject: Subject<ParamMap> = new BehaviorSubject<ParamMap>(convertToParamMap({}));
 const mockActivatedRoute: Partial<ActivatedRoute> = {

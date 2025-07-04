@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
@@ -40,8 +40,10 @@ export class MainComponent {
 
   protected _iconsService = inject(IconsService)
   protected _scrollListener = inject(ScrollListenerService)
+  protected _el = inject(ElementRef)
 
-  _scrolled = computed(() => this._scrollListener.scrollPosition() > 100);
+  private _scrollPostion = this._scrollListener.getScrollPosition(this._el, 100);
+  protected _scrolled = computed(() => this._scrollPostion() > 100);
 
 
 }//Cls

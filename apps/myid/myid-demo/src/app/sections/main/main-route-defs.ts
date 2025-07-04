@@ -34,7 +34,7 @@ export class MainSectionRoutesDefs {
   //- - - - - - - - - - - - - - - - - - -//
 
   /**
-   * Access to relative route segments for this area and its children (e.g., admin).
+   * Access to relative route segments for this area and its children 
    * Will be used by parent routeDefs
    * @returns The last route segment.
    */

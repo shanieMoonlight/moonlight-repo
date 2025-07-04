@@ -30,7 +30,7 @@ describe('ScrollListenerService', () => {
       setScroll(123);
       window.dispatchEvent(new Event('scroll'));
       setTimeout(() => {
-        expect(service.scrollPosition()).toBe(123);
+        expect(service.windowScrollPosition()).toBe(123);
         done();
       }, 250); // debounceTime(200) + buffer
     });
@@ -44,7 +44,7 @@ describe('ScrollListenerService', () => {
       setScroll(30);
       window.dispatchEvent(new Event('scroll'));
       setTimeout(() => {
-        expect(service.scrollPosition()).toBe(30);
+        expect(service.windowScrollPosition()).toBe(30);
         done();
       }, 250);
     });
@@ -62,7 +62,7 @@ describe('ScrollListenerService', () => {
 
     it('should emit 0 as scroll position', () => {
       const service = TestBed.inject(ScrollListenerService);
-      expect(service.scrollPosition()).toBe(0);
+      expect(service.windowScrollPosition()).toBe(0);
     });
   });
 });
