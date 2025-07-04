@@ -44,7 +44,7 @@
 
     <!-- Team Position Configuration Section -->
      <!-- @if(canChangeTeamPositionRange()){ -->
-        <div class="form-section">
+        <div class="form-section  team-position">
             <div class="form-row">
                 <div class="form-group">
                     @if(showLabels()) {
@@ -96,6 +96,7 @@
             @if(showLabels()) {
                 <label [for]="'leaderId'">Team Leader</label>
             }
+            @if(_memberOptions().length){
             <sb-select
                 [id]="'leaderId'"
                 [options]="_memberOptions()"
@@ -103,6 +104,14 @@
                 formControlName="leaderId"
                 [readonly]="!canChangeTeamLeader()"
                 [color]="color()"/>
+            }@else {
+                <input 
+                    [id]="'leaderId'" 
+                    formControlName="leaderId" 
+                    placeholder="Team Leader ID" 
+                    [readonly]="true"
+                    sbInputStyle />
+            }
             <sb-first-error [control]="_form.controls.leaderId"/>
         </div>
     </div>
@@ -112,7 +121,8 @@
 
 
     <div class="form-section">       
-        <sb-button (click)="update()" [disabled]="_form.invalid" [color]="color()">
+        <sb-button class="btn-submit"
+            (click)="update()" [disabled]="_form.invalid" [color]="color()">
             Save Changes
         </sb-button>
     </div>

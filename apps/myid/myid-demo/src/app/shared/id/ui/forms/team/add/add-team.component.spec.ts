@@ -98,6 +98,21 @@ describe('SbAddTeamFormComponent', () => {
 
   //---------------------//
 
+  it('should NOT disable button when form is valid', () => {
+    component['_form'].patchValue({
+      name: 'Customer Team',
+      teamType: 'customer'
+    });
+    fixture.detectChanges();
+    // Form is invalid because name is required and empty
+    const btnSubmit = fixture.debugElement.query(By.css('.btn-submit'));
+
+    const nativeButton = btnSubmit.nativeElement.querySelector('button');
+    expect(nativeButton.disabled).toBeFalsy();
+  });
+
+  //---------------------//
+
   it('should NOT render team-position when canChangeTeamPositionRange is false ', () => {
     // Form is invalid because name is required and empty
     componentRef.setInput('canChangeTeamPositionRange', false);

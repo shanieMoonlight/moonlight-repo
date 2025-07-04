@@ -4,10 +4,25 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TeamType, TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { SbUpdateTeamFormComponent } from './update-team.component';
+import { By } from '@angular/platform-browser';
+import { ComponentRef } from '@angular/core';
+
+
+   const validTeam = {
+      id: 'team-1',
+      name: 'Test Team',
+      description: 'Test Description',
+      minPosition: 2,
+      maxPosition: 8,
+      leaderId: 'leader-1',
+      teamType: 'maintenance' as TeamType
+    };
+
 
 describe('SbUpdateTeamFormComponent', () => {
   let component: SbUpdateTeamFormComponent;
   let fixture: ComponentFixture<SbUpdateTeamFormComponent>;
+  let componentRef: ComponentRef<SbUpdateTeamFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,12 +35,18 @@ describe('SbUpdateTeamFormComponent', () => {
 
     fixture = TestBed.createComponent(SbUpdateTeamFormComponent);
     component = fixture.componentInstance;
+    componentRef = fixture.componentRef;
     fixture.detectChanges();
   });
+
+  //---------------------//
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  //---------------------//
+
   it('should initialize form with default values', () => {
     expect(component['_form'].value).toEqual({
       id: '',
@@ -37,6 +58,9 @@ describe('SbUpdateTeamFormComponent', () => {
       teamType: 'customer'
     });
   });
+
+  //---------------------//
+
   it('should validate required fields', () => {
     expect(component['_form'].controls.name.valid).toBeFalsy();
     expect(component['_form'].controls.teamType.valid).toBeTruthy(); // has default value
@@ -59,6 +83,8 @@ describe('SbUpdateTeamFormComponent', () => {
     expect(component.updateTeam.emit).toHaveBeenCalled();
   });
 
+  //---------------------//
+
   it('should not emit when form is invalid', () => {
     jest.spyOn(component.updateTeam, 'emit');
     
@@ -67,6 +93,9 @@ describe('SbUpdateTeamFormComponent', () => {
     
     expect(component.updateTeam.emit).not.toHaveBeenCalled();
   });
+
+  //---------------------//
+
   it('should set form values when team input is provided', () => {
     const mockTeam = {
       id: 'team-1',
@@ -91,6 +120,8 @@ describe('SbUpdateTeamFormComponent', () => {
     });
   });
 
+  //---------------------//
+
   it('should reset form when team input is undefined', () => {
     // First set some values
     component['_form'].patchValue({
@@ -111,6 +142,8 @@ describe('SbUpdateTeamFormComponent', () => {
       teamType: 'customer'
     });
   });
+
+  //---------------------//
 
   it('should generate member options from team members', () => {
     const mockMembers = [
@@ -152,6 +185,8 @@ describe('SbUpdateTeamFormComponent', () => {
     expect(component['_memberOptions']()[2].label).toBe('Jane Smith (jsmith)');
   });
 
+  //---------------------//
+
   it('should set member options when team with members is provided', () => {
     const mockTeam = {
       id: 'team-1',
@@ -184,4 +219,67 @@ describe('SbUpdateTeamFormComponent', () => {
     expect(component['_memberOptions']().length).toBe(2); // 1 member + empty option
     expect(component['_memberOptions']()[1].value).toBe('user1');
   });
+
+  //---------------------//
+
+  it('should disable button when form is invalid', () => {
+    component['_form'].patchValue({
+      name: '',
+      teamType: '' as TeamType
+    });
+    fixture.detectChanges();
+    // Form is invalid because name is required and empty
+    const btnSubmit = fixture.debugElement.query(By.css('.btn-submit'));
+
+    const nativeButton = btnSubmit.nativeElement.querySelector('button');
+    expect(component['_form'].valid).toBeFalsy();
+    expect(nativeButton.disabled).toBeTruthy();
+  });
+
+  //---------------------//
+
+  it('should NOT disable button when form is valid', () => {
+    component['_form'].patchValue(validTeam);
+    fixture.detectChanges();
+    // Form is invalid because name is required and empty
+    const btnSubmit = fixture.debugElement.query(By.css('.btn-submit'));
+
+    const nativeButton = btnSubmit.nativeElement.querySelector('button');
+    expect(component['_form'].valid).toBeTruthy();
+    expect(nativeButton.disabled).toBeFalsy();
+  });
+
+  //---------------------//
+
+  it('should render READONLY team-position when canChangeTeamPositionRange is false ', () => {
+    // Form is invalid because name is required and empty
+    componentRef.setInput('canChangeTeamPositionRange', false);
+    console.log('canChangeTeamPositionRange', component['canChangeTeamPositionRange']());
+    fixture.detectChanges();
+    const minInput = fixture.debugElement.query(By.css('.team-position #minPosition'));
+    const maxInput = fixture.debugElement.query(By.css('.team-position #maxPosition'));
+
+    console.log('minInput.nativeElement.readonly', minInput.nativeElement.readonly);
+    console.log('minInput.nativeElement', minInput.nativeElement);
+    
+
+
+    expect(minInput.nativeElement.readonly).toBeFalsy();
+    expect(maxInput.nativeElement.readonly).toBeFalsy();
+  });
+
+  //---------------------//
+
+  it('should render team-position when canChangeTeamPositionRange is true ', () => {
+    // Form is invalid because name is required and empty
+    componentRef.setInput('canChangeTeamPositionRange', false);
+    console.log(component['_form'].valid);
+    const teamPositionSection = fixture.debugElement.query(By.css('.team-position'));
+    fixture.detectChanges();
+
+
+    expect(teamPositionSection).toBeTruthy();
+  });
+
+  //---------------------//
 });

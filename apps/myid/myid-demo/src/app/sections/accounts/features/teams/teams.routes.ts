@@ -5,7 +5,7 @@ import { AccountSectionRoutesDefs } from "../../account-route-defs";
 export function customerTeamsRoutes(authenticate: boolean = true): Route[] {
     return [
         {
-            path: AccountSectionRoutesDefs.route('customer-teams'),
+            path: AccountSectionRoutesDefs.route('teams'),
             loadComponent: () => import('./teams-table.component').then(m => m.TeamsTableComponent),
             canActivate: authenticate ? [mntcMinimumGuard] : [],
         }

@@ -61,7 +61,7 @@ export class SbUpdateTeamFormComponent {
   updateTeam = output<UpdateTeamFormDto>();
 
   @Input({required: true})
-  public set team(team: UpdateTeamFormDto | undefined) {
+  public set team(team: UpdateTeamFormDto) {
     this.setFormValues(team);
   }  
   
@@ -86,8 +86,13 @@ export class SbUpdateTeamFormComponent {
   //---------------------//
 
   
-  setFormValues(team: UpdateTeamFormDto | undefined) {
+  setFormValues(team: UpdateTeamFormDto ) {
+
+    console.log('Setting form values for team:', team);
+    
     if (team) {
+      this.updateMemberOptions(team.members || []);
+      
       // Update form values
       this._form.patchValue({
         id: team.id,
@@ -100,7 +105,9 @@ export class SbUpdateTeamFormComponent {
       });
       
       // Generate member options for the dropdown
-      this.updateMemberOptions(team.members || []);
+
+      console.log('Form values set:', this._form.value);
+      
     } else {
       this._form.reset({
         id: '',
