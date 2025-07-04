@@ -7,7 +7,7 @@
   --color-row-hover: var(--mat-sys-surface-container-highest);
   --color-txt: var(--mat-sys-on-surface);
   --color-bg: var(--mat-sys-surface);
-  --padding-container: 1rem;
+  --padding-container: 0rem;
    --color-border: rgba(var(--color-border-rgb, 0, 0, 0), var(--ripple-opacity));
   
   
@@ -21,7 +21,7 @@
   width: calc(100% - var(--padding-container, 1rem));
   overflow-x: auto;
   background: inherit;
-  padding: var(--padding-container, 1rem);
+  padding: var(--padding-containers);
   // background-color: salmon;
   border-radius: inherit;
 }

@@ -71,11 +71,12 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     icon: 'how_to_reg',
     color: 'primary'
   },
+
   {
-    title: 'Verify 2-Factor',
-    description: 'Verify 2 Factor Provider.',
-    route: AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor'),
-    icon: 'shield',
+    title: 'Teams',
+    description: 'View all the Customer/Mntc/Super Teams.',
+    route: AppRouteDefs.fullPathsWithSlash.main.account.route('teams'),
+    icon: 'diversity_3',
     color: 'secondary'
   },
   {
@@ -105,5 +106,12 @@ export const MAIN_ROUTES: ApiRouteData[] = [
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('confirm-phone'),
     icon: 'call',
     color: 'tertiary'
+  },
+  {
+    title: 'Verify 2-Factor',
+    description: 'Verify 2 Factor Provider.',
+    route: AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor'),
+    icon: 'shield',
+    color: 'primary'
   },
 ]

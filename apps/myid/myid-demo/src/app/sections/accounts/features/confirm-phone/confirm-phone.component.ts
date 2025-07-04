@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { ConfirmedCardComponent } from '../../../main/ui/confirmed-card/confirmed-card.component';
+import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 import { ConfirmPhoneStateService } from './confirm-phone.state.service';
 
 @Component({

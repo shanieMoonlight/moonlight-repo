@@ -4,7 +4,7 @@ import { ConfirmEmailWithPwdFormComponent, ConfirmEmailWithPwdFormDto } from '@s
 import { ConfirmEmailWithPwdStateService } from './confirm-email-with-pwd.state.service';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { ConfirmedCardComponent } from '../../../main/ui/confirmed-card/confirmed-card.component';
+import { ConfirmedCardComponent } from '../../ui/confirmed-card/confirmed-card.component';
 
 @Component({
   selector: 'sb-confirm-email-with-pwd',

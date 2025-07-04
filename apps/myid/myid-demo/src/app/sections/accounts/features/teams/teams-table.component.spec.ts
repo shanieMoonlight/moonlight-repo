@@ -4,7 +4,7 @@ import { TeamsTableStateService } from './teams-table.state.service';
 import { TeamsTableColumnsService } from './data-table-columns';
 import { SbAddTeamFormComponent } from '../../../../shared/id/ui/forms/team/add/add-team.component';
 import { SbUpdateTeamFormComponent } from '../../../../shared/id/ui/forms/team/update/update-team.component';
-import { CrudTableComponent } from '../../../main/ui/crud-table/crud-table.component';
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { ComponentRef, signal } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';

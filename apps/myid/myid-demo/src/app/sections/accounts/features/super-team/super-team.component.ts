@@ -3,7 +3,7 @@ import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/m
 import { SbUpdateTeamPositionFormComponent } from '@spider-baby/myid-ui-forms/update-team-position';
 import { SbAddSuperMemberFormComponent } from '@spider-baby/myid-ui-forms/add-super-member';
 import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
-import { CrudTableComponent } from '../../../main/ui/crud-table/crud-table.component';
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { tableColumns } from './data-table-columns';
 import { SuperTeamStateService } from './super-team.state.service';
 

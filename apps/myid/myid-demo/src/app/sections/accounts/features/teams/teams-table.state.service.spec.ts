@@ -103,19 +103,19 @@ describe('TeamsTableStateService', () => {
 
   it('canUpdateTeamPositionRangefn should call correct auth method for customer', () => {
     const team: TeamDto = { teamType: 'customer' } as any;
-    expect(service.canUpdateTeamPositionRangefn(team)).toBe(true);
+    expect(service.canUpdateTeamPositionRangeFn(team)).toBe(true);
     expect(mockAuth.isMntcPositionMinimum).toHaveBeenCalledWith(2);
   });
 
   it('canUpdateTeamPositionRangefn should call correct auth method for maintenance', () => {
     const team: TeamDto = { teamType: 'maintenance' } as any;
-    expect(service.canUpdateTeamPositionRangefn(team)).toBe(true);
+    expect(service.canUpdateTeamPositionRangeFn(team)).toBe(true);
     expect(mockAuth.isMntcLdr).toHaveBeenCalled();
   });
 
   it('canUpdateTeamPositionRangefn should call correct auth method for other', () => {
     const team: TeamDto = { teamType: 'other' } as any;
-    expect(service.canUpdateTeamPositionRangefn(team)).toBe(true);
+    expect(service.canUpdateTeamPositionRangeFn(team)).toBe(true);
     expect(mockAuth.isSuperLdr).toHaveBeenCalled();
   });
 
@@ -123,12 +123,12 @@ describe('TeamsTableStateService', () => {
     mockAuth.teamType.mockReturnValue('customer');
     mockAuth.isLdr.mockReturnValue(true);
     const team: TeamDto = { teamType: 'customer' } as any;
-    expect(service.canUpdateTeamLeaderfn(team)).toBe(true);
+    expect(service.canUpdateTeamLeaderFn(team)).toBe(true);
   });
 
   it('canUpdateTeamLeaderfn should return false if teamType does not match', () => {
     mockAuth.teamType.mockReturnValue('maintenance');
     const team: TeamDto = { teamType: 'customer' } as any;
-    expect(service.canUpdateTeamLeaderfn(team)).toBe(false);
+    expect(service.canUpdateTeamLeaderFn(team)).toBe(false);
   });
 });

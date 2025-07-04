@@ -4,7 +4,7 @@ import { ResetPwdFormDto, SbResetPwdFormComponent } from '@spider-baby/myid-ui-f
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { ForgotPwdModalButtonComponent } from '../../../main/ui/forgot-pwd-modal';
+import { ForgotPwdModalButtonComponent } from '../../ui/forgot-pwd-modal';
 import { ResetPwdStateService } from './reset-pwd.state.service';
 
 @Component({

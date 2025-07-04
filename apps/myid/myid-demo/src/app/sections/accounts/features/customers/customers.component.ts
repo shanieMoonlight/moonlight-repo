@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AppUserCustomerDto } from '@spider-baby/myid-io/models';
-import { CrudTableComponent } from '../../../main/ui/crud-table/crud-table.component';
+import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { CustomersStateService } from './customers.state.service';
 import { CustomersTableColumnsService } from './data-table-columns';
 

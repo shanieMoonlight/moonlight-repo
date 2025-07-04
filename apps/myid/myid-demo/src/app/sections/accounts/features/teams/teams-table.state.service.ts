@@ -8,8 +8,11 @@ import { CrudArraySignalOps } from "../../../../shared/utils/crud-array-ops/crud
 
 @Injectable()
 export class TeamsTableStateService {
+    
     private _ioService = inject(TeamsIoService);
     private _auth = inject(MyIdAuthService);
+
+    //----------------------//
 
     private _crudSignalOps = new CrudArraySignalOps<TeamDto>();
 
@@ -45,6 +48,9 @@ export class TeamsTableStateService {
     loading = this._states.loading;
     data = this._crudSignalOps.data;
     canUpdateTeam = computed(() => this._auth.isMntcMinimum());
+
+    //----------------------//
+
     canUpdateTeamFn = (team: TeamDto) => {
         switch (team.teamType) {
             case 'customer':
@@ -57,7 +63,7 @@ export class TeamsTableStateService {
     };
 
     
-    canUpdateTeamPositionRangefn = (team: TeamDto) => {
+    canUpdateTeamPositionRangeFn = (team: TeamDto) => {
         switch (team.teamType) {
             case 'customer':
                 return this._auth.isMntcPositionMinimum(2)();
@@ -69,9 +75,10 @@ export class TeamsTableStateService {
     }
 
     //Can only change the leader of your own team. If you are also the leader of the team.
-    canUpdateTeamLeaderfn = (team: TeamDto) => {
-       return this._auth.teamType() === team.teamType && this._auth.isLdr();
-    }
+    canUpdateTeamLeaderFn = (team: TeamDto) => 
+       this._auth.teamType() === team.teamType && this._auth.isLdr();
+
+    //----------------------//
 
     updateTeam = (dto: TeamDto) =>
         this._updateState.trigger(dto);
