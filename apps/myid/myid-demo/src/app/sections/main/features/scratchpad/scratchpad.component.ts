@@ -6,20 +6,16 @@ import { AccountIoService, MaintenanceAuthenticatorDemoIoService, UserManagement
 import { AppUserDto } from '@spider-baby/myid-io/models';
 import { AddMntcMemberFormDto, SbAddMntcMemberFormComponent } from '@spider-baby/myid-ui-forms/add-mntc-member';
 import { ConfirmEmailWithPwdFormDto } from '@spider-baby/myid-ui-forms/confirm-email-with-pwd';
-import { SbRegisterCustomerFormComponent } from '@spider-baby/myid-ui-forms/reg-customer';
 import { SbUpdateTeamPositionFormComponent, UpdateTeamPositionFormDto } from '@spider-baby/myid-ui-forms/update-team-position';
 import { UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
-import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
+import { SbDataTableRowData } from '@spider-baby/ui-kit/table';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { AppUserDtoFormDto, SbAppUserFormComponent } from '../../../../shared/id/ui/forms/app-user/app-user.component';
-import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
 import { superTeam } from './fake-super-data';
 import { tableColumns } from './fake-super-data-table-columns';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 // import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
-import { SbSelectComponent } from '@spider-baby/ui-kit/select';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
 import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
@@ -32,16 +28,10 @@ import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/opt
   imports: [
     GoogleSigninButtonModule,
     MatEverythingModule,
-    SbButtonComponent,
     SbMatNotificationsModalComponent,
     SbAppUserFormComponent,
-    SbDataTableComponent,
     SbAddMntcMemberFormComponent,
-    SbModalComponent,
-    SbRegisterCustomerFormComponent,
     SbUpdateTeamPositionFormComponent,
-    SbUpdateTeamPositionFormComponent,
-    SbSelectComponent,
 
   ],
   standalone: true,

@@ -34,16 +34,11 @@ export class UserInfoButtonComponent {
     protected _loggedIn = this._auth.isLoggedIn
 
 
-    protected closeInfo = () => {
-
+    protected closeInfo = () =>
         this._showInfo.set(false);
-        console.log('closeInfo', this._showInfo());
-    }
 
-    protected openInfo = () => {
-        console.log('openInfo');
+
+    protected openInfo = () =>
         this._showInfo.set(true);
-        console.log('openInfo', this._showInfo());
-    }
 
 }

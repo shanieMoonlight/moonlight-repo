@@ -1,0 +1,175 @@
+// Team Form Styles - Based on AppUser Form
+.team-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  // Form Sections
+  .form-section {
+    border: 1px solid var(--mat-outline-variant);
+    border-radius: 8px;
+    padding: 1.5rem;
+    // background: var(--mat-surface-container-lowest);
+
+    h3 {
+      margin: 0 0 1rem 0;
+      color: var(--mat-primary);
+      font-size: 1.25rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--mat-outline-variant);
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  // Form Rows and Groups
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &.full-width {
+        flex: 1 1 100%;
+      }
+
+      label {
+        font-weight: 500;
+        color: var(--mat-on-surface);
+        font-size: 0.875rem;
+      }
+
+      //   input, sb-select {
+      //     width: 100%;
+      //   }
+
+      // Error styling
+      sb-first-error {
+        display: block;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  .form-row.error {
+    color: var(--mat-sys-error);
+    justify-content: center;
+  }
+
+  // Info Card Styling
+  .info-card {
+    background: var(--mat-sys-surface-container);
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+
+    h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--mat-sys-primary);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0;
+      color: var(--mat-on-surface-variant);
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+
+  // Info message styling
+  .info-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--mat-sys-surface-container);
+    border-radius: 4px;
+    // color: #0d47a1;
+    font-size: 0.75rem;
+
+    .info-icon {
+      font-size: 1rem;
+    }
+  }
+
+  // Submit Button
+  sb-button {
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+
+  // Team Type Display (Read-only)
+  .team-type-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: 4px;
+    background: var(--mat-surface-container-highest);
+
+    .team-type-value {
+      font-weight: 500;
+      color: var(--mat-on-surface);
+    }
+
+    .team-type-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      // Customer teams - blue theme
+      &[data-type="customer"] {
+        background: #e3f2fd;
+        color: #1565c0;
+        border: 1px solid #2196f3;
+      }
+
+      // Maintenance teams - orange theme
+      &[data-type="maintenance"] {
+        background: #fff3e0;
+        color: #ef6c00;
+        border: 1px solid #ff9800;
+      }
+
+      // Super teams - purple theme  
+      &[data-type="super"] {
+        background: #f3e5f5;
+        color: #7b1fa2;
+        border: 1px solid #9c27b0;
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-section {
+      padding: 1rem;
+    }
+  }
+
+}

@@ -3,22 +3,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TeamType, TwoFactorProvider } from '@spider-baby/myid-io/models';
-import { SbTeamFormComponent } from './team.component';
+import { SbUpdateTeamFormComponent } from './update-team.component';
 
-describe('SbTeamFormComponent', () => {
-  let component: SbTeamFormComponent;
-  let fixture: ComponentFixture<SbTeamFormComponent>;
+describe('SbUpdateTeamFormComponent', () => {
+  let component: SbUpdateTeamFormComponent;
+  let fixture: ComponentFixture<SbUpdateTeamFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        SbTeamFormComponent,
+        SbUpdateTeamFormComponent,
         ReactiveFormsModule,
         NoopAnimationsModule
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SbTeamFormComponent);
+    fixture = TestBed.createComponent(SbUpdateTeamFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -44,23 +44,9 @@ describe('SbTeamFormComponent', () => {
     expect(component['_form'].controls.maxPosition.valid).toBeTruthy(); // has default value
   });
 
-  it('should emit addTeam when form is valid and not in update mode', () => {
-    jest.spyOn(component.addTeam, 'emit');
-    
-    component['_form'].patchValue({
-      id: 'team-1',
-      name: 'Customer Team',
-      teamType: 'customer'
-    });
-
-    component.add();
-    
-    expect(component.addTeam.emit).toHaveBeenCalled();
-  });
 
   it('should emit updateTeam when form is valid and in update mode', () => {
     jest.spyOn(component.updateTeam, 'emit');
-    component['_isUpdateForm'].set(true);
     
     component['_form'].patchValue({
       id: 'team-1',
@@ -74,12 +60,12 @@ describe('SbTeamFormComponent', () => {
   });
 
   it('should not emit when form is invalid', () => {
-    jest.spyOn(component.addTeam, 'emit');
+    jest.spyOn(component.updateTeam, 'emit');
     
     // Form is invalid because name is required and empty
-    component.add();
+    component.update();
     
-    expect(component.addTeam.emit).not.toHaveBeenCalled();
+    expect(component.updateTeam.emit).not.toHaveBeenCalled();
   });
   it('should set form values when team input is provided', () => {
     const mockTeam = {

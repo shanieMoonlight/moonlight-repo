@@ -29,13 +29,15 @@ export interface SelectOption {
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    "[class.disabled]": "_disabled()"
+    "[class.disabled]": "_disabled()",
+    "[class.readonly]": "readonly()"
   }
 })
 export class SbSelectComponent implements ControlValueAccessor {
 
   color = input<UiKitTheme>('primary');
   options = input<SelectOption[]>([]);
+  readonly = input(false);
   placeholder = input<string>('');
   optionTemplate = input<TemplateRef<unknown> | undefined>(undefined);
 
@@ -58,7 +60,7 @@ export class SbSelectComponent implements ControlValueAccessor {
       this.parent.valueAccessor = this;
 
     effect(() => {
-      if (this._disabled())
+      if (this._disabled() || this.readonly()) 
         this._isOpen = false
     })
   }
@@ -67,8 +69,11 @@ export class SbSelectComponent implements ControlValueAccessor {
 
 
   protected toggleDropdown() {
-    if (this._disabled())
+    console.log("Toggle Dropdown", this._isOpen, this._disabled(), this.readonly());
+    
+    if (this._disabled() || this.readonly())
       return;
+    console.log("Toggle Dropdown", this._isOpen, this._disabled(), this.readonly());
 
     return this._isOpen = !this._isOpen;
   }
@@ -91,7 +96,11 @@ export class SbSelectComponent implements ControlValueAccessor {
   }
 
   onOutsideClick = () => 
-    this._isOpen = false
+    {
+      console.log("Outside Click", this._isOpen, this._disabled(), this.readonly())
+      
+      return this._isOpen = false;
+    }
 
   //-------------------------//
 

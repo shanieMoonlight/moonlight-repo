@@ -3,6 +3,7 @@ import { MyIdIoConfigService } from '@spider-baby/myid-io/config';
 import {
   AddCustomerMember_MntcDto,
   AddDeviceToTeamDto,
+  AddTeamDto,
   AddTeamSubscriptionDto,
   DeviceDto,
   MessageResponseDto,
@@ -35,7 +36,7 @@ export class TeamsIoService extends AServerIoService {
       opts ?? {}
     );
 
-  add = (dto: TeamDto, opts?: unknown): Observable<TeamDto> =>
+  add = (dto: AddTeamDto, opts?: unknown): Observable<TeamDto> =>
     this._postAction<TeamDto>(
       ServerRoutes.Teams.action('add'),
       dto,
@@ -66,8 +67,8 @@ export class TeamsIoService extends AServerIoService {
       opts ?? {}
     );
 
-  getAll = (opts?: unknown): Observable<TeamDto> =>
-    this._getAction<TeamDto>(ServerRoutes.Teams.action('getAll'), opts ?? {});
+  getAll = (opts?: unknown): Observable<TeamDto[]> =>
+    this._getAction<TeamDto[]>(ServerRoutes.Teams.action('getAll'), opts ?? {});
 
   getSuper = (opts?: unknown): Observable<TeamDto> =>
     this._getAction<TeamDto>(ServerRoutes.Teams.action('getSuper'), opts ?? {});

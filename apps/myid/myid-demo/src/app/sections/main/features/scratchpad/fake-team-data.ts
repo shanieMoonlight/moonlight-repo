@@ -1,9 +1,9 @@
-import { TeamFormDto } from "../../../../shared/id/ui/forms/team/team.component";
+import { UpdateTeamFormDto } from "../../../../shared/id/ui/forms/team/update/update-team.component";
 import { TeamType } from "@spider-baby/myid-io/models";
 import { demoAppUserDataArray } from "./fake-user-data";
 
 // Single team with full data including leader and members
-export const demoTeamData: TeamFormDto = {
+export const demoTeamData: UpdateTeamFormDto = {
   id: 'team_customer_001',
   name: 'Customer Success Team',
   description: 'Dedicated team focused on customer onboarding, support, and success initiatives',
@@ -19,7 +19,7 @@ export const demoTeamData: TeamFormDto = {
 };
 
 // Minimal team data (only required fields)
-export const demoTeamDataMinimal: TeamFormDto = {
+export const demoTeamDataMinimal: UpdateTeamFormDto = {
   id: 'team_maintenance_001',
   name: 'System Maintenance',
   minPosition: 1,
@@ -29,7 +29,7 @@ export const demoTeamDataMinimal: TeamFormDto = {
 };
 
 // Super team with extended hierarchy
-export const demoTeamDataSuper: TeamFormDto = {
+export const demoTeamDataSuper: UpdateTeamFormDto = {
   id: 'team_super_001',
   name: 'Executive Leadership',
   description: 'C-level executives and senior leadership team responsible for strategic direction',
@@ -44,7 +44,7 @@ export const demoTeamDataSuper: TeamFormDto = {
 };
 
 // Array of multiple teams for testing lists/grids
-export const demoTeamDataArray: TeamFormDto[] = [
+export const demoTeamDataArray: UpdateTeamFormDto[] = [
   {
     id: 'team_customer_001',
     name: 'Customer Success Team',
@@ -104,7 +104,7 @@ export const demoTeamDataArray: TeamFormDto[] = [
 ];
 
 // Edge case teams for comprehensive testing
-export const demoTeamDataEdgeCases: TeamFormDto[] = [
+export const demoTeamDataEdgeCases: UpdateTeamFormDto[] = [
   // Team with single position level
   {
     id: 'team_specialist_001',
@@ -137,21 +137,21 @@ export const demoTeamDataEdgeCases: TeamFormDto[] = [
 ];
 
 // Helper function to get team by ID
-export function getTeamById(id: string): TeamFormDto | undefined {
+export function getTeamById(id: string): UpdateTeamFormDto | undefined {
   return demoTeamDataArray.find(team => team.id === id);
 }
 
 // Helper function to get teams by type
-export function getTeamsByType(type: TeamType): TeamFormDto[] {
+export function getTeamsByType(type: TeamType): UpdateTeamFormDto[] {
   return demoTeamDataArray.filter(team => team.teamType === type);
 }
 
 // Helper function to get teams with leaders
-export function getTeamsWithLeaders(): TeamFormDto[] {
+export function getTeamsWithLeaders(): UpdateTeamFormDto[] {
   return demoTeamDataArray.filter(team => team.leaderId && team.leader);
 }
 
 // Helper function to get teams without leaders
-export function getTeamsWithoutLeaders(): TeamFormDto[] {
+export function getTeamsWithoutLeaders(): UpdateTeamFormDto[] {
   return demoTeamDataArray.filter(team => !team.leaderId);
 }

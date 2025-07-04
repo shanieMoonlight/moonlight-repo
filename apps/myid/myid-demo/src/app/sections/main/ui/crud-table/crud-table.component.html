@@ -6,6 +6,7 @@
    (addItem)="onAddItem()"
    (action)="onAction($event)"
    [rowClickable]="rowClickable() && !!updateFormTemplate()"
+   [rowClickableFn]="rowClickableFn()"
    [canAddItem]="!!addFormTemplate()"
    [loading]="loading()"
    [addItemTooltip]="addItemTooltip()"

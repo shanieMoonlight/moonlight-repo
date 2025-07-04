@@ -10,7 +10,7 @@ import { NumericValidation } from '@spider-baby/utils-forms/validators';
 
 //##########################//
 
-export interface TeamFormDto {
+export interface UpdateTeamFormDto {
   id: string;
   name: string;
   description?: string;
@@ -35,7 +35,7 @@ interface TeamForm {
 //##########################//
 
 @Component({
-  selector: 'sb-team-form',
+  selector: 'sb-update-team-form',
   standalone: true,  
   imports: [
     ReactiveFormsModule,
@@ -45,28 +45,26 @@ interface TeamForm {
     SbInputStyleDirective,
     SbSelectComponent
   ],
-  templateUrl: './team.component.html',
-  styleUrl: './team.component.scss',
+  templateUrl: './update-team.component.html',
+  styleUrl: './update-team.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SbTeamFormComponent {
+export class SbUpdateTeamFormComponent {
 
   private fb = inject(FormBuilder);
 
   showLabels = input<boolean>(true);
   color = input<UiKitTheme>('primary');
   canChangeTeamPositionRange = input(true);
+  canChangeTeamLeader = input(false);
 
-  addTeam = output<TeamFormDto>();
-  updateTeam = output<TeamFormDto>();
+  updateTeam = output<UpdateTeamFormDto>();
 
-  @Input()
-  public set team(team: TeamFormDto | undefined) {
+  @Input({required: true})
+  public set team(team: UpdateTeamFormDto | undefined) {
     this.setFormValues(team);
-    this._isUpdateForm.set(!!team);
   }  
   
-  protected _isUpdateForm = signal(false);
   protected _memberOptions = signal<SelectOption[]>([]);
 
   protected _form: FormGroup<TeamForm> = this.fb.nonNullable.group({
@@ -88,7 +86,7 @@ export class SbTeamFormComponent {
   //---------------------//
 
   
-  setFormValues(team: TeamFormDto | undefined) {
+  setFormValues(team: UpdateTeamFormDto | undefined) {
     if (team) {
       // Update form values
       this._form.patchValue({
@@ -139,9 +137,9 @@ export class SbTeamFormComponent {
 
   //- - - - - - - - - - -//
 
-  extractFormValues(): TeamFormDto {
+  extractFormValues(): UpdateTeamFormDto {
 
-    const dto: TeamFormDto = {
+    const dto: UpdateTeamFormDto = {
       id: this._form.controls.id.value,
       name: this._form.controls.name.value,
       description: this._form.controls.description.value || undefined,
@@ -156,22 +154,11 @@ export class SbTeamFormComponent {
   
   //- - - - - - - - - - -//
 
-
-  add() {    
-    if (!this._form.valid)
-      return;
-
-    const dto: TeamFormDto = this.extractFormValues();
-    this.addTeam.emit(dto);
-  }
-
-  //- - - - - - - - - - -//
-
   update() {
     if (!this._form.valid)
       return;
 
-    const dto: TeamFormDto = this.extractFormValues();
+    const dto: UpdateTeamFormDto = this.extractFormValues();
     this.updateTeam.emit(dto);
   }
 

@@ -39,6 +39,7 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
     this._data.set(array ?? []);
   }
   rowClickable = input(true);
+  rowClickableFn = input<((t: T) => boolean) | undefined>(undefined)
   canAddItem = input<boolean>(true);
   addItemTooltip = input('Add Item');
 
@@ -56,8 +57,10 @@ export class SbDataTableComponent<T extends BaseDataTableRowData = BaseDataTable
   //------------------------//
 
 
-  protected onRowClick = (row: T, index: number) =>
-    this.rowClickable() && this.rowClick.emit({ element: row, index });
+  protected onRowClick(row: T, index: number) {
+    const canClick = this.rowClickableFn()?.(row) ?? this.rowClickable();
+    return canClick && this.rowClick.emit({ element: row, index });
+  };
 
   protected onAddItemClick = () =>
     this.addItem.emit();

@@ -200,3 +200,14 @@
     }
   }
 }
+:host(.readonly) {
+  .sb-select-container {
+    .sb-select-selected {
+      cursor: not-allowed;
+    }
+
+    .sb-select-arrow {
+      color: var(--color-disabled);
+    }
+  }
+}

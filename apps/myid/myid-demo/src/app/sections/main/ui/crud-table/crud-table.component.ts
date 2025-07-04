@@ -37,16 +37,17 @@ export class CrudTableComponent<T extends BaseDataTableRowData> {
   successMsg = input<string | undefined>(undefined)
   errorMsg = input<string | undefined>(undefined)
   loading = input<boolean>(false)
-  
+
   tableColumns = input<ColumnData<T>[]>([])
   data = input<T[]>([])
-  
+
   deleteModalTitle = input<string>('Delete?')
   deleteModalMessageFn = input<(t: T) => string>(() => DefaultDeleteMessage)
-  
+
   updateFormTemplate = input<TemplateRef<unknown> | undefined>()
   addFormTemplate = input<TemplateRef<unknown> | undefined>()
   rowClickable = input<boolean>(true)
+  rowClickableFn = input<((t: T) => boolean) | undefined>(undefined)
 
   addItemTooltip = input('Add Item');
 

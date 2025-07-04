@@ -1,0 +1,30 @@
+<sb-crud-table
+  class="table"
+  [addFormTemplate]="addMntcTeamForm"
+  [updateFormTemplate]="updateTeamForm"
+  [tableColumns]="_tableColumns()"
+  [data]="_data()"
+  [loading]="_loading()"
+  [errorMsg]="_errorMsg()"
+  [successMsg]="_successMsg()"
+  [addItemTooltip]="'Add Mntc Team'"
+  [deleteModalMessageFn]="_deleteMessageFn"
+  [rowClickable]="_canUpdateTeam()"
+  [rowClickableFn]="_canUpdateTeamFn"
+  (deleteItem)="deleteTeam($event)"/>
+
+  
+    
+    
+  <ng-template #addMntcTeamForm>
+    <sb-add-team-form (addTeam)="addTeam($event)"/>
+  </ng-template>
+
+  
+<ng-template #updateTeamForm let-team>
+    <sb-update-team-form 
+    [team]="team"    
+    [canChangeTeamPositionRange]="_canUpdateTeamPositionRangefn(team)"
+    [canChangeTeamLeader]="_canUpdateTeamLeaderfn(team)"
+    (updateTeam)="updateTeam($event)"/>
+</ng-template>

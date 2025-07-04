@@ -6,13 +6,13 @@
         [svgString]="_userIcon"/>
         
 
-    <div class="card-container" 
-        [class.show]="_showInfo()">
-        <sb-button-icon-close class="btn-close"
-            (click)="closeInfo()"/>
-        <sb-user-info-card
-            [username]="_username()"
-            [email]="_email()"
-            [teamType]="_teamType()|titlecase"/>
-    </div>
+        <div class="card-container" 
+            [class.show]="_showInfo()">
+            <sb-button-icon-close class="btn-close"
+                (click)="closeInfo()"/>
+            <sb-user-info-card
+                [username]="_username()"
+                [email]="_email()"
+                [teamType]="_teamType()|titlecase"/>
+        </div>
 }
