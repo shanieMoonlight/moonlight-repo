@@ -1,0 +1,30 @@
+@if (openModal()) {
+
+  <div class="confirm-modal-backdrop">
+    <div class="confirm-modal">
+      <div class="confirm-modal-header">
+          <h3>{{title()}}</h3>
+          <sb-button-icon-close 
+            (click)="dismissModal()" 
+            aria-label="Close confirm modal"/>
+      </div>  
+      
+        <div class="confirm-modal-body">
+          
+          {{description()}}
+
+        </div>
+        
+        <div class="actions">
+          <sb-text-button (click)="cancelClick()">
+            CANCEL
+          </sb-text-button>
+          <sb-text-button (click)="confirmClick()">
+            CONFIRM
+          </sb-text-button>
+        </div>
+
+    </div>
+  </div>
+
+}

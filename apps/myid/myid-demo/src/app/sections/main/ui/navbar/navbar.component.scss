@@ -10,13 +10,13 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: red;
 
   // Optional: Set a background color using theme variables if you don't want the default surface
-  // background-color: var(--mat-sys-surface-container);
+  background-color: var(--mat-sys-surface-container);
 
-  background-color: var(--mat-sys-primary-container);
+  // background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
+  color: var(--mat-sys-on-surface);
 }
 
 .left-links,
@@ -25,7 +25,11 @@ mat-toolbar {
   height: 100%;
   align-items: center;
 }
+.right-links {
+  margin-right: 42px;
+}
 
+.lhs-outlet,
 .rhs-outlet {
   margin-left: auto;
   /* Aligns the element to the right */
@@ -39,6 +43,9 @@ mat-toolbar {
   flex: 1 1 auto;
   // Or keep width if preferred, maybe adjust slightly
   // width: 24px;
+}
+.navlink{
+  cursor: pointer;
 }
 
 .navlink.text {

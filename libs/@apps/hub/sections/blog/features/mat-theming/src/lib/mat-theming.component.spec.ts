@@ -5,6 +5,8 @@ import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
 import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService, } from '@spider-baby/utils-seo';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -56,6 +58,8 @@ describe('HubBlogMatThemingComponent', () => {
       imports: [HubBlogMatThemingComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },

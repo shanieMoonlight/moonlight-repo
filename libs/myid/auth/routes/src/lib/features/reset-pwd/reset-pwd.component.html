@@ -1,0 +1,36 @@
+<div class="container">
+
+    <h2>Reset Your Password</h2>
+    <p class="description">Enter your email address and create a new secure password for your account.</p>
+
+
+    <sb-reset-pwd-form
+        [showLabels]="false"
+        [disabled]="!_readyToReset()"
+        (resetPassword)="resetPwd($event)"/>
+    
+    @if(_errorMsg()){
+        <sb-forgot-pwd-modal-button 
+            (forgotPwd)="onForgotPwdClick($event)"
+            color="error">
+            Resend Verification Email  
+        </sb-forgot-pwd-modal-button>
+    }
+
+    
+    <sb-button color="secondary" 
+        class="go-to-login-btn"
+        [class.show]="_resetSuccess()"
+        (click)="goToLogin()">
+        Login
+    </sb-button>
+    
+    
+</div>
+
+
+
+<sb-notifications-modal-mat 
+    [errorMsg]="_errorMsg()" 
+    [successMsg]="_successMsg()" 
+    [isLoading]="_loading()" />

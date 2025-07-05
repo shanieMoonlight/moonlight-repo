@@ -12,7 +12,18 @@ export default {
       },
     ],
   },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  moduleNameMapper: {
+    '^@spider-baby/material-theming/service$': '<rootDir>/../service/src/index.ts',
+    '^@spider-baby/material-theming/utils$': '<rootDir>/../utils/src/index.ts',
+    '^@spider-baby/material-theming/ui$': '<rootDir>/../ui/src/index.ts',
+    '^@spider-baby/utils-testing$': '<rootDir>/../../../utils/testing/src/index.ts',
+    '^@spider-baby/utils-memoization$': '<rootDir>/../../../utils/memoization/src/index.ts',
+    // Add other aliases as needed
+  },
+  transformIgnorePatterns: [
+    // 'node_modules/(?!.*\\.mjs$)',
+    'node_modules/(?!(\\@spider-baby|@material/material-color-utilities)/)'
+  ],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

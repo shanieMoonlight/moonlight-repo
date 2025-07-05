@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+
 import { devConsole } from './dev-console';
 import * as ngCore from '@angular/core';
 
@@ -9,6 +11,7 @@ jest.mock('@angular/core', () => ({
 
 describe('devConsole', () => {
   beforeEach(() => {
+
     jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -31,22 +34,22 @@ describe('devConsole', () => {
 
     it('log should call console.log', () => {
       devConsole.log('foo', 123);
-      expect(console.log).toHaveBeenCalledWith('foo', 123);
+      expect(console.log).toHaveBeenCalledWith('foo', 123, expect.any(String));
     });
 
     it('warn should call console.warn', () => {
       devConsole.warn('bar');
-      expect(console.warn).toHaveBeenCalledWith('bar');
+      expect(console.warn).toHaveBeenCalledWith('bar', expect.any(String));
     });
 
     it('error should call console.error', () => {
       devConsole.error('baz');
-      expect(console.error).toHaveBeenCalledWith('baz');
+      expect(console.error).toHaveBeenCalledWith('baz', expect.any(String));
     });
 
     it('group should call console.group', () => {
       devConsole.group('groupLabel');
-      expect(console.group).toHaveBeenCalledWith('groupLabel');
+      expect(console.group).toHaveBeenCalledWith('groupLabel', expect.any(String));
     });
 
     it('groupEnd should call console.groupEnd', () => {

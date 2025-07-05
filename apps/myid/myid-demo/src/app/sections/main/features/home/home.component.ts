@@ -1,83 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { SeoService } from '@spider-baby/utils-seo';
-import { HighlightModule } from 'ngx-highlightjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
-import { HeroBannerComponent } from '../../../../shared/ui/banner/hero-banner.component';
+import { MyIdCardComponent } from '../../../../shared/ui/card/card.component';
 import { MAIN_ROUTES } from '../../config/route-data';
 
-//##############################################//
-
-interface Feature {
-  title: string;
-  description: string;
-  route: string;
-  icon: string;
-}
-
-//##############################################//
-
-interface Benefit {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-//##############################################//
-
-const BENEFITS: Benefit[] = [
-  {
-    title: 'Feature One',
-    description: 'Brief description of the first key feature and its primary benefit',
-    icon: 'code'
-  },
-  {
-    title: 'Feature Two',
-    description: 'Brief description of the second key feature and its primary benefit',
-    icon: 'bolt'
-  },
-  {
-    title: 'Feature Three',
-    description: 'Brief description of the third key feature and its primary benefit',
-    icon: 'compress'
-  },
-  {
-    title: 'Feature Four',
-    description: 'Brief description of the fourth key feature and its primary benefit',
-    icon: 'extension'
-  },
-  {
-    title: 'Feature Five',
-    description: 'Brief description of the fifth key feature and its primary benefit',
-    icon: 'terminal'
-  },
-  {
-    title: 'Feature Six',
-    description: 'Brief description of the sixth key feature and its primary benefit',
-    icon: 'layers'
-  }
-];
-
-//##############################################//
 
 @Component({
   selector: 'sb-home',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    HeroBannerComponent,
-    HighlightModule
+    MyIdCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -99,7 +35,6 @@ export class MainHomeComponent implements OnInit {
 
   protected _features = signal(MAIN_ROUTES);
   protected _gitUrl = signal(AppConstants.GIT_REP_URL);
-  protected _benefits = signal(BENEFITS);
 
   //- - - - - - - - - - - - - - -//
 
@@ -109,7 +44,7 @@ export class MainHomeComponent implements OnInit {
       title: this._title,
       description: this._description,
       url: this._router.url,
-      keywords: ['Angular', 'Signals', 'Angular library', 'Reactive State']
+      keywords: ['Angular', 'Signals', 'Identity', 'MyId', 'Demo'],
     });
   }
 }

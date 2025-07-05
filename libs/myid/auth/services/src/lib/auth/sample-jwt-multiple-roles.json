@@ -1,0 +1,19 @@
+{
+  "myid.team_id": "08dda5d3-bb3d-f5b0-4d95-0a2bcc820000",
+  "myid.team_position": "3",
+  "role": [
+    "team_leader",
+    "second_claim",
+    "third_claim"
+  ],
+  "myid.team_type": "super",
+  "name": "superLeader",
+  "sub": "08dda81d-8f47-0aa9-4d95-0a2ba8920000",
+  "email": "shanebrannick@yahoo.com",
+  "iss": "spiderbaby.myid",
+  "jti": "24ddacda-30fa-4a00-9e6f-4b877b457150",
+  "iat": 1750792642,
+  "nbf": 1750792642,
+  "exp": 1750879042,
+  "aud": "MyId Demo"
+}

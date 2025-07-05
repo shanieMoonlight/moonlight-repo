@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ErrorHandler, inject, Injectable, isDevMode, PLATFORM_ID, Provider } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
-import { ToastData, ToastService } from '@spider-baby/ui-toast';
+import { ToastData, SbToastService } from '@spider-baby/ui-toast';
 import { ErrorDownloadService } from './error-download.service';
 
 //############################//
@@ -15,7 +15,7 @@ const UNAUTHORIZED = '401'
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
 
-  private _toastService = inject(ToastService);
+  private _toastService = inject(SbToastService);
   private _errorDownloadService = inject(ErrorDownloadService);
   private _doc = inject(DOCUMENT);
   private _platformId = inject(PLATFORM_ID);

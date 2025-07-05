@@ -73,3 +73,7 @@ Thumbs.db
 .github\instructions\nx.instructions.md
 **\dev-assets
 scripts-ts/swagger/generated/**
+
+**/sb-notifications/**
+
+**/mini-state-crud**

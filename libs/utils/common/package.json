@@ -1,0 +1,7 @@
+{
+  "name": "@spider-baby/utils-common",
+  "version": "1.0.0",
+  "peerDependencies": {
+  },
+  "sideEffects": false
+}

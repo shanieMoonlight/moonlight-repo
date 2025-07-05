@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 @Component({
   imports: [ RouterModule],
   selector: 'sb-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  template: `<router-outlet/>`,
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

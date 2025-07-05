@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, isDevMode, Signal, signal, TemplateRef } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -9,6 +9,11 @@ import { ShareService } from '@spider-baby/utils-share';
 import { map } from 'rxjs';
 import { AppConstants } from '../../../../config/constants';
 import { AppImages } from '../../../../config/images';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { AppRouteDefs } from '../../../../app-route-defs';
+import { GithubCornerComponent } from '@spider-baby/ui-git/corner';
+import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { AppSvgs } from '../../../../config/svgs';
 
 //##############################################################//
 
@@ -17,6 +22,7 @@ interface NavbarItem {
   tooltip: string,
   icon: string,
   text: string
+  show: Signal<boolean>
 }
 
 //##############################################################//
@@ -24,29 +30,18 @@ interface NavbarItem {
 
 const rhsNavbarItems: NavbarItem[] = [
   {
-    routerLink: 'oauth',
-    tooltip: 'Oauth',
-    icon: 'verified_user',
-    text: 'Oauth'
+    routerLink: AppRouteDefs.routes.main.route('scratchpad'),
+    tooltip: 'Scratchpad',
+    icon: 'draw',
+    text: 'ScratchPad',
+    show: signal(isDevMode())
   },
   // {
-  //   routerLink: 'route2',
-  //   tooltip: 'Route 2',
-  //   icon: 'join_inner',
-  //   text: 'Route 2'
+  //   routerLink: '/api',
+  //   tooltip: 'Api Documentation',
+  //   icon: 'api',
+  //   text: 'Api'
   // },
-  // {
-  //   routerLink: 'route3',
-  //   tooltip: 'Route 3',
-  //   icon: 'oil_barrel',
-  //   text: 'Route 3'
-  // },
-  {
-    routerLink: '/api',
-    tooltip: 'Api Documentation',
-    icon: 'api',
-    text: 'Api'
-  },
 ]
 
 //##############################################################//
@@ -60,6 +55,9 @@ const rhsNavbarItems: NavbarItem[] = [
     SbNavigateNewWindowDirective,
     NgTemplateOutlet,
     RouterModule,
+    SbTooltipDirective,
+    GithubCornerComponent,
+    SbIconButtonComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -72,17 +70,25 @@ export class MainNavbarComponent {
 
   //- - - - - - - - - - - - - - -//
 
-  _rhsOutletTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
+  _lhsOutletTemplate = input<TemplateRef<unknown> | undefined>(undefined, { alias: 'lhsOutletTemplate' })
+  _rhsOutletTemplate = input<TemplateRef<unknown> | undefined>(undefined, { alias: 'rhsOutletTemplate' })
 
   //- - - - - - - - - - - - - - -//
 
 
-  protected _logoSml = signal(AppImages.Logo.small) 
-  
+  protected _logoSml = signal(AppImages.Logo.small)
 
-  protected _gitRepoUrl = signal(AppConstants.GIT_REP_URL)
-  protected _npmPkgUrl = signal(AppConstants.NPM_PKG_URL)
+
+  protected _gitRepoUrl = AppConstants.GIT_REP_URL
+  protected _npmPkgUrl = AppConstants.NPM_PKG_URL
   protected _rhsNavItems = signal<NavbarItem[]>(rhsNavbarItems)
+
+  protected _npmSvg = AppSvgs.NPM_ICON
+  protected _gitSvg = AppSvgs.GIT_ICON
+  protected _shareSvg = AppSvgs.SHARE_ICON
+
+  protected _isDevMode = signal(isDevMode())
+
 
 
   isSmallScreen$ = this._breakpoints.observe(['(max-width: 650px)'])

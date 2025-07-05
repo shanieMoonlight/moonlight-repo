@@ -1,30 +1,42 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { MyIdIoSetup } from '@spider-baby/myid-io/config';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+import { appViewTransition } from './app.view-transitions';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { SEO_CONFIG } from './config/seo.config';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { SocialAuthSetup } from './config/oauth.config';
+import { SEO_CONFIG } from './config/seo.config';
+import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(
       withEventReplay()
     ),
-    provideHttpClient(),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        ...authHttpInterceptors
+      ])
+    ),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
+    provideAnimationsAsync(),
     provideRouter(appRoutes,
+       withComponentInputBinding(),
       // Use withInMemoryScrolling for scroll options
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled' // Or 'top'
       }),
-      withRouterConfig({})),
+      withRouterConfig({}),
+      withViewTransitions(appViewTransition)),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     SocialAuthSetup.provideSocialLoginConfig(),
@@ -46,6 +58,7 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    MyIdIoSetup.provideMyIdIo({ baseUrl: environment.identityServerUrl }),
   ],
 };

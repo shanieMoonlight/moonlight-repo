@@ -1,0 +1,50 @@
+<!-- {{_value()|json}} -->
+
+<div class="sb-select-container" [ngClass]="[color()]">
+      <!-- Custom Dropdown Replacement for Native Select -->
+      <div class="sb-select-dropdown" [class.disabled]="_disabled()">
+        <div class="sb-select-selected" 
+          (click)="toggleDropdown()" 
+          (keydown.enter)="toggleDropdown()" 
+          tabindex="0" 
+          [class.open]="_isOpen">
+          {{ _selectedOption()?.label || placeholder() || 'Select an option' }}
+          <span class="sb-select-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
+              <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/>
+            </svg>
+          </span>
+        </div>
+        @if (_isOpen) {
+          <ul class="sb-select-list"
+            (sbOutsideClick)="onOutsideClick()">
+            @if (placeholder() || _required) {
+              <li class="sb-select-option placeholder" >
+                {{ placeholder() || 'Select an option' }}
+                @if (_required) {
+                  <span class="sb-select-required">*</span>
+                }
+              </li>
+            }
+            @for (option of options(); track option.value) {
+           
+                <li
+                  class="sb-select-option"
+                  [class.selected]="_value() === option.value"
+                  [class.disabled]="option.disabled"
+                  (click)="!option.disabled && selectOption(option)"
+                  (keydown.enter)="!option.disabled && selectOption(option)"
+                  tabindex="0">
+                     @if(optionTemplate(); as optionTemplate) {
+                        <ng-container *ngTemplateOutlet="optionTemplate; 
+                            context: { $implicit: option }"/>
+                    }@else {
+                      {{ option.label }}
+                    }
+                </li>
+
+            }
+          </ul>
+        }
+      </div>
+    </div>

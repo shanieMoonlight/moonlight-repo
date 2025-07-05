@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SeasonalHomeComponent } from './home.component';
-import { Router } from 'express';
 import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {

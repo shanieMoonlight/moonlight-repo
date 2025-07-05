@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ToastService } from './toast.service';
+import { SbToastService } from './toast.service';
 import { GlobalPositionStrategy, Overlay, OverlayModule, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { TOAST_CONFIG_TOKEN, ToastConfig } from '@spider-baby/ui-toast/setup';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -8,8 +8,8 @@ import { ToastRef } from '../toast-ref';
 import { DestroyRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
-describe('ToastService', () => {
-  let service: ToastService;
+describe('SbToastService', () => {
+  let service: SbToastService;
   let overlay: jest.Mocked<Partial<Overlay>>;
   let overlayRef: jest.Mocked<Partial<OverlayRef>>;
   let positionStrategy: jest.Mocked<Partial<GlobalPositionStrategy>>;
@@ -69,14 +69,14 @@ describe('ToastService', () => {
     TestBed.configureTestingModule({
       imports: [OverlayModule],
       providers: [
-        ToastService,
+        SbToastService,
         { provide: Overlay, useValue: overlay },
         { provide: DestroyRef, useValue: destroyRef },
         { provide: TOAST_CONFIG_TOKEN, useValue: mockToastConfig }
       ]
     });
 
-    service = TestBed.inject(ToastService);
+    service = TestBed.inject(SbToastService);
   });
 
   afterEach(() => {

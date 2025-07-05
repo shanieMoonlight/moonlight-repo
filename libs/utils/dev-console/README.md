@@ -55,6 +55,9 @@ export class MyComponent {
     // ... some operations ...
     devConsole.timeEnd('Data Processing');
     // Timer logs only happen in development mode
+
+    devConsole.trace();
+    // Logs a stack trace in development mode
   }
 }
 ```
@@ -71,6 +74,7 @@ The `devConsole` object provides the following methods, mirroring the standard `
 - `devConsole.table(tabularData: any, properties?: string[])`
 - `devConsole.time(label: string)`
 - `devConsole.timeEnd(label: string)`
+- `devConsole.trace()`
 
 ## License
 

@@ -1,4 +1,46 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isDevMode } from '@angular/core';
+
+//########################################//
+
+  const skipPatterns = [
+    'dev-console',
+    'getCallerLine',
+    'Object.log',
+    'Object.warn',
+    'Object.error',
+    'Object.group',
+    'Object.groupEnd',
+    'Object.table',
+    'Object.time',
+    'Object.timeEnd',
+    'Object.trace',
+    'zone.js',           // Angular zone.js
+    'core.js',           // Angular core
+    'polyfills.js',      // Angular polyfills
+    'webpack',           // Webpack runtime
+    // 'chunk-',            // Vite/Webpack chunk files
+    'node_modules',      // Any node_modules code
+    // Add more as needed for your stack/environment
+  ];
+
+function getCallerLine(): string {
+  const err = new Error()
+  const stack = err.stack?.split('\n')
+  if (!stack) 
+    return ''
+
+  // Start from index 1 to skip the "Error" line
+  for (let i = 1; i < stack.length; i++) {
+    const line = stack[i]
+    if (!skipPatterns.some(pattern => line.includes(pattern))) 
+      return line.trim()
+  }
+
+  return ''
+}
+
+//########################################//
 
 /**
  * Development-only logging utilities.
@@ -12,7 +54,7 @@ export const devConsole = {
    */
   log: (...args: any[]): void => {
     if (isDevMode()) 
-      console.log(...args);
+    console.log(...args, getCallerLine());
   },
 
   /**
@@ -21,7 +63,7 @@ export const devConsole = {
    */
   warn: (...args: any[]): void => {
     if (isDevMode()) 
-      console.warn(...args);    
+      console.warn(...args, getCallerLine());    
   },
 
   /**
@@ -30,7 +72,7 @@ export const devConsole = {
    */
   error: (...args: any[]): void => {
     if (isDevMode()) 
-      console.error(...args);    
+      console.error(...args, getCallerLine());    
   },
 
   /**
@@ -39,7 +81,7 @@ export const devConsole = {
    */
   group: (label: string): void => {
     if (isDevMode()) 
-      console.group(label);    
+      console.group(label, getCallerLine());    
   },
 
   /**

@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+.container {
+  width: 96%;
+  height: 100%;
+  max-width: 1600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+mat-card-content {
+  // height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+mat-card {
+    border: 1px solid var(--mat-sys-secondary-30);
+  max-width: 450px;
+  height: 100%;
+  width: 100%;
+}
+
+
+.features-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  align-items: center; // Centers items vertically
+  justify-items: center;
+}
+
+
+sb-data-table{
+  width: 96%;
+  max-width: 1600px;
+  margin: 0 auto;
+}

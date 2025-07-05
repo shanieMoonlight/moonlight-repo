@@ -1,0 +1,22 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+@if (open()) {
+    
+    <div class="sb-ui-modal-overlay" 
+        (click)="onOverlayClick()"
+        (keydown.escape)="onOverlayClick()"
+        tabindex="0"
+        role="dialog"
+        aria-modal="true">
+        <div class="modal"  
+            (click)="$event.stopPropagation()">
+            <sb-button-icon-close class="btn-close"
+                (click)="close()" 
+                aria-label="Close modal"/>
+            <ng-container 
+                [ngTemplateOutlet]="template()"
+                [ngTemplateOutletContext]="{ $implicit: templateData() }"/>
+        </div>
+    </div>
+    
+}

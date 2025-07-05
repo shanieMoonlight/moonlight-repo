@@ -1,0 +1,13 @@
+:host {
+  display: flex;  
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+sb-data-table{
+  width: 96%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

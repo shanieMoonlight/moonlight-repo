@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  --color-border-rgb: var(--mat-sys-primary-rgb);
+  --ripple-opacity: 0.35;
+  --color-header-bg: var(--mat-sys-surface-container);
+  --color-header-txt: var(--mat-sys-on-surface);
+  --color-row-hover: var(--mat-sys-surface-container-highest);
+  --color-txt: var(--mat-sys-on-surface);
+  --color-bg: var(--mat-sys-surface);
+  --padding-container: 0rem;
+   --color-border: rgba(var(--color-border-rgb, 0, 0, 0), var(--ripple-opacity));
+  
+  
+  background: var(--color-bg);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+}
+
+
+.sb-data-table-container {
+  width: calc(100% - var(--padding-container, 1rem));
+  overflow-x: auto;
+  background: inherit;
+  padding: var(--padding-containers);
+  // background-color: salmon;
+  border-radius: inherit;
+}
+
+.sb-data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+
+:host(.row-clickable) .row {
+  cursor: pointer;
+}
+
+.sb-data-table th,
+.sb-data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  color: var(--color-txt);
+}
+
+.sb-data-table th {
+  background: var(--color-header-bg);
+  color: var(--color-header-txt);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.sb-data-table td {
+  background: var(--color-row-bg);
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s;
+}
+
+.sb-data-table tr:hover td {
+  background: var(--color-row-hover);
+}
+
+.sb-data-table tr:nth-child(even) td {
+  background: var(--mat-sys-surface-container-highest);
+}
+
+.sb-no-data {
+  text-align: center;
+  color: var(--color-txt);
+  padding: 2rem 0;
+  font-style: italic;
+}
+
+.sb-data-table-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem; 
+  // background-color: antiquewhite;
+}
+
+
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+
+  .sb-data-table th,
+  .sb-data-table td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  .sb-data-table-container {
+    padding: 0.5rem;
+  }
+}
+
+
+
+
+:host(.secondary) {
+  --color-border-rgb: var(--mat-sys-secondary-rgb);
+}
+
+:host(.tertiary) {
+  --color-border-rgb: var(--mat-sys-tertiary-rgb);
+}
+
+:host(.error) {
+  --color-border-rgb: var(--mat-sys-error-rgb);
+}

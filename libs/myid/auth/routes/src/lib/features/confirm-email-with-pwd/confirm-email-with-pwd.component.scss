@@ -1,0 +1,90 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  width: calc(100% - 2rem);
+  // height: 100%;
+  min-height: calc(100% - 2rem);
+  align-items: center;
+  justify-content: center;
+  // box-sizing: border-box;
+  padding: 1rem;
+  //overflow: auto;
+}
+
+.container {
+  width: 98%;
+  // height: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+}
+
+.container .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.description {
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.95rem;
+  margin-bottom: 3rem;
+  line-height: 1.4;
+}
+
+.form.hide {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px) scale(0.98);
+  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+sb-button {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px) scale(0.98);
+  margin: 2rem 0;
+}
+
+
+sb-confirmed-card {
+  max-height: 1px;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
+  max-width: 400px;
+  margin: 0 auto;
+  transform: translateY(40px) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s 0.25s cubic-bezier(.4, 0, .2, 1), transform 0.5s 0.25s cubic-bezier(.4, 0, .2, 1); //Delay to wait for max-height transition
+  transition: 0.5s 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+
+sb-confirmed-card.show,
+sb-button.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  margin: 2rem auto 1.5rem auto;
+
+  max-height: unset;
+  overflow: hidden;
+}

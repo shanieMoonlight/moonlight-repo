@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { TestBed } from '@angular/core/testing';
 import { AppErrorHandler } from './app-error-handler';
-import { ToastService, ToastData } from '@spider-baby/ui-toast';
+import { SbToastService, ToastData } from '@spider-baby/ui-toast';
 import { ErrorDownloadService } from './error-download.service';
 import { DOCUMENT } from '@angular/common';
 import { PLATFORM_ID, ErrorHandler } from '@angular/core';
@@ -48,7 +49,7 @@ jest.mock('@angular/core', () => {
 
 describe('AppErrorHandler', () => {
   let errorHandler: AppErrorHandler;
-  let toastServiceMock: jest.Mocked<Partial<ToastService>>;
+  let toastServiceMock: jest.Mocked<Partial<SbToastService>>;
   let errorDownloadServiceMock: jest.Mocked<Partial<ErrorDownloadService>>;
   let documentMock: Partial<Document>;
   
@@ -102,7 +103,7 @@ describe('AppErrorHandler', () => {
     TestBed.configureTestingModule({
       providers: [
         AppErrorHandler,
-        { provide: ToastService, useValue: toastServiceMock },
+        { provide: SbToastService, useValue: toastServiceMock },
         { provide: ErrorDownloadService, useValue: errorDownloadServiceMock },
         { provide: DOCUMENT, useValue: documentMock },
         { provide: PLATFORM_ID, useValue: 'browser' } // Browser platform
@@ -128,7 +129,7 @@ describe('AppErrorHandler', () => {
       TestBed.configureTestingModule({
         providers: [
           AppErrorHandler,
-          { provide: ToastService, useValue: toastServiceMock },
+          { provide: SbToastService, useValue: toastServiceMock },
           { provide: ErrorDownloadService, useValue: errorDownloadServiceMock },
           { provide: DOCUMENT, useValue: documentMock },
           { provide: PLATFORM_ID, useValue: 'server' } // Server platform

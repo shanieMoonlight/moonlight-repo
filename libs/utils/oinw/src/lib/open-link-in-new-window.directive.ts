@@ -15,10 +15,13 @@ export class SbNavigateNewWindowDirective {
 
   //- - - - - - - - - - - - - - - - - - -//
 
-  @HostListener('mousedown')
-  onMouseDown() {
-    if (isPlatformBrowser(this._platformId))
-      window.open(this.link())
-  }
+@HostListener('mousedown', ['$event'])
+onMouseDown(event: MouseEvent) {
+  if (event.button !== 0) 
+      return; // Only react to left click
+    
+  if (isPlatformBrowser(this._platformId))
+    window.open(this.link());
+}
   
 } //Cls

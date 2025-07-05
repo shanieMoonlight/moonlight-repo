@@ -1,0 +1,6 @@
+
+@if (_isLoggedIn()) {
+  <span class="team-badge" [ngStyle]="_badgeStyles()">
+    {{ _teamType() | titlecase }}
+  </span>
+}

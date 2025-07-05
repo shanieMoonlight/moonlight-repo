@@ -11,8 +11,7 @@ import { MainPrincipalRoutes } from '@sb-hub/sections-main/config/route-data';
 import { SbHubSharedUiFooterComponent } from '@sb-hub/shared-ui/footer';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { HubUiFancyNavCardComponent } from '@sb-hub/ui-cards/fancy-nav'; // Import the new card component
-import { ToastData, ToastService } from '@spider-baby/ui-toast';
-import { matToastConfig, ToastSetup } from '@spider-baby/ui-toast/setup';
+import { SbToastService, ToastData } from '@spider-baby/ui-toast';
 import { SeoService } from '@spider-baby/utils-seo';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -43,7 +42,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 export class HubMainHomeComponent implements OnInit {
   private _seoService = inject(SeoService);
   private _router = inject(Router);
-  private _toast = inject(ToastService);
+  private _toast = inject(SbToastService);
 
   //- - - - - - - - - - - - - - -//
 

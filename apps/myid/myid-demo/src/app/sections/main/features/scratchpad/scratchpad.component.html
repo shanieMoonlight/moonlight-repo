@@ -1,0 +1,119 @@
+<div class="container">
+
+
+<!-- <sb-select
+
+/> -->
+
+
+  <sb-update-team-position-form 
+      [member]="_superTeamData()[0]"
+      [teamPositionOptions]="_teamPositionOptions"
+      (updatePosition)="updatePositionTest($event)"/>
+
+  <!-- <sb-button (click)="authFailTest()">
+    Auth Fail
+  </sb-button> -->
+
+<!-- <sb-reg-customer-form/> -->
+
+<!-- <sb-ui-modal
+  [(open)]="_showAddForm"
+  [template]="addMntcMemberForm"/> -->
+
+
+<!-- 
+<sb-add-mntc-member-form/>
+
+<sb-app-user-form/> -->
+
+<sb-app-user-form
+[twoFactorProviderOptions]="_twoFactorProviderOptions"
+[teamPositionOptions]="_teamPositionOptions"/> 
+
+
+<ng-template #addMntcMemberForm>
+  <sb-add-mntc-member-form 
+    (addMember)="addMntcMember($event)"/>
+</ng-template>
+
+  <!-- <sb-data-table  
+   [data]="_superTeamData()"
+   [columns]="_superTeamDataColumns()"
+   (addItem)="handleAddItem()"
+   (rowClick)="handleRowClick($event)"
+  /> -->
+
+  <!-- 
+  <sb-team-form [team]="_testTeam"/>
+  <sb-team-form [team]="undefined"/> -->
+  
+  <!-- <sb-login-form 
+    (login)="loginCookie($event)" 
+    [showRemeberMe]="true"
+    [socialTemplate]="socialTemplate"/>
+   -->
+  <!-- <sb-team-form [team]="_testTeamSuper"/> -->
+  <!-- <sb-team-form /> -->
+  <!-- <sb-app-user-form [appUser]="_testUser"
+    (addUser)="handleAddUser($event)"
+    (updateUser)="handleEditUser($event)"/>
+
+  <div class="features-grid">
+
+    <sb-update-two-factor-provider-form [currentProvider]="'sms'" (updateProvider)="handleProviderUpdate($event)"/>
+      
+    <sb-forgot-pwd-form/>
+    <sb-confirm-email-with-pwd-form (confirmEmail)="handlePasswordSet($event)"/>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Jwt Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        <sb-login-form 
+          (login)="loginJwt($event)" 
+          [showRemeberMe]="false"
+          [socialTemplate]="socialTemplate"/>
+        </mat-card-content>
+      </mat-card>
+
+      
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Cookie Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        <sb-login-form 
+          (login)="loginCookie($event)" 
+          [showRemeberMe]="true"
+          [socialTemplate]="socialTemplate"/>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
+
+
+    <sb-notifications-modal-mat 
+      [errorMsg]="_errorMsg()" 
+      [successMsg]="_successMsg()" 
+      [isLoading]="_loading()" 
+      [loadingMessage]="'Loading ...'" />
+    
+</div> -->
+
+    <sb-notifications-modal-mat 
+      [errorMsg]="_errorMsg()" 
+      [successMsg]="_successMsg()" 
+      [isLoading]="_loading()" 
+      [loadingMessage]="'Loading ...'" />
+
+<!-- ####################################### -->
+
+<ng-template #socialTemplate>
+     <!-- <asl-google-signin-button type='icon' size='large' /> -->
+</ng-template>
+
+
+<!-- ####################################### -->

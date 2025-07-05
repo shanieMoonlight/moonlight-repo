@@ -1,0 +1,109 @@
+:host {
+    display: flex;
+    max-width: 300px;
+    align-items: flex-start;
+}
+
+.card-container {
+    border: 1px solid var(--mat-sys-outline);
+    background: var(--mat-sys-surface-container);
+    position: relative;
+    padding-top: 1rem;
+    border-radius: 6px;
+
+    overflow: hidden;
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+    padding: 0;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+}
+
+
+.card-container {
+    //   border: 1px solid rgba(60, 60, 60, 0.12);
+    //   background: rgba(255, 255, 255, 0.75);
+    //   backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    //   border-radius: 16px;
+    position: relative;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    pointer-events: none;
+    max-width: 0;
+    max-height: 0;
+    transition:
+        opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        max-width 0.3s,
+        max-height 0.3s,
+        padding 0.3s;
+}
+
+.card-container.show {
+    opacity: 1;
+    max-width: unset;
+    max-height: unset;
+    padding: 1rem;
+    overflow: auto;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    max-width: 320px;
+    // max-height: 400px;
+    padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+    pointer-events: auto;
+    overflow: visible;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.btn-user {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    background: var(--mat-sys-surface-container);
+    background: var(--mat-sys-surface);
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.2s;
+    
+    transition: 1.35s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover,
+    &:focus {
+        box-shadow: 0 4px 16px rgba(33, 150, 243, 0.18);
+    }
+}
+
+.btn-user.hide {
+    max-width: 0;
+    max-height: 0;
+    opacity: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    :host {
+        max-width: 100%;
+    }
+
+    .card-container.show {
+        max-width: 98vw;
+        padding: 1rem 0.5rem 1rem 0.5rem;
+    }
+}

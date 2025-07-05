@@ -1,0 +1,129 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="sb-add-mntc-member-form"
+>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'email'">Email *</label>
+        }
+        <input
+          id="email"
+          sbInputStyle
+          formControlName="email"
+          placeholder="Email"
+          type="email"
+        />
+        <sb-first-error [control]="_form.controls.email"></sb-first-error>
+      </div>
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'username'">Username</label>
+        }
+        <input
+          id="username"
+          sbInputStyle
+          formControlName="username"
+          placeholder="Username"
+        />
+        <sb-first-error [control]="_form.controls.username"></sb-first-error>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'phoneNumber'">Phone Number</label>
+        }
+        <input
+          id="phoneNumber"
+          sbInputStyle
+          formControlName="phoneNumber"
+          placeholder="Phone Number"
+        />
+        <sb-first-error [control]="_form.controls.phoneNumber"></sb-first-error>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <!-- <div class="form-group">
+                @if (showLabels()) {
+                <label [for]="'firstName'">First Name</label>
+                }
+                <input id="firstName" sbInputStyle formControlName="firstName" placeholder="First Name" />
+                <sb-first-error [control]="_form.controls.firstName"></sb-first-error>
+            </div>
+            <div class="form-group">
+                @if (showLabels()) {
+                <label [for]="'lastName'">Last Name</label>
+                }
+                <input id="lastName" sbInputStyle formControlName="lastName" placeholder="Last Name" />
+                <sb-first-error [control]="_form.controls.lastName"></sb-first-error>
+            </div> -->
+
+    <div class="form-row">
+      <div class="form-group">
+        @if(showLabels()){
+        <label [for]="'password'">Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn [color]="color()">
+          <input
+            [id]="'password'"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <sb-toggle-icon-button
+            [color]="color()"
+            toggledLabel="Hide password"
+            untoggledLabel="Show password"
+            (toggled)="onPasswordToggle($event)"
+          />
+        </div>
+        <sb-first-error [control]="_form.controls.password" />
+      </div>
+
+      <div class="form-group">
+        @if(showLabels()){
+        <label [for]="'confirmPassword'">Confirm Password</label>
+        }
+        <div class="password-input-container" sbInputWithBtn [color]="color()">
+          <input
+            [id]="'confirmPassword'"
+            [type]="showConfirmPassword() ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+          />
+          <sb-toggle-icon-button
+            [color]="color()"
+            toggledLabel="Hide password"
+            untoggledLabel="Show password"
+            (toggled)="onConfirmPasswordToggle($event)"
+          />
+        </div>
+        <sb-first-error [control]="_form.controls.confirmPassword" />
+
+        @if(_form.hasError('passwordMismatch') &&
+        _form.controls.confirmPassword.touched) {
+        <span class="error">Passwords do not match</span>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="actions">
+      @if(socialTemplate(); as template){
+      <ng-container [ngTemplateOutlet]="template" />
+      }
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="actions">
+      <sb-button type="submit" [disabled]="!_form.valid">Register</sb-button>
+    </div>
+  </div>
+</form>

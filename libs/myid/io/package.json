@@ -1,0 +1,11 @@
+{
+  "name": "@spider-baby/myid-io",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "rxjs": "~7.8.0",
+    "@spider-baby/dev-console": "^1.1.2"
+  },
+  "sideEffects": false
+}

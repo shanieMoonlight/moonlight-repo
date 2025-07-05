@@ -1,50 +1,78 @@
 <mat-toolbar >
     
 <div class="left-links">
-    <img class="navlink" 
+    <!-- <img class="navlink" 
         [src]="_logoSml()" 
         alt="SpiderBaby Material" 
         [routerLink]="'home'"
         routerLinkActive="active" 
-        [matTooltip]="'Home'"
-        [attr.aria-label]="'home'"/>   
+        [sbTooltip]="'Home'"
+        [attr.aria-label]="'home'"/>    -->
+        
+        <a class="navlink" [routerLink]="'home'">
+            <img
+                [src]="_logoSml()" 
+                alt="SpiderBaby Material" 
+                routerLinkActive="active" 
+                [sbTooltip]="'Home'"
+                [attr.aria-label]="'home'"/>   
+        </a>
     
     @if(!isSmallScreen()){  
-        <button mat-icon-button 
-            aria-label="Git repo for project"
-            [sbNavigateNewWindow]="_gitRepoUrl()" 
-            [matTooltip]="'Git repo'">
-            <mat-icon svgIcon="git" />
-        </button>    
-        
-        <button mat-icon-button 
-            aria-label="Npm Package"
-            [sbNavigateNewWindow]="_npmPkgUrl()" 
-            [matTooltip]="'Npm Package'">
-            <mat-icon svgIcon="npm" />
-        </button>
 
+        <!-- <sb-icon-button 
+            [svgString]="_gitSvg"
+            aria-label="Git repo for project"
+            [sbNavigateNewWindow]="_gitRepoUrl" 
+            [sbTooltip]="'Git repo'"/> -->
+
+        <sb-icon-button 
+            [svgString]="_npmSvg"
+            aria-label="Npm Package"
+            [sbNavigateNewWindow]="_npmPkgUrl" 
+            [sbTooltip]="'Npm Package'"/>
+            
+        <sb-icon-button 
+            [svgString]="_shareSvg"
+            aria-label="Share current page"
+            (click)="share()"
+            sbTooltip="Share this page"/>
+        
+        <!-- <button mat-icon-button 
+            aria-label="Npm Package"
+            [sbNavigateNewWindow]="_npmPkgUrl" 
+            [sbTooltip]="'Npm Package'">
+            <mat-icon svgIcon="npm" />
+        </button> -->
+<!-- 
         <button mat-icon-button 
             aria-label="Share current page"
             (click)="share()"
-            matTooltip="Share this page">
+            sbTooltip="Share this page">
             <mat-icon>share</mat-icon>
-        </button> 
+        </button>  -->
     } 
+     <div class="lhs-outlet">
+        @if(_lhsOutletTemplate(); as template){
+        <ng-container [ngTemplateOutlet]="template" />
+        }
+    </div>
 </div>
 
 
 <div class="right-links">    
     
     @for(navLink of _rhsNavItems(); track navLink) {
-        <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: navLink.routerLink, 
-            tooltip: navLink.tooltip, 
-            iconName: navLink.icon, 
-            text: navLink.text
-        }"/>
+        @if(navLink.show()){
+            <ng-container 
+                [ngTemplateOutlet]="navItem" 
+                [ngTemplateOutletContext]="{
+                    routerLink: navLink.routerLink, 
+                    tooltip: navLink.tooltip, 
+                    iconName: navLink.icon, 
+                    text: navLink.text
+                }"/>
+        }
     }
     
     <div class="rhs-outlet">
@@ -56,6 +84,8 @@
 
 </mat-toolbar>
 
+
+<sb-github-corner [repoUrl]="_gitRepoUrl"/>
 
 <!-- ---------------------------------------------- -->
  
@@ -71,8 +101,7 @@
         [routerLink]="routerLink"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: routerLink === 'home' }">
-      <div
-        [matTooltip]="tooltip">
+      <div>
         {{ text }}
       </div>
   </a>
@@ -83,7 +112,7 @@
         [routerLinkActiveOptions]="{ exact: routerLink === 'home' }">
       <button
         mat-icon-button
-        [matTooltip]="tooltip"
+        [sbTooltip]="tooltip"
         [attr.aria-label]="tooltip">
         <mat-icon>{{ iconName }}</mat-icon>
       </button>

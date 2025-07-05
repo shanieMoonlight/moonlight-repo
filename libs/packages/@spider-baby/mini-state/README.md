@@ -40,7 +40,7 @@ Compatible with Angular 18 and 19.
 ### Simple Data Fetching
 
 ```typescript
-import { Component, inject, DestroyRef } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { UserService } from './user.service';
 
@@ -64,11 +64,9 @@ import { UserService } from './user.service';
 })
 export class UserListComponent {
   private userService = inject(UserService);
-  private destroyRef = inject(DestroyRef);
   
   private state = MiniStateBuilder.Create(
     () => this.userService.getAll(),
-    this.destroyRef,
     []  // Optional initial value
   );
   
@@ -92,8 +90,7 @@ export class UserListComponent {
 
 ```typescript
 private searchState = MiniStateBuilder.CreateWithInput(
-  (term: string) => this.userService.search(term),
-  this.destroyRef
+  (term: string) => this.userService.search(term)
 );
 
 // Trigger a search
@@ -110,8 +107,7 @@ private userId$ = this.route.paramMap.pipe(
 
 private userState = MiniStateBuilder.CreateWithObservableInput(
   this.userId$,
-  (id: string) => this.userService.getById(id),
-  this.destroyRef
+  (id: string) => this.userService.getById(id)
 );
 ```
 
@@ -121,8 +117,7 @@ private userState = MiniStateBuilder.CreateWithObservableInput(
 
 ```typescript
 private userCrudState = MiniCrudState.Create(
-  (filter: UserFilter) => this.userService.getAll(filter),
-  this.destroyRef
+  (filter: UserFilter) => this.userService.getAll(filter)
 )
 .setAddState(
   (user: User) => this.userService.create(user),
@@ -152,11 +147,10 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 // Create individual states
 const getAllState = MiniStateBuilder.Create(
   () => this.userService.getAll(),
-  this.destroyRef
+  []
 );
 const updateState = MiniStateBuilder.CreateWithInput(
-  (user: User) => this.userService.update(user),
-  this.destroyRef
+  (user: User) => this.userService.update(user)
 );
 
 // Combine for unified loading/error handling

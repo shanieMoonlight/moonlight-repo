@@ -8,6 +8,7 @@ import { executeAfterEmissionAndOnTermination } from "./utils/rxjs-utils"
 
 const SPACE_1 = ' \u200B'
 const SPACE_2 = '\u200C '
+const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later.'
 
 //=========================================================//
 
@@ -232,7 +233,7 @@ export class MiniState<Input, Output, TError = any> {
      */
     trigger(input: Input) {
 
-        devConsole.log('trigger', input);
+        // devConsole.log('trigger', input);
         this._loadingBs.next(true)
         this._errorMsgBs.next(undefined); // Clear previous error message
         this._successMsgBs.next(undefined); // Clear previous success message
@@ -243,7 +244,7 @@ export class MiniState<Input, Output, TError = any> {
         //Not using finalize in case obs doesn't complete
         this._sub = this._triggerFn$(input)
             .pipe(
-                executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) => 
+                executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) =>
                     this.handleTriggerComplete(input, outputValue, error, isFinalized)),
             )
             .subscribe({
@@ -268,9 +269,9 @@ export class MiniState<Input, Output, TError = any> {
 
     private handleTriggerSuccess(input: Input, data: Output) {
 
-        devConsole.log('MiniState', data);
-        devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
-        devConsole.log(this._successDataProcessor)
+        // devConsole.log('MiniState', data);
+        // devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
+        // devConsole.log(this._successDataProcessor)
 
         this._successDataBs.next(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data)
         this.emitSuccessMsg(this._successMsgFn?.(input, data))
@@ -285,8 +286,8 @@ export class MiniState<Input, Output, TError = any> {
 
     private handleTriggerError(input: Input, error: any) {
 
-        devConsole.log('MiniState', error);
-        this.emitErrorMsg(this._errorMsgFn(error))
+        devConsole.log('MiniState-handleTriggerError', error);
+        this.emitErrorMsg(this._errorMsgFn(error) || FALLBACK_ERROR_MSG)
         this._errorBs.next(error)
 
         //In case loading MUST complete first

@@ -164,6 +164,20 @@
       "@spider-baby-repo/swagger-codegen-plugin": [
         "tools/swagger-codegen-plugin/src/index.ts"
       ],
+      "@spider-baby/auth-jwt-utils": ["libs/auth/jwt-utils/src/index.ts"],
+      "@spider-baby/auth-jwt-utils/interceptor": [
+        "libs/auth/jwt-utils/interceptor/src/index.ts"
+      ],
+      "@spider-baby/auth-jwt-utils/storage": [
+        "libs/auth/jwt-utils/storage/src/index.ts"
+      ],
+      "@spider-baby/auth-signal": ["libs/auth/auth-signal/src/index.ts"],
+      "@spider-baby/auth-signal/default": [
+        "libs/auth/auth-signal/default/src/index.ts"
+      ],
+      "@spider-baby/auth-signal/firebase": [
+        "libs/auth/auth-signal/firebase/src/index.ts"
+      ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [
         "libs/tools/generators/swagger-io-codegen/src/index.ts"
@@ -207,6 +221,59 @@
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
       ],
+      "@spider-baby/myid-auth": ["libs/myid/auth/src/index.ts"],
+      "@spider-baby/myid-auth/config": ["libs/myid/auth/config/src/index.ts"],
+      "@spider-baby/myid-auth/guards": ["libs/myid/auth/guards/src/index.ts"],
+      "@spider-baby/myid-auth/routes": ["libs/myid/auth/routes/src/index.ts"],
+      "@spider-baby/myid-auth/services": [
+        "libs/myid/auth/services/src/index.ts"
+      ],
+      "@spider-baby/myid-auth/user-mgr-admin": [
+        "libs/myid/auth/user-mgr-admin/src/index.ts"
+      ],
+      "@spider-baby/myid-auth/utils": ["libs/myid/auth/utils/src/index.ts"],
+      "@spider-baby/myid-io": ["libs/myid/io/src/index.ts"],
+      "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
+      "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
+      "@spider-baby/myid-ui": ["libs/myid/ui/src/index.ts"],
+      "@spider-baby/myid-ui/add-mntc-member": [
+        "libs/myid/ui/add-mntc-member/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/add-super-member": [
+        "libs/myid/ui/add-super-member/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/change-pwd": [
+        "libs/myid/ui/change-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/confirm": ["libs/myid/ui/confirm/src/index.ts"],
+      "@spider-baby/myid-ui/confirm-email-with-pwd": [
+        "libs/myid/ui/confirm-email-with-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/confirm-phone": [
+        "libs/myid/ui/confirm-phone/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/forgot-pwd": [
+        "libs/myid/ui/forgot-pwd/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/login": ["libs/myid/ui/login/src/index.ts"],
+      "@spider-baby/myid-ui/reg-customer": [
+        "libs/myid/ui/reg-customer/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/reset-pwd": ["libs/myid/ui/reset-pwd/src/index.ts"],
+      "@spider-baby/myid-ui/team": ["libs/myid/ui/team/src/index.ts"],
+      "@spider-baby/myid-ui/update-self": [
+        "libs/myid/ui/update-self/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/update-team-position": [
+        "libs/myid/ui/update-team-position/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/update-two-factor-provider": [
+        "libs/myid/ui/update-two-factor-provider/src/index.ts"
+      ],
+      "@spider-baby/myid-ui/utils": ["libs/myid/ui/utils/src/index.ts"],
+      "@spider-baby/myid-ui/verify-2factor": [
+        "libs/myid/ui/verify-2factor/src/index.ts"
+      ],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"
       ],
@@ -216,6 +283,22 @@
       "@spider-baby/ui-code-samples": ["libs/ui/code-samples/src/index.ts"],
       "@spider-baby/ui-git": ["libs/ui/git/src/index.ts"],
       "@spider-baby/ui-git/corner": ["libs/ui/git/corner/src/index.ts"],
+      "@spider-baby/ui-kit": ["libs/ui/ui-kit/src/index.ts"],
+      "@spider-baby/ui-kit/buttons": ["libs/ui/ui-kit/buttons/src/index.ts"],
+      "@spider-baby/ui-kit/checkboxes": [
+        "libs/ui/ui-kit/checkboxes/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/inputs": ["libs/ui/ui-kit/inputs/src/index.ts"],
+      "@spider-baby/ui-kit/modal": ["libs/ui/ui-kit/modal/src/index.ts"],
+      "@spider-baby/ui-kit/progress-bar": [
+        "libs/ui/ui-kit/progress-bar/src/index.ts"
+      ],
+      "@spider-baby/ui-kit/ripple": ["libs/ui/ui-kit/ripple/src/index.ts"],
+      "@spider-baby/ui-kit/select": ["libs/ui/ui-kit/select/src/index.ts"],
+      "@spider-baby/ui-kit/table": ["libs/ui/ui-kit/table/src/index.ts"],
+      "@spider-baby/ui-kit/tooltip": ["libs/ui/ui-kit/tooltip/src/index.ts"],
+      "@spider-baby/ui-kit/types": ["libs/ui/ui-kit/types/src/index.ts"],
+      "@spider-baby/ui-kit/utils": ["libs/ui/ui-kit/utils/src/index.ts"],
       "@spider-baby/ui-mat-notifications": [
         "libs/ui/notifications/mat-notifications/src/index.ts"
       ],
@@ -234,13 +317,34 @@
       "@spider-baby/ui-mat-notifications/utils": [
         "libs/ui/notifications/mat-notifications/utils/src/index.ts"
       ],
+      "@spider-baby/ui-notifications": [
+        "libs/ui/notifications/sb-notifications/src/index.ts"
+      ],
       "@spider-baby/ui-toast": ["libs/ui/toast/src/index.ts"],
       "@spider-baby/ui-toast/dynamic-provider": [
         "libs/ui/toast/dynamic-provider/src/index.ts"
       ],
       "@spider-baby/ui-toast/setup": ["libs/ui/toast/setup/src/index.ts"],
+      "@spider-baby/ui-utils": ["libs/ui/utils/src/index.ts"],
+      "@spider-baby/utils-common": ["libs/utils/common/src/index.ts"],
+      "@spider-baby/utils-common/collections": [
+        "libs/utils/common/collections/src/index.ts"
+      ],
+      "@spider-baby/utils-common/dates": [
+        "libs/utils/common/dates/src/index.ts"
+      ],
+      "@spider-baby/utils-common/numbers": [
+        "libs/utils/common/numbers/src/index.ts"
+      ],
+      "@spider-baby/utils-common/strings": [
+        "libs/utils/common/strings/src/index.ts"
+      ],
       "@spider-baby/utils-file-saver": ["libs/utils/file-saver/src/index.ts"],
       "@spider-baby/utils-firebase": ["libs/utils/firebase/src/index.ts"],
+      "@spider-baby/utils-forms": ["libs/utils/forms/src/index.ts"],
+      "@spider-baby/utils-forms/validators": [
+        "libs/utils/forms/validators/src/index.ts"
+      ],
       "@spider-baby/utils-img": ["libs/utils/imgs/src/index.ts"],
       "@spider-baby/utils-img/progressive": [
         "libs/utils/imgs/progressive/src/index.ts"

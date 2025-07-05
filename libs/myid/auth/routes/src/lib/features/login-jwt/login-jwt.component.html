@@ -1,0 +1,30 @@
+<div class="container">
+  
+  <sb-login-form 
+    (login)="login($event)" 
+    (forgotPwd)="onForgotPwd()"
+    [socialTemplate]="socialTemplate"/>
+
+    
+  <sb-forgot-pwd-modal 
+    [(openModal)]="_showForgotPwd"
+    (forgotPwd)="onForgotPasswordResult($event)"/>
+
+    <sb-notifications-modal-mat 
+      [errorMsg]="_errorMsg()" 
+      [toastMsg]="_successMsg()" 
+      [isLoading]="_loading()" 
+      [loadingMessage]="'Loading ...'" />
+  
+
+<!-- ####################################### -->
+
+
+<ng-template #socialTemplate>
+  @if(_showSocialLinks()){
+     <asl-google-signin-button type='icon' size='large' />
+    }
+</ng-template>
+
+
+<!-- ####################################### -->

@@ -1,0 +1,13 @@
+{
+  "name": "@spider-baby/utils-forms",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "19.2.9",
+    "rxjs": "~7.8.0",
+    "@angular/common": "19.2.9",
+    "@spider-baby/dev-console": "^1.1.2",
+    "libphonenumber-js": "^1.12.9"
+  },
+  "sideEffects": false
+}

@@ -1,1 +1,0 @@
-C:\Users\Shaneyboy\VsCode\moonlight-repo\libs\ui\notifications\mat-notifications\build-helpers\local_publish_mat_notifications.bat

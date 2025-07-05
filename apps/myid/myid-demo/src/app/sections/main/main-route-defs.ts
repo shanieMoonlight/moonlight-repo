@@ -1,4 +1,6 @@
+import { MyIdAccountSectionRoutesDefs } from '@spider-baby/myid-auth/routes';
 import { RouteUtility } from '@spider-baby/utils-routes';
+// import { AccountSectionRoutesDefs } from '../accounts/account-route-defs';
 
 //#################################################//
 
@@ -8,7 +10,10 @@ const BaseRoute = '';
 /** Type alias for the child routes of the main application area: 'home' | 'about'. */
 type CHILD_ROUTE =
   | 'home'
-  | 'oauth'
+  | 'auth-test'
+  | 'auth-test-firebase'
+  | 'auth-test-user-mgr-admin'
+  | 'scratchpad'
 
 //#################################################//
 
@@ -30,13 +35,13 @@ export class MainSectionRoutesDefs {
   //- - - - - - - - - - - - - - - - - - -//
 
   /**
-   * Access to relative route segments for this area and its children (e.g., admin).
+   * Access to relative route segments for this area and its children 
    * Will be used by parent routeDefs
    * @returns The last route segment.
    */
   static routes = {
     route: MainSectionRoutesDefs.route,
-    // Child sections go here....
+    account: MyIdAccountSectionRoutesDefs.routes
   };
 
   /**
@@ -51,7 +56,7 @@ export class MainSectionRoutesDefs {
     );
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
-      // Child sections go here....
+      account: MyIdAccountSectionRoutesDefs.fullPathFn(basePath)
     };
   };
 } //Cls

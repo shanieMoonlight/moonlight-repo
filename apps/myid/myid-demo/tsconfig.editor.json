@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/app/shared/ui/checkbox/checkbox.component.html", "../../../libs/ui/ui-kit/utils/src/lib/svg-renderer.component.ts", "../../../libs/utils/forms/validators/src/lib/pwd-regexes.ts", "../../../libs/myid/ui-forms/add-mntc-member/src/lib/add-mntc-member-form.component.spec.ts", "../../../libs/myid/ui-forms/reg-customer/src/lib/reg-customer-form.component.spec.ts", "../../../libs/myid/ui-forms/add-super-member/src/lib/add-super-member-form.component.spec.ts", "../../../libs/myid/ui-forms/add-super-member/src/lib/add-super-member-form.component.ts", "../../../libs/myid/ui-forms/reg-customer/src/lib/reg-customer-form.component.ts", "../../../libs/myid/ui-forms/add-mntc-member/src/lib/add-mntc-member-form.component.ts"],
   "compilerOptions": {},
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

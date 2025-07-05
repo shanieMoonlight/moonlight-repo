@@ -3,7 +3,7 @@ import type { Config } from 'jest';
 export default async (): Promise<Config> => ({
   displayName: 'spider-baby',
   preset: './jest.preset.js',
-  testEnvironment: 'jsdom', 
+  testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   extensionsToTreatAsEsm: ['.ts'],
   resolver: '@nx/jest/plugins/resolver',
@@ -25,8 +25,8 @@ export default async (): Promise<Config> => ({
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
     // Add specific mappings matching tsconfig.base.json
-  '^@angular/animations/browser$': '<rootDir>/node_modules/@angular/animations/fesm2022/browser.mjs',
-  
+    '^@angular/animations/browser$': '<rootDir>/node_modules/@angular/animations/fesm2022/browser.mjs',
+
     '^@spider-baby/ui-mat-notifications$': '<rootDir>/libs/ui/notifications/mat-notifications/src/index.ts',
     '^@spider-baby/mini-state$': '<rootDir>/libs/packages/@spider-baby/mini-state/src/index.ts',
     '^@spider-baby/material-theming$': '<rootDir>/libs/packages/@spider-baby/theming/src/index.ts',
@@ -38,6 +38,9 @@ export default async (): Promise<Config> => ({
     '^@spider-baby/material-theming/ui$': '<rootDir>/libs/packages/@spider-baby/theming/ui/src/index.ts',
     '^@spider-baby/material-theming/utils$': '<rootDir>/libs/packages/@spider-baby/theming/utils/src/index.ts',
     '^@spider-baby/ssr-storage$': '<rootDir>/libs/packages/@spider-baby/ssr/storage/src/index.ts',
+    '^@spider-baby/ui-kit/inputs$': '<rootDir>/libs/ui/ui-kit/inputs/src/index.ts',
+    '^@spider-baby/ui-kit/buttons$': '<rootDir>/libs/ui/ui-kit/buttons/src/index.ts',
+    // '^@spider-baby/utils-forms$': '<rootDir>/libs/utils/forms/src/index.ts',
 
     // Keep a generic one as a fallback if needed, but ensure it's correct
     // '^@spider-baby/(.*)$': '<rootDir>/libs/packages/@spider-baby/$1', // This might still be too generic
@@ -53,6 +56,7 @@ export default async (): Promise<Config> => ({
     '<rootDir>/apps/tutorials/tutorials-e2e/',
     '<rootDir>/apps/hub/sb-hub-e2e/',
     '<rootDir>/apps/routes/routes-e2e/',
+    '<rootDir>/apps/myid/myid-demo-e2e/',
     '<rootDir>/tools/demo-plugin/src/generators/files/',
     '<rootDir>/tools/app-libs-plugin/src/generators/section/entry-point/files/',
     '<rootDir>/tools/app-libs-plugin/src/generators/section/route-defs/files/',

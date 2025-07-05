@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { AppImages } from '../../config/images';
 
 @Component({
@@ -11,7 +11,7 @@ import { AppImages } from '../../config/images';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="not-found-container">
-      <img class="spider-baby-logo" [src]="_logo()" alt="Spider Baby" />
+      <img class="spider-baby-logo" [src]="_logo" alt="Spider Baby" />
       <h1>Oops! Page Not Found</h1>
       <p class="playful-text">Looks like our little spider got lost in the web! 🕸️</p>
       <p>This page seems to have scurried away or never existed in the first place.</p>
@@ -151,6 +151,6 @@ import { AppImages } from '../../config/images';
 })
 export class NotFoundComponent {
 
-  _logo = signal(AppImages.Logo.default )
+  _logo = AppImages.Logo.default 
 
 }

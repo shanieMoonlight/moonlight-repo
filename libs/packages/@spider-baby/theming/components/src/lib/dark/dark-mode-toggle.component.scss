@@ -3,12 +3,22 @@
   align-items: center;
   overflow: hidden;
   cursor: pointer;
+  transition: color 0.3s ease-in-out 0s;
+  --color-icon: var(--mat-sys-primary);
+}
+
+
+:host:hover {
+  color: var(--color-icon);
 }
 
 .fade-in,
 .fade-out {
-  transition-duration: 1s;
-  transition-timing-function: ease-in-out;
+  transition:
+    opacity 1s ease-in-out 0.5s,
+    transform 1s ease-in-out 0.15s;
+  // transition-duration: 1s;
+  // transition-timing-function: ease-in-out;
 }
 
 .fade-in {
@@ -37,6 +47,7 @@
 
 mat-slide-toggle {
   cursor: pointer;
+
   // Add a subtle hover effect for better UX
   &:hover {
     opacity: 0.9;
@@ -47,9 +58,27 @@ mat-slide-toggle {
 .svg-container {
   display: flex;
   align-items: center;
+
   // Add focus styles for keyboard navigation
   &:focus-visible {
     outline: 2px solid currentColor;
     border-radius: 4px;
   }
+}
+
+
+:host.primary {
+    --color-icon: var(--mat-sys-primary);
+}
+
+:host.secondary {
+    --color-icon: var(--mat-sys-secondary);
+}
+
+:host.tertiary {
+    --color-icon: var(--mat-sys-tertiary);
+}
+
+:host.error {
+    --color-icon: var(--mat-sys-error);
 }

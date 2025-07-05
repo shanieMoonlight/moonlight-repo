@@ -11,6 +11,7 @@ const mockSwUpdate = {
   isEnabled: false,
   versionUpdates: {
     pipe: () => ({
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       subscribe: () => { }
     })
   },
@@ -68,6 +69,6 @@ describe('MainComponent', () => {
   });
 
   it('should inject IconsService', () => {
-    expect(component.iconsService).toBeInstanceOf(IconsService);
+    expect(component['_iconsService']).toBeInstanceOf(IconsService);
   });
 });

@@ -36,6 +36,7 @@
     "express": "^4.21.2",
     "firebase": "^11.6.1",
     "firebase-tools": "^13.0.0",
+    "libphonenumber-js": "^1.12.9",
     "lunr": "^2.3.9",
     "ngx-highlightjs": "^14.0.0",
     "npm-name": "^8.0.0",

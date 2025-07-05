@@ -1,18 +1,31 @@
-<sb-main-navbar
-    [rhsOutletTemplate]="rhsOutletTemplate"/>
+<sb-main-navbar 
+    [lhsOutletTemplate]="lhsOutletTemplate"
+    [rhsOutletTemplate]="rhsOutletTemplate" />
+
+
+<!-- <sb-user-info-card/> -->
+<sb-user-info-btn class="btn-user-info"/>
+<sb-team-badge class="team-badge"/>
 
 <router-outlet />
 
 
-<sb-service-worker-update-mat/>
+<sb-service-worker-update-mat />
 
 <!-- ======================================= -->
 
+<ng-template #lhsOutletTemplate>
+    <sb-swagger-button />
+    <sb-hangfire-button [style.color]="'var(--mat-sys-neutral)'"/>
+</ng-template>
+
+
 <ng-template #rhsOutletTemplate>
-    <div class="theming">        
-        <sb-theme-picker-mat/>
-        <sb-dark-mode-toggle-mat/>
-    </div>     
+    <sb-auth-login-button />
+    <div class="theming">
+        <sb-theme-picker-mat />
+        <sb-dark-mode-toggle-mat />
+    </div>
 </ng-template>
 
 <!-- ======================================= -->

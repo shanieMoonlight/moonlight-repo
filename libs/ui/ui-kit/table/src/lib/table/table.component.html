@@ -1,0 +1,47 @@
+<!-- {{_data() | json}} -->
+
+<div class="sb-data-table-container">
+  @if(loading()) {
+    <sb-progress-bar mode="indeterminate" [color]="color()" style="margin-bottom: 8px;"></sb-progress-bar>
+  }
+  <table class="sb-data-table">
+    <thead>
+      <tr>
+        @for (col of columns(); track col.name) {
+          <th>
+            <sb-table-header-cell
+                [column]="col"/>
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @if (_data().length) {
+        @for (row of _data(); let i = $index; track i) {
+          <tr class="row" (click)="onRowClick(row, i)">
+            @for (col of columns(); track col.name) {
+              <td>
+                <sb-data-table-cell
+                  [item]="row"
+                  [column]="col"
+                  (action)="onActionClick($event, i)"/>
+              </td>
+            }
+          </tr>
+        }
+      } @else {
+        <tr>
+          <td [attr.colspan]="columns().length" class="sb-no-data">No data available</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <div class="sb-data-table-actions">
+    @if(canAddItem()){
+      <sb-button-icon-add 
+        [sbTooltip]="addItemTooltip()"
+        (click)="onAddItemClick()"
+        [circle]="true"/>
+    }
+  </div>
+</div>

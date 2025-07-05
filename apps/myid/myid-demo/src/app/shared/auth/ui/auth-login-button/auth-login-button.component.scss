@@ -1,0 +1,52 @@
+:host {
+  --color: var(--mat-sys-primary);
+  display: inline-block;
+  color: inherit;
+  --border-radius: var(--mat-sys-corner-extra-small);
+
+}
+
+.toggle-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  // color: var(--mat-sys-outline);
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
+  // border-radius: 50%;
+  // color: var(--color);
+  color: inherit;
+}
+
+
+
+.toggle-icon-btn:hover {
+  background-color: var(--mat-sys-surface-variant);
+  color: var(--color);
+}
+
+
+.toggle-icon-btn.color-without-focus {
+  color: var(--color);
+}
+
+.toggle-icon-btn.primary {
+  --color: var(--mat-sys-primary);
+}
+
+.toggle-icon-btn.secondary {
+  --color: var(--mat-sys-secondary);
+}
+
+.toggle-icon-btn.tertiary {
+  --color: var(--mat-sys-tertiary);
+}
+
+.toggle-icon-btn.error {
+  --color: var(--mat-sys-error);
+}

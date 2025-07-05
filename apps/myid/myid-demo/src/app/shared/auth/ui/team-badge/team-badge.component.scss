@@ -1,0 +1,16 @@
+:host {
+    display: inline-block;
+    position: relative;
+    border-radius: 1em;
+}
+
+.team-badge {
+    padding: 0.25em 0.75em;
+    border-radius: inherit;
+    font-weight: 600;
+    font-size: 0.95em;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, color 0.2s;
+    margin: 0;
+    vertical-align: middle;
+}

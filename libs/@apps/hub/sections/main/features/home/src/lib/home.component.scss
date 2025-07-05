@@ -2,7 +2,7 @@
   --clr-title: var(--mat-seed-primary);
   --clr-subtitle: var(--mat-sys-primary-70);
   display: block;
-  min-height: 100vh; // Changed to 100vh for full viewport height
+  // min-height: 100vh; // Changed to 100vh for full viewport height
   display: flex;
   flex-direction: column;
   background-color: var(--mat-sys-surface); // Added a subtle background

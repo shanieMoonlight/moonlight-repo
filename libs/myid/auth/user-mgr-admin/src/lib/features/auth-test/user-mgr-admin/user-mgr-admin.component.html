@@ -1,0 +1,123 @@
+<!-- Access Token -->
+<div>
+  <strong>Access Token:</strong>
+  <pre>{{ _authService.accessToken() }}</pre>
+</div>
+
+<!-- All Claims -->
+<div>
+  <h3>JWT Claims</h3>
+  @if (_authService.allClaims().length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Claim</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (claim of _authService.allClaims(); track claim.type) {
+          <tr>
+            <td>{{ claim.type }}</td>
+            <td>
+              @if (isArray(claim.value)) {
+                <pre>{{ claim.value | json }}</pre>
+              } @else {
+                {{ claim.value }}
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>No claims found (not logged in or invalid token).</p>
+  }
+</div>
+
+<!-- All Public Signals -->
+<div>
+  <h3>All Auth Signals</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Signal</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- BaseAuthSignalService signals -->
+      <tr><td>email</td><td>{{ _authService.email() }}</td></tr>
+      <tr><td>userId</td><td>{{ _authService.userId() }}</td></tr>
+      <tr><td>userName</td><td>{{ _authService.userName() }}</td></tr>
+      <tr><td>roles</td><td><pre>{{ _authService.roles() | json }}</pre></td></tr>
+      <tr><td>isLoggedIn</td><td>{{ _authService.isLoggedIn() }}</td></tr>
+      <tr><td>isNotLoggedIn</td><td>{{ _authService.isNotLoggedIn() }}</td></tr>
+      <tr><td>issuer</td><td>{{ _authService.issuer() }}</td></tr>
+      <tr><td>audience</td><td>{{ _authService.audience() }}</td></tr>
+      <tr><td>emailVerified</td><td>{{ _authService.emailVerified() }}</td></tr>
+      <tr><td>issuedAt</td><td>{{ _authService.issuedAt() }}</td></tr>
+      <tr><td>expiry</td><td>{{ _authService.expiry() }}</td></tr>
+      <tr><td>notBefore</td><td>{{ _authService.notBefore() }}</td></tr>
+      <tr><td>authTime</td><td>{{ _authService.authTime() }}</td></tr>
+      <tr><td>firstName</td><td>{{ _authService.firstName() }}</td></tr>
+      <tr><td>lastName</td><td>{{ _authService.lastName() }}</td></tr>
+      <tr><td>picture</td><td>{{ _authService.picture() }}</td></tr>
+      <tr><td>locale</td><td>{{ _authService.locale() }}</td></tr>
+      <tr><td>updatedAt</td><td>{{ _authService.updatedAt() }}</td></tr>
+      <tr><td>birthdate</td><td>{{ _authService.birthdate() }}</td></tr>
+      <tr><td>gender</td><td>{{ _authService.gender() }}</td></tr>
+      <tr><td>address</td><td>{{ _authService.address() | json}}</td></tr>
+      <tr><td>profile</td><td>{{ _authService.profile() }}</td></tr>
+      <tr><td>website</td><td>{{ _authService.website() }}</td></tr>
+      <!-- AMyIdAuthService signals (team/position/role) -->
+      <tr><td>isSuper</td><td>{{ _authService.isSuper() }}</td></tr>
+      <tr><td>isMntc</td><td>{{ _authService.isMntc() }}</td></tr>
+      <tr><td>isCus</td><td>{{ _authService.isCustomer() }}</td></tr>
+      <tr><td>isLdr</td><td>{{ _authService.isLdr() }}</td></tr>
+      <tr><td>isUser</td><td>{{ _authService.isUser() }}</td></tr>
+      <tr><td>isMgr</td><td>{{ _authService.isMgr() }}</td></tr>
+      <tr><td>isAdmin</td><td>{{ _authService.isAdmin() }}</td></tr>
+      <tr><td>isGuest</td><td>{{ _authService.isGuest() }}</td></tr>
+      <tr><td>teamId</td><td>{{ _authService.teamId() }}</td></tr>
+      <tr><td>position</td><td>{{ _authService.position() }}</td></tr>
+      <tr><td>isSuperLdr</td><td>{{ _authService.isSuperLdr() }}</td></tr>
+      <tr><td>isSuperAdmin</td><td>{{ _authService.isSuperAdmin() }}</td></tr>
+      <tr><td>isSuperMgr</td><td>{{ _authService.isSuperMgr() }}</td></tr>
+      <tr><td>isSuperUser</td><td>{{ _authService.isSuperUser() }}</td></tr>
+      <tr><td>isSuperGuest</td><td>{{ _authService.isSuperGuest() }}</td></tr>
+      <tr><td>isMntcLdr</td><td>{{ _authService.isMntcLdr() }}</td></tr>
+      <tr><td>isMntcAdmin</td><td>{{ _authService.isMntcAdmin() }}</td></tr>
+      <tr><td>isMntcMgr</td><td>{{ _authService.isMntcMgr() }}</td></tr>
+      <tr><td>isMntcUser</td><td>{{ _authService.isMntcUser() }}</td></tr>
+      <tr><td>isMntcGuest</td><td>{{ _authService.isMntcGuest() }}</td></tr>
+      <tr><td>isCusLdr</td><td>{{ _authService.isCusLdr() }}</td></tr>
+      <tr><td>isCusAdmin</td><td>{{ _authService.isCusAdmin() }}</td></tr>
+      <tr><td>isCusMgr</td><td>{{ _authService.isCusMgr() }}</td></tr>
+      <tr><td>isCusUser</td><td>{{ _authService.isCusUser() }}</td></tr>
+      <tr><td>isCusGuest</td><td>{{ _authService.isCusGuest() }}</td></tr>
+      <!-- <tr><td>isSuperLdrMinimum</td><td>{{ _authService.isSuperLdrMinimum() }}</td></tr> -->
+      <tr><td>isSuperAdminMinimum</td><td>{{ _authService.isSuperAdminMinimum() }}</td></tr>
+      <tr><td>isSuperMgrMinimum</td><td>{{ _authService.isSuperMgrMinimum() }}</td></tr>
+      <tr><td>isSuperUserMinimum</td><td>{{ _authService.isSuperUserMinimum() }}</td></tr>
+      <tr><td>isSuperGuestMinimum</td><td>{{ _authService.isSuperGuestMinimum() }}</td></tr>
+      <tr><td>isSuperMinimum</td><td>{{ _authService.isSuperMinimum() }}</td></tr>
+      <tr><td>isMntcLdrMinimum</td><td>{{ _authService.isMntcLdrMinimum() }}</td></tr>
+      <tr><td>isMntcAdminMinimum</td><td>{{ _authService.isMntcAdminMinimum() }}</td></tr>
+      <tr><td>isMntcMgrMinimum</td><td>{{ _authService.isMntcMgrMinimum() }}</td></tr>
+      <tr><td>isMntcUserMinimum</td><td>{{ _authService.isMntcUserMinimum() }}</td></tr>
+      <tr><td>isMntcGuestMinimum</td><td>{{ _authService.isMntcGuestMinimum() }}</td></tr>
+      <tr><td>isMntcMinimum</td><td>{{ _authService.isMntcMinimum() }}</td></tr>
+      <tr><td>isCusLdrMinimum</td><td>{{ _authService.isCusLdrMinimum() }}</td></tr>
+      <tr><td>isCusAdminMinimum</td><td>{{ _authService.isCusAdminMinimum() }}</td></tr>
+      <tr><td>isCusMgrMinimum</td><td>{{ _authService.isCusMgrMinimum() }}</td></tr>
+      <tr><td>isCusUserMinimum</td><td>{{ _authService.isCusUserMinimum() }}</td></tr>
+      <tr><td>isCusGuestMinimum</td><td>{{ _authService.isCusGuestMinimum() }}</td></tr>
+      <tr><td>isCusMinimum</td><td>{{ _authService.isCusMinimum() }}</td></tr>
+      <tr><td>isMntcOrDev</td><td>{{ _authService.isMntcOrDev() }}</td></tr>
+      <tr><td>isMntcMinimumOrDev</td><td>{{ _authService.isMntcMinimumOrDev() }}</td></tr>
+      <tr><td>isSuperOrDev</td><td>{{ _authService.isSuperOrDev() }}</td></tr>
+      <tr><td>isSuperMinimumOrDev</td><td>{{ _authService.isSuperMinimumOrDev() }}</td></tr>
+    </tbody>
+  </table>
+</div>

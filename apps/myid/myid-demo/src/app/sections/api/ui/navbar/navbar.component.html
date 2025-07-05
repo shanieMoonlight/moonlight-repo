@@ -6,13 +6,14 @@
             <ng-container [ngTemplateOutlet]="template" />
             }
         </div>
-        <img class="navlink" 
-            [src]="_logoSml()" 
-            alt="MainPage" 
-            [routerLink]="'/'"
-            routerLinkActive="active" 
-            [matTooltip]="'MainPage'"
-            [attr.aria-label]="'MainPage'"/>
+        <a class="navlink"  [routerLink]="'/'">
+            <img 
+                [src]="_logoSml()" 
+                alt="MainPage"                 
+                routerLinkActive="active" 
+                [matTooltip]="'MainPage'"
+                [attr.aria-label]="'MainPage'"/>
+        </a>
         
     </div>
 

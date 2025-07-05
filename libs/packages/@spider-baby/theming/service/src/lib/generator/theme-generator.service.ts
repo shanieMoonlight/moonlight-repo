@@ -107,8 +107,8 @@ export class ThemeGeneratorService {
 
       // Then apply the M3 system variables using the direct mapper approach
       this.applySystemVariables(theme, isDark, palettes, targetElement)
-
-
+      this.applyShapeVariables(targetElement); // <-- Add this line
+      this.applyTypographyVariables(targetElement);
       this.applyThemeAndModeClassess(themeClass, isDark, targetElement)
 
     })
@@ -215,13 +215,13 @@ export class ThemeGeneratorService {
     this.setVariable(targetElement, '--mat-sys-on-error', palettes.error[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-error-container', palettes.error[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-error-container', palettes.error[isDark ? 90 : 10]);
-    
+
     // M3 colors - Neutral
     this.setVariable(targetElement, '--mat-sys-neutral', palettes.neutral[isDark ? 80 : 40]);
     this.setVariable(targetElement, '--mat-sys-on-neutral', palettes.neutral[isDark ? 20 : 100]);
     this.setVariable(targetElement, '--mat-sys-neutral-container', palettes.neutral[isDark ? 30 : 90]);
     this.setVariable(targetElement, '--mat-sys-on-neutral-container', palettes.neutral[isDark ? 90 : 10]);
-    
+
     // M3 colors - NeutralVariant
     this.setVariable(targetElement, '--mat-sys-neutral-variant', palettes.neutralVariant[isDark ? 80 : 40]);
     this.setVariable(targetElement, '--mat-sys-on-neutral-variant', palettes.neutralVariant[isDark ? 20 : 100]);
@@ -316,13 +316,23 @@ export class ThemeGeneratorService {
     // Secondary colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-secondary-rgb', p.secondary[isDark ? 80 : 40]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-secondary-rgb', p.secondary[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-primary-secondary-rgb', p.secondary[isDark ? 30 : 90]);
+
+    // Tertiary colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-rgb', p.tertiary[isDark ? 80 : 40]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-tertiary-rgb', p.tertiary[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-tertiary-container-rgb', p.tertiary[isDark ? 30 : 90]);
+
+    // Error colors
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-error-rgb', p.error[isDark ? 20 : 100]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-container-rgb', p.error[isDark ? 30 : 90]);
 
     // Surface colors
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-rgb', p.neutral[isDark ? 6 : 99]);
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
-
-    // Error colors
-    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-error-rgb', p.error[isDark ? 80 : 40]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-surface-container-rgb', p.neutral[isDark ? 6 : 99]);
+    this._colorUtils.setRGBVariable(targetElement, '--mat-sys-on-surface-rgb', p.neutral[isDark ? 90 : 10]);
 
     // Background
     this._colorUtils.setRGBVariable(targetElement, '--mat-sys-background-rgb', p.neutral[isDark ? 6 : 99])
@@ -402,5 +412,123 @@ export class ThemeGeneratorService {
  */
   private camelToKebabCase = (str: string): string =>
     str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+
+  /**
+   * Apply Material Design 3 shape (corner radius) variables to the target element
+   */
+  private applyShapeVariables(targetElement: HTMLElement) {
+    // Material Design 3 shape tokens (border radius)
+    this.setVariable(targetElement, '--mat-sys-corner-extra-large', '28px');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-large-top', '28px 28px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-small', '4px');
+    this.setVariable(targetElement, '--mat-sys-corner-extra-small-top', '4px 4px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-full', '9999px');
+    this.setVariable(targetElement, '--mat-sys-corner-large', '16px');
+    this.setVariable(targetElement, '--mat-sys-corner-large-end', '0 16px 16px 0');
+    this.setVariable(targetElement, '--mat-sys-corner-large-start', '16px 0 0 16px');
+    this.setVariable(targetElement, '--mat-sys-corner-large-top', '16px 16px 0 0');
+    this.setVariable(targetElement, '--mat-sys-corner-medium', '12px');
+    this.setVariable(targetElement, '--mat-sys-corner-none', '0');
+    this.setVariable(targetElement, '--mat-sys-corner-small', '8px');
+  }
+
+  /**
+   * Apply Material Design 3 typography variables to the target element
+   */
+  private applyTypographyVariables(targetElement: HTMLElement) {
+    // Material Design 3 typography tokens
+    this.setVariable(targetElement, '--mat-sys-body-large', '400 1rem / 1.5rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-large-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-large-line-height', '1.5rem');
+    this.setVariable(targetElement, '--mat-sys-body-large-size', '1rem');
+    this.setVariable(targetElement, '--mat-sys-body-large-tracking', '0.031rem');
+    this.setVariable(targetElement, '--mat-sys-body-large-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-body-medium', '400 0.875rem / 1.25rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-medium-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-medium-line-height', '1.25rem');
+    this.setVariable(targetElement, '--mat-sys-body-medium-size', '0.875rem');
+    this.setVariable(targetElement, '--mat-sys-body-medium-tracking', '0.016rem');
+    this.setVariable(targetElement, '--mat-sys-body-medium-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-body-small', '400 0.75rem / 1rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-small-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-body-small-line-height', '1rem');
+    this.setVariable(targetElement, '--mat-sys-body-small-size', '0.75rem');
+    this.setVariable(targetElement, '--mat-sys-body-small-tracking', '0.025rem');
+    this.setVariable(targetElement, '--mat-sys-body-small-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-display-large', '400 3.562rem / 4rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-large-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-large-line-height', '4rem');
+    this.setVariable(targetElement, '--mat-sys-display-large-size', '3.562rem');
+    this.setVariable(targetElement, '--mat-sys-display-large-tracking', '-0.016rem');
+    this.setVariable(targetElement, '--mat-sys-display-large-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-display-medium', '400 2.812rem / 3.25rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-medium-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-medium-line-height', '3.25rem');
+    this.setVariable(targetElement, '--mat-sys-display-medium-size', '2.812rem');
+    this.setVariable(targetElement, '--mat-sys-display-medium-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-display-medium-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-display-small', '400 2.25rem / 2.75rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-small-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-display-small-line-height', '2.75rem');
+    this.setVariable(targetElement, '--mat-sys-display-small-size', '2.25rem');
+    this.setVariable(targetElement, '--mat-sys-display-small-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-display-small-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-headline-large', '400 2rem / 2.5rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-large-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-large-line-height', '2.5rem');
+    this.setVariable(targetElement, '--mat-sys-headline-large-size', '2rem');
+    this.setVariable(targetElement, '--mat-sys-headline-large-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-headline-large-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-headline-medium', '400 1.75rem / 2.25rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-medium-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-medium-line-height', '2.25rem');
+    this.setVariable(targetElement, '--mat-sys-headline-medium-size', '1.75rem');
+    this.setVariable(targetElement, '--mat-sys-headline-medium-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-headline-medium-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-headline-small', '400 1.5rem / 2rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-small-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-headline-small-line-height', '2rem');
+    this.setVariable(targetElement, '--mat-sys-headline-small-size', '1.5rem');
+    this.setVariable(targetElement, '--mat-sys-headline-small-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-headline-small-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-label-large', '500 0.875rem / 1.25rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-large-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-large-line-height', '1.25rem');
+    this.setVariable(targetElement, '--mat-sys-label-large-size', '0.875rem');
+    this.setVariable(targetElement, '--mat-sys-label-large-tracking', '0.006rem');
+    this.setVariable(targetElement, '--mat-sys-label-large-weight', '500');
+    this.setVariable(targetElement, '--mat-sys-label-large-weight-prominent', '700');
+    this.setVariable(targetElement, '--mat-sys-label-medium', '500 0.75rem / 1rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-medium-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-medium-line-height', '1rem');
+    this.setVariable(targetElement, '--mat-sys-label-medium-size', '0.75rem');
+    this.setVariable(targetElement, '--mat-sys-label-medium-tracking', '0.031rem');
+    this.setVariable(targetElement, '--mat-sys-label-medium-weight', '500');
+    this.setVariable(targetElement, '--mat-sys-label-medium-weight-prominent', '700');
+    this.setVariable(targetElement, '--mat-sys-label-small', '500 0.688rem / 1rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-small-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-label-small-line-height', '1rem');
+    this.setVariable(targetElement, '--mat-sys-label-small-size', '0.688rem');
+    this.setVariable(targetElement, '--mat-sys-label-small-tracking', '0.031rem');
+    this.setVariable(targetElement, '--mat-sys-label-small-weight', '500');
+    this.setVariable(targetElement, '--mat-sys-title-large', '400 1.375rem / 1.75rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-large-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-large-line-height', '1.75rem');
+    this.setVariable(targetElement, '--mat-sys-title-large-size', '1.375rem');
+    this.setVariable(targetElement, '--mat-sys-title-large-tracking', '0');
+    this.setVariable(targetElement, '--mat-sys-title-large-weight', '400');
+    this.setVariable(targetElement, '--mat-sys-title-medium', '500 1rem / 1.5rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-medium-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-medium-line-height', '1.5rem');
+    this.setVariable(targetElement, '--mat-sys-title-medium-size', '1rem');
+    this.setVariable(targetElement, '--mat-sys-title-medium-tracking', '0.009rem');
+    this.setVariable(targetElement, '--mat-sys-title-medium-weight', '500');
+    this.setVariable(targetElement, '--mat-sys-title-small', '500 0.875rem / 1.25rem Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-small-font', 'Roboto');
+    this.setVariable(targetElement, '--mat-sys-title-small-line-height', '1.25rem');
+    this.setVariable(targetElement, '--mat-sys-title-small-size', '0.875rem');
+    this.setVariable(targetElement, '--mat-sys-title-small-tracking', '0.006rem');
+    this.setVariable(targetElement, '--mat-sys-title-small-weight', '500');
+  }
 
 }//Cls
