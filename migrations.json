@@ -116,9 +116,6 @@
     },
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
-    "runningMigrations": [
-      "21-1-0-add-ignore-entries-for-nx-rule-files"
-    ],
     "completedMigrations": {
       "21-1-0-add-ignore-entries-for-nx-rule-files": {
         "type": "successful",
@@ -129,9 +126,24 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "2616e311e8e6906671bc517279f72bb49a76ceb0",
+        "ref": "69f5ed28af9d366e6e1e48de7f401fe10a573c8d",
+        "nextSteps": []
+      },
+      "update-angular-cli-version-20-0-0": {
+        "type": "successful",
+        "name": "update-angular-cli-version-20-0-0",
+        "changedFiles": [
+          {
+            "path": "package.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "68b2cdeab384078a1e4b3b4c2d4ed3e15a2953c2",
         "nextSteps": []
       }
-    }
+    },
+    "runningMigrations": [
+      "update-angular-cli-version-20-0-0"
+    ]
   }
 }

@@ -50,7 +50,7 @@
     "@angular-devkit/build-angular": "20.0.5",
     "@angular-devkit/core": "20.0.5",
     "@angular-devkit/schematics": "20.0.5",
-    "@angular/cli": "~19.2.0",
+    "@angular/cli": "~20.0.0",
     "@angular/compiler-cli": "20.0.6",
     "@angular/language-service": "20.0.6",
     "@angular/pwa": "20.0.5",
