@@ -4,7 +4,7 @@ import { MiniStateCombined } from "@spider-baby/mini-state/utils";
 import { TeamsIoService } from "@spider-baby/myid-io";
 import { AddTeamDto, TeamDto } from "@spider-baby/myid-io/models";
 import { MyIdAuthService} from '@spider-baby/myid-auth/services';
-import { CrudArraySignalOps } from "../../../../shared/utils/crud-array-ops/crud-array-ops.signal";
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 
 @Injectable()
 export class TeamsTableStateService {

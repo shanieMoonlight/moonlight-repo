@@ -10,8 +10,8 @@ import { ColumnData } from '@spider-baby/ui-kit/table';
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { TeamsTableColumnsService } from './data-table-columns';
-import { TeamsTableComponent } from './teams-table.component';
-import { TeamsTableStateService } from './teams-table.state.service';
+import { TeamsTableComponent } from './teams.component';
+import { TeamsTableStateService } from './teams.state.service';
 
 const paramMapSubject: Subject<ParamMap> = new BehaviorSubject<ParamMap>(convertToParamMap({}));
 const mockActivatedRoute: Partial<ActivatedRoute> = {
@@ -61,14 +61,14 @@ describe('TeamsTableComponent', () => {
                 { provide: TeamsTableColumnsService, useValue: mockColumnsService },
             ]
         })
-            .overrideComponent(TeamsTableComponent, {
-                set: {
-                    providers: [
-                        { provide: TeamsTableStateService, useValue: mockState }
-                    ]
-                }
-            })
-            .compileComponents();
+        .overrideComponent(TeamsTableComponent, {
+            set: {
+                providers: [
+                    { provide: TeamsTableStateService, useValue: mockState }
+                ]
+            }
+        })
+        .compileComponents();
 
         fixture = TestBed.createComponent(TeamsTableComponent);
         component = fixture.componentInstance;

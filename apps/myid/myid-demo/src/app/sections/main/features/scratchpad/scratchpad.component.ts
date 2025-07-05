@@ -17,8 +17,7 @@ import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-tea
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 // import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
-import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
-import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
+import { MyIdTeamPositionOptionsProvider, MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-auth/config';
 
 
 

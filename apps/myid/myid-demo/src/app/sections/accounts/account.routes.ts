@@ -3,16 +3,8 @@
 import { Type } from '@angular/core';
 import { CanActivate, CanActivateFn, CanMatch, CanMatchFn, Route } from '@angular/router';
 import { AccountSectionRoutesDefs } from './account-route-defs';
-import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
-import { registerCustomerRoutes } from './features/register/register.routes';
-import { resetPwdRoutes } from './features/reset-pwd/reset-pwd.routes';
-import { superTeamRoutes } from './features/super-team/super-team.routes';
-import { customerTeamsRoutes } from './features/teams/teams.routes';
-import { update2FactorRoutes } from './features/update-2-factor/update-2-factor.routes';
-import { myDetailsRoutes } from './features/update-self/update-self.routes';
-import { verify2FactorCookieRoutes } from './features/verify-2-factor-cki/verify-2-factor-cki.routes';
-import { verify2FactorRoutes } from './features/verify-2-factor/verify-2-factor.routes';
-import { changePwdRoutes, confirmEmailRoutes, confirmEmailWithPasswordRoutes, confirmPhoneRoutes, customersRoutes, loginCookieRoutes, loginJwtRoutes } from '@spider-baby/myid-auth/routes';
+
+import { changePwdRoutes, confirmEmailRoutes, confirmEmailWithPasswordRoutes, confirmPhoneRoutes, customersRoutes, customerTeamsRoutes, loginCookieRoutes, loginJwtRoutes, mntcTeamRoutes, myDetailsRoutes, registerCustomerRoutes, resetPwdRoutes, superTeamRoutes, update2FactorRoutes, verify2FactorCookieRoutes, verify2FactorRoutes } from '@spider-baby/myid-auth/routes';
 
 
 //##############################//

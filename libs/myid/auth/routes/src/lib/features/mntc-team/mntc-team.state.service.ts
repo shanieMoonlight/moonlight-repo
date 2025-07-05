@@ -4,7 +4,7 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 import { MyIdAuthService} from '@spider-baby/myid-auth/services';
-import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 
 @Injectable()
 export class MntcTeamStateService {

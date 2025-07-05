@@ -3,7 +3,7 @@ import { TeamDto } from '@spider-baby/myid-io/models';
 import { AddTeamFormDto, SbAddTeamFormComponent, SbUpdateTeamFormComponent, UpdateTeamFormDto } from "@spider-baby/myid-ui/team";
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { TeamsTableColumnsService } from './data-table-columns';
-import { TeamsTableStateService } from './teams-table.state.service';
+import { TeamsTableStateService } from './teams.state.service';
 
 @Component({
     selector: 'sb-teams-table',
@@ -14,8 +14,8 @@ import { TeamsTableStateService } from './teams-table.state.service';
         CrudTableComponent
     ],
     providers: [TeamsTableStateService],
-    templateUrl: './teams-table.component.html',
-    styleUrl: './teams-table.component.scss',
+    templateUrl: './teams.component.html',
+    styleUrl: './teams.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamsTableComponent {

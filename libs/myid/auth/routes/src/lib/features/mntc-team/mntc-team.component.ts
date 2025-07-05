@@ -5,7 +5,7 @@ import { SbAddMntcMemberFormComponent } from '@spider-baby/myid-ui/add-mntc-memb
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';
 import { MntcTeamTableColumnsService } from './data-table-columns';
 import { MntcTeamStateService } from './mntc-team.state.service';
-import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
+import { MyIdTeamPositionOptionsProvider } from '@spider-baby/myid-auth/config';
 
 @Component({
   selector: 'sb-mntc-team',

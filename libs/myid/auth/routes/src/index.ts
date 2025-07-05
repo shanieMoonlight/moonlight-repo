@@ -37,4 +37,47 @@ export * from './lib/features/login-jwt/login-jwt.component';
 export * from './lib/features/login-jwt/login-jwt.routes';
 export * from './lib/features/login-jwt/login-jwt.state.service';
 
+export * from './lib/features/mntc-team/mntc-team.routes';
+export * from './lib/features/mntc-team/mntc-team.component';
+export * from './lib/features/mntc-team/mntc-team.state.service';
+
+
+
+export * from './lib/features/register/register.routes';
+export * from './lib/features/register/register.component';
+export * from './lib/features/register/register.state.service';
+
+
+
+export * from './lib/features/super-team/super-team.routes';
+export * from './lib/features/super-team/super-team.component';
+export * from './lib/features/super-team/super-team.state.service';
+
+
+
+export * from './lib/features/teams/teams.routes';
+export * from './lib/features/teams/teams.component';
+export * from './lib/features/teams/teams.state.service';
+
+
+
+export * from './lib/features/update-2-factor/update-2-factor.routes';
+export * from './lib/features/update-2-factor/update-2-factor.component';
+export * from './lib/features/update-2-factor/update-2-factor.state.service';
+
+
+export * from './lib/features/update-self/update-self.routes';
+export * from './lib/features/update-self/update-self.component';
+export * from './lib/features/update-self/update-self.state.service';
+
+
+export * from './lib/features/verify-2-factor-cki/verify-2-factor-cki.routes';
+export * from './lib/features/verify-2-factor-cki/verify-2-factor-cki.component';
+export * from './lib/features/verify-2-factor-cki/verify-2-factor-cki.state.service';
+
+
+export * from './lib/features/verify-2-factor/verify-2-factor.routes';
+export * from './lib/features/verify-2-factor/verify-2-factor.component';
+export * from './lib/features/verify-2-factor/verify-2-factor.state.service';
+
 

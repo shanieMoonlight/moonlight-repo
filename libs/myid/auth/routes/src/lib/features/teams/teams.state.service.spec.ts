@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { TeamsTableStateService } from './teams-table.state.service';
+import { TeamsTableStateService } from './teams.state.service';
 import { TeamsIoService } from '@spider-baby/myid-io';
 import { MyIdAuthService} from '@spider-baby/myid-auth/services';
 import { AddTeamDto, TeamDto } from '@spider-baby/myid-io/models';
-import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 import { of } from 'rxjs';
 
 // Use jest.fn() for all mocks

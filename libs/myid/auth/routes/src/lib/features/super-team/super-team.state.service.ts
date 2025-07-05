@@ -3,8 +3,8 @@ import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
-import { MyIdTeamPositionOptionsProvider } from '../../../../shared/id/utils/options/team-position/team-position-options-provider';
-import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
+import { MyIdTeamPositionOptionsProvider } from '@spider-baby/myid-auth/config';
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 
 @Injectable({
   providedIn: 'root'
