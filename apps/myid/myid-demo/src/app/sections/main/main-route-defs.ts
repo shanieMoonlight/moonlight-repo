@@ -1,4 +1,4 @@
-import { AccountSectionRoutesDefs } from '@spider-baby/myid-auth/routes';
+import { MyIdAccountSectionRoutesDefs } from '@spider-baby/myid-auth/routes';
 import { RouteUtility } from '@spider-baby/utils-routes';
 // import { AccountSectionRoutesDefs } from '../accounts/account-route-defs';
 
@@ -41,7 +41,7 @@ export class MainSectionRoutesDefs {
    */
   static routes = {
     route: MainSectionRoutesDefs.route,
-    account: AccountSectionRoutesDefs.routes
+    account: MyIdAccountSectionRoutesDefs.routes
   };
 
   /**
@@ -56,7 +56,7 @@ export class MainSectionRoutesDefs {
     );
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),
-      account: AccountSectionRoutesDefs.fullPathFn(basePath)
+      account: MyIdAccountSectionRoutesDefs.fullPathFn(basePath)
     };
   };
 } //Cls

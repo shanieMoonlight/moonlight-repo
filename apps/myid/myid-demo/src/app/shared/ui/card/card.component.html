@@ -1,0 +1,18 @@
+<div class="card-header">
+    @if(icon(); as icon){
+        <span class="card-avatar">
+            <sb-icon-button class="card-icon">
+                <i class="material-icons">{{ icon }}</i>
+            </sb-icon-button>
+        </span>
+    }
+    <span class="card-title">{{ title() }}</span>
+</div>
+<div class="card-content feature-description">
+    <p>{{ content()}}</p>
+</div>
+<div class="card-actions" style="text-align: end;">
+    <a [routerLink]="route()">
+        <sb-text-button class="btn-action">{{action()}}</sb-text-button>
+    </a>
+</div>

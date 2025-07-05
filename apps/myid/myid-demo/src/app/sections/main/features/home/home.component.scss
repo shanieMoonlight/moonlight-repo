@@ -1,6 +1,6 @@
-:host{
-  --clr-title: var(--mat-seed-primary);
+:host {
   --clr-subtitle: var(--mat-sys-primary-70);
+  --card-outer-padding: 1rem;
 }
 
 
@@ -8,49 +8,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  
-    padding: 1rem 2rem;
+
+  padding: 1rem 2rem;
 }
 
-.hero {
-  padding: 3rem 0;
-  text-align: center;
-  margin-bottom: 3rem;
-}
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1976d2;
-  color:var(--clr-title);
-}
-
-.subtitle {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: #455a64;
-  color:var(--clr-subtitle);
-}
-
-.description {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-
-  a {
-    min-width: 150px;
-  }
-}
 
 .section-title {
   font-size: 2rem;
@@ -58,7 +20,7 @@
   margin-bottom: 1rem;
   text-align: center;
   color: #455a64;
-  color:var(--clr-title);
+  color: var(--clr-title);
 }
 
 .section-description {
@@ -90,30 +52,16 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   }
 
-  mat-card-content {
+  .feature-description {
     padding: 1rem;
     flex: 1;
+    white-space: pre-line;
   }
 }
 
 
 
 
-.code-block {
-  // background-color: #f5f5f5;
-  border-radius: 4px;
-  padding: 1rem;
-  margin: 1.5rem 0;
-  overflow-x: auto;
-
-  pre {
-    margin: 0;
-    
-    code {
-      font-family: 'Fira Code', 'Courier New', monospace;
-    }
-  }
-}
 
 .home-footer {
   text-align: center;
@@ -124,29 +72,12 @@
 }
 
 
-:host-context(.dark-mode) {
-  --clr-title: var(--mat-sys-on-surface);
-  --clr-subtitle: var(--mat-sys-on-surface);
-}
-
 
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
 
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .features-grid, 
+  .features-grid,
   .benefits-grid {
     grid-template-columns: 1fr;
   }
@@ -157,3 +88,4 @@ img {
   max-width: 125px;
   height: auto;
 }
+

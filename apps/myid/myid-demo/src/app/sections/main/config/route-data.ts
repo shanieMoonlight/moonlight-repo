@@ -81,35 +81,35 @@ export const MAIN_ROUTES: ApiRouteData[] = [
   },
   {
     title: 'Reset Password',
-    description: 'Reset your password.',
+    description: 'Reset your password. \nWill error without query params.',
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('reset-password'),
     icon: 'refresh',
     color: 'tertiary'
   },
   {
     title: 'Confirm Email',
-    description: 'Confirm your email address.',
+    description: 'Confirm your email address. \nWill error without query params.',
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('confirm-email'),
     icon: 'alternate_email',
     color: 'primary'
   },
   {
     title: 'Confirm Email with Password',
-    description: 'Confirm your email address with a password.',
+    description: 'Confirm your email address with a password. \nWill error without query params.',
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('confirm-email-with-password'),
     icon: 'key',
     color: 'secondary'
   },
   {
     title: 'Confirm Phone',
-    description: 'Confirm your phone number.',
+    description: 'Confirm your phone number. \nWill error without query params.',
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('confirm-phone'),
     icon: 'call',
     color: 'tertiary'
   },
   {
     title: 'Verify 2-Factor',
-    description: 'Verify 2 Factor Provider.',
+    description: 'Verify 2 Factor Provider. \nWill error without query params.',
     route: AppRouteDefs.fullPathsWithSlash.main.account.route('verify-2-factor'),
     icon: 'shield',
     color: 'primary'

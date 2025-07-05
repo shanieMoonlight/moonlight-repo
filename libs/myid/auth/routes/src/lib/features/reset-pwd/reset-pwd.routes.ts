@@ -1,10 +1,10 @@
 import { Route } from "@angular/router";
-import { AccountSectionRoutesDefs } from "../../account-route-defs";
+import { MyIdAccountSectionRoutesDefs } from "../../account-route-defs";
 
 export function resetPwdRoutes(): Route[] {
     return [
         {
-            path: AccountSectionRoutesDefs.route('reset-password'),
+            path: MyIdAccountSectionRoutesDefs.route('reset-password'),
             loadComponent: () => import('./reset-pwd.component').then(m => m.ResetPwdComponent),
         }
     ]

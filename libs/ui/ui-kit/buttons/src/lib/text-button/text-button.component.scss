@@ -4,8 +4,10 @@
     --color-text-disabled: var(--mat-sys-outline);
     --border-radius: var(--mat-sys-corner-extra-small);
     font-size: 1rem;
+    font-size: var(--mat-sys-label-large-size);
     font-weight: 500;
     display: inline-block;
+    border-radius: var(--border-radius);
 }
 
 button {
@@ -20,9 +22,10 @@ button {
     width: 100%;
     background: transparent;
     border: none;
-    padding: 0.5rem 1rem;
+    // padding: 0.5rem 1rem;
+    padding: 0.5rem;
     // border-radius: 4px;
-    border-radius: var(--border-radius);
+    border-radius: inherit;
     font-size: inherit;
     font-weight: inherit;
     cursor: pointer;

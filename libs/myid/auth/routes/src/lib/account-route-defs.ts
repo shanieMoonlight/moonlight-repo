@@ -9,7 +9,6 @@ const BaseRoute = 'account';
 type CHILD_ROUTE =
   | 'auth-test'
   | 'auth-test-firebase'
-  | 'auth-test-user-mgr-admin'
   | 'change-password'
   | 'confirm-email'
   | 'confirm-email-with-password'
@@ -32,7 +31,7 @@ type CHILD_ROUTE =
 /**
  * Defines routes for the main area of the Hub application.
  */
-export class AccountSectionRoutesDefs {
+export class MyIdAccountSectionRoutesDefs {
   
   public static readonly BASE = BaseRoute;
 
@@ -42,7 +41,7 @@ export class AccountSectionRoutesDefs {
    * @param route - The route segment (e.g., 'login', 'change-pwd', etc.).
    * @returns The route segment.
    */
-  static route = (route?: CHILD_ROUTE) => route ?? AccountSectionRoutesDefs.BASE;
+  static route = (route?: CHILD_ROUTE) => route ?? MyIdAccountSectionRoutesDefs.BASE;
 
   //- - - - - - - - - - - - - - - - - - -//
 
@@ -52,7 +51,7 @@ export class AccountSectionRoutesDefs {
    * @returns The last route segment.
    */
   static routes = {
-    route: AccountSectionRoutesDefs.route,
+    route: MyIdAccountSectionRoutesDefs.route,
     // Child sections go here....
   };
 
@@ -64,7 +63,7 @@ export class AccountSectionRoutesDefs {
   static fullPathFn = (parentRoute: string) => {
     const basePath = RouteUtility.combine(
       parentRoute,
-      AccountSectionRoutesDefs.BASE
+      MyIdAccountSectionRoutesDefs.BASE
     );
     return {
       route: (route?: CHILD_ROUTE) => RouteUtility.combine(basePath, route),

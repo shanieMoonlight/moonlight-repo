@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { provideMyIdRouter, provideMyIdTeamPositionOptions, TwoFactorOption } from '@spider-baby/myid-auth/config';
 import { createMyIdCustomGuard } from '@spider-baby/myid-auth/guards';
 import { getAuthTestFirebaseRoutes, getMainMyIdAccountRoutes, getMyIdAuthTestRoutes, getMyIdCustomerRoutes, getMyIdMntsAndSuperRoutes } from '@spider-baby/myid-auth/routes';
-import { userMgrAdminTeamPositionOptions, customerMgrGuard } from '@spider-baby/myid-auth/user-mgr-admin';
+import { userMgrAdminTeamPositionOptions } from '@spider-baby/myid-auth/user-mgr-admin';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';

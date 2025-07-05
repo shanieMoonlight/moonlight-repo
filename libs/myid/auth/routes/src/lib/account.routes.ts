@@ -2,7 +2,7 @@
 
 import { Type } from '@angular/core';
 import { CanActivate, CanActivateFn, CanMatch, CanMatchFn, Route } from '@angular/router';
-import { AccountSectionRoutesDefs } from './account-route-defs';
+import { MyIdAccountSectionRoutesDefs } from './account-route-defs';
 import { changePwdRoutes } from './features/change-pwd/change-pwd.routes';
 import { confirmEmailWithPasswordRoutes } from './features/confirm-email-with-pwd/confirm-email-with-pwd.routes';
 import { confirmEmailRoutes } from './features/confirm-email/confirm-email.routes';
@@ -77,7 +77,7 @@ export function getMainMyIdAccountRoutes(options?: MyIdRouteOptions): Route[] {
 
     return [
         {
-            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
+            path: options?.basePath ?? MyIdAccountSectionRoutesDefs.BASE,
             providers: [],
             ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
             ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
@@ -141,7 +141,7 @@ export function getMyIdCustomerRoutes(options?: MyIdRouteOptions): Route[] {
     const showSocialLinks = !!options?.showSocialLinks;
     return [
         {
-            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
+            path: options?.basePath ?? MyIdAccountSectionRoutesDefs.BASE,
             providers: [],
             ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
             ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
@@ -199,7 +199,7 @@ export type MyIdMntcRouteOptions = {
 export function getMyIdMntsAndSuperRoutes(options?: MyIdMntcRouteOptions): Route[] {
     return [
         {
-            path: options?.basePath ?? AccountSectionRoutesDefs.BASE,
+            path: options?.basePath ?? MyIdAccountSectionRoutesDefs.BASE,
             providers: [],
             ...(options?.canActivate ? { canActivate: options.canActivate } : {}),
             ...(options?.canLoad ? { canLoad: options.canLoad } : {}),
