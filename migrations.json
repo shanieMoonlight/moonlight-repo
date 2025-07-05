@@ -170,12 +170,31 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "75101ddbe7140d82cacbcb4bd5554f1ac35340eb",
+        "ref": "f04df8e29d64c3eae5ef7fab48e7278b0babd702",
+        "nextSteps": []
+      },
+      "replace-provide-server-routing": {
+        "type": "successful",
+        "name": "replace-provide-server-routing",
+        "changedFiles": [],
+        "ref": "f04df8e29d64c3eae5ef7fab48e7278b0babd702",
+        "nextSteps": []
+      },
+      "set-generator-defaults-for-previous-style-guide": {
+        "type": "successful",
+        "name": "set-generator-defaults-for-previous-style-guide",
+        "changedFiles": [
+          {
+            "path": "nx.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "770b9a9c58f4fa7fb5b2e79b4ce3af6b5c3960b6",
         "nextSteps": []
       }
     },
     "runningMigrations": [
-      "migrate-provide-server-rendering-import"
+      "set-generator-defaults-for-previous-style-guide"
     ]
   }
 }
