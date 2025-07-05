@@ -7,7 +7,7 @@ import { combineLatest, filter, map, startWith, Subject, switchMap, takeWhile, t
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { Resend2FactorDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 @Injectable()
 export class Verify2FactorStateService {

@@ -4,7 +4,7 @@ import { filter, map, take } from 'rxjs';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { AUserMgrAdminAuthService } from '../services/a-user-admin-auth.service';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
-import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 // Core generic guards: logged in, email verified, claim, role, any/all roles, etc.
 

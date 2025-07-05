@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { AppRouteDefs } from '../../../../app-route-defs';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { Params, Router, UrlCreationOptions, UrlTree } from '@angular/router';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 @Injectable({
   providedIn: 'root'

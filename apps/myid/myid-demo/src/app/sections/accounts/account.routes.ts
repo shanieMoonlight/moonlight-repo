@@ -3,13 +3,6 @@
 import { Type } from '@angular/core';
 import { CanActivate, CanActivateFn, CanMatch, CanMatchFn, Route } from '@angular/router';
 import { AccountSectionRoutesDefs } from './account-route-defs';
-import { changePwdRoutes } from './features/change-pwd/change-pwd.routes';
-import { confirmEmailWithPasswordRoutes } from './features/confirm-email-with-pwd/confirm-email-with-pwd.routes';
-import { confirmEmailRoutes } from './features/confirm-email/confirm-email.routes';
-import { confirmPhoneRoutes } from './features/confirm-phone/confirm-phone.routes';
-import { customersRoutes } from './features/customers/customers.routes';
-import { loginCookieRoutes } from './features/login-cki/login-cki.routes';
-import { loginJwtRoutes } from './features/login-jwt/login-jwt.routes';
 import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
 import { registerCustomerRoutes } from './features/register/register.routes';
 import { resetPwdRoutes } from './features/reset-pwd/reset-pwd.routes';
@@ -19,6 +12,7 @@ import { update2FactorRoutes } from './features/update-2-factor/update-2-factor.
 import { myDetailsRoutes } from './features/update-self/update-self.routes';
 import { verify2FactorCookieRoutes } from './features/verify-2-factor-cki/verify-2-factor-cki.routes';
 import { verify2FactorRoutes } from './features/verify-2-factor/verify-2-factor.routes';
+import { changePwdRoutes, confirmEmailRoutes, confirmEmailWithPasswordRoutes, confirmPhoneRoutes, customersRoutes, loginCookieRoutes, loginJwtRoutes } from '@spider-baby/myid-auth/routes';
 
 
 //##############################//

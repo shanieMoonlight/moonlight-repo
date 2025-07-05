@@ -7,16 +7,8 @@ import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-i
 import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { LoginService } from '@spider-baby/myid-auth/services';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
-
-//######################//
-
-export class TwoFactorRequiredData {
-  constructor(
-    public token?: string,
-    public provider?: string
-  ) { }
-}
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
+import { TwoFactorRequiredData } from './two-factor-required.data';
 
 //######################//
 

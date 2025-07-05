@@ -2,7 +2,7 @@ import { Router, UrlCreationOptions } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 
 import { AppRouteDefs } from '../../../../app-route-defs';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { MyIdMainRouterService } from './my-id-main-router.service';
 
 const navigateByUrlMock = jest.fn();

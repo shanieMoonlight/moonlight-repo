@@ -13,14 +13,14 @@
    (rowClick)="onRowClick($event)"/>
    
   @if (updateFormTemplate(); as updateFormTemplate) {
-    <sb-modal
+    <sb-ui-modal
       [(open)]="_showUpdateForm"
       [template]="updateFormTemplate"
       [templateData]="_updateItem()"/>
   }
     
   @if (addFormTemplate(); as addFormTemplate) {
-      <sb-modal
+      <sb-ui-modal
         [(open)]="_showAddForm"
         [template]="addFormTemplate"/>        
   }

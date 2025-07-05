@@ -286,6 +286,7 @@
         "libs/ui/ui-kit/checkboxes/src/index.ts"
       ],
       "@spider-baby/ui-kit/inputs": ["libs/ui/ui-kit/inputs/src/index.ts"],
+      "@spider-baby/ui-kit/modal": ["libs/ui/ui-kit/modal/src/index.ts"],
       "@spider-baby/ui-kit/progress-bar": [
         "libs/ui/ui-kit/progress-bar/src/index.ts"
       ],

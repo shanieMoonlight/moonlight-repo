@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { ConfirmEmailDto, ResendEmailConfirmationDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
 

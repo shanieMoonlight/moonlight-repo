@@ -6,7 +6,7 @@ import { SbToastService, ToastData } from '@spider-baby/ui-toast';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AppRouteDefs } from '../../../app-route-defs';
-import { MyIdRouteInfo } from '../../id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { LoginService } from '@spider-baby/myid-auth/services';
 
 //########################################//

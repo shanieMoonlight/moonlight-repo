@@ -8,7 +8,7 @@ import { Verify2FactorStateService } from './verify-2-factor.state.service';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { TwoFactorProvider } from '@spider-baby/myid-io/models';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 //###############################//
 

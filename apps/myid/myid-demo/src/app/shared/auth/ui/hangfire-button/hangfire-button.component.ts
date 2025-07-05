@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
+import { UrlUtils } from '@spider-baby/myid-io';
 import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
-import { AppSvgs } from '../../../../config/svgs';
-import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
-import { MyIdAuthService } from '@spider-baby/myid-auth/services';
 import { environment } from '../../../../../environments/environment';
-import { UrlUtils } from '@spider-baby/myid-io';
+import { AppSvgs } from '../../../../config/svgs';
 
 @Component({
   selector: 'sb-hangfire-button',

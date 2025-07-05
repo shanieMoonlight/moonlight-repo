@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { AppUserCustomerDto } from '@spider-baby/myid-io/models';
-import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
 
 @Injectable({
   providedIn: 'root'

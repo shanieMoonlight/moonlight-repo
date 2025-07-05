@@ -4,66 +4,60 @@ import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
-import { ConfirmEmailDto, ConfirmEmailWithPwdDto, ResendEmailConfirmationDto } from '@spider-baby/myid-io/models';
+import { ConfirmPhoneDto, ResendPhoneConfirmationDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
-
-//###############################//
-
-export type ConfirmEmailWithPwdInput = Omit<ConfirmEmailWithPwdDto, 'userId' | 'confirmationToken'>;
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 //###############################//
 
 @Injectable()
-export class ConfirmEmailWithPwdStateService {
+export class ConfirmPhoneStateService {
 
-
-  private _actRoute = inject(ActivatedRoute);
   private _ioService = inject(AccountIoService)
-
+  private _actRoute = inject(ActivatedRoute);
 
   //- - - - - - - - - - - - - //
 
   private _userId$ = this._actRoute.queryParamMap.pipe(
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.USER_ID_KEY)),
-    filter((x) => !!x)
+    // filter((x) => !!x) // Note: This filter is not necessary if user is authenticated
   );
   private _userId = toSignal(this._userId$);
 
 
   private _token$ = this._actRoute.queryParamMap.pipe(
     map((paramMap) => paramMap.get(MyIdRouteInfo.Params.CONFIRMATION_TOKEN_KEY)),
-    filter((x) => !!x))
+    filter((x) => !!x)
+  )
   private _token = toSignal(this._token$)
 
   readyToConfirm = computed(() => !!this._userId() && !!this._token())
-
   invalidDataErrorMsg = computed(() => !this.readyToConfirm()
     ? `Invalid userId or token.`
     : undefined
   );
+  
+  
+  //- - - - - - - - - - - - - //
 
 
-  protected _confirmInputData$ = new Subject<ConfirmEmailWithPwdInput>();
-
-  private _confirmDto$ = combineLatest([this._userId$, this._token$, this._confirmInputData$])
+  private _confirmDto$ = combineLatest([this._userId$, this._token$])
     .pipe(
-      map(([userId, token, confirmData]) => {
+      map(([userId, token]) => {
         return {
           userId: userId,
-          confirmationToken: token,
-          ...confirmData
-        } as ConfirmEmailWithPwdDto
+          confirmationToken: token
+        } as ConfirmPhoneDto
       })
     )
 
-  protected _confirmEmailState = MiniStateBuilder
+  protected _confirmPhoneState = MiniStateBuilder
     .CreateWithObservableInput(
       this._confirmDto$,
-      (dto: ConfirmEmailWithPwdDto) => this._ioService.confirmEmailWithPassword(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message || 'Email confirmed!.'}`)
+      (dto: ConfirmPhoneDto) => this._ioService.confirmPhone(dto))
+    .setSuccessMsgFn((dto, response) => `${response.message || 'Phone confirmed!.'}`)
 
-
+  //- - - - - - - - - - - - - //
 
   protected _resendClick$ = new Subject<void>();
   private _resendDto$ = combineLatest([this._userId$, this._resendClick$])
@@ -71,15 +65,15 @@ export class ConfirmEmailWithPwdStateService {
       map(([userId]) => {
         return {
           userId: userId
-        } as ConfirmEmailDto
+        } as ConfirmPhoneDto
       })
     )
 
   protected _resendState = MiniStateBuilder
     .CreateWithObservableInput(
       this._resendDto$,
-      (dto: ResendEmailConfirmationDto) => this._ioService.resendEmailConfirmation(dto))
-    .setSuccessMsgFn((dto, response) => `${response.message || 'Resend confirmation email request is successful.'}`)
+      (dto: ResendPhoneConfirmationDto) => this._ioService.resendPhoneConfirmation(dto))
+    .setSuccessMsgFn((dto, response) => `${response.message || 'Resend confirmation Phone request is successful.'}`)
 
 
   //- - - - - - - - - - - - - //
@@ -87,25 +81,23 @@ export class ConfirmEmailWithPwdStateService {
 
   private _states = MiniStateCombined.Combine(
     this._resendState,
-    this._confirmEmailState
-  )
+    this._confirmPhoneState)
 
   errorMsg = computed(() => this.invalidDataErrorMsg() || this._states.errorMsg())
   loading = this._states.loading
 
   resendSuccess = computed(() => !!this._resendState.successMsg()?.length)
-  confirmationSuccess = computed(() => !!this._confirmEmailState.successMsg()?.length)
-
+  confirmationSuccess = computed(() => !!this._confirmPhoneState.successMsg()?.length)
+  
   resendSuccessMsg = this._resendState.successMsg
-  emailConfirmedSuccessMsg = this._confirmEmailState.successMsg
+  phoneConfirmedSuccessMsg = this._confirmPhoneState.successMsg
 
 
   //--------------------------//
 
-  confirmEmail = (dto: ConfirmEmailWithPwdInput) =>
-    this._confirmInputData$.next(dto);
 
-  resendConfirmation = () =>
-    this._resendClick$.next();
+  resendConfirmation = () =>       
+      this._resendClick$.next();
+
 
 }//Cls

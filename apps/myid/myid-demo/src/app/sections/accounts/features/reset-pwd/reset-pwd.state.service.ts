@@ -6,7 +6,7 @@ import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { combineLatest, filter, map, Subject } from 'rxjs';
 import { ForgotPwdDto, ResetPwdDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 //###############################//
 
