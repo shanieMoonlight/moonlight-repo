@@ -189,12 +189,548 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "770b9a9c58f4fa7fb5b2e79b4ce3af6b5c3960b6",
+        "ref": "43b8e43b7daf45a401e2dbe1a903f061d5b37b0d",
+        "nextSteps": []
+      },
+      "update-module-resolution": {
+        "type": "successful",
+        "name": "update-module-resolution",
+        "changedFiles": [
+          {
+            "path": "libs/@apps/hub/sections/blog/features/route-defs-tutorial/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/route-defs-tutorial/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/prog-img-tutorial/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/prog-img-tutorial/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/firebase-deploy/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/firebase-deploy/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/mat-theming/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/mat-theming/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/open-source/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/open-source/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/mini-state/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/mini-state/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/deferred-grid/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/deferred-grid/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/portal/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/portal/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/tester/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/tester/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/hash/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/hash/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/home/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/features/home/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/home/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/features/home/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/@entry-point/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/@entry-point/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/@entry-point/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/@entry-point/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/@route-defs/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/@route-defs/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/utils/title/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/utils/title/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/features/not-found/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/features/not-found/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/buttons/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/buttons/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/notifications/mat-notifications/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/notifications/mat-notifications/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/ssr/storage/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/ssr/storage/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/mini-state/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/mini-state/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/hero-banner/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/hero-banner/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/config/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/config/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/nav/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/blog/ui/nav/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/config/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/config/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/ui/nav/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/sections/main/ui/nav/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/animations/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/animations/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/pkg-links/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/pkg-links/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/utils/router/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/utils/router/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/theming/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/packages/@spider-baby/theming/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/utils/icons/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/utils/icons/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/footer/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/shared/ui/footer/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/posts/route-defs-tutorial/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/posts/route-defs-tutorial/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "tools/swagger-codegen-plugin/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@entry-point/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@entry-point/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@core/config/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@core/config/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@route-defs/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/@apps/hub/@route-defs/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/mat/everything/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/mat/everything/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/tutorials/tutorials/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/dev-console/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/dev-console/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/memoization/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/memoization/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "tools/shortcuts-plugin/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "tools/app-libs-plugin/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/auth/auth-signal/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/auth/auth-signal/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/file-saver/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/file-saver/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/code-samples/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/code-samples/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/sb-mat-thm-demo/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/mini-state/demo/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/myid/myid-demo/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/auth/jwt-utils/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/auth/jwt-utils/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/firebase/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/firebase/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/routes/routes/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/testing/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/testing/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "tools/demo-plugin/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/routes/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/routes/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/portal/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/portal/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/share/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/share/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/forms/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/forms/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/oinw/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/oinw/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/rxjs/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/rxjs/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/hub/sb-hub/tsconfig.app.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/imgs/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/imgs/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/auth/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/auth/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/ui-kit/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/ui-kit/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/seo/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/utils/seo/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/cards/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/cards/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/toast/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/toast/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/utils/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/utils/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/io/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/io/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/ui/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/myid/ui/tsconfig.lib.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/git/tsconfig.lib.prod.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/ui/git/tsconfig.lib.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "02777bcc5700df4f2e8c9610fd3b219ee45693d8",
         "nextSteps": []
       }
     },
     "runningMigrations": [
-      "set-generator-defaults-for-previous-style-guide"
+      "update-module-resolution"
     ]
   }
 }
