@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, model, output } from '@angular/core';
-import { ForgotPasswordFormDto, SbForgotPwdFormComponent } from '@spider-baby/myid-ui-forms/forgot-pwd';
+import { ForgotPasswordFormDto, SbForgotPwdFormComponent } from '@spider-baby/myid-ui/forgot-pwd';
 import { SbButtonIconCloseComponent } from '@spider-baby/ui-kit/buttons';
 
 @Component({

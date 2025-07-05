@@ -1,0 +1,28 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="forgot-pwd-form"
+>
+  <!-- <h2>Reset Password</h2>
+    <p class="description">Enter your email address and we'll send you a link to reset your password.</p> -->
+
+  <div class="form-group">
+    @if(showLabels()){
+    <label [for]="'email'">Email Address</label>
+    }
+    <input
+      [id]="'email'"
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email address"
+      sbInputStyle
+      [color]="color()"
+    />
+    <sb-first-error [control]="_form.controls.email" />
+  </div>
+
+  <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
+    Send Reset Link
+  </sb-button>
+</form>

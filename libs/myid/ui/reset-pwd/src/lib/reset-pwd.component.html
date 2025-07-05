@@ -1,0 +1,63 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="reset-pwd-form"
+>
+  <!-- <h2>Reset Your Password</h2>
+    <p class="description">Enter your email address and create a new secure password for your account.</p>
+     -->
+  <div class="form-group">
+    @if(showLabels()) {
+    <label [for]="'newPassword' + _idSuffix">New Password</label>
+    }
+    <div class="password-input-container" sbInputWithBtn [color]="color()">
+      <input
+        [id]="'newPassword' + _idSuffix"
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="newPassword"
+        placeholder="Enter your new password"
+      />
+      <sb-toggle-icon-button
+        [color]="color()"
+        toggledLabel="Hide password"
+        untoggledLabel="Show password"
+        (toggled)="onPasswordToggle($event)"
+      />
+    </div>
+    <sb-first-error [control]="_form.controls.newPassword" />
+  </div>
+
+  <div class="form-group">
+    @if(showLabels()) {
+    <label [for]="'confirmPassword' + _idSuffix">Confirm New Password</label>
+    }
+    <div class="password-input-container" sbInputWithBtn [color]="color()">
+      <input
+        [id]="'confirmPassword' + _idSuffix"
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        formControlName="confirmPassword"
+        placeholder="Confirm your new password"
+      />
+      <sb-toggle-icon-button
+        [color]="color()"
+        toggledLabel="Hide password"
+        untoggledLabel="Show password"
+        (toggled)="onConfirmPasswordToggle($event)"
+      />
+    </div>
+    <sb-first-error [control]="_form.controls.confirmPassword" />
+    @if(_form.hasError('passwordMismatch') &&
+    _form.controls.confirmPassword.touched) {
+    <span class="error">Passwords do not match</span>
+    }
+  </div>
+
+  <sb-button
+    type="submit"
+    [disabled]="_form.invalid || disabled()"
+    [color]="color()"
+  >
+    Reset Password
+  </sb-button>
+</form>

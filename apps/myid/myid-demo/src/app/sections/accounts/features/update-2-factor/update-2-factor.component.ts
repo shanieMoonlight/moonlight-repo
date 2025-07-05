@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui-forms/update-two-factor-provider';
+import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto } from '@spider-baby/myid-ui/update-two-factor-provider';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';

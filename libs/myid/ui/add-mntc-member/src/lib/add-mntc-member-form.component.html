@@ -1,0 +1,111 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="sb-add-mntc-member-form"
+>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'email'">Email *</label>
+        }
+        <input
+          id="email"
+          sbInputStyle
+          formControlName="email"
+          placeholder="Email"
+          type="email"
+          [color]="color()"
+        />
+        <sb-first-error [control]="_form.controls.email"></sb-first-error>
+      </div>
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'username'">Username</label>
+        }
+        <input
+          id="username"
+          sbInputStyle
+          formControlName="username"
+          placeholder="Username"
+          [color]="color()"
+        />
+        <sb-first-error [control]="_form.controls.username"></sb-first-error>
+      </div>
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'firstName'">First Name</label>
+        }
+        <input
+          id="firstName"
+          sbInputStyle
+          formControlName="firstName"
+          placeholder="First Name"
+          [color]="color()"
+        />
+        <sb-first-error [control]="_form.controls.firstName"></sb-first-error>
+      </div>
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'lastName'">Last Name</label>
+        }
+        <input
+          id="lastName"
+          sbInputStyle
+          formControlName="lastName"
+          placeholder="Last Name"
+          [color]="color()"
+        />
+        <sb-first-error [control]="_form.controls.lastName"></sb-first-error>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        @if (showLabels()) {
+        <label [for]="'phoneNumber'">Phone Number</label>
+        }
+        <input
+          id="phoneNumber"
+          sbInputStyle
+          formControlName="phoneNumber"
+          placeholder="Phone Number"
+          [color]="color()"
+        />
+        <sb-first-error [control]="_form.controls.phoneNumber"></sb-first-error>
+      </div>
+
+      <div class="form-group">
+        @if(showLabels()) {
+        <label [for]="'teamPosition'">Team Position</label>
+        } @if(teamPositionOptions(); as positionOptions){
+        <sb-select
+          [id]="'teamPosition'"
+          [options]="positionOptions"
+          placeholder="Select new position"
+          formControlName="teamPosition"
+          [color]="color()"
+        />
+        }@else {
+        <input
+          id="teamPosition"
+          sbInputStyle
+          formControlName="teamPosition"
+          type="number"
+          placeholder="new Position"
+          [color]="color()"
+        />
+        }
+
+        <sb-first-error [control]="_form.controls.teamPosition" />
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="actions">
+      <sb-button type="submit" [disabled]="!_form.valid">Add Member</sb-button>
+    </div>
+  </div>
+</form>

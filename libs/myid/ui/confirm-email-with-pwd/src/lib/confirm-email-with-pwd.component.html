@@ -1,0 +1,60 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="confirm-email-pwd-form"
+>
+  <!-- <h2>Set Your Password</h2>
+    <p class="description">Create a secure password for your account.</p> -->
+
+  <div class="form-group">
+    @if(showLabels()){
+    <label [for]="'password'">Password</label>
+    }
+    <div class="password-input-container" sbInputWithBtn [color]="color()">
+      <input
+        [id]="'password'"
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+      <sb-toggle-icon-button
+        [color]="color()"
+        toggledLabel="Hide password"
+        untoggledLabel="Show password"
+        (toggled)="onPasswordToggle($event)"
+      />
+    </div>
+    <sb-first-error [control]="_form.controls.password" />
+  </div>
+
+  <div class="form-group">
+    @if(showLabels()){
+    <label [for]="'confirmPassword'">Confirm Password</label>
+    }
+    <div class="password-input-container" sbInputWithBtn [color]="color()">
+      <input
+        [id]="'confirmPassword'"
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        formControlName="confirmPassword"
+        placeholder="Confirm your password"
+      />
+      <sb-toggle-icon-button
+        [color]="color()"
+        toggledLabel="Hide password"
+        untoggledLabel="Show password"
+        (toggled)="onConfirmPasswordToggle($event)"
+      />
+    </div>
+    <sb-first-error [control]="_form.controls.confirmPassword" />
+
+    @if(_form.hasError('passwordMismatch') &&
+    _form.controls.confirmPassword.touched) {
+    <span class="error">Passwords do not match</span>
+    }
+  </div>
+
+  <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
+    Set Password
+  </sb-button>
+</form>

@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit,
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
 import { LoginDto } from '@spider-baby/myid-io/models';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
-import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
+import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { LoginJwtStateService } from './login-jwt.state.service';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';

@@ -221,54 +221,56 @@
       "@spider-baby/mini-state/utils": [
         "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
       ],
+      "@spider-baby/myid-auth": ["libs/myid/auth/src/index.ts"],
+      "@spider-baby/myid-auth/config": ["libs/myid/auth/config/src/index.ts"],
+      "@spider-baby/myid-auth/guards": ["libs/myid/auth/guards/src/index.ts"],
+      "@spider-baby/myid-auth/routes": ["libs/myid/auth/routes/src/index.ts"],
+      "@spider-baby/myid-auth/services": [
+        "libs/myid/auth/services/src/index.ts"
+      ],
+      "@spider-baby/myid-auth/utils": ["libs/myid/auth/utils/src/index.ts"],
       "@spider-baby/myid-io": ["libs/myid/io/src/index.ts"],
       "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],
       "@spider-baby/myid-io/models": ["libs/myid/io/models/src/index.ts"],
-      "@spider-baby/myid-ui-forms": ["libs/myid/ui-forms/src/index.ts"],
-      "@spider-baby/myid-ui-forms/add-mntc-member": [
-        "libs/myid/ui-forms/add-mntc-member/src/index.ts"
+      "@spider-baby/myid-ui": ["libs/myid/ui/src/index.ts"],
+      "@spider-baby/myid-ui/add-mntc-member": [
+        "libs/myid/ui/add-mntc-member/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/add-super-member": [
-        "libs/myid/ui-forms/add-super-member/src/index.ts"
+      "@spider-baby/myid-ui/add-super-member": [
+        "libs/myid/ui/add-super-member/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/change-pwd": [
-        "libs/myid/ui-forms/change-pwd/src/index.ts"
+      "@spider-baby/myid-ui/change-pwd": [
+        "libs/myid/ui/change-pwd/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/confirm-email-with-pwd": [
-        "libs/myid/ui-forms/confirm-email-with-pwd/src/index.ts"
+      "@spider-baby/myid-ui/confirm-email-with-pwd": [
+        "libs/myid/ui/confirm-email-with-pwd/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/confirm-phone": [
-        "libs/myid/ui-forms/confirm-phone/src/index.ts"
+      "@spider-baby/myid-ui/confirm-phone": [
+        "libs/myid/ui/confirm-phone/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/forgot-pwd": [
-        "libs/myid/ui-forms/forgot-pwd/src/index.ts"
+      "@spider-baby/myid-ui/forgot-pwd": [
+        "libs/myid/ui/forgot-pwd/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/login": [
-        "libs/myid/ui-forms/login/src/index.ts"
+      "@spider-baby/myid-ui/login": ["libs/myid/ui/login/src/index.ts"],
+      "@spider-baby/myid-ui/reg-customer": [
+        "libs/myid/ui/reg-customer/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/reg-customer": [
-        "libs/myid/ui-forms/reg-customer/src/index.ts"
+      "@spider-baby/myid-ui/reset-pwd": [
+        "libs/myid/ui/reset-pwd/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/reset-pwd": [
-        "libs/myid/ui-forms/reset-pwd/src/index.ts"
+      "@spider-baby/myid-ui/team": ["libs/myid/ui/team/src/index.ts"],
+      "@spider-baby/myid-ui/update-self": [
+        "libs/myid/ui/update-self/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/team": [
-        "libs/myid/ui-forms/team/src/index.ts"
+      "@spider-baby/myid-ui/update-team-position": [
+        "libs/myid/ui/update-team-position/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/update-self": [
-        "libs/myid/ui-forms/update-self/src/index.ts"
+      "@spider-baby/myid-ui/update-two-factor-provider": [
+        "libs/myid/ui/update-two-factor-provider/src/index.ts"
       ],
-      "@spider-baby/myid-ui-forms/update-team-position": [
-        "libs/myid/ui-forms/update-team-position/src/index.ts"
-      ],
-      "@spider-baby/myid-ui-forms/update-two-factor-provider": [
-        "libs/myid/ui-forms/update-two-factor-provider/src/index.ts"
-      ],
-      "@spider-baby/myid-ui-forms/utils": [
-        "libs/myid/ui-forms/utils/src/index.ts"
-      ],
-      "@spider-baby/myid-ui-forms/verify-2factor": [
-        "libs/myid/ui-forms/verify-2factor/src/index.ts"
+      "@spider-baby/myid-ui/utils": ["libs/myid/ui/utils/src/index.ts"],
+      "@spider-baby/myid-ui/verify-2factor": [
+        "libs/myid/ui/verify-2factor/src/index.ts"
       ],
       "@spider-baby/posts-route-defs-tutorial": [
         "libs/posts/route-defs-tutorial/src/index.ts"

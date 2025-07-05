@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { ConfirmEmailWithPwdFormComponent, ConfirmEmailWithPwdFormDto } from '@spider-baby/myid-ui-forms/confirm-email-with-pwd'
+import { ConfirmEmailWithPwdFormComponent, ConfirmEmailWithPwdFormDto } from '@spider-baby/myid-ui/confirm-email-with-pwd'
 import { ConfirmEmailWithPwdStateService } from './confirm-email-with-pwd.state.service';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';

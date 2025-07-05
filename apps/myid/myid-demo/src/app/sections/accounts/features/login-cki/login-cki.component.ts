@@ -1,8 +1,8 @@
 import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { LoginDto } from '@spider-baby/myid-io/models';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
-import { LoginFormComponent } from '@spider-baby/myid-ui-forms/login';
+import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { LoginCkiStateService } from './login-cki.state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

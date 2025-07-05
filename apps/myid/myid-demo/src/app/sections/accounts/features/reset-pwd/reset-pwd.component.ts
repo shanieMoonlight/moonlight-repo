@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui-forms/forgot-pwd';
-import { ResetPwdFormDto, SbResetPwdFormComponent } from '@spider-baby/myid-ui-forms/reset-pwd';
+import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
+import { ResetPwdFormDto, SbResetPwdFormComponent } from '@spider-baby/myid-ui/reset-pwd';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';

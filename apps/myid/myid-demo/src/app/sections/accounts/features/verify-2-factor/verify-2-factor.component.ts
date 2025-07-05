@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { SbVerify2FactorFormComponent, Verify2FactorTknFormDto } from '@spider-baby/myid-ui-forms/verify-2factor';
+import { SbVerify2FactorFormComponent, Verify2FactorTknFormDto } from '@spider-baby/myid-ui/verify-2factor';
 import { Verify2FactorStateService } from './verify-2-factor.state.service';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';

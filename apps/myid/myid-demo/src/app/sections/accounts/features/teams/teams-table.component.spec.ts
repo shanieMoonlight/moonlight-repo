@@ -5,7 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, convertToParamMap } from '@angular/router';
 import { TeamDto } from '@spider-baby/myid-io/models';
-import { SbAddTeamFormComponent, SbUpdateTeamFormComponent } from '@spider-baby/myid-ui-forms/team';
+import { SbAddTeamFormComponent, SbUpdateTeamFormComponent } from '@spider-baby/myid-ui/team';
 import { ColumnData } from '@spider-baby/ui-kit/table';
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { CrudTableComponent } from '../../ui/crud-table/crud-table.component';

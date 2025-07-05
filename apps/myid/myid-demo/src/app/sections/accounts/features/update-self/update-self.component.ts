@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { UpdateSelfStateService } from './update-self.state.service';
-import { UpdateSelfFormDto, SbUpdateSelfFormComponent } from '@spider-baby/myid-ui-forms/update-self';
+import { UpdateSelfFormDto, SbUpdateSelfFormComponent } from '@spider-baby/myid-ui/update-self';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';

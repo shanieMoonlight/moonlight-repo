@@ -1,0 +1,52 @@
+<form
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="submit()"
+  class="update-two-factor-provider-form"
+>
+  <input type="hidden" [formControlName]="'userId'" />
+
+  <div class="form-group">
+    @if(showLabels()) {
+    <label [for]="'user'">User</label>
+    }
+    <div id="user" sbInputStyle readonly type="number" placeholder="User">
+      {{ _member()?.userName || _member()?.email }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    @if(showLabels()) {
+    <label [for]="'provider'">Authentication Method</label>
+    } @if(teamPositionOptions(); as positionOptions){
+    <sb-select
+      [id]="'newPosition'"
+      [options]="positionOptions"
+      placeholder="Select new position"
+      formControlName="newPosition"
+      [color]="color()"
+    />
+    }@else {
+    <input
+      id="newPosition"
+      sbInputStyle
+      formControlName="newPosition"
+      type="number"
+      placeholder="new Position"
+      [color]="color()"
+    />
+    }
+
+    <sb-first-error [control]="_form.controls.newPosition" />
+  </div>
+
+  <sb-button type="submit" [disabled]="_form.invalid" [color]="color()">
+    Update Position
+  </sb-button>
+</form>
+
+<ng-template #optionTemplate let-option>
+  <H3>Sup</H3>
+  <span class="option-label">{{ option.label }}</span>
+  <span class="option-value">{{ option.value }}</span>
+</ng-template>

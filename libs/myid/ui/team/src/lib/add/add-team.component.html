@@ -1,0 +1,105 @@
+<form
+  class="team-form"
+  [formGroup]="_form"
+  [sbFormControlFirstError]="_form"
+  (ngSubmit)="_form.valid && add()"
+>
+  <!-- Basic Team Information Section -->
+  <div class="form-section">
+    <!-- <h3>Team Information</h3> -->
+    <div class="form-row">
+      <div class="form-group">
+        @if(showLabels()) {
+        <label [for]="'name'">Team Name</label>
+        }
+        <input
+          [id]="'name'"
+          type="text"
+          formControlName="name"
+          placeholder="Team Name"
+          sbInputStyle
+        />
+        <sb-first-error [control]="_form.controls.name" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        @if(showLabels()) {
+        <label [for]="'description'">Description</label>
+        }
+        <input
+          [id]="'description'"
+          type="text"
+          formControlName="description"
+          placeholder="Team Description (Optional)"
+          sbInputStyle
+        />
+        <sb-first-error [control]="_form.controls.description" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Position Configuration Section -->
+  @if(canChangeTeamPositionRange()){
+  <div class="form-section team-position">
+    <div class="form-row">
+      <div class="form-group">
+        @if(showLabels()) {
+        <label [for]="'minPosition'">Minimum Position</label>
+        }
+        <input
+          [id]="'minPosition'"
+          type="number"
+          formControlName="minPosition"
+          placeholder="Minimum Position"
+          min="1"
+          sbInputStyle
+        />
+        <sb-first-error [control]="_form.controls.minPosition" />
+      </div>
+
+      <div class="form-group">
+        @if(showLabels()) {
+        <label [for]="'maxPosition'">Maximum Position</label>
+        }
+        <input
+          [id]="'maxPosition'"
+          type="number"
+          formControlName="maxPosition"
+          placeholder="Maximum Position"
+          min="1"
+          sbInputStyle
+        />
+        <sb-first-error [control]="_form.controls.maxPosition" />
+      </div>
+    </div>
+    <div class="form-row error">
+      @if(_form.controls.minPosition.touched ||
+      _form.controls.maxPosition.touched) { @if(_form.getError('minMaxError');
+      as err) {
+      <span class="error">{{ err.message }}</span>
+      } }
+    </div>
+    <div class="info-card">
+      <h4>Position Configuration</h4>
+      <p>
+        Set the minimum and maximum position levels for team members. Position 1
+        is typically the lowest level, and higher numbers represent senior
+        positions.
+      </p>
+    </div>
+  </div>
+  }
+
+  <div class="form-section">
+    <sb-button
+      class="btn-submit"
+      (click)="add()"
+      [disabled]="_form.invalid"
+      [color]="color()"
+    >
+      Create Team
+    </sb-button>
+  </div>
+</form>
