@@ -9,7 +9,7 @@
         [sbTooltip]="'Home'"
         [attr.aria-label]="'home'"/>    -->
         
-        <a class="navlink"  [routerLink]="'home'">
+        <a class="navlink" [routerLink]="'home'">
             <img
                 [src]="_logoSml()" 
                 alt="SpiderBaby Material" 
@@ -63,14 +63,16 @@
 <div class="right-links">    
     
     @for(navLink of _rhsNavItems(); track navLink) {
-        <ng-container 
-        [ngTemplateOutlet]="navItem" 
-        [ngTemplateOutletContext]="{
-            routerLink: navLink.routerLink, 
-            tooltip: navLink.tooltip, 
-            iconName: navLink.icon, 
-            text: navLink.text
-        }"/>
+        @if(navLink.show()){
+            <ng-container 
+                [ngTemplateOutlet]="navItem" 
+                [ngTemplateOutletContext]="{
+                    routerLink: navLink.routerLink, 
+                    tooltip: navLink.tooltip, 
+                    iconName: navLink.icon, 
+                    text: navLink.text
+                }"/>
+        }
     }
     
     <div class="rhs-outlet">

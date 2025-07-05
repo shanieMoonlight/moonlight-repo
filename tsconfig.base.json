@@ -228,6 +228,9 @@
       "@spider-baby/myid-auth/services": [
         "libs/myid/auth/services/src/index.ts"
       ],
+      "@spider-baby/myid-auth/user-mgr-admin": [
+        "libs/myid/auth/user-mgr-admin/src/index.ts"
+      ],
       "@spider-baby/myid-auth/utils": ["libs/myid/auth/utils/src/index.ts"],
       "@spider-baby/myid-io": ["libs/myid/io/src/index.ts"],
       "@spider-baby/myid-io/config": ["libs/myid/io/config/src/index.ts"],

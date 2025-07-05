@@ -1,12 +1,8 @@
 import { Route } from '@angular/router';
-import { provideMyIdRouter } from '@spider-baby/myid-auth/config';
+import { provideMyIdRouter, provideMyIdTeamPositionOptions, TwoFactorOption } from '@spider-baby/myid-auth/config';
 import { createMyIdCustomGuard } from '@spider-baby/myid-auth/guards';
-import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
-import { TwoFactorOption } from '../../shared/id/utils/options/mfa/two-factor-options-provider';
-import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
-import { getMainMyIdAccountRoutes, getMyIdCustomerRoutes, getMyIdMntsAndSuperRoutes } from '../accounts/account.routes';
-import { getMyIdAuthTestRoutes } from '../accounts/features/auth-service-test/default/auth-service-test.routes';
-import { getAuthTestFirebaseRoutes } from '../accounts/features/auth-service-test/firebase/auth-service-firebase-test.routes';
+import { getAuthTestFirebaseRoutes, getMainMyIdAccountRoutes, getMyIdAuthTestRoutes, getMyIdCustomerRoutes, getMyIdMntsAndSuperRoutes } from '@spider-baby/myid-auth/routes';
+import { userMgrAdminTeamPositionOptions, customerMgrGuard } from '@spider-baby/myid-auth/user-mgr-admin';
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
@@ -32,7 +28,7 @@ export const mainRoutes: Route[] = [
 
         providers: [
             provideMyIdRouter(MyIdMainRouterService),
-            provideMyIdTeamPositionOptions(teamPositionOptions),
+            provideMyIdTeamPositionOptions(userMgrAdminTeamPositionOptions),
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
             // provideMyIdTwoFactorOptions(twoFactorProviderOptions),
         ],
@@ -57,7 +53,7 @@ export const mainRoutes: Route[] = [
             },
             {
                 path: MainSectionRoutesDefs.route('auth-test-user-mgr-admin'),
-                loadComponent: () => import('../accounts/features/auth-service-test/user-mgr-admin/user-mgr-admin.component').then(m => m.AuthServiceUserMgrAdminComponent),
+                loadComponent: () => import('@spider-baby/myid-auth/user-mgr-admin').then(m => m.AuthServiceUserMgrAdminComponent),
             },
             {
                 path: '',

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, isDevMode, Signal, signal, TemplateRef } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
@@ -22,6 +22,7 @@ interface NavbarItem {
   tooltip: string,
   icon: string,
   text: string
+  show: Signal<boolean>
 }
 
 //##############################################################//
@@ -32,7 +33,8 @@ const rhsNavbarItems: NavbarItem[] = [
     routerLink: AppRouteDefs.routes.main.route('scratchpad'),
     tooltip: 'Scratchpad',
     icon: 'draw',
-    text: 'ScratchPad'
+    text: 'ScratchPad',
+    show: signal(isDevMode())
   },
   // {
   //   routerLink: '/api',
@@ -74,8 +76,8 @@ export class MainNavbarComponent {
   //- - - - - - - - - - - - - - -//
 
 
-  protected _logoSml = signal(AppImages.Logo.small) 
-  
+  protected _logoSml = signal(AppImages.Logo.small)
+
 
   protected _gitRepoUrl = AppConstants.GIT_REP_URL
   protected _npmPkgUrl = AppConstants.NPM_PKG_URL
@@ -84,6 +86,8 @@ export class MainNavbarComponent {
   protected _npmSvg = AppSvgs.NPM_ICON
   protected _gitSvg = AppSvgs.GIT_ICON
   protected _shareSvg = AppSvgs.SHARE_ICON
+
+  protected _isDevMode = signal(isDevMode())
 
 
 

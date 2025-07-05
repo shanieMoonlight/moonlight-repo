@@ -1,15 +1,14 @@
+import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { BaseDataTableRowData } from '../base-row-data';
 import { ColumnData } from '../column';
-import { JsonPipe, NgComponentOutlet } from '@angular/common';
 import { ActionEvent } from './action-event';
 
 @Component({
     selector: 'sb-data-table-cell',
     standalone: true,
     imports: [
-        NgComponentOutlet,
-        JsonPipe
+        NgComponentOutlet
     ],
     templateUrl: './table-cell.component.html',
     styleUrls: ['./table-cell.component.scss'],

@@ -44,6 +44,8 @@ export class FallbackTeamPositionOptionsProvider extends MyIdTeamPositionOptions
 private   _positionOptions = inject(MY_ID_TEAM_POSITION_OPTIONS_TOKEN, { optional: true, }) || []
 
   override getOptions(): TeamPositionOption[] {    
+    console.log('Using FallbackTeamPositionOptionsProvider', this._positionOptions);
+    
     return this._positionOptions;
   }
 }

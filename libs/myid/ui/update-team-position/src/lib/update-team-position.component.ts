@@ -60,6 +60,7 @@ interface UpdateTeamPositionForm {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbUpdateTeamPositionFormComponent {
+  
   private _fb = inject(FormBuilder);
 
   //- - - - - - - - - - - - -//
