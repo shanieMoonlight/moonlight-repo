@@ -3,7 +3,7 @@ import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
 import { ResetPwdFormDto, SbResetPwdFormComponent } from '@spider-baby/myid-ui/reset-pwd';
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { ForgotPwdModalButtonComponent } from '@spider-baby/myid-ui/forgot-pwd';
 import { ResetPwdStateService } from './reset-pwd.state.service';
 

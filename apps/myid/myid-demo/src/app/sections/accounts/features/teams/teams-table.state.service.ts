@@ -3,7 +3,7 @@ import { MiniStateBuilder } from "@spider-baby/mini-state";
 import { MiniStateCombined } from "@spider-baby/mini-state/utils";
 import { TeamsIoService } from "@spider-baby/myid-io";
 import { AddTeamDto, TeamDto } from "@spider-baby/myid-io/models";
-import { MyIdAuthService } from "../../../../shared/id/auth/services/auth/myid-auth.browser.service";
+import { MyIdAuthService} from '@spider-baby/myid-auth/services';
 import { CrudArraySignalOps } from "../../../../shared/utils/crud-array-ops/crud-array-ops.signal";
 
 @Injectable()

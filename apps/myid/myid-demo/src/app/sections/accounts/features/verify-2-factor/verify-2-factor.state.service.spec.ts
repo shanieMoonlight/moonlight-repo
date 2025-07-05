@@ -6,7 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Verify2FactorStateService } from './verify-2-factor.state.service';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
+import { LoginService } from '@spider-baby/myid-auth/services';
 import { TwoFactorProvider } from '@spider-baby/myid-io/models';
 import { MyIdRouteInfo } from '../../../../shared/id/utils/my-id-route-info';
 

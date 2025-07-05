@@ -6,7 +6,7 @@ import { of, throwError } from 'rxjs';
 
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { LoginService } from '../../id/auth/services/login/login.service';
+import { LoginService } from '@spider-baby/myid-auth/services';
 import { myIdDemoAuthInterceptorFn } from './auth.interceptor';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { AppRouteDefs } from '../../../app-route-defs';

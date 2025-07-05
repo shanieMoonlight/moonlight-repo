@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ConfirmEmailComponent } from './confirm-email.component';
 import { ConfirmEmailStateService } from './confirm-email.state.service';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { signal } from '@angular/core';
 
 

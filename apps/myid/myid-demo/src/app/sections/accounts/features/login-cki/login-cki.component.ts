@@ -6,8 +6,8 @@ import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { LoginCkiStateService } from './login-cki.state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
 import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 
 @Component({
   selector: 'sb-login-cki',

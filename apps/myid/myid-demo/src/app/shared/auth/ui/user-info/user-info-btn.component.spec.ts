@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserInfoButtonComponent } from './user-info-btn.component';
-import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
 
 // Mock MyIdAuthService
 class MockMyIdAuthService {

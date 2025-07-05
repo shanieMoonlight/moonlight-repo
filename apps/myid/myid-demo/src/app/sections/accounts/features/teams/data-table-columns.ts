@@ -2,7 +2,7 @@ import { Injectable, computed, inject } from '@angular/core';
 import { TeamDto } from '@spider-baby/myid-io/models';
 import { SbButtonIconDeleteComponent } from '@spider-baby/ui-kit/buttons';
 import { ColumnData } from '@spider-baby/ui-kit/table';
-import { MyIdAuthService } from '../../../../shared/id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService} from '@spider-baby/myid-auth/services';
 
 //########################//
 

@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
-import { MyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { SbAuthLoginButtonComponent } from './auth-login-button.component';
 
 //###############################//

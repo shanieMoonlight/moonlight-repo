@@ -1,5 +1,4 @@
-import { signal, Signal } from '@angular/core';
-import { IMyIdAuthService } from '../../../../id/auth/services/auth/i-myid.auth.service';
+import { signal } from '@angular/core';
 import { of } from 'rxjs';
 
 // Minimal role/position values for testing

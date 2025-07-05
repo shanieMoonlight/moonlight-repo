@@ -1,8 +1,7 @@
-import { MyIdFallbackRouter } from './id-router.service';
-import { Router, ActivatedRoute, UrlCreationOptions } from '@angular/router';
-import { MyIdRouteInfo } from '../../my-id-route-info';
 import { TestBed } from '@angular/core/testing';
-import { query } from '@angular/animations';
+import { ActivatedRoute, Router, UrlCreationOptions } from '@angular/router';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
+import { MyIdFallbackRouter } from './id-router.service';
 
 // Mocks
 const navigateByUrlMock = jest.fn();

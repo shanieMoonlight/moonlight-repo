@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal, input, computed } from '@angular/core';
-import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
 import { NgStyle, TitleCasePipe } from '@angular/common';
 
 //###############################//

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { MyIdRouter } from '@spider-baby/myid-auth/utils';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import {

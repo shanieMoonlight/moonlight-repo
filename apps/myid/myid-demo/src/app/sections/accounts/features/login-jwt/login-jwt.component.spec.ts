@@ -10,8 +10,8 @@ import { of, Subject } from 'rxjs';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { LoginJwtComponent } from './login-jwt.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
-import { LoginService } from '../../../../shared/id/auth/services/login/login.service';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { LoginService } from '@spider-baby/myid-auth/services';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 
 //##############################//
 

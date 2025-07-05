@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TeamsTableStateService } from './teams-table.state.service';
 import { TeamsIoService } from '@spider-baby/myid-io';
-import { MyIdAuthService } from '../../../../shared/id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService} from '@spider-baby/myid-auth/services';
 import { AddTeamDto, TeamDto } from '@spider-baby/myid-io/models';
 import { CrudArraySignalOps } from '../../../../shared/utils/crud-array-ops/crud-array-ops.signal';
 import { of } from 'rxjs';

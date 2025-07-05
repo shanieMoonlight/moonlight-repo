@@ -1,7 +1,7 @@
 import { inject, InjectionToken } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { filter, map, take } from 'rxjs';
-import { MyIdRouter } from '../../../id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { AUserMgrAdminAuthService } from '../services/a-user-admin-auth.service';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './user-mgr-admin-auth-guard.config';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';

@@ -1,6 +1,6 @@
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router, UrlCreationOptions, UrlTree } from '@angular/router';
-import { MyIdRouteInfo } from '../my-id-route-info';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 //#########################################################//
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # #//

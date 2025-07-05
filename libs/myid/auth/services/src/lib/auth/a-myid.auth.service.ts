@@ -1,13 +1,12 @@
 import { computed, Directive } from '@angular/core';
 import { BaseAuthSignalService } from '@spider-baby/auth-signal';
 import { TeamType } from '@spider-baby/myid-io/models';
-import { IMyIdAuthService } from './i-myid.auth.service';
-import { MyIdJwtPayload } from './myid-jwt-payload';
 import { MyIdRoleValues } from '../claims/role-values';
+import { MyIdJwtPayload } from './myid-jwt-payload';
 
 
 @Directive({})
-export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayload> implements IMyIdAuthService {
+export abstract class AMyIdAuthService extends BaseAuthSignalService<MyIdJwtPayload> {
     
     
     teamId = computed(() => this.getClaimValue('myid.team_id') ?? '');

@@ -5,7 +5,7 @@ import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { AppSvgs } from '../../../../config/svgs';
 import { MyIdRouteInfo } from '../../../id/utils/my-id-route-info';
-import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
 import { environment } from '../../../../../environments/environment';
 import { UrlUtils } from '@spider-baby/myid-io';
 

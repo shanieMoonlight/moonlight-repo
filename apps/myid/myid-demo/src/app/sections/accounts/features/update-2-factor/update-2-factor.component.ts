@@ -4,7 +4,7 @@ import { SbUpdateTwoFactorProviderFormComponent, UpdateTwoFactorProviderFormDto 
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MyIdTwoFactorOptionsProvider } from '../../../../shared/id/utils/options/mfa/two-factor-options-provider';
-import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { Update2FactorStateService } from './update-2-factor.state.service';
 
 @Component({

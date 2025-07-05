@@ -3,7 +3,7 @@ import { SbButtonIconCloseComponent, SbIconButtonComponent } from '@spider-baby/
 import { AppSvgs } from '../../../../config/svgs';
 import { UserInfoCardComponent } from './user-info.component';
 import { TitleCasePipe } from '@angular/common';
-import { MyIdAuthService } from '../../../id/auth/services/auth/myid-auth.browser.service';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
 
 @Component({
     selector: 'sb-user-info-btn',

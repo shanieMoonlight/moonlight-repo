@@ -3,7 +3,8 @@ import { CanActivateFn } from '@angular/router';
 import { filter, map, take } from 'rxjs';
 import { MY_ID_AUTH_SERVICE_TOKEN } from './config/myid-auth-guard.config';
 import { AMyIdAuthService, MyIdJwtPayload } from '@spider-baby/myid-auth/services';
-import { MyIdRouteInfo, MyIdRouter } from '@spider-baby/myid-auth/utils';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
+import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 
 // Core generic guards: logged in, email verified, claim, role, any/all roles, etc.
 

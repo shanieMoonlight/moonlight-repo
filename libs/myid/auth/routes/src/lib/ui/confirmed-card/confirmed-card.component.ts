@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { MyIdRouter } from '@spider-baby/myid-auth/utils';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { SbButtonComponent } from'@spider-baby/ui-kit/buttons';
 
 @Component({

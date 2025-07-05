@@ -1,5 +1,5 @@
 import { computed } from "@angular/core";
-import { AMyIdAuthService } from "../../../id/auth/services/auth/a-myid.auth.service";
+import { AMyIdAuthService } from "@spider-baby/myid-auth/services";
 import { TeamPositions } from "../utils/posiition/team-position-info";
 
 

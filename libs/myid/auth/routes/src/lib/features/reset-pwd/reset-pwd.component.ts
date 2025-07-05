@@ -5,7 +5,7 @@ import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { ForgotPwdModalButtonComponent } from '@spider-baby/myid-ui/forgot-pwd';
 import { ResetPwdStateService } from './reset-pwd.state.service';
-import { MyIdRouter } from '@spider-baby/myid-auth/utils';
+import { MyIdRouter } from '@spider-baby/myid-auth/config';
 
 @Component({
   selector: 'sb-reset-pwd',
