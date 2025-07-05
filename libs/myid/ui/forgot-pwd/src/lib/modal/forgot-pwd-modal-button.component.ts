@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, input, output, signal } from '@angu
 import { SbButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { UiKitTheme } from '@spider-baby/ui-kit/types';
 import { ForgotPwdModalComponent } from './forgot-pwd-modal.component';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
+import { SbButtonIconCloseComponent } from '@spider-baby/ui-kit/buttons';
+import { ForgotPasswordFormDto, SbForgotPwdFormComponent } from '../forgot-pwd.component';
 
 
 @Component({

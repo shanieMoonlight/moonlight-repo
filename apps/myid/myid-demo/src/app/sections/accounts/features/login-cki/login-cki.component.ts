@@ -7,7 +7,7 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { LoginCkiStateService } from './login-cki.state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
+import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
 
 @Component({
   selector: 'sb-login-cki',

@@ -8,7 +8,7 @@ import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { LoginJwtStateService } from './login-jwt.state.service';
 import { MyIdRouter } from '../../../../shared/id/utils/services/id-navigation/id-router.service';
-import { ForgotPwdModalComponent } from '../../ui/forgot-pwd-modal';
+import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
 
 @Component({
   selector: 'sb-login-jwt',
