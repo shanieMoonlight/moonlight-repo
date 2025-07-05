@@ -1,5 +1,5 @@
 import { Route } from "@angular/router";
-import { superMinimumGuard } from "../../../../shared/id/auth/guards";
+import { superMinimumGuard } from "@spider-baby/myid-auth/guards";
 import { AccountSectionRoutesDefs } from "../../account-route-defs";
 
 export function superTeamRoutes(authenticate: boolean = true): Route[] {

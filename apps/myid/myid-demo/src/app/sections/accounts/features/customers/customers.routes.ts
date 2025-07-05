@@ -1,5 +1,5 @@
 import { Route } from "@angular/router";
-import { mntcMinimumGuard } from "../../../../shared/id/auth/guards";
+import { mntcMinimumGuard } from "@spider-baby/myid-auth/guards";
 import { AccountSectionRoutesDefs } from "../../account-route-defs";
 
 export function customersRoutes(authenticate: boolean = true): Route[] {

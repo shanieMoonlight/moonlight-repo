@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { teamPositionOptions } from '../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
-import { createMyIdCustomGuard } from '../../shared/id/auth/guards';
+import { createMyIdCustomGuard } from '@spider-baby/myid-auth/guards';
 import { TwoFactorOption } from '../../shared/id/utils/options/mfa/two-factor-options-provider';
 import { provideMyIdTeamPositionOptions } from '../../shared/id/utils/options/team-position/team-position-option.config';
 import { provideMyIdRouter } from '../../shared/id/utils/services/id-navigation/id-router.config';

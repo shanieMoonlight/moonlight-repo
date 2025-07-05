@@ -1,6 +1,6 @@
 import { Route } from "@angular/router";
 import { AccountSectionRoutesDefs } from "../../account-route-defs";
-import { loggedInGuard } from "../../../../shared/id/auth/guards";
+import { loggedInGuard } from "@spider-baby/myid-auth/guards";
 
 export function update2FactorRoutes(authenticate: boolean = true): Route[] {
     return [

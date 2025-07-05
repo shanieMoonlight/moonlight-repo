@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal, TemplateRef } from '@angular/core';
+import { ConfirmModalService } from '@spider-baby/myid-ui/confirm';
 import { ActionEvent, BaseDataTableRowData, ColumnData, SbDataTableComponent, SbDataTableRowData } from '@spider-baby/ui-kit/table';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { SbModalComponent } from '../../../../shared/ui/modal/modal.component';
-import { ConfirmModalService } from '@spider-baby/myid-ui/confirm';
 
 //##############################//
 
@@ -20,7 +19,6 @@ const DefaultDeleteMessage = 'Are you sure you want to delete this item?';
   standalone: true,
   imports: [
     SbDataTableComponent,
-    SbModalComponent,
     SbMatNotificationsModalComponent
   ],
   templateUrl: './crud-table.component.html',

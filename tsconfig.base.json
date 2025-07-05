@@ -242,6 +242,7 @@
       "@spider-baby/myid-ui/change-pwd": [
         "libs/myid/ui/change-pwd/src/index.ts"
       ],
+      "@spider-baby/myid-ui/confirm": ["libs/myid/ui/confirm/src/index.ts"],
       "@spider-baby/myid-ui/confirm-email-with-pwd": [
         "libs/myid/ui/confirm-email-with-pwd/src/index.ts"
       ],
@@ -255,9 +256,7 @@
       "@spider-baby/myid-ui/reg-customer": [
         "libs/myid/ui/reg-customer/src/index.ts"
       ],
-      "@spider-baby/myid-ui/reset-pwd": [
-        "libs/myid/ui/reset-pwd/src/index.ts"
-      ],
+      "@spider-baby/myid-ui/reset-pwd": ["libs/myid/ui/reset-pwd/src/index.ts"],
       "@spider-baby/myid-ui/team": ["libs/myid/ui/team/src/index.ts"],
       "@spider-baby/myid-ui/update-self": [
         "libs/myid/ui/update-self/src/index.ts"

@@ -1,6 +1,6 @@
 import { Route } from "@angular/router";
-import { loggedInGuard } from "@spider-baby/myid-auth/guards";
 import { AccountSectionRoutesDefs } from "../../account-route-defs";
+import { loggedInGuard } from "@spider-baby/myid-auth/guards";
 
 export function changePwdRoutes(authenticate: boolean = true): Route[] {
     return [

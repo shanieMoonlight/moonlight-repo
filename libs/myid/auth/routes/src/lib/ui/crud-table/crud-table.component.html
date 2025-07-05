@@ -1,0 +1,34 @@
+
+  
+  <sb-data-table  
+   [data]="data()"
+   [columns]="tableColumns()"
+   (addItem)="onAddItem()"
+   (action)="onAction($event)"
+   [rowClickable]="rowClickable() && !!updateFormTemplate()"
+   [rowClickableFn]="rowClickableFn()"
+   [canAddItem]="!!addFormTemplate()"
+   [loading]="loading()"
+   [addItemTooltip]="addItemTooltip()"
+   (rowClick)="onRowClick($event)"/>
+   
+  @if (updateFormTemplate(); as updateFormTemplate) {
+    <sb-modal
+      [(open)]="_showUpdateForm"
+      [template]="updateFormTemplate"
+      [templateData]="_updateItem()"/>
+  }
+    
+  @if (addFormTemplate(); as addFormTemplate) {
+      <sb-modal
+        [(open)]="_showAddForm"
+        [template]="addFormTemplate"/>        
+  }
+    
+
+  
+<sb-notifications-modal-mat 
+    [errorMsg]="errorMsg()" 
+    [toastMsg]="successMsg()" 
+    [isLoading]="loading()" 
+    [loadingMessage]="'Loading ...'" />
