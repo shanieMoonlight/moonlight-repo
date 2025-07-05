@@ -138,12 +138,44 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "68b2cdeab384078a1e4b3b4c2d4ed3e15a2953c2",
+        "ref": "6428e6c178f0ca858e152826130fc5a46af11ed6",
+        "nextSteps": []
+      },
+      "migrate-provide-server-rendering-import": {
+        "type": "successful",
+        "name": "migrate-provide-server-rendering-import",
+        "changedFiles": [
+          {
+            "path": "apps/tutorials/tutorials/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/sb-mat-thm-demo/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/mini-state/demo/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/myid/myid-demo/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/routes/routes/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/hub/sb-hub/src/app/app.config.server.ts",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "75101ddbe7140d82cacbcb4bd5554f1ac35340eb",
         "nextSteps": []
       }
     },
     "runningMigrations": [
-      "update-angular-cli-version-20-0-0"
+      "migrate-provide-server-rendering-import"
     ]
   }
 }
