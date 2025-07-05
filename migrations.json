@@ -115,6 +115,23 @@
       "subject": "@ng-matero/extensions and firebase updates"
     },
     "targetVersion": "latest",
-    "confirmedPackageUpdates": true
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [
+      "21-1-0-add-ignore-entries-for-nx-rule-files"
+    ],
+    "completedMigrations": {
+      "21-1-0-add-ignore-entries-for-nx-rule-files": {
+        "type": "successful",
+        "name": "21-1-0-add-ignore-entries-for-nx-rule-files",
+        "changedFiles": [
+          {
+            "path": ".gitignore",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "2616e311e8e6906671bc517279f72bb49a76ceb0",
+        "nextSteps": []
+      }
+    }
   }
 }
