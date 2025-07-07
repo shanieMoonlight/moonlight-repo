@@ -1,0 +1,51 @@
+<!-- ################################### -->
+
+<ng-template #linksTemplate>
+  <sb-hub-pkg-links 
+    [gitHubRepoUrl]="_gitHubRepoUrl" 
+    [npmPackageUrl]="_npmPackageUrl" />
+</ng-template>
+
+<!-- ################################### -->
+
+<div class="tutorial-content">
+  <section class="intro-section">
+    <h2>🩺 What You'll Learn</h2>
+    <p>
+      This tutorial shows how to use the <b>FirstErrorDirective</b> and <b>FirstErrorComponent</b> to provide accessible, user-friendly, and customizable error handling for Angular Reactive Forms.
+      <br>
+      You'll see how to display only the first error for each control, use custom error messages, and provide a11y-friendly feedback.
+    </p>
+  </section>
+
+  <mat-divider />
+
+  <section class="demo-section">
+    <h2>🔑 Live Demo: Login Form</h2>
+    <sb-hub-blog-first-error-demo />
+  </section>
+
+  <mat-divider />
+
+  <section class="getting-started-section">
+    <h2>🚀 Getting Started</h2>
+    <p>
+      Import the directive and component, then apply <code>sbFormControlFirstError</code> to your form and use <code>sb-first-error</code> for each control.
+    </p>
+    <code [highlight]="_basicExample" language="typescript"></code>
+  </section>
+
+  <mat-divider />
+
+  <section class="advanced-section">
+    <h2>⚡ Advanced Usage</h2>
+    <h3>Custom Error Template</h3>
+    <code [highlight]="_customTemplateExample" language="typescript"></code>
+    <h3>Show Errors for Untouched Controls</h3>
+    <code [highlight]="_showUntouchedExample" language="typescript"></code>
+    <h3>Dynamic Forms</h3>
+    <code [highlight]="_dynamicFormExample" language="typescript"></code>
+    <h3>Custom Error Messages</h3>
+    <code [highlight]="_customErrorMessagesExample" language="typescript"></code>
+  </section>
+</div>

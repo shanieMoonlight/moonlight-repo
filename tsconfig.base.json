@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sb-hub/sections-blog/features-first-error": [
+        "libs/@apps/hub/sections/blog/features/first-error/src/index.ts"
+      ],
       "@moonlight/tools": ["tools/src/index.ts"],
       "@sb-hub/app/entry-point": ["libs/@apps/hub/@entry-point/src/index.ts"],
       "@sb-hub/app/route-definitions": [

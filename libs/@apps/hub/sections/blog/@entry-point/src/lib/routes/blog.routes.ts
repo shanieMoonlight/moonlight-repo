@@ -43,6 +43,11 @@ export const blogRoutes: Route[] = [
       loadComponent: () => import('@sb-hub/sections-blog/features-hash')
         .then((m) => m.HubBlogHashComponent),
     },
+      {
+      path: HubBlogSectionRoutesDefs.route('first-error'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-first-error')
+        .then((m) => m.HubBlogFirstErrorComponent),
+    },
     // {
     //     path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
     //     loadComponent: () => import('@spider-baby/posts-route-defs-tutorial').then((m) => m.PostRouteDefsTutorialComponent),

@@ -3,4 +3,8 @@
  nx g @nx/angular:library-secondary-entry-point --library=spider-baby- --name=button
 
   nx g @nx/angular:library auth --name=spider-baby-myid-auth --import-path=@spider-baby/myid-auth   --tags="myid,auth" --buildable=true --publishable=true --displayBlock=true --prefix=sb --strict=true --standalone=true --style=scss       --dryRun
+
+
+
+   nx g @nx/angular:library libs/ui/utils --name=spider-baby-ui-utils --import-path=@spider-baby/ui-utils   --tags="ui,utils" --buildable=true --publishable=true --displayBlock=true --prefix=sb --strict=true --standalone=true --style=scss
  

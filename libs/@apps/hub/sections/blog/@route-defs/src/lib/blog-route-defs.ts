@@ -14,6 +14,7 @@ type CHILD_ROUTE = 'home'
   | 'portal-tutorial'
   | 'mini-state-tutorial'
   | 'mat-theming'
+  | 'first-error'
 
 //#################################################//
 
