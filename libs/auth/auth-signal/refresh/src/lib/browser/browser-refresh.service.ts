@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { BaseRefreshTokenService, RefreshTokenData } from '@spider-baby/auth-signal';
 import { JwtRefreshTokenStorageService } from './refresh-token-storage.service';
+import { BaseRefreshTokenService, RefreshTokenData } from '../base-refresh.service';
 
 /**
  * Service to handle JWT refresh token operations in a browser environment.
