@@ -27,9 +27,10 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   private expiryTimeout?: ReturnType<typeof setTimeout>;
 
   private _accessToken: WritableSignal<string | null> = signal(null)
-
   /** Current access token value (signal) */
   accessToken = computed(() => this._accessToken())
+  /** Current access token value (Observable) */
+  accessToken$ = toObservable(this.accessToken)
 
   /** Decoded JWT payload (signal) */
   jwtPayload = computed(() => this.decodeToken(this._accessToken()))
@@ -78,10 +79,15 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   issuedAt = computed(() =>
     DateHelpers.fromSeconds(this.getClaimValue('iat') as number | undefined)
   )
+
+  expiration = computed(() => this.getClaimValue('exp') || 0)
+  expiration$ = toObservable(this.expiration)
+
   /** Expiry date (signal, Date or undefined) */
-  expiry = computed(() =>
+  expiryDate = computed(() =>
     DateHelpers.fromSeconds(this.getClaimValue('exp') as number | undefined)
   )
+
   /** Not-before date (signal, Date or undefined) */
   notBefore = computed(() =>
     DateHelpers.fromSeconds(this.getClaimValue('nbf') as number | undefined)
@@ -150,7 +156,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
       return
 
     effect(() => {
-      this.setupExpiryTimer(this.expiry());
+      this.setupExpiryTimer(this.expiryDate());
     })
 
   }
@@ -158,10 +164,11 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   //- - - - - - - - - -//
 
   async initAsync(): Promise<void> {
-  if (!this.isPlatformBrowser()) {
-    this._isReady.set(true); // Ensure SSR never blocks
-    return;
-  }
+
+    if (!this.isPlatformBrowser()) {
+      this._isReady.set(true); // Ensure SSR never blocks
+      return;
+    }
 
     const storedToken = await this.getStoredToken();
     devConsole.log('init, storedToken', storedToken?.substring(0, 15) + '...');
@@ -211,7 +218,7 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
    * True if the current JWT is still valid (not expired)
    */
   protected isTokenStillValid = (): boolean => {
-    const expiry = this.expiry();
+    const expiry = this.expiryDate();
     return !!expiry && new Date() < expiry
   }
 

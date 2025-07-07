@@ -3,12 +3,17 @@ import { JwtStorageService } from '@spider-baby/auth-jwt-utils/storage';
 import { LogErrorContext } from '@spider-baby/auth-signal';
 import { AMyIdAuthService } from './a-myid.auth.service';
 
+
+/**
+ * Service to handle MyId authentication operations in a browser environment.
+ * Uses local storage to store and retrieve JWTs.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class MyIdAuthService extends AMyIdAuthService {
 
-  protected jwtStore = inject(JwtStorageService);
+  private jwtStore = inject(JwtStorageService);
 
   //-------------------//
 
@@ -16,7 +21,6 @@ export class MyIdAuthService extends AMyIdAuthService {
     super()
 
     this.initAsync()
-
   }
 
   //-------------------//
@@ -39,7 +43,6 @@ export class MyIdAuthService extends AMyIdAuthService {
   }
 
   //- - - - - - - - - -//
-
 
   protected override logError(logData: LogErrorContext): void {
     return console.log('AuthTeamRolesService.logError????', logData);

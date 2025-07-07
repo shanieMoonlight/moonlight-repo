@@ -178,6 +178,9 @@
       "@spider-baby/auth-signal/firebase": [
         "libs/auth/auth-signal/firebase/src/index.ts"
       ],
+      "@spider-baby/auth-signal/refresh": [
+        "libs/auth/auth-signal/refresh/src/index.ts"
+      ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [
         "libs/tools/generators/swagger-io-codegen/src/index.ts"
