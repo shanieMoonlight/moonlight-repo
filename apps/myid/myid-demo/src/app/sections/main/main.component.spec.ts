@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from '../../shared/utils/icons/icons.service';
@@ -7,6 +7,9 @@ import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService 
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { LoginService } from '@spider-baby/myid-auth/services';
+import { ComponentRef, signal } from '@angular/core';
+import { ScrollListenerService } from '../../shared/utils/scroll/scroll-listener.service';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -19,6 +22,10 @@ const mockSwUpdate = {
   },
   checkForUpdate: () => Promise.resolve(false),
   activateUpdate: () => Promise.resolve(true)
+};
+// Create a mock ScrollListenerService
+const mockScrollListener = {
+  getScrollPosition: jest.fn(),
 };
 
 // Create a mock SeoConfig object
@@ -53,6 +60,8 @@ const mockPerformanceService = {
 
 describe('MainComponent', () => {
   let component: MainComponent;
+  let fixture: ComponentFixture<MainComponent>;
+  let componentRef: ComponentRef<MainComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -65,14 +74,31 @@ describe('MainComponent', () => {
         { provide: SwUpdate, useValue: mockSwUpdate },
         { provide: StructuredDataService, useValue: mockStructuredDataService },
         { provide: PerformanceService, useValue: mockPerformanceService },
+        { provide: ScrollListenerService, useValue: mockScrollListener },
         UrlUtilsService,], // Provide the IconsService
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(MainComponent);
+    fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
+    componentRef = fixture.componentRef;
+  });
+
+  it('should add the scrolled class', () => {
+
+    mockScrollListener.getScrollPosition.mockReturnValue(signal(200));
+    fixture = TestBed.createComponent(MainComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    const containsClass = fixture.nativeElement.classList.contains('scrolled');
+    expect(containsClass).toBeTruthy();
+
   });
 
   it('should inject IconsService', () => {
     expect(component['_iconsService']).toBeInstanceOf(IconsService);
+  });
+
+  it('should inject LoginService', () => {
+    expect(component['_login']).toBeInstanceOf(LoginService);
   });
 });
