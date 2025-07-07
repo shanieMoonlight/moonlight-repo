@@ -13,8 +13,8 @@ type CHILD_ROUTE = 'home'
   | 'prog-img-tutorial'
   | 'portal-tutorial'
   | 'mini-state-tutorial'
-  | 'mat-theming'
-  | 'first-error'
+  | 'mat-theming-tutorial'
+  | 'first-error-tutorial'
 
 //#################################################//
 

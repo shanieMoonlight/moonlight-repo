@@ -10,9 +10,13 @@ export const DynamicFormExample = `// Handling dynamic forms
 `;
 
 export const CustomErrorMessagesExample = `// Providing custom error messages
-<form [formGroup]="form" [sbFormControlFirstError]="form" [customErrorMessages]="customMessages">
-  <input formControlName="email" placeholder="Email" />
-  <sb-first-error [control]="form.get('email')!" />
+<form [formGroup]="form" 
+    [sbFormControlFirstError]="form" 
+    [customErrorMessages]="customMessages">
+
+    <input formControlName="email" placeholder="Email" />
+    <sb-first-error [control]="form.get('email')!" />
+    
 </form>
 
 // In your component:

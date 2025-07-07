@@ -95,10 +95,9 @@ export class FirstErrorDirective implements OnDestroy {
 
   private removeAllBlurListeners() {
 
-    for (const unlisten of this.blurListeners.values()) {
+    for (const unlisten of this.blurListeners.values()) 
       unlisten()
-    }
-
+    
     this.blurListeners.clear();
   }
 
@@ -132,9 +131,8 @@ export class FirstErrorDirective implements OnDestroy {
             FormErrors.setFirstErrorMessage(name, control, this.customErrorMessages);
           } else if (!control.touched) {
             // Add blur listener if not already present
-            if (!this.blurListeners.has(name)) {
-              this.addBlurListener(name, control);
-            }
+            if (!this.blurListeners.has(name)) 
+              this.addBlurListener(name, control);            
           }
         }
       })

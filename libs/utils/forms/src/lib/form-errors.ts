@@ -8,7 +8,7 @@ export type ErrorMessageFunction = (fieldName: string, errorValue: any) => strin
 export type CustomErrorMessageMap = Map<string, ErrorMessageFunction>;
 
 
-const errorMessageMap = new Map<string, ErrorMessageFunction>([
+const errorMessageMap: CustomErrorMessageMap = new Map<string, ErrorMessageFunction>([
     ['required', (fieldName) => `${fieldName} is required.`],
     ['email', () => 'Please enter a valid email address.'],
     ['minlength', (fieldName, errorValue) => !errorValue ? 'Value is too short' : `${fieldName} must be at least ${errorValue?.requiredLength} characters.`],
@@ -25,7 +25,7 @@ const errorMessageMap = new Map<string, ErrorMessageFunction>([
     ['futureDate', () => 'Date must be in the future.'],
     ['pastDate', () => 'Date must be in the past.'],
     ['strongPassword', () => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'],
-    ['phoneNumber',  (fieldName, errorValue) => !errorValue.message ?'Please enter a valid phone number.': errorValue.message],
+    ['phoneNumber', (fieldName, errorValue) => !errorValue.message ? 'Please enter a valid phone number.' : errorValue.message],
     ['url', () => 'Please enter a valid URL.'],
     ['unique', (fieldName) => `This ${fieldName.toLowerCase()} is already taken.`],
     ['fileSize', (fieldName, errorValue) => !errorValue ? 'File is too large' : `File size must be less than ${errorValue?.maxSize}.`],
@@ -61,10 +61,10 @@ export class FormErrors {
         customErrorMessages?: CustomErrorMessageMap): void {
 
         const currentErrors = control.errors
-        const firstError = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
-        if (firstError)
+        const firstErrorMessage = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
+        if (firstErrorMessage)
             control.setErrors(
-                { ...currentErrors, firstError: firstError },
+                { ...currentErrors, firstError: firstErrorMessage },
                 { emitEvent: false }  // This prevents statusChanges emission
             )
 
@@ -86,7 +86,7 @@ export class FormErrors {
 
 
         const errorValue = control.errors?.[errorKey]
-        const fieldName = this.toTitleCase(name) ?? 'This field'
+        const fieldName = this.toTitleCase(name) 
 
         // Handle string error values (custom error messages)
         if (typeof errorValue === 'string')

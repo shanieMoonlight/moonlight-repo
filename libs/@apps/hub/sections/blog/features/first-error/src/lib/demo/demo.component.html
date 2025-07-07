@@ -7,23 +7,21 @@
       type="email" 
       formControlName="email" 
       placeholder="Enter your email" />
-    <sb-first-error [control]="_form.get('email')!" />
+     @if(_form.get('email')?.errors?.['firstError']; as err) {
+        <span class="error">
+          {{err}}
+        </span>
+    }
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <!-- <input id="password" 
-      sbInputStyle
-      type="password" 
-      formControlName="password" 
-      placeholder="Enter your password" /> -->
    <div class="password-input-container" sbInputWithBtn >
       <input
         [id]="'password'"
         [type]="showPassword() ? 'text' : 'password'"
         formControlName="password"
         placeholder="Enter your password"/>
-      <sb-toggle-icon-button
-        
+      <sb-toggle-icon-button        
         toggledLabel="Hide password"
         untoggledLabel="Show password"
         (toggled)="onPasswordToggle($event)"/>

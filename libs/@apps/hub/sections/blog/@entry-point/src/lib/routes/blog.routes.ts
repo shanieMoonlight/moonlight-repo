@@ -14,7 +14,7 @@ export const blogRoutes: Route[] = [
         .then((m) => m.HubBlogRouteDefsTutorialComponent),
     },
       {
-      path: HubBlogSectionRoutesDefs.route('mat-theming'),
+      path: HubBlogSectionRoutesDefs.route('mat-theming-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-mat-theming')
         .then((m) => m.HubBlogMatThemingComponent),
     },
@@ -44,7 +44,7 @@ export const blogRoutes: Route[] = [
         .then((m) => m.HubBlogHashComponent),
     },
       {
-      path: HubBlogSectionRoutesDefs.route('first-error'),
+      path: HubBlogSectionRoutesDefs.route('first-error-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-first-error')
         .then((m) => m.HubBlogFirstErrorComponent),
     },

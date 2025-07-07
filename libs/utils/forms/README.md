@@ -1,4 +1,4 @@
-# Spider Baby Utils Forms
+# Spider Baby Form Utils 
 
 A comprehensive Angular forms utility library that provides streamlined form validation and error handling with automatic error display and user-friendly messaging.
 
