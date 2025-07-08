@@ -15,7 +15,7 @@ export class FirstErrorDirective implements OnDestroy {
     }
   
     // Custom error messages map to override default error messages.
-    If map returns undefined for a specific error, the default message map will be used.
+    // If map returns undefined for a specific error, the default message map will be used.
     @Input() customErrorMessages?: CustomErrorMessageMap;
 
    //If true, errors will be shown immediately for untouched controls. 

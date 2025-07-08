@@ -112,7 +112,7 @@ export class HubBlogFirstErrorComponent implements OnInit{
       title: this._title,
       description: this._description,
       url: this._router.url,
-      keywords: ['Angular', 'CDK', 'Portal', 'Component', 'Tutorial', 'TypeScript', 'UI Library'],
+      keywords: ['Angular', 'Forms', 'Component', 'Tutorial', 'TypeScript', 'UI Library'],
     });
 
   }
