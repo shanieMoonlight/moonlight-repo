@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sb-hub/sections-blog/features-first-error": [
-        "libs/@apps/hub/sections/blog/features/first-error/src/index.ts"
-      ],
       "@moonlight/tools": ["tools/src/index.ts"],
       "@sb-hub/app/entry-point": ["libs/@apps/hub/@entry-point/src/index.ts"],
       "@sb-hub/app/route-definitions": [
@@ -51,8 +48,14 @@
       "@sb-hub/sections-blog/entry-point": [
         "libs/@apps/hub/sections/blog/@entry-point/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-auth-service": [
+        "libs/@apps/hub/sections/blog/features/auth-service/src/index.ts"
+      ],
       "@sb-hub/sections-blog/features-firebase-deploy": [
         "libs/@apps/hub/sections/blog/features/firebase-deploy/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/features-first-error": [
+        "libs/@apps/hub/sections/blog/features/first-error/src/index.ts"
       ],
       "@sb-hub/sections-blog/features-hash": [
         "libs/@apps/hub/sections/blog/features/hash/src/index.ts"

@@ -1,0 +1,10 @@
+{
+  "name": "@sb-hub/sections-blog/features-auth-service",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^19.2.0",
+    "@angular/router": "19.2.9",
+    "@spider-baby/utils-seo": "0.0.1"
+  },
+  "sideEffects": false
+}

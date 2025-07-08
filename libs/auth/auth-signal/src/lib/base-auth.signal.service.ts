@@ -20,7 +20,9 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   //- - - - - - - - - -//
 
   private _isReady = signal(false);
+  /**Use in things like guards to ensure the service is ready before use */
   isReady = computed(() => this._isReady());
+  /**Use in things like guards to ensure the service is ready before use */
   isReady$ = toObservable(this.isReady);
 
   protected isPlatformBrowser = computed(() => isPlatformBrowser(this._platformId))

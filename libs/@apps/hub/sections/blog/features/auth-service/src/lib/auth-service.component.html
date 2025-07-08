@@ -1,0 +1,298 @@
+<!-- ################################### -->
+
+<!-- Optional Package Links Template -->
+<!-- <ng-template #linksTemplate>
+    <sb-hub-pkg-links 
+        [gitHubRepoUrl]="_gitHubRepoUrl" 
+        [npmPackageUrl]="_npmPackageUrl" />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" /> -->
+
+<!-- ################################### -->
+
+<!-- Hero Banner -->
+<!-- <sb-hub-hero-banner-2 [title]="_title" [subtitle]="_subtitle" [description]="_description" /> -->
+
+<div class="tutorial-content">
+    
+  <!-- Introduction Section -->
+  <section class="intro-section">
+    <h1>{{ _title }}</h1>
+    <h2>{{ _subtitle }}</h2>
+    <p>{{ _description }}</p>
+    
+    <h2>📚 What You'll Learn</h2>
+    <p>
+      This tutorial covers the implementation and usage of a signal-based JWT authentication system in Angular.
+      You'll learn how to use the <strong>BaseAuthSignalService</strong> as a foundation for building robust authentication services,
+      understand JWT token handling with the <strong>JwtHelper</strong> utility, and see how to extend the base service
+      for your specific authentication needs.
+    </p>
+    
+    <ul>
+      <li><strong>JWT Token Structure</strong> - Understanding the JwtPayload interface</li>
+      <li><strong>JWT Helper Utilities</strong> - Decoding and validating tokens</li>
+      <li><strong>Base Auth Service</strong> - Signal-based authentication architecture</li>
+      <li><strong>Custom Implementation</strong> - Extending the base service</li>
+      <li><strong>Usage Examples</strong> - Components, guards, and templates</li>
+    </ul>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Installation Section -->
+  <section class="installation-section">
+    <h2>🚀 Installation</h2>
+    <p>Start by installing the required packages:</p>
+    <pre><code [highlight]="_installationCode" language="typescript"></code></pre>
+    
+    <h3>Setup</h3>
+    <p>Configure your application:</p>
+    <pre><code [highlight]="_setupCode" language="typescript"></code></pre>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- JWT Payload Interface Section -->
+  <section class="jwt-payload-section">
+    <h2>🏗️ JWT Payload Interface</h2>
+    <p>
+      The <code>JwtPayload</code> interface defines the structure of JWT token claims.
+      It includes standard claims (iss, sub, aud, exp, etc.) and common user profile information.
+    </p>
+    
+    <!-- <mat-card class="code-card">
+      <mat-card-header>
+        <mat-card-title>JwtPayload Interface</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> -->
+        <pre><code [highlight]="_jwtPayloadCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <p><strong>Key Claims:</strong></p>
+    <ul>
+      <li><code>sub</code> - Subject (User ID) - Required</li>
+      <li><code>exp</code> - Expiration time</li>
+      <li><code>iat</code> - Issued at time</li>
+      <li><code>role</code> - User roles (string or array)</li>
+      <li><code>email</code>, <code>name</code> - User profile information</li>
+    </ul>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- JWT Helper Section -->
+  <section class="jwt-helper-section">
+    <h2>🔧 JWT Helper Utilities</h2>
+    <p>
+      The <code>JwtHelper</code> class provides static methods for JWT token operations:
+      decoding, validation, and expiry checking. It handles both browser and Node.js environments.
+    </p>
+    
+    <!-- <mat-card class="code-card">
+      <mat-card-header>
+        <mat-card-title>JwtHelper Implementation</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> -->
+        <pre><code [highlight]="_jwtHelperCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <p><strong>Methods:</strong></p>
+    <ul>
+      <li><code>decodeToken(token)</code> - Decode JWT payload</li>
+      <li><code>isRawTokenExpired(token)</code> - Check if raw token is expired</li>
+      <li><code>isTokenExpired(decoded)</code> - Check if decoded token is expired</li>
+      <li><code>urlBase64Decode(str)</code> - Base64 URL decoding utility</li>
+    </ul>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Base Auth Service Section -->
+  <section class="base-auth-service-section">
+    <h2>⚡ BaseAuthSignalService</h2>
+    <p>
+      The <code>BaseAuthSignalService</code> is an abstract base class that provides a complete signal-based
+      authentication system. It handles token storage, automatic expiry management, and exposes all JWT claims
+      as computed signals for reactive UI updates.
+    </p>
+    
+    <!-- <mat-card class="code-card">
+      <mat-card-header>
+        <mat-card-title>BaseAuthSignalService (Excerpt)</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> -->
+        <pre><code [highlight]="_baseAuthSignalServiceCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <h3>Key Features:</h3>
+    <ul>
+      <li><strong>Signal-based</strong> - All properties are reactive computed signals</li>
+      <li><strong>Platform-safe</strong> - Works in both browser and SSR environments</li>
+      <li><strong>Auto-expiry</strong> - Automatically logs out users when tokens expire</li>
+      <li><strong>Extensible</strong> - Abstract methods for custom storage implementations</li>
+      <li><strong>Type-safe</strong> - Generic support for custom JWT payload types</li>
+    </ul>
+    
+    <h3>Abstract Methods to Implement:</h3>
+    <ul>
+      <li><code>storeJwt(token)</code> - Store the JWT token</li>
+      <li><code>removeJwt()</code> - Remove the stored token</li>
+      <li><code>getStoredToken()</code> - Retrieve the stored token</li>
+      <li><code>logError(context)</code> - Handle authentication errors</li>
+    </ul>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Implementation Section -->
+  <section class="implementation-section">
+    <h2>🛠️ Custom Implementation</h2>
+    <p>
+      Create your own authentication service by extending <code>BaseAuthSignalService</code>
+      and implementing the required abstract methods:
+    </p>
+    
+    <!-- <mat-card class="code-card">
+      <mat-card-header>
+        <mat-card-title>Step-by-Step Implementation</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> -->
+        <pre><code [highlight]="_howToImplementCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <h3>Example Implementation:</h3>
+    <!-- <mat-card class="code-card">
+      <mat-card-header>
+        <mat-card-title>AuthSignalService</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> -->
+        <pre><code [highlight]="_authSignalServiceCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Usage Examples Section -->
+  <section class="usage-section">
+    <h2>💡 Usage Examples</h2>
+    
+    <h3>Basic Usage in Components</h3>
+    <p>Use the authentication service in your Angular components:</p>
+    <!-- <mat-card class="code-card">
+      <mat-card-content> -->
+        <pre><code [highlight]="_usageExampleCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <h3>Route Guards</h3>
+    <p>Protect your routes with authentication guards:</p>
+    <!-- <mat-card class="code-card">
+      <mat-card-content> -->
+        <pre><code [highlight]="_guardExampleCode" language="typescript"></code></pre>
+      <!-- </mat-card-content>
+    </mat-card> -->
+    
+    <h3>Available Computed Signals</h3>
+    <p>The service provides many computed signals for reactive UI updates:</p>
+    <ul>
+      <li><code>isLoggedIn()</code> / <code>isNotLoggedIn()</code> - Authentication status</li>
+      <li><code>userName()</code>, <code>email()</code>, <code>userId()</code> - User information</li>
+      <li><code>roles()</code> - User roles array</li>
+      <li><code>expiryDate()</code>, <code>issuedAt()</code> - Token timing</li>
+      <li><code>hasRole(role)</code> - Role checking method</li>
+      <li><code>accessToken()</code> - Raw JWT token</li>
+      <li><code>jwtPayload()</code> - Decoded token payload</li>
+    </ul>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Advanced Features Section -->
+  <section class="advanced-section">
+    <h2>🔥 Advanced Features</h2>
+    
+    <h3>Automatic Token Expiry Handling</h3>
+    <p>
+      The service automatically monitors token expiration and logs out users when tokens expire.
+      It uses efficient timeout management to handle very long expiry times.
+    </p>
+    
+    <h3>Platform Safety</h3>
+    <p>
+      Built with SSR in mind - safely handles browser-only operations and provides 
+      platform-aware initialization.
+    </p>
+    
+    <h3>Observable Integration</h3>
+    <p>
+      All signals are also available as observables (e.g., <code>isLoggedIn$</code>, <code>accessToken$</code>)
+      for integration with RxJS operators and traditional reactive patterns.
+    </p>
+    
+    <h3>Custom JWT Payload Types</h3>
+    <p>
+      Extend the <code>JwtPayload</code> interface and use generics to add your own custom claims:
+    </p>
+    <pre><code  [highlight]="_customJwtPayloadCode" language="typescript"></code></pre>
+  </section>
+
+  <!-- <mat-divider /> -->
+  
+  <hr>
+
+  <!-- Benefits Section -->
+  <section class="benefits-section">
+    <h2>✨ Benefits</h2>
+    <ul>
+      <li><strong>🚀 Modern Angular</strong> - Built with signals for optimal performance</li>
+      <li><strong>🔒 Type Safety</strong> - Full TypeScript support with generics</li>
+      <li><strong>⚡ Reactive</strong> - Automatic UI updates when auth state changes</li>
+      <li><strong>🌐 Universal</strong> - Works in both browser and SSR environments</li>
+      <li><strong>🛡️ Secure</strong> - Automatic token expiry and validation</li>
+      <li><strong>🔧 Flexible</strong> - Easy to extend and customize</li>
+      <li><strong>📦 Lightweight</strong> - Minimal dependencies</li>
+    </ul>
+  </section>
+
+  <!-- Conclusion Section -->
+  <section class="conclusion-section">
+    <!-- <div class="npm-pkg-container">
+      <h4>📦 Ready to Use?</h4>
+      <div class="npm-pkg-message">
+        Get started with the package:
+        <sb-hub-pkg-links [npmPackageUrl]="_npmPackageUrl" [gitHubRepoUrl]="_gitHubRepoUrl" />
+      </div>
+    </div> -->
+    
+    <!-- <mat-divider/> -->
+    
+    <hr>
+
+    <div class="footer-cta">
+      <p>Happy coding with Angular Signals! 🚀✨</p>
+      <p>Build secure, reactive authentication systems with confidence.</p>
+    </div>
+  </section>
+
+</div>
