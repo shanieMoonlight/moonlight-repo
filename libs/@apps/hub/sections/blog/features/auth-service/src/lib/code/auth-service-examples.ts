@@ -1,32 +1,32 @@
-export const AuthSignalServiceCode = `@Injectable({
-  providedIn: 'root',
-})
-export class AuthSignalService extends BaseAuthSignalService<JwtPayload> {
-  protected jwtStore = inject(JwtStorageService);
+// export const AuthSignalServiceCode = `@Injectable({
+//   providedIn: 'root',
+// })
+// export class AuthSignalService extends BaseAuthSignalService<JwtPayload> {
+//   protected jwtStore = inject(JwtStorageService);
   
-  constructor() {
-    super();
-    this.initAsync();
-  }
+//   constructor() {
+//     super();
+//     this.initAsync();
+//   }
   
-  protected override storeJwt(accessToken: string): Promise<void> {
-    this.jwtStore.storeJwt(accessToken);
-    return Promise.resolve();
-  }
+//   protected override storeJwt(accessToken: string): Promise<void> {
+//     this.jwtStore.storeJwt(accessToken);
+//     return Promise.resolve();
+//   }
   
-  protected override removeJwt(): Promise<void> {
-    this.jwtStore.removeJwt();
-    return Promise.resolve();
-  }
+//   protected override removeJwt(): Promise<void> {
+//     this.jwtStore.removeJwt();
+//     return Promise.resolve();
+//   }
   
-  protected override getStoredToken(): Promise<string | null> {
-    return Promise.resolve(this.jwtStore.getStoredToken());
-  }
+//   protected override getStoredToken(): Promise<string | null> {
+//     return Promise.resolve(this.jwtStore.getStoredToken());
+//   }
   
-  protected override logError(logData: LogErrorContext): void {
-    return console.log('AuthSignalService.logError', logData);
-  }
-}`;
+//   protected override logError(logData: LogErrorContext): void {
+//     return console.log('AuthSignalService.logError', logData);
+//   }
+// }`;
 
 export const UsageExampleCode = `// In your Angular component or guard
 constructor(private auth: AuthSignalService) {}
@@ -66,15 +66,20 @@ export class MyComponent {
   constructor(protected auth: AuthSignalService) {}
 }`;
 
-export const GuardExampleCode = `// Using in a route guard
-@Injectable()
-export class AuthGuard implements CanActivate {
-  private auth = inject(AuthSignalService);
-  
-  canActivate(): boolean {
-    return this.auth.isLoggedIn();
-  }
-}
+export const GuardExampleCode = `
+export const authGuard: CanActivateFn = () => {
+  const auth = inject(AuthSignalService);
+  return auth.isReady$.pipe(
+    filter(Boolean),
+    take(1),
+    map(() => auth.isLoggedIn())
+  );
+};
+
+export const simpleAuthGuard: CanActivateFn = () => {
+  const auth = inject(AuthSignalService);
+  return auth.isLoggedIn();
+};
 
 // Using with specific roles
 @Injectable()

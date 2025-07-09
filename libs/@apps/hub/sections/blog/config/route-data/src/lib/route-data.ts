@@ -52,6 +52,15 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.FirstErrorTutorial.large,
     imgPlaceholder: HubAppImages.Blog.FirstErrorTutorial.placeholder,
   },
+  {
+    title: 'Angular JWT Authentication with Signals',
+    description: 'Learn how to implement a robust JWT authentication system in Angular using signals.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('auth-service-tutorial'),
+    icon: 'guard',
+    color: 'tertiary',
+    img: HubAppImages.Blog.AuthServiceTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.AuthServiceTutorial.placeholder,
+  },
   //   {
   //   title: 'Angular Material Theming',
   //   description: 'Master dynamic theming in Angular with @spider-baby/theming - a comprehensive library for Material Design 3 implementation, dark mode support, custom themes, hierarchical theming, and more...',

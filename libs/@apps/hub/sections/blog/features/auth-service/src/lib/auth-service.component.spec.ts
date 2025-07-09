@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { TestBed } from '@angular/core/testing';
 import {HubBlogAuthServiceComponent } from './auth-service.component';
 import { RouterModule } from '@angular/router';
@@ -5,6 +6,8 @@ import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
 import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService, } from '@spider-baby/utils-seo';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -56,6 +59,8 @@ describe('HubBlogAuthServiceComponent', () => {
       imports: [HubBlogAuthServiceComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
         { provide: SeoConfigService, useValue: mockSeoConfig },
         { provide: SeoService, useValue: mockSeoService },
         { provide: SwUpdate, useValue: mockSwUpdate },

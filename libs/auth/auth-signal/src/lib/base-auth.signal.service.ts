@@ -83,7 +83,6 @@ export abstract class BaseAuthSignalService<JWT extends JwtPayload = JwtPayload>
   )
 
   expiration = computed(() => this.getClaimValue('exp') || 0)
-  expiration$ = toObservable(this.expiration)
 
   /** Expiry date (signal, Date or undefined) */
   expiryDate = computed(() =>

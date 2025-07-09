@@ -17,17 +17,19 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/moonlight-repo.git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
     "directory": "libs/auth/auth-signal"
   },
-  "homepage": "https://github.com/your-username/moonlight-repo/tree/main/libs/auth/auth-signal#readme",
+  "homepage": "https://github.com/shanieMoonlight/moonlight-repo/tree/master/libs/auth/auth-signal#readme",
   "peerDependencies": {
     "@angular/core": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "@angular/common": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "@spider-baby/dev-console": "^1.1.2",
     "@spider-baby/utils-common": "^1.0.0",
     "@spider-baby/auth-jwt-utils": "1.0.0",
-    "@angular/router": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+    "@angular/router": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "rxjs": "~7.8.0",
+    "@spider-baby/ssr-storage": "^1.0.2"
   },
   "sideEffects": false,
   "engines": {

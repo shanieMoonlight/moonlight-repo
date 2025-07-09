@@ -2,7 +2,6 @@
   "name": "@sb-hub/sections-blog/features-first-error",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/forms": "19.2.9",
     "@spider-baby/ui-kit": "1.0.0",
@@ -16,7 +15,9 @@
     "@spider-baby/utils-file-saver": "1.1.0",
     "@spider-baby/utils-seo": "0.0.1",
     "ngx-highlightjs": "^14.0.1",
-    "rxjs": "~7.8.0"
+    "rxjs": "~7.8.0",
+    "@spider-baby/utils-portal": "1.0.0",
+    "@sb-hub/shared-ui/hero-banner": "0.0.1"
   },
   "sideEffects": false
 }

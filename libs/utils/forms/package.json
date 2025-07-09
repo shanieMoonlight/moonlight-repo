@@ -1,6 +1,44 @@
 {
   "name": "@spider-baby/utils-forms",
   "version": "1.0.0",
+  "description": "A comprehensive Angular forms utility library for streamlined validation, error handling, and accessible error display.",
+  "keywords": [
+    "angular",
+    "forms",
+    "validation",
+    "error handling",
+    "directive",
+    "component",
+    "accessibility",
+    "spider-baby"
+  ],
+  "author": "Spider Baby Team <opensource@spiderbaby.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "directory": "libs/utils/forms"
+  },
+  "license": "MIT",
+  "main": "./bundles/utils-forms.umd.js",
+  "module": "./fesm2022/utils-forms.mjs",
+  "es2020": "./fesm2020/utils-forms.mjs",
+  "esm2020": "./esm2020/utils-forms.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./fesm2022/utils-forms.mjs"
+    }
+  },
+  "files": [
+    "bundles/",
+    "fesm2022/",
+    "fesm2020/",
+    "esm2020/",
+    "index.d.ts",
+    "package.json",
+    "README.md"
+  ],
   "peerDependencies": {
     "@angular/core": "^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "@angular/forms": "^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",

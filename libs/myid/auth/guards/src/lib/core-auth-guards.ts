@@ -13,19 +13,20 @@ export function createMyIdCustomGuard<T extends AMyIdAuthService = AMyIdAuthServ
   authServiceToken: InjectionToken<T> = MY_ID_AUTH_SERVICE_TOKEN as InjectionToken<T>
 ): CanActivateFn {
   return (route, state) => {
-    const authService = inject(authServiceToken);
+    const auth = inject(authServiceToken);
     const router = inject(MyIdRouter);
 
     const hasRedirect = route.queryParamMap.has(MyIdRouteInfo.Params.REDIRECT_URL_KEY);
     const redirectUrl = hasRedirect
       ? route.queryParamMap.get(MyIdRouteInfo.Params.REDIRECT_URL_KEY)
       : state.url
+      
 
     // Wait for auth state to be ready before checking
-    return authService.isReady$.pipe(
+    return auth.isReady$.pipe(
       filter(Boolean),
       take(1),
-      map(() => checkFn(authService) || router.createLoginUrlTree(redirectUrl ?? undefined))
+      map(() => checkFn(auth) || router.createLoginUrlTree(redirectUrl ?? undefined))
     );
   };
 }

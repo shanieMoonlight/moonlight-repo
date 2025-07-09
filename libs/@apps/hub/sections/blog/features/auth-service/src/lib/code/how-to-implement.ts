@@ -1,13 +1,21 @@
-export const HowToImplementCode = `// Step 1: Create your custom auth service
+export const HowToImplementCode = `
+
 import { Injectable, inject } from '@angular/core';
 import { BaseAuthSignalService, JwtPayload } from '@spider-baby/auth-signal';
-import { JwtStorageService } from '@your-package/jwt-storage';
+import { SsrLocalStorage } from '@spider-baby/ssr-storage';
+
+//###########################//
+
+/** Storage Key*/
+export const JWT_AUTH_KEY = 'spider_baby_auth_key'
+
+//###########################//
 
 @Injectable({
   providedIn: 'root',
 })
 export class MyAuthService extends BaseAuthSignalService<JwtPayload> {
-  private jwtStore = inject(JwtStorageService);
+  protected _localStorage = inject(SsrLocalStorage)
   
   constructor() {
     super();
@@ -16,17 +24,17 @@ export class MyAuthService extends BaseAuthSignalService<JwtPayload> {
   
   // Implement required abstract methods
   protected override storeJwt(accessToken: string): Promise<void> {
-    this.jwtStore.storeJwt(accessToken);
+    this._localStorage.setItem(JWT_AUTH_KEY, accessToken)  ;
     return Promise.resolve();
   }
   
   protected override removeJwt(): Promise<void> {
-    this.jwtStore.removeJwt();
+    this._localStorage.removeItem(JWT_AUTH_KEY);
     return Promise.resolve();
   }
   
   protected override getStoredToken(): Promise<string | null> {
-    return Promise.resolve(this.jwtStore.getStoredToken());
+    return Promise.resolve(this._localStorage.getItem(JWT_AUTH_KEY));
   }
   
   // Optional: Implement error logging

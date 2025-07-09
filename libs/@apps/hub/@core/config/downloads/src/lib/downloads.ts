@@ -38,6 +38,13 @@ export class HubAppDownloads {
 
   }
 
+  
+  static AuthServiceTutorial = class {
+    static readonly Base = 'auth-service-tutorial'
+    static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
+
+  }
+
 
 
 }

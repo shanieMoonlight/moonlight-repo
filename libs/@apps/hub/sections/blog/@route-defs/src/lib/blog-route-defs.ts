@@ -15,7 +15,7 @@ type CHILD_ROUTE = 'home'
   | 'mini-state-tutorial'
   | 'mat-theming-tutorial'
   | 'first-error-tutorial' 
-  | 'auth-service';
+  | 'auth-service-tutorial';
 
 //#################################################//
 
