@@ -182,8 +182,8 @@ export class AccountIoService extends AServerIoService {
   loginRefresh = (
     dto: LoginRefreshDto,
     opts?: unknown
-  ): Observable<MessageResponseDto> =>
-    this._postAction<MessageResponseDto>(
+  ): Observable<JwtPackage> =>
+    this._postAction<JwtPackage>(
       ServerRoutes.Account.action('loginRefresh'),
       dto,
       opts ?? {}

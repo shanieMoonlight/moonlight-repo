@@ -32,6 +32,18 @@ export class HubAppDownloads {
     static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
 
   }
+  static FirstErrorTutorial = class {
+    static readonly Base = 'first-error-tutorial'
+    static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
+
+  }
+
+  
+  static AuthServiceTutorial = class {
+    static readonly Base = 'auth-service-tutorial'
+    static readonly CodeSampleZipFile = RouteUtility.combine(DownloadsDir, this.Base, 'code-samples.zip');
+
+  }
 
 
 

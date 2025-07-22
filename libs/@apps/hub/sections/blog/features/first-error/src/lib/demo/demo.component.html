@@ -1,0 +1,37 @@
+<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="_login()" class="login-form">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input 
+      sbInputStyle  
+      id="email" 
+      type="email" 
+      formControlName="email" 
+      placeholder="Enter your email" />
+     @if(_form.get('email')?.errors?.['firstError']; as err) {
+        <span class="error">
+          {{err}}
+        </span>
+    }
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+   <div class="password-input-container" sbInputWithBtn >
+      <input
+        [id]="'password'"
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="password"
+        placeholder="Enter your password"/>
+      <sb-toggle-icon-button        
+        toggledLabel="Hide password"
+        untoggledLabel="Show password"
+        (toggled)="onPasswordToggle($event)"/>
+    </div>
+    <sb-first-error [control]="_form.get('password')!" />
+  </div>
+    <sb-button type="submit" [disabled]="_form.invalid" color="primary">
+    Login
+  </sb-button>
+</form>
+<div class="demo-hint">
+  <b>Password requirements:</b> At least 6 characters, must include an uppercase letter, an uppercase letter, a number.
+</div>

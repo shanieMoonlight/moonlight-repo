@@ -155,8 +155,27 @@ export class HubAppImages {
       static readonly large = 'dev-assets/images/blog/mat-theming/large/mat-theming-tutorial.jpeg';
       static readonly xLarge = 'dev-assets/images/blog/mat-theming/xlarge/mat-theming-tutorial.jpeg';
     };
+
+    static FirstErrorTutorial = class {
+      static readonly default = 'images/blog/first-error/placeholder/first-error-tutorial.jpeg';
+      static readonly placeholder = 'images/blog/first-error/placeholder/first-error-tutorial.jpeg';
+      static readonly small = 'images/blog/first-error/small/first-error-tutorial.jpeg';
+      static readonly medium = 'images/blog/first-error/medium/first-error-tutorial.jpeg';
+      static readonly large = 'images/blog/first-error/large/first-error-tutorial.jpeg';
+      static readonly xLarge = 'images/blog/first-error/xlarge/first-error-tutorial.jpeg';
+    };
+
+    
+
+    static AuthServiceTutorial = class {
+      static readonly default = 'images/blog/auth-service/placeholder/auth-service1.png';
+      static readonly placeholder = 'images/blog/auth-service/placeholder/auth-service1.png';
+      static readonly small = 'images/blog/auth-service/small/auth-service1.png';
+      static readonly medium = 'images/blog/auth-service/medium/auth-service1.png';
+      static readonly large = 'images/blog/auth-service/large/auth-service1.png';
+      static readonly xLarge = 'images/blog/auth-service/xlarge/auth-service1.png';
+    };
   }; // End of Blog
-  //28 3 5 11 18
 
   //==========================================//
 

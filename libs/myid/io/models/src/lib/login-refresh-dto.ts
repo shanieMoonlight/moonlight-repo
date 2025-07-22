@@ -1,4 +1,4 @@
 export interface LoginRefreshDto {
-  resetToken: string;
+  refreshToken: string;
   deviceId?: string;
 }

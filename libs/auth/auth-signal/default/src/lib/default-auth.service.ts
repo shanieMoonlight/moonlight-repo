@@ -5,7 +5,7 @@ import { BaseAuthSignalService, JwtPayload, LogErrorContext } from '@spider-baby
 @Injectable({
   providedIn: 'root',
 })
-export class SbAuthSignalService extends BaseAuthSignalService<JwtPayload> {
+export class AuthSignalService extends BaseAuthSignalService<JwtPayload> {
 
   protected jwtStore = inject(JwtStorageService);
 

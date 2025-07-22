@@ -9,12 +9,17 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('auth-service-tutorial'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-auth-service')
+        .then((m) => m.HubBlogAuthServiceComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-route-defs-tutorial')
         .then((m) => m.HubBlogRouteDefsTutorialComponent),
     },
       {
-      path: HubBlogSectionRoutesDefs.route('mat-theming'),
+      path: HubBlogSectionRoutesDefs.route('mat-theming-tutorial'),
       loadComponent: () => import('@sb-hub/sections-blog/features-mat-theming')
         .then((m) => m.HubBlogMatThemingComponent),
     },
@@ -42,6 +47,11 @@ export const blogRoutes: Route[] = [
       path: HubBlogSectionRoutesDefs.route('hash'),
       loadComponent: () => import('@sb-hub/sections-blog/features-hash')
         .then((m) => m.HubBlogHashComponent),
+    },
+      {
+      path: HubBlogSectionRoutesDefs.route('first-error-tutorial'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-first-error')
+        .then((m) => m.HubBlogFirstErrorComponent),
     },
     // {
     //     path: HubBlogSectionRoutesDefs.route('route-defs-tutorial'),

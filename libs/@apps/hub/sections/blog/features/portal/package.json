@@ -2,8 +2,20 @@
   "name": "@sb-hub/sections-blog/features-portal",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@spider-baby/utils-mat-everything": "0.0.1",
+    "@spider-baby/utils-portal": "1.0.0",
+    "@angular/router": "19.2.9",
+    "@sb-hub/core-config": "0.0.1",
+    "@sb-hub/shared-ui/pkg-links": "0.0.1",
+    "@spider-baby/utils-seo": "0.0.1",
+    "ngx-highlightjs": "^14.0.1",
+    "@sb-hub/shared-ui/hero-banner": "0.0.1",
+    "@spider-baby/mini-state": "1.1.1",
+    "@spider-baby/utils-file-saver": "1.1.0",
+    "rxjs": "~7.8.0",
+    "@sb-hub/sections-blog/ui-buttons": "0.0.1",
+    "@spider-baby/ui-mat-notifications": "1.0.0"
   },
   "sideEffects": false
 }

@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "**/*.spec.ts",
@@ -13,5 +14,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../auth-signal/default/src/lib/refresh-token-storage.service.ts"]
 }

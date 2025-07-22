@@ -1,0 +1,268 @@
+<!-- ################################### -->
+
+<ng-template #linksTemplate>
+    <sb-hub-pkg-links 
+        [gitHubRepoUrl]="_gitHubRepoUrl" 
+        [npmPackageUrl]="_npmPackageUrl" />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" />
+
+<!-- ################################### -->
+
+<sb-hub-hero-banner-2 [title]="_title" [subtitle]="_subtitle" [description]="_description" [backgroundImage]="_bannerImg" />
+
+<div class="tutorial-content">
+    
+    
+  <sb-hub-blog-ui-btn-download 
+    [showButton]="_showButton()" 
+    [loading]="_isLoading()" 
+    [tooltip]="'Download Code Samples'"
+    (downloadClick)="_dlClick$.next()" />
+  
+    <section class="intro-section">
+    <h2>📚 What You'll Learn</h2>
+    <p>
+      This tutorial shows how to create and use the <b>FirstErrorDirective</b> and <b>FirstErrorComponent</b> to provide accessible, user-friendly, and customizable error handling for Angular Reactive Forms.
+      <br>
+      You'll see how to display only the first error for each control, use custom error messages, and provide a11y-friendly feedback, with very little boilerplate.
+    </p>
+  </section>
+
+  <mat-divider />
+
+  <section class="demo-section">
+    <h2>🔑 Live Demo: Login Form</h2>
+    <div class="demo-form-container">
+        <sb-hub-blog-first-error-demo />
+    </div>
+  </section>
+
+  <mat-divider />
+
+
+
+  <mat-divider />
+
+  <section class="getting-started-section">
+    <h2>🚀 Using the Directive</h2>
+    <p>
+      Import the directive and component, then apply <code>sbFormControlFirstError</code> to your form and use <code>sb-first-error</code> for each control.
+    </p>
+    <pre><code [highlight]="_basicExample" language="html"></code></pre>
+  </section>
+
+  <mat-divider />
+
+    <mat-divider />
+
+    <section class="step-by-step-section">
+        <h2>🛠️ Step-by-Step: Building Your Own <code>FirstErrorDirective</code></h2>
+        <p>
+            This section walks you through the process of creating a <b>FirstErrorDirective</b> from scratch, explaining each part and the supporting
+            helper functions.
+            By the end, you'll understand how to build a robust, accessible error display system for Angular Reactive Forms.
+        </p>
+        <p>
+            Our goal is to create a directive that shows only the first error for each form control.
+            <br>
+            So, for example, if your password control has a required error, a minLength error, hasUppercase, etc, we want to show only the first one.
+            Not 4 or 5 at the same time
+            <br>
+            To do this we'll find invalid controls, identify the first error (if any) and append that to the controls error list as a new error object:
+            &#123;firstError: firstErrorMessage&#125;.
+        </p>
+        Then in the template:
+        <pre><code [highlight]="_firtErrorHtmlDiplay" language="typescript"></code></pre>
+
+        <h3> Directive Skeleton &amp; Inputs</h3>
+        <p>
+            Start by creating a standalone directive with the selector <code>[sbFormControlFirstError]</code>. 
+            <br>
+            Inject <code>PLATFORM_ID</code>,
+            <code>Renderer2</code>, and <code>ElementRef</code> for platform checks, DOM manipulation, and host access. 
+            <br>
+            Define the main input for the
+            <code>FormGroup</code> and optional inputs for custom error messages and error display behavior.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header>
+                <mat-card-title>Directive Skeleton &amp; Inputs</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_directiveSkeletonCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li><b>sbFormControlFirstError</b>: The form group to monitor.</li>
+            <li><b>customErrorMessages</b>: Optional map for custom error messages.</li>
+            <li><b>showUntouched</b>: Show errors for untouched controls (default: false).</li>
+        </ul>
+
+        <h3> Observing Form Status &amp; Value Changes</h3>
+        <p>
+            The directive subscribes to <code>form.statusChanges</code> and uses a helper to find all invalid controls. For each invalid control, it
+            determines whether to set the first error immediately or wait for the user to blur the field.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header>
+                <mat-card-title>Observing Value Changes</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_observeValueChangesCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Uses <code>FormUtility.findInvalidControlsData</code> to get all invalid controls and their names.
+                More on this later.</li>
+            <li>Sets the first error if the control is touched or <code>showUntouched</code> is true.</li>
+            <li>Otherwise, adds a blur listener to set the error when the user leaves the field.</li>
+        </ul>
+
+        <h3> Adding and Cleaning Up Blur Listeners</h3>
+        <p>
+            For untouched invalid controls, the directive adds a <code>focusout</code> event listener to the input. When the user blurs the field, it
+            sets the first error and removes the listener. All listeners and subscriptions are cleaned up on destroy.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>Blur Listener Management</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_blurListenerCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Uses <code>Renderer2.listen</code> for safe DOM event handling.</li>
+            <li>Removes listeners after use and on directive destroy.</li>
+        </ul>
+
+        <h3> Get the first error message from an invalid control – <code>CustomErrorMessageMap </code></h3>
+        <p>
+            First we create a <code>CustomErrorMessageMap</code> type. This is a map of an error field name to a function that takes the field name and
+            error value and returns a string message.
+            <br>
+            Then create a map of common error fieldNames vs a function to convert the error into a useful message.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-content>
+                <pre><code [highlight]="_errorsMessageMapCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+
+
+
+        <h3> Helper Function – <code>FormErrors.getFirstErrorMessageCode</code></h3>
+        <p>
+            This helper gets the first control with an error and returns a user-friendly error message.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>getFirstErrorMessage Implementation</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_getFirstErrorMessageCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Finds the first error key for the control.</li>
+            <li>Converts it to a message and return the message.</li>
+        </ul>
+
+
+        <h3> Helper Function – <code>FormErrors.setFirstErrorMessage</code></h3>
+        <p>
+            This helper sets a <code>firstError</code> property on the control's errors, containing a user-friendly error message. It uses
+            <code>FormErrors.getFirstErrorMessage</code> to determine the message, supporting both default and custom error maps.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>setFirstErrorMessage Implementation</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_setFirstErrorMessageCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Finds the first error key for the control.</li>
+            <li>Looks up the error message (custom or default).</li>
+            <li>Sets <code>firstError</code> on the control's errors (without emitting events).</li>
+        </ul>
+
+        <h3> Helper Function – <code>FormUtility.findInvalidControlsData</code></h3>
+        <p>
+            This utility returns an array of objects, each containing the name and control instance for every invalid control in the form. It is used
+            to efficiently process all invalid controls during status changes.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>findInvalidControlsData Implementation</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_findInvalidControlsDataCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Iterates over all controls in the form group.</li>
+            <li>Returns an array of <code>{{"{name, contro}"}}</code> for each invalid control.</li>
+        </ul>
+
+
+        <h3> Companion Component– <code>FirstErrorComponent</code></h3>
+        <p>
+            Component that will dispay only first error for a control. 
+            Reduce boilerplate in your templates by using this component.
+        </p>
+        <mat-card class="code-card">
+            <!-- <mat-card-header><mat-card-title>findInvalidControlsData Implementation</mat-card-title></mat-card-header> -->
+            <mat-card-content>
+                <pre><code [highlight]="_firstErrorComponentTsCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        <ul>
+            <li>Displays the first error if exists other wise renders nothing.</li>
+            <li>Usage: <code [highlight]="_firstErrorComponentUsageHtmlCode"  language="typescript"></code></li>
+        </ul>
+
+        <h3> Putting It All Together</h3>
+        <p>
+            With these pieces, the <code>FirstErrorDirective</code> provides a robust, accessible, and customizable way to show only the first error
+            for each form control, with minimal boilerplate in your templates.
+        </p>
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>Full Directive Example</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_fullDirectiveCode" language="typescript"></code></pre>
+            </mat-card-content>
+        </mat-card>
+        
+        <mat-card class="code-card">
+            <mat-card-header><mat-card-title>Using the directive</mat-card-title></mat-card-header>
+            <mat-card-content>
+                <pre><code [highlight]="_firstErrorUsageHtmlCode" language="html"></code></pre>
+            </mat-card-content>
+        </mat-card>
+    </section>
+ 
+    <mat-divider />
+
+    
+  <section class="advanced-section">
+    <h2>⚡ Advanced Usage</h2>
+    <h3>Show Errors for Untouched Controls</h3>
+    <pre><code [highlight]="_showUntouchedExample" language="html"></code></pre>
+    <h3>Custom Error Messages</h3>
+    <pre><code [highlight]="_customErrorMessagesExample" language="html"></code></pre>
+    <h3>Custom Error Template</h3>
+      <pre><code [highlight]="_customTemplateExample" language="html"></code></pre>
+  </section>
+
+
+   <!-- Conclusion Section -->
+  <section class="conclusion-section">
+    
+    <div class="npm-pkg-container">
+      <h4>🦥 Too Lazy to build your own?</h4>
+      <div class="npm-pkg-message">
+        Here's one I prepared earlier:
+          <sb-hub-pkg-links  [npmPackageUrl]="_npmPackageUrl" />
+      </div>
+    </div>
+    
+    <mat-divider/>
+
+    <div class="footer-cta">
+      <p>Happy coding with Angular! 🕷️✨</p>
+    </div>
+  </section>

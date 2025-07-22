@@ -48,8 +48,14 @@
       "@sb-hub/sections-blog/entry-point": [
         "libs/@apps/hub/sections/blog/@entry-point/src/index.ts"
       ],
+      "@sb-hub/sections-blog/features-auth-service": [
+        "libs/@apps/hub/sections/blog/features/auth-service/src/index.ts"
+      ],
       "@sb-hub/sections-blog/features-firebase-deploy": [
         "libs/@apps/hub/sections/blog/features/firebase-deploy/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/features-first-error": [
+        "libs/@apps/hub/sections/blog/features/first-error/src/index.ts"
       ],
       "@sb-hub/sections-blog/features-hash": [
         "libs/@apps/hub/sections/blog/features/hash/src/index.ts"
@@ -177,6 +183,9 @@
       ],
       "@spider-baby/auth-signal/firebase": [
         "libs/auth/auth-signal/firebase/src/index.ts"
+      ],
+      "@spider-baby/auth-signal/refresh": [
+        "libs/auth/auth-signal/refresh/src/index.ts"
       ],
       "@spider-baby/dev-console": ["libs/utils/dev-console/src/index.ts"],
       "@spider-baby/generators-swagger-io-codegen": [

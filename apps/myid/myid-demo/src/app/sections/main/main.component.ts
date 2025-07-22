@@ -10,6 +10,7 @@ import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-inf
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { ScrollListenerService } from '../../shared/utils/scroll/scroll-listener.service';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
+import { LoginService } from '@spider-baby/myid-auth/services';
 
 
 @Component({
@@ -39,6 +40,8 @@ import { MainNavbarComponent } from './ui/navbar/navbar.component';
 export class MainComponent {
 
   protected _iconsService = inject(IconsService)
+  //IMport to trigger rtokenrefresh autho login
+  protected _login = inject(LoginService)
   protected _scrollListener = inject(ScrollListenerService)
   protected _el = inject(ElementRef)
 

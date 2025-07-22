@@ -1,8 +1,10 @@
 import { inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
-import { catchError, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { MyIdAuthService } from '../auth/myid.auth.browser.service';
+import { RefreshTokenService } from '@spider-baby/auth-signal/refresh';
 
 
 @Injectable({
@@ -12,6 +14,21 @@ export class LoginService {
 
   private _auth = inject(MyIdAuthService);
   private _accIoService = inject(AccountIoService);
+  private _refreshService = inject(RefreshTokenService);
+
+  //-----------------//
+
+  constructor() {
+    this._refreshService.refresh$
+      .pipe(
+        switchMap(data => this.refreshJwt(data.refreshToken)),
+        takeUntilDestroyed()
+      )
+      .subscribe({
+        next: (jwt) => this.onLoginSuccessJwt(jwt),
+        error: (error) => this.onLoginError(error)
+      });
+  }
 
   //-----------------//
 
@@ -23,6 +40,16 @@ export class LoginService {
         catchError((error) => this.onLoginError(error))
       )
 
+  }
+
+  //-----------------//
+
+  refreshJwt(refreshToken: string): Observable<JwtPackage> {
+    return this._accIoService.loginRefresh({ refreshToken })
+      .pipe(
+        tap((jwt) => this.onLoginSuccessJwt(jwt)),
+        catchError((error) => this.onLoginError(error))
+      )
   }
 
   //-----------------//
@@ -85,7 +112,9 @@ export class LoginService {
 
   }
 
+
   //-----------------//
+
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private onLoginError(error: any) {
@@ -96,9 +125,17 @@ export class LoginService {
   //- - - - - - - - -//
 
   private onLoginSuccessJwt(jwt: JwtPackage): Observable<JwtPackage> {
+
     if (jwt.accessToken)
       this._auth.logIn(jwt.accessToken);
-      // this._auth.logIn(sampleJwt);
+
+    if (jwt.refreshToken && jwt.expiration) {
+      this._refreshService.setRefreshState({
+        refreshToken: jwt.refreshToken,
+        expiration: jwt.expiration
+      });
+    }
+
     return of(jwt);
   }
 
@@ -110,8 +147,10 @@ export class LoginService {
 
   //-----------------//
 
-  logout = () =>
+  logout = () => {
     this._auth.logOut();
+    this._refreshService.clearRefreshState();
+  };
 
 
 } //Cls

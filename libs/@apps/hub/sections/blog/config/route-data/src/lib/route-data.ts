@@ -16,7 +16,7 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     imgPlaceholder: HubAppImages.Blog.RouteDefsTutorial.placeholder,
 
   },
-    {
+  {
     title: 'Progressive Image Loading in Angular',
     description: 'Learn how to build a progressive image loading component in Angular that enhances user experience by loading low-quality placeholder images first, followed by high-quality versions when ready.',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route('prog-img-tutorial'),
@@ -25,16 +25,16 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.ProgImgsTutorial.large,
     imgPlaceholder: HubAppImages.Blog.ProgImgsTutorial.placeholder,
   },
-    {
-    title: 'Angular CDK Portal System Tutorial',
-    description: 'Learn how to create a powerful Portal system using Angular CDK that allows you to dynamically render content anywhere in your application. Master portal inputs, outlets, bridges, and advanced patterns for complex UI scenarios.',
-    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('portal-tutorial'),
-    icon: 'door_front',
+  {
+    title: 'Angular JWT Authentication with Signals',
+    description: 'Learn how to implement a robust JWT authentication system in Angular using signals.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('auth-service-tutorial'),
+    icon: 'guard',
     color: 'tertiary',
-    img: HubAppImages.Blog.PortalTutorial.large,
-    imgPlaceholder: HubAppImages.Blog.PortalTutorial.placeholder,
+    img: HubAppImages.Blog.AuthServiceTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.AuthServiceTutorial.placeholder,
   },
-    {
+  {
     title: 'Angular Mini-State Management Tutorial',
     description: 'Learn how to build reactive Angular applications with MiniState - a lightweight state management library that simplifies async operations, loading states, error handling, and UI feedback.',
     route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mini-state-tutorial'),
@@ -42,6 +42,24 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     color: 'primary',
     img: HubAppImages.Blog.MiniStateTutorial.large,
     imgPlaceholder: HubAppImages.Blog.MiniStateTutorial.placeholder,
+  },
+  {
+    title: 'Form Error Handling in Angular',
+    description: 'Learn how to build accessible, user-friendly error handling for Angular Reactive Forms. This tutorial covers showing only the first error per field, custom error messages, a11y best practices, and minimal template boilerplate.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('first-error-tutorial'),
+    icon: 'assignment_late',
+    color: 'secondary',
+    img: HubAppImages.Blog.FirstErrorTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.FirstErrorTutorial.placeholder,
+  },
+  {
+    title: 'Angular CDK Portal System Tutorial',
+    description: 'Learn how to create a powerful Portal system using Angular CDK that allows you to dynamically render content anywhere in your application. Master portal inputs, outlets, bridges, and advanced patterns for complex UI scenarios.',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('portal-tutorial'),
+    icon: 'door_front',
+    color: 'tertiary',
+    img: HubAppImages.Blog.PortalTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.PortalTutorial.placeholder,
   },
   //   {
   //   title: 'Angular Material Theming',

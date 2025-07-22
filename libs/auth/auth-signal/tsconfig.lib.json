@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["node"]
+    "types": ["node"],
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "**/*.spec.ts",
@@ -13,5 +14,8 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts", "../../../apps/myid/myid-demo/src/app/shared/auth/services/login/secret.ts"]
+  "include": [
+    "**/*.ts",
+    "../../../apps/myid/myid-demo/src/app/shared/auth/services/login/secret.ts"
+  ]
 }

@@ -13,7 +13,9 @@ type CHILD_ROUTE = 'home'
   | 'prog-img-tutorial'
   | 'portal-tutorial'
   | 'mini-state-tutorial'
-  | 'mat-theming'
+  | 'mat-theming-tutorial'
+  | 'first-error-tutorial' 
+  | 'auth-service-tutorial';
 
 //#################################################//
 
