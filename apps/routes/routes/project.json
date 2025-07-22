@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/routes/routes",
         "index": "apps/routes/routes/src/index.html",
         "browser": "apps/routes/routes/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/routes/routes/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -31,9 +27,7 @@
             "output": "route-defs-tutorial"
           }
         ],
-        "styles": [
-          "apps/routes/routes/src/styles.scss"
-        ],
+        "styles": ["apps/routes/routes/src/styles.scss"],
         "scripts": [],
         "server": "apps/routes/routes/src/main.server.ts",
         "ssr": {
@@ -93,9 +87,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/routes/routes/jest.config.ts"
       }

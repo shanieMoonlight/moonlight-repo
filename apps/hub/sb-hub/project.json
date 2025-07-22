@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/hub/sb-hub",
         "index": "apps/hub/sb-hub/src/index.html",
         "browser": "apps/hub/sb-hub/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/hub/sb-hub/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -31,9 +27,7 @@
             "output": "route-defs-tutorial"
           }
         ],
-        "styles": [
-          "apps/hub/sb-hub/src/styles.scss"
-        ],
+        "styles": ["apps/hub/sb-hub/src/styles.scss"],
         "scripts": [],
         "server": "apps/hub/sb-hub/src/main.server.ts",
         "ssr": {
@@ -93,9 +87,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/hub/sb-hub/jest.config.ts"
       }

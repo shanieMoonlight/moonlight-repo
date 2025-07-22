@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ErrorHandler, inject, Injectable, isDevMode, PLATFORM_ID, Provider } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import { ErrorHandler, inject, Injectable, isDevMode, PLATFORM_ID, Provider, DOCUMENT } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
 import { ToastData, SbToastService } from '@spider-baby/ui-toast';
 import { ErrorDownloadService } from './error-download.service';

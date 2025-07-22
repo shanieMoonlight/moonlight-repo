@@ -10,7 +10,8 @@
 
 // @angular/material - Include core styles 
 // (only needed once per application)
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 
 html {

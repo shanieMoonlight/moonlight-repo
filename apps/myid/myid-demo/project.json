@@ -8,30 +8,22 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/myid/myid-demo",
         "index": "apps/myid/myid-demo/src/index.html",
         "browser": "apps/myid/myid-demo/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/myid/myid-demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/myid/myid-demo/public",
-            "ignore": [
-              "dev-assets/**"
-            ]
+            "ignore": ["dev-assets/**"]
           }
         ],
-        "styles": [
-          "apps/myid/myid-demo/src/styles.scss"
-        ],
+        "styles": ["apps/myid/myid-demo/src/styles.scss"],
         "scripts": [],
         "server": "apps/myid/myid-demo/src/main.server.ts",
         "ssr": {
@@ -97,9 +89,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/myid/myid-demo/jest.config.ts"
       }

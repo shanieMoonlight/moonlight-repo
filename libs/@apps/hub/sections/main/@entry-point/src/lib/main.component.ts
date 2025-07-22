@@ -1,11 +1,11 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {  MlDarkModeToggleMatComponent,  MlThemePickerMatComponent,} from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { HubMainNavbarComponent } from '@sb-hub/sections-main/ui/nav';
 import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
-import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   standalone: true,

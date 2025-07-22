@@ -27,8 +27,8 @@ mat-divider {
       font-size: 2rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
-      color: var(--mdc-theme-primary);
-      border-bottom: 2px solid var(--mdc-theme-primary);
+      color: var(--mat-theme-primary);
+      border-bottom: 2px solid var(--mat-theme-primary);
       padding-bottom: 0.5rem;
     }
 
@@ -36,20 +36,20 @@ mat-divider {
       font-size: 1.5rem;
       font-weight: 500;
       margin-bottom: 1rem;
-      color: var(--mdc-theme-on-surface);
+      color: var(--mat-theme-on-surface);
     }
 
     h4 {
       font-size: 1.2rem;
       font-weight: 500;
       margin-bottom: 0.75rem;
-      color: var(--mdc-theme-on-surface);
+      color: var(--mat-theme-on-surface);
     }
 
     p {
       line-height: 1.6;
       margin-bottom: 1rem;
-      color: var(--mdc-theme-on-surface-variant);
+      color: var(--mat-theme-on-surface-variant);
     }
 
     ul {
@@ -59,7 +59,7 @@ mat-divider {
       li {
         margin-bottom: 0.5rem;
         line-height: 1.5;
-        color: var(--mdc-theme-on-surface-variant);
+        color: var(--mat-theme-on-surface-variant);
       }
     }
 
@@ -70,7 +70,7 @@ mat-divider {
       li {
         margin-bottom: 0.5rem;
         line-height: 1.5;
-        color: var(--mdc-theme-on-surface-variant);
+        color: var(--mat-theme-on-surface-variant);
       }
     }
   }
@@ -85,10 +85,10 @@ mat-divider {
 }
 
 .feature-card {
-  background: var(--mdc-theme-surface-variant);
+  background: var(--mat-theme-surface-variant);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid var(--mdc-theme-outline-variant);
+  border: 1px solid var(--mat-theme-outline-variant);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -99,13 +99,13 @@ mat-divider {
   h3 {
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
   }
 
   p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--mdc-theme-on-surface-variant);
+    color: var(--mat-theme-on-surface-variant);
   }
 }
 
@@ -113,24 +113,24 @@ mat-divider {
 .code-card,
 .example-card,
 .step-card {
-  background: var(--mdc-theme-surface);
+  background: var(--mat-theme-surface);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid var(--mdc-theme-outline-variant);
+  border: 1px solid var(--mat-theme-outline-variant);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
   h3 {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
     font-size: 1.3rem;
   }
 
   h4 {
     margin-top: 1rem;
     margin-bottom: 0.75rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
     font-size: 1.1rem;
   }
 
@@ -160,10 +160,10 @@ mat-divider {
 }
 
 .theme-preview-card {
-  background: var(--mdc-theme-surface);
+  background: var(--mat-theme-surface);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid var(--mdc-theme-outline-variant);
+  border: 1px solid var(--mat-theme-outline-variant);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -174,7 +174,7 @@ mat-divider {
   h4 {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
     font-size: 1.1rem;
   }
 
@@ -187,7 +187,7 @@ mat-divider {
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      border: 1px solid var(--mdc-theme-outline);
+      border: 1px solid var(--mat-theme-outline);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -200,7 +200,7 @@ mat-divider {
 
   .theme-description {
     font-size: 0.9rem;
-    color: var(--mdc-theme-on-surface-variant);
+    color: var(--mat-theme-on-surface-variant);
     margin: 0;
   }
 }
@@ -208,7 +208,7 @@ mat-divider {
 // Download section
 .download-section {
   text-align: center;
-  background: var(--mdc-theme-surface-variant);
+  background: var(--mat-theme-surface-variant);
   border-radius: 12px;
   padding: 2rem;
   margin: 2rem 0;
@@ -227,46 +227,46 @@ mat-divider {
   margin-top: 1rem;
 
   .success-message {
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
     font-weight: 500;
   }
 
   .error-message {
-    color: var(--mdc-theme-error);
+    color: var(--mat-theme-error);
     font-weight: 500;
   }
 }
 
 // Concept explanations
 .concept-explanation {
-  background: var(--mdc-theme-surface-variant);
+  background: var(--mat-theme-surface-variant);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border-left: 4px solid var(--mdc-theme-primary);
+  border-left: 4px solid var(--mat-theme-primary);
 
   h3 {
     margin-top: 0;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
   }
 
   h4 {
     margin-top: 1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
   }
 }
 
 // Best practices section
 .best-practices {
-  background: var(--mdc-theme-surface-variant);
+  background: var(--mat-theme-surface-variant);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1.5rem 0;
-  border-left: 4px solid var(--mdc-theme-secondary);
+  border-left: 4px solid var(--mat-theme-secondary);
 
   h3 {
     margin-top: 0;
-    color: var(--mdc-theme-secondary);
+    color: var(--mat-theme-secondary);
     font-size: 1.2rem;
   }
 
@@ -278,7 +278,7 @@ mat-divider {
       line-height: 1.5;
 
       strong {
-        color: var(--mdc-theme-on-surface);
+        color: var(--mat-theme-on-surface);
       }
     }
   }
@@ -286,17 +286,17 @@ mat-divider {
 
 // Integration highlights
 .integration-highlight {
-  background: linear-gradient(135deg, var(--mdc-theme-primary-container) 0%, var(--mdc-theme-tertiary-container) 100%);
+  background: linear-gradient(135deg, var(--mat-theme-primary-container) 0%, var(--mat-theme-tertiary-container) 100%);
   border-radius: 12px;
   padding: 2rem;
   margin: 2rem 0;
   text-align: center;
-  border: 2px solid var(--mdc-theme-primary);
+  border: 2px solid var(--mat-theme-primary);
 
   h3 {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
     font-size: 1.4rem;
     font-weight: 600;
   }
@@ -304,10 +304,10 @@ mat-divider {
   p {
     margin-bottom: 0;
     font-size: 1.1rem;
-    color: var(--mdc-theme-on-primary-container);
+    color: var(--mat-theme-on-primary-container);
 
     strong {
-      color: var(--mdc-theme-primary);
+      color: var(--mat-theme-primary);
       font-weight: 600;
     }
   }
@@ -322,10 +322,10 @@ mat-divider {
 }
 
 .service-example-card {
-  background: var(--mdc-theme-surface);
+  background: var(--mat-theme-surface);
   border-radius: 8px;
   padding: 1.5rem;
-  border: 1px solid var(--mdc-theme-outline-variant);
+  border: 1px solid var(--mat-theme-outline-variant);
   transition: transform 0.2s ease;
 
   &:hover {
@@ -336,7 +336,7 @@ mat-divider {
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 1.1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
   }
 
   p {
@@ -367,10 +367,10 @@ mat-divider {
 }
 
 .api-card {
-  background: var(--mdc-theme-surface);
+  background: var(--mat-theme-surface);
   border-radius: 8px;
   padding: 1.5rem;
-  border: 1px solid var(--mdc-theme-outline-variant);
+  border: 1px solid var(--mat-theme-outline-variant);
   transition: transform 0.2s ease;
 
   &:hover {
@@ -381,7 +381,7 @@ mat-divider {
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 1.1rem;
-    color: var(--mdc-theme-primary);
+    color: var(--mat-theme-primary);
   }
 
   p {
@@ -391,27 +391,27 @@ mat-divider {
   }
 
   .api-signature {
-    background: var(--mdc-theme-surface-variant);
+    background: var(--mat-theme-surface-variant);
     border-radius: 4px;
     padding: 0.5rem;
     margin: 0.5rem 0;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 0.85rem;
-    color: var(--mdc-theme-on-surface);
+    color: var(--mat-theme-on-surface);
   }
 }
 
 // Package info container
 .npm-pkg-container {
   margin: 3rem 0;
-  background: var(--mdc-theme-surface-variant);
+  background: var(--mat-theme-surface-variant);
   border-radius: 8px;
   padding: 1.5rem;
-  border-left: 4px solid var(--mdc-theme-secondary);
+  border-left: 4px solid var(--mat-theme-secondary);
 
   h4 {
     margin: 0 0 1rem 0;
-    color: var(--mdc-theme-secondary);
+    color: var(--mat-theme-secondary);
     font-weight: 600;
   }
 
@@ -419,7 +419,7 @@ mat-divider {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--mdc-theme-on-surface);
+    color: var(--mat-theme-on-surface);
 
     sb-hub-pkg-links {
       display: inline-block;
@@ -430,7 +430,7 @@ mat-divider {
 // Footer CTA
 .footer-cta {
   text-align: center;
-  background: linear-gradient(135deg, var(--mdc-theme-primary) 0%, var(--mdc-theme-secondary) 100%);
+  background: linear-gradient(135deg, var(--mat-theme-primary) 0%, var(--mat-theme-secondary) 100%);
   padding: 2rem;
   border-radius: 12px;
   margin-top: 2rem;

@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable } from '@angular/core';
+
+import { inject, Injectable, DOCUMENT } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { UrlUtilsService } from './url.service';

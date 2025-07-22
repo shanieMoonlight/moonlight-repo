@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, RendererFactory2 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID, RendererFactory2, DOCUMENT } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@spider-baby/material-theming/config";
 import { ColorUtilsService } from '@spider-baby/material-theming/utils';
 import { MemoizationService } from '@spider-baby/utils-memoization';

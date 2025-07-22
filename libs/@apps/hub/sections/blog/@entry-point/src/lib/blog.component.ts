@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Component, inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HubBlogNavbarComponent } from '@sb-hub/sections-blog/ui-nav';
 import { IconsService } from '@sb-hub/shared-utils/icons';
