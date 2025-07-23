@@ -29,6 +29,9 @@ export class FirebaseUtilsService {
     if (!isPlatformBrowser(this._platformId))
       return
     this._app = getApp();
+    console.log(this._app);
+    console.log(this._analytics);
+    
   }
 
   //-----------------------------//

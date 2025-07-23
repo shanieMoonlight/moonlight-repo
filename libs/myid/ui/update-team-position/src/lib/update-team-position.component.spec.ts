@@ -116,7 +116,7 @@ describe('SbUpdateTeamPositionFormComponent', () => {
     const inputDataNoUsername: UserInputDateDto = {
       id: '123',
       email: 'test@t.com',
-      userName: undefined,
+      userName: '',
       teamPosition: 2,
     };
     fixture.componentRef.setInput('member', inputDataNoUsername);

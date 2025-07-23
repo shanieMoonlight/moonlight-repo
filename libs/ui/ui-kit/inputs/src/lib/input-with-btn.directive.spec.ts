@@ -76,7 +76,7 @@ describe('SbInputWithBtnDirective', () => {
       expect(inputElement.style.borderBottomLeftRadius).toBe('inherit');
       expect(inputElement.style.backgroundColor).toBe('transparent');
       expect(inputElement.style.outline).toBe('none');
-      expect(inputElement.style.flex).toBe('1');
+      expect(inputElement.style.flex).toBe('1 1 0%');
     });
   });
 
@@ -176,7 +176,7 @@ describe('SbInputWithBtnDirective', () => {
     // All should have the same input styling applied
     inputs.forEach(input => {
       expect(input.style.padding).toBe('0.75rem 1rem');
-      expect(input.style.flex).toBe('1');
+      expect(input.style.flex).toBe('1 1 0%');
     });
   });
 

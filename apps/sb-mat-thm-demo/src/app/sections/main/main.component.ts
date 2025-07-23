@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { environment } from "../../../environments/environment";
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
 import { FirebaseUtilsService } from '@spider-baby/utils-firebase';
 import { devConsole } from '@spider-baby/dev-console';
+import { environment } from "../../../environments/environment";
+import { getApp } from 'firebase/app';
 
 @Component({
   imports: [
@@ -24,11 +25,14 @@ import { devConsole } from '@spider-baby/dev-console';
 export class MainComponent {
 
   iconsService = inject(IconsService)
-  myFirebase = inject(FirebaseUtilsService)
+  // myFirebase = inject(FirebaseUtilsService)
 
   constructor() {
-    this.myFirebase.logConnectionTest()
-    devConsole.log('test:firebaseAppName:',  this.myFirebase.appName);
+    const app = getApp()
+    console.log(app);
+    
+    // this.myFirebase.logConnectionTest()
+    // devConsole.log('test:firebaseAppName:',  this.myFirebase.appName);
     devConsole.log('test:environment:', environment);
     devConsole.log('test:firebaseConfig:', environment.firebaseConfig)    
   }

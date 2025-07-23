@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ErrorHelpers } from './error-helpers';
 import { DeviceHelpers } from './device-helpers';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 
 describe('ErrorHelpers', () => {
   let service: ErrorHelpers;

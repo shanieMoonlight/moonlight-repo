@@ -1,11 +1,19 @@
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 import '@testing-library/jest-dom';
 import fetch , { Headers, Request, Response } from 'node-fetch';
+import 'zone.js/testing';
 
-global.fetch = fetch as any; // Make node-fetch available globally
-global.Headers = Headers as any;
-global.Request = Request as any;
-global.Response = Response as any; // Add this line
+
+// global.fetch = fetch as any; // Make node-fetch available globally
+(globalThis as any).fetch = fetch;
+(globalThis as any).Headers = Headers;
+(globalThis as any).Request = Request;
+(globalThis as any).Response = Response;
+
+(global as any).fetch = fetch;
+(global as any).Headers = Headers;
+(global as any).Request = Request;
+(global as any).Response = Response;
 
 
 console.log('>>> test-setup.ts: Running setup...'); // Check if file runs

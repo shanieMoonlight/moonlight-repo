@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppErrorHandler } from './app-error-handler';
 import { SbToastService, ToastData } from '@spider-baby/ui-toast';
 import { ErrorDownloadService } from './error-download.service';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 import { PLATFORM_ID, ErrorHandler } from '@angular/core';
 import { devConsole } from '@spider-baby/dev-console';
 

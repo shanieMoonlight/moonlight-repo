@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 import { PLATFORM_ID, RendererFactory2 } from '@angular/core';
 import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeOption } from "@spider-baby/material-theming/config";
 import { ColorUtilsService } from '@spider-baby/material-theming/utils';

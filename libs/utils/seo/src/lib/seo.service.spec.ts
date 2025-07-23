@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { SeoService } from './seo.service';
 import { Meta, Title } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 
 // Create a mock SeoConfig object

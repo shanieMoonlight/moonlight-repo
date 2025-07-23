@@ -35,7 +35,7 @@ jest.mock('@angular/core/rxjs-interop', () => ({
     // Subscribe to the observable to update the mock signal
     if (observable) {
       const subscription = observable.subscribe({
-        next: (value) => signalController.updateValue(value),
+        next: (value: any) => signalController.updateValue(value),
         error: () => {}
       });
       
@@ -49,6 +49,9 @@ jest.mock('@angular/core/rxjs-interop', () => ({
 
 // Create a mock DestroyRef class
 class MockDestroyRef implements DestroyRef {
+  get destroyed(): boolean {
+    return false
+  }
   private callbacks: (() => void)[] = [];
 
   onDestroy(callback: () => void): () => void {

@@ -1,4 +1,4 @@
-import { DestroyRef, runInInjectionContext } from '@angular/core';
+import { DestroyRef, EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -11,6 +11,10 @@ jest.useFakeTimers();
 
 // Create a mock DestroyRef
 class MockDestroyRef implements DestroyRef {
+    get destroyed(): boolean {
+        return false
+    }
+
     private callbacks: (() => void)[] = [];
 
     onDestroy(callback: () => void): () => void {
@@ -82,7 +86,7 @@ describe('MiniCrudState', () => {
 
     describe('Basic operations', () => {
         it('should create an instance', () => {
-            const injector = TestBed.inject(TestBed);
+       const injector = TestBed.inject(EnvironmentInjector);
 
             // Run inside injection context
             runInInjectionContext(injector, () => {
@@ -95,7 +99,7 @@ describe('MiniCrudState', () => {
 
         it('should load data when triggered', () => {
 
-            const injector = TestBed.inject(TestBed);
+            const injector = TestBed.inject(EnvironmentInjector);
 
             // Run inside injection context
             let state: MiniCrudState<TestFilter, TestItem>;
@@ -125,7 +129,7 @@ describe('MiniCrudState', () => {
         it('should set loading to true when add operation is triggered', () => {
 
             // Get the injector
-            const injector = TestBed.inject(TestBed);
+            const injector = TestBed.inject(EnvironmentInjector);
 
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
@@ -161,23 +165,23 @@ describe('MiniCrudState', () => {
 
         it('should append new item to the collection on successful add', () => {
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-            
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
             const newItem: TestItem = { id: 0, name: 'New Item', value: 400 };
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             // This is the key part - we need to capture what's happening in the success handler
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -186,21 +190,21 @@ describe('MiniCrudState', () => {
                     ).setAddState(
                         (item) => mockService.create(item)
                     );
-                    
+
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
                 expect(state.data()?.length).toBe(3);
-                
+
                 // Act - trigger add operation
                 runInInjectionContext(injector, () => {
                     state.triggerAdd(newItem);
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 // This simulates what would happen when the observable completes
                 if (capturedSuccessCallback) {
@@ -208,7 +212,7 @@ describe('MiniCrudState', () => {
                         capturedSuccessCallback!(newItem, { id: 4, name: 'New Item', value: 400 });
                     });
                 }
-                
+
                 // Assert
                 expect(state.data()?.length).toBe(4);
                 expect(state.data()?.[3].name).toBe('New Item');
@@ -222,24 +226,24 @@ describe('MiniCrudState', () => {
         it('should emit success message from custom successMsgFn', () => {
             // Arrange
             const successMessageFn = (item: TestItem, output: TestItem | undefined) => `Added ${output?.name || item.name} successfully!`
-        
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
             const newItem: TestItem = { id: 0, name: 'New Item', value: 400 };
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -249,30 +253,30 @@ describe('MiniCrudState', () => {
                         (item) => mockService.create(item),
                         successMessageFn
                     );
-                    
+
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
-                
+
                 const successMsgSpy = jest.fn();
                 state.successMsg$.subscribe(successMsgSpy);
-                
+
                 // Act - trigger add operation
                 runInInjectionContext(injector, () => {
                     state.triggerAdd(newItem);
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(newItem, { id: 4, name: 'New Item', value: 400 });
                     });
                 }
-                
+
                 // Assert
                 expect(successMsgSpy).toHaveBeenCalledWith(expect.stringContaining('Added New Item successfully!'));
             } finally {
@@ -287,7 +291,7 @@ describe('MiniCrudState', () => {
             const onTriggerSpy = jest.fn()
 
             // Get the injector
-            const injector = TestBed.inject(TestBed);
+            const injector = TestBed.inject(EnvironmentInjector);
 
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
@@ -314,15 +318,15 @@ describe('MiniCrudState', () => {
             // Arrange
             const errorMsg = 'Failed to create item'
             mockService.create.mockReturnValue(throwError(() => new Error(errorMsg)))
-        
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
             const errorMsgSpy = jest.fn();
             const loadingSpy = jest.fn();
-        
+
             // Run creation and setup inside injection context
             runInInjectionContext(injector, () => {
                 state = MiniCrudState.Create<TestFilter, TestItem>(
@@ -330,23 +334,23 @@ describe('MiniCrudState', () => {
                 ).setAddState(
                     (item) => mockService.create(item)
                 )
-        
+
                 state.trigger({ searchTerm: '' })
             });
             jest.runAllTimers()
-        
+
             // Set up spies
             state.errorMsg$.subscribe(errorMsgSpy)
             state.loading$.subscribe(loadingSpy)
-        
+
             // Act - trigger the add operation within the injection context
             runInInjectionContext(injector, () => {
                 const newItem: TestItem = { id: 0, name: 'New Item', value: 400 }
                 state.triggerAdd(newItem)
             });
-            
+
             jest.runAllTimers()
-        
+
             // Assert
             // Update the expected error message to match what's actually being returned
             expect(errorMsgSpy).toHaveBeenCalledWith(expect.stringContaining('Failed to create item'))
@@ -358,22 +362,22 @@ describe('MiniCrudState', () => {
     describe('Update Operation', () => {
         it('should update an existing item in the collection', () => {
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-            
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
             const updatedItem = { ...mockItems[1], name: 'Updated Item 2' };
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -382,27 +386,27 @@ describe('MiniCrudState', () => {
                     ).setUpdateState(
                         (item) => mockService.update(item)
                     );
-                    
+
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
-                
+
                 // Act - trigger update operation
                 runInInjectionContext(injector, () => {
                     state.triggerUpdate(updatedItem);
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(updatedItem, updatedItem);
                     });
                 }
-                
+
                 // Assert
                 expect(mockService.update).toHaveBeenCalledWith(updatedItem);
                 expect(state.data()?.[1].name).toBe('Updated Item 2');
@@ -416,55 +420,55 @@ describe('MiniCrudState', () => {
         it('should use custom equals function when provided', () => {
             // Arrange - custom equals function that compares by name instead of id
             const customEquals = (a?: TestItem, b?: TestItem) => a?.name === b?.name;
-            
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-            
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
             const updatedItem: TestItem = { id: 999, name: 'Item 1', value: 150 };
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
                     state = MiniCrudState.Create<TestFilter, TestItem>(
                         (filter) => mockService.getAll(filter)
                     )
-                    .setEqualsFn(customEquals)
-                    .setUpdateState(
-                        (item) => mockService.update(item)
-                    );
-                    
+                        .setEqualsFn(customEquals)
+                        .setUpdateState(
+                            (item) => mockService.update(item)
+                        );
+
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
-                
+
                 // Act - notice the id is different, but name matches item[0]
                 runInInjectionContext(injector, () => {
                     state.triggerUpdate(updatedItem);
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(updatedItem, updatedItem);
                     });
                 }
-                
+
                 // Assert - should update item with matching name regardless of id
                 expect(state.data()?.[0].value).toBe(150);
                 expect(state.data()?.[0].id).toBe(999); // ID got updated too
@@ -478,21 +482,21 @@ describe('MiniCrudState', () => {
     describe('Delete Operation', () => {
         it('should remove an item from the collection', () => {
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-            
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -501,28 +505,28 @@ describe('MiniCrudState', () => {
                     ).setDeleteState(
                         (item) => mockService.delete(item.id)
                     );
-                    
+
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
                 expect(state.data()?.length).toBe(3);
-                
+
                 // Act - trigger delete operation within the injection context
                 runInInjectionContext(injector, () => {
                     state.triggerDelete(mockItems[1]); // Delete second item
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(mockItems[1], true);
                     });
                 }
-                
+
                 // Assert
                 expect(mockService.delete).toHaveBeenCalledWith(2); // ID of second item
                 expect(state.data()?.length).toBe(2);
@@ -540,23 +544,23 @@ describe('MiniCrudState', () => {
         it('should handle null return from operations', () => {
             // Arrange
             mockService.create.mockReturnValue(of(null))
-        
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -566,28 +570,28 @@ describe('MiniCrudState', () => {
                         .setAddState(
                             (item) => mockService.create(item) as any
                         )
-        
+
                     state.trigger({ searchTerm: '' })
                 });
                 jest.runAllTimers()
-        
+
                 // Add a new item that will return null from the service
                 const newItem: TestItem = { id: 0, name: 'New Item', value: 400 }
-                
+
                 runInInjectionContext(injector, () => {
                     state.triggerAdd(newItem)
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(newItem, null);
                     });
                 }
-        
+
                 // Assert - should use input item when output is null
                 expect(state.data()?.length).toBe(4)
                 expect(state.data()?.[3]).toEqual(expect.objectContaining({
@@ -604,25 +608,25 @@ describe('MiniCrudState', () => {
             // Arrange - slower service responses
             mockService.update.mockReturnValue(of({}).pipe(delay(200)))
             mockService.delete.mockReturnValue(of(true).pipe(delay(100)))
-        
+
             const loadingStates: boolean[] = []
-        
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             const capturedSuccessCallbacks: ((input: any, output: any) => void)[] = [];
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallbacks.push(successFn);
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -635,25 +639,25 @@ describe('MiniCrudState', () => {
                         .setDeleteState(
                             (item) => mockService.delete(item.id)
                         )
-        
+
                     state.trigger({ searchTerm: '' })
                 });
                 jest.runAllTimers()
-        
+
                 state.loading$.subscribe(isLoading => loadingStates.push(isLoading))
                 loadingStates.length = 0 // Reset tracking array
-        
+
                 // Act - start update (longer operation) within injection context
                 runInInjectionContext(injector, () => {
                     state.triggerUpdate(mockItems[0])
                 });
-        
+
                 // Before update completes, start delete (shorter operation) within injection context
                 jest.advanceTimersByTime(50)
                 runInInjectionContext(injector, () => {
                     state.triggerDelete(mockItems[1])
                 });
-        
+
                 // Delete completes first
                 jest.advanceTimersByTime(100)
                 // First success callback should be from delete operation
@@ -662,7 +666,7 @@ describe('MiniCrudState', () => {
                         capturedSuccessCallbacks[1](mockItems[1], true);
                     });
                 }
-        
+
                 // Update completes last
                 jest.advanceTimersByTime(100)
                 // Second success callback should be from update operation
@@ -671,7 +675,7 @@ describe('MiniCrudState', () => {
                         capturedSuccessCallbacks[0](mockItems[0], {});
                     });
                 }
-        
+
                 // Assert - loading should stay true until both operations complete
                 expect(loadingStates).toEqual([true, true, false])
             } finally {
@@ -685,7 +689,7 @@ describe('MiniCrudState', () => {
         it('should unsubscribe from all operations', () => {
 
             // Get the injector
-            const injector = TestBed.inject(TestBed);
+            const injector = TestBed.inject(EnvironmentInjector);
 
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
@@ -724,64 +728,64 @@ describe('MiniCrudState', () => {
     describe('Edge cases', () => {
         it('should handle empty collections', () => {
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
                     // Arrange
                     mockService.getAll.mockReturnValue(of([]));
-                    
+
                     state = MiniCrudState.Create<TestFilter, TestItem>(
                         (filter) => mockService.getAll(filter)
                     ).setAddState(
                         (item) => mockService.create(item)
                     );
-                    
+
                     // Act
                     state.trigger({ searchTerm: '' });
                 });
-                
+
                 jest.runAllTimers();
-                
+
                 // Assert - should have empty array
                 expect(state.data()).toEqual([]);
-                
+
                 // Add to empty collection
                 const newItem: TestItem = { id: 1, name: 'First Item', value: 100 };
-                
+
                 runInInjectionContext(injector, () => {
                     state.triggerAdd(newItem);
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(newItem, { id: 4, name: 'First Item', value: 100 });
                     });
                 }
-                
+
                 // Should work with initially empty collection
                 expect(state.data()?.length).toBe(1);
                 expect(state.data()?.[0]).toEqual(expect.objectContaining({
-                    id: 4, 
-                    name: 'First Item', 
+                    id: 4,
+                    name: 'First Item',
                     value: 100
                 }));
             } finally {
@@ -793,23 +797,23 @@ describe('MiniCrudState', () => {
         it('should handle null return from operations', () => {
             // Arrange
             mockService.create.mockReturnValue(of(null))
-        
+
             // Get the injector
-            const injector = TestBed.inject(TestBed);
-        
+            const injector = TestBed.inject(EnvironmentInjector);
+
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;
-            
+
             // Create a special spy to intercept the setOnSuccessFn method
             const originalSetOnSuccessFn = MiniState.prototype.setOnSuccessFn;
             let capturedSuccessCallback: ((input: any, output: any) => void) | undefined;
-            
+
             // Mock setOnSuccessFn to capture the callback
-            MiniState.prototype.setOnSuccessFn = function(successFn) {
+            MiniState.prototype.setOnSuccessFn = function (successFn) {
                 capturedSuccessCallback = successFn;
                 return originalSetOnSuccessFn.call(this, successFn);
             };
-            
+
             try {
                 // Run creation and setup inside injection context
                 runInInjectionContext(injector, () => {
@@ -819,28 +823,28 @@ describe('MiniCrudState', () => {
                         .setAddState(
                             (item) => mockService.create(item) as any
                         )
-        
+
                     state.trigger({ searchTerm: '' })
                 });
                 jest.runAllTimers()
-        
+
                 // Add a new item that will return null from the service
                 const newItem: TestItem = { id: 0, name: 'New Item', value: 400 }
-                
+
                 runInInjectionContext(injector, () => {
                     state.triggerAdd(newItem)
                 });
-                
+
                 // Advance timers to process the async operation
                 jest.advanceTimersByTime(50);
-                
+
                 // Here's the key part - manually invoke the success callback within the injection context
                 if (capturedSuccessCallback) {
                     runInInjectionContext(injector, () => {
                         capturedSuccessCallback!(newItem, null);
                     });
                 }
-        
+
                 // Assert - should use input item when output is null
                 expect(state.data()?.length).toBe(4)
                 expect(state.data()?.[3]).toEqual(expect.objectContaining({
@@ -860,7 +864,7 @@ describe('MiniCrudState', () => {
             mockService.create.mockReturnValue(throwError(() => new Error('Test error')))
 
             // Get the injector
-            const injector = TestBed.inject(TestBed);
+            const injector = TestBed.inject(EnvironmentInjector);
 
             // Variables that need to be accessed outside the injection context
             let state!: MiniCrudState<TestFilter, TestItem>;

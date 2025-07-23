@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DestroyRef } from '@angular/core';
 import { of } from 'rxjs';
 import { MiniState } from './mini-state';
@@ -36,7 +38,7 @@ jest.mock('@angular/core/rxjs-interop', () => ({
     // Subscribe to the observable to update the mock signal
     if (observable) {
       const subscription = observable.subscribe({
-        next: (value) => signalController.updateValue(value),
+        next: (value:any) => signalController.updateValue(value),
         error: () => {}
       });
       
@@ -46,7 +48,7 @@ jest.mock('@angular/core/rxjs-interop', () => ({
     
     return mockSignal;
   }),
-  takeUntilDestroyed: jest.fn(() => (source) => source),
+  takeUntilDestroyed: jest.fn(() => (source:any) => source),
   toObservable: jest.fn((signal) => of(signal())),
 }));
 
@@ -57,6 +59,7 @@ describe('MiniStateBuilder', () => {
   // Mock DestroyRef for injection
   const mockDestroyRef: DestroyRef = {
     onDestroy: jest.fn(),
+    destroyed: false
   };
 
   // Create a symbol to mock the Angular SIGNAL symbol

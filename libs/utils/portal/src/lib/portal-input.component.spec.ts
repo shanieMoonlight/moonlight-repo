@@ -51,7 +51,7 @@ describe('SbPortalInputComponent', () => {
   const createMockTemplate = (): TemplateRef<unknown> => ({
     createEmbeddedView: jest.fn(),
     elementRef: { nativeElement: document.createElement('div') }
-  } as TemplateRef<unknown>);
+  } as unknown as TemplateRef<unknown>);
 
   describe('Browser Platform', () => {
     beforeEach(async () => {

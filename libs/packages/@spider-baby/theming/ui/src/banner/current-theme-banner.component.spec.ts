@@ -1,6 +1,8 @@
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipHarness } from '@angular/material/tooltip/testing';
 import { By } from '@angular/platform-browser';
 import { SbCurrentThemeBannerComponent } from './current-theme-banner.component';
 
@@ -38,32 +40,61 @@ describe('SbCurrentThemeBannerComponent', () => {
     const divElements = fixture.debugElement.queryAll(By.css('div'));
     expect(divElements.length).toBe(3);
   });
+it('should not show tooltips by default0', async () => {
+  const loader = TestbedHarnessEnvironment.loader(fixture);
 
-  it('should not show tooltips by default', () => {
-    const leftSection = fixture.debugElement.query(By.css('.left')).nativeElement;
-    const middleSection = fixture.debugElement.query(By.css('.middle')).nativeElement;
-    const rightSection = fixture.debugElement.query(By.css('.right')).nativeElement;
-    
-    // Check for empty matTooltip values
-    expect(leftSection.getAttribute('ng-reflect-message')).toBe('');
-    expect(middleSection.getAttribute('ng-reflect-message')).toBe('');
-    expect(rightSection.getAttribute('ng-reflect-message')).toBe('');
-  });
+  // Query all tooltips in the component
+  const tooltips = await loader.getAllHarnesses(MatTooltipHarness);
 
-  it('should show tooltips when withTooltips is true', () => {
-    // Enable tooltips
-    hostComponent.showTooltips = true;
-    fixture.detectChanges();
+  // There should be 3 tooltips (left, middle, right)
+  expect(tooltips.length).toBe(3);
+
+  // Check that tooltips are disabled or have empty message by default
+  for (const tooltip of tooltips) {
+    const message = await tooltip.getTooltipText().catch(() => '');
+    expect(message).toBe('');
+  }
+});
+  // it('should not show tooltips by default', () => {
+  //   const leftSection = fixture.debugElement.query(By.css('.left')).nativeElement;
+  //   const middleSection = fixture.debugElement.query(By.css('.middle')).nativeElement;
+  //   const rightSection = fixture.debugElement.query(By.css('.right')).nativeElement;
     
-    const leftSection = fixture.debugElement.query(By.css('.left')).nativeElement;
-    const middleSection = fixture.debugElement.query(By.css('.middle')).nativeElement;
-    const rightSection = fixture.debugElement.query(By.css('.right')).nativeElement;
-    
-    // Check for tooltip text
-    expect(middleSection.getAttribute('ng-reflect-message')).toContain('Primary');
-    expect(leftSection.getAttribute('ng-reflect-message')).toContain('Secondary');
-    expect(rightSection.getAttribute('ng-reflect-message')).toContain('Tertiary');
-  });
+  //   // Check for empty matTooltip values
+  //   expect(leftSection.getAttribute('ng-reflect-message')).toBe('');
+  //   expect(middleSection.getAttribute('ng-reflect-message')).toBe('');
+  //   expect(rightSection.getAttribute('ng-reflect-message')).toBe('');
+  // });
+
+
+it('should show tooltips when withTooltips is true0', async () => {
+  // Enable tooltips
+  hostComponent.showTooltips = true;
+  fixture.detectChanges();
+
+  const loader = TestbedHarnessEnvironment.loader(fixture);
+
+  // Query all tooltips in the component
+  const tooltips = await loader.getAllHarnesses(MatTooltipHarness);
+
+  // There should be 3 tooltips (left, middle, right)
+  expect(tooltips.length).toBe(3);
+
+  // Show each tooltip and get its text
+  const messages:string[] = [];
+  for (const tooltip of tooltips) {
+    await tooltip.show();
+    const tooltipText = await tooltip.getTooltipText();
+    expect(tooltipText).toBeDefined();
+    console.log('tooltipText', tooltipText);    
+    messages.push(await tooltip.getTooltipText() ?? '');
+    await tooltip.hide(); // optional: hide after checking
+  }
+
+  expect(messages).toContainEqual(expect.stringContaining('Primary'));
+  expect(messages).toContainEqual(expect.stringContaining('Secondary'));
+  expect(messages).toContainEqual(expect.stringContaining('Tertiary'));
+});
 
   it('should have appropriate CSS variables set', () => {
     const leftSection = fixture.debugElement.query(By.css('.left')).nativeElement;

@@ -119,7 +119,7 @@ describe('MainHomeComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const icons = compiled.querySelectorAll('mat-icon');
     const svgIcons = Array.from(icons)
-      .map(icon => icon.getAttribute('ng-reflect-svg-icon'))
+      .map(icon => icon.getAttribute('svgicon'))
       .filter(Boolean);
     expect(svgIcons).toContain('git');
     expect(svgIcons).toContain('npm');

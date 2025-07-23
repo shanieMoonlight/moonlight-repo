@@ -9,6 +9,14 @@ import { THEME_CONFIG } from './config/app-theme.config';
 import { FirebaseProviders } from './firebase/firebase-init';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { SEO_CONFIG } from './config/seo.config';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp } from 'firebase/app';
+import { environment } from '../environments/environment';
+import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
+
+const app = initializeApp(environment.firebaseConfig)
+// const analytics = getAnalytics(app);
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +30,8 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({})),
     provideHttpClient(withFetch()),
     ...FirebaseProviders.all,
+    // provideFirebaseApp(() => app), // Initialize Firebase App
+    // provideAnalytics((injector) => getAnalytics(injector.get(provideFirebaseApp))),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
     {

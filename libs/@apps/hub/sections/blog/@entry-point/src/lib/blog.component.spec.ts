@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
