@@ -2,11 +2,11 @@
   "name": "@spider-baby/ui-toast",
   "version": "1.0.0",
   "peerDependencies": {
-    "@angular/common": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/animations": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/cdk": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "rxjs": "^6.0.0 || ^7.0.0 || ^8.0.0"
+    "@angular/common": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/cdk": "17.x || 18.x || 19.x || 20.x",
+    "rxjs": "^6.0.0 || ^7.0.0 || ^8.0.0",
+    "@angular/animations": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
   },
   "sideEffects": false
 }

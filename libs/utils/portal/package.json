@@ -1,10 +1,10 @@
 {
   "name": "@spider-baby/utils-portal",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0",
-    "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0",
+    "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
     "rxjs": "^7.4.0 || ~7.5.0 || ~7.6.0 || ~7.8.0"
   },
   "sideEffects": false

@@ -7,7 +7,7 @@ import { AbstractControl } from "@angular/forms";
   standalone: true,
   imports: [NgTemplateOutlet],
   template: `
-    @if(this.control().errors?.['firstError']; as err) {
+    @if(control().errors?.['firstError']; as err) {
        @if(customErrorTemplate(); as template){
          <ng-container 
           [ngTemplateOutlet]="template" 

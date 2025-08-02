@@ -4,7 +4,16 @@ export const BasicFirstErrorHtmlCode = `// Basic usage of FirstErrorDirective an
 <form [formGroup]="form" [sbFormControlFirstError]="form">
 
     <input formControlName="email" placeholder="Email" />
-    <sb-first-error [control]="_form.get('email')!" />
+     <!--  Helper component to display first error -->
+    <sb-first-error [control]="_form.get('email')!" /> 
+
+    <input formControlName="password" placeholder="Password" />
+     <!--  Using the firstError property to get the first error message -->
+     @if(form.controls.password.errors?.['firstError']; as err){  
+          <div class="error">
+              {{err}}
+          </div>  
+      }
   
     <button type="submit">Submit</button>
 

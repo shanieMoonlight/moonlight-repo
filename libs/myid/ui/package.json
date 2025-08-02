@@ -1,15 +1,16 @@
 {
   "name": "@spider-baby/myid-ui",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "peerDependencies": {
-    "@angular/common": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/forms": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@spider-baby/utils-forms": "^1.0.0",
+    "@angular/common": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/forms": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@spider-baby/utils-forms": "^1.0.0 || ^2.0.0",
     "@spider-baby/ui-kit": "^1.0.0",
     "@spider-baby/myid-io": "^1.0.0",
     "libphonenumber-js": ">=1.7.0",
-    "@spider-baby/dev-console": ">=1.1.2"
+    "@spider-baby/dev-console": "^1.1.2 || ^2.0.0",
+    "rxjs": "~7.8.0"
   },
   "sideEffects": false
 }

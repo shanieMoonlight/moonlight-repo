@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/material-theming",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "A flexible Material Design theming system for Angular applications with dark mode support",
   "keywords": [
     "angular",
@@ -10,20 +10,20 @@
     "color-system"
   ],
   "peerDependencies": {
-    "@angular/common": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/material": "17.x || 18.x || 19.x",
-    "@angular/forms": "^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/cdk": "17.x || 18.x || 19.x",
+    "@angular/common": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/material": "17.x || 18.x || 19.x || 20.x",
+    "@angular/forms": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/cdk": "17.x || 18.x || 19.x || 20.x",
     "rxjs": ">=7.0.0"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
-    "@spider-baby/utils-testing": "^1.0.1",
-    "@spider-baby/utils-memoization": "^1.0.1",
-    "@spider-baby/utils-file-saver": "^1.0.1",
-    "@spider-baby/ssr-storage": "^1.0.2",
-    "@spider-baby/utils-rxjs": "^1.0.1"
+    "@spider-baby/utils-testing": "2.0.0",
+    "@spider-baby/utils-memoization": "2.0.0",
+    "@spider-baby/utils-file-saver": "2.0.0",
+    "@spider-baby/ssr-storage": "2.0.0",
+    "@spider-baby/utils-rxjs": "2.0.0"
   },
   "repository": {
     "type": "git",

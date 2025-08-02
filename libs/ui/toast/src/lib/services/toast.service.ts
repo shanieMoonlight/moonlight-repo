@@ -22,13 +22,40 @@ export class SbToastService {
 
   //----------------------------//
 
+  constructor() {
+    setTimeout(() => this.warmup(), 1)
+  }
+
+  /**
+   * THis is a bit of a hack to pre-warm the toast system.
+   * It shows a hidden toast to ensure the overlay and animations are ready.
+   * This prevents the first toast from flickering or being delayed.
+   * I don't like it any more than you do, but it works.
+   */
+  private warmup() {
+    // Show and close a hidden toast to warm up overlay/animations
+    const positionStrategy = this.overlay.position().global().top('-9999px').left('-9999px');
+    const overlayRef = this.overlay.create({ positionStrategy });
+    const data = new ToastData('info', '', { showIcon: false, dismissible: false, animationType: 'fade' })
+    const toastRef = new ToastRef(overlayRef, data);
+    const injector = this.getInjector(data, toastRef, this.parentInjector);
+    const toastPortal = new ComponentPortal(SbToastComponent, null, injector);
+    overlayRef.attach(toastPortal);
+
+    setTimeout(() => {
+      toastRef.close()
+      overlayRef.dispose()
+    }, 1)
+  }
+
+  //----------------------------//
+
   /**
    * Show a toast pop-up
    * @param data Display info and positions
    * @returns A reference the toast container
    */
   show(data: ToastData, durationMillis?: number): ToastRef {
-
 
     // Use the new positioning system
     const positionStrategy = this.getPositionStrategy(data)
@@ -43,7 +70,7 @@ export class SbToastService {
     toastRef.afterClosed()
       .pipe(takeUntilDestroyed(this.destroyer))
       .subscribe(() => {
-        console.log('closing', toastRef)        
+        console.log('closing', toastRef)
         this.activeToasts.delete(toastRef);
       });
 

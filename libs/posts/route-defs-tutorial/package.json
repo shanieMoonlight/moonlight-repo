@@ -1,15 +1,20 @@
 {
   "name": "@spider-baby/posts-route-defs-tutorial",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@spider-baby/utils-file-saver": "1.0.1",
-    "@spider-baby/utils-routes": "0.0.1",
+    "@angular/common": "20.1.2",
+    "@angular/core": "20.1.2",
+    "@spider-baby/utils-file-saver": "2.0.0",
+    "@spider-baby/utils-routes": "1.0.0",
     "rxjs": "~7.8.0",
-    "@angular/router": "19.2.9",
-    "@spider-baby/utils-mat-everything": "0.0.1",
-    "ngx-highlightjs": "^14.0.0"
+    "@angular/router": "20.1.2",
+    "@spider-baby/utils-mat-everything": "1.0.0",
+    "ngx-highlightjs": "^14.0.0",
+    "@spider-baby/dev-console": "2.0.0",
+    "@spider-baby/ui-mat-notifications": "1.0.0",
+    "@spider-baby/mini-state": "2.0.0",
+    "@spider-baby/utils-img": "2.0.0",
+    "@spider-baby/utils-seo": "1.0.0"
   },
   "sideEffects": false
 }

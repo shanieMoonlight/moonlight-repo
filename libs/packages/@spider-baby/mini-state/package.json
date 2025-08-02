@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/mini-state",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "A lightweight, reactive state management library for Angular, simplifying async operations with Signals and RxJS.",
   "author": "shanieMoonlight", 
   "repository": {
@@ -23,11 +23,11 @@
   ],
   "license": "MIT", 
   "peerDependencies": {
-    "@angular/core": "^18.0.0 || ^19.0.0",
+    "@angular/core": "^18.0.0 || ^19.0.0 || ^20.0.0",
     "rxjs": "^7.8.0" 
   },
   "dependencies": {
-    "@spider-baby/dev-console": "^1.1.0"
+    "@spider-baby/dev-console": "^1.2.0 || ^2.0.0"
   },
   "sideEffects": false,
   "ngPackage": { 

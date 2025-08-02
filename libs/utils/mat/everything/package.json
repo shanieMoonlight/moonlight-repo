@@ -1,10 +1,9 @@
 {
   "name": "@spider-baby/utils-mat-everything",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/material": "^19.2.0"
+    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/material": "17.x || 18.x || 19.x || 20.x"
   },
   "sideEffects": false
 }

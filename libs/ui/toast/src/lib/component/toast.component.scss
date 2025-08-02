@@ -3,7 +3,7 @@
   --toast-border-radius: 4px;
   --toast-width: 320px;
   --toast-min-height: 30px;
-  --toast-margin-bottom: 20px;
+  // --toast-margin-bottom: 20px;
 
   /* Spacing */
   --toast-padding-x: 15px;
@@ -32,7 +32,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: var(--toast-margin-bottom);
+  // margin-bottom: var(--toast-margin-bottom);
   padding: var(--toast-padding-y) var(--toast-padding-x);
   width: var(--toast-width);
   min-height: var(--toast-min-height);

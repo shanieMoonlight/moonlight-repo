@@ -50,6 +50,7 @@ export class LoginFormComponent {
     <input type="email" 
            formControlName="email" 
            placeholder="Enter your email"/>
+     <!--  Helper component to display first error -->
     <sb-first-error [control]="_form.controls.email"/>
   </div>
   
@@ -57,7 +58,12 @@ export class LoginFormComponent {
     <input type="password" 
            formControlName="password" 
            placeholder="Enter your password"/>
-    <sb-first-error [control]="_form.controls.password"/>
+     <!--  Using the firstError property to get the first error message -->
+    @if(_form.controls.password.errors?.['firstError']; as err){  
+      <div class="error">
+          {{err}}
+      </div>  
+    }
   </div>
 </form>
 ```

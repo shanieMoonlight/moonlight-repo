@@ -25,7 +25,12 @@
                     formControlName="firstName" 
                     placeholder="First Name" 
                     sbInputStyle />
-                <sb-first-error [control]="form.controls.firstName"/>
+                    @if(form.controls.firstName.errors?.['firstError']; as err){
+                        <div class="error">
+                            {{err}}
+                        </div>  
+                    }
+                <!-- <sb-first-error [control]="form.controls.firstName"/> -->
             </div>
         </div>
         

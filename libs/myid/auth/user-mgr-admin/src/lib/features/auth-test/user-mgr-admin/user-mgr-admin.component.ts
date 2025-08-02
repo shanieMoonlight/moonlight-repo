@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UserMgrAdminAuthService } from '../../../services/user-admin-auth.browser.service';
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'sb-auth-service-user-mgr-admin',
-  imports: [CommonModule],
+  imports: [JsonPipe],
   templateUrl: './user-mgr-admin.component.html',
   styleUrl: './user-mgr-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

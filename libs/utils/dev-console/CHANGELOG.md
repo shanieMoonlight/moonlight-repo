@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2025-08-01
+
+### Changed
+- Updated to use Angular 20
+
+
 ## [1.1.3] - 2025-06-25
 
 ### Changed

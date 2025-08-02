@@ -131,11 +131,11 @@ private removeAllBlurListeners() {
   return invalid;
 }`;
 
-  export const firstErrorHtmlDiplayCode = ` @if(this.control().errors?.['firstError']; as err) {
-        <span class="error">
+  export const firstErrorHtmlDiplayCode = ` @if(form.controls.password.errors?.['firstError']; as err){  
+      <div class="error">
           {{err}}
-        </span>
-    }`;
+      </div>  
+  }`;
 
  export const fullDirectiveCode = `@Directive({
   selector: '[sbFormControlFirstError]',

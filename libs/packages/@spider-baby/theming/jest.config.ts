@@ -12,18 +12,18 @@ export default {
       },
     ],
   },
-  // moduleNameMapper: {
-  //   '^@spider-baby/material-theming/service$': '<rootDir>/../service/src/index.ts',
-  //   '^@spider-baby/material-theming/utils$': '<rootDir>/../utils/src/index.ts',
-  //   '^@spider-baby/material-theming/ui$': '<rootDir>/../ui/src/index.ts',
-  //   '^@spider-baby/utils-testing$': '<rootDir>/../../../utils/testing/src/index.ts',
-  //   '^@spider-baby/utils-memoization$': '<rootDir>/../../../utils/memoization/src/index.ts',
-  //   // Add other aliases as needed
-  // },
+moduleNameMapper: {
+  '^@spider-baby/material-theming/service$': '<rootDir>/../material-theming/service/src/index.ts',
+  '^@spider-baby/material-theming/utils$': '<rootDir>/../material-theming/utils/src/index.ts',
+  '^@spider-baby/material-theming/ui$': '<rootDir>/../material-theming/ui/src/index.ts',
+  '^@spider-baby/utils-testing$': '<rootDir>/../../../utils/testing/src/index.ts',
+  '^@spider-baby/utils-memoization$': '<rootDir>/../../../utils/memoization/src/index.ts',
+},
   transformIgnorePatterns: [
     // 'node_modules/(?!.*\\.mjs$)',
     // 'node_modules/(?!(\\@spider-baby|@material/material-color-utilities)/)'transformIgnorePatterns: [
-    'node_modules/(?!@angular|@material/material-color-utilities|ngx-highlightjs)'
+    // 'node_modules/(?!@angular|@material/material-color-utilities|ngx-highlightjs)'
+  'node_modules/(?!@angular|@material/material-color-utilities|ngx-highlightjs|@testing-library|@spider-baby)'
   ],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

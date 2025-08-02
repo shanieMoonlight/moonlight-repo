@@ -8,7 +8,7 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 @Component({
   standalone: true,
   imports: [
-    MatEverythingModule     
+    MatEverythingModule
   ],
   providers: [
     ToastDynamicSetup.getProviders(matToastConfig)
@@ -19,8 +19,9 @@ import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HubMainTesterComponent {
- 
+
   private _toast = inject(SbToastService);
+
 
   static count = 0;
 

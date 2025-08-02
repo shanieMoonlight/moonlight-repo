@@ -1,6 +1,11 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
+
+## [2.0.0] - 2025-08-01
+
+
+### Changed
+- Updated to use Angular 20
 
 ## [1.0.0] - 2025-01-02
 
