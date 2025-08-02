@@ -5,7 +5,7 @@ import { consoleDev } from '@spider-baby/material-theming/utils';
 import { SsrLocalStorage } from '@spider-baby/ssr-storage';
 import { devLog } from '@spider-baby/utils-rxjs';
 import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, of, startWith, switchMap } from 'rxjs';
-import { ThemeGeneratorService } from './generator/theme-generator.service';
+import { SbThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData, ThemeDataUtils } from './theme-data';
 import { ThemeTransitionService } from './transitions/transitions.service';
@@ -39,13 +39,13 @@ const THEME_KEY = 'spider-baby_theme_key'
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeService {
+export class SbThemeService {
 
   private _localStorage = inject(SsrLocalStorage)
   private _systemPrefs = inject(SystemPrefsService)
   private _destroyor = inject(DestroyRef)
   private _config = inject(DynamicThemeConfigService)
-  private _themeGenerator = inject(ThemeGeneratorService)
+  private _themeGenerator = inject(SbThemeGeneratorService)
   private _themeTransition = inject(ThemeTransitionService)
 
   //- - - - - - - - - - - - - - -//

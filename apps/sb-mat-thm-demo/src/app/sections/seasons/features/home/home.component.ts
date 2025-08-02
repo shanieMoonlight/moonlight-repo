@@ -7,12 +7,12 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { MlApplyThemeDirective } from '@spider-baby/material-theming/directives';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbApplyThemeDirective } from '@spider-baby/material-theming/directives';
+import { SbThemeService } from '@spider-baby/material-theming/service';
+import { HighlightModule } from 'ngx-highlightjs';
 import { AUTUMN_THEME, DEFAULT_SEAONAL_THEME, SPRING_THEME, SUMMER_THEME, WINTER_THEME } from '../../config/seasonal-theme.config';
 import { ThemeHierarchyDiagramComponent } from './ui/heirarchy-diagram.component';
 import { SeasonCardData, SeasonInfoCardComponent } from './ui/season-info.component';
-import { HighlightModule } from 'ngx-highlightjs';
 
 //#######################################################//
 
@@ -60,7 +60,7 @@ const seasonData: SeasonCardData[] = [
     SeasonInfoCardComponent,
     RouterModule,
     ThemeHierarchyDiagramComponent,
-    MlApplyThemeDirective,
+    SbApplyThemeDirective,
     MlThemePickerMatComponent,
     HighlightModule,
 ],
@@ -70,7 +70,7 @@ const seasonData: SeasonCardData[] = [
 })
 export class SeasonalHomeComponent {
   
-  private _themeService = inject(ThemeService);
+  private _themeService = inject(SbThemeService);
   
   
   protected _seasonData = signal(seasonData);

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnI
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
+import { SbThemeAvatarComponent } from '@spider-baby/material-theming/ui';
 
 //##########################################//
 
@@ -17,17 +17,17 @@ export interface CustomThemeSavedDialogData {
   selector: 'sb-custom-theme-saved',
   imports: [
     MatEverythingModule,
-    MlThemeAvatarComponent
+    SbThemeAvatarComponent
   ],
   templateUrl: './theme-saved.component.html',
   styleUrl: './theme-saved.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlCustomThemeSavedComponent {
+export class SbCustomThemeSavedComponent {
 
   // Inject dialog data
   private _dialogData: CustomThemeSavedDialogData = inject(MAT_DIALOG_DATA, { optional: true });
-  private _dialogRef = inject(MatDialogRef<MlCustomThemeSavedComponent>, { optional: true });
+  private _dialogRef = inject(MatDialogRef<SbCustomThemeSavedComponent>, { optional: true });
 
   //- - - - - - - - - - - - - - -//
 

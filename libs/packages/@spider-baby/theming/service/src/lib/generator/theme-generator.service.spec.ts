@@ -9,10 +9,10 @@ import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 
 import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing'; // Import fakeAsync and tick/flush
-import { ThemeGeneratorService } from './theme-generator.service';
+import { SbThemeGeneratorService } from './theme-generator.service';
 
-describe('ThemeGeneratorService', () => {
-  let service: ThemeGeneratorService;
+describe('SbThemeGeneratorService', () => {
+  let service: SbThemeGeneratorService;
   let rendererFactoryMock: { createRenderer: jest.Mock };
   let rendererMock: { addClass: jest.Mock; removeClass: jest.Mock };
   let colorUtilsMock: { setRGBVariable: jest.Mock };
@@ -104,7 +104,7 @@ describe('ThemeGeneratorService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        ThemeGeneratorService,
+        SbThemeGeneratorService,
         { provide: RendererFactory2, useValue: rendererFactoryMock },
         { provide: ColorUtilsService, useValue: colorUtilsMock },
         { provide: PaletteGeneratorService, useValue: paletteGeneratorMock },
@@ -116,7 +116,7 @@ describe('ThemeGeneratorService', () => {
       ]
     });
 
-    service = TestBed.inject(ThemeGeneratorService);
+    service = TestBed.inject(SbThemeGeneratorService);
   });
 
   //-----------------------------//

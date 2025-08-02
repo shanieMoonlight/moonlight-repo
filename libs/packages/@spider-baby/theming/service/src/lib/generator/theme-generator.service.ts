@@ -35,7 +35,7 @@ import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeGeneratorService {
+export class SbThemeGeneratorService {
 
 
   private _platformId = inject(PLATFORM_ID)

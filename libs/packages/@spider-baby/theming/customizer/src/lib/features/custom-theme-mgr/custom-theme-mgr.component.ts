@@ -2,9 +2,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ThemeValue } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service'; // Adjust path
+import { SbThemeService } from '@spider-baby/material-theming/service'; // Adjust path
 import { consoleDev, MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
+import { SbThemeAvatarComponent } from '@spider-baby/material-theming/ui';
 
 /**
  * A component for managing custom themes in the theme system.
@@ -25,16 +25,16 @@ import { MlThemeAvatarComponent } from '@spider-baby/material-theming/ui';
  */
 @Component({
   selector: 'sb-custom-theme-mgr',
-  imports: [MatEverythingModule, MlThemeAvatarComponent],
+  imports: [MatEverythingModule, SbThemeAvatarComponent],
   templateUrl: './custom-theme-mgr.component.html',
   styleUrl: './custom-theme-mgr.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MlCustomThemeManagerComponent  {
+export class SbCustomThemeManagerComponent  {
 
-  protected _themeService = inject(ThemeService);
+  protected _themeService = inject(SbThemeService);
   // OPtional in case this component is used outside of a dialog
-  private _dialogRef? = inject(MatDialogRef<MlCustomThemeManagerComponent >, { optional: true });
+  private _dialogRef? = inject(MatDialogRef<SbCustomThemeManagerComponent >, { optional: true });
 
   protected _isDialog = signal(!!this._dialogRef);
 

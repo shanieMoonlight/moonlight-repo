@@ -1,7 +1,7 @@
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { render, screen } from '@testing-library/angular';
 import '@testing-library/jest-dom';
-import { MlThemeAvatarComponent } from './theme-avatar.component';
+import { SbThemeAvatarComponent } from './theme-avatar.component';
 
 // Helper function to create mock ThemeOption
 const createMockTheme = (overrides: Partial<ThemeOption> = {}): ThemeOption => ({
@@ -17,7 +17,7 @@ const createMockTheme = (overrides: Partial<ThemeOption> = {}): ThemeOption => (
 
 //-----------------------------//
 
-describe('MlThemeAvatarComponent', () => {
+describe('SbThemeAvatarComponent', () => {
   // Helper function to add data-testid attributes using nativeElement
   const addDataTestIds = (element: HTMLElement) => { // Accept HTMLElement
     if (element) {
@@ -42,7 +42,7 @@ describe('MlThemeAvatarComponent', () => {
 
   it('should render and apply colors from theme input', async () => {
     const mockTheme = createMockTheme();
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { theme: mockTheme },
     });
     // Pass fixture.nativeElement to the helper function
@@ -65,7 +65,7 @@ describe('MlThemeAvatarComponent', () => {
 
   it('should apply secondary color to tertiary stripe when tertiaryColor is null', async () => {
     const mockTheme = createMockTheme({ tertiaryColor: null });
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { theme: mockTheme },
     });
     addDataTestIds(fixture.nativeElement); // Use nativeElement
@@ -84,7 +84,7 @@ describe('MlThemeAvatarComponent', () => {
     // Explicitly cast to ThemeOption, tertiaryColor will be undefined
     const mockTheme = themeWithoutTertiary as ThemeOption;
 
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { theme: mockTheme },
     });
     addDataTestIds(fixture.nativeElement); // Use nativeElement
@@ -101,7 +101,7 @@ describe('MlThemeAvatarComponent', () => {
 
   it('should render three stripe elements', async () => {
     const mockTheme = createMockTheme();
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { theme: mockTheme },
     });
     addDataTestIds(fixture.nativeElement); // Use nativeElement
@@ -116,7 +116,7 @@ describe('MlThemeAvatarComponent', () => {
 
   it('should apply circular border radius by default', async () => {
     const mockTheme = createMockTheme();
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { 
         theme: mockTheme
         // isCircle is true by default, so no need to set it
@@ -134,7 +134,7 @@ describe('MlThemeAvatarComponent', () => {
 
   it('should apply rectangular shape when isCircle is false', async () => {
     const mockTheme = createMockTheme();
-    const { fixture } = await render(MlThemeAvatarComponent, {
+    const { fixture } = await render(SbThemeAvatarComponent, {
       componentInputs: { 
         theme: mockTheme,
         isCircle: false

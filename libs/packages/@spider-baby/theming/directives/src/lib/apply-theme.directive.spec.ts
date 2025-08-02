@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
-import { MlApplyThemeDirective } from './apply-theme.directive';
+import { SbThemeService } from '@spider-baby/material-theming/service';
+import { SbApplyThemeDirective } from './apply-theme.directive';
 
-// Mock ThemeService
-const mockThemeService = {
+// Mock SbThemeService
+const mockSbThemeService = {
   applyTheme: jest.fn(),
   applyThemeByValue: jest.fn()
 };
@@ -15,7 +15,7 @@ const mockThemeService = {
 @Component({
   selector: 'sb-test-string-component', // Add unique selector
   standalone: true, // Make it standalone
-  imports: [MlApplyThemeDirective], // Import the directive
+  imports: [SbApplyThemeDirective], // Import the directive
   template: `<div [sbApplyTheme]="themeValue"></div>`
 })
 class TestStringComponent {
@@ -26,7 +26,7 @@ class TestStringComponent {
 @Component({
   selector: 'sb-test-number-component', // Add unique selector
   standalone: true, // Make it standalone
-  imports: [MlApplyThemeDirective], // Import the directive
+  imports: [SbApplyThemeDirective], // Import the directive
   template: `<div [sbApplyTheme]="themeNumber"></div>`
 })
 class TestNumberComponent {
@@ -37,7 +37,7 @@ class TestNumberComponent {
 @Component({
   selector: 'sb-test-object-component', // Add unique selector
   standalone: true, // Make it standalone
-  imports: [MlApplyThemeDirective], // Import the directive
+  imports: [SbApplyThemeDirective], // Import the directive
   template: `<div [sbApplyTheme]="themeObject"></div>`
 })
 class TestObjectComponent {
@@ -54,7 +54,7 @@ class TestObjectComponent {
 @Component({
   selector: 'sb-test-attribute-component', // Add unique selector
   standalone: true, // Make it standalone
-  imports: [MlApplyThemeDirective], // Import the directive
+  imports: [SbApplyThemeDirective], // Import the directive
   template: `<div sbApplyTheme="attribute-theme"></div>`
 })
 class TestAttributeComponent {}
@@ -63,14 +63,14 @@ class TestAttributeComponent {}
 @Component({
   selector: 'sb-test-undefined-component', // Add unique selector
   standalone: true, // Make it standalone
-  imports: [MlApplyThemeDirective], // Import the directive
+  imports: [SbApplyThemeDirective], // Import the directive
   template: `<div [sbApplyTheme]="undefinedTheme"></div>`
 })
 class TestUndefinedComponent {
   undefinedTheme = undefined;
 }
 
-describe('MlApplyThemeDirective', () => {
+describe('SbApplyThemeDirective', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       // Remove the declarations array since we're using standalone components
@@ -83,7 +83,7 @@ describe('MlApplyThemeDirective', () => {
         TestUndefinedComponent
       ],
       providers: [
-        { provide: ThemeService, useValue: mockThemeService }
+        { provide: SbThemeService, useValue: mockSbThemeService }
       ]
     });
     
@@ -100,11 +100,11 @@ describe('MlApplyThemeDirective', () => {
     const element = fixture.debugElement.query(By.css('div')).nativeElement;
     const themeObject = fixture.componentInstance.themeObject;
     
-    expect(mockThemeService.applyTheme).toHaveBeenCalledWith(
+    expect(mockSbThemeService.applyTheme).toHaveBeenCalledWith(
       themeObject,
       element
     );
-    expect(mockThemeService.applyThemeByValue).not.toHaveBeenCalled();
+    expect(mockSbThemeService.applyThemeByValue).not.toHaveBeenCalled();
   });
 
 
@@ -112,7 +112,7 @@ describe('MlApplyThemeDirective', () => {
     const fixture = TestBed.createComponent(TestUndefinedComponent);
     fixture.detectChanges();
     
-    expect(mockThemeService.applyTheme).not.toHaveBeenCalled();
+    expect(mockSbThemeService.applyTheme).not.toHaveBeenCalled();
     });
 
   it('should respond to input changes', () => {
@@ -120,7 +120,7 @@ describe('MlApplyThemeDirective', () => {
     fixture.detectChanges();
     
     // First call with initial value
-    expect(mockThemeService.applyTheme).toHaveBeenCalledTimes(1);
+    expect(mockSbThemeService.applyTheme).toHaveBeenCalledTimes(1);
     
     // Change the input value
     fixture.componentInstance.themeValue = 'material-dark';
@@ -129,6 +129,6 @@ describe('MlApplyThemeDirective', () => {
     const element = fixture.debugElement.query(By.css('div')).nativeElement;
     
     // Should have been called again with new value
-    expect(mockThemeService.applyTheme).toHaveBeenCalledTimes(2);
+    expect(mockSbThemeService.applyTheme).toHaveBeenCalledTimes(2);
   });
 });

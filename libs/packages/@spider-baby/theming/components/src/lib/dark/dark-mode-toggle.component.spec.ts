@@ -4,11 +4,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BehaviorSubject } from 'rxjs';
 import { MlDarkModeToggleMatComponent } from './dark-mode-toggle.component';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { signal } from '@angular/core';
 
 // Remove jest.mock completely and instead create a mock class
-class MockThemeService {
+class MockSbThemeService {
   isDarkMode$ = new BehaviorSubject<boolean>(false);
   isDarkMode = signal(false);
   setDarkMode = jest.fn((isDark: boolean) => {
@@ -20,12 +20,12 @@ class MockThemeService {
 describe('MlDarkModeToggleMatComponent', () => {
   let component: MlDarkModeToggleMatComponent;
   let fixture: ComponentFixture<MlDarkModeToggleMatComponent>;
-  let mockThemeService: MockThemeService;
+  let mockSbThemeService: MockSbThemeService;
   
   //-----------------------------//
   
   beforeEach(async () => {
-    mockThemeService = new MockThemeService();
+    mockSbThemeService = new MockSbThemeService();
 
     await TestBed.configureTestingModule({
       imports: [
@@ -36,7 +36,7 @@ describe('MlDarkModeToggleMatComponent', () => {
       ],
       providers: [
         // This is the key line - provide the mock directly through DI
-        { provide: ThemeService, useValue: mockThemeService }
+        { provide: SbThemeService, useValue: mockSbThemeService }
       ]
     }).compileComponents();
 
@@ -61,7 +61,7 @@ describe('MlDarkModeToggleMatComponent', () => {
   it('should initialize with correct dark mode state', () => {
     expect((component as any)['_isDark']()).toBe(false);
     
-    mockThemeService.isDarkMode.set(true);
+    mockSbThemeService.isDarkMode.set(true);
     fixture.detectChanges();
     
     expect((component as any)['_isDark']()).toBe(true);
@@ -71,6 +71,6 @@ describe('MlDarkModeToggleMatComponent', () => {
 
   it('should call themeService.setDarkMode when toggleDarkTheme is called', () => {
     component.toggleDarkTheme(true);
-    expect(mockThemeService.setDarkMode).toHaveBeenCalledWith('dark');
+    expect(mockSbThemeService.setDarkMode).toHaveBeenCalledWith('dark');
   });
 });

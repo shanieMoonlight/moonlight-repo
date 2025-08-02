@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DEFAULT_TRANSITION_DURATION, DEFAULT_TRANSITION_STYLE, DarkModeType, ThemeConfigService, ThemeOption, ThemingConfig, TransitionStyle } from '@spider-baby/material-theming/config';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeGeneratorService } from '../generator/theme-generator.service';
+import { SbThemeGeneratorService } from '../generator/theme-generator.service';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { ThemeGeneratorService } from '../generator/theme-generator.service';
 })
 export class ThemeTransitionService {
 
-    private themeGenerator = inject(ThemeGeneratorService);
+    private themeGenerator = inject(SbThemeGeneratorService);
     private _config: ThemingConfig = inject(ThemeConfigService)
 
     //- - - - - - - - - - - - - - -//

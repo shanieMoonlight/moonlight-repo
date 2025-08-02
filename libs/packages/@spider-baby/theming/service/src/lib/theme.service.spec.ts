@@ -3,14 +3,14 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { DarkModeType, DynamicThemeConfigService, ThemeOption } from '@spider-baby/material-theming/config';
 import { SsrLocalStorage } from '@spider-baby/ssr-storage';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ThemeGeneratorService } from './generator/theme-generator.service';
+import { SbThemeGeneratorService } from './generator/theme-generator.service';
 import { SystemPrefsService } from './generator/utils/sytem-prefs/sytem-prefs.service';
 import { ThemeData } from './theme-data';
 import { ThemeTransitionService } from './transitions/transitions.service';
-import { ThemeService } from './theme.service';
+import { SbThemeService } from './theme.service';
 
-describe('ThemeService', () => {
-  let service: ThemeService;
+describe('SbThemeService', () => {
+  let service: SbThemeService;
   let localStorageMock: {
     getItemObject: jest.Mock;
     setItemObject: jest.Mock;
@@ -96,17 +96,17 @@ describe('ThemeService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        ThemeService,
+        SbThemeService,
         { provide: SsrLocalStorage, useValue: localStorageMock },
         { provide: SystemPrefsService, useValue: systemPrefsMock },
         { provide: DynamicThemeConfigService, useValue: configServiceMock },
-        { provide: ThemeGeneratorService, useValue: themeGeneratorMock },
+        { provide: SbThemeGeneratorService, useValue: themeGeneratorMock },
         { provide: ThemeTransitionService, useValue: themeTransitionMock },
         { provide: DestroyRef, useValue: destroyRefMock }
       ]
     });
 
-    service = TestBed.inject(ThemeService);
+    service = TestBed.inject(SbThemeService);
   });
 
   it('should be created', () => {
@@ -124,7 +124,7 @@ describe('ThemeService', () => {
 
     it('should fallback to default theme if localStorage returns null', () => {
       localStorageMock.getItemObject.mockReturnValueOnce(null);
-      service = TestBed.inject(ThemeService);
+      service = TestBed.inject(SbThemeService);
 
       expect(service.currentTheme()).toEqual(mockThemes[0]);
     });
@@ -134,7 +134,7 @@ describe('ThemeService', () => {
         throw new Error('Storage error');
       });
 
-      service = TestBed.inject(ThemeService);
+      service = TestBed.inject(SbThemeService);
 
       expect(service.currentTheme()).toEqual(mockThemes[0]);
     });

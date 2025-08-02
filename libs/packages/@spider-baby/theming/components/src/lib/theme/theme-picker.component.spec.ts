@@ -8,7 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltipHarness } from '@angular/material/tooltip/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { BehaviorSubject } from 'rxjs';
 import { MlThemePickerMatComponent } from './theme-picker.component';
@@ -25,7 +25,7 @@ const initialThemeState = mockSystemTheme1;
 // Keep the BehaviorSubject definition outside
 const mockCurrentTheme$ = new BehaviorSubject<ThemeOption | undefined>(initialThemeState);
 
-class MockThemeService {
+class MockSbThemeService {
     systemThemes = mockSystemThemes.asReadonly();
     customThemes = mockCustomThemes.asReadonly();
     currentTheme$ = mockCurrentTheme$.asObservable();
@@ -37,7 +37,7 @@ class MockThemeService {
 describe('MlThemePickerMatComponent', () => {
     let component: MlThemePickerMatComponent;
     let fixture: ComponentFixture<MlThemePickerMatComponent>;
-    let mockThemeService: MockThemeService;
+    let mockSbThemeService: MockSbThemeService;
     let loader: HarnessLoader;
 
     beforeEach(async () => {
@@ -56,17 +56,17 @@ describe('MlThemePickerMatComponent', () => {
 
             ],
             providers: [
-                { provide: ThemeService, useClass: MockThemeService }
+                { provide: SbThemeService, useClass: MockSbThemeService }
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MlThemePickerMatComponent);
         component = fixture.componentInstance;
-        mockThemeService = TestBed.inject(ThemeService) as unknown as MockThemeService;
+        mockSbThemeService = TestBed.inject(SbThemeService) as unknown as MockSbThemeService;
         loader = TestbedHarnessEnvironment.loader(fixture);
 
         // Reset mock calls after the service instance is available
-        mockThemeService.setTheme.mockClear();
+        mockSbThemeService.setTheme.mockClear();
         
         fixture.detectChanges();
     });
@@ -117,19 +117,19 @@ describe('MlThemePickerMatComponent', () => {
         expect(component['_allOptions']()).toEqual(expectedOptions);
     });
 
-    it('should reflect the initial theme from ThemeService', fakeAsync(() => {
+    it('should reflect the initial theme from SbThemeService', fakeAsync(() => {
         tick();
         fixture.detectChanges();
         expect(component['_selectedOption']()).toEqual(mockSystemTheme1);
     }));
 
-    it('should call ThemeService.setTheme when a theme is clicked', fakeAsync(() => {
+    it('should call SbThemeService.setTheme when a theme is clicked', fakeAsync(() => {
         const themeToSelect = mockCustomTheme1;
         component['_changeThemeClick$'].next(themeToSelect);
         tick();
         fixture.detectChanges();
 
-        expect(mockThemeService.setTheme).toHaveBeenCalledWith(themeToSelect);
+        expect(mockSbThemeService.setTheme).toHaveBeenCalledWith(themeToSelect);
     }));
 
     it('should update selectedOption and emit theme change when a theme is clicked', fakeAsync(() => {
@@ -182,7 +182,7 @@ describe('MlThemePickerMatComponent', () => {
         subscription.unsubscribe();
     }));
 
-    it('should emit undefined initially if ThemeService provides undefined', fakeAsync(() => {
+    it('should emit undefined initially if SbThemeService provides undefined', fakeAsync(() => {
         mockCurrentTheme$.next(undefined);
         TestBed.resetTestingModule();
 
@@ -195,13 +195,13 @@ describe('MlThemePickerMatComponent', () => {
                 MatIconModule // Add MatIconModule here too
             ],
             providers: [
-                { provide: ThemeService, useClass: MockThemeService }
+                { provide: SbThemeService, useClass: MockSbThemeService }
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MlThemePickerMatComponent);
         component = fixture.componentInstance;
-        mockThemeService = TestBed.inject(ThemeService) as unknown as MockThemeService;
+        mockSbThemeService = TestBed.inject(SbThemeService) as unknown as MockSbThemeService;
         loader = TestbedHarnessEnvironment.loader(fixture);
 
         let emittedTheme: ThemeOption | undefined = mockSystemTheme1;

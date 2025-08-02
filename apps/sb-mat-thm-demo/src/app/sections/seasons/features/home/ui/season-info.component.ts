@@ -1,11 +1,10 @@
 
-import { Component, computed, ElementRef, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
 import { SbThemeBannerComponent } from '@spider-baby/material-theming/ui';
 
 export interface SeasonCardData {

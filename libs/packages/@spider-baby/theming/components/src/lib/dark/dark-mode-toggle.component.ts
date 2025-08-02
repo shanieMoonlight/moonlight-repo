@@ -4,7 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SbThemePalette } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 
 /**
  * A Material Design toggle component for switching between light and dark modes.
@@ -35,7 +35,7 @@ import { ThemeService } from '@spider-baby/material-theming/service';
 })
 export class MlDarkModeToggleMatComponent {
 
-  private _themeService = inject(ThemeService)
+  private _themeService = inject(SbThemeService)
 
   //- - - - - - - - - - - - - - -//
 

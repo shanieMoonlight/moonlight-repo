@@ -2,17 +2,17 @@ import { PLATFORM_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeConfigService, ThemeOption, ThemingConfig } from '@spider-baby/material-theming/config';
-import { ScssPaletteGeneratorService, ThemeService } from '@spider-baby/material-theming/service';
+import { ScssPaletteGeneratorService, SbThemeService } from '@spider-baby/material-theming/service';
 import { MockBuilder, MockRender } from 'ng-mocks';
 import { of } from 'rxjs';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
+import { SbCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { SbCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { SbThemeSelectorComponent } from './theme-selector.component';
 
 describe('SbThemeSelectorComponent', () => {
   let component: SbThemeSelectorComponent;
-  let themeServiceMock: jest.Mocked<ThemeService>;
+  let themeServiceMock: jest.Mocked<SbThemeService>;
   let dialogMock: jest.Mocked<MatDialog>;
 
   const mockPreset = {
@@ -42,7 +42,7 @@ describe('SbThemeSelectorComponent', () => {
         customThemes$: of([]),
         reapplyCurrentTheme: jest.fn(),
         applyTheme: jest.fn()
-      } as unknown as jest.Mocked<ThemeService>;
+      } as unknown as jest.Mocked<SbThemeService>;
 
       dialogMock = {
         open: jest.fn().mockReturnValue({
@@ -55,7 +55,7 @@ describe('SbThemeSelectorComponent', () => {
         // Keep ReactiveFormsModule real
         .keep(ReactiveFormsModule)
         // Mock everything else but provide our mocks
-        .provide({ provide: ThemeService, useValue: themeServiceMock })
+        .provide({ provide: SbThemeService, useValue: themeServiceMock })
         .provide({ provide: MatDialog, useValue: dialogMock })
         .provide({ provide: ThemeConfigService, useValue: mockConfig })
         .provide({ provide: ScssPaletteGeneratorService, useValue: scssPaletteGeneratorMock })
@@ -157,7 +157,7 @@ describe('SbThemeSelectorComponent', () => {
 
     // Check confirmation dialog was shown
     expect(dialogMock.open).toHaveBeenCalledWith(
-      MlCustomThemeSavedComponent,
+      SbCustomThemeSavedComponent,
       expect.objectContaining({
         data: { theme }
       })
@@ -192,7 +192,7 @@ describe('SbThemeSelectorComponent', () => {
 
     // Assert
     expect(dialogMock.open).toHaveBeenCalledWith(
-      MlCustomThemeManagerComponent,
+      SbCustomThemeManagerComponent,
       expect.anything()
     );
   });

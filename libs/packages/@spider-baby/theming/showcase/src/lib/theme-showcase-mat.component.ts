@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 /**
@@ -35,7 +35,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 export class SbThemeShowcaseMatComponent {
 
   /** The theme service that provides the current theme */
-  private _service = inject(ThemeService)
+  private _service = inject(SbThemeService)
 
   /** Signal with the current theme, updated automatically when theme changes */
   protected _theme = this._service.currentTheme

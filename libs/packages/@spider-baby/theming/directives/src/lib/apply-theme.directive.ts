@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input } from '@angular/core';
-import { ThemeOption, ThemeValue } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { ThemeOption } from '@spider-baby/material-theming/config';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 
 /**
  * Directive that applies a theme to an element.
@@ -13,9 +13,9 @@ import { ThemeService } from '@spider-baby/material-theming/service';
   selector: '[sbApplyTheme]',
   standalone: true
 })
-export class MlApplyThemeDirective {
+export class SbApplyThemeDirective {
 
-  private _themeService = inject(ThemeService);
+  private _themeService = inject(SbThemeService);
   private _elementRef = inject(ElementRef)
 
   //---------------------------------//

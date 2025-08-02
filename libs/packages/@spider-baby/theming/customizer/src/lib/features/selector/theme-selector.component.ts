@@ -5,13 +5,13 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DarkModeType, DEFAULT_COLOR_PRIMARY, DEFAULT_COLOR_SECONDARY, defaultThemeOption, ThemeConfigService, ThemeOption, ThemingConfig } from '@spider-baby/material-theming/config';
-import { ScssPaletteGeneratorService, ThemeService } from '@spider-baby/material-theming/service';
+import { ScssPaletteGeneratorService, SbThemeService } from '@spider-baby/material-theming/service';
 import { consoleDev, MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { map } from 'rxjs';
 import { ColorInputComponent } from '../../ui/cva-color-input.component';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
-import { MlCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
-import { MlCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
+import { SbCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
+import { SbCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 
 //#########################################//
@@ -72,7 +72,7 @@ interface IThemeForm
 export class SbThemeSelectorComponent implements OnDestroy {
 
   private _platformId = inject(PLATFORM_ID)
-  private _themeService = inject(ThemeService)
+  private _themeService = inject(SbThemeService)
   private _scssPalettes = inject(ScssPaletteGeneratorService)
   private _fb = inject(FormBuilder)
   private _dialog = inject(MatDialog)
@@ -189,7 +189,7 @@ export class SbThemeSelectorComponent implements OnDestroy {
   protected storeTheme(theme: ThemeOption) {
     this._themeService.addCustomTheme(theme);
 
-    this._dialog.open(MlCustomThemeSavedComponent, {
+    this._dialog.open(SbCustomThemeSavedComponent, {
       width: '400px', // Adjust width as needed
       data: { theme: theme }, // Pass the theme data
       autoFocus: 'dialog' // Focus the dialog itself initially
@@ -250,7 +250,7 @@ export class SbThemeSelectorComponent implements OnDestroy {
     if (!this.isBrowser())
       return;
 
-    this._dialog.open(MlCustomThemeManagerComponent, {
+    this._dialog.open(SbCustomThemeManagerComponent, {
       width: '600px',
       autoFocus: false
     });

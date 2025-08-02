@@ -57,7 +57,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
   }
   `
 })
-export class MlThemeAvatarComponent {
+export class SbThemeAvatarComponent {
 
   /**
    * The theme to display in this avatar.

@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeOption } from '@spider-baby/material-theming/config';
-import { MlThemeAvatarComponent } from "@spider-baby/material-theming/ui";
+import { SbThemeAvatarComponent } from "@spider-baby/material-theming/ui";
 
 @Component({
   selector: 'sb-theme-picker',
@@ -13,7 +13,7 @@ import { MlThemeAvatarComponent } from "@spider-baby/material-theming/ui";
     MatMenuModule,
     MatTooltipModule,
     MatIconModule,
-    MlThemeAvatarComponent
+    SbThemeAvatarComponent
 ],
   template: `  
     <button mat-icon-button

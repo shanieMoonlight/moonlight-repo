@@ -1,6 +1,6 @@
 import { EnvironmentProviders, Provider, APP_INITIALIZER } from "@angular/core";
 import { MaterialThemingSetup, ThemingConfig } from "@spider-baby/material-theming/config";
-import { ThemeService } from '@spider-baby/material-theming/service'; // Adjust path as needed
+import { SbThemeService } from '@spider-baby/material-theming/service'; // Adjust path as needed
 
 // Export a provider function for use in app.config.ts or bootstrapApplication
 function _provideThemeInitializer(): Provider {
@@ -8,13 +8,13 @@ function _provideThemeInitializer(): Provider {
   // Note: APP_INITIALIZER is deprecated in Angular 19+ in favor of provideAppInitializer
   return {
     provide: APP_INITIALIZER,
-    useFactory: (themeService: ThemeService) => {
+    useFactory: (themeService: SbThemeService) => {
       return () => {
         // Initialize ThemeService at app startup
         themeService.refreshTheme?.();
       };
     },
-    deps: [ThemeService],
+    deps: [SbThemeService],
     multi: true,
   };
 }
