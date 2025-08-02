@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, ElementRef, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
 import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/hangfire-button.component';
@@ -17,8 +17,8 @@ import { LoginService } from '@spider-baby/myid-auth/services';
   standalone: true,
   imports: [
     MainNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule,
     ServiceWorkerUpdateMatComponent,
     SbAuthLoginButtonComponent,

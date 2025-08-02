@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '../../shared/utils/icons/icons.service';
 import { NavbarComponent } from './ui/navbar/navbar.component';
@@ -10,8 +10,8 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
   standalone: true,
   imports: [
     NavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule,
     ServiceWorkerUpdateMatComponent
   ],

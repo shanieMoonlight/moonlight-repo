@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { DynamicThemeConfigService } from '@spider-baby/material-theming/config';
 import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { AdminMainRoutes } from './config/admin-route-data';
@@ -12,8 +12,8 @@ import { AdminNavbarComponent } from './ui/navbar/navbar.component';
   imports: [
     MatEverythingModule,
     AdminNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule,
   ],
   providers: [],

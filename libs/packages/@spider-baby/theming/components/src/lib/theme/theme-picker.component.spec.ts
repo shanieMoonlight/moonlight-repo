@@ -11,7 +11,7 @@ import { ThemeOption } from '@spider-baby/material-theming/config';
 import { SbThemeService } from '@spider-baby/material-theming/service';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { BehaviorSubject } from 'rxjs';
-import { MlThemePickerMatComponent } from './theme-picker.component';
+import { SbThemePickerMatComponent } from './theme-picker.component';
 
 const mockSystemTheme1: ThemeOption = ThemeOption.create({ label: 'System Light', value: 'system-light',  darkMode: 'light', primaryColor: '#ffffff', secondaryColor: '#000000' });
 const mockSystemTheme2: ThemeOption = ThemeOption.create({ label: 'System Dark', value: 'system-dark', darkMode: 'dark', primaryColor: '#000000', secondaryColor: '#ffffff' });
@@ -34,9 +34,9 @@ class MockSbThemeService {
     });
 }
 
-describe('MlThemePickerMatComponent', () => {
-    let component: MlThemePickerMatComponent;
-    let fixture: ComponentFixture<MlThemePickerMatComponent>;
+describe('SbThemePickerMatComponent', () => {
+    let component: SbThemePickerMatComponent;
+    let fixture: ComponentFixture<SbThemePickerMatComponent>;
     let mockSbThemeService: MockSbThemeService;
     let loader: HarnessLoader;
 
@@ -47,7 +47,7 @@ describe('MlThemePickerMatComponent', () => {
 
         await TestBed.configureTestingModule({
             imports: [
-                MlThemePickerMatComponent,
+                SbThemePickerMatComponent,
                 NoopAnimationsModule,
                 MatMenuModule,
                 MatTooltipModule,
@@ -60,7 +60,7 @@ describe('MlThemePickerMatComponent', () => {
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(MlThemePickerMatComponent);
+        fixture = TestBed.createComponent(SbThemePickerMatComponent);
         component = fixture.componentInstance;
         mockSbThemeService = TestBed.inject(SbThemeService) as unknown as MockSbThemeService;
         loader = TestbedHarnessEnvironment.loader(fixture);
@@ -188,7 +188,7 @@ describe('MlThemePickerMatComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [
-                MlThemePickerMatComponent,
+                SbThemePickerMatComponent,
                 NoopAnimationsModule,
                 MatMenuModule,
                 MatTooltipModule,
@@ -199,7 +199,7 @@ describe('MlThemePickerMatComponent', () => {
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(MlThemePickerMatComponent);
+        fixture = TestBed.createComponent(SbThemePickerMatComponent);
         component = fixture.componentInstance;
         mockSbThemeService = TestBed.inject(SbThemeService) as unknown as MockSbThemeService;
         loader = TestbedHarnessEnvironment.loader(fixture);

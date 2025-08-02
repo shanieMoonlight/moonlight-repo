@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
@@ -13,8 +13,8 @@ import { getApp } from 'firebase/app';
   imports: [
     MatEverythingModule,
     MainNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule
   ],
   providers: [],

@@ -3,15 +3,15 @@ import { Component, inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HubBlogNavbarComponent } from '@sb-hub/sections-blog/ui-nav';
 import { IconsService } from '@sb-hub/shared-utils/icons';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { SeoService } from '@spider-baby/utils-seo';
 
 @Component({
   standalone: true,
   imports: [
     HubBlogNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule
   ],
   providers: [],

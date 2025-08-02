@@ -5,7 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ThemeOption } from '@spider-baby/material-theming/config';
 import { SbApplyThemeDirective } from '@spider-baby/material-theming/directives';
 import { SbThemeService } from '@spider-baby/material-theming/service';
@@ -61,7 +61,7 @@ const seasonData: SeasonCardData[] = [
     RouterModule,
     ThemeHierarchyDiagramComponent,
     SbApplyThemeDirective,
-    MlThemePickerMatComponent,
+    SbThemePickerMatComponent,
     HighlightModule,
 ],
   templateUrl: './home.component.html',

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService } from '@spider-baby/utils-seo';
 import { API_ROUTES } from './config/route-data';
@@ -12,8 +12,8 @@ import { ApiNavbarComponent } from './ui/navbar/navbar.component';
   imports: [
     MatEverythingModule,
     ApiNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule
   ],
   providers: [

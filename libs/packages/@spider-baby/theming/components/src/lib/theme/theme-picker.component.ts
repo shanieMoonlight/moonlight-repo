@@ -31,7 +31,7 @@ import { Subject, merge, tap } from 'rxjs';
         '[class]': '"icon-"+_color()',
     },
 })
-export class MlThemePickerMatComponent {
+export class SbThemePickerMatComponent {
 
     private _themeService = inject(SbThemeService)
 

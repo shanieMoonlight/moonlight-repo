@@ -33,7 +33,7 @@ import { SbThemeService } from '@spider-baby/material-theming/service';
     '[class]': '_color()',
   },
 })
-export class MlDarkModeToggleMatComponent {
+export class SbDarkModeToggleMatComponent {
 
   private _themeService = inject(SbThemeService)
 

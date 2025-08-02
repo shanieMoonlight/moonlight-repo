@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { <%= sectionClassNamePrefix %>NavbarComponent } from '<%= importPrefix %>/ui-nav';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent, } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent, } from '@spider-baby/material-theming/components';
 import { SeoService } from '@spider-baby/utils-seo';
 // import { IconsService } from '@<%= prefix %>/shared-utils/icons';
 
@@ -9,8 +9,8 @@ import { SeoService } from '@spider-baby/utils-seo';
   standalone: true,
   imports: [
     <%= sectionClassNamePrefix %>NavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule
   ],
   providers: [],

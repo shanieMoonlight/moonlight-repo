@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {  MlDarkModeToggleMatComponent,  MlThemePickerMatComponent,} from '@spider-baby/material-theming/components';
+import {  SbDarkModeToggleMatComponent,  SbThemePickerMatComponent,} from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { HubMainNavbarComponent } from '@sb-hub/sections-main/ui/nav';
@@ -11,8 +11,8 @@ import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
   standalone: true,
   imports: [
     HubMainNavbarComponent,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     RouterModule,
     ServiceWorkerUpdateMatComponent,
   ],

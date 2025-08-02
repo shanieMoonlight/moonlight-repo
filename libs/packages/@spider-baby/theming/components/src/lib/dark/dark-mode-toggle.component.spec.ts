@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BehaviorSubject } from 'rxjs';
-import { MlDarkModeToggleMatComponent } from './dark-mode-toggle.component';
+import { SbDarkModeToggleMatComponent } from './dark-mode-toggle.component';
 import { SbThemeService } from '@spider-baby/material-theming/service';
 import { signal } from '@angular/core';
 
@@ -17,9 +17,9 @@ class MockSbThemeService {
   });
 }
 
-describe('MlDarkModeToggleMatComponent', () => {
-  let component: MlDarkModeToggleMatComponent;
-  let fixture: ComponentFixture<MlDarkModeToggleMatComponent>;
+describe('SbDarkModeToggleMatComponent', () => {
+  let component: SbDarkModeToggleMatComponent;
+  let fixture: ComponentFixture<SbDarkModeToggleMatComponent>;
   let mockSbThemeService: MockSbThemeService;
   
   //-----------------------------//
@@ -32,7 +32,7 @@ describe('MlDarkModeToggleMatComponent', () => {
         NgTemplateOutlet,
         MatTooltipModule,
         MatSlideToggleModule,
-        MlDarkModeToggleMatComponent
+        SbDarkModeToggleMatComponent
       ],
       providers: [
         // This is the key line - provide the mock directly through DI
@@ -40,7 +40,7 @@ describe('MlDarkModeToggleMatComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MlDarkModeToggleMatComponent);
+    fixture = TestBed.createComponent(SbDarkModeToggleMatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

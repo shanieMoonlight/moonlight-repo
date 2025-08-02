@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { SeoService, StructuredDataService } from '@spider-baby/utils-seo';
 import { ApiNavbarComponent } from './ui/navbar/navbar.component';
@@ -13,8 +13,8 @@ import { API_ROUTES } from './config/route-data';
     MatEverythingModule,
     RouterOutlet,
     RouterModule,
-    MlDarkModeToggleMatComponent,
-    MlThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
     ApiNavbarComponent
   ],
   templateUrl: './api.component.html',

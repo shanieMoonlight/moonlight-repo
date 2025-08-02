@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MlDarkModeToggleMatComponent, MlThemePickerMatComponent } from '@spider-baby/material-theming/components';
+import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 
 @Component({
   selector: 'sb-home-cards',
   imports: [
     MatEverythingModule,
-    MlThemePickerMatComponent,
-    MlDarkModeToggleMatComponent,
+    SbThemePickerMatComponent,
+    SbDarkModeToggleMatComponent,
     RouterModule
   ],
   templateUrl: './cards.component.html',
