@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -23,11 +23,15 @@ import { FormUtility } from './form-utility';
   `
 })
 class TestHostComponent {
+
+    private fb: FormBuilder = inject(FormBuilder);
+
     testForm: FormGroup;
     customMessages?: CustomErrorMessageMap;
     showUntouched = false;
 
-    constructor(private fb: FormBuilder) {
+
+    constructor() {
         this.testForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(8)]],

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
 import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
-import { FirstErrorComponent, FirstErrorDirective } from '@spider-baby/utils-forms';
+import { FirstErrorComponent, FirstErrorDirective, FirstErrorMatComponent } from '@spider-baby/utils-forms';
 
 //###################################//
 
@@ -61,10 +63,13 @@ function hasNonAlphaNumericValidator(): ValidatorFn {
         ReactiveFormsModule,
         FirstErrorDirective,
         FirstErrorComponent,
+        FirstErrorMatComponent,
         SbButtonComponent,
         SbToggleIconButtonComponent,
         SbInputWithBtnDirective,
         SbInputStyleDirective,
+        MatFormFieldModule,
+        MatInputModule
     ],
     templateUrl: 'demo.component.html',
     styleUrl: 'demo.component.scss',

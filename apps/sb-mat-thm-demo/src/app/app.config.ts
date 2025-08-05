@@ -3,16 +3,14 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { SeoSetup } from '@spider-baby/utils-seo/config';
+import { initializeApp } from 'firebase/app';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { FirebaseProviders } from './firebase/firebase-init';
-import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { SEO_CONFIG } from './config/seo.config';
-import { provideFirebaseApp } from '@angular/fire/app';
-import { initializeApp } from 'firebase/app';
-import { environment } from '../environments/environment';
-import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
+import { FirebaseProviders } from './firebase/firebase-init';
 
 const app = initializeApp(environment.firebaseConfig)
 // const analytics = getAnalytics(app);
