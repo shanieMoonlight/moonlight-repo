@@ -22,8 +22,8 @@ export interface ThemingConfigOptions {
   themeOptions?: ThemeOption[];
   /** CSS class for dark mode */
   darkModeClass?: string;
-  /** CSS class for light mode */
-  lightModeClass?: string;
+  // /** CSS class for light mode */
+  // lightModeClass?: string;
   /** Prefix for theme-specific CSS classes */
   themeClassPrefix?: string;
   /** Default theme mode ('light' or 'dark') */
@@ -64,7 +64,7 @@ export class ThemingConfig {
 
   themeOptions: ThemeOption[] = []
   darkModeClass = DARK_MODE_CLASS
-  lightModeClass = LIGHT_MODE_CLASS
+  // lightModeClass = LIGHT_MODE_CLASS
   themeClassPrefix = THEME_CLASS_PREFIX
   defaultDarkModeType: DarkModeType = 'light'
   colorTones: number[] = DEFAULT_COLOR_TONES
@@ -83,7 +83,7 @@ export class ThemingConfig {
   private constructor(options: ThemingConfigOptions = {}) {
     this.themeOptions = options.themeOptions ?? [];
     this.darkModeClass = options.darkModeClass ?? DARK_MODE_CLASS;
-    this.lightModeClass = options.lightModeClass ?? LIGHT_MODE_CLASS;
+    // this.lightModeClass = options.lightModeClass ?? LIGHT_MODE_CLASS;
     this.themeClassPrefix = options.themeClassPrefix ?? THEME_CLASS_PREFIX;
     this.defaultDarkModeType = options.defaultDarkModeType ?? 'light';
     this.colorTones = options.customColorTones ?? DEFAULT_COLOR_TONES;
@@ -115,12 +115,12 @@ export class ThemingConfig {
     return this
   }
 
-  //- - - - - - - - - - - - - - - //     
+  // //- - - - - - - - - - - - - - - //     
 
-  setLightModeClass(className: string) {
-    this.lightModeClass = className
-    return this
-  }
+  // setLightModeClass(className: string) {
+  //   this.lightModeClass = className
+  //   return this
+  // }
 
   //- - - - - - - - - - - - - - - //   
 
@@ -142,7 +142,6 @@ export class ThemingConfig {
     this.transitionOptions = opts
     return this
   }
-
-  //------------------------------//   
+  
 
 } //Cls

@@ -2,159 +2,133 @@
 
 //======================= REGULAR =======================//
 
-.secondary {
-  @include mat.button-overrides(
-    (
-      // Filled button (standard)
+.secondary-theme {
+  @include mat.button-overrides(( // Filled button (standard)
       filled-container-color: var(--mat-sys-secondary),
       filled-label-text-color: var(--mat-sys-on-secondary),
       filled-state-layer-color: var(--mat-sys-on-secondary),
       filled-ripple-color: var(--mat-sys-on-secondary),
-      
+
       // Outlined button
       outlined-outline-color: var(--mat-sys-secondary),
       outlined-label-text-color: var(--mat-sys-secondary),
       outlined-state-layer-color: var(--mat-sys-secondary),
       outlined-ripple-color: var(--mat-sys-secondary),
-      
+
       // Text button
       text-label-text-color: var(--mat-sys-secondary),
       text-state-layer-color: var(--mat-sys-secondary),
       text-ripple-color: var(--mat-sys-secondary),
-      
+
       // Protected button (equivalent to "elevated" in Material 3)
       protected-container-color: var(--mat-sys-secondary-container),
       protected-label-text-color: var(--mat-sys-on-secondary-container),
       protected-state-layer-color: var(--mat-sys-on-secondary-container),
-      protected-ripple-color: var(--mat-sys-on-secondary-container)
-    )
-  );
+      protected-ripple-color: var(--mat-sys-on-secondary-container)));
 }
 
 
 
-.tertiary {
-  @include mat.button-overrides(
-    (
-      // Filled button (standard)
+.tertiary-theme {
+  @include mat.button-overrides(( // Filled button (standard)
       filled-container-color: var(--mat-sys-tertiary),
       filled-label-text-color: var(--mat-sys-on-tertiary),
       filled-state-layer-color: var(--mat-sys-on-tertiary),
       filled-ripple-color: var(--mat-sys-on-tertiary),
-      
+
       // Outlined button
       outlined-outline-color: var(--mat-sys-tertiary),
       outlined-label-text-color: var(--mat-sys-tertiary),
       outlined-state-layer-color: var(--mat-sys-tertiary),
       outlined-ripple-color: var(--mat-sys-tertiary),
-      
+
       // Text button
       text-label-text-color: var(--mat-sys-tertiary),
       text-state-layer-color: var(--mat-sys-tertiary),
       text-ripple-color: var(--mat-sys-tertiary),
-      
+
       // Protected button (equivalent to "elevated" in Material 3)
       protected-container-color: var(--mat-sys-tertiary-container),
       protected-label-text-color: var(--mat-sys-on-tertiary-container),
       protected-state-layer-color: var(--mat-sys-on-tertiary-container),
-      protected-ripple-color: var(--mat-sys-on-tertiary-container)
-    )
-  );
+      protected-ripple-color: var(--mat-sys-on-tertiary-container)));
 }
 
 
 
-.error {
-  @include mat.button-overrides(
-    (
-      // Filled button (standard)
+.error-theme {
+  @include mat.button-overrides(( // Filled button (standard)
       filled-container-color: var(--mat-sys-error),
       filled-label-text-color: var(--mat-sys-on-error),
       filled-state-layer-color: var(--mat-sys-on-error),
       filled-ripple-color: var(--mat-sys-on-error),
-      
+
       // Outlined button
       outlined-outline-color: var(--mat-sys-error),
       outlined-label-text-color: var(--mat-sys-error),
       outlined-state-layer-color: var(--mat-sys-error),
       outlined-ripple-color: var(--mat-sys-error),
-      
+
       // Text button
       text-label-text-color: var(--mat-sys-error),
       text-state-layer-color: var(--mat-sys-error),
       text-ripple-color: var(--mat-sys-error),
-      
+
       // Protected button (equivalent to "elevated" in Material 3)
       protected-container-color: var(--mat-sys-error-container),
       protected-label-text-color: var(--mat-sys-on-error-container),
       protected-state-layer-color: var(--mat-sys-on-error-container),
-      protected-ripple-color: var(--mat-sys-on-error-container)
-    )
-  );
+      protected-ripple-color: var(--mat-sys-on-error-container)));
 }
 
 
 
 //======================== FABS =========================//
 
-.secondary {
-  @include mat.fab-overrides(
-    (
-      // Container properties
+.secondary-theme {
+  @include mat.fab-overrides(( // Container properties
       container-color: var(--mat-sys-secondary-container),
       small-container-color: var(--mat-sys-secondary-container),
-      
+
       // Foreground (text and icon)
       foreground-color: var(--mat-sys-on-secondary-container),
       small-foreground-color: var(--mat-sys-on-secondary-container),
-      
+
       // State layers and ripple
       state-layer-color: var(--mat-sys-on-secondary-container),
       small-state-layer-color: var(--mat-sys-on-secondary-container),
       ripple-color: var(--mat-sys-on-secondary-container),
-      small-ripple-color: var(--mat-sys-on-secondary-container)
-    )
-  );
+      small-ripple-color: var(--mat-sys-on-secondary-container)));
 }
 
-.tertiary {
-  @include mat.fab-overrides(
-    (
-      // Container properties
+.tertiary-theme {
+  @include mat.fab-overrides(( // Container properties
       container-color: var(--mat-sys-tertiary-container),
       small-container-color: var(--mat-sys-tertiary-container),
-      
+
       // Foreground (text and icon)
       foreground-color: var(--mat-sys-on-tertiary-container),
       small-foreground-color: var(--mat-sys-on-tertiary-container),
-      
+
       // State layers and ripple
       state-layer-color: var(--mat-sys-on-tertiary-container),
       small-state-layer-color: var(--mat-sys-on-tertiary-container),
       ripple-color: var(--mat-sys-on-tertiary-container),
-      small-ripple-color: var(--mat-sys-on-tertiary-container)
-    )
-  );
+      small-ripple-color: var(--mat-sys-on-tertiary-container)));
 }
 
-.error {
-  @include mat.fab-overrides(
-    (
-      // Container properties
+.error-theme {
+  @include mat.fab-overrides(( // Container properties
       container-color: var(--mat-sys-error-container),
       small-container-color: var(--mat-sys-error-container),
-      
+
       // Foreground (text and icon)
       foreground-color: var(--mat-sys-on-error-container),
       small-foreground-color: var(--mat-sys-on-error-container),
-      
+
       // State layers and ripple
       state-layer-color: var(--mat-sys-on-error-container),
       small-state-layer-color: var(--mat-sys-on-error-container),
       ripple-color: var(--mat-sys-on-error-container),
-      small-ripple-color: var(--mat-sys-on-error-container)
-    )
-  );
+      small-ripple-color: var(--mat-sys-on-error-container)));
 }
-
-

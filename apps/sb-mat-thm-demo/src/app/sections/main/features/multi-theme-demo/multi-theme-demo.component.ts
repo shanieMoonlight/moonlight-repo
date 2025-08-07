@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { ThemeDemoCardComponent, ThemeDemoConfig } from './ui/theme-demo-card/theme-demo-card.component';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -18,7 +18,7 @@ import { HighlightModule } from 'ngx-highlightjs';
   styleUrl: './multi-theme-demo.component.scss'
 })
 export class MultiThemeApiDemoComponent {
-  themeService = inject(ThemeService);
+  themeService = inject(SbThemeService);
   progressValue = 60;
 
   demoCards: ThemeDemoConfig[] = [

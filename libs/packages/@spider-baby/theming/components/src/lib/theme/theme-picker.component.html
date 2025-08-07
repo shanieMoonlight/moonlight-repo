@@ -1,10 +1,8 @@
-<button mat-icon-button id="btn-icon" 
+<button matIconButton 
+  id="btn-icon" 
   [matMenuTriggerFor]="menu"
-  [matTooltip]="_toolTip()" data-testid="btn-icon">
-  <mat-icon        
-    aria-label="Change Theme Menu">
-    palette
-  </mat-icon>
+  [matTooltip]="pickerTooltip()" data-testid="btn-icon">
+  <mat-icon aria-label="Change Theme Menu">palette</mat-icon>
 </button>
 
 <mat-menu #menu="matMenu">
@@ -23,10 +21,8 @@
     </button>
   }
 
-  @if (_includeCustomThemes() && _customOptions().length > 0) {
-      
+  @if (includeCustomThemes() && _customOptions().length > 0) {
     <mat-divider/>
-    
     @for (option of _customOptions(); track option) {
       <button
         mat-menu-item
@@ -41,5 +37,5 @@
         <span>{{ option.label }}</span>
       </button>
     }
-}
+  }
 </mat-menu>

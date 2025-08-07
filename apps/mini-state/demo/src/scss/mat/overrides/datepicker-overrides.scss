@@ -1,0 +1,43 @@
+@use "@angular/material" as mat;
+
+//======================= DATE-PICKER ========================//
+
+.primary-theme {
+  @include mat.datepicker-overrides((calendar-navigation-button-icon-color: var(--mat-sys-primary),
+      calendar-period-button-icon-color: var(--mat-sys-primary),
+      calendar-period-button-text-color: var(--mat-sys-primary),
+      calendar-date-today-outline-color: var(--mat-sys-primary),
+      calendar-date-today-selected-state-outline-color: var(--mat-sys-primary),
+      calendar-date-selected-state-background-color: var(--mat-sys-primary),
+      toggle-active-state-icon-color: var(--mat-sys-primary)));
+}
+
+.secondary-theme {
+  @include mat.datepicker-overrides((calendar-navigation-button-icon-color: var(--mat-sys-secondary),
+      calendar-period-button-icon-color: var(--mat-sys-secondary),
+      calendar-period-button-text-color: var(--mat-sys-secondary),
+      calendar-date-today-outline-color: var(--mat-sys-secondary),
+      calendar-date-today-selected-state-outline-color: var(--mat-sys-secondary),
+      calendar-date-selected-state-background-color: var(--mat-sys-secondary),
+      toggle-active-state-icon-color: var(--mat-sys-secondary)));
+}
+
+.tertiary-theme {
+  @include mat.datepicker-overrides((calendar-navigation-button-icon-color: var(--mat-sys-tertiary),
+      calendar-period-button-icon-color: var(--mat-sys-tertiary),
+      calendar-period-button-text-color: var(--mat-sys-tertiary),
+      calendar-date-today-outline-color: var(--mat-sys-tertiary),
+      calendar-date-today-selected-state-outline-color: var(--mat-sys-tertiary),
+      calendar-date-selected-state-background-color: var(--mat-sys-tertiary),
+      toggle-active-state-icon-color: var(--mat-sys-tertiary)));
+}
+
+.error-theme {
+  @include mat.datepicker-overrides((calendar-navigation-button-icon-color: var(--mat-sys-error),
+      calendar-period-button-icon-color: var(--mat-sys-error),
+      calendar-period-button-text-color: var(--mat-sys-error),
+      calendar-date-today-outline-color: var(--mat-sys-error),
+      calendar-date-today-selected-state-outline-color: var(--mat-sys-error),
+      calendar-date-selected-state-background-color: var(--mat-sys-error),
+      toggle-active-state-icon-color: var(--mat-sys-error)));
+}

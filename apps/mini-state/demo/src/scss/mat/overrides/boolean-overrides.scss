@@ -2,7 +2,7 @@
 
 //======================== CHECKBOXES =========================//
 
-.secondary {
+.secondary-theme {
   @include mat.checkbox-overrides(
     (
       // Selected state colors
@@ -22,7 +22,7 @@
   );
 }
 
-.tertiary {
+.tertiary-theme {
   @include mat.checkbox-overrides(
     (
       // Selected state colors
@@ -42,7 +42,7 @@
   );
 }
 
-.error {
+.error-theme {
   @include mat.checkbox-overrides(
     (
       // Selected state colors

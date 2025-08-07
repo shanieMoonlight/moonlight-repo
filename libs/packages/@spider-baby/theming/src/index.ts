@@ -15,7 +15,7 @@
  * @example
  * ```typescript
  * // Good - specific imports
- * import { ThemeService } from '@spider-baby/material-theming/service';
+ * import { SbThemeService } from '@spider-baby/material-theming/service';
  * import { ThemeOption } from '@spider-baby/material-theming/config';
  * 
  * // Bad - don't import from the main entry point

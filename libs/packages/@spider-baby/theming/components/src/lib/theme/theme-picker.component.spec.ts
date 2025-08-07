@@ -76,7 +76,7 @@ describe('SbThemePickerMatComponent', () => {
     });
 
     it('should display the default tooltip', async () => {
-        expect(component._toolTip()).toBe('Change app theme');
+        expect(component.pickerTooltip()).toBe('Change app theme');
 
         // Get the tooltip harness directly
         const tooltipHarness = await loader.getHarness(MatTooltipHarness);
@@ -96,7 +96,7 @@ describe('SbThemePickerMatComponent', () => {
         const customTooltip = 'Select Theme';
         fixture.componentRef.setInput('pickerTooltip', customTooltip);
         fixture.detectChanges(); // Ensure changes are detected
-        expect(component._toolTip()).toBe(customTooltip);
+        expect(component.pickerTooltip()).toBe(customTooltip);
 
         // Get the tooltip harness directly
         const tooltipHarness = await loader.getHarness(MatTooltipHarness);
@@ -135,7 +135,7 @@ describe('SbThemePickerMatComponent', () => {
     it('should update selectedOption and emit theme change when a theme is clicked', fakeAsync(() => {
       const themeToSelect = mockCustomTheme1;
       let emittedTheme: ThemeOption | undefined;
-      const subscription = component._onThemeChange.subscribe(theme => {
+      const subscription = component.theme.subscribe(theme => {
           console.log('[_onThemeChange emitted]:', theme); // Add logging
           emittedTheme = theme;
       });
@@ -170,7 +170,7 @@ describe('SbThemePickerMatComponent', () => {
     it('should update selectedOption and emit theme change when currentTheme$ emits', fakeAsync(() => {
         const newThemeFromServer = mockSystemTheme2;
         let emittedTheme: ThemeOption | undefined;
-        const subscription = component._onThemeChange.subscribe(theme => emittedTheme = theme);
+        const subscription = component.theme.subscribe(theme => emittedTheme = theme);
 
         mockCurrentTheme$.next(newThemeFromServer);
         tick();
@@ -205,7 +205,7 @@ describe('SbThemePickerMatComponent', () => {
         loader = TestbedHarnessEnvironment.loader(fixture);
 
         let emittedTheme: ThemeOption | undefined = mockSystemTheme1;
-        const subscription = component._onThemeChange.subscribe(theme => emittedTheme = theme);
+        const subscription = component.theme.subscribe(theme => emittedTheme = theme);
 
         fixture.detectChanges();
         tick();

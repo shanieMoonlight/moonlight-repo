@@ -2,7 +2,7 @@
 
 //======================= FORM FIELDS ========================//
 
-.secondary {
+.secondary-theme {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -16,12 +16,18 @@
       outlined-focus-label-text-color: var(--mat-sys-secondary),
       
       // Select arrow
-      focus-select-arrow-color: var(--mat-sys-secondary)
+      focus-select-arrow-color: var(--mat-sys-secondary),
+
+      //Icon colors
+      leading-icon-color: var(--mat-sys-secondary),
+      trailing-icon-color: var(--mat-sys-secondary)
+
+      
     )
   );
 }
 
-.tertiary {
+.tertiary-theme {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -35,12 +41,16 @@
       outlined-focus-label-text-color: var(--mat-sys-tertiary),
       
       // Select arrow
-      focus-select-arrow-color: var(--mat-sys-tertiary)
+      focus-select-arrow-color: var(--mat-sys-tertiary),
+
+      //Icon colors
+      leading-icon-color: var(--mat-sys-tertiary),
+      trailing-icon-color: var(--mat-sys-tertiary)
     )
   );
 }
 
-.error {
+.error-theme {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -54,7 +64,11 @@
       outlined-focus-label-text-color: var(--mat-sys-error),
       
       // Select arrow
-      focus-select-arrow-color: var(--mat-sys-error)
+      focus-select-arrow-color: var(--mat-sys-error),
+
+      //Icon colors
+      leading-icon-color: var(--mat-sys-error),
+      trailing-icon-color: var(--mat-sys-error)
     )
   );
 }

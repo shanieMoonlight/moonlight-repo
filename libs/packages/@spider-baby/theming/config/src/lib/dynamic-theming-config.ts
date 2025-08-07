@@ -13,8 +13,6 @@ export class DynamicThemeConfigService {
   // Inject the *initial* static config provided via app.config.ts
   private _initialConfig: ThemingConfig = inject(ThemeConfigService);
 
-  private _themeStack: ThemeOption[] = [...this._initialConfig.themeOptions];
-
   //- - - - - - - - - - - - - - - //
 
   private _systemThemesBs = new BehaviorSubject<ThemeOption[]>([...this._initialConfig.themeOptions]);
@@ -30,10 +28,10 @@ export class DynamicThemeConfigService {
   readonly darkModeClass$ = this._darkModeClassBs.asObservable();
   readonly darkModeClass = toSignal(this.darkModeClass$, { initialValue: this._initialConfig.darkModeClass });
 
-  // Light mode class
-  private _lightModeClassBs = new BehaviorSubject<string>(this._initialConfig.lightModeClass);
-  readonly lightModeClass$ = this._lightModeClassBs.asObservable();
-  readonly lightModeClass = toSignal(this.lightModeClass$, { initialValue: this._initialConfig.lightModeClass });
+  // // Light mode class
+  // private _lightModeClassBs = new BehaviorSubject<string>(this._initialConfig.lightModeClass);
+  // readonly lightModeClass$ = this._lightModeClassBs.asObservable();
+  // readonly lightModeClass = toSignal(this.lightModeClass$, { initialValue: this._initialConfig.lightModeClass });
 
   // Theme class prefix
   private _themeClassPrefixBs = new BehaviorSubject<string>(this._initialConfig.themeClassPrefix);
@@ -75,10 +73,10 @@ export class DynamicThemeConfigService {
     return this;
   }
 
-  setLightModeClass(lightModeClass: string): DynamicThemeConfigService {
-    this._lightModeClassBs.next(lightModeClass);
-    return this;
-  }
+  // setLightModeClass(lightModeClass: string): DynamicThemeConfigService {
+  //   this._lightModeClassBs.next(lightModeClass);
+  //   return this;
+  // }
 
   setThemeClassPrefix(themeClassPrefix: string): DynamicThemeConfigService {
     this._themeClassPrefixBs.next(themeClassPrefix);
@@ -99,7 +97,7 @@ export class DynamicThemeConfigService {
   resetAllToInitial(): DynamicThemeConfigService {
     this._systemThemesBs.next([...this._initialConfig.themeOptions]);
     this._darkModeClassBs.next(this._initialConfig.darkModeClass);
-    this._lightModeClassBs.next(this._initialConfig.lightModeClass);
+    // this._lightModeClassBs.next(this._initialConfig.lightModeClass);
     this._themeClassPrefixBs.next(this._initialConfig.themeClassPrefix);
     this._defaultDarkModeTypeBs.next(this._initialConfig.defaultDarkModeType);
     this._transitionOptionsBs.next(this._initialConfig.transitionOptions );

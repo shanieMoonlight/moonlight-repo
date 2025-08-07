@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { defaultThemeOption, ThemeOption } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
 import { devLog } from '@spider-baby/utils-rxjs';
 import { combineLatest, debounceTime, distinctUntilChanged, map, startWith, Subject } from 'rxjs';
@@ -59,7 +59,7 @@ export interface ThemeDemoConfig {
 export class ThemeDemoCardComponent implements OnInit {
 
   private componentElementRef = inject(ElementRef);
-  private themeService = inject(ThemeService);
+  private themeService = inject(SbThemeService);
   private _destroyor = inject(DestroyRef)
 
   //- - - - - - - - - - - - - - -//

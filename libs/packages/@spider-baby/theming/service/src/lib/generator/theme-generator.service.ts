@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, RendererFactory2, DOCUMENT } from '@angular/core';
-import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@spider-baby/material-theming/config";
+import { COLOR_VAR_PREFIX, DARK_MODE_CLASS, DynamicThemeConfigService, THEME_CLASS_PREFIX, ThemeConfigService, ThemeOption, ThemeValue } from "@spider-baby/material-theming/config";
 import { ColorUtilsService } from '@spider-baby/material-theming/utils';
 import { MemoizationService } from '@spider-baby/utils-memoization';
 import { AnimationFrameService } from '@spider-baby/utils-testing';
@@ -8,6 +8,7 @@ import { GeneratedPalettes } from './models/theme-palletes';
 import { PaletteGeneratorService } from './utils/palettes/palette-generator.service';
 import { ScssPaletteGeneratorService } from './utils/scss/scss-palette-generator.service';
 import { SystemPrefsService } from './utils/sytem-prefs/sytem-prefs.service';
+import { devConsole } from '@spider-baby/dev-console';
 
 
 /**
@@ -46,7 +47,7 @@ export class SbThemeGeneratorService {
   private _memoizer = inject(MemoizationService);
 
   private _systemPrefs = inject(SystemPrefsService)
-  private _config = inject(ThemeConfigService)
+  private _config = inject(DynamicThemeConfigService)
 
   private _rendererFactory = inject(RendererFactory2);
   private _renderer = this._rendererFactory.createRenderer(null, null);
@@ -142,7 +143,7 @@ export class SbThemeGeneratorService {
 
   private applyThemeAndModeClassess(themeClass: ThemeValue, isDark: boolean, targetElement: HTMLElement) {
 
-    const themeClassPrefix = this._config.themeClassPrefix ?? THEME_CLASS_PREFIX
+    const themeClassPrefix = this._config.themeClassPrefix() ?? THEME_CLASS_PREFIX
     //Remove old theme classes      
     targetElement.classList.forEach(className => {
       if (className.startsWith(themeClassPrefix))
@@ -151,14 +152,14 @@ export class SbThemeGeneratorService {
 
     // Set the theme class users might want to react to different classes outside of material situations.  (theme-xmas, theme-halloween, etc.)
     if (themeClass)
-      this._renderer.addClass(targetElement, `${this._config.themeClassPrefix}-${themeClass}`)
+      this._renderer.addClass(targetElement, `${themeClassPrefix}-${themeClass}`)
 
-
+    devConsole.log('Applying theme class:', this._config.darkModeClass(), `${themeClassPrefix}-${themeClass}`, 'isDark:', isDark)
     // Add dark mode class if needed
     if (isDark)
-      this._renderer.addClass(targetElement, DARK_MODE_CLASS)
+      this._renderer.addClass(targetElement, this._config.darkModeClass())
     else
-      this._renderer.removeClass(targetElement, DARK_MODE_CLASS)
+      this._renderer.removeClass(targetElement, this._config.darkModeClass())
 
 
   }

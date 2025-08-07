@@ -53,18 +53,18 @@ describe('SbDarkModeToggleMatComponent', () => {
   //- - - - - - - - - - - - - - -//
 
   it('should have hideSwitch input defaulting to true', () => {
-    expect(component._hideSwitch()).toBe(true);
+    expect(component.hideSwitch()).toBe(true);
   });
 
   //- - - - - - - - - - - - - - -//
 
   it('should initialize with correct dark mode state', () => {
-    expect((component as any)['_isDark']()).toBe(false);
+    expect((component as any)['isDark']()).toBe(false);
     
     mockSbThemeService.isDarkMode.set(true);
     fixture.detectChanges();
     
-    expect((component as any)['_isDark']()).toBe(true);
+    expect((component as any)['isDark']()).toBe(true);
   });
 
   //- - - - - - - - - - - - - - -//

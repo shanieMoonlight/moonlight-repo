@@ -2,7 +2,7 @@
 
 //======================= TABS ========================//
 
-.secondary {
+.secondary-theme {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-secondary),
@@ -12,7 +12,7 @@
   );
 }
 
-.tertiary {
+.tertiary-theme {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-tertiary),
@@ -22,7 +22,7 @@
   );
 }
 
-.error {
+.error-theme {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-error),

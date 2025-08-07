@@ -62,6 +62,7 @@ export const SEASON_THEME_CONFIG = ThemingConfig.create({
   themeOptions: SEASON_THEME_OPTIONS,
   defaultDarkModeType: 'dark',
   themeClassPrefix: 'my-app-theme',
+  darkModeClass: 'my-dark-mode',
   transitionOptions:{
     style: 'morph',
     duration: 500,

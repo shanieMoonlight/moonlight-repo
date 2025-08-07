@@ -2,7 +2,7 @@
 
 //======================= SPIN ========================//
 
-.primary {
+.primary-theme {
   @include mat.icon-overrides(
     (
         color: var(--mat-sys-primary)
@@ -10,7 +10,7 @@
   );
 }
 
-.secondary {
+.secondary-theme {
   @include mat.icon-overrides(
     (
         color: var(--mat-sys-secondary)
@@ -18,7 +18,7 @@
   );
 }
 
-.tertiary {
+.tertiary-theme {
   @include mat.icon-overrides(
     (
         color: var(--mat-sys-tertiary)
@@ -26,7 +26,7 @@
   );
 }
 
-.error {
+.error-theme {
   @include mat.icon-overrides(
     (
         color: var(--mat-sys-error)

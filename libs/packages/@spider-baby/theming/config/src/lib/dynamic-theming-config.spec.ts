@@ -31,7 +31,6 @@ describe('DynamicThemeConfigService', () => {
       themeOptions: initialThemeOptions,
       defaultDarkModeType: 'light',
       themeClassPrefix: 'test-theme',
-      lightModeClass: 'test-light',
       darkModeClass: 'test-dark',
       transitionOptions: {
         showTransitions: true,
@@ -159,7 +158,6 @@ describe('DynamicThemeConfigService', () => {
     expect(service.defaultDarkModeType()).toBe(mockInitialConfig.defaultDarkModeType);
     expect(service.themeClassPrefix()).toBe(mockInitialConfig.themeClassPrefix);
     expect(service.darkModeClass()).toBe(mockInitialConfig.darkModeClass);
-    expect(service.lightModeClass()).toBe(mockInitialConfig.lightModeClass);
     expect(service.transitionOptions()).toEqual(mockInitialConfig.transitionOptions);
   });
 
@@ -190,13 +188,6 @@ describe('DynamicThemeConfigService', () => {
     expect(service.darkModeClass()).toBe(newClass);
   });
 
-  it('should update lightModeClass when setLightModeClass is called', () => {
-    const newClass = 'new-light-class';
-    
-    service.setLightModeClass(newClass);
-    
-    expect(service.lightModeClass()).toBe(newClass);
-  });
 
   it('should update themeClassPrefix when setThemeClassPrefix is called', () => {
     const newPrefix = 'new-prefix';
@@ -223,7 +214,6 @@ describe('DynamicThemeConfigService', () => {
     service.setSystemThemes([]);
     service.setDefaultDarkMode('dark');
     service.setDarkModeClass('changed-dark');
-    service.setLightModeClass('changed-light');
     service.setThemeClassPrefix('changed-prefix');
     service.setTransitionOptions(DEFAULT_TRANSITION_OPTIONS);
     
@@ -238,7 +228,6 @@ describe('DynamicThemeConfigService', () => {
     expect(service.systemThemes()).toEqual(initialThemeOptions);
     expect(service.defaultDarkModeType()).toBe(mockInitialConfig.defaultDarkModeType);
     expect(service.darkModeClass()).toBe(mockInitialConfig.darkModeClass);
-    expect(service.lightModeClass()).toBe(mockInitialConfig.lightModeClass);
     expect(service.themeClassPrefix()).toBe(mockInitialConfig.themeClassPrefix);
     expect(service.transitionOptions()).toEqual(mockInitialConfig.transitionOptions);
   });

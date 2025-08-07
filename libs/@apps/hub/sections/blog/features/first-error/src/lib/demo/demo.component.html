@@ -1,5 +1,5 @@
 <form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="_login()" class="login-form">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="email">Email</label>
     <input 
       sbInputStyle  
@@ -12,15 +12,21 @@
           {{err}}
         </span>
     }
-  </div>
+  </div> -->
 
-  <!-- <div class="form-group">
+  <div class="form-group">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="Enter your email">
-    </mat-form-field>
-    <sb-first-error-mat [control]="_form.get('email')!" />
-  </div> -->
+      <input matInput 
+        type="email" 
+        formControlName="email" 
+        placeholder="Enter your email">
+        <!-- @if(_form.get('email')?.errors?.['firstError']; as err) {
+         <mat-error>{{err}}</mat-error>
+        } -->
+      </mat-form-field>
+      <sb-first-error-mat [control]="_form.get('email')!" />
+  </div>
 
   <div class="form-group">
     <label for="password">Password</label>

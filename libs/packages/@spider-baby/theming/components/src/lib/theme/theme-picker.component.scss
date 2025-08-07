@@ -4,13 +4,8 @@
   align-items: center;
   cursor: pointer;
   transition: color 0.3s ease-in-out 0s;
-  // --color-icon: var(--mat-sys-primary);
-  --color-icon: inherit;
 }
 
-:host:hover {
-  color: var(--color-icon);
-}
 
 .selected {
   background-color: rgba(128, 128, 128, 0.25) !important;
@@ -31,20 +26,4 @@ mat-divider {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-}
-
-:host.icon-primary {
-    --color-icon: var(--mat-sys-primary);
-}
-
-:host.icon-secondary {
-    --color-icon: var(--mat-sys-secondary);
-}
-
-:host.icon-tertiary {
-    --color-icon: var(--mat-sys-tertiary);
-}
-
-:host.icon-error {
-    --color-icon: var(--mat-sys-error);
 }

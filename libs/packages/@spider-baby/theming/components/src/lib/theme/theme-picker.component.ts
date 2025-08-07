@@ -28,7 +28,7 @@ import { Subject, merge, tap } from 'rxjs';
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': '"icon-"+_color()',
+        '[style.color]': '"var(--mat-sys-" + color() + ")"',
     },
 })
 export class SbThemePickerMatComponent {
@@ -42,44 +42,34 @@ export class SbThemePickerMatComponent {
      * Defaults to 'Change app theme'.
      * Can be set via input binding `pickerTooltip`.
      */
-    _toolTip = input('Change app theme', { alias: 'pickerTooltip' })
 
-
-    /**
-     * ALlow user to pick from custom themes.
-     * Defaults to `true`.
-     */
-    _includeCustomThemes = input(true, { alias: 'includeCustomThemes' })
-    _color = input<SbThemePalette|undefined>('primary', { alias: 'color' })
-
-    /**
-     * Emits the currently selected `ThemeOption` whenever the theme changes.
-     * Can be bound via output binding `theme`.
-     * Emits `undefined` if no theme is currently selected or found.
-     */
-    _onThemeChange = output<ThemeOption | undefined>({ alias: 'theme' })
+    pickerTooltip = input('Change app theme');
+    includeCustomThemes = input(true);
+    color = input<SbThemePalette | undefined>(undefined);
+    theme = output<ThemeOption | undefined>();
 
     //- - - - - - - - - - - - - - -//
 
-    protected _systemOptions = this._themeService.systemThemes
-    protected _customOptions = this._themeService.customThemes
-    protected _allOptions = computed(() => [...this._systemOptions(), ...this._customOptions()])
 
-    protected _changeThemeClick$ = new Subject<ThemeOption>()
+    protected _systemOptions = this._themeService.systemThemes;
+    protected _customOptions = this._themeService.customThemes;
+    protected _allOptions = computed(() => [...this._systemOptions(), ...this._customOptions()]);
+
+    protected _changeThemeClick$ = new Subject<ThemeOption>();
 
     private _themeOptionChange$ = this._changeThemeClick$.pipe(
         tap(newTheme => this._themeService.setTheme(newTheme))
-    )
-    private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$)
-    protected _selectedOption = toSignal(this._selectedOption$)
+    );
+    private _selectedOption$ = merge(this._themeService.currentTheme$, this._themeOptionChange$);
+    protected _selectedOption = toSignal(this._selectedOption$);
 
     //- - - - - - - - - - - - - - -//
 
     constructor() {
         // Effect to emit the theme change output whenever the selected option signal changes.
         effect(() => {
-            this._onThemeChange.emit(this._selectedOption())
-        })
+            this.theme.emit(this._selectedOption());
+        });
     }
 
 } //Cls

@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2025-08-01
+
+### Changed
+- Removed lightModeClass (inferred from lack of darkModeClass)
+- Using Dynamic config in ThemeGenerator
+
+ 
 ## [2.0.0] - 2025-08-01
 
 ### Changed

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 import { SeasonalBannerComponent } from '../../ui/banner/seasonal-banner.component';
 import { SeasonalCardComponent } from '../../ui/card/seasonal-card.component';
 import { WeatherWidgetComponent } from '../../ui/weather/weather-widget.component';
@@ -205,7 +205,7 @@ import { AUTUMN_THEME } from '../../config/seasonal-theme.config';
   `
 })
 export class AutumnComponent  {
-  private themeService = inject(ThemeService);
+  private themeService = inject(SbThemeService);
   private router = inject(Router);
   
   constructor() {

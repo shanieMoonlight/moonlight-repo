@@ -1,16 +1,16 @@
 :host {
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
   cursor: pointer;
   transition: color 0.3s ease-in-out 0s;
-  --color-icon: var(--mat-sys-primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: relative;
 }
 
-
-:host:hover {
-  color: var(--color-icon);
-}
 
 .fade-in,
 .fade-out {
@@ -66,19 +66,26 @@ mat-slide-toggle {
   }
 }
 
+.hover-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+  opacity: 0;
+  background-color: var(--mat-sys-on-surface-variant);
+  // opacity: 0.08;
 
-:host.primary {
-    --color-icon: var(--mat-sys-primary);
+  // Change color on hover  
 }
 
-:host.secondary {
-    --color-icon: var(--mat-sys-secondary);
-}
+:host:hover {
+  color: var(--mat-sys-primary);
+  // background-color: var(--mat-sys-on-surface-variant);
 
-:host.tertiary {
-    --color-icon: var(--mat-sys-tertiary);
-}
-
-:host.error {
-    --color-icon: var(--mat-sys-error);
+  .hover-indicator {
+    opacity: 0.08;
+  }
 }

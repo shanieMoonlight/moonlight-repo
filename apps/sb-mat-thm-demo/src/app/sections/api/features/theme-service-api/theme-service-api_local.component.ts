@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, inject } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { DarkModeType, ThemeOption } from '@spider-baby/material-theming/config';
-import { ThemeService } from '@spider-baby/material-theming/service';
+import { SbThemeService } from '@spider-baby/material-theming/service';
 
 @Component({
   selector: 'sb-theme-local-demo-tester',
