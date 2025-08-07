@@ -62,7 +62,7 @@ export class YourComponent {}
 ### 2. Use in Your Template
 
 ```html
-<sb-theme-selector></sb-theme-selector>
+<sb-theme-selector/>
 ```
 
 ### 3. Provide Theme Configuration
@@ -195,7 +195,7 @@ import { DynamicThemeConfigService, ThemeOption } from '@spider-baby/material-th
   selector: 'app-seasonal-section',
   template: `
     <h1>Seasonal Themes</h1>
-    <sb-theme-selector></sb-theme-selector>
+    <sb-theme-selector/>
     <router-outlet></router-outlet>
   `
 })

@@ -183,8 +183,8 @@ export const appConfig: ApplicationConfig = {
 <!-- app.component.html -->
 <div class="app-container">
   <header>
-    <sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
-    <sb-theme-picker-mat></sb-theme-picker-mat>
+    <sb-dark-mode-toggle-mat/>
+    <sb-theme-picker-mat/>
   </header>
   
   <main>
@@ -199,35 +199,35 @@ export const appConfig: ApplicationConfig = {
 
 ```html
 <!-- Icon only -->
-<sb-dark-mode-toggle-mat></sb-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat/>
 
 <!-- With switch -->
-<sb-dark-mode-toggle-mat [hideSwitch]="false"></sb-dark-mode-toggle-mat>
+<sb-dark-mode-toggle-mat [hideSwitch]="false"/>
 ```
 
 ### Theme Picker
 
 ```html
-<sb-theme-picker-mat></sb-theme-picker-mat>
+<sb-theme-picker-mat/>
 ```
 
 ### Theme Customizer
 
 ```html
-<sb-theme-selector></sb-theme-selector>
+<sb-theme-selector/>
 ```
 
 ### Theme Showcase
 
 ```html
-<sb-theme-showcase-mat></sb-theme-showcase-mat>
+<sb-theme-showcase-mat/>
 ```
 
 ### Theme Transition Indicator
 
 ```html
 <!-- Add this component to show a visual indicator during theme transitions -->
-<sb-theme-transition-indicator></sb-theme-transition-indicator>
+<sb-theme-transition-indicator/>
 ```
 
 ## Using CSS Variables
@@ -480,7 +480,7 @@ All colors smoothly animate from their old values to new values, creating a flui
 For the best user experience, add the transition indicator component to show when a theme change is in progress:
 
 ```html
-<sb-theme-transition-indicator></sb-theme-transition-indicator>
+<sb-theme-transition-indicator/>
 ```
 
 This component automatically shows a subtle loading indicator during theme transitions and hides itself when the transition is complete.

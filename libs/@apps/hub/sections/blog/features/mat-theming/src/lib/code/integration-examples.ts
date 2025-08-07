@@ -137,7 +137,7 @@ export const ComponentIntegrationExample = `import { Component } from '@angular/
         <sb-dark-mode-toggle></sb-dark-mode-toggle>
         
         <!-- Theme selector dropdown -->
-        <sb-theme-selector></sb-theme-selector>
+        <sb-theme-selector/>
         
         <!-- Advanced theme controls -->
         <sb-theme-controls 

@@ -65,7 +65,7 @@ export class ThemeDemoComponent {}
       <mat-card-title>Customize Theme</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <sb-theme-selector></sb-theme-selector>
+      <sb-theme-selector/>
     </mat-card-content>
   </mat-card>
   
@@ -159,7 +159,7 @@ import { ThemeSelectorComponent } from '@spider-baby/material-theming/customizer
     <h1>Section Themes</h1>
     <p>These themes are only available in this section of the app.</p>
     
-    <sb-theme-selector></sb-theme-selector>
+    <sb-theme-selector/>
     <sb-theme-showcase-mat></sb-theme-showcase-mat>
   `,
   standalone: true,

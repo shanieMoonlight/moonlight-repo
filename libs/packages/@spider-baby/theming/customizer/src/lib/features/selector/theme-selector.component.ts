@@ -41,7 +41,7 @@ interface IThemeForm
  * @example
  * ```html
  * <!-- Basic usage with default preset themes -->
- * <sb-theme-selector></sb-theme-selector>
+ * <sb-theme-selector/>
  * 
  * <!-- With custom preset themes -->
  * <sb-theme-selector [presetThemes]="myPresetThemes"></sb-theme-selector>

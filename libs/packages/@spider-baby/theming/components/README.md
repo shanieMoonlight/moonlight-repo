@@ -71,7 +71,7 @@ The `ThemeTransitionIndicatorComponent` displays visual feedback during theme tr
 
 ```html
 <!-- Place at the app level for global theme transitions -->
-<sb-theme-transition-indicator></sb-theme-transition-indicator>
+<sb-theme-transition-indicator/>
 
 <!-- With custom settings -->
 <sb-theme-transition-indicator 
@@ -100,7 +100,7 @@ The `ThemeTransitionIndicatorComponent` displays visual feedback during theme tr
   </main>
   
   <!-- Add transition indicator for smooth theme changes -->
-  <sb-theme-transition-indicator></sb-theme-transition-indicator>
+  <sb-theme-transition-indicator/>
 </div>
 ```
 
