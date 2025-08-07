@@ -2,7 +2,15 @@
 
 //======================= SPIN ========================//
 
-.secondary {
+.primary-palette {
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary-palette {
   @include mat.select-overrides(
     (
       focused-arrow-color: var(--mat-sys-secondary)
@@ -11,8 +19,7 @@
 }
 
 
-
-.tertiary {
+.tertiary-palette {
   @include mat.select-overrides(
     (
       focused-arrow-color: var(--mat-sys-tertiary)
@@ -22,7 +29,7 @@
 
 
 
-.error {
+.error-palette {
   @include mat.select-overrides(
     (
       focused-arrow-color: var(--mat-sys-error)

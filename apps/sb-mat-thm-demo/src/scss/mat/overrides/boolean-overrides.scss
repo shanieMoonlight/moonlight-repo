@@ -2,7 +2,27 @@
 
 //======================== CHECKBOXES =========================//
 
-.secondary {
+.primary-palette {
+  @include mat.checkbox-overrides(
+    (
+      // Selected state colors
+      selected-icon-color: var(--mat-sys-primary),
+      selected-hover-icon-color: var(--mat-sys-primary),
+      selected-focus-icon-color: var(--mat-sys-primary),
+      selected-pressed-icon-color: var(--mat-sys-primary),
+      
+      // Checkmark color
+      selected-checkmark-color: var(--mat-sys-on-primary),
+      
+      // State layer colors
+      selected-hover-state-layer-color: var(--mat-sys-primary),
+      selected-focus-state-layer-color: var(--mat-sys-primary),
+      unselected-pressed-state-layer-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary-palette {
   @include mat.checkbox-overrides(
     (
       // Selected state colors
@@ -22,7 +42,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.checkbox-overrides(
     (
       // Selected state colors
@@ -42,7 +62,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.checkbox-overrides(
     (
       // Selected state colors
@@ -66,7 +86,7 @@
 
 //======================== RADIO BUTTONS =========================//
 
-.secondary {
+.secondary-palette {
   @include mat.radio-overrides(
     (
       // Selected state colors
@@ -81,7 +101,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.radio-overrides(
     (
       // Selected state colors
@@ -96,7 +116,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.radio-overrides(
     (
       // Selected state colors
@@ -114,7 +134,7 @@
 
 //======================== SLIDE TOGGLES =========================//
 
-.secondary {
+.secondary-palette {
   @include mat.slide-toggle-overrides(
     (
       // Handle colors
@@ -140,7 +160,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.slide-toggle-overrides(
     (
       // Handle colors
@@ -166,7 +186,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.slide-toggle-overrides(
     (
       // Handle colors

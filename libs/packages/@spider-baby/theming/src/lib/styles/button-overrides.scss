@@ -2,7 +2,7 @@
 
 //======================= REGULAR =======================//
 
-.primary {
+.primary-palette {
   @include mat.button-overrides(
     (
       // Filled button (standard)
@@ -31,7 +31,7 @@
   );
 }
 
-.secondary {
+.secondary-palette {
   @include mat.button-overrides(
     (
       // Filled button (standard)
@@ -62,7 +62,7 @@
 
 
 
-.tertiary {
+.tertiary-palette {
   @include mat.button-overrides(
     (
       // Filled button (standard)
@@ -93,7 +93,7 @@
 
 
 
-.error {
+.error-palette {
   @include mat.button-overrides(
     (
       // Filled button (standard)
@@ -126,7 +126,7 @@
 
 //======================== FABS =========================//
 
-.secondary {
+.secondary-palette {
   @include mat.fab-overrides(
     (
       // Container properties
@@ -146,7 +146,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.fab-overrides(
     (
       // Container properties
@@ -166,7 +166,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.fab-overrides(
     (
       // Container properties

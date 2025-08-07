@@ -10,7 +10,7 @@ export const BasicFirstErrorHtmlCode = `// Basic usage of FirstErrorDirective an
     <input formControlName="password" placeholder="Password" />
      <!--  Using the firstError property to get the first error message -->
      @if(form.controls.password.errors?.['firstError']; as err){  
-          <div class="error">
+          <div class="error-palette">
               {{err}}
           </div>  
       }

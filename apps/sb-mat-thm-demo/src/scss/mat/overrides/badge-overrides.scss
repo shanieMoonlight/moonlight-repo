@@ -2,7 +2,7 @@
 
 //======================= SPIN ========================//
 
-.primary {
+.primary-palette {
   @include mat.badge-overrides(
     (
         background-color: var(--mat-sys-primary),
@@ -12,7 +12,7 @@
   );
 }
 
-.secondary {
+.secondary-palette {
   @include mat.badge-overrides(
     (
       background-color: var(--mat-sys-secondary),
@@ -22,7 +22,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.badge-overrides(
     (
       background-color: var(--mat-sys-tertiary),      
@@ -32,7 +32,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.badge-overrides(
     (
       background-color: var(--mat-sys-error),

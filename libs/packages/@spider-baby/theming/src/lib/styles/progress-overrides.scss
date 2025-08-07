@@ -2,7 +2,7 @@
 
 //======================= SPIN ========================//
 
-.primary {
+.primary-palette {
   @include mat.progress-spinner-overrides(
     (
       active-indicator-color: var(--mat-sys-primary)
@@ -12,7 +12,7 @@
 
 
 
-.secondary {
+.secondary-palette {
   @include mat.progress-spinner-overrides(
     (
       active-indicator-color: var(--mat-sys-secondary)
@@ -22,7 +22,7 @@
 
 
 
-.tertiary {
+.tertiary-palette {
   @include mat.progress-spinner-overrides(
     (
       active-indicator-color: var(--mat-sys-tertiary)
@@ -32,7 +32,7 @@
 
 
 
-.error {
+.error-palette {
   @include mat.progress-spinner-overrides(
     (
       active-indicator-color: var(--mat-sys-error)
@@ -44,7 +44,7 @@
 
 
 //======================== LINE ========================//
-.secondary {
+.secondary-palette {
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--mat-sys-secondary)
@@ -54,7 +54,7 @@
 
 
 
-.tertiary {
+.tertiary-palette {
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--mat-sys-tertiary)
@@ -64,7 +64,7 @@
 
 
 
-.error {
+.error-palette {
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--mat-sys-error)

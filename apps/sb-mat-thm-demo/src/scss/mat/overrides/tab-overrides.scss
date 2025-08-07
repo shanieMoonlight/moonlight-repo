@@ -2,7 +2,17 @@
 
 //======================= TABS ========================//
 
-.secondary {
+.primary-palette {
+  @include mat.tabs-overrides(
+    (
+      active-indicator-color: var(--mat-sys-primary),
+      active-focus-indicator-color: var(--mat-sys-primary),
+      active-hover-indicator-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary-palette {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-secondary),
@@ -12,7 +22,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-tertiary),
@@ -22,7 +32,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.tabs-overrides(
     (
       active-indicator-color: var(--mat-sys-error),

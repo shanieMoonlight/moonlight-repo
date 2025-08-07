@@ -116,7 +116,7 @@ const HTML_CODE = `
        placeholder="Enter name or email">
     </mat-form-field>
     <button mat-raised-button 
-            class="primary" 
+            class="primary-palette" 
             [matTooltip]="'Refresh data with no filtering'"
             [disabled]="loading() || !_searchControl.value" 
             (click)="clearSearch()">

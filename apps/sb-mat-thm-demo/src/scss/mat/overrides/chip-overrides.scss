@@ -2,7 +2,7 @@
 
 //======================= CHIP ========================//
 
-.primary {
+.primary-palette {
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-primary-container),
@@ -16,7 +16,7 @@
   );
 }
 
-.secondary {
+.secondary-palette {
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-secondary-container),
@@ -30,7 +30,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-tertiary-container),
@@ -44,7 +44,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-error-container),

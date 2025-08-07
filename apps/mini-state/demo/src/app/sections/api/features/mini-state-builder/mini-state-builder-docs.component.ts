@@ -116,7 +116,7 @@ import { WeatherService } from './weather.service';
     }
     
     @if(errorMsg()) {
-      <div class="error">
+      <div class="error-palette">
         {{ errorMsg() }}
       </div>
     }

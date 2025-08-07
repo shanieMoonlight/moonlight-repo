@@ -102,10 +102,10 @@ npm install &#64;angular/material&#64;19 &#64;angular/cdk&#64;19</code></pre>
 <p>
   Below you can see the code to use a themed button, and the actual result:
   <br>
-  <code>class="primary"</code> will apply the color <code>var(--mat-sys-primary)</code> to the button background and
+  <code>class="primary-palette"</code> will apply the color <code>var(--mat-sys-primary)</code> to the button background and
   <code>var(--mat-sys-on-primary)</code> to the text color.
   <br>
-  <code>class="secondary"</code> will apply the color <code>var(--mat-sys-secondary)</code> to the button background and
+  <code>class="secondary-palette"</code> will apply the color <code>var(--mat-sys-secondary)</code> to the button background and
   <code>var(--mat-sys-on-secondary)</code> to the text color.
   <br>
   etc...
@@ -113,21 +113,19 @@ npm install &#64;angular/material&#64;19 &#64;angular/cdk&#64;19</code></pre>
 
 <div class="button-examples">
   <div class="button-example-row">
-    <pre><code [highlight]='`<button mat-flat-button class="primary">Primary</button>`' language="html"></code></pre>
-    <button mat-flat-button class="primary">Primary</button>
-    <button mat-stroked-button class="primary">Primary</button>
-    <!-- <button mat-raised-button class="primary">Primary</button> -->
+    <pre><code [highlight]='`<button mat-flat-button class="primary-palette">Primary</button>`' language="html"></code></pre>
+    <button mat-flat-button class="primary-palette">Primary</button>
+    <button mat-stroked-button class="primary-palette">Primary</button>
   </div>
   <div class="button-example-row">
-    <pre><code [highlight]='`<button mat-flat-button class="secondary">Secondary</button>`' language="html"></code></pre>
-    <button mat-flat-button class="secondary">Secondary</button>
-    <button mat-stroked-button class="secondary">Secondary</button>
+    <pre><code [highlight]='`<button mat-flat-button class="secondary-palette">Secondary</button>`' language="html"></code></pre>
+    <button mat-flat-button class="secondary-palette">Secondary</button>
+    <button mat-stroked-button class="secondary-palette">Secondary</button>
   </div>
   <div class="button-example-row">
-    <pre><code [highlight]='`<button mat-flat-button class="tertiary">Tertiary</button>`' language="html"></code></pre>
-    <button mat-flat-button class="tertiary">Tertiary</button>
-    <button mat-stroked-button class="tertiary">Tertiary</button>
-    <!-- <button mat-raised-button class="tertiary">Tertiary</button> -->
+    <pre><code [highlight]='`<button mat-flat-button class="tertiary-palette">Tertiary</button>`' language="html"></code></pre>
+    <button mat-flat-button class="tertiary-palette">Tertiary</button>
+    <button mat-stroked-button class="tertiary-palette">Tertiary</button>
   </div>
 </div>
 

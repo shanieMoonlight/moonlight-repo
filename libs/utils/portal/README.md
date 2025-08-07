@@ -222,21 +222,21 @@ Multiple outlets can share the same portal name, causing the same content to app
 
       <div class="demo-actions">
         <!-- Change TemplateRef -->
-        <button mat-flat-button class="primary" 
+        <button mat-flat-button class="primary-palette" 
           (click)="_selectedPortal = _demoTemplate1()"   
           [disabled]="_selectedPortal === _demoTemplate1()">
           Display 1
         </button>
 
         <!-- Change TemplateRef -->
-        <button mat-flat-button class="secondary" 
+        <button mat-flat-button class="secondary-palette" 
           (click)="_selectedPortal = _demoTemplate2()"
           [disabled]="_selectedPortal === _demoTemplate2()">
           Display 2
         </button>
 
         <!-- Remove TemplateRef -->
-        <button mat-flat-button class="tertiary" 
+        <button mat-flat-button class="tertiary-palette" 
           (click)="_selectedPortal = undefined"
           [disabled]="!_selectedPortal">
           Hide
@@ -244,7 +244,7 @@ Multiple outlets can share the same portal name, causing the same content to app
 
         <!-- Change Template content in realtime -->
         <button 
-          mat-flat-button class="error" 
+          mat-flat-button class="error-palette" 
           (click)="_toggleDynamicText()">
           Dynamic Text 
         </button>

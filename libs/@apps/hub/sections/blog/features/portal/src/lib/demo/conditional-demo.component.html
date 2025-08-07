@@ -9,23 +9,23 @@
       <h4>Portal Input (Source)</h4>
       <p>Click the button below to teleport this content:</p>
       <div class="demo-actions">
-        <button mat-flat-button class="primary" 
+        <button mat-flat-button class="primary-palette" 
           (click)="_selectedPortal = _demoTemplate1()"
           [disabled]="_selectedPortal === _demoTemplate1()">
           Display 1
         </button>
-        <button mat-flat-button class="secondary" 
+        <button mat-flat-button class="secondary-palette" 
           (click)="_selectedPortal = _demoTemplate2()"
           [disabled]="_selectedPortal === _demoTemplate2()">
           Display 2
         </button>
-        <button mat-flat-button class="tertiary" 
+        <button mat-flat-button class="tertiary-palette" 
           (click)="_selectedPortal = undefined"
           [disabled]="!_selectedPortal">
           Hide
         </button>
         <button 
-          mat-flat-button class="error" 
+          mat-flat-button class="error-palette" 
           (click)="_toggleDynamicText()"
           [disabled]="!_selectedPortal">
           Dynamic Text

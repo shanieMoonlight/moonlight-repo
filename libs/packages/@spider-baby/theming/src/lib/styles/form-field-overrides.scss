@@ -2,7 +2,7 @@
 
 //======================= FORM FIELDS ========================//
 
-.primary {
+.primary-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -21,7 +21,7 @@
   );
 }
 
-.secondary {
+.secondary-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -40,7 +40,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -59,7 +59,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.form-field-overrides(
     (
       // Filled style

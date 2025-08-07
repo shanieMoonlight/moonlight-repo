@@ -12,17 +12,17 @@
     <div class="btns">
 
       <button mat-raised-button 
-        class="primary" 
+        class="primary-palette" 
         [matTooltip]="'Search data'"
         [disabled]="_loading() || !_searchControl.value" 
         (click)="filterData(_searchControl.value!)">
         Search
       </button>
       <button mat-raised-button 
-      class="primary" 
-      [matTooltip]="'Refresh data with no filtering'"
-      [disabled]="_loading() || !_searchControl.value" 
-      (click)="clearSearch()">
+        class="primary-palette" 
+        [matTooltip]="'Refresh data with no filtering'"
+        [disabled]="_loading() || !_searchControl.value" 
+        (click)="clearSearch()">
       Clear
     </button>
 </div>

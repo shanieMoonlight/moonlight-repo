@@ -22,7 +22,7 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
         <p>{{ _errorMsg() }}</p>
       </div>
       <div class="error-modal-footer">
-        <button mat-button class="error" 
+        <button mat-button class="error-palette" 
           (click)="dismissError()">Dismiss</button>
         <!-- <button mat-raised-button color="primary" 
           (click)="tryAgain()">Try Again</button> -->

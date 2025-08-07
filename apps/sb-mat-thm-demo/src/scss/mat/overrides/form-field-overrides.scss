@@ -2,7 +2,26 @@
 
 //======================= FORM FIELDS ========================//
 
-.secondary {
+.primary-palette {
+  @include mat.form-field-overrides(
+    (
+      // Filled style
+      filled-caret-color: var(--mat-sys-primary),
+      filled-focus-active-indicator-color: var(--mat-sys-primary),
+      filled-focus-label-text-color: var(--mat-sys-primary),
+      
+      // Outlined style
+      outlined-caret-color: var(--mat-sys-primary),
+      outlined-focus-outline-color: var(--mat-sys-primary),
+      outlined-focus-label-text-color: var(--mat-sys-primary),
+      
+      // Select arrow
+      focus-select-arrow-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -21,7 +40,7 @@
   );
 }
 
-.tertiary {
+.tertiary-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
@@ -40,7 +59,7 @@
   );
 }
 
-.error {
+.error-palette {
   @include mat.form-field-overrides(
     (
       // Filled style
