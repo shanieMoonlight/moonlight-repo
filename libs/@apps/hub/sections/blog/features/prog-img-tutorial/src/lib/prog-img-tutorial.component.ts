@@ -12,8 +12,9 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { HubUiBtnDownloadComponent } from '@sb-hub/sections-blog/ui-buttons/downlaod';
 import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { LocalFileDownloadServiceService } from '@spider-baby/utils-file-saver';
-import { SbPortalInputComponent, SbPortalOutletComponent } from '@spider-baby/utils-portal';
+import { SbPortalInputComponent } from '@spider-baby/utils-portal';
 import { Subject } from 'rxjs';
 import { ComponentBasicCode } from './code/component-basic';
 import { ComponentStyleCode } from './code/component-style';
@@ -35,7 +36,6 @@ import { ImageLoadingCode } from './code/image-loading';
 import { PredefinedFunctionsCode } from './code/predefined-functions';
 import { UsageExampleCode } from './code/usage-example';
 import { BlogConstants } from './config/constants';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 
 @Component({
   standalone: true,

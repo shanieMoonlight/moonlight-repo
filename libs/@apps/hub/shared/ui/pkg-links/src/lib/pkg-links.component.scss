@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   color: var(--mat-sys-on-surface-variant);
+  color: inherit;
 }
 
 button[mat-icon-button] {
@@ -9,6 +10,6 @@ button[mat-icon-button] {
   color: inherit;
 
   &:hover {
-    color: var(--hoverColor, var(--mat-sys-primary));
+    color: var(--hoverColor);
   }
 }

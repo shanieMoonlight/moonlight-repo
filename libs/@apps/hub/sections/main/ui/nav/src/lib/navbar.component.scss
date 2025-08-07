@@ -43,15 +43,25 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: red;
 
   // Optional: Set a background color using theme variables if you don't want the default surface
   // background-color: var(--mat-sys-surface-container);
 
-  background-color: var(--mat-sys-primary-container);
-  color: var(--mat-sys-on-primary-container);
+  // background-color: var(--mat-sys-primary-container);
+  //   background-color: var(--mat-seed-primary);
+  background-color: var(--mat-sys-primary);
+  // color: var(--mat-sys-on-primary-container);
+  color: var(--mat-sys-on-primary);
+  // background-color: var(--mat-sys-surface-container);
+  // color: var(--mat-sys-on-surface-container);
+}
+
+:host-context(.dark-mode) {
+  mat-toolbar {
     background-color: var(--mat-sys-surface-container);
-  color: var(--mat-sys-on-surface-container);
+    // background-color: var(--mat-seed-primary);
+    color: var(--mat-sys-on-surface-container);
+  }
 }
 
 .left-links,
@@ -80,43 +90,34 @@ mat-toolbar {
 .navlink {
   cursor: pointer;
   margin: 0 12px;
-  /* Adjust horizontal spacing */
   padding: 8px 4px;
-  /* Add some vertical padding for easier clicking */
   font-size: 0.9rem;
-  /* Reduce font size */
   font-weight: 500;
-  /* Medium weight, adjust as needed (400=normal, 500=medium) */
   text-decoration: none;
-  color: var(--mat-sys-on-surface);
-  /* Use theme text color */
+  color: inherit;
   border-bottom: 2px solid transparent;
-  /* Prepare for active state underline */
   transition: color 0.2s ease, border-color 0.2s ease;
-  /* Smooth transitions */
 
   &:hover {
     color: var(--mat-sys-primary);
-    /* Change color on hover */
   }
 
   // Style for the active route link
   &.active {
     color: var(--mat-sys-primary);
-    /* Active link color */
     border-bottom-color: var(--mat-sys-primary);
-    /* Add underline for active */
   }
 }
 
 // Ensure icon buttons have consistent spacing and color
 button[mat-icon-button] {
-  color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
+  // color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
   margin: 0 4px; // Add small horizontal margin
+  color: inherit;
 
-  &:hover {
-    color: var(--mat-sys-primary); // Highlight on hover
-  }
+  // &:hover {
+  //   color: var(--mat-sys-secondary); // Highlight on hover
+  // }
 }
 
 // Responsive adjustments

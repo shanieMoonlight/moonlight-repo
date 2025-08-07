@@ -14,12 +14,12 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
  * @example
  * ```html
  * <!-- Simple usage -->
- * <sb-theme-showcase-mat></sb-theme-showcase-mat>
+ * <sb-theme-showcase-mat/>
  * 
  * <!-- In a themed container -->
  * <div class="themed-preview">
  *   <h2>Theme Preview</h2>
- *   <sb-theme-showcase-mat></sb-theme-showcase-mat>
+ *   <sb-theme-showcase-mat/>
  * </div>
  * ```
  */

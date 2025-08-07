@@ -1,6 +1,6 @@
 :host {
   display: block;
-  padding-top: 65px;
+  padding-top: 55px;
 }
 
 sb-hub-blog-navbar {
@@ -15,7 +15,4 @@ sb-hub-blog-navbar {
   display: flex;
   justify-content: space-around;
 
-  > * {
-    margin: 5px;
-  }
 }

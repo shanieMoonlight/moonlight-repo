@@ -1,27 +1,27 @@
-@if(_gitHubRepoUrl(); as gitUrl){
+@if(gitHubRepoUrl(); as gitUrl){
     <button
         mat-icon-button
         aria-label="Git repo for project"
         [sbNavigateNewWindow]="gitUrl"
-        [matTooltip]="_gitTooltip()">
+        [matTooltip]="gitTooltip()">
         <mat-icon svgIcon="git" />
     </button>
 }
-@if(_npmPackageUrl(); as npmUrl){
+@if(npmPackageUrl(); as npmUrl){
     <button
         mat-icon-button
         aria-label="Npm Package"
         [sbNavigateNewWindow]="npmUrl"
-        [matTooltip]="_npmTooltip()">
+        [matTooltip]="npmTooltip()">
         <mat-icon svgIcon="npm" />
     </button>
 }
-@if(_demoWebsiteUrl(); as demoUrl){
+@if(demoWebsiteUrl(); as demoUrl){
     <button
         mat-icon-button
         aria-label="Demo"
         [sbNavigateNewWindow]="demoUrl"
-        [matTooltip]="_demoTooltip()">
+        [matTooltip]="demoTooltip()">
         <mat-icon >language</mat-icon>
     </button>
 }

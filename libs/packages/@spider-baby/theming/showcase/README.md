@@ -48,7 +48,7 @@ import { ThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcas
   selector: 'app-theme-demo',
   template: `
     <h1>Theme Preview</h1>
-    <sb-theme-showcase-mat></sb-theme-showcase-mat>
+    <sb-theme-showcase-mat/>
   `,
   standalone: true,
   imports: [ThemeShowcaseMatComponent]
@@ -74,7 +74,7 @@ export class ThemeDemoComponent {}
       <mat-card-title>Preview</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <sb-theme-showcase-mat></sb-theme-showcase-mat>
+      <sb-theme-showcase-mat/>
     </mat-card-content>
   </mat-card>
 </div>
@@ -126,7 +126,7 @@ import { ThemeShowcaseMatComponent } from '@spider-baby/material-theming/showcas
 @Component({
   selector: 'app-extended-showcase',
   template: `
-    <sb-theme-showcase-mat></sb-theme-showcase-mat>
+    <sb-theme-showcase-mat/>
     
     <div class="custom-components-showcase">
       <h3>Custom Components</h3>
@@ -160,7 +160,7 @@ import { ThemeSelectorComponent } from '@spider-baby/material-theming/customizer
     <p>These themes are only available in this section of the app.</p>
     
     <sb-theme-selector/>
-    <sb-theme-showcase-mat></sb-theme-showcase-mat>
+    <sb-theme-showcase-mat/>
   `,
   standalone: true,
   imports: [ThemeShowcaseMatComponent, ThemeSelectorComponent]

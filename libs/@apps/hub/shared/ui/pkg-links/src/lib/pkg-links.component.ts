@@ -16,15 +16,15 @@ import { SbNavigateNewWindowDirective } from '@spider-baby/utils-open-in-new-win
 })
 export class SbHubPkgLinksComponent {
 
-  _gitHubRepoUrl = input<string | undefined>('', { alias: 'gitHubRepoUrl' });
-  _gitTooltip = input<string | undefined>('Git repo', { alias: 'gitTooltip' });
-  _npmPackageUrl = input<string | undefined>('', { alias: 'npmPackageUrl' });
-  _npmTooltip = input<string | undefined>('Npm Package', { alias: 'npmTooltip' });
-  _demoWebsiteUrl = input<string | undefined>('', { alias: 'demoWebsiteUrl' });
-  _demoTooltip = input<string | undefined>('Demo Website', { alias: 'demoTooltip' });
+  gitHubRepoUrl = input<string | undefined>(undefined);
+  gitTooltip = input('Git repo');
+  npmPackageUrl = input<string | undefined>(undefined);
+  npmTooltip = input('Npm Package');
+  demoWebsiteUrl = input<string | undefined>(undefined);
+  demoTooltip = input('Demo Website');
 
   @HostBinding('style.--hoverColor')
-  @Input('hoverColor') _hoverColor: string | undefined
+  @Input() hoverColor?: string;
 
-
+  
 } //Cls
