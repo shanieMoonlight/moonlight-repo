@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SbButtonComponent, SbToggleIconButtonComponent } from '@spider-baby/ui-kit/buttons';
-import { SbInputStyleDirective, SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
+import { SbInputWithBtnDirective } from '@spider-baby/ui-kit/inputs';
 import { FirstErrorComponent, FirstErrorDirective, FirstErrorMatComponent } from '@spider-baby/utils-forms';
 
 //###################################//
@@ -102,5 +102,8 @@ export class FirstErrorDemoComponent {
     };
 
 
-    protected onPasswordToggle = (hide: boolean) => this.showPassword.set(!hide);
+    protected onPasswordToggle = (hide: boolean) => 
+        this.showPassword.set(!hide);
+
+
 }

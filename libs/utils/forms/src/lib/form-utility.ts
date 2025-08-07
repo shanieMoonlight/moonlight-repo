@@ -2,7 +2,7 @@ import { AbstractControl, FormGroup } from "@angular/forms";
 
 //##########################//
 
-export interface ControlData{
+export interface ControlData {
   name: string;
   control: AbstractControl;
 }
@@ -76,7 +76,7 @@ export class FormUtility {
   static replaceNullWithUndefined(obj: Record<string, any>): Record<string, any> {
 
     for (const [key, value] of Object.entries(obj)) {
-      if (value === null) 
+      if (value === null)
         obj[key] = undefined;
     }
     return obj;
@@ -85,6 +85,7 @@ export class FormUtility {
   //----------------------------//
 
   static getFirstFormError(form: FormGroup): Record<string, any> | null {
+    
     if (form.valid)
       return null
 
@@ -109,7 +110,9 @@ export class FormUtility {
   //----------------------------//
 
   static firstErrorKey = (control: AbstractControl): string | null =>
-    Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
+    Object.keys(control.errors || {}).length > 0
+      ? Object.keys(control.errors || {})[0]
+      : null;
 
 
 }//Cls
