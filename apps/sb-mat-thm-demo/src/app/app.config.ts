@@ -3,6 +3,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay, } from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
+import { provideThemeInitializer } from '@spider-baby/material-theming/init';
 import { SeoSetup } from '@spider-baby/utils-seo/config';
 import { initializeApp } from 'firebase/app';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
@@ -31,7 +32,8 @@ export const appConfig: ApplicationConfig = {
     // provideFirebaseApp(() => app), // Initialize Firebase App
     // provideAnalytics((injector) => getAnalytics(injector.get(provideFirebaseApp))),
     SeoSetup.provideSeoModule(SEO_CONFIG),
-    MaterialThemingSetup.provideTheming(THEME_CONFIG),
+    // MaterialThemingSetup.provideTheming(THEME_CONFIG),
+    provideThemeInitializer(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
