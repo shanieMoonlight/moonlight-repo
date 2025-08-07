@@ -39,27 +39,16 @@
 }
 
 mat-toolbar {
-  // Ensure items are vertically centered if needed (usually default)
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  // Optional: Set a background color using theme variables if you don't want the default surface
-  // background-color: var(--mat-sys-surface-container);
-
-  // background-color: var(--mat-sys-primary-container);
-  //   background-color: var(--mat-seed-primary);
   background-color: var(--mat-sys-primary);
-  // color: var(--mat-sys-on-primary-container);
   color: var(--mat-sys-on-primary);
-  // background-color: var(--mat-sys-surface-container);
-  // color: var(--mat-sys-on-surface-container);
 }
 
 :host-context(.dark-mode) {
   mat-toolbar {
     background-color: var(--mat-sys-surface-container);
-    // background-color: var(--mat-seed-primary);
     color: var(--mat-sys-on-surface-container);
   }
 }
@@ -83,8 +72,6 @@ mat-toolbar {
 .spacer {
   // Use flex-grow instead of fixed width for better flexibility
   flex: 1 1 auto;
-  // Or keep width if preferred, maybe adjust slightly
-  // width: 24px;
 }
 
 .navlink {
@@ -102,7 +89,6 @@ mat-toolbar {
     color: var(--mat-sys-primary);
   }
 
-  // Style for the active route link
   &.active {
     color: var(--mat-sys-primary);
     border-bottom-color: var(--mat-sys-primary);
@@ -111,19 +97,13 @@ mat-toolbar {
 
 // Ensure icon buttons have consistent spacing and color
 button[mat-icon-button] {
-  // color: var(--mat-sys-on-surface-variant); // Use a secondary color for icons
   margin: 0 4px; // Add small horizontal margin
   color: inherit;
-
-  // &:hover {
-  //   color: var(--mat-sys-secondary); // Highlight on hover
-  // }
 }
 
 // Responsive adjustments
 @media screen and (max-width: 650px) {
 
-  // Match breakpoint in TS
   button[mat-icon-button] {
     margin: 0 2px; // Slightly reduce margin on small screens
   }

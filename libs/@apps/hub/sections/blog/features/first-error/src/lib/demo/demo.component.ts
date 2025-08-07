@@ -67,7 +67,6 @@ function hasNonAlphaNumericValidator(): ValidatorFn {
         SbButtonComponent,
         SbToggleIconButtonComponent,
         SbInputWithBtnDirective,
-        SbInputStyleDirective,
         MatFormFieldModule,
         MatInputModule
     ],

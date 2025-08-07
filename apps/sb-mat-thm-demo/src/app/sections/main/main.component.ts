@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { devConsole } from '@spider-baby/dev-console';
 import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
+import { getApp } from 'firebase/app';
+import { environment } from "../../../environments/environment";
 import { MainNavbarComponent } from './ui/navbar/navbar.component';
 import { IconsService } from './utils/icons/icons.service';
-import { FirebaseUtilsService } from '@spider-baby/utils-firebase';
-import { devConsole } from '@spider-baby/dev-console';
-import { environment } from "../../../environments/environment";
-import { getApp } from 'firebase/app';
 
 @Component({
   imports: [
