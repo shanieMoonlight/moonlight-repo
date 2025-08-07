@@ -1,4 +1,4 @@
-# @spider-baby/ssr-local-storage
+# @spider-baby/ssr-storage
 
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.io/)
 [![NX](https://img.shields.io/badge/Nx-143055?style=flat-square&logo=nx&logoColor=white)](https://nx.dev)
@@ -17,39 +17,28 @@ A lightweight Angular service that provides a wrapper around the browser's local
 ## Installation
 
 ```bash
-npm install @spider-baby/ssr-local-storage
+npm i @spider-baby/ssr-storage
 ```
 
 ## Usage
-
-### Setting up the module
-
-```typescript
-import { NgModule } from '@angular/core';
-import { SsrLocalStorageModule } from '@spider-baby/ssr-local-storage';
-
-@NgModule({
-  imports: [
-    SsrLocalStorageModule.forRoot()
-  ]
-})
-export class AppModule { }
-```
 
 ### Basic operations
 
 ```typescript
 import { Component } from '@angular/core';
-import { SsrLocalStorageService } from '@spider-baby/ssr-local-storage';
+import { SsrLocalStorage } from '@spider-baby/ssr-storage';
 
 @Component({
   selector: 'app-example',
   template: `<div>{{ storedValue }}</div>`
 })
 export class ExampleComponent {
+
+private storage = inject(SsrLocalStorage)
+
   storedValue: string;
 
-  constructor(private storage: SsrLocalStorageService) {
+  constructor() {
     // Store a value
     this.storage.setItem('greeting', 'Hello, World!');
     
@@ -68,7 +57,7 @@ export class ExampleComponent {
 ### Working with objects
 
 ```typescript
-import { SsrLocalStorageService } from '@spider-baby/ssr-local-storage';
+import { SsrLocalStorage } from '@spider-baby/ssr-storage';
 
 interface User {
   id: number;
@@ -98,7 +87,7 @@ try {
 
 ## API Reference
 
-### SsrLocalStorageService
+### SsrLocalStorage
 
 #### Basic Methods
 
@@ -120,7 +109,7 @@ try {
 
 ## SSR Considerations
 
-When running in server-side rendering mode, the service automatically uses an in-memory storage implementation that mimics localStorage behavior. This ensures your application works seamlessly in both client and server environments without modifications.
+When running in server-side rendering mode, the service automatically return null on all 'gets' and skips all 'sets'. This ensures your application works seamlessly in both client and server environments without modifications.
 
 ## Examples
 
@@ -131,7 +120,8 @@ When running in server-side rendering mode, the service automatically uses an in
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private storage: SsrLocalStorageService) {}
+  
+  private storage = inject(SsrLocalStorage)
   
   saveUserPreferences(prefs: UserPreferences): void {
     this.storage.setItemObject('userPreferences', prefs); //<UserPreferences> can be omitted because TypeScript infers the type from the value
@@ -150,10 +140,15 @@ export class UserService {
   providedIn: 'root'
 })
 export class ThemeService {
+
+  
+  private storage = inject(SsrLocalStorage)
+
+
   private themeSubject = new BehaviorSubject<string>('light');
   public theme$ = this.themeSubject.asObservable();
   
-  constructor(private storage: SsrLocalStorageService) {
+  constructor() {
     const savedTheme = this.storage.getItem('theme') || 'light';
     this.themeSubject.next(savedTheme);
   }

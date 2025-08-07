@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [2.0.2] - 2025-08-01
+
+### Changed
+- Updated Readme
+- Added date-picker-overrides.scss. 
+- Using **-palette in overrides.scss to prevent collisions with othere classes
 
 ## [2.0.1] - 2025-08-01
 

@@ -20,6 +20,7 @@
     "@spider-baby/utils-memoization",
     "@spider-baby/utils-file-saver",
     "@spider-baby/ssr-storage",
-    "@spider-baby/utils-rxjs"
+    "@spider-baby/utils-rxjs",
+    "@spider-baby/dev-console"
   ]
 }

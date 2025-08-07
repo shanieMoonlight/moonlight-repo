@@ -422,6 +422,5 @@ export class SbThemeService {
     return sanitized;
   }
 
-  //-----------------------------//
 
 }//Cls

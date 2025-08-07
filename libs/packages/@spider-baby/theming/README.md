@@ -55,6 +55,22 @@ npm install @angular/material @angular/cdk
 // Import color overrides to enable theming support
 @use '@spider-baby/material-theming/styles/mat-color-overrides';
 
+//Import individual styles 
+@use "@spider-baby/material-theming/styles/button-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/progress-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/boolean-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/dropdown-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/datepicker-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/badge-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/chip-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/tab-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/form-field-overrides.scss" as *;
+@use "@spider-baby/material-theming/styles/icon-overrides.scss" as *;
+
+//You may need to prepend 'node_modules' depending on your style 
+@use "node_modules/@spider-baby/material-theming/styles/icon-overrides.scss" as *;
+
+
 // Configure Angular Material with an empty theme (variables set by ThemeGeneratorService)
 html {
   @include mat.theme((

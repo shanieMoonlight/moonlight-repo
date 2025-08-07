@@ -1,6 +1,6 @@
 {
   "name": "@spider-baby/ssr-storage",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An Angular service that provides a Server-Side Rendering (SSR) compatible wrapper for localStorage. It safely accesses localStorage in browser environments and provides no-op implementations for server-side rendering to prevent errors.",
   "author": "shanieMoonlight",
   "repository": {
