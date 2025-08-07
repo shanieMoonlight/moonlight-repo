@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG)
+    MaterialThemingSetup.provideTheming(THEME_CONFIG)
   ],
 };

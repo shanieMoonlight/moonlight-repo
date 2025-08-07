@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})
     ),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     //  provideThemeInitializer(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     {

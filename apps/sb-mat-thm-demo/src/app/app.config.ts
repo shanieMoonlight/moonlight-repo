@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     // provideFirebaseApp(() => app), // Initialize Firebase App
     // provideAnalytics((injector) => getAnalytics(injector.get(provideFirebaseApp))),
     SeoSetup.provideSeoModule(SEO_CONFIG),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     SeoSetup.provideSeoModule(SEO_CONFIG),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

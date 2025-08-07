@@ -27,12 +27,12 @@ function _provideThemeInitializer(): Provider {
  * 
  * ⚠️ Only use this if you are NOT using any SpiderBaby theming components or injecting ThemeService directly.
  * This will eagerly include all theming services in your bundle, which may increase bundle size.
- * For most apps, using a theming component or ThemeService using MaterialThemingSetup.provideThemingModule(config) 
+ * For most apps, using a theming component or ThemeService using MaterialThemingSetup.provideTheming(config) 
  * is sufficient and more efficient.
  */
 export function provideThemeInitializer(config?: ThemingConfig): (Provider | EnvironmentProviders)[] {
   return [
-    MaterialThemingSetup.provideThemingModule(config),
+    MaterialThemingSetup.provideTheming(config),
     _provideThemeInitializer()
   ]
 }

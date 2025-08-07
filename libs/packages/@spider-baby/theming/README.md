@@ -166,13 +166,13 @@ import { ThemingConfig, ThemeOption } from '@spider-baby/material-theming/config
 // app.config.ts
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ThemeAndModeSetup } from '@spider-baby/material-theming/config';
+import { MaterialThemingSetup } from '@spider-baby/material-theming/config';
 import { THEME_CONFIG } from './theme.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
+    MaterialThemingSetup.provideTheming(THEME_CONFIG)
   ]
 };
 ```

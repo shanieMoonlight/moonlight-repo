@@ -33,7 +33,7 @@ export class MaterialThemingSetup {
      *               configuration with standard themes if not provided.
      * @returns An array of providers to include in an application's provider array.
      */
-    static provideThemingModule = (config: ThemingConfig = ThemingConfig.create())
+    static provideTheming = (config: ThemingConfig = ThemingConfig.create())
         : (Provider | EnvironmentProviders)[] =>
         {            
             return [

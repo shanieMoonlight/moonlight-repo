@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled' // Or 'top'
       }),
       withRouterConfig({})),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,

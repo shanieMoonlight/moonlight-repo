@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({})
     ),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

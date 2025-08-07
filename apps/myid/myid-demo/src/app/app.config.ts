@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({}),
       withViewTransitions(appViewTransition)),
-    MaterialThemingSetup.provideThemingModule(THEME_CONFIG),
+    MaterialThemingSetup.provideTheming(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     SocialAuthSetup.provideSocialLoginConfig(),
     {
