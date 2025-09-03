@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  rd-route-defs-static:
+    build:
+      context: .
+      dockerfile: apps/routes/routes/Dockerfile.static
+    image: rd-route-defs-demo:static
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+    # docker compose -f docker-compose.routes.static.yaml up --build
