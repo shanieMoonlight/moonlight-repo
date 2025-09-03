@@ -1,12 +1,27 @@
+# Compose file format version — controls available compose features and compatibility
 version: "3.8"
+
+# Top-level services map — each key here is a service definition
 services:
+  # Service logical name (used by compose as a key, not the container name)
   rd-route-defs-static:
+    # Build instructions: tells Compose how to build the image for this service
     build:
+      # Build context (root of files sent to the Docker daemon). Using '.' means the repo root
+      # must contain the paths referenced by the Dockerfile (e.g. dist/...). COPY in the Dockerfile
+      # is resolved relative to this context.
       context: .
+      # Path to the Dockerfile to use for building this service (relative to where compose file is run)
       dockerfile: apps/routes/routes/Dockerfile.static
+    # Explicit tag to give the built image (optional — Compose will still create one if omitted)
     image: rd-route-defs-demo:static
+    # Port mappings: "<hostPort>:<containerPort>"
+    # Maps host 8080 to container 80 (nginx default) so you can browse at http://localhost:8080
     ports:
       - "8080:80"
+    # Restart policy for the container if it exits:
+    # `unless-stopped` restarts on daemon/service restart and on non-zero exit, but not if manually stopped.
     restart: unless-stopped
 
+    # Example usage hint (commented) showing how to bring up this compose file:
     # docker compose -f docker-compose.routes.static.yaml up --build
