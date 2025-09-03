@@ -1,0 +1,31 @@
+# Multi-stage image for Angular Universal (SSR) for rd-route-defs-demo
+# Stage 1: build the workspace and produce browser + server bundles
+FROM node:22-alpine AS builder
+WORKDIR /workspace
+
+# Copy root package manifests and install deps for the build
+COPY package.json package-lock.json* ./
+RUN npm ci --no-audit --progress=false
+
+# Copy repo and run the Nx build that produces both browser and server artifacts
+COPY . .
+# Build the app (the workspace build produces dist/apps/routes/routes/browser and /server)
+RUN npx nx run rd-route-defs-demo:build --configuration=production
+
+# Stage 2: runtime image containing the server bundle
+FROM node:22-alpine AS runtime
+WORKDIR /app
+
+# Copy the server and browser bundles from the builder stage
+COPY --from=builder /workspace/dist/apps/routes/routes/server ./server
+COPY --from=builder /workspace/dist/apps/routes/routes/browser ./browser
+
+# Copy minimal manifests so we can install runtime deps if needed
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev --no-audit --progress=false || true
+
+ENV PORT=4000
+EXPOSE 4000
+
+# Typical Angular Universal server entrypoint: server/main.js
+CMD ["node", "server/main.js"]

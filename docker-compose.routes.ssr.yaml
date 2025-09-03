@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  rd-route-defs-ssr:
+    build:
+      context: .
+      dockerfile: apps/routes/routes/Dockerfile.ssr
+    image: rd-route-defs-demo:ssr
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
