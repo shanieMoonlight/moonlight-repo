@@ -1,0 +1,10 @@
+{
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "d2a8ec93f67d43b889457234a6d296f35c220948",
+      "subject": "Updating NX to V21.3.11"
+    },
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true
+  }
+}
