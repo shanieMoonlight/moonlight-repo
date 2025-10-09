@@ -18,15 +18,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/ui/notifications/mat-notifications/ng-package.json"
+        "project": "libs/ui/notifications/mat-notifications/ng-package.json",
+        "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -39,7 +38,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ui/notifications/mat-notifications/jest.config.ts"
+        "jestConfig": "libs/ui/notifications/mat-notifications/jest.config.ts",
+        "tsConfig": "libs/ui/notifications/mat-notifications/tsconfig.spec.json"
       }
     },
     "lint": {

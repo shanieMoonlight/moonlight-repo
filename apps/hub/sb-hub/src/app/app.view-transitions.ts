@@ -6,7 +6,7 @@ import { IsActiveMatchOptions, Router } from '@angular/router';
 export const appViewTransition = {
     onViewTransitionCreated: ({ transition }: any) => {
         const router = inject(Router);
-        const targetUrl = router.getCurrentNavigation()!.finalUrl!;
+        const targetUrl = router.currentNavigation()!.finalUrl!;
         // Skip the transition if the only thing
         // changing is the fragment and queryParams
         const config: IsActiveMatchOptions = {

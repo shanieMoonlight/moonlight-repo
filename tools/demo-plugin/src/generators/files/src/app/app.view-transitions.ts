@@ -6,7 +6,7 @@ import { IsActiveMatchOptions, Router } from '@angular/router';
 export const appViewTransition = {
     onViewTransitionCreated: ({ transition }: any) => {
         const router = inject(Router);
-        const navigation = router.getCurrentNavigation();
+        const navigation = router.currentNavigation();
         const targetUrl = navigation?.finalUrl;
 
         if (!targetUrl)
