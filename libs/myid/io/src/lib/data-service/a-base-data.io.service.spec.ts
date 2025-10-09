@@ -85,18 +85,17 @@ describe('ABaseHttpService', () => {
   });
 
   it('should handle errors and map them using HttpError.getErrorFromHttpResponse', async () => {
-    expect.assertions(3);
     const httpError = new HttpErrorResponse({ status: 400, error: 'Bad Request' });
     const mappedError = new HttpError('BadRequest', 400, 'Bad Request');
     jest.spyOn(HttpError, 'getErrorFromHttpResponse').mockReturnValue(mappedError);
     jest.spyOn(httpClient, 'get').mockReturnValue(throwError(() => httpError));
-    try {
-      await firstValueFrom(service.get());
-    } catch (err) {
-      expect(logger.error).toHaveBeenCalledWith('httpErrorResponse', httpError);
-      expect(HttpError.getErrorFromHttpResponse).toHaveBeenCalledWith(httpError);
-      expect(err).toBe(mappedError);
-    }
+
+    // Assert the observable rejects with the mapped error
+    await expect(firstValueFrom(service.get())).rejects.toBe(mappedError);
+
+    // Verify side-effects: logger and mapping function were called
+    expect(HttpError.getErrorFromHttpResponse).toHaveBeenCalledWith(httpError);
+    expect(logger.error).toHaveBeenCalledWith('handleError - httpErrorResponse', httpError);
   });
 
   it('should call extractData and return the response as-is', async () => {
