@@ -1,0 +1,5 @@
+# Stage: serve prerendered static files with nginx
+FROM httpd:alpine
+
+# Copy prerendered output
+COPY dist/apps/routes/routes/browser/ /usr/local/apache2/htdocs/

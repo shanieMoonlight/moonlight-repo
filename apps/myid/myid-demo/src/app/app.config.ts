@@ -62,3 +62,6 @@ export const appConfig: ApplicationConfig = {
     MyIdIoSetup.provideMyIdIo({ baseUrl: environment.identityServerUrl }),
   ],
 };
+
+
+//npx nx run myid-demo:build 

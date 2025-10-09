@@ -234,7 +234,7 @@ export abstract class ABaseHttpService {
 
   protected handleError(httpErrorResponse: HttpErrorResponse) {
 
-    this._logger.error('httpErrorResponse', httpErrorResponse);
+    this._logger.error('handleError - httpErrorResponse', httpErrorResponse);
 
     // Centralized error mapping (handles all cases, including application error header)
     const customError = HttpError.getErrorFromHttpResponse(httpErrorResponse);

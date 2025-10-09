@@ -27,5 +27,7 @@ RUN npm ci --omit=dev --no-audit --progress=false || true
 ENV PORT=4000
 EXPOSE 4000
 
-# Typical Angular Universal server entrypoint: server/main.js
-CMD ["node", "server/main.js"]
+# Use the emitted server bundle entrypoint. The Angular build emits .mjs bundles
+# (for example server/server.mjs or main.server.mjs). Use server/server.mjs which
+# is the full server bundle produced by the build.
+CMD ["node", "server/server.mjs"]
