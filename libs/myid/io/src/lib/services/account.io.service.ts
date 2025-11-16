@@ -10,6 +10,7 @@ import {
   ConfirmPhoneDto,
   CookieSignInDto,
   CookieSignInResultData,
+  FacebookSignInDto,
   ForgotPwdDto,
   GoogleCookieSignInDto,
   GoogleSignInDto,
@@ -25,7 +26,8 @@ import {
   ResetPwdDto,
   TwoFactorAuthAppCompleteRegDto,
   Verify2FactorCookieDto,
-  Verify2FactorDto
+  Verify2FactorDto,
+  FaceBookCookieSignInDto as FacebookCookieSignInDto
 } from '@spider-baby/myid-io/models';
 import { Observable } from 'rxjs';
 import { ServerRoutes } from '../controllers/all-server-routes';
@@ -103,6 +105,28 @@ export class AccountIoService extends AServerIoService {
       dto,
       opts ?? {}
     );
+
+
+  faceBookLogin = (
+    dto: FacebookSignInDto,
+    opts?: unknown
+  ): Observable<JwtPackage> =>
+    this._postAction<JwtPackage>(
+      ServerRoutes.Account.action('facebookLogin'),
+      dto,
+      opts ?? {}
+    );
+
+  faceBookCookieSignin = (
+    dto: FacebookCookieSignInDto,
+    opts?: unknown
+  ): Observable<CookieSignInResultData> =>
+    this._postAction<CookieSignInResultData>(
+      ServerRoutes.Account.action('facebookCookieSignin'),
+      dto,
+      opts ?? {}
+    );
+
 
   confirmPhone = (
     dto: ConfirmPhoneDto,

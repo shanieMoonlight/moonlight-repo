@@ -1,4 +1,4 @@
-import { GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
@@ -9,6 +9,8 @@ import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notificati
 import { LoginJwtStateService } from './login-jwt.state.service';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
+import { FacebookButtonComponent } from '../../ui/buttons/buttons/facebook-btn.component';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -16,7 +18,9 @@ import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
     GoogleSigninButtonDirective,
     LoginFormComponent,
     SbMatNotificationsModalComponent,
-    ForgotPwdModalComponent
+    ForgotPwdModalComponent,
+    FacebookButtonComponent,
+    SbTooltipDirective
   ],
   providers: [LoginJwtStateService],
   standalone: true,
@@ -85,12 +89,21 @@ export class LoginJwtComponent implements OnInit {
   }
 
 
+  facebookLogin() {
+    this._socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((response) => {
+        devConsole.log('Facebook login initiated', response, JSON.stringify(response));
+      });
+  }
+
   onForgotPwd = () =>
     this._showForgotPwd.set(true)
 
 
   onForgotPasswordResult = (dto: ForgotPasswordFormDto) =>
     this._state.forgotPassword(dto)
+
+
 
 
 }//Cls

@@ -19,6 +19,8 @@ export * from './lib/cookie-sign-in-dto';
 export * from './lib/cookie-sign-in-result-data';
 export * from './lib/device-dto';
 export * from './lib/email-routes-dto';
+export * from './lib/facebook-sign-in-dto';
+export * from './lib/facebook-cookie-sign-in-dto';
 export * from './lib/feature-flag-dto';
 export * from './lib/feature-flag-dto-paged-response';
 export * from './lib/filter-request';

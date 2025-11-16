@@ -31,6 +31,7 @@ import { SvgRendererComponent } from '@spider-baby/ui-kit/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbIconButtonComponent {
+  
   disabled = input<boolean>(false);
   color = input<UiKitTheme>('primary');
   type = input<'button' | 'submit' | 'reset'>('button');

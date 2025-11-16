@@ -4,3 +4,6 @@ MiniCrudState - make it generic in AddDto, UpdateDto, DeleteDto
         const err = error as any; // Still need this casting internally
         return err?.message ?? err?.msg ?? undefined;
     }
+
+
+

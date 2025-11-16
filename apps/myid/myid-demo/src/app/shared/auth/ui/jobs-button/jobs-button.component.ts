@@ -9,16 +9,16 @@ import { environment } from '../../../../../environments/environment';
 import { AppSvgs } from '../../../../config/svgs';
 
 @Component({
-  selector: 'sb-hangfire-button',
+  selector: 'sb-jobs-dashboard-button',
   imports: [
     SbIconButtonComponent,
     SbTooltipDirective
   ],
   template: `
       <sb-icon-button         
-          (click)="goToSwagger()"       
+          (click)="goToJobsDashboard()"       
             [svgString]="hangfireIconSvg()" 
-            [sbTooltip]="showTooltip() ? 'Hangfire' : ''"
+            [sbTooltip]="showTooltip() ? 'Jobs dashboard' : ''"
             aria-label="Hangfire"
             [color]="color()" />
   `,
@@ -39,26 +39,26 @@ import { AppSvgs } from '../../../../config/svgs';
     `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HangfireButtonComponent {
+export class JobsButtonComponent {
 
   private _authService = inject(MyIdAuthService);
   private _toast = inject(SbToastService);
 
   //- - - - - - - - - - -//
 
-  hangfirePath = input('/myid-hangfire')
+  hangfirePath = input('/myid-jobs-dashboard')
   color = input<UiKitTheme>('primary');
   showTooltip = input(true);
-  hangfireIconSvg = input(AppSvgs.HANGFIRE_ICON);
+  hangfireIconSvg = input(AppSvgs.JOBS_ICON);
 
   private serverUrl = environment.serverBaseUrl;  
   
   //- - - - - - - - - - -//
 
-  protected goToSwagger() {
+  protected goToJobsDashboard(): void {
     const token = this._authService.accessToken();
     if (!token)//there might be a cookie  so don't return
-      this._toast.warning('You must be logged in to access Swagger')
+      this._toast.warning('You must be logged in to access Jobs Dashboard');
     
 
     const url = UrlUtils.combine(this.serverUrl,`${this.hangfirePath()}?tkn=${token}`);

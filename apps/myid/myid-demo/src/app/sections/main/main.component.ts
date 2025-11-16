@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { SbDarkModeToggleMatComponent, SbThemePickerMatComponent } from '@spider-baby/material-theming/components';
 import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updater-mat';
 import { SbAuthLoginButtonComponent } from '../../shared/auth/ui/auth-login-button/auth-login-button.component';
-import { HangfireButtonComponent } from '../../shared/auth/ui/hangfire-button/hangfire-button.component';
+import { JobsButtonComponent } from '../../shared/auth/ui/jobs-button/jobs-button.component';
 import { SwaggerButtonComponent } from '../../shared/auth/ui/swagger-button/swagger-button.component';
 import { TeamBadgeComponent } from '../../shared/auth/ui/team-badge/team-badge.component';
 import { UserInfoButtonComponent } from '../../shared/auth/ui/user-info/user-info-btn.component';
@@ -23,7 +23,7 @@ import { LoginService } from '@spider-baby/myid-auth/services';
     ServiceWorkerUpdateMatComponent,
     SbAuthLoginButtonComponent,
     SwaggerButtonComponent,
-    HangfireButtonComponent,
+    JobsButtonComponent,
     UserInfoButtonComponent,
     TeamBadgeComponent
 

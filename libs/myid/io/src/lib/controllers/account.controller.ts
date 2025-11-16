@@ -8,6 +8,8 @@ type ACTIONS =
   | 'createCustomer'
   | 'addCustomerTeamMember'
   | 'addCustomerTeamMemberMntc'
+  | 'facebookLogin'
+  | 'facebookCookieSignin'
   | 'googleLogin'
   | 'googleCookieSignin'
   | 'confirmPhone'

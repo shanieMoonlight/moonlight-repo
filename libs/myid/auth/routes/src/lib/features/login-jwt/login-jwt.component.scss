@@ -23,3 +23,12 @@
   justify-content: center;
   // background-color: aqua;
 }
+
+
+.social-logins {
+  display: flex;
+
+  > * {
+    margin-right: 1rem;
+  }
+}

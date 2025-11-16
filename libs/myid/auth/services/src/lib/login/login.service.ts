@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { CookieSignInDto, CookieSignInResultData, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
+import { CookieSignInDto, CookieSignInResultData, FacebookSignInDto, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
 import { catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { MyIdAuthService } from '../auth/myid.auth.browser.service';
 import { RefreshTokenService } from '@spider-baby/auth-signal/refresh';
@@ -66,6 +66,30 @@ export class LoginService {
 
   //-----------------//
 
+  loginFacebookJwt(dto: FacebookSignInDto): Observable<JwtPackage> {
+
+    return this._accIoService.googleLogin({ ...dto })
+      .pipe(
+        tap((jwt) => this.onLoginSuccessJwt(jwt)),
+        catchError((error) => this.onLoginError(error))
+      )
+
+  }
+
+  //- - - - - - - - -//
+  
+  loginFacebookCookie(dto: FacebookSignInDto): Observable<CookieSignInResultData> {
+    
+    return this._accIoService.googleCookieSignin({ ...dto })
+    .pipe(
+      tap((ckData) => this.onLoginSuccessCookie(ckData)),
+      catchError((error) => this.onLoginError(error))
+    )
+    
+  }
+  
+  //-----------------//
+
   loginGoogleJwt(dto: GoogleSignInDto): Observable<JwtPackage> {
 
     return this._accIoService.googleLogin({ ...dto })
@@ -76,18 +100,18 @@ export class LoginService {
 
   }
 
-  //-----------------//
-
+  //- - - - - - - - -//
+  
   loginGoogleCookie(dto: GoogleSignInDto): Observable<CookieSignInResultData> {
-
+    
     return this._accIoService.googleCookieSignin({ ...dto })
-      .pipe(
-        tap((ckData) => this.onLoginSuccessCookie(ckData)),
-        catchError((error) => this.onLoginError(error))
-      )
-
+    .pipe(
+      tap((ckData) => this.onLoginSuccessCookie(ckData)),
+      catchError((error) => this.onLoginError(error))
+    )
+    
   }
-
+  
   //-----------------//
 
   verify2Factor(dto: Verify2FactorDto): Observable<JwtPackage> {

@@ -62,6 +62,11 @@ export class LoginJwtStateService {
     .CreateWithInput((dto: GoogleSignInDto) => this._loginService.loginGoogleJwt(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
+    
+  private _facebookLoginState = MiniStateBuilder
+    .CreateWithInput((dto: GoogleSignInDto) => this._loginService.loginGoogleJwt(dto))
+    .setSuccessMsgFn((dto) => `Logged in successfully!`)
+    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
 
   private _forgotPwdState = MiniStateBuilder
@@ -113,6 +118,10 @@ export class LoginJwtStateService {
 
 
   loginGoogle = (dto: GoogleSignInDto) =>
+    this._googleLoginState.trigger(dto)
+
+  
+  loginfacebook = (dto: GoogleSignInDto) =>
     this._googleLoginState.trigger(dto)
 
 

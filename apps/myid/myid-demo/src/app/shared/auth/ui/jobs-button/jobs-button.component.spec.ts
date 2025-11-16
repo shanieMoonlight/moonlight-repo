@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { MyIdAuthService } from '@spider-baby/myid-auth/services';
-import { HangfireButtonComponent } from './hangfire-button.component';
+import { JobsButtonComponent } from './hangfire-button.component';
 
 // Mock services
 class MockAuthService {
@@ -19,24 +19,24 @@ jest.mock('../../../../../environments/environment', () => ({
   }
 }));
 
-describe('HangfireButtonComponent', () => {
-  let component: HangfireButtonComponent;
-  let fixture: ComponentFixture<HangfireButtonComponent>;
-  let componentRef: ComponentRef<HangfireButtonComponent>;
+describe('JobsButtonComponent', () => {
+  let component: JobsButtonComponent;
+  let fixture: ComponentFixture<JobsButtonComponent>;
+  let componentRef: ComponentRef<JobsButtonComponent>;
   let authService: MockAuthService;
   let toastService: MockToastService;
   let windowOpenSpy: jest.SpyInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HangfireButtonComponent],
+      imports: [JobsButtonComponent],
       providers: [
         { provide: MyIdAuthService, useClass: MockAuthService },
         { provide: SbToastService, useClass: MockToastService },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HangfireButtonComponent);
+    fixture = TestBed.createComponent(JobsButtonComponent);
     componentRef = fixture.componentRef;
     component = fixture.componentInstance;
     authService = TestBed.inject(MyIdAuthService) as any;
@@ -53,25 +53,25 @@ describe('HangfireButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call goToSwagger when button is clicked', () => {
-    const goToSwaggerSpy = jest.spyOn(component as unknown as { goToSwagger: () => void }, 'goToSwagger');
+  it('should call goToJobsDashboard when button is clicked', () => {
+    const goToJobsDashboardSpy = jest.spyOn(component as unknown as { goToJobsDashboard: () => void }, 'goToJobsDashboard');
     const btn = fixture.debugElement.query(By.css('sb-icon-button'));
     btn.triggerEventHandler('click');
-    expect(goToSwaggerSpy).toHaveBeenCalled();
+    expect(goToJobsDashboardSpy).toHaveBeenCalled();
   });
 
   it('should open window with correct URL and options', () => {
     componentRef.setInput('hangfirePath', '/custom-hangfire');
     authService.accessToken.mockReturnValue('abc123');
     fixture.detectChanges();
-    (component as unknown as { goToSwagger: () => void }).goToSwagger();
+    (component as unknown as { goToJobsDashboard: () => void }).goToJobsDashboard();
     expect(windowOpenSpy).toHaveBeenCalledWith('https://localhost:12312/custom-hangfire?tkn=abc123', '_blank', 'noopener,noreferrer');
   });
 
   it('should show warning toast if no access token', () => {
     authService.accessToken.mockReturnValue(undefined);
-    (component as unknown as { goToSwagger: () => void }).goToSwagger();
-    expect(toastService.warning).toHaveBeenCalledWith('You must be logged in to access Swagger');
+    (component as unknown as { goToJobsDashboard: () => void }).goToJobsDashboard();
+    expect(toastService.warning).toHaveBeenCalledWith('You must be logged in to access Jobs Dashboard');
   });
 
   it('should bind inputs correctly', () => {
