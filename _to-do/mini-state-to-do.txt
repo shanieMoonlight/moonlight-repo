@@ -1,1 +1,6 @@
 MiniCrudState - make it generic in AddDto, UpdateDto, DeleteDto
+    protected _successMsgFn?: (input: Input, output: Output) => string|undefined
+    protected _errorMsgFn: (error: TError) => string = error => {
+        const err = error as any; // Still need this casting internally
+        return err?.message ?? err?.msg ?? undefined;
+    }

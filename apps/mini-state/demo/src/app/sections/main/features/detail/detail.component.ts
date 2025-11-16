@@ -78,7 +78,8 @@ export class MainDemoDetailComponent {
 
 
   protected refresh = () =>
-    this._itemState.retrigger() //<-- This will re-trigger the _itemState with the last observable input's value and fetch the data again
+    this._itemState.retrigger() // <-- This will re-trigger the _itemState with the last observable input's value and fetch the data again
+                                // Which may be differnt in this case because the data is randomized in the DummyAlbumIoService
 
   //- - - - - - - - - - - - - //
 

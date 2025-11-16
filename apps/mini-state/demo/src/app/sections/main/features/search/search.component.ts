@@ -52,7 +52,7 @@ export class MainDemoSearchComponent {
     this._searchTerm$, //<-- Observable Input
     (term: string) => this._ioService.search(term),   // Load users based on search term
     [])// Initial empty array
-  .setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
+  .setSuccessMsgFn((term: string, users: Album[]) =>  // Success message function
     users.length > 0
       ? \`Found \${users.length} users matching "\${term}"\`
       : undefined)
@@ -217,10 +217,10 @@ export class MainDemoSearchComponent {
     this._searchTerm$, //<-- Observable Input
     (term: string) => this._ioService.getAllFiltered(term),   // Load users based on search term
     [])   // Initial empty array
-    .setOnSuccessFn((term: string, users: Album[]) =>  // Success message function
+    .setSuccessMsgFn((term: string, users: Album[]) =>  // Success message function
       users.length > 0
         ? `Found ${users.length} users matching "${term}"`
-        : undefined)
+        : '')
 
 
   // Track if a search has been performed
