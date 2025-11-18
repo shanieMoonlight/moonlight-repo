@@ -7,4 +7,5 @@ export * from './lib/text-button/text-button.component';
 export * from './lib/toggle-icon-button/toggle-icon-button.component';
 export * from './lib/button-logout/button-logout.component'
 export * from './lib/button-delete/button-delete.component'
+export * from './lib/button-facebook/facebook-btn.component';
 

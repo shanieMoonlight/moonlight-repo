@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Directive, Input } from '@angular/core';
@@ -12,6 +12,34 @@ import { LoginJwtComponent } from './login-jwt.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
+//##############################//
+
+interface ISocialUser {
+  provider: string;
+  id?: string;
+  email?: string;
+  name?: string;
+  photoUrl?: string;
+  firstName?: string;
+  lastName?: string;
+  authToken?: string;
+  idToken?: string;
+  authorizationCode?: string;
+  response?: any;
+}
+
+interface IGoogleSocialUser {
+  idToken?: string;
+  id?: string | number;
+  name?: string;
+  email?: string;
+  photoUrl?: string;
+  firstName?: string;
+  lastName?: string;
+  provider?:string
+}
+
+
 
 //##############################//
 
@@ -50,7 +78,7 @@ const mockSocialAuthServiceConfig = {
 const authStateSubject = new Subject<any>();
 const mockSocialAuth = {
   authState: authStateSubject.asObservable(),
-  signInState: new Subject(), 
+  signInState: new Subject(),
   initState: new Subject(),
   getAuthState: jest.fn().mockReturnValue(of(null)),
   signIn: jest.fn(),
@@ -73,7 +101,7 @@ const mockActRoute = {
   standalone: true
 })
 class MockGoogleSigninButtonDirective {
-  @Input() type: 'icon' | 'standard' = 'icon'; 
+  @Input() type: 'icon' | 'standard' = 'icon';
   @Input() size: 'small' | 'medium' | 'large' = 'large';
   @Input() text: 'signin_with' | 'signup_with' | 'continue_with' = 'signin_with';
   @Input() shape: 'square' | 'circle' | 'pill' | 'rectangular' = 'rectangular';
@@ -137,8 +165,44 @@ describe('LoginJwtComponent', () => {
   it('should call loginGoogle on social authState emit', () => {
     const spy = jest.spyOn(stateService, 'loginGoogle');
     // Emit after spy is attached and component is ready
-    authStateSubject.next({ id: '123', name: 'Test User' });
-    expect(spy).toHaveBeenCalledWith({ id: '123', name: 'Test User' });
+    const socialUser: ISocialUser = {
+      id: '123', name: 'Test User', provider: GoogleLoginProvider.PROVIDER_ID
+    }
+    // actually emit the social auth event so the component/state can react
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
+  });
+
+  it('should call loginFacebook on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginFacebook');
+    const socialUser: ISocialUser = {
+      id: '123', name: 'Test User', provider: FacebookLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
+  });
+
+
+  it('should call loginGoogle on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginGoogle');
+    const dto: IGoogleSocialUser = {
+      idToken: '123',
+       firstName: 'Test', 
+       lastName: 'User',
+        email: 'someemail@d.com',
+        provider: GoogleLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(dto);
+    expect(spy).toHaveBeenCalledWith(dto);
+  });
+
+  it('should call loginMicrosoftCookie on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginMicrosoft');
+    const socialUser: ISocialUser = {
+      id: '123', name: 'Test User', provider: MicrosoftLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
   });
 
   // For loginSuccess, you may need to mock the computed signal if needed

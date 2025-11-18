@@ -134,7 +134,7 @@ const FACEBOOK_ICON = `
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FacebookButtonComponent {
+export class SbButtonFacebookComponent {
 
   // color = input<UiKitTheme>('primary');
   showTooltip = input(true);

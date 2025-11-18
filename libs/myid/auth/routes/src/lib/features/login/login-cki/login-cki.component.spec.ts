@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Directive, Input } from '@angular/core';
@@ -10,6 +10,23 @@ import { MyIdRouter } from '@spider-baby/myid-auth/config';
 import { LoginCkiComponent } from './login-cki.component';
 import { LoginCkiStateService } from './login-cki.state.service';
 import { ActivatedRoute } from '@angular/router';
+
+//##############################//
+
+export interface ISocialUser {
+    provider: string;
+    id?: string;
+    email?: string;
+    name?: string;
+    photoUrl?: string;
+    firstName?: string;
+    lastName?: string;
+    authToken?: string;
+    idToken?: string;
+    authorizationCode?: string;
+    response?: any;
+}
+
 
 //##############################//
 
@@ -41,7 +58,7 @@ const mockSocialAuthServiceConfig = {
 };
 
 // SocialAuthService mock
-const authStateSubject = new Subject<any>();
+const authStateSubject = new Subject<ISocialUser>();
 const mockSocialAuth = {
   authState: authStateSubject.asObservable(),
   signInState: new Subject(),
@@ -119,8 +136,38 @@ describe('LoginCkiComponent', () => {
 
   it('should call loginGoogleCookie on social authState emit', () => {
     const spy = jest.spyOn(stateService, 'loginGoogleCookie');
-    authStateSubject.next({ id: '123', name: 'Test User' });
-    expect(spy).toHaveBeenCalledWith({ id: '123', name: 'Test User' });
+    const socialUser:ISocialUser = {
+      id: '123', name: 'Test User', provider: GoogleLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
+  });
+
+  it('should call loginFacebookCookie on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginFacebookCookie');
+    const socialUser:ISocialUser = {
+      id: '123', name: 'Test User', provider: FacebookLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
+  });
+
+  it('should call loginAmazonCookie on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginAmazonCookie');
+    const socialUser:ISocialUser = {
+      id: '123', name: 'Test User', provider: AmazonLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
+  });
+  
+  it('should call loginMicrosoftCookie on social authState emit', () => {
+    const spy = jest.spyOn(stateService, 'loginMicrosoftCookie');
+    const socialUser:ISocialUser = {
+      id: '123', name: 'Test User', provider: MicrosoftLoginProvider.PROVIDER_ID
+    }
+    authStateSubject.next(socialUser);
+    expect(spy).toHaveBeenCalledWith(socialUser);
   });
 
   it('should hide forgot password modal by default', () => {

@@ -14,5 +14,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../ui/ui-kit/buttons/src/lib/button-facebook/facebook-btn.component.spec.ts", "../../ui/ui-kit/buttons/src/lib/button-facebook/facebook-btn.component.ts"]
 }

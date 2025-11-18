@@ -1,5 +1,6 @@
 export interface FacebookSignInDto {
-  idToken?: string;
-  subscriptionId?: string;
+  id: string;
+  authToken: string;
+  subscriptionPlanId?: string;
   deviceId?: string;
 }

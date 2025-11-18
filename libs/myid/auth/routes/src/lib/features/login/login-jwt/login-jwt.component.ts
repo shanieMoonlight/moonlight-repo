@@ -1,16 +1,16 @@
-import { FacebookLoginProvider, GoogleSigninButtonDirective, SocialAuthService } from '@abacritt/angularx-social-login';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
-import { LoginDto } from '@spider-baby/myid-io/models';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
-import { LoginFormComponent } from '@spider-baby/myid-ui/login';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { LoginJwtStateService } from './login-jwt.state.service';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
-import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
-import { FacebookButtonComponent } from '../../ui/buttons/buttons/facebook-btn.component';
+import { LoginDto } from '@spider-baby/myid-io/models';
+import { ForgotPasswordFormDto, ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { SbButtonFacebookLoginComponent } from '../buttons/facebook/btn-facebook-login.component';
+import { LoginJwtStateService } from './login-jwt.state.service';
+import { oauth } from './secrets.oath';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -19,8 +19,10 @@ import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
     LoginFormComponent,
     SbMatNotificationsModalComponent,
     ForgotPwdModalComponent,
-    FacebookButtonComponent,
-    SbTooltipDirective
+    SbButtonFacebookLoginComponent,
+    SbTooltipDirective,
+    // SbButtonAmazonLoginComponent,
+    // SbButtonMicrosoftLoginComponent
   ],
   providers: [LoginJwtStateService],
   standalone: true,
@@ -30,10 +32,13 @@ import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 })
 export class LoginJwtComponent implements OnInit {
 
+
   private _state = inject(LoginJwtStateService)
   private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
   private _destroyRef = inject(DestroyRef)
+
+  clientId = oauth.google.client_id;
 
   //- - - - - - - - - - - - - //
 
@@ -45,9 +50,15 @@ export class LoginJwtComponent implements OnInit {
   protected _showForgotPwd = signal(false)
 
 
+
   //--------------------------//
 
   constructor() {
+
+
+    // Ensure user is signed out from any previous social login sessions
+    this._socialAuth.signOut()
+
 
     effect(() => {
       if (this._state.loginSuccess()) {
@@ -67,15 +78,42 @@ export class LoginJwtComponent implements OnInit {
     });
   }
 
+  //- - - - - - - - - - - - - //
+
   ngOnInit() {
     this._socialAuth.authState
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((socialUser) => {
+        devConsole.log('socialUser', socialUser);
+
         if (socialUser) {
-          this._state.loginGoogle(socialUser);
-          // Sign out from the social provider after using the token. We're storing a JWT token in the backend, 
-          // so we don't need to keep the user signed in on the social provider.
-          this._socialAuth.signOut();
+          const provider = socialUser.provider;
+          devConsole.log(`Social login successful from provider: ${provider}`, socialUser, GoogleLoginProvider.PROVIDER_ID);
+          console.log(JSON.stringify(socialUser));
+          
+
+          switch (provider) {
+            case GoogleLoginProvider.PROVIDER_ID:
+              devConsole.log('Google social login response', socialUser);
+              this._state.loginGoogle(socialUser);
+              break;
+            case FacebookLoginProvider.PROVIDER_ID:
+              devConsole.log('Facebook social login response', socialUser);
+              this._state.loginFacebook(socialUser);
+              break;
+            case AmazonLoginProvider.PROVIDER_ID:
+              devConsole.log('Amazon social login response', socialUser);
+              this._state.loginAmazon(socialUser);
+              break;
+            case MicrosoftLoginProvider.PROVIDER_ID:
+              devConsole.log('Microsoft social login response', socialUser);
+              this._state.loginMicrosoft(socialUser);
+              break;
+            default:
+              devConsole.warn('Unsupported social login provider:', provider);
+              return;
+          }
+
         }
       })
   }
@@ -88,14 +126,6 @@ export class LoginJwtComponent implements OnInit {
     return this._state.login(dto);
   }
 
-
-  facebookLogin() {
-    this._socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((response) => {
-        devConsole.log('Facebook login initiated', response, JSON.stringify(response));
-      });
-  }
-
   onForgotPwd = () =>
     this._showForgotPwd.set(true)
 
@@ -103,7 +133,9 @@ export class LoginJwtComponent implements OnInit {
   onForgotPasswordResult = (dto: ForgotPasswordFormDto) =>
     this._state.forgotPassword(dto)
 
-
+  facebookLogin(user: SocialUser) {
+    console.log('LoginJwtComponent.login', user);
+  }
 
 
 }//Cls

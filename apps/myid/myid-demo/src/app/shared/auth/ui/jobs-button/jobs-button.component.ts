@@ -17,7 +17,7 @@ import { AppSvgs } from '../../../../config/svgs';
   template: `
       <sb-icon-button         
           (click)="goToJobsDashboard()"       
-            [svgString]="hangfireIconSvg()" 
+            [svgString]="jobsIconSvg()" 
             [sbTooltip]="showTooltip() ? 'Jobs dashboard' : ''"
             aria-label="Hangfire"
             [color]="color()" />
@@ -46,10 +46,10 @@ export class JobsButtonComponent {
 
   //- - - - - - - - - - -//
 
-  hangfirePath = input('/myid-jobs-dashboard')
+  jobsPath = input('/myid-jobs-dashboard')
   color = input<UiKitTheme>('primary');
   showTooltip = input(true);
-  hangfireIconSvg = input(AppSvgs.JOBS_ICON);
+  jobsIconSvg = input(AppSvgs.JOBS_ICON);
 
   private serverUrl = environment.serverBaseUrl;  
   
@@ -61,7 +61,7 @@ export class JobsButtonComponent {
       this._toast.warning('You must be logged in to access Jobs Dashboard');
     
 
-    const url = UrlUtils.combine(this.serverUrl,`${this.hangfirePath()}?tkn=${token}`);
+    const url = UrlUtils.combine(this.serverUrl,`${this.jobsPath()}?tkn=${token}`);
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 

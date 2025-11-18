@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
-import { CookieSignInDto, CookieSignInResultData, ForgotPwdDto, GoogleSignInDto, LoginDto } from '@spider-baby/myid-io/models';
+import { AmazonSignInDto, CookieSignInDto, CookieSignInResultData, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
@@ -64,6 +64,11 @@ export class LoginCkiStateService {
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, signinData) => { console.log('Login successful:', dto, signinData); })
 
+  private _facebookLoginState = MiniStateBuilder
+    .CreateWithInput((dto: FacebookSignInDto) => this._loginService.loginFacebookCookie(dto))
+    .setSuccessMsgFn((dto) => `Logged in successfully!`)
+    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
+
 
   protected _forgotPwdState = MiniStateBuilder
     .CreateWithInput((dto: ForgotPwdDto) => this._ioService.forgotPassword(dto))
@@ -74,19 +79,24 @@ export class LoginCkiStateService {
   private _states = MiniStateCombined.Combine(
     this._cookieLoginState,
     this._forgotPwdState,
+    this._facebookLoginState,
     this._googleLoginState)
 
   successMsg = this._states.successMsg
   errorMsg = this._states.errorMsg
   loading = this._states.loading
 
-  loginSuccess = computed(() => !!this._cookieLoginState.successMsg() || !!this._googleLoginState.successMsg())
+  loginSuccess = computed(() => !!this._cookieLoginState.successMsg() 
+    || !!this._googleLoginState.successMsg()
+    || !!this._facebookLoginState.successMsg())
 
 
   //Two-Factor Authentication related state
   private _loginStateError = MiniStateCombined.CombineErrors(
     this._cookieLoginState,
-    this._googleLoginState)
+    this._googleLoginState,
+    this._facebookLoginState)
+
 
   twoFactorData = computed(() => {
     const error = this._loginStateError();
@@ -112,6 +122,15 @@ export class LoginCkiStateService {
   loginGoogleCookie = (dto: GoogleSignInDto) =>
     this._googleLoginState.trigger(dto)
 
+  loginFacebookCookie = (dto: FacebookSignInDto) =>
+    this._facebookLoginState.trigger(dto)
+
+  loginMicrosoftCookie = (dto: MicrosoftSignInDto) => 
+    console.log('loginMicrosoft: Method not implemented.', dto)
+
+  
+  loginAmazonCookie = (dto: AmazonSignInDto) => 
+    console.log('loginAmazon: Method not implemented.', dto)
 
   forgotPassword = (dto: ForgotPwdDto) =>
     this._forgotPwdState.trigger(dto)

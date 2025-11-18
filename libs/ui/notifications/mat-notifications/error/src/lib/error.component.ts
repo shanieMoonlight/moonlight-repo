@@ -52,10 +52,13 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
 
 .error-modal {
   width: 90%;
-  max-width: 450px;
+  max-height: 90%;
+  max-width: 500px;    
+  display: flex;
+  flex-direction: column;  
   background-color: var(--mat-sys-surface);
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   animation: slideIn 0.3s ease-out;
 }
@@ -85,6 +88,8 @@ import { MatEverythingModule } from '@spider-baby/ui-mat-notifications/utils';
   color: var(--mat-sys-on-surface);
   font-size: 16px;
   line-height: 1.5;
+  flex: 1 1 auto;
+  overflow-y: auto;
   
   p {
     margin: 0;
@@ -117,8 +122,8 @@ export class ErrorModalComponent {
   private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - //
-  
-  _errorMsg = signal<string | undefined>(undefined);  
+
+  _errorMsg = signal<string | undefined>(undefined);
   @Input('errorMsg')
   set errorMsg(message: string | null | undefined) {
     if (!this.isBrowser()) return
@@ -131,17 +136,17 @@ export class ErrorModalComponent {
 
   //----------------------------//
 
-  protected dismissError(): void {    
+  protected dismissError(): void {
     this._errorMsg.set(undefined)
     console.log('dismissError', this._errorMsg());
-    
+
   }
-  
+
   //--------------------------//
-  
-  private isBrowser = (): boolean =>    
+
+  private isBrowser = (): boolean =>
     isPlatformBrowser(this._platformId)
-  
+
   //--------------------------//
 
 }//Cls

@@ -3,12 +3,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
-import { ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto } from '@spider-baby/myid-io/models';
-import { filter, map } from 'rxjs';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
+import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
+import { AmazonSignInDto, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
+import { filter, map } from 'rxjs';
 import { TwoFactorRequiredData } from './two-factor-required.data';
+import { devConsole } from '@spider-baby/dev-console';
 
 //######################//
 
@@ -62,9 +63,9 @@ export class LoginJwtStateService {
     .CreateWithInput((dto: GoogleSignInDto) => this._loginService.loginGoogleJwt(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
-    
+
   private _facebookLoginState = MiniStateBuilder
-    .CreateWithInput((dto: GoogleSignInDto) => this._loginService.loginGoogleJwt(dto))
+    .CreateWithInput((dto: FacebookSignInDto) => this._loginService.loginFacebookJwt(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
@@ -78,6 +79,7 @@ export class LoginJwtStateService {
   private _states = MiniStateCombined.Combine(
     this._loginState,
     this._forgotPwdState,
+    this._facebookLoginState,
     this._googleLoginState)
 
 
@@ -85,12 +87,15 @@ export class LoginJwtStateService {
   errorMsg = this._states.errorMsg
   loading = this._states.loading
 
-  loginSuccess = computed(() => !!this._loginState.successMsg() || !!this._googleLoginState.successMsg())
+  loginSuccess = computed(() => !!this._loginState.successMsg()
+    || !!this._googleLoginState.successMsg()
+    || !!this._facebookLoginState.successMsg())
 
   //Two-Factor Authentication related state
   private _loginStateError = MiniStateCombined.CombineErrors(
     this._loginState,
-    this._googleLoginState)
+    this._googleLoginState,
+    this._facebookLoginState)
 
   twoFactorRequired = computed(() => {
     const error = this._loginStateError();
@@ -117,12 +122,22 @@ export class LoginJwtStateService {
     this._loginState.trigger(dto)
 
 
-  loginGoogle = (dto: GoogleSignInDto) =>
-    this._googleLoginState.trigger(dto)
+  loginGoogle = (dto: GoogleSignInDto) => {
+    devConsole.log('loginGoogle: Google social login response', dto);
+    return this._googleLoginState.trigger(dto);
+  }
 
-  
-  loginfacebook = (dto: GoogleSignInDto) =>
-    this._googleLoginState.trigger(dto)
+
+  loginFacebook = (dto: FacebookSignInDto) =>
+    this._facebookLoginState.trigger(dto)
+
+
+  loginMicrosoft = (dto: MicrosoftSignInDto) =>
+    console.log('loginMicrosoft: Method not implemented.', dto)
+
+
+  loginAmazon = (dto: AmazonSignInDto) =>
+    console.log('loginAmazon: Method not implemented.', dto)
 
 
   forgotPassword = (dto: ForgotPwdDto) =>

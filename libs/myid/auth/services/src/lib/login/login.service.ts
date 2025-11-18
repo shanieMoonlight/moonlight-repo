@@ -68,7 +68,7 @@ export class LoginService {
 
   loginFacebookJwt(dto: FacebookSignInDto): Observable<JwtPackage> {
 
-    return this._accIoService.googleLogin({ ...dto })
+    return this._accIoService.faceBookLogin({ ...dto })
       .pipe(
         tap((jwt) => this.onLoginSuccessJwt(jwt)),
         catchError((error) => this.onLoginError(error))
@@ -80,7 +80,7 @@ export class LoginService {
   
   loginFacebookCookie(dto: FacebookSignInDto): Observable<CookieSignInResultData> {
     
-    return this._accIoService.googleCookieSignin({ ...dto })
+    return this._accIoService.faceBookCookieSignin({ ...dto })
     .pipe(
       tap((ckData) => this.onLoginSuccessCookie(ckData)),
       catchError((error) => this.onLoginError(error))

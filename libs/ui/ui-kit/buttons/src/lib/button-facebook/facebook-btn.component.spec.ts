@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FacebookButtonComponent } from './facebook-btn.component';
+import { SbButtonFacebookComponent } from './facebook-btn.component';
 
 describe('FacebookButtonComponent', () => {
-  let component: FacebookButtonComponent;
-  let fixture: ComponentFixture<FacebookButtonComponent>;
+  let component: SbButtonFacebookComponent;
+  let fixture: ComponentFixture<SbButtonFacebookComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FacebookButtonComponent],
+      imports: [SbButtonFacebookComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FacebookButtonComponent);
+    fixture = TestBed.createComponent(SbButtonFacebookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

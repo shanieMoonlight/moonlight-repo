@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SbToastService } from '@spider-baby/ui-toast';
 import { MyIdAuthService } from '@spider-baby/myid-auth/services';
-import { JobsButtonComponent } from './hangfire-button.component';
+import { JobsButtonComponent } from './jobs-button.component';
 
 // Mock services
 class MockAuthService {
@@ -61,11 +61,11 @@ describe('JobsButtonComponent', () => {
   });
 
   it('should open window with correct URL and options', () => {
-    componentRef.setInput('hangfirePath', '/custom-hangfire');
+    componentRef.setInput('jobsPath', '/custom-jobs');
     authService.accessToken.mockReturnValue('abc123');
     fixture.detectChanges();
     (component as unknown as { goToJobsDashboard: () => void }).goToJobsDashboard();
-    expect(windowOpenSpy).toHaveBeenCalledWith('https://localhost:12312/custom-hangfire?tkn=abc123', '_blank', 'noopener,noreferrer');
+    expect(windowOpenSpy).toHaveBeenCalledWith('https://localhost:12312/custom-jobs?tkn=abc123', '_blank', 'noopener,noreferrer');
   });
 
   it('should show warning toast if no access token', () => {
@@ -75,14 +75,14 @@ describe('JobsButtonComponent', () => {
   });
 
   it('should bind inputs correctly', () => {
-    componentRef.setInput('hangfirePath', '/another-path');
+    componentRef.setInput('jobsPath', '/another-path');
     componentRef.setInput('color', 'tertiary');
     componentRef.setInput('showTooltip', false);
-    componentRef.setInput('hangfireIconSvg', 'svg-data');
+    componentRef.setInput('jobsIconSvg', 'svg-data');
     fixture.detectChanges();
-    expect(component.hangfirePath()).toBe('/another-path');
+    expect(component.jobsPath()).toBe('/another-path');
     expect(component.color()).toBe('tertiary');
     expect(component.showTooltip()).toBe(false);
-    expect(component.hangfireIconSvg()).toBe('svg-data');
+    expect(component.jobsIconSvg()).toBe('svg-data');
   });
 });

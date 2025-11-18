@@ -21,7 +21,10 @@
 
 <ng-template #socialTemplate>
   @if(_showSocialLinks()){
-     <asl-google-signin-button type='icon' size='large' />
+    <div class="social-logins">
+      <asl-google-signin-button type='icon' size='large' [sbTooltip]="'Google'"/>
+      <sb-button-facebook-login/>
+    </div>
     }
 </ng-template>
 

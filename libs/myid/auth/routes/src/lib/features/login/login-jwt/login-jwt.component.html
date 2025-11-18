@@ -15,7 +15,8 @@
       [toastMsg]="_successMsg()" 
       [isLoading]="_loading()" 
       [loadingMessage]="'Loading ...'" />
-  
+
+ 
 
 <!-- ####################################### -->
 
@@ -24,7 +25,9 @@
   @if(_showSocialLinks()){
     <div class="social-logins">
       <asl-google-signin-button type='icon' size='large' [sbTooltip]="'Google'"/>
-      <sb-facebook-button (click)="facebookLogin()"/>
+      <sb-button-facebook-login/>
+      <!-- <sb-button-amazon-login/>
+      <sb-button-microsoft-login/> -->
     </div>
     }
 </ng-template>

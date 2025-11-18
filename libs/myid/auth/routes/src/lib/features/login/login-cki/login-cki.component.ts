@@ -1,13 +1,15 @@
-import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, MicrosoftLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
-import { LoginDto } from '@spider-baby/myid-io/models';
-import { ForgotPasswordFormDto } from '@spider-baby/myid-ui/forgot-pwd';
-import { LoginFormComponent } from '@spider-baby/myid-ui/login';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
-import { LoginCkiStateService } from './login-cki.state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
+import { devConsole } from '@spider-baby/dev-console';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
+import { LoginDto } from '@spider-baby/myid-io/models';
+import { ForgotPasswordFormDto, ForgotPwdModalComponent } from '@spider-baby/myid-ui/forgot-pwd';
+import { LoginFormComponent } from '@spider-baby/myid-ui/login';
+import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { SbButtonFacebookLoginComponent } from '../buttons/facebook/btn-facebook-login.component';
+import { LoginCkiStateService } from './login-cki.state.service';
 
 @Component({
   selector: 'sb-login-cki',
@@ -16,8 +18,10 @@ import { MyIdRouter } from '@spider-baby/myid-auth/config';
     GoogleSigninButtonModule,
     SbMatNotificationsModalComponent,
     LoginFormComponent,
-    ForgotPwdModalComponent
-  ],
+    ForgotPwdModalComponent,
+    SbButtonFacebookLoginComponent,
+    SbTooltipDirective
+],
   providers: [LoginCkiStateService],
   templateUrl: './login-cki.component.html',
   styleUrl: './login-cki.component.scss',
@@ -44,6 +48,9 @@ export class LoginCkiComponent implements OnInit {
 
   constructor() {
 
+    // Ensure user is signed out from any previous social login sessions
+    this._socialAuth.signOut()
+
     effect(() => {
       if (this._state.loginSuccess()) {
         const redirectUrl = this._state.redirectUrl();
@@ -64,14 +71,38 @@ export class LoginCkiComponent implements OnInit {
 
 
   ngOnInit() {
+
     this._socialAuth.authState
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((socialUser) => {
+        devConsole.log('socialUser', socialUser);
+
         if (socialUser) {
-          this._state.loginGoogleCookie(socialUser);
-          // Sign out from the social provider after using the token. We're storing a JWT token in the backend, 
-          // so we don't need to keep the user signed in on the social provider.
-          this._socialAuth.signOut();
+          const provider = socialUser.provider;
+          devConsole.log(`Social login successful from provider: ${provider}`, socialUser);
+
+          switch (provider) {
+            case GoogleLoginProvider.PROVIDER_ID:
+              devConsole.log('Google social login response', socialUser);
+              this._state.loginGoogleCookie(socialUser);
+              break;
+            case FacebookLoginProvider.PROVIDER_ID:
+              devConsole.log('Facebook social login response', socialUser);
+              this._state.loginFacebookCookie(socialUser);
+              break;
+            case AmazonLoginProvider.PROVIDER_ID:
+              devConsole.log('Amazon social login response', socialUser);
+              this._state.loginAmazonCookie(socialUser);
+              break;
+            case MicrosoftLoginProvider.PROVIDER_ID:
+              devConsole.log('Microsoft social login response', socialUser);
+              this._state.loginMicrosoftCookie(socialUser);
+              break;
+            default:
+              devConsole.warn('Unsupported social login provider:', provider);
+              return;
+          }
+
         }
       })
   }
@@ -79,6 +110,8 @@ export class LoginCkiComponent implements OnInit {
 
   //- - - - - - - - - - - - - //
 
+  login = (dto: LoginDto) =>
+    this._state.loginCookie(dto)
 
   onForgotPwdClick = () =>
     this._showForgotPwd.set(true)
@@ -86,10 +119,6 @@ export class LoginCkiComponent implements OnInit {
 
   onForgotPasswordResult = (dto: ForgotPasswordFormDto) =>
     this._state.forgotPassword(dto)
-
-  login = (dto: LoginDto) =>
-    this._state.loginCookie(dto)
-
 
 
 }//Cls

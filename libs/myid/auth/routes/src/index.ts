@@ -1,4 +1,3 @@
-export const hello = 'hello world';
 
 export * from './lib/account-route-defs';
 export * from './lib/account.routes';
@@ -36,14 +35,14 @@ export * from './lib/features/customers/customers.component';
 export * from './lib/features/customers/customers.state.service';
 
 
-export * from './lib/features/login-cki/login-cki.routes';
-export * from './lib/features/login-cki/login-cki.component';
-export * from './lib/features/login-cki/login-cki.state.service';
+export * from './lib/features/login/login-cki/login-cki.routes';
+export * from './lib/features/login/login-cki/login-cki.component';
+export * from './lib/features/login/login-cki/login-cki.state.service';
 
 
-export * from './lib/features/login-jwt/login-jwt.component';
-export * from './lib/features/login-jwt/login-jwt.routes';
-export * from './lib/features/login-jwt/login-jwt.state.service';
+export * from './lib/features/login/login-jwt/login-jwt.component';
+export * from './lib/features/login/login-jwt/login-jwt.routes';
+export * from './lib/features/login/login-jwt/login-jwt.state.service';
 
 export * from './lib/features/mntc-team/mntc-team.routes';
 export * from './lib/features/mntc-team/mntc-team.component';

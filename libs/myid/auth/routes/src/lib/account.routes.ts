@@ -8,8 +8,8 @@ import { confirmEmailWithPasswordRoutes } from './features/confirm-email-with-pw
 import { confirmEmailRoutes } from './features/confirm-email/confirm-email.routes';
 import { confirmPhoneRoutes } from './features/confirm-phone/confirm-phone.routes';
 import { customersRoutes } from './features/customers/customers.routes';
-import { loginCookieRoutes } from './features/login-cki/login-cki.routes';
-import { loginJwtRoutes } from './features/login-jwt/login-jwt.routes';
+import { loginCookieRoutes } from './features/login/login-cki/login-cki.routes';
+import { loginJwtRoutes } from './features/login/login-jwt/login-jwt.routes';
 import { mntcTeamRoutes } from './features/mntc-team/mntc-team.routes';
 import { registerCustomerRoutes } from './features/register/register.routes';
 import { resetPwdRoutes } from './features/reset-pwd/reset-pwd.routes';
