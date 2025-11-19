@@ -48,6 +48,11 @@ export class LoginCkiComponent implements OnInit {
   protected _loading = this._state.loading
   protected _showSocialLinks = this._state.showSocialLinks
 
+  // per-provider show signals (computed in the state service)
+  protected _showGoogle = this._state.showGoogleLogin
+  protected _showFacebook = this._state.showFacebookLogin
+  protected _showAmazon = this._state.showAmazonLogin
+
   protected _showForgotPwd = signal(false)
 
 
@@ -55,8 +60,9 @@ export class LoginCkiComponent implements OnInit {
 
   constructor() {
 
-    // Ensure user is signed out from any previous social login sessions
-    this._socialAuth.signOut()
+    // Ensure user is signed out from any previous social login sessions (browser only)
+    if (this._isBrowser)
+      this._socialAuth.signOut()
 
     effect(() => {
       if (this._state.loginSuccess()) {
@@ -78,6 +84,9 @@ export class LoginCkiComponent implements OnInit {
 
 
   ngOnInit() {
+
+    if (!this._isBrowser)
+      return
 
     this._socialAuth.authState
       .pipe(takeUntilDestroyed(this._destroyRef))

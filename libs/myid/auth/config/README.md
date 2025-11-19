@@ -95,3 +95,12 @@ export class LoginUiService {
 ```
 
 Use the token metadata to keep presentation code decoupled from the third-party SDK and to make server renders deterministic.
+
+---
+
+## Troubleshooting & Notes
+
+- If a consumer sees social buttons on server-side rendered pages, ensure your `PLATFORM_ID` is correctly provided and you used the `MyIdOAuth.provideLogins(...)` helper at bootstrap-time. The availability tokens are intentionally false/null on the server to keep SSR deterministic.
+- If you need runtime toggling of providers (rare), implement a small service that exposes Signals/BehaviorSubjects instead of changing token semantics.
+
+If you'd like, I can add a short example app `main.ts` snippet or a small testing harness that demonstrates how to bootstrap with only Google configured — say the README only has the conceptual example right now; I can add a runnable snippet on request.

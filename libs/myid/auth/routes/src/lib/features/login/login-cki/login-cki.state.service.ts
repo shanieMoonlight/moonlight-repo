@@ -1,4 +1,4 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
@@ -9,6 +9,8 @@ import { filter, map } from 'rxjs';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { TwoFactorRequiredData } from './two-factor-required.data';
+import { isPlatformBrowser } from '@angular/common';
+import { MYID_HAS_GOOGLE, MYID_HAS_FACEBOOK, MYID_HAS_AMAZON } from '@spider-baby/myid-auth/config';
 
 //######################//
 
@@ -36,6 +38,8 @@ export class LoginCkiStateService {
   private _ioService = inject(AccountIoService)
   private _loginService = inject(LoginService)
   private _actRoute = inject(ActivatedRoute)
+  private _platformId = inject(PLATFORM_ID)
+  private _isBrowser = isPlatformBrowser(this._platformId);
 
   //- - - - - - - - - - - - - //
 
@@ -50,6 +54,17 @@ export class LoginCkiStateService {
     filter((x) => !!x)
   )
   redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
+
+  canShowSocial = computed(() => this.showSocialLinks() && this._isBrowser);
+
+  private _hasGoogleToken = inject(MYID_HAS_GOOGLE, { optional: true }) ?? false;
+  showGoogleLogin = computed(() => !!this._hasGoogleToken && this.canShowSocial());
+
+  private _hasFacebookToken = inject(MYID_HAS_FACEBOOK, { optional: true }) ?? false;
+  showFacebookLogin = computed(() => !!this._hasFacebookToken && this.canShowSocial());
+
+  private _hasAmazonToken = inject(MYID_HAS_AMAZON, { optional: true }) ?? false;
+  showAmazonLogin = computed(() => !!this._hasAmazonToken && this.canShowSocial());
 
 
 
@@ -136,7 +151,7 @@ export class LoginCkiStateService {
 
   
   loginAmazonCookie = (dto: AmazonSignInDto) => 
-    this._facebookLoginState.trigger(dto)
+    this._amazonLoginState.trigger(dto)
 
   forgotPassword = (dto: ForgotPwdDto) =>
     this._forgotPwdState.trigger(dto)

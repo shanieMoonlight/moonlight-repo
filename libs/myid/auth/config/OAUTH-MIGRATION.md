@@ -26,13 +26,13 @@ Progress summary
 - Step 5 — Update `LoginJwtComponent` & templates: DONE
    - Component now reads the state signals and template gates social buttons by per-provider `show*` signals. Social SDK calls are guarded to browser only.
 
- - Step 6 — Tests: IN-PROGRESS (unit + integration added)
-   - Unit tests added for `oath-providers` verifying token provider registration and `SocialAuthServiceConfig` factory behavior (`oath-providers.spec.ts`).
-   - Integration test added that bootstraps an Angular `Injector` with `PLATFORM_ID='browser'` and asserts DI token values and `SocialAuthServiceConfig.providers` (`oath-providers.integration.spec.ts`).
-   - Remaining: unit tests for `LoginJwtStateService` and e2e/smoke tests.
+ - Step 6 — Tests: DONE
+    - Unit tests added for `oath-providers` verifying token provider registration and `SocialAuthServiceConfig` factory behavior (`oath-providers.spec.ts`).
+    - Integration test added that bootstraps an Angular `Injector` with `PLATFORM_ID='browser'` and asserts DI token values and `SocialAuthServiceConfig.providers` (`oath-providers.integration.spec.ts`).
+    - Unit tests for `LoginJwtStateService` were added and updated to use Observable-returning mocks; the spec now verifies `show*` signals, `redirectUrl`, login method interactions, and two-factor handling.
 
- - Step 7 — Docs: PARTIAL
-   - `README.md` updated with a short note documenting internal helpers and their intentional omission from the package barrel. Consider expanding README with token docs and migration snippets.
+ - Step 7 — Docs: PARTIAL -> UPDATED
+    - `README.md` received an expanded `Exported Tokens` section with examples and testing notes. Consider a small follow-up to add example snippets showing `bootstrapApplication(...)` wiring in an app README or starter template.
 
 - Step 8 — Backwards compatibility shim: PENDING (optional)
    - Consider a fallback that derives availability from `SocialAuthServiceConfig` when registry tokens are not provided.
