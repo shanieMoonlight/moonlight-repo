@@ -9,7 +9,6 @@ import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-i
 import { AmazonSignInDto, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { TwoFactorRequiredData } from './two-factor-required.data';
-import { devConsole } from '@spider-baby/dev-console';
 
 //######################//
 
@@ -131,11 +130,8 @@ export class LoginJwtStateService {
     this._loginState.trigger(dto)
 
 
-  loginGoogle = (dto: GoogleSignInDto) => {
-    devConsole.log('loginGoogle: Google social login response', dto);
-    return this._googleLoginState.trigger(dto);
-  }
-
+  loginGoogle = (dto: GoogleSignInDto) => 
+    this._googleLoginState.trigger(dto);
 
   loginFacebook = (dto: FacebookSignInDto) =>
     this._facebookLoginState.trigger(dto)

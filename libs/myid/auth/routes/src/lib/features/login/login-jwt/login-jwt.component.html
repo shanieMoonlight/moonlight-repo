@@ -24,9 +24,7 @@
 <ng-template #socialTemplate>
   @if(_showSocialLinks()){
     <div class="social-logins">
-      @if (_isBrowser) {
-        <asl-google-signin-button type='icon' size='large' [sbTooltip]="'Google'"/>
-      }
+      <sb-button-google-login/>
       <sb-button-facebook-login/>
       <sb-button-amazon-login/>
       <!-- 

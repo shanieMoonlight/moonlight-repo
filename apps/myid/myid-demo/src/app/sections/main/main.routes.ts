@@ -6,6 +6,7 @@ import { userMgrAdminTeamPositionOptions } from '@spider-baby/myid-auth/user-mgr
 import { MainSectionRoutesDefs } from './main-route-defs';
 import { MainComponent } from './main.component';
 import { MyIdMainRouterService } from './utils/my-id-main-router/my-id-main-router.service';
+import { SocialAuthSetup } from '../../config/oauth.config.factory';
 // import { createMyIdCustomGuard, myIdLoggedInGuard } from '../../shared/auth/guards';
 
 
@@ -29,6 +30,7 @@ export const mainRoutes: Route[] = [
         providers: [
             provideMyIdRouter(MyIdMainRouterService),
             provideMyIdTeamPositionOptions(userMgrAdminTeamPositionOptions),
+            //  SocialAuthSetup.provideSocialLoginConfig(),
             // provideMyIdTeamPositionOptionsService(CustomTeamPositionOptionsProvider),
             // provideMyIdTwoFactorOptions(twoFactorProviderOptions),
         ],

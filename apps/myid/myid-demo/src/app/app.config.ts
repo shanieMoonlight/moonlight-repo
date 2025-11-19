@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { appViewTransition } from './app.view-transitions';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { SocialAuthSetup } from './config/oauth.config';
+import { SocialAuthSetup } from './config/oauth.config.factory';
 import { SEO_CONFIG } from './config/seo.config';
 import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
 
@@ -40,6 +40,7 @@ export const appConfig: ApplicationConfig = {
     MaterialThemingSetup.provideTheming(THEME_CONFIG),
     SeoSetup.provideSeoModule(SEO_CONFIG),
     SocialAuthSetup.provideSocialLoginConfig(),
+    // SocialAuthSetup.provideSocialLoginConfig(),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

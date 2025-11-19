@@ -11,18 +11,19 @@ import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { SbButtonAmazonLoginComponent } from '../buttons/amazon/btn-amazon-login.component';
 import { SbButtonFacebookLoginComponent } from '../buttons/facebook/btn-facebook-login.component';
+import { SbButtonGoogleLoginComponent } from '../buttons/google/btn-google-login.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
 
 @Component({
   selector: 'sb-login-jwt',
   imports: [
-    GoogleSigninButtonDirective,
     LoginFormComponent,
     SbMatNotificationsModalComponent,
     ForgotPwdModalComponent,
     SbButtonFacebookLoginComponent,
     SbTooltipDirective,
     SbButtonAmazonLoginComponent,
+    SbButtonGoogleLoginComponent
     // SbButtonMicrosoftLoginComponent
   ],
   providers: [LoginJwtStateService],
@@ -145,6 +146,11 @@ export class LoginJwtComponent implements OnInit {
 
   facebookLogin(user: SocialUser) {
     console.log('LoginJwtComponent.login', user);
+  }
+
+  
+  googleLogin(user: SocialUser) {
+    console.log('LoginJwtComponent.login -google', user);
   }
 
 
