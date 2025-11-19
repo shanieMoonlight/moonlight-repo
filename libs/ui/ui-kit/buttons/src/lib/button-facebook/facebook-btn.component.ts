@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SbIconButtonComponent } from '@spider-baby/ui-kit/buttons';
+import { SbIconButtonComponent } from '../icon-button/icon-button.component';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 
 //###############################################//
