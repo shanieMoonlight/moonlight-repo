@@ -1,0 +1,1 @@
+Store entire theme in local storagee for faster start up
