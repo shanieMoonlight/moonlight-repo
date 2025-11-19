@@ -1,7 +1,7 @@
-import { MyIdOAuth } from './oath-providers';
+import { MyIdOAuth } from './oauth-providers';
 import { MYID_HAS_GOOGLE, MYID_GOOGLE_PROVIDER, MYID_HAS_FACEBOOK, MYID_FACEBOOK_PROVIDER, MYID_HAS_AMAZON, MYID_AMAZON_PROVIDER } from './tokens';
 import { GoogleLoginProvider, FacebookLoginProvider, AmazonLoginProvider } from '@abacritt/angularx-social-login';
-import { makePerProviderTokens } from './oath-providers.internal';
+import { makePerProviderTokens } from './oauth-providers.internal';
 
 describe('oath-providers convenience helper', () => {
   it('registers google token providers when googleClientId provided', () => {

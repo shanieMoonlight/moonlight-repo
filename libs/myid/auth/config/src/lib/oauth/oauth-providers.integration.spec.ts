@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { MyIdOAuth } from './oath-providers';
+import { MyIdOAuth } from './oauth-providers';
 import { MYID_HAS_GOOGLE, MYID_GOOGLE_PROVIDER, MYID_HAS_FACEBOOK, MYID_FACEBOOK_PROVIDER, MYID_HAS_AMAZON, MYID_AMAZON_PROVIDER } from './tokens';
 
 describe('oath-providers integration (DI)', () => {

@@ -4,36 +4,37 @@ Secondary entry point of `@spider-baby/myid-auth`. It can be used by importing f
 
 ## Quick Start — Social login wiring
 
-Use the `MyIdOAuth.provideLogins(...)` helper to register supported social providers and the per-provider availability tokens.
+Use the fluent `MyIdOAuthBuilder` to register social providers.
 
-Example (in `AppModule` or `bootstrapApplication` providers):
+Builder API — recommended:
 
 ```ts
-import { MyIdOAuth } from '@spider-baby/myid-auth/config';
+import { MyIdOAuthBuilder } from '@spider-baby/myid-auth/config';
 import { environment } from '../environments/environment';
 
 providers: [
-	...MyIdOAuth.provideLogins(
-		environment.oauth.google.client_id,
-		environment.oauth.faceBook.client_id,
-		environment.oauth.amazon.client_id
-	)
+  ...MyIdOAuthBuilder.create()
+	.provideGoogleLogin(environment.oauth.google.client_id)
+	.provideFacebookLogin(environment.oauth.faceBook.client_id)
+	// optionally call .provideAmazonLogin(...)
+	.buildProviders()
 ]
 ```
 
 Notes:
-- The helper returns a `SocialAuthServiceConfig` provider (SSR-safe) and per-provider DI tokens like `MYID_HAS_GOOGLE` and `MYID_GOOGLE_PROVIDER`.
+- The APIs return a `SocialAuthServiceConfig` provider (SSR-safe) and the per-provider DI tokens (`MYID_HAS_GOOGLE`, `MYID_GOOGLE_PROVIDER`, etc.).
+- The builder is more discoverable and easier to extend with provider-specific options later.
 - Consumers (components/services) should inject those tokens from `@spider-baby/myid-auth/config` to detect configured providers without depending on the third-party library.
 
 See `OAUTH-MIGRATION.md` for migration notes, testing suggestions, and design rationale.
 
 Internal helpers
 ----------------
-This package contains an internal module `src/lib/oauth/oath-providers.internal.ts` with helper builders and token-maker functions used by `oath-providers.ts`. Those helpers are intentionally not exported from the package barrel (`src/index.ts`) so they remain internal implementation details. Tests in this package import the internal module directly; application code should use the public API (`MyIdOAuth.provideLogins` and the exported tokens) only.
+This package contains an internal module `src/lib/oauth/oauth-providers.internal.ts` with helper builders and token-maker functions used by the provider implementation. Those helpers are intentionally not exported from the package barrel (`src/index.ts`) so they remain internal implementation details. Tests in this package import the internal module directly; application code should use the public API (`MyIdOAuthBuilder` and the exported tokens) only.
 
 **Exported Tokens**
 
-- **`MYID_HAS_GOOGLE`**: boolean — true in browser when Google login is registered via `MyIdOAuth.provideLogins(...)`, false on server. Use this to show/hide Google sign-in UI without importing the social-login library.
+-- **`MYID_HAS_GOOGLE`**: boolean — true in browser when Google login is registered via the builder API, false on server. Use this to show/hide Google sign-in UI without importing the social-login library.
 - **`MYID_HAS_FACEBOOK`**: boolean — same semantics as `MYID_HAS_GOOGLE` for Facebook.
 - **`MYID_HAS_AMAZON`**: boolean — same semantics as above for Amazon login.
 - **`MYID_GOOGLE_PROVIDER`**: `MyIdOauthProviderDef | null` — optional metadata object (on browser) describing the configured Google provider: `{ id, providerId, displayName, enabled }`. Null on server.
@@ -103,4 +104,32 @@ Use the token metadata to keep presentation code decoupled from the third-party 
 - If a consumer sees social buttons on server-side rendered pages, ensure your `PLATFORM_ID` is correctly provided and you used the `MyIdOAuth.provideLogins(...)` helper at bootstrap-time. The availability tokens are intentionally false/null on the server to keep SSR deterministic.
 - If you need runtime toggling of providers (rare), implement a small service that exposes Signals/BehaviorSubjects instead of changing token semantics.
 
-If you'd like, I can add a short example app `main.ts` snippet or a small testing harness that demonstrates how to bootstrap with only Google configured — say the README only has the conceptual example right now; I can add a runnable snippet on request.
+If you'd like, a runnable `main.ts` snippet is included here showing how to bootstrap with only Google configured using the builder API.
+
+Runnable `main.ts` example (Google only)
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { MyIdOAuthBuilder } from '@spider-baby/myid-auth/config';
+
+@Component({
+	selector: 'app-root',
+	standalone: true,
+	template: `<h1>MyId OAuth demo (Google only)</h1>`
+})
+class AppComponent {}
+
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID_HERE';
+
+bootstrapApplication(AppComponent, {
+	providers: [
+		// Configure only Google login at bootstrap using the builder API
+		...MyIdOAuthBuilder.create()
+			.provideGoogleLogin(GOOGLE_CLIENT_ID)
+			.buildProviders()
+	]
+}).catch(err => console.error('Bootstrap error', err));
+
+// For a runnable example file see `libs/myid/auth/config/examples/bootstrap-google/application.config.ts` in the repository.
+

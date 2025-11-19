@@ -19,6 +19,25 @@ Progress summary
 - Step 3 — Add convenience helper `provideMyIdSocialLogin(options)`: DONE
    - Implemented. See `MyIdOAuth.provideLogins(...)` / `provideMyIdSocialLogin` in `libs/myid/auth/config/src/lib/oauth/oath-providers.ts`.
    - Usage (quick): call `MyIdOAuth.provideLogins({ googleClientId: '...', facebookClientId: '...' })` from `bootstrapApplication()` or `AppModule.providers` to register the `SocialAuthServiceConfig` and per-provider tokens.
+ - Step 3 — Add convenience helper `provideMyIdSocialLogin(options)`: DONE
+      - Implemented. See `MyIdOAuth.provideLogins(...)` / `provideMyIdSocialLogin` in `libs/myid/auth/config/src/lib/oauth/oath-providers.ts`.
+      - Usage (quick): call `MyIdOAuth.provideLogins({ googleClientId: '...', facebookClientId: '...' })` from `bootstrapApplication()` or `AppModule.providers` to register the `SocialAuthServiceConfig` and per-provider tokens.
+      - Alternative (recommended): use the fluent `MyIdOAuthBuilder` API for clearer configuration and easier future extension:
+
+```ts
+// builder usage (recommended)
+import { MyIdOAuthBuilder } from '@spider-baby/myid-auth/config';
+
+providers: [
+   ...MyIdOAuthBuilder.create()
+      .provideGoogleLogin(environment.oauth.google.client_id)
+      .provideFacebookLogin(environment.oauth.faceBook.client_id)
+      .buildProviders()
+]
+```
+
+Migration tip:
+- If you currently call `MyIdOAuth.provideLogins(googleId, fbId, amazonId)`, you can migrate by replacing the call with the builder pattern above. The builder produces the same runtime outputs (SSR guard + per-provider tokens), so behavior remains identical.
 
 - Step 4 — Refactor `LoginJwtStateService`: DONE
    - `LoginJwtStateService` now injects the per-provider tokens (optionally) and exposes composed signals: `showGoogleLogin`, `showFacebookLogin`, `showAmazonLogin`, and `canShowSocial`.

@@ -3,7 +3,7 @@ import { GoogleLoginProvider, FacebookLoginProvider, AmazonLoginProvider, Social
 import { Provider, PLATFORM_ID } from '@angular/core';
 import { MyIdOauthProviderDef, MYID_HAS_GOOGLE, MYID_HAS_FACEBOOK, MYID_HAS_AMAZON, MYID_GOOGLE_PROVIDER, MYID_FACEBOOK_PROVIDER, MYID_AMAZON_PROVIDER, MyIdOauthProviderId } from './tokens';
 import { isPlatformBrowser } from '@angular/common';
-import { buildGoogleProvider, buildFacebookProvider, buildAmazonProvider, makePerProviderTokens } from './oath-providers.internal';
+import { buildGoogleProvider, buildFacebookProvider, buildAmazonProvider, makePerProviderTokens } from './oauth-providers.internal';
 
 
 //-------------------------//

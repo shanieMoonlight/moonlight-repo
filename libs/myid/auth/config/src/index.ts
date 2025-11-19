@@ -5,4 +5,5 @@ export * from './lib/options/mfa/two-factor-options.config';
 export * from './lib/options/team-position/team-position-options-provider';
 export * from './lib/options/team-position/team-position-option.config';
 export * from './lib/oauth/tokens';
-export * from './lib/oauth/oath-providers';
+// export * from './lib/oauth/oauth-providers';
+export * from './lib/oauth/oauth-providers.builder';
