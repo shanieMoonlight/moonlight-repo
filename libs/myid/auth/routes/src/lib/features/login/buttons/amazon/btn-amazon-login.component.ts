@@ -125,7 +125,8 @@ export class SbButtonAmazonLoginComponent {
 
   //- - - - - - - - - - - - - //
     
-  protected login = () => this._socialAuth.signIn(AmazonLoginProvider.PROVIDER_ID)
+  protected login = () => this._socialAuth.signIn(
+    AmazonLoginProvider.PROVIDER_ID)
       .then((response) => {
         devConsole.log('Amazon login initiated', response);
         this.socialUser.emit(response);

@@ -69,6 +69,10 @@ export class LoginCkiStateService {
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
+  private _amazonLoginState = MiniStateBuilder
+    .CreateWithInput((dto: AmazonSignInDto) => this._loginService.loginAmazonCookie(dto))
+    .setSuccessMsgFn((dto) => `Logged in successfully!`)
+    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
   protected _forgotPwdState = MiniStateBuilder
     .CreateWithInput((dto: ForgotPwdDto) => this._ioService.forgotPassword(dto))
@@ -79,6 +83,7 @@ export class LoginCkiStateService {
   private _states = MiniStateCombined.Combine(
     this._cookieLoginState,
     this._forgotPwdState,
+    this._amazonLoginState,
     this._facebookLoginState,
     this._googleLoginState)
 
@@ -93,6 +98,7 @@ export class LoginCkiStateService {
 
   //Two-Factor Authentication related state
   private _loginStateError = MiniStateCombined.CombineErrors(
+    this._amazonLoginState,
     this._cookieLoginState,
     this._googleLoginState,
     this._facebookLoginState)
@@ -130,7 +136,7 @@ export class LoginCkiStateService {
 
   
   loginAmazonCookie = (dto: AmazonSignInDto) => 
-    console.log('loginAmazon: Method not implemented.', dto)
+    this._facebookLoginState.trigger(dto)
 
   forgotPassword = (dto: ForgotPwdDto) =>
     this._forgotPwdState.trigger(dto)

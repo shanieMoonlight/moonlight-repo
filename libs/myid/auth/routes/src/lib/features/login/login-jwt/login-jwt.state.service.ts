@@ -69,6 +69,12 @@ export class LoginJwtStateService {
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
+    
+  private _amazonLoginState = MiniStateBuilder
+    .CreateWithInput((dto: AmazonSignInDto) => this._loginService.loginAmazonJwt(dto))
+    .setSuccessMsgFn((dto) => `Logged in successfully!`)
+    .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
+
 
   private _forgotPwdState = MiniStateBuilder
     .CreateWithInput((dto: ForgotPwdDto) => this._ioService.forgotPassword(dto))
@@ -79,6 +85,7 @@ export class LoginJwtStateService {
   private _states = MiniStateCombined.Combine(
     this._loginState,
     this._forgotPwdState,
+    this._amazonLoginState,
     this._facebookLoginState,
     this._googleLoginState)
 
@@ -88,12 +95,14 @@ export class LoginJwtStateService {
   loading = this._states.loading
 
   loginSuccess = computed(() => !!this._loginState.successMsg()
+    || !!this._amazonLoginState.successMsg()
     || !!this._googleLoginState.successMsg()
     || !!this._facebookLoginState.successMsg())
 
   //Two-Factor Authentication related state
   private _loginStateError = MiniStateCombined.CombineErrors(
     this._loginState,
+    this._amazonLoginState,
     this._googleLoginState,
     this._facebookLoginState)
 
@@ -137,7 +146,7 @@ export class LoginJwtStateService {
 
 
   loginAmazon = (dto: AmazonSignInDto) =>
-    console.log('loginAmazon: Method not implemented.', dto)
+    this._amazonLoginState.trigger(dto)
 
 
   forgotPassword = (dto: ForgotPwdDto) =>

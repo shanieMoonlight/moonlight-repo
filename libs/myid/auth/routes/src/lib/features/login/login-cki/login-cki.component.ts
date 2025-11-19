@@ -1,5 +1,5 @@
 import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, MicrosoftLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
@@ -10,6 +10,8 @@ import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { SbButtonFacebookLoginComponent } from '../buttons/facebook/btn-facebook-login.component';
 import { LoginCkiStateService } from './login-cki.state.service';
+import { isPlatformBrowser } from '@angular/common';
+import { SbButtonAmazonLoginComponent } from '../buttons/amazon/btn-amazon-login.component';
 
 @Component({
   selector: 'sb-login-cki',
@@ -20,6 +22,7 @@ import { LoginCkiStateService } from './login-cki.state.service';
     LoginFormComponent,
     ForgotPwdModalComponent,
     SbButtonFacebookLoginComponent,
+    SbButtonAmazonLoginComponent,
     SbTooltipDirective
 ],
   providers: [LoginCkiStateService],
@@ -33,8 +36,12 @@ export class LoginCkiComponent implements OnInit {
   private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
   private _destroyRef = inject(DestroyRef)
+  private _platformId = inject(PLATFORM_ID)
 
   //- - - - - - - - - - - - - //
+
+  protected _isBrowser = isPlatformBrowser(this._platformId);
+
 
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg

@@ -27,7 +27,9 @@ import {
   TwoFactorAuthAppCompleteRegDto,
   Verify2FactorCookieDto,
   Verify2FactorDto,
-  FaceBookCookieSignInDto as FacebookCookieSignInDto
+  FaceBookCookieSignInDto as FacebookCookieSignInDto,
+  AmazonSignInDto,
+  AmazonCookieSignInDto
 } from '@spider-baby/myid-io/models';
 import { Observable } from 'rxjs';
 import { ServerRoutes } from '../controllers/all-server-routes';
@@ -102,6 +104,26 @@ export class AccountIoService extends AServerIoService {
   ): Observable<CookieSignInResultData> =>
     this._postAction<CookieSignInResultData>(
       ServerRoutes.Account.action('googleCookieSignin'),
+      dto,
+      opts ?? {}
+    );
+
+  amazonLogin = (
+    dto: AmazonSignInDto,
+    opts?: unknown
+  ): Observable<JwtPackage> =>
+    this._postAction<JwtPackage>(
+      ServerRoutes.Account.action('amazonLogin'),
+      dto,
+      opts ?? {}
+    );
+
+  amazonCookieSignin = (
+    dto: AmazonCookieSignInDto,
+    opts?: unknown
+  ): Observable<CookieSignInResultData> =>
+    this._postAction<CookieSignInResultData>(
+      ServerRoutes.Account.action('amazonCookieSignin'),
       dto,
       opts ?? {}
     );

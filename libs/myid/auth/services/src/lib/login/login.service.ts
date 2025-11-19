@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AccountIoService } from '@spider-baby/myid-io';
-import { CookieSignInDto, CookieSignInResultData, FacebookSignInDto, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
+import { AmazonCookieSignInDto, AmazonSignInDto, CookieSignInDto, CookieSignInResultData, FacebookSignInDto, GoogleCookieSignInDto, GoogleSignInDto, JwtPackage, LoginDto, Verify2FactorCookieDto, Verify2FactorDto } from '@spider-baby/myid-io/models';
 import { catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { MyIdAuthService } from '../auth/myid.auth.browser.service';
 import { RefreshTokenService } from '@spider-baby/auth-signal/refresh';
@@ -102,9 +102,33 @@ export class LoginService {
 
   //- - - - - - - - -//
   
-  loginGoogleCookie(dto: GoogleSignInDto): Observable<CookieSignInResultData> {
+  loginGoogleCookie(dto: GoogleCookieSignInDto): Observable<CookieSignInResultData> {
     
     return this._accIoService.googleCookieSignin({ ...dto })
+    .pipe(
+      tap((ckData) => this.onLoginSuccessCookie(ckData)),
+      catchError((error) => this.onLoginError(error))
+    )
+    
+  }
+  
+  //-----------------//
+
+  loginAmazonJwt(dto: AmazonSignInDto): Observable<JwtPackage> {
+
+    return this._accIoService.amazonLogin({ ...dto })
+      .pipe(
+        tap((jwt) => this.onLoginSuccessJwt(jwt)),
+        catchError((error) => this.onLoginError(error))
+      )
+
+  }
+
+  //- - - - - - - - -//
+  
+  loginAmazonCookie(dto: AmazonCookieSignInDto): Observable<CookieSignInResultData> {
+    
+    return this._accIoService.amazonCookieSignin({ ...dto })
     .pipe(
       tap((ckData) => this.onLoginSuccessCookie(ckData)),
       catchError((error) => this.onLoginError(error))

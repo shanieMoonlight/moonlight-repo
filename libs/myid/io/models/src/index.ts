@@ -7,6 +7,7 @@ export * from './lib/add-mntc-member-dto';
 export * from './lib/add-spr-member-dto';
 export * from './lib/add-team-subscription-dto';
 export * from './lib/amazon-sign-in-dto';
+export * from './lib/amazon-cookie-sign-in-dto';
 export * from './lib/app-user-dto';
 export * from './lib/app-user-dto-paged-response';
 export * from './lib/app-user_customer_dto';

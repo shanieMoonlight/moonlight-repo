@@ -1,5 +1,6 @@
 import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { devConsole } from '@spider-baby/dev-console';
 import { MyIdRouter } from '@spider-baby/myid-auth/config';
@@ -8,9 +9,9 @@ import { ForgotPasswordFormDto, ForgotPwdModalComponent } from '@spider-baby/myi
 import { LoginFormComponent } from '@spider-baby/myid-ui/login';
 import { SbTooltipDirective } from '@spider-baby/ui-kit/tooltip';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
+import { SbButtonAmazonLoginComponent } from '../buttons/amazon/btn-amazon-login.component';
 import { SbButtonFacebookLoginComponent } from '../buttons/facebook/btn-facebook-login.component';
 import { LoginJwtStateService } from './login-jwt.state.service';
-import { oauth } from './secrets.oath';
 
 @Component({
   selector: 'sb-login-jwt',
@@ -21,7 +22,7 @@ import { oauth } from './secrets.oath';
     ForgotPwdModalComponent,
     SbButtonFacebookLoginComponent,
     SbTooltipDirective,
-    // SbButtonAmazonLoginComponent,
+    SbButtonAmazonLoginComponent,
     // SbButtonMicrosoftLoginComponent
   ],
   providers: [LoginJwtStateService],
@@ -37,10 +38,13 @@ export class LoginJwtComponent implements OnInit {
   private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
   private _destroyRef = inject(DestroyRef)
+  private _platformId = inject(PLATFORM_ID)
 
-  clientId = oauth.google.client_id;
 
   //- - - - - - - - - - - - - //
+
+
+  protected _isBrowser = isPlatformBrowser(this._platformId);
 
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
@@ -55,10 +59,8 @@ export class LoginJwtComponent implements OnInit {
 
   constructor() {
 
-
     // Ensure user is signed out from any previous social login sessions
     this._socialAuth.signOut()
-
 
     effect(() => {
       if (this._state.loginSuccess()) {
@@ -81,6 +83,14 @@ export class LoginJwtComponent implements OnInit {
   //- - - - - - - - - - - - - //
 
   ngOnInit() {
+
+    // if (this._isBrowser) {
+    //   devConsole.log('LoginJwtComponent: Running on the server, skipping social login initialization.');
+    //   return;
+    // }
+
+
+
     this._socialAuth.authState
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((socialUser) => {
@@ -90,7 +100,7 @@ export class LoginJwtComponent implements OnInit {
           const provider = socialUser.provider;
           devConsole.log(`Social login successful from provider: ${provider}`, socialUser, GoogleLoginProvider.PROVIDER_ID);
           console.log(JSON.stringify(socialUser));
-          
+
 
           switch (provider) {
             case GoogleLoginProvider.PROVIDER_ID:

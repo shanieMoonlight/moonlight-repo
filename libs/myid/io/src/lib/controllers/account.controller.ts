@@ -1,6 +1,7 @@
 const CONTROLLER = 'Account';
 
-type ACTIONS =
+type ACTIONS ='amazonLogin'
+  | 'amazonCookieSignin'
   | 'closeAccount'
   | 'closeMyAccount'
   | 'myInfoCustomer'
