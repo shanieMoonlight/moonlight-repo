@@ -22,15 +22,19 @@
 
 
 <ng-template #socialTemplate>
-  @if(_showSocialLinks()){
     <div class="social-logins">
-      <sb-button-google-login/>
-      <sb-button-facebook-login/>
-      <sb-button-amazon-login/>
+      @if(_showGoogle()){
+        <sb-button-google-login/>
+      }
+      @if(_showFacebook()){
+        <sb-button-facebook-login/>
+      }
+      @if(_showAmazon()){
+        <sb-button-amazon-login/>
+      }
       <!-- 
       <sb-button-microsoft-login/> -->
     </div>
-    }
 </ng-template>
 
 

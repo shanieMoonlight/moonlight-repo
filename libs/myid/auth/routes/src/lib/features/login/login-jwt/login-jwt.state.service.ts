@@ -1,4 +1,5 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
@@ -9,6 +10,7 @@ import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-i
 import { AmazonSignInDto, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { TwoFactorRequiredData } from './two-factor-required.data';
+import { MYID_HAS_GOOGLE, MYID_HAS_FACEBOOK, MYID_HAS_AMAZON } from '@spider-baby/myid-auth/config';
 
 //######################//
 
@@ -34,6 +36,8 @@ export class LoginJwtStateService {
   private _ioService = inject(AccountIoService)
   private _loginService = inject(LoginService)
   private _actRoute = inject(ActivatedRoute);
+  private _platformId = inject(PLATFORM_ID);
+  private _isBrowser = isPlatformBrowser(this._platformId);
 
 
   //- - - - - - - - - - - - - //
@@ -52,6 +56,20 @@ export class LoginJwtStateService {
   redirectUrl = toSignal(this._redirectUrl$, { initialValue: null });
 
 
+  canShowSocial = computed(() => this.showSocialLinks() && this._isBrowser);
+
+  private _hasGoogleToken = inject(MYID_HAS_GOOGLE, { optional: true }) ?? false;
+  showGoogleLogin = computed(() => !!this._hasGoogleToken && this.canShowSocial());
+
+  private _hasFacebookToken = inject(MYID_HAS_FACEBOOK, { optional: true }) ?? false;
+  showFacebookLogin = computed(() => !!this._hasFacebookToken && this.canShowSocial());
+
+  private _hasAmazonToken = inject(MYID_HAS_AMAZON, { optional: true }) ?? false;
+  showAmazonLogin = computed(() => !!this._hasAmazonToken && this.canShowSocial());
+
+  //- - - - - - - - - - - - - //
+
+
   private _loginState = MiniStateBuilder
     .CreateWithInput((dto: LoginDto) => this._loginService.loginJwt(dto))
     .setSuccessMsgFn((dto) => `User,  ${dto.email ?? dto.username ?? dto.userId}, is logged in successfully!`)
@@ -68,7 +86,7 @@ export class LoginJwtStateService {
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
-    
+
   private _amazonLoginState = MiniStateBuilder
     .CreateWithInput((dto: AmazonSignInDto) => this._loginService.loginAmazonJwt(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
@@ -130,7 +148,7 @@ export class LoginJwtStateService {
     this._loginState.trigger(dto)
 
 
-  loginGoogle = (dto: GoogleSignInDto) => 
+  loginGoogle = (dto: GoogleSignInDto) =>
     this._googleLoginState.trigger(dto);
 
   loginFacebook = (dto: FacebookSignInDto) =>

@@ -47,7 +47,8 @@ export class SocialAuthSetup {
               provider: new FacebookLoginProvider(
                 environment.oauth.faceBook.client_id, fbLoginOptions
               )
-            }, {
+            },
+            {
               id: AmazonLoginProvider.PROVIDER_ID,
               provider: new AmazonLoginProvider(
                 environment.oauth.amazon.client_id, amazonLoginOptions
@@ -64,3 +65,5 @@ export class SocialAuthSetup {
 
 
 }
+
+
