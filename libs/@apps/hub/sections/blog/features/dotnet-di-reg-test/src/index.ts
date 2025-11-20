@@ -1,0 +1,1 @@
+export * from './lib/dotnet-di-reg-test.component';

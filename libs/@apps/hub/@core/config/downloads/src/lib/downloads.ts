@@ -45,6 +45,13 @@ export class HubAppDownloads {
 
   }
 
+  
+  static DotNetDiRegTestTutorial = class {
+    static readonly Base = 'dotnet-di-reg-test-tutorial'
+    static readonly CodeSampleFile = RouteUtility.combine(DownloadsDir, this.Base, 'ServiceCollectionReflectionTestHelper.cs.txt');
+
+  }
+
 
 
 }

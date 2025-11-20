@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {<%= componentClassName %> } from './<%= name %>.component';
+import {HubBlogDotnetDiRegTestComponent } from './dotnet-di-reg-test.component';
 import { RouterModule } from '@angular/router';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
@@ -7,6 +7,7 @@ import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService,
 import { SeoConfig, SeoConfigService } from '@spider-baby/utils-seo/config';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+
 
 // Create a mock SwUpdate service
 const mockSwUpdate = {
@@ -50,12 +51,12 @@ const mockPerformanceService = {
   measureCoreWebVitals: jest.fn(),
 };
 
-describe('<%= componentClassName %>', () => {
-  let component:<%= componentClassName %>;
+describe('HubBlogDotnetDiRegTestComponent', () => {
+  let component:HubBlogDotnetDiRegTestComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [<%= componentClassName %>, RouterModule.forRoot([])],
+      imports: [HubBlogDotnetDiRegTestComponent, RouterModule.forRoot([])],
       providers: [
         IconsService,
         provideHttpClient(),
@@ -69,7 +70,7 @@ describe('<%= componentClassName %>', () => {
       ], // Provide the IconsService
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(<%= componentClassName %>);
+    const fixture = TestBed.createComponent(HubBlogDotnetDiRegTestComponent);
     component = fixture.componentInstance;
   });
 

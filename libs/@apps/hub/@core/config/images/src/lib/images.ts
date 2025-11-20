@@ -175,6 +175,17 @@ export class HubAppImages {
       static readonly large = 'images/blog/auth-service/large/auth-service1.png';
       static readonly xLarge = 'images/blog/auth-service/xlarge/auth-service1.png';
     };
+
+    
+
+    static DotNetDiTestTutorial = class {
+      static readonly default = 'images/blog/dot-net-di-test/placeholder/main-image.png';
+      static readonly placeholder = 'images/blog/dot-net-di-test/placeholder/main-image.png';
+      static readonly small = 'images/blog/dot-net-di-test/small/main-image.png';
+      static readonly medium = 'images/blog/dot-net-di-test/medium/main-image.png';
+      static readonly large = 'images/blog/dot-net-di-test/large/main-image.png';
+      static readonly xLarge = 'images/blog/dot-net-di-test/xlarge/main-image.png';
+    };
   }; // End of Blog
 
   //==========================================//

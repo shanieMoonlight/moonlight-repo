@@ -61,13 +61,13 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.PortalTutorial.large,
     imgPlaceholder: HubAppImages.Blog.PortalTutorial.placeholder,
   },
-  //   {
-  //   title: 'Angular Material Theming',
-  //   description: 'Master dynamic theming in Angular with @spider-baby/theming - a comprehensive library for Material Design 3 implementation, dark mode support, custom themes, hierarchical theming, and more...',
-  //   route: HubAppRouteDefs.fullPathsWithSlash.blog.route('mat-theming'),
-  //   icon: 'palette',
-  //   color: 'secondary',
-  //   img: HubAppImages.Blog.MatThemingTutorial.large,
-  //   imgPlaceholder: HubAppImages.Blog.MatThemingTutorial.placeholder,
-  // },
+    {
+    title: '.Net Di Registration Testing',
+    description: 'Ensure all your .Net services are correctly registered for Dependency Injection',
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('dotnet-di-reg-test'),
+    icon: 'test',
+    color: 'primary',
+    img: HubAppImages.Blog.DotNetDiTestTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.DotNetDiTestTutorial.placeholder,
+  },
 ];

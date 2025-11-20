@@ -1,0 +1,8 @@
+Processing Summary - 20/11/2025 18:00:20
+Source folder: C:\Users\Shaneyboy\VsCode\moonlight-repo\apps\hub\sb-hub\public\images\blog\dot-net-di-test
+Total folder types processed: 5
+- placeholder: 1 images processed
+- small: 1 images processed
+- medium: 1 images processed
+- large: 1 images processed
+- xlarge: 1 images processed

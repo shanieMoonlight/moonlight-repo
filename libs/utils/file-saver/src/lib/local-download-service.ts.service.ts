@@ -55,7 +55,7 @@ export class LocalFileDownloadServiceService {
 
           const contentType = response.headers.get('Content-Type');
 
-          console.log('@TESTING: esponse.ok', response.ok,);
+          console.log('@TESTING: response.ok', response.ok,);
           console.log('@TESTING: contentType', contentType);
           console.log('@TESTING: response.body', response.body);
 
@@ -103,6 +103,7 @@ export class LocalFileDownloadServiceService {
   //- - - - - - - - - - - - - - -//
 
   private handleSuccess(blob: Blob, downloadName: string, mimeType: string): void {
+console.log('downloadName', downloadName);
 
     const options = { filename: downloadName, mimeType };
     this._downloadService.downloadBlob(blob, options);
