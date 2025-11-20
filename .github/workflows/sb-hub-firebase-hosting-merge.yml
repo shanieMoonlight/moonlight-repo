@@ -4,6 +4,7 @@
 
 name: Deploy SpiderBaby- Hub to Firebase Hosting on merge # Keep this name for this specific app
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
