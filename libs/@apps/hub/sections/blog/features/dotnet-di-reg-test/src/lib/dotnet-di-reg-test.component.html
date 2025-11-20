@@ -59,7 +59,7 @@
             <li>Creates a ServiceCollection.</li>
             <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
             <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
-            <li>For each interface, checks whether the IServiceCollection contains a registration that satisfies it
+            <li>For each interface, check whether the IServiceCollection contains a registration that satisfies it
                 (direct service type, closed generic, implementation type/instance, or factory result).</li>
         </ul>
     </section>
@@ -106,7 +106,6 @@
             <li><code [highlight]="`Assembly assembly`" language="csharp"></code> — assembly to scan</li>
             <li><code [highlight]="`string namespacePrefix`" language="csharp"></code> — namespace prefix filter</li>
             <li><code [highlight]="`Func<IServiceCollection, IServiceCollection> registerAction`" language="csharp"></code> — performs registrations: service.Add***()</li>
-            <li><code [highlight]="`Assembly assembly`" language="csharp"></code> — assembly to scan</li>
             <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
             <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
             <li>For each interface, checks whether the IServiceCollection contains a registration that satisfies it
