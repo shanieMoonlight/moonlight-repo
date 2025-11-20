@@ -26,7 +26,7 @@ public static class MyFancySetupExtensions
     {
         ArgumentNullException.ThrowIfNull(configuration);
 
-        // If sectionName provided, get that section; otherwise assume configuration is already the JWT section
+        // If sectionName provided, get that section; otherwise assume configuration is already the MyFancy section
         var configSection = string.IsNullOrWhiteSpace(sectionName)
             ? configuration
             : configuration.GetSection(sectionName);
