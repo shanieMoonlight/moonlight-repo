@@ -66,17 +66,6 @@ export class MainDemoCombinedComponent {
     .CreateWithInput((album: Album) => this._ioService.delete(album.id!))
     .setSuccessMsgFn((album: Album) => \`Album \${album.title} deleted successfully 🗑️\`)
 
-  private _states = MiniStateCombined.Combine(
-    this._getAllState,
-    this._updateState,
-    this._deleteState)
-
-    protected _successMsg = this._states.successMsg
-    protected _errorMsg = this._states.errorMsg
-    protected _loading = this._states.loading
-
-  //- - - - - - - - - - - - - //
-
   //Combine for messages and loaders (not data as they have different return types)
   private _states = MiniStateCombined.Combine(
     this._getAllState,
@@ -91,6 +80,7 @@ export class MainDemoCombinedComponent {
   protected _deleteData = this._deleteState.data
   protected _editData = this._updateState.data
 
+  //- - - - - - - - - - - - - //
 
  _albums$ = merge(
     this._getAllState.data$.pipe(map(all => ({ type: 'base' as const, payload: all }))),
