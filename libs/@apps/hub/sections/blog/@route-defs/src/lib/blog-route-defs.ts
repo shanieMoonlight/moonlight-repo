@@ -16,7 +16,8 @@ type CHILD_ROUTE = 'home'
   | 'mat-theming-tutorial'
   | 'first-error-tutorial' 
   | 'auth-service-tutorial' 
-  | 'dotnet-di-reg-test';
+  | 'dotnet-di-reg-test' 
+  | 'value-generated-never';
 
 //#################################################//
 

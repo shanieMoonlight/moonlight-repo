@@ -1,4 +1,4 @@
 export interface LoginRefreshDto {
   refreshToken: string;
-  deviceId?: string;
+  deviceFingerprint?: string;
 }

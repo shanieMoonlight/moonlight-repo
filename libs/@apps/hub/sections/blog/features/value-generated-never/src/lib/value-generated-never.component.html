@@ -1,0 +1,133 @@
+<!-- ################################### -->
+
+<!-- Optional Package Links Template -->
+<ng-template #linksTemplate>
+    <sb-hub-pkg-links [gitHubRepoUrl]="_gitHubRepoUrl" />
+</ng-template>
+
+<sb-portal-input [portalTemplate]="linksTemplate" />
+
+<!-- ################################### -->
+
+
+<sb-hub-hero-banner-2 [title]="_title" [backgroundImage]="_bannerImg" [subtitle]="_subtitle" [description]="_description" />
+
+
+<div class="tutorial-content">
+
+    <sb-hub-blog-ui-btn-download [showButton]="_showButton()" [loading]="_isLoading()" [tooltip]="'Download Code Samples'"
+        (downloadClick)="_dlClick$.next()" />
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <h2>📚 What You'll Learn</h2>
+        <p>
+            This Tutorial explains a pattern to test that a library's <code [highlight]="'AddMyFancyLibrary'" language="csharp"></code> (or similar)
+            DI setup registers implementations for all public interfaces declared in the library assembly.
+            The pattern uses reflection to discover interfaces so tests don't become brittle when new interfaces are added.
+        </p>
+    </section>
+
+
+    <section class="reason-for-section">
+        <h2>💡 Why this matters</h2>
+        <div>
+            <ul>
+                <li> Library setup extensions like
+                    <pre><code [highlight]="`public static IServiceCollection AddMyFancyLibrary(this IServiceCollection services, Action\<MyFancyOptions\> config)){...}`" language="csharp"></code></pre>
+                    centralize DI registrations.
+                </li>
+                <li>It's easy to forget to register a new interface when refactoring or adding features.</li>
+                <li>We could try to solve this issue by creating a test that calls <code [highlight]="`AddMyFancyLibrary`" language="csharp"></code>
+                    then check if each of our Library interfaces have a corresponding implementation.
+                    <br>
+                    The problem with this approach is that, when we add new interfaces to the library we must also remember to update the test to
+                    assert the new interface.
+                </li>
+                <li>We need a better way!</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- <mat-divider /> -->
+
+    <!-- Base Auth Service Section -->
+    <section class="solution-section">
+        <h2>🧩 Solution Overview</h2>
+        Create a test that:
+        <ul>
+            <li>Creates a ServiceCollection.</li>
+            <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
+            <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
+            <li>For each interface, check whether the IServiceCollection contains a registration that satisfies it
+                (direct service type, closed generic, implementation type/instance, or factory result).</li>
+        </ul>
+    </section>
+
+<!-- 
+
+    <section class="exammple-library-section">
+        <h2>Example library code (setup extension)</h2>
+        <pre><code [highlight]="_librarySetupOptions" language="csharp"></code></pre>
+        <pre><code [highlight]="_librarySetupExtensions" language="csharp"></code></pre>
+    </section>
+
+    
+
+    <section class="exammple-library-section">
+        <h2>
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;gap:.35rem;margin-right:.5rem;font-size:1.05em;">
+            <span title="Test" aria-hidden="true">🧪</span>
+            </span>
+            The Test (xUnit + Shouldly)
+        </h2>
+        <pre><code [highlight]="_librarySpecificTestCode" language="csharp"></code></pre>
+        <h3>To test with IConfiguration overload</h3>
+        <pre><code [highlight]="_librarySpecific_IConfig_TestCode" language="csharp"></code></pre>
+    </section>
+
+
+
+    <section class="exammple-library-section">
+        <h2>
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;gap:.35rem;margin-right:.5rem;font-size:1.05em;">
+            <span title="Reusable" aria-hidden="true">🔁</span>
+            <span title="Helper" aria-hidden="true">🛠️</span>
+            </span>
+            Reusable Helper
+        </h2>
+        <p>
+            Instead of copying the test body between projects, let's be clever developers and put the logic in a shared test utility. 
+            <br>
+            We'll create a method named <code [highlight]="`ServiceCollectionReflectionHelper.AssertAllInterfacesRegistered(...)`" language="csharp"></code>
+             which accepts:
+        </p>
+        <ul>
+            <li><code [highlight]="`Assembly assembly`" language="csharp"></code> — assembly to scan</li>
+            <li><code [highlight]="`string namespacePrefix`" language="csharp"></code> — namespace prefix filter</li>
+            <li><code [highlight]="`Func<IServiceCollection, IServiceCollection> registerAction`" language="csharp"></code> — performs registrations: service.Add***()</li>
+            <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
+            <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
+            <li>For each interface, checks whether the IServiceCollection contains a registration that satisfies it
+                (direct service type, closed generic, implementation type/instance, or factory result).</li>
+        </ul>
+        <pre><code [highlight]="_genericTestCode" language="csharp"></code></pre>
+        <h3>Using the helper</h3>
+        <pre><code [highlight]="_genericTestUsageCode" language="csharp"></code></pre>
+    </section> -->
+
+   
+
+    <hr>
+
+    <!-- Conclusion Section -->
+    <section class="conclusion-section">
+                <hr>
+
+        <div class="footer-cta">
+            <p>Happy coding with .Net! 🚀✨</p>
+        </div>
+    </section>
+
+</div>
