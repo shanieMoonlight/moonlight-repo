@@ -186,7 +186,21 @@ export class HubAppImages {
       static readonly large = 'images/blog/dot-net-di-test/large/main-image.png';
       static readonly xLarge = 'images/blog/dot-net-di-test/xlarge/main-image.png';
     };
-  }; // End of Blog
+
+    
+    static ValueGeneratedNeverTutorial = class {
+      static readonly default = 'images/blog/value-gen-never/placeholder/value-gen-never-tutorial.png';
+      static readonly placeholder = 'images/blog/value-gen-never/placeholder/value-gen-never-tutorial.png';
+      static readonly small = 'images/blog/value-gen-never/small/value-gen-never-tutorial.png';
+      static readonly medium = 'images/blog/value-gen-never/medium/value-gen-never-tutorial.png';
+      static readonly large = 'images/blog/value-gen-never/large/value-gen-never-tutorial.png';
+      static readonly xLarge = 'images/blog/value-gen-never/xlarge/value-gen-never-tutorial.png';
+    };
+
+
+  }; 
+  
+  
 
   //==========================================//
 

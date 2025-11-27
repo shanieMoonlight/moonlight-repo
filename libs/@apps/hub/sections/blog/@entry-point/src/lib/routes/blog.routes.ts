@@ -9,6 +9,11 @@ export const blogRoutes: Route[] = [
     component: HubBlogComponent,
     children: [
       {
+      path: HubBlogSectionRoutesDefs.route('value-generated-never'),
+      loadComponent: () => import('@sb-hub/sections-blog/features-value-generated-never')
+        .then((m) => m.HubBlogValueGeneratedNeverComponent),
+    },
+      {
       path: HubBlogSectionRoutesDefs.route('dotnet-di-reg-test'),
       loadComponent: () => import('@sb-hub/sections-blog/features-dotnet-di-reg-test')
         .then((m) => m.HubBlogDotnetDiRegTestComponent),

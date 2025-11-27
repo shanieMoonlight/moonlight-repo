@@ -70,4 +70,13 @@ export const HubBlogPrincipalRoutes: ApiRouteData[] = [
     img: HubAppImages.Blog.DotNetDiTestTutorial.large,
     imgPlaceholder: HubAppImages.Blog.DotNetDiTestTutorial.placeholder,
   },
+    {
+    title: 'EF Core: ValueGeneratedNever and Client-Side IDs',
+    description: `Solve a common DDD + EF Core problem: when you generate entity IDs on the client (inside the domain) to support rich Domain Events, EF Core can wrongly treat those entities as existing and issue UPDATEs instead of INSERTs, then CRASHES.`,
+    route: HubAppRouteDefs.fullPathsWithSlash.blog.route('value-generated-never'),
+    icon: 'test',
+    color: 'secondary',
+    img: HubAppImages.Blog.ValueGeneratedNeverTutorial.large,
+    imgPlaceholder: HubAppImages.Blog.ValueGeneratedNeverTutorial.placeholder,
+  },
 ];

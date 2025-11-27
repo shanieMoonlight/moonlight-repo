@@ -378,6 +378,9 @@
       "@spider-baby/utils-testing": ["libs/utils/testing/src/index.ts"],
       "@sb-hub/sections-blog/features-dotnet-di-reg-test": [
         "libs/@apps/hub/sections/blog/features/dotnet-di-reg-test/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/features-value-generated-never": [
+        "libs/@apps/hub/sections/blog/features/value-generated-never/src/index.ts"
       ]
     }
   },
