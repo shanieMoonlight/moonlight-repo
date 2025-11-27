@@ -1,17 +1,12 @@
 
-export const AppUserCode = `public class AppUser0 : IdentityUser<Guid>, IIdDomainEventEntity, IIdAuditableDomainEntity
+export const AppUserCode = `public class AppUser : IdentityUser<Guid>, IdDomainEntity
 {
 
     public string FirstName { get; private set; } = string.Empty;
 
     public string LastName { get; private set; } = string.Empty;
-
-
-    /// <summary>
-    /// How will 2 factor be verified
-    /// </summary>
-    public TwoFactorProvider TwoFactorProvider { get; private set; } = TwoFactorProvider.Email; //Everyone has an email
-
+    
+    //More properties...
 
     /// <summary>
     /// Trusted devices for this user
@@ -37,15 +32,13 @@ export const AppUserCode = `public class AppUser0 : IdentityUser<Guid>, IIdDomai
     //- - - - - - - - - - - - //
 
     #region EfCore
-
     /// <summary>
-    /// Used by EfCore
+    // Used by EF Core Serialization
     /// </summary>
-    protected AppUser0() { }
-
+    protected AppUser() { }
     #endregion
 
-    protected AppUser0(
+    protected AppUser(
         EmailAddress email,
         UsernameNullable username,
         PhoneNullable phone,
@@ -63,16 +56,16 @@ export const AppUserCode = `public class AppUser0 : IdentityUser<Guid>, IIdDomai
     //- - - - - - - - - - - - //   
 
     /// <summary>
-    /// Create new AppUser0. Will default to <see cref="Team.MaxPosition"/> if TeamPosition is null
+    /// Create new AppUser. Will default to <see cref="Team.MaxPosition"/> if TeamPosition is null
     /// </summary>
-    public static AppUser0 Create(
+    public static AppUser Create(
         EmailAddress email,
         UsernameNullable username,
         PhoneNullable phone,
         FirstNameNullable firstName,
         LastNameNullable lastName)
     {
-        var user = new AppUser0(
+        var user = new AppUser(
                 email,
                 username,
                 phone,
@@ -86,7 +79,7 @@ export const AppUserCode = `public class AppUser0 : IdentityUser<Guid>, IIdDomai
 
     //- - - - - - - - - - - - //   
 
-    public AppUser0 Update(
+    public AppUser Update(
         EmailAddress email,
         UsernameNullable username,
         PhoneNullable phone,
@@ -193,129 +186,76 @@ export const AppUserCode = `public class AppUser0 : IdentityUser<Guid>, IIdDomai
 
 
 
-export const TrustedDeviceCode = `public class TrustedDevice0 : IdDomainEntity
+export const AppUser_Abrv_Code = `public class AppUser : MyDomainEntity   //Class with Id, DomainEvent handling methods, etc.
 {
-    public Guid UserId { get; private set; }
-    public AppUser? User { get; private set; }
 
-    public string Fingerprint { get; private set; }
-    public string? Name { get; private set; }
-    public string UserAgent { get; private set; }
-    public string IpAddress { get; private set; }
+    public string FirstName { get; private set; } = string.Empty;
 
-    public DateTime TrustedUntil { get; private set; }
-
-    public DateTime LastUsedDate { get; private set; }
-
+    public string LastName { get; private set; } = string.Empty;
+    
+    //More properties...
 
     /// <summary>
     /// Trusted devices for this user
     /// </summary>
-    public IReadOnlyCollection<IdRefreshToken>? IdRefreshTokens { get; private set; }
-
-
-
-    #region EfCoreCtor
-    // Used by EF Core
-#pragma warning disable CS8618
-    private TrustedDevice0() { }
-#pragma warning restore CS8618
-    #endregion
+    private readonly HashSet<TrustedDevice> _trustedDevices = [];
+    public IReadOnlyCollection<TrustedDevice> TrustedDevices =>
+        _trustedDevices.ToList().AsReadOnly();
 
     //- - - - - - - - - - - - //
-
-    private TrustedDevice0(
-        AppUser user,
-        DeviceFingerprint fingerprint,
-        DeviceName name,
-        UserAgent userAgent,
-        IpAddress ipAddress,
-        DateTime trustedUntil)
-        : base(NewId.NextSequentialGuid())
+    
+     protected AppUser(..AppUser parameters..)
+        : base(NewId.NextSequentialGuid()) //Pass Id to base class 
     {
-        UserId = user.Id;
-        User = user;
-        Fingerprint = fingerprint.Value;
-        Name = name.Value;
-        UserAgent = userAgent.Value;
-        TrustedUntil = trustedUntil;
-        LastUsedDate = DateTime.UtcNow;
-        IpAddress = ipAddress.Value;
+      ...
     }
 
-    //- - - - - - - - - - - - //
+    //Any other private constructors...
 
-    // New overload accepting TrustDuration
-    internal static TrustedDevice0 Create(
-        AppUser user,
-        DeviceFingerprint fingerprint,
-        DeviceName name,
-        UserAgent userAgent,
-        IpAddress ipAddress,
-        TrustDuration trustDuration)
+    //- - - - - - - - - - - - //   
+
+    //Public factory methods. Create, Update etc.
+
+    //------------------------//   
+
+    /// <summary>
+    /// Factory method to trust a device for this user. 
+    /// Single point of entry to ensure business rules are enforced.
+    /// This will call the internal TrustedDevice.Create factory method. So noone outside of the Domain can create TrustedDevice instances directly.
+    /// </summary>
+    public TrustedDevice TrustDevice(
+            AppUser user,
+            DeviceFingerprint deviceFingerprint,
+            DeviceName deviceName,
+            UserAgent userAgent,
+            IpAddress ipAddress,
+            TrustDuration trustDuration)
     {
-        DateTime trustedUntil = DateTime.UtcNow.Add(trustDuration.Value);
+        // 1. Check if it already exists
+        var existingDevice = FindTrustedDevice(deviceFingerprint.Value);
+        if (existingDevice != null)
+        {
+            existingDevice.ExtendTrust(trustDuration.Value);
+            return existingDevice;
+        }
 
-        var device = new TrustedDevice0(
-            user,
-            fingerprint,
-            name,
+        // 2. If not, ask the Factory to create one
+        var device = TrustedDevice.Create(this,
+            deviceFingerprint,
+            deviceName,
             userAgent,
             ipAddress,
-            trustedUntil);
+            trustDuration);
 
-        device.RaiseDomainEvent(new TrustedDevice0AddedDomainEvent(device.Id, user.Id));
+        // 3. Add it to our internal collection
+        _trustedDevices.Add(device);
 
         return device;
     }
 
-    //- - - - - - - - - - - - //
+    //------------------------//   
 
-    public TrustedDevice0 UpdateLastUsed()
-    {
-        LastUsedDate = DateTime.UtcNow;
-        RaiseDomainEvent(new TrustedDevice0UsedDomainEvent(Id, UserId));
-        return this;
-    }
-
-    //- - - - - - - - - - - - //
-
-    public bool IsExpired()
-    {
-        var isExpired = TrustedUntil < DateTime.UtcNow;
-        if(isExpired)
-            RaiseDomainEvent(new TrustedDevice0ExpiredDomainEvent(Id, UserId));
-
-        return isExpired;
-    }
-
-    //- - - - - - - - - - - - //
-
-    internal TrustedDevice0 Revoke()
-    {
-        TrustedUntil = DateTime.UtcNow;
-        RaiseDomainEvent(new TrustedDevice0RevokedDomainEvent(Id, UserId));
-        return this;
-    }
-
-    //- - - - - - - - - - - - //
-
-    internal TrustedDevice0 ExtendTrust(TimeSpan trustDuration)
-    {
-        TrustedUntil = DateTime.UtcNow.Add(trustDuration);
-        RaiseDomainEvent(new TrustedDevice0ExtendedDomainEvent(Id, UserId));
-        return this;
-    }
-
-    //- - - - - - - - - - - - //
-
-    #region EqualsAndHashCode
-    public override bool Equals(object? obj) =>
-        obj is TrustedDevice0 td
-        && td.Fingerprint == Fingerprint
-        && td.UserId == UserId;
-
-    public override int GetHashCode() => HashCode.Combine(Fingerprint, UserId);
-    #endregion
-
+    //Any other rich domain methods...
 }`;
+
+

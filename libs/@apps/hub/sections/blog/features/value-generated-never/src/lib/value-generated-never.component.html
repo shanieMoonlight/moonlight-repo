@@ -10,113 +10,178 @@
 <!-- ################################### -->
 
 
-<sb-hub-hero-banner-2 [title]="_title" [backgroundImage]="_bannerImg" [subtitle]="_subtitle" [description]="_description" />
+<sb-hub-hero-banner-2 
+    [title]="_title" 
+    [backgroundImage]="_bannerImg" 
+    [subtitle]="_subtitle"  />
+    <!-- [description]="_description" /> -->
 
 
 <div class="tutorial-content">
 
-    <sb-hub-blog-ui-btn-download [showButton]="_showButton()" [loading]="_isLoading()" [tooltip]="'Download Code Samples'"
-        (downloadClick)="_dlClick$.next()" />
+    <!-- <sb-hub-blog-ui-btn-download [showButton]="_showButton()" [loading]="_isLoading()" [tooltip]="'Download Code Samples'"
+        (downloadClick)="_dlClick$.next()" /> -->
 
     <!-- Introduction Section -->
     <section class="intro-section">
-        <h2>📚 What You'll Learn</h2>
+        <h2>📚 EF Core, DDD, and Client-Side ID issues</h2>
         <p>
-            This Tutorial explains a pattern to test that a library's <code [highlight]="'AddMyFancyLibrary'" language="csharp"></code> (or similar)
-            DI setup registers implementations for all public interfaces declared in the library assembly.
-            The pattern uses reflection to discover interfaces so tests don't become brittle when new interfaces are added.
+            As good, conscientious developers, we strive to follow Clean Architecture principles. 
+            <br>
+            We encapsulate logic, we protect our invariants, and we ensure that our Aggregates are the bosses of their own domain.
+            <br>
+            <br>
+            For example, let's look at a scenario where we have an AppUser Aggregate that owns a list of TrustedDevices. 
+            <br>
+            A Trusted Device represents a device that the user has marked as safe for login.            
+            <br>
+            And so  a trustedDevice should never exist without being associated with an AppUser.            
+            <br>
+            We don't just let anyone add a device; we force them to go through the Aggregate Root to ensure business rules are met. (Max devices, device types, etc.)
+        </p>
+    </section>
+
+
+    <section class="entity-section">
+        <h2>Example Aggregate Entity: AppUser</h2>
+        <p>
+            Here is what our AppUser looks like. It’s clean, encapsulated, and safe:
+        </p>
+        <pre><code [highlight]="_appUserCode" language="csharp"></code></pre>
+    </section>
+
+    
+    <section class="entity-section">
+        <h2>The Requirement: Domain Events</h2>
+        <p>
+            We also want our system to be reactive. 
+            <br>
+            When a device is added, we might want to send a security email to the user. 
+            <br>
+            To do this, we use <code [highlight]="`Domain Events`" language="csharp"></code>.
+            <br>
+            So, when a TrustedDevice is created, it raises a <code [highlight]="`TrustedDeviceAddedDomainEvent`" language="csharp"></code> event.
+            <br>
+            Elsewhere (usually in the Application layer), we listen for this event and trigger the email notification.
+        </p>
+        <p>
+           But here is the catch: 
+           <br>
+           To raise a meaningful <code [highlight]="`TrustedDeviceAddedDomainEvent`" language="csharp"></code>, we need the ID of the device at the exact moment it is created, 
+           long before the database transaction commits.
+        </p>
+        <p>
+            So, inside our TrustedDevice factory, we generate the ID client-side (using <code [highlight]="`Guid.NewGuid`" language="csharp"></code> or even better, 
+            <code [highlight]="`MassTransit.NewId`" language="csharp"></code> ) and attach the event immediately:
+        </p>
+        <pre><code [highlight]="_trustedDeviceCode" language="csharp"></code></pre>
+        <p>
+            This looks perfect. The architecture is sound, the event has its data, and the code compiles...
         </p>
     </section>
 
 
     <section class="reason-for-section">
-        <h2>💡 Why this matters</h2>
-        <div>
-            <ul>
-                <li> Library setup extensions like
-                    <pre><code [highlight]="`public static IServiceCollection AddMyFancyLibrary(this IServiceCollection services, Action\<MyFancyOptions\> config)){...}`" language="csharp"></code></pre>
-                    centralize DI registrations.
-                </li>
-                <li>It's easy to forget to register a new interface when refactoring or adding features.</li>
-                <li>We could try to solve this issue by creating a test that calls <code [highlight]="`AddMyFancyLibrary`" language="csharp"></code>
-                    then check if each of our Library interfaces have a corresponding implementation.
-                    <br>
-                    The problem with this approach is that, when we add new interfaces to the library we must also remember to update the test to
-                    assert the new interface.
-                </li>
-                <li>We need a better way!</li>
-            </ul>
-        </div>
+        <h2>💥 The Crash</h2>
+          <p>
+            We run our application, create a user, add a device, and call SaveChanges(). 
+            <br>
+            Suddenly, everything explodes with this infuriating error:
+        </p>
+        <pre><code [highlight]="_exceptionCode" language="csharp"></code></pre>
+        <p>
+            <strong>Wait, what? </strong>We are trying to <i>ADD</i> a new record. Why is EF Core talking about concurrency and "0 rows affected"?
+        </p>
+    </section>
 
+    
+    <section class="diagnosis-section">
+        <h2>🩺 The Diagnosis</h2>
+        <p>
+            The problem lies in how EF Core determines the "State" of an entity.
+        </p>
+        <p>
+            By default, when EF Core encounters an entity with a Primary Key, it makes an assumption:
+        </p>
+        <ol>
+            <li>
+                <strong>If the ID is empty (Guid.Empty)</strong>: It assumes the entity is New (Added). It will insert it and let the DB generate the ID.
+            </li>
+            <li>
+                <strong>If the ID has a value</strong>: It assumes the entity Already Exists (Modified/Unchanged).
+            </li>
+        </ol>
+        
+        <p>
+            Because we were "good citizens" and generated our ID client-side to satisfy our Domain Event requirement, EF Core looked at that populated ID and said: 
+            <br>
+            <i> "Ah, this ID is filled in. This must be an existing row in the database. I will issue an UPDATE statement."</i>
+            <br>
+            It sets the Entity's state to <code highlight="EntityState.Modified" language="csharp"></code> not <code highlight="EntityState.Added" language="csharp"></code>.
+            <br>
+            And so when SaveChanges() is called, EF Core tries to UPDATE something that it should ADDED and becomes upset.
+        </p>
+    </section>
+
+        
+    <section class="solution-section">
+        <h2>💡 The Solution</h2>
+        <p>
+            We need to explicitly tell EF Core: 
+            <br>
+            <strong>
+                "We are handling the IDs. Even if you see a value there, treat it as a new record."
+            </strong>
+        </p>
+        <p>
+            We could do this manually for every single entity.             
+        </p>
+            <pre><code [highlight]="_trustedDeviceConfig" language="csharp"></code></pre>
+        <p>
+           ...but that's tedious and error-prone (We'd have to rememember to repeat for all other entities).  
+           <br>
+           Instead, let's use a global configuration to enforce this rule for all our Domain Entities.
+        </p>        
+        <pre><code [highlight]="_globalConfig" language="csharp"></code></pre>
+        <h3>Using it</h3>
+        Simply call this method in your DbContext.OnModelCreating:
+        <pre><code [highlight]="_onModelCreating" language="csharp"></code></pre>
     </section>
 
     <!-- <mat-divider /> -->
 
     <!-- Base Auth Service Section -->
-    <section class="solution-section">
-        <h2>🧩 Solution Overview</h2>
-        Create a test that:
-        <ul>
-            <li>Creates a ServiceCollection.</li>
-            <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
-            <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
-            <li>For each interface, check whether the IServiceCollection contains a registration that satisfies it
-                (direct service type, closed generic, implementation type/instance, or factory result).</li>
-        </ul>
+    <section class="conclusion-section">
+        <h2>🎯 Conclusion</h2>
+        By adding this small piece of infrastructure configuration, we solve the conflict between EF Core's default behavior and our DDD requirements.
+        <ol>
+            <li>We keep our Clean Architecture (Client-side IDs).</li>
+            <li>We enable rich Domain Events (IDs available immediately).</li>
+            <li>We make EF Core happy (Correct Entity State).</li>
+        </ol>
+        Now, our SaveChanges() works perfectly, and our architecture remains pure!
     </section>
 
-<!-- 
-
-    <section class="exammple-library-section">
-        <h2>Example library code (setup extension)</h2>
-        <pre><code [highlight]="_librarySetupOptions" language="csharp"></code></pre>
-        <pre><code [highlight]="_librarySetupExtensions" language="csharp"></code></pre>
-    </section>
-
-    
-
-    <section class="exammple-library-section">
-        <h2>
-            <span aria-hidden="true" style="display:inline-flex;align-items:center;gap:.35rem;margin-right:.5rem;font-size:1.05em;">
-            <span title="Test" aria-hidden="true">🧪</span>
-            </span>
-            The Test (xUnit + Shouldly)
-        </h2>
-        <pre><code [highlight]="_librarySpecificTestCode" language="csharp"></code></pre>
-        <h3>To test with IConfiguration overload</h3>
-        <pre><code [highlight]="_librarySpecific_IConfig_TestCode" language="csharp"></code></pre>
-    </section>
-
-
-
-    <section class="exammple-library-section">
-        <h2>
-            <span aria-hidden="true" style="display:inline-flex;align-items:center;gap:.35rem;margin-right:.5rem;font-size:1.05em;">
-            <span title="Reusable" aria-hidden="true">🔁</span>
-            <span title="Helper" aria-hidden="true">🛠️</span>
-            </span>
-            Reusable Helper
-        </h2>
+    <section class="conclusion-section">
+        <h2>⚠️ A Crucial Reminder: You Are the Captain Now</h2>
         <p>
-            Instead of copying the test body between projects, let's be clever developers and put the logic in a shared test utility. 
-            <br>
-            We'll create a method named <code [highlight]="`ServiceCollectionReflectionHelper.AssertAllInterfacesRegistered(...)`" language="csharp"></code>
-             which accepts:
+            When we use <code [highlight]="'.ValueGeneratedNever()'" language="csharp"></code>, we are effectively telling Entity Framework: 
+            <i>"Hands off! I promise I will take full responsibility for generating this ID."</i>
         </p>
-        <ul>
-            <li><code [highlight]="`Assembly assembly`" language="csharp"></code> — assembly to scan</li>
-            <li><code [highlight]="`string namespacePrefix`" language="csharp"></code> — namespace prefix filter</li>
-            <li><code [highlight]="`Func<IServiceCollection, IServiceCollection> registerAction`" language="csharp"></code> — performs registrations: service.Add***()</li>
-            <li>Calls services.AddMyFancyLibrary(...) (action overload and/or IConfiguration overload).</li>
-            <li>Uses reflection to enumerate public interfaces in the target assembly (with a namespace prefix filter).</li>
-            <li>For each interface, checks whether the IServiceCollection contains a registration that satisfies it
-                (direct service type, closed generic, implementation type/instance, or factory result).</li>
-        </ul>
-        <pre><code [highlight]="_genericTestCode" language="csharp"></code></pre>
-        <h3>Using the helper</h3>
-        <pre><code [highlight]="_genericTestUsageCode" language="csharp"></code></pre>
-    </section> -->
-
+        <p>
+            EF Core takes you at your word. It will stop trying to generate IDs for you, and it will stop asking the database to do it via 
+            <code [highlight]="'IDENTITY'" language="csharp"></code>
+             or 
+            <code [highlight]="'DEFAULT'" language="csharp"></code>
+              constraints.
+        </p>
+        <ol>
+            <li>Your entity will have the default value for its type (e.g., <code [highlight]="'Guid.Empty'" language="csharp"></code> or <code [highlight]="'0000'" language="csharp"></code>...).</li>
+            <li>EF Core will blindly insert that Guid.Empty into the database.</li>
+            <li><strong>The First Time</strong>: It might actually succeed (creating a record with ID 00-00...).</li>
+            <li><strong>The Second Time</strong>: Your application will crash with a <strong>Primary Key Violation</strong> or <strong>Unique Constraint Exception</strong>, because you are trying to insert a second record with that same empty ID.</li>
+        </ol>
+    </section>
    
 
     <hr>

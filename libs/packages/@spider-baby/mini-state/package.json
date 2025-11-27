@@ -2,7 +2,7 @@
   "name": "@spider-baby/mini-state",
   "version": "2.0.0",
   "description": "A lightweight, reactive state management library for Angular, simplifying async operations with Signals and RxJS.",
-  "author": "shanieMoonlight", 
+  "author": "spider-baby",
   "repository": {
     "type": "git",
     "url": "https://github.com/shanieMoonlight/moonlight-repo",

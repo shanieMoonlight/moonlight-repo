@@ -1,6 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import {HubBlogValueGeneratedNeverComponent } from './value-generated-never.component';
 import { RouterModule } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { BlogConstants } from './config/constants';
+import { HubHeroBanner2Component } from '@sb-hub/shared-ui/hero-banner/banner-2';
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { SwUpdate } from '@angular/service-worker';
 import { SeoService, StructuredDataService, PerformanceService, UrlUtilsService, } from '@spider-baby/utils-seo';
@@ -51,7 +54,8 @@ const mockPerformanceService = {
 };
 
 describe('HubBlogValueGeneratedNeverComponent', () => {
-  let component:HubBlogValueGeneratedNeverComponent;
+  let component: HubBlogValueGeneratedNeverComponent;
+  let fixture: ComponentFixture<HubBlogValueGeneratedNeverComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -69,13 +73,38 @@ describe('HubBlogValueGeneratedNeverComponent', () => {
       ], // Provide the IconsService
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(HubBlogValueGeneratedNeverComponent);
+    fixture = TestBed.createComponent(HubBlogValueGeneratedNeverComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('calls SeoService.updateMetadata with expected title and keywords', () => {
+    expect(mockSeoService.updateMetadata).toHaveBeenCalled();
+    const callArg = (mockSeoService.updateMetadata as jest.Mock).mock.calls[0][0];
+    expect(callArg.title).toBe(BlogConstants.ValueGeneratedNever.Title);
+    expect(callArg.keywords).toBe(BlogConstants.ValueGeneratedNever.Keywords);
+  });
+
+  it('binds hero banner inputs', () => {
+    const heroDe = fixture.debugElement.query(By.css('sb-hub-hero-banner-2'));
+    expect(heroDe).toBeTruthy();
+    const heroComp = heroDe.componentInstance as HubHeroBanner2Component;
+    expect(heroComp._title()).toBe(component['_title']);
+    expect(heroComp._subtitle()).toBe(component['_subtitle']);
+  });
+
+  it('renders intro header text', () => {
+    const header = fixture.debugElement.query(By.css('.intro-section h2'));
+    expect(header.nativeElement.textContent).toContain('EF Core, DDD, and Client-Side ID issues');
+  });
+
+  it('does not render download button by default (commented out in template)', () => {
+    const downloadBtn = fixture.debugElement.query(By.css('#btn-download'));
+    expect(downloadBtn).toBeNull();
   });
 
 });
