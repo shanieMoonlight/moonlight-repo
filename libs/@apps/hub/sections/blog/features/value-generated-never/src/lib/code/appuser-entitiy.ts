@@ -221,7 +221,8 @@ export const AppUser_Abrv_Code = `public class AppUser : MyDomainEntity   //Clas
     /// <summary>
     /// Factory method to trust a device for this user. 
     /// Single point of entry to ensure business rules are enforced.
-    /// This will call the internal TrustedDevice.Create factory method. So noone outside of the Domain can create TrustedDevice instances directly.
+    /// This will call the internal TrustedDevice.Create factory method. 
+    /// So noone outside of the Domain can create TrustedDevice instances directly.
     /// </summary>
     public TrustedDevice TrustDevice(
             AppUser user,

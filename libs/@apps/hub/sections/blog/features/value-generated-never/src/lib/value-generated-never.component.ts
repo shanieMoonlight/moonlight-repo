@@ -15,7 +15,7 @@ import { SbHubPkgLinksComponent } from '@sb-hub/shared-ui/pkg-links';
 import { SbPortalInputComponent } from '@spider-baby/utils-portal';
 import { Subject } from 'rxjs';
 import { AppUser_Abrv_Code } from './code/appuser-entitiy';
-import { GlobalConfigCode, OnModelCreatingCode, TrustedDeviceConfigCode } from './code/config';
+import { GlobalConfigCode, OnModelCreatingCode, TldrConfigCode, TrustedDeviceConfigCode } from './code/config';
 import { TrustedDevice_Abrv_Code } from './code/device-entitiy';
 import { ExceptionCode } from './code/exception';
 
@@ -64,6 +64,7 @@ export class HubBlogValueGeneratedNeverComponent {
   protected _trustedDeviceConfig = TrustedDeviceConfigCode
   protected _globalConfig = GlobalConfigCode
   protected _onModelCreating = OnModelCreatingCode
+  protected _tldrConfig = TldrConfigCode
 
   //----------------------------//
 

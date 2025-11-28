@@ -20,6 +20,13 @@ section {
   margin-bottom: 2.5rem;
 }
 
+hr {
+  color: var(--mat-sys-primary);
+  background-color: var(--mat-sys-primary);
+  border-bottom-color: var(--mat-sys-primary);
+  margin: 2rem 0;
+}
+
 h2 {
   font-size: 2rem;
   font-weight: 600;
@@ -63,10 +70,11 @@ section {
   justify-content: center;
   align-items: center;
 }
-.code-card{
-margin-bottom: 2rem;
+
+.code-card {
+  margin-bottom: 2rem;
 }
 
-code{
+code {
   font-size: 1rem;
 }

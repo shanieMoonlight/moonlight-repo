@@ -47,3 +47,11 @@ export const OnModelCreatingCode = `protected override void OnModelCreating(Mode
 
 
 
+
+export const TldrConfigCode = `modelBuilder.Entity<Car>()
+    .Property(p => p.Id)
+    .ValueGeneratedNever();`;
+
+
+
+
