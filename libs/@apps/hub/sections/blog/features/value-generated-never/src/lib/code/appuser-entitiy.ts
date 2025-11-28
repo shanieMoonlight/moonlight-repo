@@ -1,5 +1,5 @@
 
-export const AppUserCode = `public class AppUser : IdentityUser<Guid>, IdDomainEntity
+export const AppUserCode = `public class AppUser : IdentityUser<Guid>, MyDomainEntity
 {
 
     public string FirstName { get; private set; } = string.Empty;

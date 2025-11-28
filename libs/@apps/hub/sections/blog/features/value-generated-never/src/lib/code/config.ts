@@ -21,12 +21,12 @@ export const GlobalConfigCode = `public static void ApplyClientSideIdGeneration(
     // 1. Iterate over all entities in the model
     foreach (var entityType in modelBuilder.Model.GetEntityTypes())
     {
-        // 2. Check if the current entity inherits from IdDomainEntity
-        if (typeof(IdDomainEntity).IsAssignableFrom(entityType.ClrType))
+        // 2. Check if the current entity inherits from MyDomainEntity
+        if (typeof(MyDomainEntity).IsAssignableFrom(entityType.ClrType))
         {
             // 3. Configure the Id property to never generate values from the DB
             modelBuilder.Entity(entityType.ClrType)
-                .Property(nameof(IdDomainEntity.Id))
+                .Property(nameof(MyDomainEntity.Id))
                 .ValueGeneratedNever();
         }
     }
