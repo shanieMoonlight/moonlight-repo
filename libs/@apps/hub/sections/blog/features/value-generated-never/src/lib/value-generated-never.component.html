@@ -25,6 +25,27 @@
     <!-- Introduction Section -->
     <section class="intro-section">
         <h2>📚 EF Core, DDD, and Client-Side ID issues</h2>
+
+        <h3>💡 TL;DR (Too Long; Didn't Read)</h3>
+
+        <p>
+            If you are using Domain-Driven Design (DDD) and generating your own Primary Keys (GUIDs/ULIDs) client-side (e.g., in an Aggregate's constructor or factory), 
+            and you encounter a <code [highlight]="'DbUpdateConcurrencyException'" language="csharp"></code> when adding a new entity in Entity Framework Core, 
+            the fix is to explicitly tell EF Core that you handle the ID generation.
+        </p>
+        <p>
+            You must configure the entity's primary key property to use <code [highlight]="'ValueGeneratedNever()'" language="csharp"></code>:
+        </p>   
+        <pre><code [highlight]="_tldrConfig" language="csharp"></code></pre>
+        <p>
+            This prevents EF Core from assuming that your pre-filled ID belongs to an existing database row, correctly setting the entity state to Added (INSERT) instead of Modified (UPDATE).
+        </p>
+
+        <hr>
+        
+        <h3>
+            The Motivation: Why We Are Here
+        </h3>
         <p>
             As good, conscientious developers, we strive to follow Clean Architecture principles. 
             <br>
@@ -138,7 +159,7 @@
         </p>
             <pre><code [highlight]="_trustedDeviceConfig" language="csharp"></code></pre>
         <p>
-           ...but that's tedious and error-prone (We'd have to rememember to repeat for all other entities).  
+           ...but that's tedious and error-prone (We'd have to remember to repeat for all other entities).  
            <br>
            Instead, let's use a global configuration to enforce this rule for all our Domain Entities.
         </p>        

@@ -62,7 +62,6 @@ button {
     color: var(--color-icon-disabled);
     cursor: not-allowed;
 }
-
 .sb-icon-btn.primary {
     --color-icon: var(--mat-sys-primary);
     --color-icon-hover: var(--mat-sys-primary-container);
@@ -74,14 +73,14 @@ button {
     --color-icon: var(--mat-sys-secondary);
     --color-icon-hover: var(--mat-sys-secondary-container);
     --color-ripple-rgb: var(--mat-sys-secondary-rgb);
-    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
+    --color-hover-rgb: var(--mat-sys-secondary-container-rgb);
 }
 
 .sb-icon-btn.tertiary {
     --color-icon: var(--mat-sys-tertiary);
     --color-icon-hover: var(--mat-sys-tertiary-container);
     --color-ripple-rgb: var(--mat-sys-tertiary-rgb);
-    --color-hover-rgb: var(--mat-sys-primary-container-rgb);
+    --color-hover-rgb: var(--mat-sys-tertiary-container-rgb);
 }
 
 .sb-icon-btn.error {
