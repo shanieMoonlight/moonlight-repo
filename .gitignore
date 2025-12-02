@@ -73,6 +73,7 @@ Thumbs.db
 .github\instructions\nx.instructions.md
 **\dev-assets
 scripts-ts/swagger/generated/**
+scripts-ts/swagger/generated0/**
 
 **/sb-notifications/**
 
