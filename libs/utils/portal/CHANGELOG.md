@@ -9,3 +9,8 @@
 
 ### Changed
 - Updated to use Angular 20
+- 
+## [2.0.0] - 2025-11-27
+
+### Changed
+- Updated package.json with links to github

@@ -12,9 +12,9 @@ export const MyIdIoConfigService = new InjectionToken<MyIdIoConfig>(
 
 //############################//
 
-/** Interface for ThemeConfig creation options */
+/** Interface for MyId creation options */
 export interface MyIdIoConfigOptions {
-  /** CSS class for dark mode */
+  /** base identity api url */
   baseUrl: string;
 }
 
