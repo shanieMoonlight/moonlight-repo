@@ -76,6 +76,7 @@ mat-slide-toggle {
   transition: background-color 0.3s ease-in-out;
   opacity: 0;
   background-color: var(--mat-sys-on-surface-variant);
+  pointer-events: none;
   // opacity: 0.08;
 
   // Change color on hover  
@@ -88,4 +89,11 @@ mat-slide-toggle {
   .hover-indicator {
     opacity: 0.08;
   }
+}
+
+:host(.show-switch) {
+  width: auto;
+  height: auto;
+  padding: 4px 8px;
+  border-radius: 20px;
 }

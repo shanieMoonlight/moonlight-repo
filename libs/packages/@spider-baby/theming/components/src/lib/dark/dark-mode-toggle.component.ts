@@ -30,6 +30,7 @@ import { SbThemeService } from '@spider-baby/material-theming/service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[style.color]': '"var(--mat-sys-" + color() + ")"',
+    '[class.show-switch]':'!hideSwitch()'
   },
 })
 export class SbDarkModeToggleMatComponent {
