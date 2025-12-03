@@ -23,6 +23,9 @@ const defaultSmallToLargeImgFn = ProgImgLoaderFunctions.replaceSegment('placehol
   ],
   templateUrl: './hero-banner-2.component.html',
   styleUrl: './hero-banner-2.component.scss',
+  host:{
+    '[style.--canvas-opacity]': 'canvasOpacity()'
+  }
 })
 export class HubHeroBanner2Component {
 
@@ -31,12 +34,14 @@ export class HubHeroBanner2Component {
 
   //- - - - - - - - - - - - - - //
 
-  _title = input<string>('', { alias: 'title' });
-  _subtitle = input<string>('', { alias: 'subtitle' });
-  _description = input<string>('', { alias: 'description' });
+  title = input<string>('');
+  subtitle = input<string>('');
+  description = input<string>('');
   // _imageUrl = input<string | null>(null);
   // _imageAlt = input<string>('Hero Image');
-  _actionsTemplate = input<TemplateRef<any> | undefined>(undefined, { alias: 'actionsTemplate' });
+  actionsTemplate = input<TemplateRef<any> | undefined>(undefined);
+
+  canvasOpacity = input<number>(0.5);
 
   /**
    * Optional. The URL for the initial small/placeholder background image.
@@ -44,7 +49,7 @@ export class HubHeroBanner2Component {
    * will be used to transform this URL into the full-sized large image URL for progressive loading.
    * If not provided, no background image will be attempted.
    */
-  _bgImg = input<string | undefined>(undefined, { alias: 'backgroundImage' });
+  backgroundImage = input<string | undefined>(undefined);
 
   /**
    * A function that converts a small image URL to a large image URL.
@@ -55,11 +60,11 @@ export class HubHeroBanner2Component {
    * @returns The URL of the corresponding large/high-quality image
    * @default defaultSmallToLargeImgFn - A default function that replaces small image URLs with large ones (ProgImgLoaderFunctions.replaceSegment('placeholder', 'xlarge'))
    */
-  _smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn, { alias: 'smlToLrgFn' });
+  smlToLrgFn = input<((smlImgUrl: string) => string) | undefined>(defaultSmallToLargeImgFn);
 
 
-  _objectFit = input<ObjectFit | undefined>('cover', { alias: 'objectFit' });
-  _objectPosition = input<string | undefined>(undefined, { alias: 'objectPosition' });
+  objectFit = input<ObjectFit | undefined>('cover');
+  objectPosition = input<string | undefined>(undefined);
 
 
   rawSvgString = HubAppSvgs.WEB;

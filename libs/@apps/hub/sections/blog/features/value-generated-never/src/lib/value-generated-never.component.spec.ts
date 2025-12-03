@@ -93,8 +93,8 @@ describe('HubBlogValueGeneratedNeverComponent', () => {
     const heroDe = fixture.debugElement.query(By.css('sb-hub-hero-banner-2'));
     expect(heroDe).toBeTruthy();
     const heroComp = heroDe.componentInstance as HubHeroBanner2Component;
-    expect(heroComp._title()).toBe(component['_title']);
-    expect(heroComp._subtitle()).toBe(component['_subtitle']);
+    expect(heroComp.title()).toBe(component['_title']);
+    expect(heroComp.subtitle()).toBe(component['_subtitle']);
   });
 
   it('renders intro header text', () => {

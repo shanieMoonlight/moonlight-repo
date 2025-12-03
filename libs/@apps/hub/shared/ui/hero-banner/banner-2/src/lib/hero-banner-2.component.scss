@@ -157,7 +157,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, var(--canvas-opacity, 0.5)); // Overlay with adjustable opacity
     z-index: 0;
   }
 

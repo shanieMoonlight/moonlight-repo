@@ -1,24 +1,24 @@
  <section class="hero-section" 
- [style.background]="_bgImg()"
- [class.custom-img]="_bgImg()">
+ [style.background]="backgroundImage()"
+ [class.custom-img]="backgroundImage()">
 
- @if (_bgImg();as img) {
+ @if (backgroundImage();as img) {
    <!-- <img class="custom-img" [src]="img" alt="">    -->
     <sb-progressive-image
         class="custom-img"
         [placeholder]="img"
-        [smlToLrgFn]="_smlToLrgFn()"
-        [alt]="_title()"
-        [objectFit]="_objectFit()"
-        [objectPosition]="_objectPosition()"
+        [smlToLrgFn]="smlToLrgFn()"
+        [alt]="title()"
+        [objectFit]="objectFit()"
+        [objectPosition]="objectPosition()"
         [transitionId]="_transitionId()"/>
  }
     <div class="hero-content">
-      <h1 class="hero-title">{{ _title() }}</h1>
-      <p class="hero-subtitle">{{ _subtitle() }}</p>
-      <p class="hero-description">{{ _description() }}</p>
+      <h1 class="hero-title">{{ title() }}</h1>
+      <p class="hero-subtitle">{{ subtitle() }}</p>
+      <p class="hero-description">{{ description() }}</p>
       <div class="hero-actions">
-        @if(_actionsTemplate(); as template) {
+        @if(actionsTemplate(); as template) {
           <ng-container [ngTemplateOutlet]="template"/>
         }
       </div>

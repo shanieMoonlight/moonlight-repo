@@ -1,0 +1,8 @@
+Processing Summary - 02/12/2025 19:54:20
+Source folder: C:\Users\Shaneyboy\Desktop\first-error
+Total folder types processed: 5
+- placeholder: 1 images processed
+- small: 1 images processed
+- medium: 1 images processed
+- large: 1 images processed
+- xlarge: 1 images processed

@@ -59,21 +59,21 @@ export class HubAppImages {
 
   static Demos = class {
     static MiniState = class {
-      static readonly default = 'images/demos/mini-state-logo.png';
-      static readonly placeholder = 'images/demos/placeholder/mini-state-logo.png';
-      static readonly small = 'images/demos/small/mini-state-logo.png';
-      static readonly medium = 'images/demos/medium/mini-state-logo.png';
-      static readonly large = 'images/demos/large/mini-state-logo.png';
-      static readonly xLarge = 'images/demos/xlarge/mini-state-logo.png';
+      static readonly default = 'images/demos/mini-state/mini-state.png';
+      static readonly placeholder = 'images/demos/mini-state/placeholder/mini-state.png';
+      static readonly small = 'images/demos/mini-state/small/mini-state.png';
+      static readonly medium = 'images/demos/mini-state/medium/mini-state.png';
+      static readonly large = 'images/demos/mini-state/large/mini-state.png';
+      static readonly xLarge = 'images/demos/mini-state/xlarge/mini-state.png';
     };
 
     static MatTheme = class {
-      static readonly default = 'images/demos/mat-theme-logo.jpg';
-      static readonly placeholder = 'images/demos/placeholder/mat-theme-logo.jpg';
-      static readonly small = 'images/demos/small/mat-theme-logo.jpg';
-      static readonly medium = 'images/demos/medium/mat-theme-logo.jpg';
-      static readonly large = 'images/demos/large/mat-theme-logo.jpg';
-      static readonly xLarge = 'images/demos/xlarge/mat-theme-logo.jpg';
+      static readonly default = 'images/demos/mat-theming/material-design.png';
+      static readonly placeholder = 'images/demos/mat-theming/placeholder/material-design.png';
+      static readonly small = 'images/demos/small/mat-theming/material-design.png';
+      static readonly medium = 'images/demos/medium/mat-theming/material-design.png';
+      static readonly large = 'images/demos/large/mat-theming/material-design.png';
+      static readonly xLarge = 'images/demos/xlarge/mat-theming/material-design.png';
     };
   }; // End of Demos
 
@@ -81,12 +81,20 @@ export class HubAppImages {
 
   static Main = class {
     static OpenSource = class {
-      static readonly default = 'images/main/open-source/open-source.jpeg';
-      static readonly placeholder = 'images/main/open-source/placeholder/open-source.jpeg';
-      static readonly small = 'images/main/open-source/small/open-source.jpeg';
-      static readonly medium = 'images/main/open-source/medium/open-source.jpeg';
-      static readonly large = 'images/main/open-source/large/open-source.jpeg';
-      static readonly xLarge = 'images/main/open-source/xlarge/open-source.jpeg';
+      static readonly default = 'images/main/open-source/open-source.png';
+      static readonly placeholder = 'images/main/open-source/placeholder/open-source.png';
+      static readonly small = 'images/main/open-source/small/open-source.png';
+      static readonly medium = 'images/main/open-source/medium/open-source.png';
+      static readonly large = 'images/main/open-source/large/open-source.png';
+      static readonly xLarge = 'images/main/open-source/xlarge/open-source.png';
+    };
+    static HomePage = class {
+      static readonly default = 'images/main/homepage/coding-spider.png';
+      static readonly placeholder = 'images/main/homepage/placeholder/coding-spider.png';
+      static readonly small = 'images/main/homepage/small/coding-spider.png';
+      static readonly medium = 'images/main/homepage/medium/coding-spider.png';
+      static readonly large = 'images/main/homepage/large/coding-spider.png';
+      static readonly xLarge = 'images/main/homepage/xlarge/coding-spider.png';
     };
 
     // static Posts = class {
@@ -131,20 +139,26 @@ export class HubAppImages {
       static readonly xLarge = 'images/blog/prog-img/xlarge/prog-img-tutorial-2.jpeg';
     };
     static PortalTutorial = class {
-      static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
-      static readonly placeholder = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
-      static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
-      static readonly medium = 'images/blog/portal/medium/portal-tutorial.jpeg';
-      static readonly large = 'images/blog/portal/large/portal-tutoria.jpeg';
-      static readonly xLarge = 'images/blog/portal/xlarge/portal-tutorial.jpeg';
+      static readonly default = 'images/blog/portal/placeholder/portal.png';
+      static readonly placeholder = 'images/blog/portal/placeholder/portal.png';
+      static readonly small = 'images/blog/portal/small/portal.png';
+      static readonly medium = 'images/blog/portal/medium/portal.png';
+      static readonly large = 'images/blog/portal/large/portal.png';
+      static readonly xLarge = 'images/blog/portal/xlarge/portal.png';
     };
     static MiniStateTutorial = class {
-      static readonly default = 'images/blog/portal/placeholder/portal-tutorial.jpeg';
-      static readonly placeholder = 'images/blog/mini-state/placeholder/mini-state18.jpeg';
-      static readonly small = 'images/blog/portal/small/portal-tutorial.jpeg';
-      static readonly medium = 'images/blog/portal/medium/portal-tutorial.jpeg';
-      static readonly large = 'images/blog/portal/large/portal-tutoria.jpeg';
-      static readonly xLarge = 'images/blog/portal/xlarge/portal-tutorial.jpeg';
+      // static readonly default = 'images/blog/mini-state/placeholder/mini-state18.jpeg';
+      // static readonly placeholder = 'images/blog/mini-state/placeholder/mini-state18.jpeg';
+      // static readonly small = 'images/blog/mini-state/small/mini-state18.jpeg';
+      // static readonly medium = 'images/blog/mini-state/medium/mini-state18.jpeg';
+      // static readonly large = 'images/blog/mini-state/large/mini-state18.jpeg';
+      // static readonly xLarge = 'images/blog/mini-state/xlarge/mini-state18.jpeg';
+      static readonly default = 'images/blog/mini-state-2/placeholder/mini-state.png';
+      static readonly placeholder = 'images/blog/mini-state-2/placeholder/mini-state.png';
+      static readonly small = 'images/blog/mini-state-2/small/mini-state.png';
+      static readonly medium = 'images/blog/mini-state-2/medium/mini-state.png';
+      static readonly large = 'images/blog/mini-state-2/large/mini-state.png';
+      static readonly xLarge = 'images/blog/mini-state-2/xlarge/mini-state.png';
     };
 
     static MatThemingTutorial = class {
@@ -157,12 +171,12 @@ export class HubAppImages {
     };
 
     static FirstErrorTutorial = class {
-      static readonly default = 'images/blog/first-error/placeholder/first-error-tutorial.jpeg';
-      static readonly placeholder = 'images/blog/first-error/placeholder/first-error-tutorial.jpeg';
-      static readonly small = 'images/blog/first-error/small/first-error-tutorial.jpeg';
-      static readonly medium = 'images/blog/first-error/medium/first-error-tutorial.jpeg';
-      static readonly large = 'images/blog/first-error/large/first-error-tutorial.jpeg';
-      static readonly xLarge = 'images/blog/first-error/xlarge/first-error-tutorial.jpeg';
+      static readonly default = 'images/blog/first-error/placeholder/first-error.png';
+      static readonly placeholder = 'images/blog/first-error/placeholder/first-error.png';
+      static readonly small = 'images/blog/first-error/small/first-error.png';
+      static readonly medium = 'images/blog/first-error/medium/first-error.png';
+      static readonly large = 'images/blog/first-error/large/first-error.png';
+      static readonly xLarge = 'images/blog/first-error/xlarge/first-error.png';
     };
 
     

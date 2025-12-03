@@ -53,6 +53,7 @@ export class HubMainHomeComponent implements OnInit {
   // ...existing code...
   protected _heroImageUrl = HubAppImages.Logo.default;
   protected _heroImageAlt = 'Spider-Baby Logo';
+  protected _bannerImage = HubAppImages.Main.HomePage.placeholder;
 
   protected _features = signal(MainPrincipalRoutes);
   protected _gitUrl = signal(HubAppConstants.GIT_REP_URL);
