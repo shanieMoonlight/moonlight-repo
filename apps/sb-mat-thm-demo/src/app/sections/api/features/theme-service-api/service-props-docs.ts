@@ -8,7 +8,7 @@ export const THEME_SERVICE_PROPERTIES: ServiceProperty[] = [
     example: `// In a component that temporarily previews themes
 ngOnDestroy() {
   // Restore the application's theme when this component is destroyed
-  this.themeService.reapplyCurrentTheme()
+  this.themeService.refreshTheme()
 }`,
   },
   {

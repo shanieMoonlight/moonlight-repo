@@ -158,7 +158,10 @@ export class SbThemeService {
    * 
    */
   setThemeByValue(themeValue: ThemeValue): boolean {
-    const theme = this.availableThemes().find(t => t.value === themeValue);
+
+    const theme = this.availableThemes()
+      .find(t => t.value === themeValue);
+
     if (theme)
       this.setTheme(theme)
 
@@ -192,14 +195,11 @@ export class SbThemeService {
    * @example
    * ```typescript
    * // In a component that temporarily previews themes
-   * ngOnDestroy() {
-   *   // Restore the application's theme when this component is destroyed
-   *   this.themeService.reapplyCurrentTheme();
-   * }
    * ```
    */
   applyTheme = (theme: ThemeOption, targetElement?: HTMLElement) => {
-    if (!theme) return
+    if (!theme)
+      return
     this._themeGenerator.applyTheme(theme, theme.value, targetElement);
   }
 
@@ -292,31 +292,19 @@ export class SbThemeService {
     this._localStorage.removeItem(THEME_KEY);
   }
 
+  
   //-----------------------------//
 
+  
   /**
-   * Reapplies the current application theme to the document.
-   * 
-   * This is useful when temporarily previewing other themes and then needing to
-   * restore the application's actual theme. For example, when a theme selector
-   * component is destroyed, it should call this method to ensure the application
-   * returns to its proper theme.
-   * 
-   * @example
-   * ```typescript
-   * // In a component that temporarily previews themes
-   * ngOnDestroy() {
-   *   // Restore the application's theme when this component is destroyed
-   *   this.themeService.reapplyCurrentTheme();
-   * }
-   * ```
+   * Refreshes the theme by reapplying stored theme data.
+   * This is useful for syncing the theme with any changes in system preferences
+   * or configuration settings.
+   * Or when reverting to initial stored theme after temporary previews.
+   * @returns 
    */
-  reapplyCurrentTheme = (): void =>
-    this.applyTheme(this.currentTheme())
+  refreshTheme = (): void => this.applyStoredThemeData()
 
-  //-----------------------------//
-
-  refreshTheme = (): void => this.initialize()
 
   //-----------------------------//
   // PRIVATE METHODS
@@ -327,10 +315,7 @@ export class SbThemeService {
     try {
       //Get this running first in case something goes wrong below
       this._currentData$
-        .pipe(
-          takeUntilDestroyed(this._destroyor),
-          // devLog('ThemeService:currentData')
-        )
+        .pipe(takeUntilDestroyed(this._destroyor))
         .subscribe(data => {
           // consoleDev.log('subscribe - Theme data:', data);
           this.applyCurrentTheme(data)
@@ -338,16 +323,7 @@ export class SbThemeService {
         })
 
 
-      const themeData = this._localStorage.getItemObject<ThemeData>(THEME_KEY)
-      const currentTheme = themeData?.currentTheme ?? this._config.systemThemes()[0] ?? defaultThemeOption
-      this._currentThemeBs.next(currentTheme)
-
-      const darkMode = currentTheme?.darkMode
-        ?? this._config.defaultDarkModeType()
-        ?? 'system'
-      this._darkModeTypeBs.next(darkMode)
-
-      this._customThemesBs.next(themeData?.customThemes ?? [])
+     this.applyStoredThemeData()
 
     } catch (error) {
 
@@ -369,8 +345,24 @@ export class SbThemeService {
 
   //- - - - - - - - - - - - - - -//
 
-  protected applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
+  protected applyStoredThemeData(): void {
 
+      const themeData = this._localStorage.getItemObject<ThemeData>(THEME_KEY)
+      const currentTheme = themeData?.currentTheme ?? this._config.systemThemes()[0] ?? defaultThemeOption
+      this._currentThemeBs.next(currentTheme)
+
+      const darkMode = currentTheme?.darkMode
+        ?? this._config.defaultDarkModeType()
+        ?? 'system'
+      this._darkModeTypeBs.next(darkMode)
+
+      this._customThemesBs.next(themeData?.customThemes ?? [])
+  }
+
+  //- - - - - - - - - - - - - - -//
+
+  protected applyCurrentTheme(themeData: ThemeData, element?: HTMLElement) {
+    
     // Direct application to specific element - no transition needed
     if (element || !this._config.transitionOptions().showTransitions)
       return this._themeGenerator.applyTheme(

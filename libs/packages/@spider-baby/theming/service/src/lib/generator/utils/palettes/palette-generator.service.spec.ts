@@ -110,7 +110,7 @@ describe('PaletteGeneratorService', () => {
     expect(themeFromSourceColor).toHaveBeenCalled();
 
     // Verify TonalPalette.fromInt was called for secondary and tertiary
-    expect(TonalPalette.fromInt).toHaveBeenCalledTimes(2);
+    expect(TonalPalette.fromInt).toHaveBeenCalledTimes(3); // secondary, tertiary, error  
   });
 
   //- - - - - - - - - - - - - - -//

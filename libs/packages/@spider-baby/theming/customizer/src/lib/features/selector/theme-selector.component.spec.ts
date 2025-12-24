@@ -40,7 +40,7 @@ describe('SbThemeSelectorComponent', () => {
         addCustomTheme: jest.fn(),
         currentTheme: jest.fn().mockReturnValue(null),
         customThemes$: of([]),
-        reapplyCurrentTheme: jest.fn(),
+        refreshTheme: jest.fn(),
         applyTheme: jest.fn()
       } as unknown as jest.Mocked<SbThemeService>;
 
@@ -141,7 +141,7 @@ describe('SbThemeSelectorComponent', () => {
     component.ngOnDestroy();
 
     // Assert - verify original theme was restored
-    expect(themeServiceMock.reapplyCurrentTheme).toHaveBeenCalledWith();
+    expect(themeServiceMock.refreshTheme).toHaveBeenCalledWith();
   });
 
   it('should open dialog when saving a custom theme', () => {
