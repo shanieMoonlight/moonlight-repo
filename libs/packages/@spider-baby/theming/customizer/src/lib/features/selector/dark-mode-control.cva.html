@@ -1,0 +1,12 @@
+<div class="theme-mode-selector">
+  <label class="theme-mode-label">Theme Mode: <span class="value">{{ value }}</span></label>
+  <mat-radio-group 
+    [value]="value" 
+    (change)="onSelectionChange($event.value)" 
+    [disabled]="disabled" 
+    class="mode-radio-group">
+    <mat-radio-button value="light">Light</mat-radio-button>
+    <mat-radio-button value="dark">Dark</mat-radio-button>
+    <mat-radio-button value="system">System</mat-radio-button>
+  </mat-radio-group>
+</div>
