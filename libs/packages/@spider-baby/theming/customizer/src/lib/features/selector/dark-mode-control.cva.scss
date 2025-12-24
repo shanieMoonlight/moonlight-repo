@@ -1,0 +1,19 @@
+.theme-mode-selector {
+  display: flex;
+  flex-direction: column;
+}
+
+.mode-radio-group {
+  margin-top: 6px;
+}
+
+.theme-mode-label{
+    .value {
+        font-weight: normal;
+        font-size: 0.9em;
+        margin-left: 8px;
+        font-weight: 600;
+       text-transform: uppercase;
+        color: var(--mat-sys-primary);
+    }
+}
