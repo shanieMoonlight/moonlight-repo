@@ -13,6 +13,7 @@ import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { SbCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
 import { SbCustomThemeSavedComponent } from '../theme-saved/theme-saved.component';
 import { SbCurrentThemeBannerComponent } from '@spider-baby/material-theming/ui';
+import { SbDarkModeRadioGroup } from './dark-mode-control.cva';
 
 //#########################################//
 
@@ -54,7 +55,8 @@ interface IThemeForm
     MatEverythingModule,
     TitleCasePipe,
     ColorInputComponent,
-    SbCurrentThemeBannerComponent
+    SbCurrentThemeBannerComponent,
+    SbDarkModeRadioGroup
   ],
   providers: [
     {
@@ -99,6 +101,7 @@ export class SbThemeSelectorComponent implements OnDestroy {
     .pipe(map(customThemes => customThemes.length > 0))
   protected _anyCustomThemes = toSignal(this._anyCustomThemes$)
 
+
   protected _themeForm: IThemeForm = this._fb.group({
     themeName: this._fb.nonNullable.control('My Custom Theme', [Validators.required]),
     primaryColor: this._fb.nonNullable.control(DEFAULT_COLOR_PRIMARY, [Validators.required]),
@@ -109,12 +112,30 @@ export class SbThemeSelectorComponent implements OnDestroy {
   }) as IThemeForm;
 
 
+  /**
+   *
+   */
+  constructor() {
+    this._themeForm.controls.themeName.valueChanges.subscribe(themeLabel => {
+      const safeValue = themeLabel.toLowerCase().replace(/\s+/g, '-');
+      consoleDev.log('Theme name changed to:', themeLabel, 'Safe value:', safeValue);
+      this._generatorPreviewTheme.update(theme => theme
+        ? {
+          ...theme,
+          value: safeValue, label: themeLabel
+        }
+        : null);
+    })
+
+  }
+
+
   //-----------------------------//
   // LIFECYCLE METHODS
   //-----------------------------//
 
   ngOnDestroy() {
-    this._themeService.reapplyCurrentTheme()
+    this._themeService.refreshTheme()
   }
 
   //-----------------------------//
@@ -137,22 +158,8 @@ export class SbThemeSelectorComponent implements OnDestroy {
       return // Don't apply if form is invalid
     }
 
-    const values = form.getRawValue(); // Use getRawValue for potentially disabled controls
-
-    // Generate a safe value. If it
-    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}}`;
-
     // Construct ThemeOption using spread operator and defaults
-    const themeToApply: ThemeOption = {
-      ...defaultThemeOption,
-      label: values.themeName,
-      value: themeValue,
-      primaryColor: values.primaryColor,
-      secondaryColor: values.secondaryColor,
-      tertiaryColor: values.tertiaryColor ?? defaultThemeOption.tertiaryColor,
-      errorColor: values.errorColor ?? defaultThemeOption.errorColor,
-      darkMode: values.darkMode // Use the form's dark mode value
-    }
+    const themeToApply: ThemeOption = this.toTheme(form);
 
     this.previewTheme(themeToApply)
   }
@@ -187,6 +194,7 @@ export class SbThemeSelectorComponent implements OnDestroy {
    * @param theme The theme to save
    */
   protected storeTheme(theme: ThemeOption) {
+
     this._themeService.addCustomTheme(theme);
 
     this._dialog.open(SbCustomThemeSavedComponent, {
@@ -254,6 +262,28 @@ export class SbThemeSelectorComponent implements OnDestroy {
       width: '600px',
       autoFocus: false
     });
+  }
+
+  //-----------------------------//
+
+  private toTheme(form: IThemeForm): ThemeOption {
+
+    const values = form.getRawValue(); // Use getRawValue for potentially disabled controls
+
+    // Generate a safe value. If it
+    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}}`;
+
+    // Construct ThemeOption using spread operator and defaults
+    return {
+      ...defaultThemeOption,
+      label: values.themeName,
+      value: themeValue,
+      primaryColor: values.primaryColor,
+      secondaryColor: values.secondaryColor,
+      tertiaryColor: values.tertiaryColor ?? defaultThemeOption.tertiaryColor,
+      errorColor: values.errorColor ?? defaultThemeOption.errorColor,
+      darkMode: values.darkMode // Use the form's dark mode value
+    }
   }
 
   //-----------------------------//

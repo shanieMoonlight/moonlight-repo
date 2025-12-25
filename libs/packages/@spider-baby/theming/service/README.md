@@ -136,8 +136,7 @@ export class ThemeSwitcherComponent {
 - **`addCustomTheme(theme: ThemeOption): ThemeOption[]`**: Adds a custom theme.
 - **`removeCustomTheme(value: ThemeValue): ThemeOption[]`**: Removes a custom theme.
 - **`resetToDefaults(): void`**: Resets all theme settings to system defaults.
-- **`reapplyCurrentTheme(): void`**: Reapplies the current application theme.
-- **`refreshTheme(): void`**: Refreshes the current theme.
+- **`refreshTheme(): void`**: Refreshes the theme by reapplying stored theme data.
 - **`exportThemeSettings(): { theme: ThemeOption, isDark: boolean }`**: Exports current theme settings.
 
 #### Signals and Observables

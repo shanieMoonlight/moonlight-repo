@@ -40,12 +40,7 @@
 
           <!-- Dark mode toggle -->
           <div class="theme-mode-selector input">
-            <label class="theme-mode-label" for="theme-mode-group">Theme Mode:</label>
-            <mat-radio-group formControlName="darkMode" class="mode-radio-group" id="theme-mode-group">
-              <mat-radio-button [value]="false">Light</mat-radio-button>
-              <mat-radio-button [value]="true">Dark</mat-radio-button>
-              <mat-radio-button value="system">System</mat-radio-button>
-            </mat-radio-group>
+            <sb-dark-mode-radio-group formControlName="darkMode" id="theme-mode-group"/>
           </div>
 
           <mat-form-field class="theme-name-input input">

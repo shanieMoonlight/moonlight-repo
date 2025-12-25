@@ -6,6 +6,8 @@
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-primary-container),
+      label-text-color: var(--mat-sys-primary),
+      outline-color: var(--mat-sys-primary),
       selected-hover-state-layer-color: var(--mat-sys-on-primary-container),
       selected-focus-state-layer-color: var(--mat-sys-on-primary-container),
       selected-label-text-color: var(--mat-sys-on-primary-container),
@@ -20,6 +22,8 @@
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-secondary-container),
+      label-text-color: var(--mat-sys-secondary),
+      outline-color: var(--mat-sys-secondary),
       selected-hover-state-layer-color: var(--mat-sys-on-secondary-container),
       selected-focus-state-layer-color: var(--mat-sys-on-secondary-container),
       selected-label-text-color: var(--mat-sys-on-secondary-container),
@@ -34,6 +38,8 @@
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-tertiary-container),
+      label-text-color: var(--mat-sys-tertiary),
+      outline-color: var(--mat-sys-tertiary),
       selected-hover-state-layer-color: var(--mat-sys-on-tertiary-container),
       selected-focus-state-layer-color: var(--mat-sys-on-tertiary-container),
       selected-label-text-color: var(--mat-sys-on-tertiary-container),
@@ -48,6 +54,8 @@
   @include mat.chips-overrides(
     (
       elevated-selected-container-color: var(--mat-sys-error-container),
+      label-text-color: var(--mat-sys-error),
+      outline-color: var(--mat-sys-error),
       selected-hover-state-layer-color: var(--mat-sys-on-error-container),
       selected-focus-state-layer-color: var(--mat-sys-on-error-container),
       selected-label-text-color: var(--mat-sys-on-error-container),

@@ -69,13 +69,13 @@ themeService.setDarkMode('light')`,
 themeService.removeCustomTheme('custom-purple')`,
     },
     {
-      name: 'reapplyCurrentTheme',
+      name: 'refreshTheme',
       type: '() => void',
-      description: 'Reapplies the current application theme. Useful after temporarily previewing other themes.',
+      description: 'Refreshes the theme by reapplying stored theme data.. Useful after temporarily previewing other themes.',
       example: `// In a component that temporarily previews themes
 ngOnDestroy() {
   // Restore the application's theme when this component is destroyed
-  this.themeService.reapplyCurrentTheme()
+  this.themeService.refreshTheme()
 }`,
     },
     {

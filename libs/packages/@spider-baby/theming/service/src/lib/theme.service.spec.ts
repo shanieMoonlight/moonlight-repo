@@ -339,15 +339,12 @@ describe('SbThemeService', () => {
     });
   });
 
-  describe('reapplyCurrentTheme', () => {
+  describe('refreshTheme', () => {
     it('should call applyTheme with current theme', fakeAsync(() => {
-      // Set up spy on applyTheme
-      const applyThemeSpy = jest.spyOn(service, 'applyTheme');
-
-      service.reapplyCurrentTheme();
-      tick();
-
-      expect(applyThemeSpy).toHaveBeenCalledWith(service.currentTheme());
+      const protoSpy = jest.spyOn(SbThemeService.prototype as any, 'applyStoredThemeData').mockImplementation(() => { });
+      service.refreshTheme();
+      expect(protoSpy).toHaveBeenCalled();
+      protoSpy.mockRestore();
     }));
   });
 
@@ -369,14 +366,14 @@ describe('SbThemeService', () => {
     it('should return system preference when darkMode is system', fakeAsync(() => {
       service.setDarkMode('system');
       tick();
-    
+
       // Default mock is false (light mode)
       expect(service.isDarkMode()).toBe(false);
-    
+
       // Change system preference - use the subject directly instead of casting
       darkModePrefSubject.next(true);
       tick();
-    
+
       expect(service.isDarkMode()).toBe(true);
     }));
   });

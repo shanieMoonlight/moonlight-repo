@@ -51,10 +51,13 @@ export class HomeGettingStartedComponent {
 import { ThemeAndModeSetup } from '@spider-baby/material-theming/config';
 
 export const appConfig: ApplicationConfig = {
-providers: [
-// ... other providers
-  ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
-]
+  providers: [
+    // ... other providers
+    //If using SbThemePickerMatComponent or SbDarkModeToggleMatComponent
+    ThemeAndModeSetup.provideThemingModule(THEME_CONFIG)
+    //If using your own custom components to change theme/mode or just want to use the CSS variables, use this instead
+    provideThemeInitializer(THEME_CONFIG)
+  ]
 };`);
 
 
@@ -145,7 +148,8 @@ export const THEME_CONFIG = ThemeConfig.create(_themeOptions);
   `  );
 
   protected _scssCode = signal(`
-// Custom Theming for Angular Material
+// Custom Theming for Angular Material (If using angular Material components)
+
 // Add this to your global styles.scss or a separate theming file that you import in your main styles.scss
 
 
