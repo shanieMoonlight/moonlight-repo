@@ -32,7 +32,7 @@ export const SUMMER_THEME = ThemeOption.create({
 })
 
 export const  AUTUMN_THEME = ThemeOption.create({
-  darkMode: 'light',
+  darkMode: 'dark',
   label: 'Autumn',
   value: 'autumn',
   primaryColor: '#FF5722', // Sunset orange
@@ -40,7 +40,7 @@ export const  AUTUMN_THEME = ThemeOption.create({
   tertiaryColor: '#191102', // Lime green
 })
 export const  WINTER_THEME = ThemeOption.create({
-  darkMode: 'light',
+  darkMode: 'dark',
   label: 'Winter',
   value: 'winter',
   primaryColor: '#1E88E5', // Ice blue

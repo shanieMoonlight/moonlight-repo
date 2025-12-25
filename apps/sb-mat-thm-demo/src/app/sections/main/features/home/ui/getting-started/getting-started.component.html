@@ -2,8 +2,17 @@
 
 <div class="mat-required-blurb">
   <h3>Prerequisites</h3>
-  <strong>Important Note:</strong> This library requires
-  <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.<br>
+  <strong>Important Note:</strong> This library contians <code>SbThemePickerMatComponent</code> and <code>SbDarkModeToggleMatComponent</code> UI components.
+  <br>
+  They are built using Angular Material components. If you wish to use these components, you must install 
+  <a href="https://material.angular.io/" target="_blank" rel="noopener">Angular Material</a>.
+  <br>
+  <br>
+  The library itself does not depend on Angular Material, so you can use the theming system without installing Material if you prefer.
+  <br>
+  It will generate all the CSS variables and provide the theming functionality. 
+  <br>
+  You can then build your own custom ThemePicker and DarkModeToggle components ,that call SbThemeService to make theme or mode changes.
 
   <br>
   <br>
@@ -19,17 +28,10 @@
   <strong>Option 2:</strong> Manual installation with version matching
   <br>
   Install Material and CDK that match your Angular version:
-  <pre><code># To default to the version that matches your current angular version (Will work if you're using Angular 17, 18 or 19)
+  <pre><code># To default to the version that matches your current angular version (Will work if you're using Angular 17 to 20)
 npm install &#64;angular/material &#64;angular/cdk
 
-# For Angular 17
-npm install &#64;angular/material&#64;17 &#64;angular/cdk&#64;17
-
-# For Angular 18
-npm install &#64;angular/material&#64;18 &#64;angular/cdk&#64;18
-
-# For Angular 19
-npm install &#64;angular/material&#64;19 &#64;angular/cdk&#64;19</code></pre>
+</code></pre>
 </div>
 
 <h3>Installation</h3>
@@ -56,16 +58,16 @@ npm install &#64;angular/material&#64;19 &#64;angular/cdk&#64;19</code></pre>
   <!-- Due to npm's peer dependency resolution algorithm, you must install Angular Material and CDK versions that match your Angular version. This is because: -->
   <ul>
     <li>Angular Material and CDK require exact Angular version alignment</li>
-    <li>When npm encounters a range of compatible versions like "17.x || 18.x || 19.x", it tends to select the newest version (like this package)</li>
+    <li>When npm encounters a range of compatible versions like "18.x || 19.x || 20.x", it tends to select the newest version (like this package)</li>
     <li>This can lead to conflicts when the newest Material/CDK version requires a newer Angular version than what's in your project</li>
   </ul>
   <strong>Required Versions:</strong>
   <ul>
-    <li>For Angular 17: Use Material/CDK 17.x</li>
     <li>For Angular 18: Use Material/CDK 18.x</li>
     <li>For Angular 19: Use Material/CDK 19.x</li>
+    <li>For Angular 20: Use Material/CDK 20.x</li>
   </ul>
-  <strong>The simplest thing is to just make sure Material/CDK are installed first. </strong>
+  <strong>The simplest thing is to just make sure Material/CDK are installed first, and let NPM figure it our for you. </strong>
 </div>
 
 
