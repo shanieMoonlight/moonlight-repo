@@ -11,7 +11,7 @@ export function getDefaultLibraryOptions(): DefaultLibraryOptions {
     return {
         addTailwind: false,
         skipFormat: false,
-        simpleName: false,
+        // simpleName: false,
         addModuleSpec: false,
         buildable: true,
         publishable: true,

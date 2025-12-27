@@ -6,7 +6,7 @@ import { MatEverythingModule } from '@spider-baby/material-theming/utils';
 import { MiniStateBuilder } from '@spider-baby/mini-state';
 import { MiniStateCombined } from '@spider-baby/mini-state/utils';
 import { filter, map } from 'rxjs';
-import { Album } from '../../data/album';
+import { Album, AlbumUtils } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormComponent } from '../../ui/album/form/album-form.component';
 import { SbCodeTabsTsHtmlComponentCodeComponent } from '@spider-baby/ui-code-samples';
@@ -145,6 +145,7 @@ export class MainDemoDetailComponent {
 
   //- - - - - - - - - - - - - //
 
+  //Get the 'id' param from the route as an Observable
   private _id$ = this._actRoute.paramMap.pipe(
     map((params: ParamMap) => params.get('id') ?? undefined),
     filter((id: string | undefined): id is string => !!id)
@@ -154,11 +155,19 @@ export class MainDemoDetailComponent {
 
   private _itemState = MiniStateBuilder.CreateWithObservableInput(
     this._id$,
-    (id: string) => this._ioService.getById(id))
+    (id: string) => this._ioService.getById(id)
+  )
 
+  
+
+  protected edit = (album: Album) =>
+    this._editState.trigger({ ...album, title: `${album.title} (Updated)!!` })
+  
   private _editState = MiniStateBuilder
     .CreateWithInput((album: Album) => this._ioService.update(album))
     .setSuccessMsgFn((album: Album) => `Album ${album.title} updated successfully!`)
+
+
 
   private _state = MiniStateCombined.Combine(
     this._itemState,
@@ -170,10 +179,6 @@ export class MainDemoDetailComponent {
   protected _loading = this._state.loading
 
   //--------------------------//
-
-  protected edit = (album: Album) =>
-    this._editState.trigger(album)
-
 
   protected refresh = () =>
     this._itemState.retrigger()

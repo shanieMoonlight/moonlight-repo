@@ -225,7 +225,7 @@ export class MainDemoSearchComponent {
 
   // Track if a search has been performed
   protected _noDataMessage = computed(() =>
-    this.userState.prevInput() && !this.errorMsg() && !this.users()?.length
+    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
       ? 'No users found matching your search criteria.'
       : undefined)
 

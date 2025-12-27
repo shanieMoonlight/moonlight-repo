@@ -37,37 +37,29 @@ export class EntryPointRoutesUtils {
             console.error(`Could not find routes array in ${routeDefsPathRelative}`);
             return ''
         }        // Calculate the start position of the array content
-        const arrayStartPos = routesMatch.index + routesMatch[0].indexOf('[') + 1;
+                // Calculate the start position of the array content.
+                // Find the '[' that opens the array literal by locating the '=' then the
+                // first '[' after it. This avoids matching the type annotation 'Route[]'
+                // and also avoids picking nested '[' from inner arrays.
+                const equalsIdx = routesMatch[0].indexOf('=');
+                const bracketIdxInMatch = routesMatch[0].indexOf('[', equalsIdx >= 0 ? equalsIdx : 0);
+                const arrayStartPos = routesMatch.index + (bracketIdxInMatch === -1 ? routesMatch[0].indexOf('[') : bracketIdxInMatch) + 1;
         console.log(`Array starts at position: ${arrayStartPos}`);
         console.log(`Array content: "${routesMatch[1]}"`);
 
-        // Find the first object literal in the routes array (not a spread)
-        // const firstObjectRegex = /\s*{[^}]*path\s*:/s;
-        const firstObjectRegex = /\s*{[\s\S]*?path\s*:/;
-        const objectMatch = firstObjectRegex.exec(routesMatch[1])
-
-
-        if (!objectMatch) {
+        // Insert before the first non-whitespace character inside the array
+        // content so we always add at top-level (right after the opening '[').
+        const firstNonWs = routesMatch[1].search(/\S/);
+        if (firstNonWs === -1) {
             console.error(`Could not find any route objects in the routes array`);
             return '';
         }
 
-        console.log(`Found first object: ${objectMatch[0]}`);
-        console.log(`Object match index: ${objectMatch.index}`);
-
-
-        // Find the position of the first '{'
-        const openBracePosition = objectMatch[0].indexOf('{');
-        if (openBracePosition === -1) {
-            console.error(`Could not find opening brace in object match`);
-            return '';
-        }        // Insert our element before the first object (after all spreads)
-        // The absolute position is array start + relative position of the object
-        const insertPos = arrayStartPos + objectMatch.index;
+        const insertPos = arrayStartPos + firstNonWs;
         console.log(`Insert position: ${insertPos}`);
 
-        // Extract the indentation from the existing object
-        const indentationMatch = /\n(\s*)/.exec(objectMatch[0]);
+        // Extract indentation from the next line that contains the first '{'
+        const indentationMatch = /\n(\s*)\{/.exec(routesMatch[1]);
         const indentation = indentationMatch ? indentationMatch[1] : '  ';
 
         updatedContent =

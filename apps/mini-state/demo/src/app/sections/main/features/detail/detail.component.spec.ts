@@ -252,7 +252,7 @@ describe('MainDemoDetailComponent', () => {
   it('should call _editState.trigger on edit()', () => {
     component['edit'](updatedAlbum);
     expect(mockEditState.trigger).toHaveBeenCalledTimes(1);
-    expect(mockEditState.trigger).toHaveBeenCalledWith(updatedAlbum);
+    expect(mockEditState.trigger).toHaveBeenCalledWith({ ...updatedAlbum, title: `${updatedAlbum.title} (Updated)!!` });
   });
 
   it('should update data on successful edit', fakeAsync(() => {

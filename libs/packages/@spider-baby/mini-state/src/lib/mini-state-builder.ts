@@ -37,11 +37,15 @@ export class MiniStateBuilder {
      */
     static Create<Output>(triggerFn$: () => Observable<Output>, initialOutputValue?: Output) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        const miniState = new MiniState<void, Output>(triggerFn$, destroyer, initialOutputValue)
+        const miniState = new MiniState<void, Output>(triggerFn$, destroyer)
+       
+        if(!!initialOutputValue) 
+            miniState.setInitialOutputValue(initialOutputValue)
+
         return miniState
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Creates a MiniState for operations that require manually provided input.
@@ -67,11 +71,15 @@ export class MiniStateBuilder {
      */
     static CreateWithInput<Input, Output>(triggerFn$: (input: Input) => Observable<Output>, initialOutputValue?: Output) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue)
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer)
+
+        if(!!initialOutputValue) 
+            miniState.setInitialOutputValue(initialOutputValue)
+
         return miniState
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Creates a MiniState that automatically triggers when an Observable emits.
@@ -103,7 +111,11 @@ export class MiniStateBuilder {
         initialOutputValue?: Output
     ) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue);
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer);
+       
+        if(!!initialOutputValue) 
+            miniState.setInitialOutputValue(initialOutputValue)
+
         input$
             .pipe(takeUntilDestroyed(destroyer))
             .subscribe(t => miniState.trigger(t))
@@ -111,7 +123,7 @@ export class MiniStateBuilder {
         return miniState
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Creates a MiniState that automatically triggers when a Signal changes.
@@ -142,7 +154,11 @@ export class MiniStateBuilder {
         initialOutputValue?: Output
     ) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer, initialOutputValue)
+        const miniState = new MiniState<Input, Output>(triggerFn$, destroyer)
+               
+        if(!!initialOutputValue) 
+            miniState.setInitialOutputValue(initialOutputValue)
+
         toObservable(input$)
             .pipe(takeUntilDestroyed(destroyer))
             .subscribe(t => miniState.trigger(t))
