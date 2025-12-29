@@ -15,9 +15,9 @@ const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later
 
 //=========================================================//
 
-interface MiniStateDataAndInput<Input, Output> {
+export interface MiniStateDataAndInput<Input, Data> {
     input: Input;
-    output: Output;
+    output: Data;
 }
 
 //=========================================================//
@@ -352,11 +352,11 @@ export class MiniState<Input, Output, TError = any> {
         this._triggerSub?.unsubscribe?.()
 
         // Complete all subjects
-        this._successMsgBs.complete();
-        this._successDataBs.complete();
-        this._loadingBs.complete();
-        this._errorMsgBs.complete();
-        this._errorBs.complete();
+        this._successMsgBs?.complete();
+        this._successDataBs?.complete();
+        this._loadingBs?.complete();
+        this._errorMsgBs?.complete();
+        this._errorBs?.complete();
         
         // Clear any references that might prevent garbage collection
         this._onErrorFn = undefined;
