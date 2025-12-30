@@ -1,12 +1,11 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { combineLatest, filter, map, Subject } from 'rxjs';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
-import { ConfirmEmailDto, ResendEmailConfirmationDto } from '@spider-baby/myid-io/models';
 import { AccountIoService } from '@spider-baby/myid-io';
+import { ConfirmEmailDto, ResendEmailConfirmationDto } from '@spider-baby/myid-io/models';
+import { combineLatest, filter, map, Subject } from 'rxjs';
 
 @Injectable()
 export class ConfirmEmailStateService {

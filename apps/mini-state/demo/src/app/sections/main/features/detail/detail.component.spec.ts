@@ -65,26 +65,21 @@ function createMockState<Input, Output, TError>(): MockMiniState<Input, Output, 
     return state as MockMiniState<Input, Output, TError>;
 }
 
-// --- Mock MiniStateBuilder ---
-// The factory now just returns the mocked structure
+// --- Mock @spider-baby/mini-state (builder + combiner) ---
+// Return both `MiniStateBuilder` and `MiniStateCombined` in a single mock
 jest.mock('@spider-baby/mini-state', () => {
-    const itemStateInstance = createMockState<ItemStateInput, ItemStateOutput, StateError>();
-    const editStateInstance = createMockState<EditStateInput, EditStateOutput, StateError>();
-    return {
-        MiniStateBuilder: {
-            CreateWithObservableInput: jest.fn().mockImplementation(() => itemStateInstance),
-            CreateWithInput: jest.fn().mockImplementation(() => editStateInstance),
-        }
-    };
-});
-
-// --- Mock MiniStateCombined ---
-// Simplify the Combine mock - just return the combined state mock object
-jest.mock('@spider-baby/mini-state/utils', () => ({
+  const itemStateInstance = createMockState<ItemStateInput, ItemStateOutput, StateError>();
+  const editStateInstance = createMockState<EditStateInput, EditStateOutput, StateError>();
+  return {
+    MiniStateBuilder: {
+      CreateWithObservableInput: jest.fn().mockImplementation(() => itemStateInstance),
+      CreateWithInput: jest.fn().mockImplementation(() => editStateInstance),
+    },
     MiniStateCombined: {
-        Combine: jest.fn().mockImplementation(() => mockCombinedState)
+      Combine: jest.fn().mockImplementation(() => mockCombinedState)
     }
-}));
+  };
+});
 
 describe('MainDemoDetailComponent', () => {
   let component: MainDemoDetailComponent;

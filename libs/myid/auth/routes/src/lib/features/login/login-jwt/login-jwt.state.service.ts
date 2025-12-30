@@ -1,16 +1,15 @@
-import { computed, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { computed, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
+import { MYID_HAS_AMAZON, MYID_HAS_FACEBOOK, MYID_HAS_GOOGLE } from '@spider-baby/myid-auth/config';
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
 import { AmazonSignInDto, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, JwtPackage, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { TwoFactorRequiredData } from './two-factor-required.data';
-import { MYID_HAS_GOOGLE, MYID_HAS_FACEBOOK, MYID_HAS_AMAZON } from '@spider-baby/myid-auth/config';
 
 //######################//
 

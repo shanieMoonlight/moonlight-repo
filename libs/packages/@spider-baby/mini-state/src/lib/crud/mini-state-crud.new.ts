@@ -1,8 +1,8 @@
 import { DestroyRef, inject, Signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { MiniStateCombined } from "../utils/mini-state-combined";
 import { BehaviorSubject, map, merge, Observable, ReplaySubject, scan, Subject } from "rxjs";
 import { MiniState, MiniStateDataAndInput } from "../mini-state";
+import { MiniStateCombined } from "../utils/mini-state-combined";
 
 //=========================================================//
 

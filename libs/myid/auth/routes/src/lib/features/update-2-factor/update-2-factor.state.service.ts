@@ -1,6 +1,5 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { TwoFactorProvider, UpdateTwoFactorProviderDto } from '@spider-baby/myid-io/models';
 

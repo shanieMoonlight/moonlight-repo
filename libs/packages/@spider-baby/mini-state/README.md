@@ -142,7 +142,7 @@ userCrudState.triggerDelete(userToDelete); // Delete user
 ### Combining Multiple States
 
 ```typescript
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateCombined } from '@spider-baby/mini-state';
 
 // Create individual states
 const getAllState = MiniStateBuilder.Create(
@@ -172,7 +172,7 @@ const combinedState = MiniStateCombined.Combine(
 ### Using MiniStateUtility for Complex State Combinations
 
 ```typescript
-import { MiniStateUtility } from '@spider-baby/mini-state/utils';
+import { MiniStateUtility } from '@spider-baby/mini-state';
 
 // Combine loading states from multiple state instances
 const isLoading = MiniStateUtility.combineLoading(state1, state2, state3);
@@ -224,7 +224,6 @@ const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 ## Packages
 
 - `@spider-baby/mini-state`: Core library with MiniState, MiniStateBuilder, and MiniCrudState
-- `@spider-baby/mini-state/utils`: Utilities for combining and aggregating multiple state instances
   
   
 

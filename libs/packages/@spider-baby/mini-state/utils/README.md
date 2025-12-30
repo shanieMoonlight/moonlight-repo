@@ -20,8 +20,7 @@ This package provides powerful utility classes for working with multiple MiniSta
 A high-level utility class that combines multiple MiniState instances to provide a unified view of their states.
 
 ```typescript
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 
 // Create individual states for different operations
 const listState = MiniStateBuilder.Create(
