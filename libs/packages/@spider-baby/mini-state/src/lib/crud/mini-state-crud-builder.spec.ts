@@ -2,7 +2,7 @@
 import { of } from 'rxjs'
 import { inject } from '@angular/core'
 import { MiniCrudStateBuilder } from './mini-state-crud-builder'
-import { MiniCrudStateNew } from './mini-state-crud.new'
+import { MiniCrudState } from './mini-state-crud'
 
 //################################//
 
@@ -44,14 +44,14 @@ describe('MiniCrudStateBuilder', () => {
     jest.clearAllMocks()
   })
 
-  it('creates and builds a MiniCrudStateNew, calling getAll trigger', () => {
+  it('creates and builds a MiniCrudState, calling getAll trigger', () => {
     const getAllTrigger = jest.fn().mockReturnValue(of([]))
 
     const builder = MiniCrudStateBuilder.Create(getAllTrigger)
 
-    const crud = builder.build('my-filter' as any)
+    const crud = builder.buildAndTrigger('my-filter' as any)
 
-    expect(crud).toBeInstanceOf(MiniCrudStateNew)
+    expect(crud).toBeInstanceOf(MiniCrudState)
     expect(inject).toHaveBeenCalledWith(expect.any(Function))
     // the getAll trigger should have been called as part of build()
     expect(getAllTrigger).toHaveBeenCalledWith('my-filter')
@@ -68,7 +68,7 @@ describe('MiniCrudStateBuilder', () => {
       .setUpdateState(updateTrigger)
       .setDeleteState(deleteTrigger)
 
-    const crud = builder.build(null as any)
+    const crud = builder.buildAndTrigger(null as any)
 
     crud.triggerAdd({ name: 'X' } as any)
     expect(addTrigger).toHaveBeenCalledWith({ name: 'X' })

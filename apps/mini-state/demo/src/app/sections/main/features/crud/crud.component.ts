@@ -178,7 +178,7 @@ private _crudState = MiniCrudStateBuilder
       .setDeleteState(
         (album) => this._ioService.delete(album.id!),
         (album) => `Album ${album.title} deleted successfully 🗑️`)
-        .build(undefined)//Trigger immediately with no filter;
+        .buildAndTrigger(undefined)//Trigger immediately with no filter;
 
   protected _data =  this._crudState.data
   protected _successMsg = this._crudState.successMsg

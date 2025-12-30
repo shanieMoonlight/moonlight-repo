@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs'
 import { MiniState } from '../mini-state'
-import { MiniCrudStateNew } from './mini-state-crud.new'
+import { MiniCrudState } from './mini-state-crud'
 import { DestroyRef, inject } from '@angular/core'
 
 /**
- * Builder for MiniCrudStateNew — provides a fluent API for supplying
+ * Builder for MiniCrudState — provides a fluent API for supplying
  * optional add/update/delete states before constructing the final instance.
  */
 export class MiniCrudStateBuilder<
@@ -22,6 +22,7 @@ export class MiniCrudStateBuilder<
     private _deleteState?: MiniState<Item, DeleteResponse>
     private _destroyer!: DestroyRef
 
+    //-------------------//
 
     private constructor(
         getAllTrigger: (input: GetFilter) => Observable<Item[]>,
@@ -44,6 +45,7 @@ export class MiniCrudStateBuilder<
         return new MiniCrudStateBuilder(getAllTrigger, successMsgFn, destroyer)
     }
 
+    //-------------------//
 
     setAddState(
         addTrigger: (input: CreateItemDto) => Observable<Item>,
@@ -53,7 +55,7 @@ export class MiniCrudStateBuilder<
         this._addState.setSuccessMsgFn(successMsgFn)
         return this
     }
-    
+
 
     setUpdateState(
         updateTrigger: (input: UpdateItemDto) => Observable<UpdateResponse>,
@@ -74,15 +76,25 @@ export class MiniCrudStateBuilder<
         return this
     }
 
+    //-------------------//
 
-    build(filter: GetFilter) {
+
+    buildAndTrigger(filter: GetFilter) {
         console.log(`This is the filter: ${filter}`);
+
+        const crudState = this.build()
+        crudState.triggerGetAll(filter)
+
+        return crudState
+    }
+
+
+    build() {
 
         if (!this._getAllState)
             throw new Error('getAll trigger is required')
 
-
-        const crudState = MiniCrudStateNew.Create<
+        const crudState = MiniCrudState.Create<
             GetFilter,
             Item,
             CreateItemDto,
@@ -97,8 +109,7 @@ export class MiniCrudStateBuilder<
             this._deleteState
         )
 
-        crudState.triggerGetAll(filter)
-
         return crudState
     }
-}
+
+}//Cls

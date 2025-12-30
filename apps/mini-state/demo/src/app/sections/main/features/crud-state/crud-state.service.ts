@@ -23,7 +23,7 @@ export class CrudStateService {
       (album) => `Album ${album.title} deleted successfully 🗑️
       You will have to imagine that it was removed from the list.
       This is a simple demo, not a real CRUD app. ¯\\_(ツ)_/¯`)
-    .build()
+    .buildAndTrigger()
 
   data = computed(() => this._crudState.data() ?? [])
   successMsg = this._crudState.successMsg

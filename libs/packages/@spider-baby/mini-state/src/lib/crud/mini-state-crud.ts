@@ -60,7 +60,7 @@ type CrudActions<
 //=========================================================//
 
 /**
- * MiniCrudStateNew — a compact helper for CRUD collections.
+ * MiniCrudState — a compact helper for CRUD collections.
  *
  * This class composes several `MiniState` instances (getAll, add, update, delete)
  * and keeps a client-side array in sync as actions complete. It wires combined
@@ -76,7 +76,7 @@ type CrudActions<
  * `setupDataPipeline`) to keep the constructor focused and testable.
  */
 
-export class MiniCrudStateNew<
+export class MiniCrudState<
     GetFilter,
     Item extends Identifier,
     CreateItemDto extends Omit<Item, 'id'> = Omit<Item, 'id'>,
@@ -197,7 +197,7 @@ export class MiniCrudStateNew<
         updateState?: MiniState<UpdateItemDto, UpdateResponse>,
         deleteState?: MiniState<Item, DeleteResponse>
     ) => {
-        return new MiniCrudStateNew(
+        return new MiniCrudState(
             inject(DestroyRef),
             getAllState,
             addState,
