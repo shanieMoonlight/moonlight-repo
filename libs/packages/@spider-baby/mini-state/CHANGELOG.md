@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased] - 2025-12-30
+
+### Changed
+- Updated README example: `MiniCrudStateBuilder` now demonstrates `.buildAndTrigger()` instead of `.build()` (builder no longer auto-triggers on `build()`).
+- Minor documentation tidy.
+
+### Removed
+- Removed the `utils` secondary entrypoint; `MiniStateCombined`, `MiniStateUtility`, and other helpers are now exported from the main package root.
+
 ## [2.0.0] - 2025-08-01
 
 ### Changed

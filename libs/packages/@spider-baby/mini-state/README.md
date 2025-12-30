@@ -168,6 +168,8 @@ crudState = MiniCrudStateBuilder
 
 `MiniStateCombined` and `MiniStateUtility` are included in the main package and provide convenient helpers to aggregate loading, error and data signals/observables across multiple `MiniState` instances.
 
+Note: the previous `utils` secondary entrypoint has been removed — import `MiniStateCombined`, `MiniStateUtility`, and other helpers directly from the package root (for example: `import { MiniStateUtility } from '@spider-baby/mini-state'`).
+
 ```typescript
 import { MiniStateCombined } from '@spider-baby/mini-state';
 
@@ -237,6 +239,8 @@ const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 ## Packages
 
 - `@spider-baby/mini-state`: Core library with `MiniState`, `MiniStateBuilder`, `MiniCrudState`, `MiniCrudStateBuilder`, `MiniStateCombined`, and `MiniStateUtility` (all exported from the package root)
+
+Note: utilities that were previously available via a `utils` secondary entrypoint are now merged into and exported from the main package root. Update imports accordingly.
   
   
 
