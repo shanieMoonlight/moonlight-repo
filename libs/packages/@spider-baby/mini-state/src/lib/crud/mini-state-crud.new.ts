@@ -1,10 +1,11 @@
 import { DestroyRef, inject, Signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { MiniStateCombined } from "@spider-baby/mini-state/utils";
-import { BehaviorSubject, filter, map, merge, Observable, of, ReplaySubject, scan, shareReplay, Subject } from "rxjs";
-import { MiniState, MiniStateDataAndInput } from "./mini-state";
+import { MiniStateCombined } from "../utils/mini-state-combined";
+import { BehaviorSubject, map, merge, Observable, ReplaySubject, scan, Subject } from "rxjs";
+import { MiniState, MiniStateDataAndInput } from "../mini-state";
 
 //=========================================================//
+
 type Identifier = {
     id: string | number;
 };
@@ -218,7 +219,7 @@ export class MiniCrudStateNew<
      * and forwards values into this instance's subjects/signals. Uses
      * `takeUntilDestroyed` with the provided `destroyer`.
      */
-    private setupCombinedSubscriptions(destroyer: DestroyRef, combinedStates: any) {
+    private setupCombinedSubscriptions(destroyer: DestroyRef, combinedStates: MiniStateCombined) {
         this._getAllState.input$
             .pipe(takeUntilDestroyed(destroyer))
             .subscribe(input => this._inputBs.next(input))
@@ -261,14 +262,11 @@ export class MiniCrudStateNew<
         merge(...sources).pipe(
             takeUntilDestroyed(destroyer),
             scan((state: Item[], action: CrudActions<Item, GetFilter, CreateItemDto, UpdateItemDto, UpdateResponse, DeleteResponse>) => {
-                if (!action) return state;
-                console.log('Hello',action);
                 
+                if (!action) return state;               
 
                 switch (action.type) {
-                    case 'getAll':
-                        console.log('getAll - action.payload.output', action.payload.output);
-                        
+                    case 'getAll':                        
                         return [...action.payload.output]
                     case 'add':
                         return [action.payload.output, ...state]
@@ -278,7 +276,7 @@ export class MiniCrudStateNew<
                             return { ...a, ...action.payload.input, ...(action.payload.output ?? {}) }
                         })
                     case 'delete':
-                        return state.filter(a => this.equals(a, action.payload.input));
+                        return state.filter(a => !this.equals(a, action.payload.input));
                     default:
                         return state;
                 }

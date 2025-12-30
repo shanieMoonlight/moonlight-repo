@@ -126,6 +126,38 @@ describe('MiniState', () => {
       expect(nextSpy).toHaveBeenCalledWith(true);
     });
 
+    it('should emit dataAndInput on success', (done) => {
+      const input = 'input-x';
+      mockTriggerFn.mockReturnValue(createSuccessObservable(mockData));
+
+      const state = new MiniState(mockTriggerFn, mockDestroyRef);
+      const dataAndInputBs = (state as any)._dataAndInput$;
+      const nextSpy = jest.spyOn(dataAndInputBs, 'next');
+
+      state.trigger(input as any);
+
+      setTimeout(() => {
+        expect(nextSpy).toHaveBeenCalledWith({ input, output: mockData });
+        done();
+      }, 20);
+    });
+
+    it('should mark wasTriggered true after completion', (done) => {
+      const input = 'input-y';
+      mockTriggerFn.mockReturnValue(createSuccessObservable(mockData));
+
+      const state = new MiniState(mockTriggerFn, mockDestroyRef);
+      const wasTriggeredBs = (state as any)._wasTriggeredBs;
+      const nextSpy = jest.spyOn(wasTriggeredBs, 'next');
+
+      state.trigger(input as any);
+
+      setTimeout(() => {
+        expect(nextSpy).toHaveBeenCalledWith(true);
+        done();
+      }, 20);
+    });
+
     it('should update data and set loading to false on success', (done) => {
       mockTriggerFn.mockReturnValue(createSuccessObservable(mockData));
 

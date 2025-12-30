@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniCrudState, MiniCrudStateBuilder } from '@spider-baby/mini-state';
+import { MiniCrudStateBuilder } from '@spider-baby/mini-state';
 import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
@@ -179,20 +179,6 @@ private _crudState = MiniCrudStateBuilder
         (album) => this._ioService.delete(album.id!),
         (album) => `Album ${album.title} deleted successfully 🗑️`)
         .build(undefined)//Trigger immediately with no filter;
-
-
-  // private _crudState = MiniCrudState
-  //   .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
-  //   .setAddState(
-  //     (album: Album) => this._ioService.create(album),
-  //     (album) => `Album  ${album.title} added!`)
-  //   .setUpdateState(
-  //     (album: Album) => this._ioService.update(album),
-  //     (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
-  //   .setDeleteState(
-  //     (album: Album) => this._ioService.delete(album.id!),
-  //     (album) => `Album ${album.title} deleted successfully 🗑️`)
-  //   .trigger(undefined)//Trigger immediately with no filter
 
   protected _data =  this._crudState.data
   protected _successMsg = this._crudState.successMsg

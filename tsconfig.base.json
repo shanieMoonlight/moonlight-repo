@@ -227,9 +227,7 @@
       "@spider-baby/mini-state": [
         "libs/packages/@spider-baby/mini-state/src/index.ts"
       ],
-      "@spider-baby/mini-state/utils": [
-        "libs/packages/@spider-baby/mini-state/utils/src/index.ts"
-      ],
+      
       "@spider-baby/myid-auth": ["libs/myid/auth/src/index.ts"],
       "@spider-baby/myid-auth/config": ["libs/myid/auth/config/src/index.ts"],
       "@spider-baby/myid-auth/guards": ["libs/myid/auth/guards/src/index.ts"],

@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, WritableSignal, computed, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ActivatedRoute, ParamMap, Router, convertToParamMap } from '@angular/router';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { Album } from '../../data/album';
