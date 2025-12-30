@@ -19,7 +19,7 @@ type GetAllAction<
 
 type AddAction<
     Item extends Identifier,
-    CreateItemDto = Omit<Item, 'id'>
+    CreateItemDto extends Omit<Item, 'id'> = Omit<Item, 'id'>
 > = {
     type: 'add';
     payload: MiniStateDataAndInput<CreateItemDto, Item>
@@ -46,7 +46,7 @@ type DeleteAction<
 type CrudActions<
     Item extends Identifier,
     GetFilter,
-    CreateItemDto = Omit<Item, 'id'>,
+    CreateItemDto extends Omit<Item, 'id'> = Omit<Item, 'id'>,
     UpdateItemDto extends Partial<Item> & Identifier = Partial<Item> & Identifier,
     UpdateResponse extends Partial<Item> = Partial<Item>,
     DeleteResponse = any> =
@@ -78,7 +78,7 @@ type CrudActions<
 export class MiniCrudStateNew<
     GetFilter,
     Item extends Identifier,
-    CreateItemDto = Omit<Item, 'id'>,
+    CreateItemDto extends Omit<Item, 'id'> = Omit<Item, 'id'>,
     UpdateItemDto extends Partial<Item> & Identifier = Partial<Item> & Identifier,
     UpdateResponse extends Partial<Item> = Partial<Item>,
     DeleteResponse = any,
@@ -185,7 +185,7 @@ export class MiniCrudStateNew<
     static Create = <
         GetFilter,
         Item extends Identifier,
-        CreateItemDto = Omit<Item, 'id'>,
+        CreateItemDto extends Omit<Item, 'id'> = Omit<Item, 'id'>,
         UpdateItemDto extends Partial<Item> & Identifier = Partial<Item> & Identifier,
         UpdateResponse extends Partial<Item> = Partial<Item>,
         DeleteResponse = any,
@@ -262,9 +262,13 @@ export class MiniCrudStateNew<
             takeUntilDestroyed(destroyer),
             scan((state: Item[], action: CrudActions<Item, GetFilter, CreateItemDto, UpdateItemDto, UpdateResponse, DeleteResponse>) => {
                 if (!action) return state;
+                console.log('Hello',action);
+                
 
                 switch (action.type) {
                     case 'getAll':
+                        console.log('getAll - action.payload.output', action.payload.output);
+                        
                         return [...action.payload.output]
                     case 'add':
                         return [action.payload.output, ...state]
@@ -308,13 +312,26 @@ export class MiniCrudStateNew<
     //-------------------------//
 
     /**
+     * Triggers the getAll operation with the provided filter.
+     * 
+     * @param filter The filter to use for fetching the collection
+     */
+    triggerGetAll(filter: GetFilter) {
+        this._getAllState.trigger(filter);
+        return this;
+    }
+
+    //-------------------------//
+
+    /**
      * Triggers the add operation with the provided item.
      * 
      * @param input The item to add
-     * @returns The internal MiniState for the add operation
      */
-    triggerAdd = (input: CreateItemDto) =>
+    triggerAdd(input: CreateItemDto) {
         this._addState?.trigger(input)
+        return this;
+    }
 
     //-------------------------//
 
@@ -322,10 +339,11 @@ export class MiniCrudStateNew<
      * Triggers the update operation with the provided item.
      * 
      * @param input The item to update
-     * @returns The internal MiniState for the update operation
      */
-    triggerUpdate = (input: UpdateItemDto) =>
+    triggerUpdate(input: UpdateItemDto) {
         this._updateState?.trigger(input)
+        return this;
+    }
 
     //-------------------------//
 
@@ -335,8 +353,10 @@ export class MiniCrudStateNew<
      * @param input The item to delete
      * @returns The internal MiniState for the delete operation
      */
-    triggerDelete = (input: Item) =>
+    triggerDelete(input: Item) {
         this._deleteState?.trigger(input)
+        return this;
+    }
 
     //-------------------------//
 

@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniCrudState } from '@spider-baby/mini-state';
+import { MiniCrudState, MiniCrudStateBuilder } from '@spider-baby/mini-state';
 import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
@@ -167,20 +167,34 @@ export class MainDemoCrudComponent {
 
   //- - - - - - - - - - - - - //
 
-  private _crudState = MiniCrudState
+private _crudState = MiniCrudStateBuilder
     .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
     .setAddState(
-      (album: Album) => this._ioService.create(album),
-      (album) => `Album  ${album.title} added!`)
-    .setUpdateState(
-      (album: Album) => this._ioService.update(album),
-      (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
-    .setDeleteState(
-      (album: Album) => this._ioService.delete(album.id!),
-      (album) => `Album ${album.title} deleted successfully 🗑️`)
-    .trigger(undefined)//Trigger immediately with no filter
+        (album) => this._ioService.create(album),
+        (album) => `Album  ${album.title} added!`)
+      .setUpdateState(
+        (album) => this._ioService.update(album),
+        (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
+      .setDeleteState(
+        (album) => this._ioService.delete(album.id!),
+        (album) => `Album ${album.title} deleted successfully 🗑️`)
+        .build(undefined)//Trigger immediately with no filter;
 
-  protected _data = computed(() => this._crudState.data() ?? [])
+
+  // private _crudState = MiniCrudState
+  //   .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
+  //   .setAddState(
+  //     (album: Album) => this._ioService.create(album),
+  //     (album) => `Album  ${album.title} added!`)
+  //   .setUpdateState(
+  //     (album: Album) => this._ioService.update(album),
+  //     (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
+  //   .setDeleteState(
+  //     (album: Album) => this._ioService.delete(album.id!),
+  //     (album) => `Album ${album.title} deleted successfully 🗑️`)
+  //   .trigger(undefined)//Trigger immediately with no filter
+
+  protected _data =  this._crudState.data
   protected _successMsg = this._crudState.successMsg
   protected _errorMsg = this._crudState.errorMsg
   protected _loading = this._crudState.loading
@@ -188,7 +202,7 @@ export class MainDemoCrudComponent {
   //--------------------------//
 
   protected refresh = () =>
-    this._crudState.trigger('')
+    this._crudState.triggerGetAll(undefined)
 
 
   protected onDeleteItem = (album: Album) =>
@@ -203,7 +217,7 @@ export class MainDemoCrudComponent {
 
 
   filterData = (searchTerm?: string) =>
-    this._crudState.trigger(searchTerm)
+    this._crudState.triggerGetAll(searchTerm)
 
 
   protected openAddAlbumDialog = () =>

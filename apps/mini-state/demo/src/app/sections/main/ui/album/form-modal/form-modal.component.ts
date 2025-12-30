@@ -28,8 +28,8 @@ export class NewAlbumDialogData {
 })
 export class AlbumFormModalComponent {
 
-  private _dialogData: NewAlbumDialogData = inject(MAT_DIALOG_DATA, { optional: true });
-  private _dialogRef = inject(MatDialogRef<AlbumFormModalComponent>, { optional: true });
+  private _dialogData: NewAlbumDialogData = inject(MAT_DIALOG_DATA);
+  private _dialogRef = inject(MatDialogRef<AlbumFormModalComponent>);
   
   //- - - - - - - - - - - - - //
 
@@ -37,9 +37,14 @@ export class AlbumFormModalComponent {
 
   //--------------------------//
 
-  closeDialog = (album?: Album) =>
+  closeDialog = () =>
+    this._dialogRef?.close()
+
+  addAlbum = (album?: Omit<Album, 'id'>) =>
+    this._dialogRef?.close(album)
+  
+  editAlbum = (album?: Album) =>
     this._dialogRef?.close(album)
 
-  //--------------------------//
 
 }//Cls
