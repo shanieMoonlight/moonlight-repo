@@ -23,26 +23,26 @@
         [matTooltip]="'Refresh data with no filtering'"
         [disabled]="_loading() || !_searchControl.value" 
         (click)="clearSearch()">
-      Clear
-    </button>
-</div>
-  
+        Clear
+      </button>
+    </div>  
   </div>
-    <sb-data-table 
-      [data]="_data()" 
-      [displayColumns]="displayColumns()"
-      [isLoading]="_loading()" 
-      [includeActions]="true"
-      [title]="'Album Collection'"
-      [emptyMessage]="'No albums found. Try refreshing the data.'"
-      [loadingMessage]="'Loading albums...'"
-      [itemName]="'album'"
-      [iconName]="'album'"
-      [canAddItem]="true"
-      (refresh)="refresh()"
-      (addItem)="openAddAlbumDialog()"
-      (editItem)="openEditAlbumDialog($event)"
-      (deleteItem)="onDeleteItem($event)"/>
+
+  <sb-data-table 
+    [data]="_data()" 
+    [displayColumns]="displayColumns()"
+    [isLoading]="_loading()" 
+    [includeActions]="true"
+    [title]="'Album Collection'"
+    [emptyMessage]="'No albums found. Try refreshing the data.'"
+    [loadingMessage]="'Loading albums...'"
+    [itemName]="'album'"
+    [iconName]="'album'"
+    [canAddItem]="true"
+    (refresh)="refresh()"
+    (addItem)="openAddAlbumDialog()"
+    (editItem)="openEditAlbumDialog($event)"
+    (deleteItem)="onDeleteItem($event)"/>
 </div>
 
 <sb-notifications-modal-mat
