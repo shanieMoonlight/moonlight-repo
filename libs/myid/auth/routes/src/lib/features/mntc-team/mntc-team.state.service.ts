@@ -1,10 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
+import { MyIdAuthService } from '@spider-baby/myid-auth/services';
+import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 import { UserManagementIoService } from '@spider-baby/myid-io';
 import { AddMntcMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
-import { MyIdAuthService} from '@spider-baby/myid-auth/services';
-import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 
 @Injectable()
 export class MntcTeamStateService {

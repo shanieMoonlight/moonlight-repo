@@ -90,11 +90,7 @@ export const ImportExample = `// Import the main classes
 import { 
   MiniState, 
   MiniStateBuilder, 
-  MiniCrudState 
-} from '@spider-baby/mini-state';
-
-// Import utilities for combining states
-import { 
+  MiniCrudState,
   MiniStateCombined, 
-  MiniStateUtility 
-} from '@spider-baby/mini-state/utils';`;
+  MiniStateUtility  
+} from '@spider-baby/mini-state';`;

@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
 import { AccountIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { AppUserCustomerDto } from '@spider-baby/myid-io/models';

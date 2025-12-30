@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniState } from '@spider-baby/mini-state';
+import { MiniState, MiniStateBuilder } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
@@ -96,16 +96,15 @@ export class MainDemoSearchComponent {
   searchTerm = '';
 
   // Create a MiniState for album search
-  private albumState = new MiniState<string, Album[]>(
-    // Load albums based on search term
-    (term: string) => this._albumService.getAllFiltered(term),
-    this.destroyRef,
-    // Initial empty array
-    [],
-  ).setOnSuccessFn((term: string, albums: Album[]) =>  // Success message function
-    albums.length > 0
-      ? `Found ${albums.length} albums matching "${term}"`
-      : undefined)
+  private albumState = MiniStateBuilder
+    .CreateWithInput(
+      (term: string) => this._albumService.getAllFiltered(term),// Load albums based on search term
+      [],// Initial empty array
+    ).setSuccessMsgFn((term: string, albums: Album[]) =>  // Success message function
+      albums.length > 0
+        ? `Found ${albums.length} albums matching "${term}"`
+        : ''
+    )
 
 
   // Track if a search has been performed
@@ -126,7 +125,7 @@ export class MainDemoSearchComponent {
 
   constructor() {
     // Listen for errors and handle them
-    this.albumState.errorMsg$
+    this.albumState.error$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(error => {
         if (error) {

@@ -115,75 +115,89 @@ private userState = MiniStateBuilder.CreateWithObservableInput(
 
 ### CRUD Operations with MiniCrudState
 
+The library exposes a compact CRUD helper (currently exported as `MiniCrudState`) and a small builder utility. You can create a CRUD state either directly from existing `MiniState` instances or via the builder helpers.
+
+Direct usage (create from existing `MiniState` instances):
+
 ```typescript
-private userCrudState = MiniCrudState.Create(
-  (filter: UserFilter) => this.userService.getAll(filter)
-)
-.setAddState(
-  (user: User) => this.userService.create(user),
-  (user, result) => `User ${user.name} created successfully!`
-)
-.setUpdateState(
-  (user: User) => this.userService.update(user),
-  (user, result) => `User ${user.name} updated successfully!`
-)
-.setDeleteState(
-  (user: User) => this.userService.delete(user.id),
-  (user, result) => `User ${user.name} deleted successfully!`
-);
+// create per-operation MiniState instances (examples)
+const getAllState = MiniStateBuilder.Create(() => this.userService.getAll());
+const addState = MiniStateBuilder.CreateWithInput((u: User) => this.userService.create(u));
+const updateState = MiniStateBuilder.CreateWithInput((u: User) => this.userService.update(u));
+const deleteState = MiniStateBuilder.CreateWithInput((u: User) => this.userService.delete(u.id));
+
+const userCrud = MiniCrudState.Create(getAllState, addState, updateState, deleteState);
 
 // Use the state
-userCrudState.trigger(new UserFilter()); // Get all users
-userCrudState.triggerAdd(newUser);        // Create user
-userCrudState.triggerUpdate(updatedUser); // Update user
-userCrudState.triggerDelete(userToDelete); // Delete user
+userCrud.triggerGetAll(new UserFilter());
+userCrud.triggerAdd(newUser);
+userCrud.triggerUpdate(updatedUser);
+userCrud.triggerDelete(userToDelete);
+```
+
+Or use the fluent `MiniCrudStateBuilder` to assemble and build in one flow:
+
+```typescript
+userCrud = MiniCrudStateBuilder
+  .Create(() => this.userService.getAll())
+  .setAddState((u: User) => this.userService.create(u))
+  .setUpdateState((u: User) => this.userService.update(u))
+  .setDeleteState((u: User) => this.userService.delete(u.id))
+  .buildAndTrigger();//Trigger immediately;
+
+userCrud.triggerAdd(newUser);
+```
+
+With filtering
+```typescript
+crudState = MiniCrudStateBuilder
+    .Create<string | undefined, Product>((searchTerm) => this._productService.getAllFiltered(searchTerm))
+    .setAddState(
+        (product) => this._productService.create(product),
+        (product) => `Product  ${product.title} added!`)
+      .setUpdateState(
+        (product) => this._productService.update(product),
+        (product) => `⭐⭐⭐\r\n Product ${product.title} updated successfully! \r\n⭐⭐⭐`)
+      .setDeleteState(
+        (product) => this._productService.delete(product.id!),
+        (product) => `Product ${product.title} deleted successfully 🗑️`)
+        .buildAndTrigger(undefined)//Trigger immediately with no search filter;
 ```
 
 ### Combining Multiple States
 
+`MiniStateCombined` and `MiniStateUtility` are included in the main package and provide convenient helpers to aggregate loading, error and data signals/observables across multiple `MiniState` instances.
+
+Note: the previous `utils` secondary entrypoint has been removed — import `MiniStateCombined`, `MiniStateUtility`, and other helpers directly from the package root (for example: `import { MiniStateUtility } from '@spider-baby/mini-state'`).
+
 ```typescript
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateCombined } from '@spider-baby/mini-state';
 
-// Create individual states
-const getAllState = MiniStateBuilder.Create(
-  () => this.userService.getAll(),
-  []
-);
-const updateState = MiniStateBuilder.CreateWithInput(
-  (user: User) => this.userService.update(user)
-);
+const getAllState = MiniStateBuilder.Create(() => this.userService.getAll());
+const updateState = MiniStateBuilder.CreateWithInput((user: User) => this.userService.update(user));
 
-// Combine for unified loading/error handling
-const combinedState = MiniStateCombined.Combine(
-  getAllState,
-  updateState
-);
+const combined = MiniStateCombined.Combine(getAllState, updateState);
 
-// In template
-@if (combinedState.loading()) {
+@if (combined.loading()) {
   <loading-indicator/>
 }
 
-@if (combinedState.errorMsg()) {
-  <error-message>{{ combinedState.errorMsg() }}</error-message>
+@if (combined.errorMsg()) {
+  <error-message>{{ combined.errorMsg() }}</error-message>
 }
 ```
 
 ### Using MiniStateUtility for Complex State Combinations
 
+`MiniStateUtility` provides programmatic helpers when you need to combine observables or signals from many `MiniState` instances.
+
 ```typescript
-import { MiniStateUtility } from '@spider-baby/mini-state/utils';
+import { MiniStateUtility } from '@spider-baby/mini-state';
 
-// Combine loading states from multiple state instances
 const isLoading = MiniStateUtility.combineLoading(state1, state2, state3);
-
-// Combine error messages
 const combinedErrorMsgs = MiniStateUtility.combineErrorMsgs(state1, state2, state3);
-
-// Combine data
 const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 
-// Use in template
 @if (isLoading()) {
   <loading-spinner/>
 }
@@ -198,10 +212,11 @@ const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 ### Core Classes
 
 - **MiniState**: Base class that manages state for an async operation
-- **MiniStateBuilder**: Factory for creating MiniState instances with different configurations
-- **MiniCrudState**: Extended MiniState for CRUD operations
-- **MiniStateCombined**: Combines multiple MiniState instances for unified state management
-- **MiniStateUtility**: Utility class with static methods for combining state properties
+- **MiniStateBuilder**: Factory for creating `MiniState` instances (`Create`, `CreateWithInput`, `CreateWithObservableInput`, `CreateWithSignalInput`)
+- **MiniCrudState**: Compact helper for CRUD collections (exposed as `MiniCrudState` with a static `Create` factory)
+- **MiniCrudStateBuilder**: Fluent builder for assembling CRUD state instances
+- **MiniStateCombined**: Combine multiple `MiniState` instances into unified signals/observables
+- **MiniStateUtility**: Utility functions for combining loading, errors, messages, and data
 
 ### MiniState Methods
 
@@ -223,8 +238,9 @@ const combinedData = MiniStateUtility.combineData(state1, state2, state3);
 
 ## Packages
 
-- `@spider-baby/mini-state`: Core library with MiniState, MiniStateBuilder, and MiniCrudState
-- `@spider-baby/mini-state/utils`: Utilities for combining and aggregating multiple state instances
+- `@spider-baby/mini-state`: Core library with `MiniState`, `MiniStateBuilder`, `MiniCrudState`, `MiniCrudStateBuilder`, `MiniStateCombined`, and `MiniStateUtility` (all exported from the package root)
+
+Note: utilities that were previously available via a `utils` secondary entrypoint are now merged into and exported from the main package root. Update imports accordingly.
   
   
 

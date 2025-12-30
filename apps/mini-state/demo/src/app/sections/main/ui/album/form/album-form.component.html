@@ -4,6 +4,7 @@
       <mat-label>ID</mat-label>
       <input matInput formControlName="id" readonly> 
    </mat-form-field>
+   <!-- readonly -->
 
    <mat-form-field appearance="outline">
       <mat-label>User ID</mat-label>
@@ -24,14 +25,14 @@
       @if(_isAddForm()){
          <button mat-raised-button color="primary" 
             type="button"
-            (click)="add(_form.getRawValue())" 
+            (click)="add(_form)" 
             [disabled]="_form.invalid">
             Add
          </button>
       }@else {
          <button mat-raised-button color="primary" 
             type="button"
-            (click)="edit(_form.getRawValue())" 
+            (click)="edit(_form)" 
             [disabled]="_form.invalid">
             Save
          </button>

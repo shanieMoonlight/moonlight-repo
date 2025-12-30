@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 // Core concept
 const CONCEPT_EXAMPLE = `// MiniStateCombined aggregates multiple MiniState instances
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateCombined } from '@spider-baby/mini-state';
 
 // Basic usage - combine multiple states into one
 const combinedState = MiniStateCombined.Combine(
@@ -103,8 +103,7 @@ if (error()) {
 
 // Complete usage example in a component
 const COMPLETE_EXAMPLE = `import { Component, DestroyRef, computed, inject } from '@angular/core';
-import { MiniState, MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniState, MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { UserService } from './user.service';
 import { User } from './user.model';
 

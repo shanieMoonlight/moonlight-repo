@@ -17,7 +17,6 @@ import { Album, IAlbumForm } from '../../../data/album';
 export class AlbumFormComponent {
 
   private _fb = inject(FormBuilder)
-  private _destroyer = inject(DestroyRef)
 
   //- - - - - - - - - - - - - //
 
@@ -27,15 +26,20 @@ export class AlbumFormComponent {
     console.log('AlbumFormComponent: album', album);
 
     this._album.set(album)
-    if (album)
-      this.setFormValues(album)
+    if (!album)
+      return
+
+    this.setFormValues(album)
+
+    this._form.controls.id.setValidators([Validators.required])
+    this._form.controls.id.updateValueAndValidity()
   }
 
 
   //- - - - - - - - - - - - - //
 
   _editEvent = output<Album>({ alias: 'edit' })
-  _addEvent = output<Album>({ alias: 'add' })
+  _addEvent = output<Omit<Album, 'id'>>({ alias: 'add' })
 
   //- - - - - - - - - - - - - //
 
@@ -54,19 +58,21 @@ export class AlbumFormComponent {
   //--------------------------//
 
   setFormValues(album: Album) {
-    if (!album) return;
+    if (!album)
+      return;
     this._form.patchValue(album)
   }
 
   //--------------------------//
 
-  protected edit = (album: Album) =>
+  protected edit(form: IAlbumForm) {
+    const album: Album = form.getRawValue() as Album //Id is required in edit mode so we'll definitely have it
     this._editEvent.emit(album)
+  }
 
+  protected add(form: IAlbumForm) {
+    this._addEvent.emit(form.getRawValue())
+  }
 
-  protected add = (album: Album) =>
-    this._addEvent.emit(album)
-
-  //--------------------------//
 
 }//Cls

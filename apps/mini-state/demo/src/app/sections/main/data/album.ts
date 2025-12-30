@@ -1,19 +1,25 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export interface Album {
-    id?: string | number|null,
+    id: string | number,
     userId: string | number,
     title: string
-    description?: string|null
+    description?: string | null
 }
+
+// export interface CreateAlbumDto {
+//     userId: string | number,
+//     title: string
+//     description?: string | null
+// }
 
 //#########################################//
 
 export interface IAlbumForm extends FormGroup<{
-    id: FormControl<string | number|null>;
+    id: FormControl<string | number | null>;
     userId: FormControl<string | number>
     title: FormControl<string>
-    description: FormControl<string|null>
+    description: FormControl<string | null>
 }> { }
 
 //#########################################//
@@ -25,9 +31,9 @@ export class AlbumUtils {
      * Generates a random Album with unique ID
      * @returns A randomly generated Album object
      */
-    static generateRandomAlbum(id?: string | number, searchTerm?: string): Album {
+    static generateRandomAlbum(id?: string | number | null, searchTerm?: string): Album {
         const userId = Math.floor(Math.random() * 10) + 1; // Random userId between 1-10
-        
+
         // Generate a random ID between 1-10000 if not provided
         id ??= Math.floor(Math.random() * 10000) + 1;
 

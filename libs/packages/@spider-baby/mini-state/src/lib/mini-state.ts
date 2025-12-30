@@ -6,9 +6,19 @@ import { executeAfterEmissionAndOnTermination } from "./utils/rxjs-utils"
 
 //=========================================================//
 
-const SPACE_1 = ' \u200B'
-const SPACE_2 = '\u200C '
+const MSG_SUFFIX_0 = ''
+const MSG_SUFFIX_1 = ' \u200B'
+const MSG_SUFFIX_2 = '\u200C '
+const MSG_SUFFIX_3 = '\u2060 '
+const MSG_SUFFIXES = [MSG_SUFFIX_0, MSG_SUFFIX_1, MSG_SUFFIX_2, MSG_SUFFIX_3] as const;
 const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later.'
+
+//=========================================================//
+
+export interface MiniStateDataAndInput<Input, Data> {
+    input: Input;
+    output: Data;
+}
 
 //=========================================================//
 
@@ -29,52 +39,68 @@ const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later
  */
 export class MiniState<Input, Output, TError = any> {
 
-    protected _successMsgBs = new Subject<string | undefined>()
-    protected _successDataBs = new Subject<Output>()
-    protected _loadingBs = new BehaviorSubject<boolean>(false)
-    protected _errorMsgBs = new Subject<string | undefined>()
-    protected _errorBs = new Subject<TError>()
-
+    protected _successDataBs = new ReplaySubject<Output>(1)
     /** Observable that emits the data returned by the async operation */
-    data$: Observable<Output>
+    data$: Observable<Output> = this._successDataBs.asObservable()
     /** Signal that provides the data returned by the async operation */
-    data: Signal<Output | undefined>
+    data: Signal<Output | undefined> = toSignal(this.data$)
 
-    private _prevInputBs = new BehaviorSubject<Input | undefined>(undefined)
-    prevInput = toSignal(this._prevInputBs)
+
+    private _inputBs = new ReplaySubject<Input>(1)
+    /** Observable that emits the last input that was used in a trigger */
+    input$ = this._inputBs.asObservable()
+    /** Signal that provides the last input that was used in a trigger */
+    input = toSignal(this._inputBs)
+
+    
+    private _dataAndInput$ = new ReplaySubject<MiniStateDataAndInput<Input, Output>>(1)
+    /** Observable that emits both the last input and its corresponding output */
+    dataAndInput$ = this._dataAndInput$.asObservable()
+    /** Signal that provides both the last input and its corresponding output */
+    dataAndInput = toSignal(this.dataAndInput$)
+
 
     private _wasTriggeredBs = new BehaviorSubject<boolean>(false);
     /**
      * Observable that emits true after the first trigger
-     * Starts with false, then switches to true after the first emission from _prevInputBs
+     * Starts with false, then switches to true after the first trigger
      */
     wasTriggered$ = this._wasTriggeredBs.asObservable();
     /** Signal that indicates whether a trigger has successfully completed at least once */
     wasTriggered = toSignal(this.wasTriggered$, { initialValue: false })
     /** Signal that provides the last input that was used in a successful trigger */
 
+    
+    protected _successMsgBs = new Subject<string | undefined>()
     /** Observable that emits success messages after successful operations */
     successMsg$ = this._successMsgBs.asObservable()
     /** Signal that provides the latest success message */
     successMsg = toSignal(this.successMsg$)
 
+
+    protected _errorMsgBs = new Subject<string | undefined>()
     /** Observable that emits error messages when operations fail */
     errorMsg$ = this._errorMsgBs.asObservable()
     /** Signal that provides the latest error message */
     errorMsg = toSignal(this.errorMsg$)
 
+
+    protected _errorBs = new Subject<TError>()
     /** Observable that emits error objects when operations fail */
     error$ = this._errorBs.asObservable()
     /** Signal that provides the latest error object */
     error = toSignal(this.error$)
 
+
+    protected _loadingBs = new BehaviorSubject<boolean>(false)
     /** Observable that emits loading state changes (true when loading, false when complete) */
     loading$ = this._loadingBs.asObservable()
     /** Signal that provides the current loading state */
     loading = toSignal(this.loading$, { initialValue: false })
 
 
-    protected _errorFn?: (input: Input, error: TError) => void
+    /** Function to call when an operation fails */
+    protected _onErrorFn?: (input: Input, error: TError) => void
     /**
      * Function that converts error objects to user-friendly error messages
      * Default implementation extracts message or msg property from error object
@@ -84,6 +110,7 @@ export class MiniState<Input, Output, TError = any> {
         return err?.message ?? err?.msg ?? '';
     }
 
+
     /** Function to call after a successful operation completes */
     protected _onSuccessFn?: (input: Input, output: Output) => void
     /** Function that generates success messages from input and output data */
@@ -92,19 +119,21 @@ export class MiniState<Input, Output, TError = any> {
      * Function that processes the raw output data before storing it
      * Can be used to transform, combine with previous data, or filter the results
      */
-    protected _successDataProcessor?: (input: Input, output: Output, prevInput: Input | undefined, prevOutput: Output | undefined) => Output | undefined =
+    protected _successDataProcessor?: (input: Input, output: Output) => Output | undefined =
         (input, output) => output
+
 
     /** Function that performs the async operation when triggered */
     protected _triggerFn$: (input: Input) => Observable<Output>
     /** Optional function to call when trigger is initiated (before async operation starts) */
     protected _onTriggerFn?: (t: Input) => void
 
-    private _instanceSpace = SPACE_1
-    /** Subscription for the current trigger operation */
-    protected _sub?: Subscription
+    private _instanceMsgSuffix: (typeof MSG_SUFFIXES)[number] = MSG_SUFFIX_1
 
-    //-------------------------------------//
+    /** Subscription for the current trigger operation */
+    protected _triggerSub?: Subscription
+
+    //-------------------------//
 
     /**
      * Creates a new MiniState instance
@@ -114,19 +143,8 @@ export class MiniState<Input, Output, TError = any> {
      */
     constructor(
         triggerFn$: (input: Input) => Observable<Output>,
-        destroyer: DestroyRef,
-        initialOutputValue?: Output
+        destroyer: DestroyRef
     ) {
-
-        if (initialOutputValue) {
-            this._successDataBs = new BehaviorSubject<Output>(initialOutputValue)
-            this.data$ = this._successDataBs.asObservable()
-            this.data = toSignal(this.data$, { initialValue: initialOutputValue })
-        } else {
-            this._successDataBs = new ReplaySubject<Output>(1)
-            this.data$ = this._successDataBs.asObservable()
-            this.data = toSignal(this.data$)
-        }
 
         this._triggerFn$ = triggerFn$
 
@@ -135,7 +153,14 @@ export class MiniState<Input, Output, TError = any> {
         })
     }
 
-    //-------------------------------------//
+    //-------------------------//
+
+    setInitialOutputValue(initialOutputValue: Output) {
+        this._successDataBs.next(initialOutputValue)
+        return this
+    }
+
+    //-------------------------//
 
     /** 
      * Sets a function to generate success messages after successful operations
@@ -148,7 +173,7 @@ export class MiniState<Input, Output, TError = any> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /** 
      * Sets a function to be called after a successful operation completes
@@ -161,7 +186,7 @@ export class MiniState<Input, Output, TError = any> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /** 
      * Sets a function to process the output data before it's stored
@@ -173,12 +198,12 @@ export class MiniState<Input, Output, TError = any> {
      * @param successDataProcessorFn Function that processes output data
      * @returns This MiniState instance for method chaining
      */
-    setSuccessDataProcessorFn(successDataProcessorFn: (input: Input, output: Output, prevInput: Input | undefined, prevOutput: Output | undefined) => Output | undefined) {
+    setSuccessDataProcessorFn(successDataProcessorFn: (input: Input, output: Output) => Output | undefined) {
         this._successDataProcessor = successDataProcessorFn
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /** 
      * Sets a function to be called when an operation fails
@@ -187,11 +212,11 @@ export class MiniState<Input, Output, TError = any> {
      * @returns This MiniState instance for method chaining
      */
     setOnErrorFn(errorFn: (input: Input, error: TError) => void) {
-        this._errorFn = errorFn
+        this._onErrorFn = errorFn
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Sets a function to convert error objects to user-friendly messages
@@ -204,7 +229,7 @@ export class MiniState<Input, Output, TError = any> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /** 
      * Sets a function to be called when a trigger is initiated
@@ -220,7 +245,7 @@ export class MiniState<Input, Output, TError = any> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Triggers the async operation with the provided input
@@ -239,10 +264,10 @@ export class MiniState<Input, Output, TError = any> {
         this._successMsgBs.next(undefined); // Clear previous success message
 
         this._onTriggerFn?.(input)
-        this._sub?.unsubscribe?.()
+        this._triggerSub?.unsubscribe?.()
 
         //Not using finalize in case obs doesn't complete
-        this._sub = this._triggerFn$(input)
+        this._triggerSub = this._triggerFn$(input)
             .pipe(
                 executeAfterEmissionAndOnTermination((outputValue, error, isFinalized) =>
                     this.handleTriggerComplete(input, outputValue, error, isFinalized)),
@@ -255,14 +280,14 @@ export class MiniState<Input, Output, TError = any> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     private handleTriggerComplete(input: Input, data?: Output, error?: any, isFinalize?: boolean) {
 
         this._loadingBs.next(false); //Close the loader
         this._wasTriggeredBs.next(true); // Mark as triggered
+        this._inputBs.next(input)
         // devConsole.log('MiniState: Triggered with input:', input, 'and output:', data, 'and error:', error, 'isFinalize:', isFinalize);
-
     }
 
     //- - - - - - - - - - - - - - - - - - -//
@@ -273,13 +298,13 @@ export class MiniState<Input, Output, TError = any> {
         // devConsole.log(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data);
         // devConsole.log(this._successDataProcessor)
 
-        this._successDataBs.next(this._successDataProcessor?.(input, data, this.prevInput(), this.data()) ?? data)
+        this._successDataBs.next(this._successDataProcessor?.(input, data) ?? data)
+        this._dataAndInput$.next({ input, output: data })
         this.emitSuccessMsg(this._successMsgFn?.(input, data))
 
         //In case loaders and popup messages MUST complete first 
         // (Maybe if _onSuccessFn is for navigation away from page)
-        setTimeout(() => this._onSuccessFn?.(input, data), 500)
-        this._prevInputBs.next(input)
+        setTimeout(() => this._onSuccessFn?.(input, data), 300)
     }
 
     //- - - - - - - - - - - - - - - - - - -//
@@ -292,10 +317,10 @@ export class MiniState<Input, Output, TError = any> {
 
         //In case loading MUST complete first
         // (Maybe if _errorFn is for navigation away from page)
-        setTimeout(() => this._errorFn?.(input, error), 200)
+        setTimeout(() => this._onErrorFn?.(input, error), 300)
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Re-triggers the operation using the most recent input value
@@ -307,14 +332,14 @@ export class MiniState<Input, Output, TError = any> {
      */
     retrigger(): this {
         if (this.wasTriggered())
-            this.trigger(this.prevInput() as Input);
+            this.trigger(this.input() as Input);
         else
-            console.warn('MiniState: retrigger called before any successful trigger.');
+            console.warn('MiniState: retrigger called before any trigger.');
 
         return this;
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /** 
      * Stops all ongoing operations and cleans up resources
@@ -324,17 +349,17 @@ export class MiniState<Input, Output, TError = any> {
      */
     unsubscribe() {
 
-        this._sub?.unsubscribe?.()
+        this._triggerSub?.unsubscribe?.()
 
         // Complete all subjects
-        this._successMsgBs.complete();
-        this._successDataBs.complete();
-        this._loadingBs.complete();
-        this._errorMsgBs.complete();
-        this._errorBs.complete();
-
+        this._successMsgBs?.complete();
+        this._successDataBs?.complete();
+        this._loadingBs?.complete();
+        this._errorMsgBs?.complete();
+        this._errorBs?.complete();
+        
         // Clear any references that might prevent garbage collection
-        this._errorFn = undefined;
+        this._onErrorFn = undefined;
         this._onSuccessFn = undefined;
         this._successMsgFn = undefined;
         this._successDataProcessor = undefined;
@@ -344,7 +369,7 @@ export class MiniState<Input, Output, TError = any> {
 
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Emits an error message through the errorMsg$ observable
@@ -352,9 +377,9 @@ export class MiniState<Input, Output, TError = any> {
      * @param errorMsg The error message to emit
      */
     protected emitErrorMsg = (errorMsg?: string) =>
-        errorMsg && this._errorMsgBs.next(errorMsg + this.getSpace())
+        errorMsg && this._errorMsgBs.next(errorMsg + this.nextMsgSuffix())
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Emits a success message through the successMsg$ observable
@@ -362,9 +387,9 @@ export class MiniState<Input, Output, TError = any> {
      * @param successMsg The success message to emit
      */
     protected emitSuccessMsg = (successMsg?: string) =>
-        successMsg && this._successMsgBs.next(successMsg + this.getSpace())
+        successMsg && this._successMsgBs.next(successMsg + this.nextMsgSuffix())
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Ensures each emitted message is unique by appending a space character
@@ -374,16 +399,13 @@ export class MiniState<Input, Output, TError = any> {
      * 
      * @returns A space character that alternates between variations
      */
-    protected getSpace = () => {
-        if (!this._instanceSpace.length)
-            return this._instanceSpace = SPACE_1
-        else if (this._instanceSpace == SPACE_1)
-            return this._instanceSpace = SPACE_2
-        else
-            return this._instanceSpace = ''
+    protected nextMsgSuffix = () => {
+        const idx = MSG_SUFFIXES.indexOf(this._instanceMsgSuffix)
+        this._instanceMsgSuffix = MSG_SUFFIXES[(idx + 1) % MSG_SUFFIXES.length]
+        return this._instanceMsgSuffix
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Clears all popup messages and resets loading state
@@ -396,6 +418,6 @@ export class MiniState<Input, Output, TError = any> {
         this._loadingBs.next(false)
     }
 
-}
+}//Cls
 
 

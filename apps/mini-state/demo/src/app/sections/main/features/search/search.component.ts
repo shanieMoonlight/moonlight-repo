@@ -50,17 +50,17 @@ export class MainDemoSearchComponent {
   // Create a MiniState for album search
   private userState = MiniStateBuilder.CreateWithObservableInput(
     this._searchTerm$, //<-- Observable Input
-    (term: string) => this._ioService.search(term),   // Load users based on search term
-    [])// Initial empty array
-  .setSuccessMsgFn((term: string, users: Album[]) =>  // Success message function
-    users.length > 0
-      ? \`Found \${users.length} users matching "\${term}"\`
-      : undefined)
+    (term: string) => this._ioService.getAllFiltered(term),   // Load users based on search term
+    [])   // Initial empty array
+    .setSuccessMsgFn((term: string, users: Album[]) =>  // Success message function
+      users.length > 0
+        ? \`Found \${users.length} users matching "\${term}"\`
+        : '')
 
-      
+
   // Track if a search has been performed
   protected _noDataMessage = computed(() =>
-    this.userState.prevInput() && !this.errorMsg() && !this.users()?.length
+    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
       ? 'No users found matching your search criteria.'
       : undefined)
 
@@ -225,7 +225,7 @@ export class MainDemoSearchComponent {
 
   // Track if a search has been performed
   protected _noDataMessage = computed(() =>
-    this.userState.prevInput() && !this.errorMsg() && !this.users()?.length
+    this.userState.wasTriggered() && !this.errorMsg() && !this.users()?.length
       ? 'No users found matching your search criteria.'
       : undefined)
 

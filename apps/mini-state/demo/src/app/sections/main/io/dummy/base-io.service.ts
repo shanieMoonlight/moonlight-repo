@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { MainConstants } from '../../config/constants';
 
 
-export abstract class BaseDummyIoService<T extends { id?: string | number|null }> {
+export abstract class BaseDummyIoService<T extends { id?: string | number | null }> {
 
   protected errorProbability = MainConstants.API_FAILURE_RATE;
 
@@ -49,20 +49,28 @@ export abstract class BaseDummyIoService<T extends { id?: string | number|null }
     if (!this.isBrowser)
       return of(undefined)
 
+    const item = Math.random() < 0.1
+      ? undefined
+      : this.generateRandomItem(id)
+
     return this.withChaos(
-      of(this.generateRandomItem(id)),
+      of(item),
       `Failed to retrieve item with id ${id}\r\nSomething unexpected happened 😱!`
     )
   }
 
   //----------------------------//
 
-  create(item: T): Observable<T> {
+  create<CreateT extends Omit<T, 'id'>>(createDto: CreateT): Observable<T> {
 
+    const item = this.generateRandomItem() as T; // has generated id
+    
     if (!this.isBrowser)
       return of(item)
+    
+    const { id: _maybeId, ...rest } = createDto as unknown as Record<string, unknown>;
+    Object.assign(item, rest as Partial<T>);
 
-    item.id = this.getRandomInt(1, 1000) // Assign a random id for the demo
     return this.withChaos(
       of(item),
       'Failed to create item'
@@ -71,10 +79,14 @@ export abstract class BaseDummyIoService<T extends { id?: string | number|null }
 
   //----------------------------//
 
-  update(item: T): Observable<T> {
+  update(updateDto: Partial<T>): Observable<T> {
+
+    var item = this.generateRandomItem() as T
+
     if (!this.isBrowser)
       return of(item)
 
+    Object.assign(item, updateDto)
     return this.withChaos(
       of(item),
       'Failed to update item.\r\nSomething unexpected happened 😱!'
@@ -96,22 +108,36 @@ export abstract class BaseDummyIoService<T extends { id?: string | number|null }
 
   //----------------------------//
 
-  abstract generateRandomItem(id: string | number, searchTerm?: string): T | undefined
+  abstract generateRandomItem(id?: string | number | null, searchTerm?: string): T
   abstract generateRandomItems(count: number, searchTerm?: string): T[]
 
   //----------------------------//
 
-  private getRandomInt = (min: number, max: number): number =>
+  protected generateRandomInt = (min: number, max: number): number =>
     Math.floor(Math.random() * (max - min + 1)) + min
 
   //----------------------------//
 
   private _generateRandomItems(min: number, max: number, searchTerm?: string): T[] {
-    const count = this.getRandomInt(min, max)
+    const count = this.generateRandomInt(min, max)
     console.log(`Generating ${count} random items with search term: ${searchTerm}`);
-    
+
     return this.generateRandomItems(count, searchTerm)
   }
+
+  //----------------------------//
+
+  // private _generateRandomItem(): T {
+  //   const id = this.getRandomInt(100, 10000)    
+  //   return this.generateRandomItem(id)
+  // }
+
+
+  // override generateRandomItem(id: string | number, searchTerm?: string): Album | undefined {
+  //   return Math.random() < 0.1
+  //     ? undefined
+  //     : AlbumUtils.generateRandomAlbum(id, searchTerm)
+  // }
 
   //----------------------------//
   /**

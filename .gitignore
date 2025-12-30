@@ -77,6 +77,8 @@ scripts-ts/swagger/generated0/**
 
 **/sb-notifications/**
 
-**/mini-state-crud**
+# **/mini-state-crud**
+# !**/mini-state-crud.new.ts
+# !**/mini-state-crud-builder.**
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

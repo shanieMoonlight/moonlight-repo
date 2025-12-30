@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { AccountIoService } from '@spider-baby/myid-io';
 import { GoogleSignInDto, RegisterCustomerDto } from '@spider-baby/myid-io/models';
 import { map } from 'rxjs';

@@ -2,8 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { SbCodeTabsTsHtmlComponentCodeComponent } from '@spider-baby/ui-code-samples';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { map, merge, scan, shareReplay } from 'rxjs';
@@ -21,8 +20,7 @@ const TS_CODE = `
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { DataTableComponent } from '../../ui/table/data-table.component';
@@ -189,20 +187,17 @@ export class MainDemoCombinedComponent {
   //  All this can be done easier with MiniCrudState, but this is to demonstrate MiniStateCombined
   //##############################################################################################
 
- private _getAllState = MiniStateBuilder
+  private _getAllState = MiniStateBuilder
     .Create(() => this._ioService.getAll())
-    .trigger()
+    .trigger()//Trigger immediately for listing initial data
 
   private _updateState = MiniStateBuilder
     .CreateWithInput((album: Album) => this._ioService.update(album))
-    .setSuccessDataProcessorFn((album: Album) => { return { ...album, title: album.title + ' (updated)' } }) //<-- Added to simulate updated data in UI (Dummy service does not actually update data)
     .setSuccessMsgFn((album: Album) => `⭐⭐⭐ \r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
 
   //Helper function to delete and return the album for updating the state and ui
-  private deleteAndReturnAlbum = (album: Album) =>
-    this._ioService.delete(album.id!).pipe(map(() => album))
   private _deleteState = MiniStateBuilder
-    .CreateWithInput((album: Album) => this.deleteAndReturnAlbum(album))
+    .CreateWithInput((album: Album) => this._ioService.delete(album.id!))
     .setSuccessMsgFn((album: Album) => `Album ${album.title} deleted successfully 🗑️`)
 
   //- - - - - - - - - - - - - //
@@ -222,10 +217,10 @@ export class MainDemoCombinedComponent {
   protected _editData = this._updateState.data
 
 
- private readonly  _albums$ = merge(
+  private readonly _albums$ = merge(
     this._getAllState.data$.pipe(map(all => ({ type: 'base' as const, payload: all }))),
     this._updateState.data$.pipe(map(item => ({ type: 'update' as const, payload: item }))),
-    this._deleteState.data$.pipe(map(item => ({ type: 'delete' as const, payload: item })))
+    this._deleteState.dataAndInput$.pipe(map(item => ({ type: 'delete' as const, payload: item })))
   ).pipe(
     scan((state: Album[], action) => {  // Actions come in, album array goes out! 
       // The state (album array) is accumulated/persisted here, so we are always working with the latest data      
@@ -236,16 +231,14 @@ export class MainDemoCombinedComponent {
           // authoritative reset
           return [...action.payload]
         case 'update':
-          return state.map(a =>
-            String(a.id) === String(action.payload.id) ? { ...a, ...action.payload } : a
-          );
+          return state.map(a => String(a.id) === String(action.payload.id) ? { ...a, ...action.payload } : a)
         case 'delete':
-          return state.filter(a => String(a.id) !== String(action.payload.id));
+          return state.filter(a => String(a.id) !== String(action.payload.input.id));
         default:
           return state;
       }
     }, [] as Album[]),
-    shareReplay(1) //prevent rescans on multiple subscriptions
+    shareReplay(1) //prevent re-scans on multiple subscriptions
   );
 
   // expose as a Signal for template binding
@@ -257,7 +250,7 @@ export class MainDemoCombinedComponent {
     this._getAllState.trigger()
 
   protected onEditItem = (album: Album) =>
-    this._updateState.trigger(album)
+    this._updateState.trigger({ ...album, title: `${album.title} (Updated)!!` })
 
   protected onDeleteItem = (album: Album) =>
     this._deleteState.trigger(album)

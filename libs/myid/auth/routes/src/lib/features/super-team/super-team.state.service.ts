@@ -1,11 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
-import { UserManagementIoService } from '@spider-baby/myid-io';
-import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { MyIdTeamPositionOptionsProvider } from '@spider-baby/myid-auth/config';
 import { CrudArraySignalOps } from '@spider-baby/myid-auth/utils';
-
+import { UserManagementIoService } from '@spider-baby/myid-io';
+import { AddSuperMemberDto, AppUserDto, UpdatePositionDto } from '@spider-baby/myid-io/models';
 @Injectable({
   providedIn: 'root'
 })

@@ -1,51 +1,15 @@
 import { Observable } from "rxjs"
-import { MiniState } from "./mini-state"
-import { MiniStateBuilder } from "./mini-state-builder"
+import { MiniState } from "../mini-state"
+import { MiniStateBuilder } from "../mini-state-builder"
 import { DestroyRef, inject } from "@angular/core"
 import { ActiveOperationsTracker } from "./active-operations-tracker";
 
 //=========================================================//
 
 /**
- * A specialized MiniState extension for CRUD operations on collections of items.
- * 
- * MiniCrudState extends MiniState to provide automatic handling of common CRUD
- * (Create, Read, Update, Delete) operations, including client-side data updates
- * and efficient state management.
- * 
- * This class handles the tedious work of updating the client-side array when items
- * are added, updated, or deleted, making CRUD UIs much easier to implement.
- * 
- * @template Filter - The type of input used for filtering/retrieving the collection
- * @template Item - The type of items in the collection
- * 
- * @example
- * ```typescript
- * // Create a CRUD state for user management
- * const userCrudState = MiniCrudState.Create(
- *   (filter: UserFilter) => userService.getAll(filter)
- * )
- * .setAddState(
- *   (user: User) => userService.create(user),
- *   (user, result) => `User ${user.name} was created successfully!`
- * )
- * .setUpdateState(
- *   (user: User) => userService.update(user),
- *   (user, result) => `User ${user.name} was updated successfully!`
- * )
- * .setDeleteState(
- *   (user: User) => userService.delete(user.id),
- *   (user, result) => `User ${user.name} was deleted successfully!`
- * );
- * 
- * // Use the CRUD state in a component
- * userCrudState.trigger(new UserFilter()); // Load all users
- * userCrudState.triggerAdd(newUser);        // Add a user
- * userCrudState.triggerUpdate(updatedUser); // Update a user
- * userCrudState.triggerDelete(userToDelete); // Delete a user
- * ```
+ * Obsolete: Use MiniCrudState instead.
  */
-export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
+export class MiniCrudStateOld<Filter, Item> extends MiniState<Filter, Item[]> {
 
     // Use a Set to track active operations
     private _activeOperations = new Set<MiniState<Item, any>>();
@@ -62,7 +26,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     protected equals: (item1?: Item, item2?: Item) => boolean =
         ((item1?: Item, item2?: Item) => (item1 as any)?.id === (item2 as any)?.id)
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Creates a new MiniCrudState instance.
@@ -72,14 +36,16 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      */
     private constructor(triggerFn$: (input: Filter) => Observable<Item[]>) {
         const destroyer = inject(DestroyRef); // Dynamically inject DestroyRef
-        super(triggerFn$, destroyer, [])
+        super(triggerFn$, destroyer)
+
+        this.setInitialOutputValue([])
         // Initialize tracker with callback to update loading state
         this._operationsTracker = new ActiveOperationsTracker<MiniState<Item, any>>(
             (isLoading) => this._loadingBs.next(isLoading)
         );
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Creates a new MiniCrudState instance for managing CRUD operations on a collection.
@@ -90,9 +56,9 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
      * @returns A new MiniCrudState instance
      */
     static Create = <Filter, Item>(triggerFn$: (input: Filter) => Observable<Item[]>) =>
-        new MiniCrudState<Filter, Item>(triggerFn$)
+        new MiniCrudStateOld<Filter, Item>(triggerFn$)
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Sets the function used to determine if two items are equal.
@@ -106,7 +72,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Configures the add operation for this CRUD state.
@@ -136,7 +102,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Configures the update operation for this CRUD state.
@@ -168,7 +134,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Configures the delete operation for this CRUD state.
@@ -199,7 +165,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         return this
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Triggers the add operation with the provided item.
@@ -210,7 +176,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     triggerAdd = (input: Item) =>
         this._addState?.trigger(input)
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Triggers the update operation with the provided item.
@@ -221,7 +187,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     triggerUpdate = (input: Item) =>
         this._updateState?.trigger(input)
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Triggers the delete operation with the provided item.
@@ -232,7 +198,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
     triggerDelete = (input: Item) =>
         this._deleteState?.trigger(input)
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Stops all ongoing operations and cleans up resources.
@@ -245,7 +211,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         this._updateState?.unsubscribe()
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Sets up the onTrigger function for a MiniState instance used internally.
@@ -261,7 +227,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
             onTriggerFn?.(item)
         })
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Sets up the error handling for a MiniState instance used internally.
@@ -276,7 +242,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
             this.emitErrorMsg(this._errorMsgFn(error))
         })
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Sets up the success handling for a MiniState instance used internally.
@@ -305,7 +271,7 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         })
     }
 
-    //-------------------------------------//
+    //-------------------------//
 
     /**
      * Clears all popup messages and resets loading state for all internal states.
@@ -317,7 +283,5 @@ export class MiniCrudState<Filter, Item> extends MiniState<Filter, Item[]> {
         this._updateState?.resetMessagesAndLoading()
         this._deleteState?.resetMessagesAndLoading()
     }
-
-    //-------------------------------------//
 
 }//Cls

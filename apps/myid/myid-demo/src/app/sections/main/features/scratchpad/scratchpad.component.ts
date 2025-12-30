@@ -1,7 +1,6 @@
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { AccountIoService, MaintenanceAuthenticatorDemoIoService, UserManagementIoService } from '@spider-baby/myid-io';
 import { AppUserDto } from '@spider-baby/myid-io/models';
 import { AddMntcMemberFormDto, SbAddMntcMemberFormComponent } from '@spider-baby/myid-ui/add-mntc-member';
@@ -16,8 +15,8 @@ import { tableColumns } from './fake-super-data-table-columns';
 import { demoTeamData, demoTeamDataMinimal, demoTeamDataSuper } from './fake-team-data';
 import { demoAppUserData, demoAppUserDataMinimal } from './fake-user-data';
 // import { teamPositionOptions } from '../../../../shared/auth/user-mgr-admin/utils/posiition/team-position-options';
-import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 import { MyIdTeamPositionOptionsProvider, MyIdTwoFactorOptionsProvider } from '@spider-baby/myid-auth/config';
+import { MatEverythingModule } from '@spider-baby/utils-mat-everything';
 
 
 

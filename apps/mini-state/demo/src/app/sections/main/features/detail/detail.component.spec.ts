@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, WritableSignal, computed, signal } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ActivatedRoute, ParamMap, Router, convertToParamMap } from '@angular/router';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { Album } from '../../data/album';
@@ -66,26 +65,21 @@ function createMockState<Input, Output, TError>(): MockMiniState<Input, Output, 
     return state as MockMiniState<Input, Output, TError>;
 }
 
-// --- Mock MiniStateBuilder ---
-// The factory now just returns the mocked structure
+// --- Mock @spider-baby/mini-state (builder + combiner) ---
+// Return both `MiniStateBuilder` and `MiniStateCombined` in a single mock
 jest.mock('@spider-baby/mini-state', () => {
-    const itemStateInstance = createMockState<ItemStateInput, ItemStateOutput, StateError>();
-    const editStateInstance = createMockState<EditStateInput, EditStateOutput, StateError>();
-    return {
-        MiniStateBuilder: {
-            CreateWithObservableInput: jest.fn().mockImplementation(() => itemStateInstance),
-            CreateWithInput: jest.fn().mockImplementation(() => editStateInstance),
-        }
-    };
-});
-
-// --- Mock MiniStateCombined ---
-// Simplify the Combine mock - just return the combined state mock object
-jest.mock('@spider-baby/mini-state/utils', () => ({
+  const itemStateInstance = createMockState<ItemStateInput, ItemStateOutput, StateError>();
+  const editStateInstance = createMockState<EditStateInput, EditStateOutput, StateError>();
+  return {
+    MiniStateBuilder: {
+      CreateWithObservableInput: jest.fn().mockImplementation(() => itemStateInstance),
+      CreateWithInput: jest.fn().mockImplementation(() => editStateInstance),
+    },
     MiniStateCombined: {
-        Combine: jest.fn().mockImplementation(() => mockCombinedState)
+      Combine: jest.fn().mockImplementation(() => mockCombinedState)
     }
-}));
+  };
+});
 
 describe('MainDemoDetailComponent', () => {
   let component: MainDemoDetailComponent;
@@ -252,7 +246,7 @@ describe('MainDemoDetailComponent', () => {
   it('should call _editState.trigger on edit()', () => {
     component['edit'](updatedAlbum);
     expect(mockEditState.trigger).toHaveBeenCalledTimes(1);
-    expect(mockEditState.trigger).toHaveBeenCalledWith(updatedAlbum);
+    expect(mockEditState.trigger).toHaveBeenCalledWith({ ...updatedAlbum, title: `${updatedAlbum.title} (Updated)!!` });
   });
 
   it('should update data on successful edit', fakeAsync(() => {

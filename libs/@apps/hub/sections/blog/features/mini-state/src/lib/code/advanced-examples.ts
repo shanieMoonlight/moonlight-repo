@@ -1,8 +1,7 @@
 // MiniStateCombined example
 export const CombinedStatesExample = `// Combining multiple states for unified UI feedback
 import { Component, inject } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateCombined } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateCombined } from '@spider-baby/mini-state';
 import { UserService, ProjectService } from './services';
 
 @Component({
@@ -96,8 +95,7 @@ export class DashboardComponent {
 // MiniStateUtility example
 export const StateUtilityExample = `// Advanced state combination with MiniStateUtility
 import { Component, inject } from '@angular/core';
-import { MiniStateBuilder } from '@spider-baby/mini-state';
-import { MiniStateUtility } from '@spider-baby/mini-state/utils';
+import { MiniStateBuilder, MiniStateUtility } from '@spider-baby/mini-state';
 
 @Component({
   selector: 'app-granular-control',

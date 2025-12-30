@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniCrudState } from '@spider-baby/mini-state';
+import { MiniCrudStateBuilder } from '@spider-baby/mini-state';
 import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
@@ -19,14 +19,17 @@ import { TS_CRUD_STATE_SERVICE_CODE } from '../crud-state/crud-state.service';
 const TS_CODE = `
 //Example using MiniCrudState 
 
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { MatEverythingModule } from '@spider-baby/material-theming/utils';
-import { MiniCrudState } from '@spider-baby/mini-state';
+import { MiniCrudStateBuilder } from '@spider-baby/mini-state';
+import { SbCodeTabsTsHtmlComponentCodeComponent, SbCodeTabsTsHtmlWithStateComponent } from '@spider-baby/ui-code-samples';
+import { SbMatNotificationsModalComponent } from '@spider-baby/ui-mat-notifications';
 import { Album } from '../../data/album';
 import { DummyAlbumIoService } from '../../io/dummy/dummy-album-io.service';
 import { AlbumFormModalComponent, NewAlbumDialogData } from '../../ui/album/form-modal/form-modal.component';
+import { MainDemoHeaderComponent } from '../../ui/demo-header/demo-header.component';
 import { DataTableComponent } from '../../ui/table/data-table.component';
 
 @Component({
@@ -34,7 +37,9 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
   imports: [
     MatEverythingModule,
     DataTableComponent,
-    SbMatNotificationsModalComponent
+    SbMatNotificationsModalComponent,
+    MainDemoHeaderComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.scss',
@@ -42,40 +47,54 @@ import { DataTableComponent } from '../../ui/table/data-table.component';
 })
 export class MainDemoCrudComponent {
 
-  private _dialog = inject(MatDialog);
+   private _dialog = inject(MatDialog);
   private _ioService = inject(DummyAlbumIoService)
-  
-
-  protected displayColumns = signal(['id', 'userId', 'title'])
 
   //- - - - - - - - - - - - - //
 
-  private _crudState = MiniCrudState
-    .Create<void, Album>(() => this._ioService.getAll())
-    .setAddState(
-      (album: Album) => this._ioService.create(album),
-      (album) => \`Album  \${album.title} added!\`)
-    .setUpdateState(
-      (album: Album) => this._ioService.update(album),
-      (album) => \`⭐⭐⭐ \\r\\n Album \${album.title} updated successfully! \\r\\n⭐⭐⭐\`)
-    .setDeleteState(
-      (album: Album) => this._ioService.delete(album.id!),
-      (album) => \`Album \${album.title} deleted successfully 🗑️\`)
-    .trigger(undefined)//Trigger immediately with no filter
+  protected displayColumns = signal(['id', 'userId', 'title'])
 
-  protected _data = computed(() => this._crudState.data() ?? [])
+  protected _searchControl = new FormControl('')
+
+  //- - - - - - - - - - - - - //
+
+private _crudState = MiniCrudStateBuilder
+    .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
+    .setAddState(
+        (album) => this._ioService.create(album),
+        (album) => \`Album  \${album.title} added!\`)
+      .setUpdateState(
+        (album) => this._ioService.update(album),
+        (album) => \`⭐⭐⭐\\r\\n Album \${album.title} updated successfully! \\r\\n⭐⭐⭐\`)
+      .setDeleteState(
+        (album) => this._ioService.delete(album.id!),
+        (album) => \`Album \${album.title} deleted successfully 🗑️\`)
+        .buildAndTrigger(undefined)//Trigger immediately with no filter;
+
+  protected _data =  this._crudState.data
   protected _successMsg = this._crudState.successMsg
   protected _errorMsg = this._crudState.errorMsg
   protected _loading = this._crudState.loading
 
-  //- - - - - - - - - - - - - //
+  //--------------------------//
 
   protected refresh = () =>
-    this._crudState.trigger()
+    this._crudState.triggerGetAll(undefined)
 
 
   protected onDeleteItem = (album: Album) =>
     this._crudState.triggerDelete(album)
+
+
+  // Clear the search results
+  clearSearch() {
+    this._searchControl.reset();
+    this.refresh();
+  }
+
+
+  filterData = (searchTerm?: string) =>
+    this._crudState.triggerGetAll(searchTerm)
 
 
   protected openAddAlbumDialog = () =>
@@ -92,7 +111,8 @@ export class MainDemoCrudComponent {
         updatedAlbum && this._crudState.triggerUpdate(updatedAlbum)
       )
 
-  //- - - - - - - - - - - - - //
+  //--------------------------//
+
 
   private openAlbumDialog(album?: Album): MatDialogRef<AlbumFormModalComponent, Album | undefined> {
     console.log('openAddAlbumDialog');
@@ -107,32 +127,59 @@ export class MainDemoCrudComponent {
 ///#############################################//
 
 const HTML_CODE = `
-    
-    <div class="content-container">
-      <sb-data-table 
-        [data]="_data()" 
-        [displayColumns]="displayColumns()"
-        [isLoading]="_loading()" 
-        [includeActions]="true"
-        [title]="'Album Collection'"
-        [emptyMessage]="'No albums found. Try refreshing the data.'"
-        [loadingMessage]="'Loading albums...'"
-        [itemName]="'album'"
-        [iconName]="'album'"
-        [canAddItem]="true"
-        (refresh)="refresh()"
-        (addItem)="openAddAlbumDialog()"
-        (editItem)="openEditAlbumDialog($event)"
-        (deleteItem)="onDeleteItem($event)"/>
+<sb-main-demo-header/>
+
+<div class="content-container">
+  <div class="search-form">
+    <mat-form-field>
+      <mat-label>Search Albums</mat-label>
+      <input matInput      
+       [formControl]="_searchControl"
+       placeholder="Enter name or email">
+    </mat-form-field>
+    <div class="btns">
+
+      <button mat-raised-button 
+        class="primary-palette" 
+        [matTooltip]="'Search data'"
+        [disabled]="_loading() || !_searchControl.value" 
+        (click)="filterData(_searchControl.value!)">
+        Search
+      </button>
+      <button mat-raised-button 
+        class="primary-palette" 
+        [matTooltip]="'Refresh data with no filtering'"
+        [disabled]="_loading() || !_searchControl.value" 
+        (click)="clearSearch()">
+        Clear
+      </button>
+    </div>  
   </div>
 
+  <sb-data-table 
+    [data]="_data()" 
+    [displayColumns]="displayColumns()"
+    [isLoading]="_loading()" 
+    [includeActions]="true"
+    [title]="'Album Collection'"
+    [emptyMessage]="'No albums found. Try refreshing the data.'"
+    [loadingMessage]="'Loading albums...'"
+    [itemName]="'album'"
+    [iconName]="'album'"
+    [canAddItem]="true"
+    (refresh)="refresh()"
+    (addItem)="openAddAlbumDialog()"
+    (editItem)="openEditAlbumDialog($event)"
+    (deleteItem)="onDeleteItem($event)"/>
+</div>
 
-  <sb-notifications-modal-mat
-      [errorMsg]="_errorMsg()"
-      [successMsg]="_successMsg()" 
-      [successMsg]="_successMsg()" 
-      [isLoading]="_loading()" 
-      [loadingMessage]="'Loading albums...'"/>
+<sb-notifications-modal-mat
+  [errorMsg]="_errorMsg()"
+  [successMsg]="_successMsg()" 
+  [successMsg]="_successMsg()" 
+  [isLoading]="_loading()" 
+  [loadingMessage]="'Loading albums...'"/>
+
     `
 
 ///#############################################//
@@ -167,20 +214,20 @@ export class MainDemoCrudComponent {
 
   //- - - - - - - - - - - - - //
 
-  private _crudState = MiniCrudState
+private _crudState = MiniCrudStateBuilder
     .Create<string | undefined, Album>((searchTerm) => this._ioService.getAllFiltered(searchTerm))
     .setAddState(
-      (album: Album) => this._ioService.create(album),
-      (album) => `Album  ${album.title} added!`)
-    .setUpdateState(
-      (album: Album) => this._ioService.update(album),
-      (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
-    .setDeleteState(
-      (album: Album) => this._ioService.delete(album.id!),
-      (album) => `Album ${album.title} deleted successfully 🗑️`)
-    .trigger(undefined)//Trigger immediately with no filter
+        (album) => this._ioService.create(album),
+        (album) => `Album  ${album.title} added!`)
+      .setUpdateState(
+        (album) => this._ioService.update(album),
+        (album) => `⭐⭐⭐\r\n Album ${album.title} updated successfully! \r\n⭐⭐⭐`)
+      .setDeleteState(
+        (album) => this._ioService.delete(album.id!),
+        (album) => `Album ${album.title} deleted successfully 🗑️`)
+        .buildAndTrigger(undefined)//Trigger immediately with no filter;
 
-  protected _data = computed(() => this._crudState.data() ?? [])
+  protected _data =  this._crudState.data
   protected _successMsg = this._crudState.successMsg
   protected _errorMsg = this._crudState.errorMsg
   protected _loading = this._crudState.loading
@@ -188,7 +235,7 @@ export class MainDemoCrudComponent {
   //--------------------------//
 
   protected refresh = () =>
-    this._crudState.trigger('')
+    this._crudState.triggerGetAll(undefined)
 
 
   protected onDeleteItem = (album: Album) =>
@@ -203,7 +250,7 @@ export class MainDemoCrudComponent {
 
 
   filterData = (searchTerm?: string) =>
-    this._crudState.trigger(searchTerm)
+    this._crudState.triggerGetAll(searchTerm)
 
 
   protected openAddAlbumDialog = () =>
