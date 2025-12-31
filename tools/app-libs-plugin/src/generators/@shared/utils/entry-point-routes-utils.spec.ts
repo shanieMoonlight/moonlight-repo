@@ -236,8 +236,10 @@ export const testRoutes: Route[] = [
       // Assert
       const updatedContent = tree.read(testFilePath, 'utf-8');
       expect(updatedContent).toContain('...additionalRoutes,');
+      console.log('EntryPointRoutesUtils.addToRoutesArray - updatedContent', updatedContent);
       // Should be inserted before the first route object, after existing spreads
-      expect(updatedContent).toMatch(/...baseRoutes,\s*...additionalRoutes,\s*\{/);
+      // insertion order: additionalRoutes then baseRoutes
+      expect(updatedContent).toMatch(/...additionalRoutes,\s*...baseRoutes,\s*\{/);
     });
 
     it('should handle multiline route objects correctly', () => {
