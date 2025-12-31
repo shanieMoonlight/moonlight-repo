@@ -1,5 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { Component } from '@angular/core';
+import { Component, provideZoneChangeDetection } from '@angular/core';
 import { MyIdOAuthBuilder } from '@spider-baby/myid-auth/config';
 
 /**
@@ -18,7 +18,7 @@ const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID_HERE';
 bootstrapApplication(AppComponent, {
   providers: [
     // Configure only Google login at bootstrap using the builder API
-    ...MyIdOAuthBuilder.create()
+    provideZoneChangeDetection(),...MyIdOAuthBuilder.create()
       .provideGoogleLogin(GOOGLE_CLIENT_ID)
       .buildProviders()
   ]

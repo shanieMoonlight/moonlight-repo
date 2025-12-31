@@ -3,7 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeConfigService, ThemeOption, ThemingConfig } from '@spider-baby/material-theming/config';
 import { ScssPaletteGeneratorService, SbThemeService } from '@spider-baby/material-theming/service';
-import { MockBuilder, MockRender } from 'ng-mocks';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { ScssDisplayComponent } from '../../ui/scss-display.component';
 import { SbCustomThemeManagerComponent } from "../custom-theme-mgr/custom-theme-mgr.component";
@@ -25,10 +26,9 @@ describe('SbThemeSelectorComponent', () => {
   // Create a full ThemeConfig object
   const mockConfig = ThemingConfig.create().setSelectorPresetThemes([mockPreset]);
 
-  let scssPaletteGeneratorMock: jest.Mocked<ScssPaletteGeneratorService> =
+  let scssPaletteGeneratorMock: jest.Mocked<ScssPaletteGeneratorService>;
 
-
-    beforeEach(() => {
+    beforeEach(async () => {
 
 
       // Initialize in beforeEach:
@@ -49,23 +49,26 @@ describe('SbThemeSelectorComponent', () => {
           afterClosed: () => of(true)
         })
       } as unknown as jest.Mocked<MatDialog>;
-      // Use MockBuilder to properly handle module imports 
-      // and override providers from imported modules
-      return MockBuilder(SbThemeSelectorComponent)
-        // Keep ReactiveFormsModule real
-        .keep(ReactiveFormsModule)
-        // Mock everything else but provide our mocks
-        .provide({ provide: SbThemeService, useValue: themeServiceMock })
-        .provide({ provide: MatDialog, useValue: dialogMock })
-        .provide({ provide: ThemeConfigService, useValue: mockConfig })
-        .provide({ provide: ScssPaletteGeneratorService, useValue: scssPaletteGeneratorMock })
-        .provide({ provide: PLATFORM_ID, useValue: 'browser' });
+      await TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule],
+        declarations: [SbThemeSelectorComponent],
+        providers: [
+          { provide: SbThemeService, useValue: themeServiceMock },
+          { provide: MatDialog, useValue: dialogMock },
+          { provide: ThemeConfigService, useValue: mockConfig },
+          { provide: ScssPaletteGeneratorService, useValue: scssPaletteGeneratorMock },
+          { provide: PLATFORM_ID, useValue: 'browser' }
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
     });
 
 
+  let fixture: ComponentFixture<SbThemeSelectorComponent>;
   beforeEach(() => {
-    const fixture = MockRender(SbThemeSelectorComponent);
-    component = fixture.point.componentInstance;
+    fixture = TestBed.createComponent(SbThemeSelectorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
