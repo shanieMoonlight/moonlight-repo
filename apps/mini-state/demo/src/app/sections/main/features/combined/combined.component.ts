@@ -56,7 +56,6 @@ export class MainDemoCombinedComponent {
     
     private _updateState = MiniStateBuilder
   .CreateWithInput((album: Album) => this._ioService.update(album))
-  .setSuccessDataProcessorFn((album: Album) =>{ return{...album, title: album.title + ' (updated)'}}) //<-- Added to simulate updated data in UI (Dummy service does not actually update data)
   .setSuccessMsgFn((album: Album) => \`⭐⭐⭐ \\r\\n Album \${album.title} updated successfully! \\r\\n⭐⭐⭐\`)
 
 
@@ -81,7 +80,7 @@ export class MainDemoCombinedComponent {
   //- - - - - - - - - - - - - //
 
  _albums$ = merge(
-    this._getAllState.data$.pipe(map(all => ({ type: 'base' as const, payload: all }))),
+    this._getAllState.data$.pipe(map(all => ({ type: 'getAll' as const, payload: all }))),
     this._updateState.data$.pipe(map(item => ({ type: 'update' as const, payload: item }))),
     this._deleteState.data$.pipe(map(item => ({ type: 'delete' as const, payload: item })))
   ).pipe(
@@ -90,7 +89,7 @@ export class MainDemoCombinedComponent {
       if (!action) return state;
       
       switch (action.type) {
-        case 'base':
+        case 'getAll':
           // authoritative reset
           return [...action.payload]
         case 'update':
@@ -218,7 +217,7 @@ export class MainDemoCombinedComponent {
 
 
   private readonly _albums$ = merge(
-    this._getAllState.data$.pipe(map(all => ({ type: 'base' as const, payload: all }))),
+    this._getAllState.data$.pipe(map(all => ({ type: 'getAll' as const, payload: all }))),
     this._updateState.data$.pipe(map(item => ({ type: 'update' as const, payload: item }))),
     this._deleteState.dataAndInput$.pipe(map(item => ({ type: 'delete' as const, payload: item })))
   ).pipe(
@@ -227,7 +226,7 @@ export class MainDemoCombinedComponent {
       if (!action) return state;
 
       switch (action.type) {
-        case 'base':
+        case 'getAll':
           // authoritative reset
           return [...action.payload]
         case 'update':

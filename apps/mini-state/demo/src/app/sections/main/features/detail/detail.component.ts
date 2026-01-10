@@ -64,7 +64,7 @@ export class MainDemoDetailComponent {
     this._itemState,
     this._editState)
 
-  protected _album = computed(() => this._state.data() ?? [])
+  protected _album = this._state.data()
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
@@ -171,7 +171,7 @@ export class MainDemoDetailComponent {
     this._itemState,
     this._editState)
 
-  protected _album = computed(() => this._state.data() ?? [])
+  protected _album = this._state.data
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading

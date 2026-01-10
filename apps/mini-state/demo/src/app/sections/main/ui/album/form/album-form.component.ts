@@ -38,9 +38,11 @@ export class AlbumFormComponent {
 
   //- - - - - - - - - - - - - //
 
+
   _editEvent = output<Album>({ alias: 'edit' })
   _addEvent = output<Omit<Album, 'id'>>({ alias: 'add' })
 
+  
   //- - - - - - - - - - - - - //
 
   protected _isAddForm = computed(() => !this._album())

@@ -5,6 +5,7 @@ import { ServiceWorkerUpdateMatComponent } from '@spider-baby/utils-seo/sw-updat
 import { IconsService } from '@sb-hub/shared-utils/icons';
 import { HubMainNavbarComponent } from '@sb-hub/sections-main/ui/nav';
 import { MainNavTitleService } from '@sb-hub/sections-main/utils/title';
+import { HubAppRouteDefs } from '@sb-hub/app/route-definitions';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class HubMainComponent implements OnInit, OnDestroy{
   protected _navTitle = inject(MainNavTitleService);
   private _document = inject(DOCUMENT);
   protected _title = computed(() => this._navTitle.title() || 'SpiderBaby');
+
+  protected _opensourceRoute = HubAppRouteDefs.fullPathsWithSlash.main.route('open-source');
 
   //----------------------------//
   

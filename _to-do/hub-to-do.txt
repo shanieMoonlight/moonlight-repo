@@ -1,0 +1,2 @@
+Add a oaoth providers settign so users can select login types
+simplify MyIdIoConfig
