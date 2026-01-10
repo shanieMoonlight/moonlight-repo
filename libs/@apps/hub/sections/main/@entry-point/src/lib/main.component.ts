@@ -29,7 +29,6 @@ export class HubMainComponent implements OnInit, OnDestroy{
   private _document = inject(DOCUMENT);
   protected _title = computed(() => this._navTitle.title() || 'SpiderBaby');
 
-  protected _opensourceRoute = HubAppRouteDefs.fullPathsWithSlash.main.route('open-source');
 
   //----------------------------//
   
