@@ -227,7 +227,6 @@
       "@spider-baby/mini-state": [
         "libs/packages/@spider-baby/mini-state/src/index.ts"
       ],
-      
       "@spider-baby/myid-auth": ["libs/myid/auth/src/index.ts"],
       "@spider-baby/myid-auth/config": ["libs/myid/auth/config/src/index.ts"],
       "@spider-baby/myid-auth/guards": ["libs/myid/auth/guards/src/index.ts"],
@@ -379,6 +378,9 @@
       ],
       "@sb-hub/sections-blog/features-value-generated-never": [
         "libs/@apps/hub/sections/blog/features/value-generated-never/src/index.ts"
+      ],
+      "@sb-hub/sections-blog/features-my-new-page": [
+        "libs/@apps/hub/sections/blog/features/my-new-page/src/index.ts"
       ]
     }
   },

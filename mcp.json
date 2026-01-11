@@ -1,0 +1,16 @@
+{
+
+  "servers": {
+    "nx-mcp": {
+      "command": "npx",
+      "args": ["nx-mcp@latest"],
+      "autoStart": true
+    },
+    "angular-cli": {
+      "command": "npx",
+      "args": ["-y", "@angular/cli", "mcp"],
+      "autoStart": true
+    },
+    "autoStart": true
+  }
+}
