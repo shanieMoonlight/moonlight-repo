@@ -41,6 +41,7 @@ export * from './lib/login-dto';
 export * from './lib/login-refresh-dto';
 export * from './lib/message-response-dto';
 export * from './lib/microsoft-sign-in-dto';
+export * from './lib/microsoft-cookie-sign-in-dto';
 export * from './lib/paged-request';
 export * from './lib/params';
 export * from './lib/public-signing-key-dto';

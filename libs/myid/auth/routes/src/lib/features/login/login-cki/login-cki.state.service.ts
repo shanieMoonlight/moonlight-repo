@@ -7,7 +7,7 @@ import { MYID_HAS_AMAZON, MYID_HAS_FACEBOOK, MYID_HAS_GOOGLE } from '@spider-bab
 import { LoginService } from '@spider-baby/myid-auth/services';
 import { MyIdRouteInfo } from '@spider-baby/myid-auth/utils';
 import { AccountIoService, PreconditionRequiredError } from '@spider-baby/myid-io';
-import { AmazonSignInDto, CookieSignInDto, CookieSignInResultData, FacebookSignInDto, ForgotPwdDto, GoogleSignInDto, LoginDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
+import { AmazonCookieSignInDto, AmazonSignInDto, CookieSignInDto, CookieSignInResultData, FaceBookCookieSignInDto, FacebookSignInDto, ForgotPwdDto, GoogleCookieSignInDto, GoogleSignInDto, LoginDto, MicrosoftCookieSignInDto, MicrosoftSignInDto } from '@spider-baby/myid-io/models';
 import { filter, map } from 'rxjs';
 import { TwoFactorRequiredData } from './two-factor-required.data';
 
@@ -74,17 +74,17 @@ export class LoginCkiStateService {
 
 
   protected _googleLoginState = MiniStateBuilder
-    .CreateWithInput((dto: GoogleSignInDto) => this._loginService.loginGoogleCookie(dto))
+    .CreateWithInput((dto: GoogleCookieSignInDto) => this._loginService.loginGoogleCookie(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, signinData) => { console.log('Login successful:', dto, signinData); })
 
   private _facebookLoginState = MiniStateBuilder
-    .CreateWithInput((dto: FacebookSignInDto) => this._loginService.loginFacebookCookie(dto))
+    .CreateWithInput((dto: FaceBookCookieSignInDto) => this._loginService.loginFacebookCookie(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
   private _amazonLoginState = MiniStateBuilder
-    .CreateWithInput((dto: AmazonSignInDto) => this._loginService.loginAmazonCookie(dto))
+    .CreateWithInput((dto: AmazonCookieSignInDto) => this._loginService.loginAmazonCookie(dto))
     .setSuccessMsgFn((dto) => `Logged in successfully!`)
     .setOnSuccessFn((dto, jwtPackage) => { console.log('Login successful:', dto, jwtPackage); })
 
@@ -145,7 +145,7 @@ export class LoginCkiStateService {
   loginFacebookCookie = (dto: FacebookSignInDto) =>
     this._facebookLoginState.trigger(dto)
 
-  loginMicrosoftCookie = (dto: MicrosoftSignInDto) => 
+  loginMicrosoftCookie = (dto: MicrosoftCookieSignInDto) => 
     console.log('loginMicrosoft: Method not implemented.', dto)
 
   

@@ -1,4 +1,4 @@
-import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+// import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -34,7 +34,7 @@ export class LoginJwtComponent implements OnInit {
 
 
   private _state = inject(LoginJwtStateService)
-  private _socialAuth = inject(SocialAuthService)
+  // private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
   private _destroyRef = inject(DestroyRef)
   private _platformId = inject(PLATFORM_ID)
@@ -61,8 +61,8 @@ export class LoginJwtComponent implements OnInit {
   constructor() {
 
     // Ensure user is signed out from any previous social login sessions
-    if (this._isBrowser)
-      this._socialAuth.signOut()
+    // if (this._isBrowser)
+    //   this._socialAuth.signOut()
 
     effect(() => {
       if (this._state.loginSuccess()) {
@@ -89,42 +89,54 @@ export class LoginJwtComponent implements OnInit {
 
     if (!this._isBrowser)
       return
-    
-    this._socialAuth.authState
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((socialUser) => {
-        devConsole.log('socialUser', socialUser);
 
-        if (socialUser) {
-          const provider = socialUser.provider;
-          devConsole.log(`Social login successful from provider: ${provider}`, socialUser, GoogleLoginProvider.PROVIDER_ID);
-          console.log(JSON.stringify(socialUser));
+    // this._socialAuth.authState
+    //   .pipe(takeUntilDestroyed(this._destroyRef))
+    //   .subscribe((socialUser) => {
+    //     devConsole.log('socialUser', socialUser);
+
+    //     if (socialUser) {
+    //       const provider = socialUser.provider;
+    //       devConsole.log(`Social login successful from provider: ${provider}`, socialUser, GoogleLoginProvider.PROVIDER_ID);
+    //       console.log(JSON.stringify(socialUser));
 
 
-          switch (provider) {
-            case GoogleLoginProvider.PROVIDER_ID:
-              devConsole.log('Google social login response', socialUser);
-              this._state.loginGoogle(socialUser);
-              break;
-            case FacebookLoginProvider.PROVIDER_ID:
-              devConsole.log('Facebook social login response', socialUser);
-              this._state.loginFacebook(socialUser);
-              break;
-            case AmazonLoginProvider.PROVIDER_ID:
-              devConsole.log('Amazon social login response', socialUser);
-              this._state.loginAmazon(socialUser);
-              break;
-            case MicrosoftLoginProvider.PROVIDER_ID:
-              devConsole.log('Microsoft social login response', socialUser);
-              this._state.loginMicrosoft(socialUser);
-              break;
-            default:
-              devConsole.warn('Unsupported social login provider:', provider);
-              return;
-          }
+    //       switch (provider) {
+    //         case GoogleLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Google social login response', socialUser);
+    //           this._state.loginGoogle(socialUser);
+    //           break;
+    //         case FacebookLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Facebook social login response', socialUser);
+    //           this._state.loginFacebook({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
 
-        }
-      })
+    //           });
+    //           break;
+    //         case AmazonLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Amazon social login response', socialUser);
+    //           this._state.loginAmazon({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
+
+    //           });
+    //           break;
+    //         case MicrosoftLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Microsoft social login response', socialUser);
+    //           this._state.loginMicrosoft({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
+
+    //           });
+    //           break;
+    //         default:
+    //           devConsole.warn('Unsupported social login provider:', provider);
+    //           return;
+    //       }
+
+    //     }
+    //   })
   }
 
   //- - - - - - - - - - - - - //
@@ -142,14 +154,14 @@ export class LoginJwtComponent implements OnInit {
   onForgotPasswordResult = (dto: ForgotPasswordFormDto) =>
     this._state.forgotPassword(dto)
 
-  facebookLogin(user: SocialUser) {
-    console.log('LoginJwtComponent.login', user);
-  }
+  // facebookLogin(user: SocialUser) {
+  //   console.log('LoginJwtComponent.login', user);
+  // }
 
 
-  googleLogin(user: SocialUser) {
-    console.log('LoginJwtComponent.login -google', user);
-  }
+  // googleLogin(user: SocialUser) {
+  //   console.log('LoginJwtComponent.login -google', user);
+  // }
 
 
 }//Cls

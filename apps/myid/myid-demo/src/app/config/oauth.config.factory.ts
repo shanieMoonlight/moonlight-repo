@@ -2,7 +2,7 @@ import { Provider } from '@angular/core';
 import { MyIdOAuthBuilder } from '@spider-baby/myid-auth/config';
 import { environment } from '../../environments/environment';
 
-export class SocialAuthSetup {
+export class SocialAuthSetupFactory {
 
   static provideSocialLoginConfig(): Provider[] {
     return MyIdOAuthBuilder.create()

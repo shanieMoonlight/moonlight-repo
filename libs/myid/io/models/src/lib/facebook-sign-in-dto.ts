@@ -1,5 +1,5 @@
 export interface FacebookSignInDto {
-  id: string;
+  id?: string;
   authToken: string;
   email?: string;
   subscriptionPlanId?: string;

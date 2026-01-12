@@ -1,7 +1,8 @@
 export interface FaceBookCookieSignInDto {
-  idToken?: string;
+  id?: string;
+  authToken: string;
   email?: string;
-  subscriptionId?: string;
+  subscriptionPlanId?: string;
   deviceId?: string;
   rememberMe?: boolean;
 }

@@ -1,4 +1,4 @@
-import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig ,SocialLoginModule} from '@abacritt/angularx-social-login';
 import { Provider } from '@angular/core';
 import { environment } from '../../environments/environment';
 

@@ -12,9 +12,9 @@ import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { appViewTransition } from './app.view-transitions';
 import { THEME_CONFIG } from './config/app-theme.config';
-import { SocialAuthSetup } from './config/oauth.config.factory';
 import { SEO_CONFIG } from './config/seo.config';
 import { authHttpInterceptors } from './shared/auth/interceptors/auth-http-interceptors';
+import { SocialAuthSetupFactory } from './config/oauth.config.factory';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,10 +37,13 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({}),
       withViewTransitions(appViewTransition)),
-    MaterialThemingSetup.provideTheming(THEME_CONFIG),
-    SeoSetup.provideSeoModule(SEO_CONFIG),
-    SocialAuthSetup.provideSocialLoginConfig(),
-    // SocialAuthSetup.provideSocialLoginConfig(),
+    ...MaterialThemingSetup.provideTheming(THEME_CONFIG),
+    ...SeoSetup.provideSeoModule(SEO_CONFIG),
+    // Spread the returned `Provider[]` so Angular receives individual providers
+    // instead of a nested array (which prevents DI registration).
+    ...SocialAuthSetupFactory.provideSocialLoginConfig(),
+    // ...SocialAuthSetup.provideSocialLoginConfig(),
+    // ...SocialAuthSetup2.provideSocialLoginConfig(),
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

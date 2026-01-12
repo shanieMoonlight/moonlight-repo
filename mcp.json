@@ -10,7 +10,6 @@
       "command": "npx",
       "args": ["-y", "@angular/cli", "mcp"],
       "autoStart": true
-    },
-    "autoStart": true
+    }
   }
 }

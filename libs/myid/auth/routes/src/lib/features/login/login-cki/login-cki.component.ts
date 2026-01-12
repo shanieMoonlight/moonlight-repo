@@ -23,7 +23,7 @@ import { LoginCkiStateService } from './login-cki.state.service';
     SbButtonFacebookLoginComponent,
     SbButtonAmazonLoginComponent,
     SbButtonGoogleLoginComponent
-],
+  ],
   providers: [LoginCkiStateService],
   templateUrl: './login-cki.component.html',
   styleUrl: './login-cki.component.scss',
@@ -32,7 +32,7 @@ import { LoginCkiStateService } from './login-cki.state.service';
 export class LoginCkiComponent implements OnInit {
 
   private _state = inject(LoginCkiStateService)
-  private _socialAuth = inject(SocialAuthService)
+  // private _socialAuth = inject(SocialAuthService)
   private _router = inject(MyIdRouter)
   private _destroyRef = inject(DestroyRef)
   private _platformId = inject(PLATFORM_ID)
@@ -60,8 +60,8 @@ export class LoginCkiComponent implements OnInit {
   constructor() {
 
     // Ensure user is signed out from any previous social login sessions (browser only)
-    if (this._isBrowser)
-      this._socialAuth.signOut()
+    // if (this._isBrowser)
+    //   this._socialAuth.signOut()
 
     effect(() => {
       if (this._state.loginSuccess()) {
@@ -87,39 +87,51 @@ export class LoginCkiComponent implements OnInit {
     if (!this._isBrowser)
       return
 
-    this._socialAuth.authState
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((socialUser) => {
-        devConsole.log('socialUser', socialUser);
+    // this._socialAuth.authState
+    //   .pipe(takeUntilDestroyed(this._destroyRef))
+    //   .subscribe((socialUser) => {
+    //     devConsole.log('socialUser', socialUser);
 
-        if (socialUser) {
-          const provider = socialUser.provider;
-          devConsole.log(`Social login successful from provider: ${provider}`, socialUser);
+    //     if (socialUser) {
+    //       const provider = socialUser.provider;
+    //       devConsole.log(`Social login successful from provider: ${provider}`, socialUser);
 
-          switch (provider) {
-            case GoogleLoginProvider.PROVIDER_ID:
-              devConsole.log('Google social login response', socialUser);
-              this._state.loginGoogleCookie(socialUser);
-              break;
-            case FacebookLoginProvider.PROVIDER_ID:
-              devConsole.log('Facebook social login response', socialUser);
-              this._state.loginFacebookCookie(socialUser);
-              break;
-            case AmazonLoginProvider.PROVIDER_ID:
-              devConsole.log('Amazon social login response', socialUser);
-              this._state.loginAmazonCookie(socialUser);
-              break;
-            case MicrosoftLoginProvider.PROVIDER_ID:
-              devConsole.log('Microsoft social login response', socialUser);
-              this._state.loginMicrosoftCookie(socialUser);
-              break;
-            default:
-              devConsole.warn('Unsupported social login provider:', provider);
-              return;
-          }
+    //       switch (provider) {
+    //         case GoogleLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Google social login response', socialUser);
+    //           this._state.loginGoogleCookie(socialUser);
+    //           break;
+    //         case FacebookLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Facebook social login response', socialUser);
+    //           this._state.loginFacebookCookie({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
 
-        }
-      })
+    //           });
+    //           break;
+    //         case AmazonLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Amazon social login response', socialUser);
+    //           this._state.loginAmazonCookie({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
+
+    //           });
+    //           break;
+    //         case MicrosoftLoginProvider.PROVIDER_ID:
+    //           devConsole.log('Microsoft social login response', socialUser);
+    //           this._state.loginMicrosoftCookie({
+    //             ...socialUser,
+    //             authToken: socialUser.authToken ?? '' //Can't be undefined here
+
+    //           });
+    //           break;
+    //         default:
+    //           devConsole.warn('Unsupported social login provider:', provider);
+    //           return;
+    //       }
+
+    //     }
+    //   })
   }
 
 
