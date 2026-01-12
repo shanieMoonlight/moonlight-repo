@@ -1,4 +1,15 @@
 {
   "eslint.validate": ["json"],
-  "nxConsole.generateAiAgentRules": true
+  "nxConsole.generateAiAgentRules": true,
+  "chat.mcp.serverSampling": {
+    "moonlight-repo/.vscode/mcp.json: angular-cli": {
+      "allowedModels": [
+        "copilot/claude-sonnet-4.5",
+        "copilot/gpt-5",
+        "copilot/gpt-5-mini",
+        "copilot/gpt-5.1",
+        "copilot/gpt-5.1-codex"
+      ]
+    }
+  }
 }

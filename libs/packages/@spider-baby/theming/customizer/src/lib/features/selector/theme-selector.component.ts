@@ -270,8 +270,8 @@ export class SbThemeSelectorComponent implements OnDestroy {
 
     const values = form.getRawValue(); // Use getRawValue for potentially disabled controls
 
-    // Generate a safe value. If it
-    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}}`;
+    // Generate a safe value.
+    const themeValue = `${values.themeName.toLowerCase().replace(/\s+/g, '-')}`;
 
     // Construct ThemeOption using spread operator and defaults
     return {

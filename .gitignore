@@ -82,3 +82,9 @@ scripts-ts/swagger/generated0/**
 # !**/mini-state-crud-builder.**
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+__screenshots__/
+
+
+**/test.spec.sample.ts
+docs/work_in_progress

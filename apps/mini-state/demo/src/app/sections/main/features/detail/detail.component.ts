@@ -64,7 +64,7 @@ export class MainDemoDetailComponent {
     this._itemState,
     this._editState)
 
-  protected _album = computed(() => this._state.data() ?? [])
+  protected _album = this._state.data()
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading
@@ -156,14 +156,17 @@ export class MainDemoDetailComponent {
     (id: string) => this._ioService.getById(id)
   )
 
-  
 
-  protected edit = (album: Album) =>
+
+  edit = (album: Album) =>
     this._editState.trigger({ ...album, title: `${album.title} (Updated)!!` })
-  
+
   private _editState = MiniStateBuilder
     .CreateWithInput((album: Album) => this._ioService.update(album))
     .setSuccessMsgFn((album: Album) => `Album ${album.title} updated successfully!`)
+    .setOnSuccessFn(album => console.log(`Success: Album, ${album.title} updated successfully!`))
+    .setOnTriggerFn((album) => console.log(`About to trigger edit album... ${album.title}`))
+    .setOnErrorFn((album, error) => console.error(`Something went wrong while updating album... ${album.title}`, error))
 
 
 
@@ -171,7 +174,7 @@ export class MainDemoDetailComponent {
     this._itemState,
     this._editState)
 
-  protected _album = computed(() => this._state.data() ?? [])
+  protected _album = this._state.data
   protected _successMsg = this._state.successMsg
   protected _errorMsg = this._state.errorMsg
   protected _loading = this._state.loading

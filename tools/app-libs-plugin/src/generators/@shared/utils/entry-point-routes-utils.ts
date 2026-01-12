@@ -57,14 +57,17 @@ export class EntryPointRoutesUtils {
 
         const insertPos = arrayStartPos + firstNonWs;
         console.log(`Insert position: ${insertPos}`);
-
+        console.log(`element: ${element}`);
+        
         // Extract indentation from the next line that contains the first '{'
         const indentationMatch = /\n(\s*)\{/.exec(routesMatch[1]);
+        console.log(`indentationMatch: ->${indentationMatch}<-`);
         const indentation = indentationMatch ? indentationMatch[1] : '  ';
+        console.log(`indentation: ->${indentation}<-`);
 
         updatedContent =
             parentRouteDefsContent.substring(0, insertPos) +
-            `${indentation}${element}\n` +
+            `${element}\n${indentation}` +
             parentRouteDefsContent.substring(insertPos);
 
 

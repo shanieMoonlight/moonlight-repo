@@ -2,11 +2,12 @@
   "name": "@sb-hub/app/entry-point",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^19.2.0",
-    "@angular/router": "19.2.9",
+    "@angular/core": "21.0.6",
+    "@angular/router": "21.0.6",
     "@sb-hub/sections-main/entry-point": "0.0.1",
     "@sb-hub/sections-main/route-defs": "0.0.1",
-    "@sb-hub/shared-features/not-found": "0.0.1"
+    "@sb-hub/shared-features/not-found": "0.0.1",
+    "@sb-hub/sections-blog/entry-point": "0.0.1"
   },
   "sideEffects": false
 }

@@ -48,10 +48,10 @@ if (virtualConsole) {
 setupZoneTestEnv();
 
 // Your other test setup code...
-import { ngMocks } from 'ng-mocks';
+// import { ngMocks } from 'ng-mocks';
 
 // Initialize ng-mocks (optional but recommended)
-ngMocks.autoSpy('jest');
+// ngMocks.autoSpy('jest');
 
 // Global mocks for browser APIs
 Object.defineProperty(window, 'CSS', { value: null });

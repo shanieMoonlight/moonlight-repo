@@ -2,16 +2,19 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "module": "commonjs",
+    "module": "preserve",
     "target": "es2016",
-    "types": ["jest", "node"],  "paths": {
+    "types": ["jest", "node"],
+    "paths": {
       "@spider-baby/material-theming/config": [
         "libs/packages/@spider-baby/theming/config/src/index.ts"
       ],
       "@spider-baby/ssr-storage": [
         "libs/packages/@spider-baby/ssr/storage/src/index.ts"
       ]
-    }
+    },
+    "moduleResolution": "bundler",
+    "isolatedModules": true
   },
   "files": ["src/test-setup.ts"],
   "include": [
