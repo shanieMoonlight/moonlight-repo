@@ -13,6 +13,8 @@ const MSG_SUFFIX_3 = '\u2060 '
 const MSG_SUFFIXES = [MSG_SUFFIX_0, MSG_SUFFIX_1, MSG_SUFFIX_2, MSG_SUFFIX_3] as const;
 const FALLBACK_ERROR_MSG = 'An unexpected error occurred, please try again later.'
 
+export const ON_TRIGGER_COMPLETE_DELAY_MS = 250;
+
 //=========================================================//
 
 export interface MiniStateDataAndInput<Input, Data> {
@@ -302,9 +304,9 @@ export class MiniState<Input, Output, TError = any> {
         this._dataAndInput$.next({ input, output: data })
         this.emitSuccessMsg(this._successMsgFn?.(input, data))
 
-        //In case loaders and popup messages MUST complete first 
+        //setTimeout in case loaders and popup messages MUST complete first 
         // (Maybe if _onSuccessFn is for navigation away from page)
-        setTimeout(() => this._onSuccessFn?.(input, data), 300)
+        setTimeout(() => this._onSuccessFn?.(input, data), ON_TRIGGER_COMPLETE_DELAY_MS)
     }
 
     //- - - - - - - - - - - - - - - - - - -//
@@ -315,9 +317,9 @@ export class MiniState<Input, Output, TError = any> {
         this.emitErrorMsg(this._errorMsgFn(error) || FALLBACK_ERROR_MSG)
         this._errorBs.next(error)
 
-        //In case loading MUST complete first
+        //setTimeout in case loading MUST complete first
         // (Maybe if _errorFn is for navigation away from page)
-        setTimeout(() => this._onErrorFn?.(input, error), 300)
+        setTimeout(() => this._onErrorFn?.(input, error), ON_TRIGGER_COMPLETE_DELAY_MS)
     }
 
     //-------------------------//
