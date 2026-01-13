@@ -9,5 +9,8 @@ MiniCrudState - make it generic in AddDto, UpdateDto, DeleteDto
     Use miniStates.map(st => st.loading()).some(x => x)  in Combined.
 
 
+    Update MiniCrudState docs
+
+
 
 updaste code samnples
