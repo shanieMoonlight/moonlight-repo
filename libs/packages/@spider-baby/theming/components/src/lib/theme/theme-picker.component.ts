@@ -28,7 +28,7 @@ import { Subject, merge, tap } from 'rxjs';
     styleUrls: ['./theme-picker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[style.color]': '"var(--mat-sys-" + color() + ")"',
+        '[style.color]': '"var(--mat-sys-" + color() + ", inherit)"',
     },
 })
 export class SbThemePickerMatComponent {

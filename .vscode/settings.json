@@ -1,4 +1,5 @@
 {
+  "terminal.integrated.cwd": "${workspaceFolder}",
   "eslint.validate": ["json"],
   "nxConsole.generateAiAgentRules": true,
   "chat.mcp.serverSampling": {
