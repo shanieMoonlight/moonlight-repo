@@ -1,11 +1,11 @@
 {
   "name": "@spider-baby/utils-portal",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Utility helpers for working with Angular CDK portals, overlays, and related DOM helpers.",
   "author": "spider-baby",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shanieMoonlight/moonlight-repo",
+    "url": "https://github.com/shanieMoonlight/moonlight-repo/",
     "directory": "libs/utils/portal"
   },
   "bugs": {
@@ -23,9 +23,9 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
+    "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
+    "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
     "rxjs": "^7.4.0 || ~7.5.0 || ~7.6.0 || ~7.8.0"
   },
   "sideEffects": false

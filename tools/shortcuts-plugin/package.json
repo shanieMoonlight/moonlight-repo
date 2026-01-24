@@ -6,8 +6,11 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@nx/devkit": "21.0.0",
-    "tslib": "^2.3.0"
+    "@nx/devkit": "22.3.3",
+    "tslib": "^2.3.0",
+    "@nx/angular": "22.3.3",
+    "@angular/core": "21.0.6",
+    "@spider-baby/generators-utils": "0.0.1"
   },
   "generators": "./generators.json"
 }

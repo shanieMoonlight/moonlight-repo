@@ -6,8 +6,26 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@nx/devkit": "21.0.0",
-    "tslib": "^2.3.0"
+    "@nx/devkit": "22.3.3",
+    "tslib": "^2.3.0",
+    "@spider-baby/generators-utils": "0.0.1",
+    "@nx/angular": "22.3.3",
+    "@sb-hub/ui-cards": "1.0.0",
+    "@nx/js": "22.3.3",
+    "@angular/core": "21.0.6",
+    "@angular/router": "21.0.6",
+    "@spider-baby/material-theming": "2.0.2",
+    "@spider-baby/utils-seo": "1.0.0",
+    "@spider-baby/utils-routes": "1.0.0",
+    "jest-preset-angular": "16.0.0",
+    "@sb-hub/core-config": "0.0.1",
+    "@sb-hub/shared-ui/hero-banner": "0.0.1",
+    "@angular/cdk": "21.0.5",
+    "@angular/common": "21.0.6",
+    "@spider-baby/utils-mat-everything": "1.0.0",
+    "@spider-baby/utils-open-in-new-window": "1.0.0",
+    "@spider-baby/utils-share": "1.0.0",
+    "rxjs": "~7.8.0"
   },
   "generators": "./generators.json"
 }
