@@ -11,16 +11,21 @@ import { FormUtility } from '../form-utility';
  * Directive: sbFormControlFirstError
  *
  * Automatically manages and displays the first validation error for each control in a FormGroup.
- * - Shows errors only after controls are touched (unless showUntouched is true)
- * - Dynamically adds blur/focusout listeners for untouched invalid controls
- * - Supports custom error messages via CustomErrorMessageMap
+ * - Shows errors only after controls are touched (unless `showUntouched` is true)
+ * - Uses delegated blur/focusout handling for untouched invalid controls
+ * - Supports custom error messages via `CustomErrorMessageMap`
  * - Cleans up all listeners and subscriptions on destroy
- * - SSR-safe: all DOM access is guarded by isPlatformBrowser
+ * - SSR-safe: all DOM access is guarded by `isPlatformBrowser`
+ *
+ * Important: This directive does NOT call `updateValueAndValidity()` on the form.
+ * Callers are responsible for invoking `form.updateValueAndValidity()` after
+ * programmatic changes (e.g. `patchValue`, `setErrors`, enabling/disabling controls)
+ * when they want validation to run and errors to be surfaced immediately. The
+ * directive listens for `statusChanges` and `focusout` events to surface errors,
+ * but it will not force a validation run on behalf of the caller.
  *
  * Limitations:
- * - Dynamic form changes (adding/removing controls at runtime) are NOT automatically handled in this version.
- *   If you add or remove controls after initialization, you must manually re-run error setup logic.
- *   (This feature is planned for a future release.)
+ * - Nested FormGroup/FormArray traversal is not handled recursively in this version.
  */
 @Directive({
   selector: '[sbFormControlFirstError]',
@@ -49,67 +54,78 @@ export class FirstErrorDirective implements OnDestroy {
    * If false, errors will only be shown after the control is touched.
    * Default is false.
    */
-  @Input() showUntouched: boolean = false; 
+  @Input() showUntouched: boolean = false;
 
   //- - - - - - - - - - - - - - //
 
   private _form?: FormGroup
   private _vcSub?: Subscription
-  private blurListeners = new Map<string, () => void>()
+  private _focusOutUnlisten?: () => void
 
   //----------------------------//
 
   ngOnDestroy(): void {
     this._vcSub?.unsubscribe()
-    this.removeAllBlurListeners();
+    this._focusOutUnlisten?.();
   }
 
   //----------------------------//
 
-  private addBlurListener(controlName: string, control: AbstractControl): void {
-
-    // Find the input element by formControlName
-    const input: HTMLElement | null = this._host.nativeElement.querySelector(`[formControlName="${controlName}"]`);
-
-    if (!input)
+  private ensureDelegatedFocusoutListener() {
+    // We keep ONE focusout listener on the form host instead of one per control.
+    // Why: controls rendered later by @if/*ngIf were previously missed because
+    // they did not exist when per-control listeners were attached.
+    if (this._focusOutUnlisten) //Already listening
       return;
 
-    // Use Renderer2 to listen for 'focusout'
-    const unlisten = this._renderer.listen(input, 'focusout', () => {
-      if (!control.errors?.['firstError']) {
-        FormErrors.setFirstErrorMessage(
-          controlName,
-          control,
-          this.customErrorMessages
-        );
-      }
-      // Remove the event listener after setting the error
-      unlisten();
-      this.blurListeners.delete(controlName);
-    });
+    this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: Event) => {
+      const controlName = this.findControlNameFromEvent(event)
 
-    this.blurListeners.set(controlName, unlisten);
-  }
+      if (!controlName)
+        return;
 
-  //- - - - - - - - - - - - - - //
+      const control = this._form?.get(controlName)
 
-  private removeAllBlurListeners() {
+      // Preserve previous behavior: blur can set firstError for untouched invalid
+      // controls. We only skip when control is missing or firstError is already set.
+      if (!control || control.errors?.['firstError'])
+        return;
 
-    for (const unlisten of this.blurListeners.values()) 
-      unlisten()
-    
-    this.blurListeners.clear();
+      FormErrors.setFirstErrorMessage(controlName, control, this.customErrorMessages)
+    })
   }
 
   //----------------------------//
 
+  private findControlNameFromEvent(event: Event): string | null {
+    // `focusout` bubbles; event target may be a nested element inside a control
+    // wrapper. We walk up to the nearest element with formControlName.
+    const eventTarget = event.target
+
+    if (!(eventTarget instanceof HTMLElement))
+      return null
+
+    const controlElement = eventTarget.closest('[formControlName]')
+
+    if (!controlElement)
+      return null
+
+    return controlElement.getAttribute('formControlName')
+  }
+
+  //----------------------------//
 
   private observeValueChanges(form: FormGroup) {
 
     if (!isPlatformBrowser(this._platformId))
       return;
 
+    // Listener is attached once and continues to work as the template adds/removes
+    // controls dynamically (e.g. @if toggles).
+    this.ensureDelegatedFocusoutListener();
+
     this._vcSub?.unsubscribe()
+    //This will catch things like form.patch or form.setValue that don't trigger `ensureDelegatedFocusoutListener`.
     this._vcSub = form.statusChanges
       .pipe(
         startWith('PENDING'), // Start with non-Invalid so the first error will be set on blur if the user clicks input without entering any data
@@ -121,7 +137,7 @@ export class FirstErrorDirective implements OnDestroy {
         for (const controlData of invalidControlData) {
           const control = controlData.control;
           const name = controlData.name;
-         
+
 
           // Skip if firstError is already set
           if (control.errors?.['firstError'])
@@ -130,10 +146,6 @@ export class FirstErrorDirective implements OnDestroy {
 
           if (this.showUntouched || control.touched) {
             FormErrors.setFirstErrorMessage(name, control, this.customErrorMessages);
-          } else if (!control.touched) {
-            // Add blur listener if not already present
-            if (!this.blurListeners.has(name)) 
-              this.addBlurListener(name, control);            
           }
         }
       })

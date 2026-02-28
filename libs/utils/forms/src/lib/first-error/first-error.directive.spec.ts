@@ -42,6 +42,30 @@ class TestHostComponent {
     }
 }
 
+@Component({
+        standalone: true,
+        imports: [ReactiveFormsModule, FirstErrorDirective],
+        template: `
+        <form [formGroup]="testForm" [sbFormControlFirstError]="testForm" data-testid="dynamic-form">
+            <input formControlName="email" data-testid="dynamic-email-input">
+
+            @if(showOptional) {
+                <input formControlName="username" data-testid="dynamic-username-input">
+            }
+        </form>
+    `
+})
+class DynamicVisibilityHostComponent {
+        private fb: FormBuilder = inject(FormBuilder);
+
+        showOptional = false;
+
+        testForm = this.fb.group({
+                email: ['', [Validators.required, Validators.email]],
+                username: ['', [Validators.required, Validators.minLength(3)]],
+        });
+}
+
 describe('FirstErrorDirective', () => {
     let component: TestHostComponent;
     let fixture: ComponentFixture<TestHostComponent>;
@@ -484,6 +508,84 @@ describe('FirstErrorDirective', () => {
 
             // Should handle dynamically added control
             expect(component.testForm.get('newField')?.errors?.['firstError']).toBe('New Field is required.');
+        }));
+    });
+
+    //----------------------------//
+
+    describe('Dynamic Template Rendering', () => {
+        let dynamicFixture: ComponentFixture<DynamicVisibilityHostComponent>;
+        let dynamicComponent: DynamicVisibilityHostComponent;
+
+        beforeEach(async () => {
+            dynamicFixture = TestBed.createComponent(DynamicVisibilityHostComponent);
+            dynamicComponent = dynamicFixture.componentInstance;
+            dynamicFixture.detectChanges();
+        });
+
+        afterEach(() => {
+            dynamicFixture?.destroy();
+        });
+
+        it('should set firstError for control rendered after @if toggle on focusout', fakeAsync(() => {
+            const usernameControl = dynamicComponent.testForm.get('username');
+
+            dynamicComponent.testForm.patchValue({
+                email: 'valid@example.com',
+                username: ''
+            });
+
+            dynamicComponent.testForm.updateValueAndValidity();
+            tick();
+            dynamicFixture.detectChanges();
+
+            expect(dynamicFixture.debugElement.query(By.css('[data-testid="dynamic-username-input"]'))).toBeNull();
+            expect(usernameControl?.errors?.['firstError']).toBeUndefined();
+
+            dynamicComponent.showOptional = true;
+            dynamicFixture.detectChanges();
+
+            const usernameInput = dynamicFixture.debugElement.query(By.css('[data-testid="dynamic-username-input"]'))?.nativeElement as HTMLInputElement;
+            usernameInput.dispatchEvent(new Event('focusout', { bubbles: true }));
+
+            tick();
+            dynamicFixture.detectChanges();
+
+            expect(usernameControl?.errors?.['firstError']).toBe('Username is required.');
+        }));
+
+        it('should keep working across repeated hide/show toggles', fakeAsync(() => {
+            const usernameControl = dynamicComponent.testForm.get('username');
+
+            dynamicComponent.testForm.patchValue({
+                email: 'valid@example.com',
+                username: ''
+            });
+            dynamicComponent.testForm.updateValueAndValidity();
+            tick();
+            dynamicFixture.detectChanges();
+
+            dynamicComponent.showOptional = true;
+            dynamicFixture.detectChanges();
+
+            let usernameInput = dynamicFixture.debugElement.query(By.css('[data-testid="dynamic-username-input"]'))?.nativeElement as HTMLInputElement;
+            usernameInput.dispatchEvent(new Event('focusout', { bubbles: true }));
+            tick();
+            dynamicFixture.detectChanges();
+            expect(usernameControl?.errors?.['firstError']).toBe('Username is required.');
+
+            usernameControl?.setErrors({ required: true });
+            dynamicComponent.showOptional = false;
+            dynamicFixture.detectChanges();
+            dynamicComponent.showOptional = true;
+            dynamicFixture.detectChanges();
+
+            usernameInput = dynamicFixture.debugElement.query(By.css('[data-testid="dynamic-username-input"]'))?.nativeElement as HTMLInputElement;
+            usernameInput.dispatchEvent(new Event('focusout', { bubbles: true }));
+            tick();
+            dynamicFixture.detectChanges();
+
+            expect(usernameControl?.errors?.['firstError']).toBe('Username is required.');
         }));
     });
 });

@@ -27,6 +27,14 @@ A powerful directive that automatically manages form validation state and displa
 - Supports custom error messages
 - Memory leak prevention with automatic subscription cleanup
 
+> **Important:** The `FirstErrorDirective` and the `FormErrors` helpers do **not** call
+> `updateValueAndValidity()` on your `FormGroup` or controls. If your code performs
+> programmatic changes (for example `patchValue`, `setErrors`, enabling/disabling
+> controls) and you want validation to run immediately and errors to be surfaced,
+> call `myForm.updateValueAndValidity()` from the caller after making those changes.
+> The directive listens for `statusChanges` and `focusout` events but will not force
+> a validation run on behalf of the caller.
+
 #### Basic Usage
 
 ```typescript

@@ -36,6 +36,23 @@ const errorMessageMap: CustomErrorMessageMap = new Map<string, ErrorMessageFunct
 //##########################//
 
 
+/**
+ * Helper: FormErrors
+ *
+ * Convenience helpers to compute and attach the "first" validation message
+ * for form controls. The methods in this class (for example
+ * `setFirstErrors` and `setFirstErrorMessage`) will attach an error under the
+ * `firstError` key on the control via `control.setErrors(...)`.
+ *
+ * Important: these helpers do NOT call `updateValueAndValidity()` on the form
+ * or on the control. In addition, `setFirstErrorMessage` intentionally calls
+ * `setErrors(..., { emitEvent: false })` to avoid emitting `statusChanges`.
+ * As a result, callers that perform programmatic changes to the form (e.g.
+ * `patchValue`, `setErrors`, enable/disable) should call
+ * `form.updateValueAndValidity()` when they want validation to run and errors
+ * to be reflected immediately in the UI. The directive `FirstErrorDirective`
+ * intentionally leaves that decision up to the caller.
+ */
 export class FormErrors {
 
 
