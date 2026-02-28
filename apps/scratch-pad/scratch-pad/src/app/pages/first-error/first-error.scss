@@ -24,10 +24,16 @@ mat-card {
   align-items: center;
 }
 
-    .error {
-      color: var(--error-color, #d9534f );
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-      display: block;
-      animation: fadeIn 0.3s ease-in;
-    }
+.error {
+  color: var(--error-color, #d9534f);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.array-section{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>First Error Directive - Dynamic Control Demo</mat-card-title>
+        <mat-card-title>First Error Directive - FormArray + &#x40;if Demo</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -47,8 +47,24 @@
             </mat-form-field>
             }
 
+            <div formArrayName="aliases" class="array-section">
+                @for (aliasControl of aliasesControls; track $index) {
+                <mat-form-field appearance="outline">
+                    <mat-label>Alias {{$index + 1}}</mat-label>
+                    <input matInput [formControlName]="$index" placeholder="Min length 3" />
+                    @if(aliasControl.errors?.['firstError']; as err) {
+                    <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+                        {{err}}
+                    </span>
+                    }
+                </mat-form-field>
+                }
+            </div>
+
             <div class="actions">
                 <button type="button" mat-stroked-button (click)="toggleShow()">{{ _showStateLabel() }}</button>
+                <button type="button" mat-stroked-button (click)="addAlias()">Add alias</button>
+                <button type="button" mat-stroked-button (click)="removeLastAlias()">Remove alias</button>
                 <button type="submit" mat-flat-button color="primary">Run Validation Pass</button>
             </div>
         </form>

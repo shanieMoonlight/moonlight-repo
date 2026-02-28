@@ -77,6 +77,8 @@ export class FormErrors {
         control: AbstractControl,
         customErrorMessages?: CustomErrorMessageMap): void {
 
+            console.log('control', control);
+            
         const currentErrors = control.errors
         const firstErrorMessage = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
         if (firstErrorMessage)
@@ -87,8 +89,7 @@ export class FormErrors {
 
     }
 
-
-
+    
     //----------------------------//    
 
 

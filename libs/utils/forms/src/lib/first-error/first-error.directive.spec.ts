@@ -1,6 +1,6 @@
 import { Component, DebugElement, inject } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FirstErrorDirective } from './first-error.directive';
 import { CustomErrorMessageMap, FormErrors } from '../form-errors';
@@ -65,6 +65,38 @@ class DynamicVisibilityHostComponent {
                 username: ['', [Validators.required, Validators.minLength(3)]],
         });
 }
+
+    @Component({
+        standalone: true,
+        imports: [ReactiveFormsModule, FirstErrorDirective],
+        template: `
+        <form [formGroup]="testForm" [sbFormControlFirstError]="testForm" data-testid="array-form">
+            <div formArrayName="aliases">
+            <input [formControlName]="0" data-testid="alias-0-input">
+
+            @if(showExtra) {
+                <input [formControlName]="1" data-testid="alias-1-input">
+            }
+            </div>
+        </form>
+        `
+    })
+    class FormArrayVisibilityHostComponent {
+        private fb: FormBuilder = inject(FormBuilder);
+
+        showExtra = false;
+
+        testForm = this.fb.group({
+            aliases: this.fb.array([
+                this.fb.control('', [Validators.required, Validators.minLength(3)]),
+                this.fb.control('', [Validators.required, Validators.minLength(3)]),
+            ]),
+        });
+
+        get aliases(): FormArray<FormControl<string | null>> {
+            return this.testForm.controls.aliases;
+        }
+    }
 
 describe('FirstErrorDirective', () => {
     let component: TestHostComponent;
@@ -586,6 +618,47 @@ describe('FirstErrorDirective', () => {
             dynamicFixture.detectChanges();
 
             expect(usernameControl?.errors?.['firstError']).toBe('Username is required.');
+        }));
+    });
+
+    //----------------------------//
+
+    describe('FormArray + NgControl Mapping', () => {
+        let formArrayFixture: ComponentFixture<FormArrayVisibilityHostComponent>;
+        let formArrayComponent: FormArrayVisibilityHostComponent;
+
+        beforeEach(() => {
+            formArrayFixture = TestBed.createComponent(FormArrayVisibilityHostComponent);
+            formArrayComponent = formArrayFixture.componentInstance;
+            formArrayFixture.detectChanges();
+        });
+
+        afterEach(() => {
+            formArrayFixture?.destroy();
+        });
+
+        it('should set firstError for a FormArray control rendered after @if toggle on focusout', fakeAsync(() => {
+            const secondAlias = formArrayComponent.aliases.at(1);
+
+            formArrayComponent.aliases.at(0).setValue('validAlias');
+            secondAlias.setValue('');
+            formArrayComponent.testForm.updateValueAndValidity();
+            tick();
+            formArrayFixture.detectChanges();
+
+            expect(formArrayFixture.debugElement.query(By.css('[data-testid="alias-1-input"]'))).toBeNull();
+            expect(secondAlias.errors?.['firstError']).toBeUndefined();
+
+            formArrayComponent.showExtra = true;
+            formArrayFixture.detectChanges();
+
+            const secondAliasInput = formArrayFixture.debugElement.query(By.css('[data-testid="alias-1-input"]'))?.nativeElement as HTMLInputElement;
+            secondAliasInput.dispatchEvent(new Event('focusout', { bubbles: true }));
+
+            tick();
+            formArrayFixture.detectChanges();
+
+            expect(secondAlias.errors?.['firstError']).toBeTruthy();
         }));
     });
 });

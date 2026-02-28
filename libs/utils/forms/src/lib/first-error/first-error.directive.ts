@@ -1,10 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, inject, Input, OnDestroy, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, inject, Input, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { FormGroup, NgControl } from '@angular/forms';
 import { filter, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CustomErrorMessageMap, FormErrors } from '../form-errors';
 import { FormUtility } from '../form-utility';
+import { FirstErrorControlResolutionService } from './first-error-control-resolution';
 
 
 /**
@@ -24,19 +25,28 @@ import { FormUtility } from '../form-utility';
  * directive listens for `statusChanges` and `focusout` events to surface errors,
  * but it will not force a validation run on behalf of the caller.
  *
- * Limitations:
- * - Nested FormGroup/FormArray traversal is not handled recursively in this version.
+ * Focusout resolution strategy:
+ * - Uses `NgControl` instances from the projected form content to map host elements
+ *   to actual `AbstractControl` instances.
+ * - This supports nested `FormGroup`/`FormArray` structures and CVA hosts more
+ *   reliably than resolving by DOM attributes alone.
  */
 @Directive({
   selector: '[sbFormControlFirstError]',
   standalone: true
 })
-export class FirstErrorDirective implements OnDestroy {
+export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
   private _platformId = inject(PLATFORM_ID);
   private _renderer = inject(Renderer2);
   private _host: ElementRef<HTMLElement> = inject(ElementRef);
+  private _controlResolution = inject(FirstErrorControlResolutionService);
 
+  //- - - - - - - - - - - - - - //
+
+  @ContentChildren(NgControl, { descendants: true }) private _ngControls?: QueryList<NgControl>
+
+  //- - - - - - - - - - - - - - //
 
   @Input({ required: true }) set sbFormControlFirstError(form: FormGroup) {
     this._form = form
@@ -60,13 +70,28 @@ export class FirstErrorDirective implements OnDestroy {
 
   private _form?: FormGroup
   private _vcSub?: Subscription
+  private _ngControlsSub?: Subscription
   private _focusOutUnlisten?: () => void
+  private _controlHostMap = new Map<HTMLElement, NgControl>()
+
+  //----------------------------//
+
+  //Wait for content children to be available so we can build the control host map for delegated focusout handling.
+  ngAfterContentInit(): void {
+     this._controlHostMap = this._controlResolution.buildControlHostMap(this._ngControls?.toArray())
+
+    this._ngControlsSub = this._ngControls?.changes.subscribe(() => {
+      this._controlHostMap = this._controlResolution.buildControlHostMap(this._ngControls?.toArray())
+    });
+  }
 
   //----------------------------//
 
   ngOnDestroy(): void {
     this._vcSub?.unsubscribe()
+    this._ngControlsSub?.unsubscribe()
     this._focusOutUnlisten?.();
+    this._controlHostMap.clear();
   }
 
   //----------------------------//
@@ -78,39 +103,22 @@ export class FirstErrorDirective implements OnDestroy {
     if (this._focusOutUnlisten) //Already listening
       return;
 
-    this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: Event) => {
-      const controlName = this.findControlNameFromEvent(event)
+    this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: FocusEvent) => {
+      const resolved = this._controlResolution.resolveControlForEvent(event, this._host.nativeElement, this._controlHostMap, this._form)
 
-      if (!controlName)
+      if (!resolved)
         return;
 
-      const control = this._form?.get(controlName)
+      const controlName = resolved.name
+      const control = resolved.control
 
       // Preserve previous behavior: blur can set firstError for untouched invalid
       // controls. We only skip when control is missing or firstError is already set.
-      if (!control || control.errors?.['firstError'])
+      if (control.errors?.['firstError'])
         return;
 
       FormErrors.setFirstErrorMessage(controlName, control, this.customErrorMessages)
     })
-  }
-
-  //----------------------------//
-
-  private findControlNameFromEvent(event: Event): string | null {
-    // `focusout` bubbles; event target may be a nested element inside a control
-    // wrapper. We walk up to the nearest element with formControlName.
-    const eventTarget = event.target
-
-    if (!(eventTarget instanceof HTMLElement))
-      return null
-
-    const controlElement = eventTarget.closest('[formControlName]')
-
-    if (!controlElement)
-      return null
-
-    return controlElement.getAttribute('formControlName')
   }
 
   //----------------------------//
