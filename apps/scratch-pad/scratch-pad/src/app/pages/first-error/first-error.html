@@ -1,40 +1,56 @@
 <mat-card>
-	<mat-card-header>
-		<mat-card-title>First Error Directive - Dynamic Control Demo</mat-card-title>
-	</mat-card-header>
+    <mat-card-header>
+        <mat-card-title>First Error Directive - Dynamic Control Demo</mat-card-title>
+    </mat-card-header>
 
-	<mat-card-content>
-		<form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="form-grid">
-			<mat-form-field appearance="outline">
-				<mat-label>First Name</mat-label>
-				<input matInput formControlName="firstName" placeholder="Min length 2" />
-				<sb-first-error [control]="_form.controls.firstName" />
-			</mat-form-field>
+    <mat-card-content>
+        <form [formGroup]="_form" [sbFormControlFirstError]="_form" (ngSubmit)="submit()" class="form-grid">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="Min length 2" />
+                @if(_form.controls.firstName.errors?.['firstError']; as err) {
+                <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+                    {{err}}
+                </span>
+                }
+            </mat-form-field>
 
-			<mat-form-field appearance="outline">
-				<mat-label>Email</mat-label>
-				<input matInput type="email" formControlName="email" placeholder="Valid email required" />
-				<sb-first-error [control]="_form.controls.email" />
-			</mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="Valid email required" />
+                @if(_form.controls.email.errors?.['firstError']; as err) {
+                <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+                    {{err}}
+                </span>
+                }
+            </mat-form-field>
 
-			@if (show()) {
-			<mat-form-field appearance="outline">
-				<mat-label>Username</mat-label>
-				<input matInput formControlName="username" placeholder="Letters, numbers, underscore" />
-				<sb-first-error [control]="_form.controls.username" />
-			</mat-form-field>
+            @if (show()) {
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" placeholder="Letters, numbers, underscore" />
+                @if(_form.controls.username.errors?.['firstError']; as err) {
+                <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+                    {{err}}
+                </span>
+                }
+            </mat-form-field>
 
-			<mat-form-field appearance="outline">
-				<mat-label>Phone Number</mat-label>
-				<input matInput formControlName="phoneNumber" placeholder="Min length 10" />
-				<sb-first-error [control]="_form.controls.phoneNumber" />
-			</mat-form-field>
-			}
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber" placeholder="Min length 10" />
+                @if(_form.controls.phoneNumber.errors?.['firstError']; as err) {
+                <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+                    {{err}}
+                </span>
+                }
+            </mat-form-field>
+            }
 
-			<div class="actions">
-				<button type="button" mat-stroked-button (click)="toggleShow()">{{ _showStateLabel() }}</button>
-				<button type="submit" mat-flat-button color="primary">Run Validation Pass</button>
-			</div>
-		</form>
-	</mat-card-content>
+            <div class="actions">
+                <button type="button" mat-stroked-button (click)="toggleShow()">{{ _showStateLabel() }}</button>
+                <button type="submit" mat-flat-button color="primary">Run Validation Pass</button>
+            </div>
+        </form>
+    </mat-card-content>
 </mat-card>
