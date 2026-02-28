@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+//======================= SPIN ========================//
+
+.primary-palette {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--mat-sys-primary)
+    )
+  );
+}
+
+
+
+.secondary-palette {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+
+
+.tertiary-palette {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+
+
+.error-palette {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--mat-sys-error)
+    )
+  );
+}
+
+
+
+
+//======================== LINE ========================//
+.secondary-palette {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+
+
+.tertiary-palette {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+
+
+.error-palette {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--mat-sys-error)
+    )
+  );
+}

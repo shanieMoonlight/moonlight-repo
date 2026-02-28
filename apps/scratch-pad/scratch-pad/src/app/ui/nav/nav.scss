@@ -1,0 +1,45 @@
+.mpt-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface-container);
+  height: 56px;
+  box-sizing: border-box;
+}
+
+.link{
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.mpt-nav .left,
+.mpt-nav .center,
+.mpt-nav .right {
+  display: flex;
+  align-items: center;
+}
+
+.mpt-nav .center {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.right {
+  min-width: 48px;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -1,0 +1,69 @@
+@use "@angular/material" as mat;
+
+//======================= SPIN ========================//
+
+.primary-palette {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-primary)
+    )
+  );
+}
+
+.secondary-palette {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-secondary)
+    )
+  );
+}
+
+.tertiary-palette {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-tertiary)
+    )
+  );
+}
+
+.error-palette {
+  @include mat.icon-overrides(
+    (
+        color: var(--mat-sys-error)
+    )
+  );
+}
+
+// Styles for mat-icon when its parent [mat-icon-button] has a specific color class
+// and we want to use the "on-" color variant for the icon.
+
+[mat-icon-button].primary-palette {
+  .mat-icon {
+    color: var(--mat-sys-on-primary);
+    // Add any other optional styles for an icon within a 'primary' mat-icon-button
+  }
+}
+
+[mat-icon-button].secondary-palette {
+  .mat-icon {
+    color: var(--mat-sys-on-secondary);
+    // Optional: other styles
+  }
+}
+
+[mat-icon-button].tertiary-palette {
+  .mat-icon {
+    color: var(--mat-sys-on-tertiary);
+    // Optional: other styles
+  }
+}
+
+[mat-icon-button].error-palette {
+  .mat-icon {
+    // Assuming you have a --mat-sys-on-error, otherwise adjust as needed
+    // For example, it might be --mat-sys-on-error-container or a specific contrast color
+    color: var(--mat-sys-on-error);
+    // Optional: other styles
+  }
+
+}

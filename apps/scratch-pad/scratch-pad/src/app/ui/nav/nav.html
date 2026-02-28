@@ -1,0 +1,16 @@
+<header class="mpt-nav" role="navigation">
+  <div class="left">
+    <img class="logo link" 
+      [src]="logo()" 
+      alt="logo" 
+      [routerLink]="'/'" />
+  </div>
+
+  <div class="center">
+    <div class="title">{{title()}}</div>
+  </div>
+
+  <div class="right">
+    <ng-content />
+  </div>
+</header>
