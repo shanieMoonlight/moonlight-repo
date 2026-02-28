@@ -1,0 +1,11 @@
+{
+  "migrations": [],
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "d8c68d04ad15dad3e4a58cdff37c58ee3a4d3e30",
+      "subject": "Fixed, NPM Publish tests. Added ScratchPad"
+    },
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true
+  }
+}
