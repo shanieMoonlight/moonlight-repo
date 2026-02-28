@@ -22,10 +22,10 @@ npm install @spider-baby/utils-portal
 
 ```json
 {
-  "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-  "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0", 
-  "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-  "rxjs": "^7.4.0 || ~7.5.0 || ~7.6.0 || ~7.8.0"
+    "@angular/common": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
+    "@angular/core": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
+    "@angular/cdk": "^17.3.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || >=21.0.0",
+    "rxjs": "^7.4.0 || ~7.5.0 || ~7.6.0 || >=7.8.0"
 }
 ```
 
@@ -47,10 +47,10 @@ import { SbPortalInputComponent, SbPortalOutletComponent } from '@spider-baby/ut
     </ng-template>
     
     <!-- Project the template -->
-    <sb-portal-input [portalTemplate]="myContentTemplate"></sb-portal-input>
+    <sb-portal-input [portalTemplate]="myContentTemplate"/>
     
     <!-- Where the content appears -->
-    <sb-portal-outlet></sb-portal-outlet>
+    <sb-portal-outlet/>
   `
 })
 export class AppComponent {}
@@ -73,10 +73,10 @@ Projects template content to a named portal outlet.
 </ng-template>
 
 <!-- Project to default outlet -->
-<sb-portal-input [portalTemplate]="navigationTemplate"></sb-portal-input>
+<sb-portal-input [portalTemplate]="navigationTemplate"/>
 
 <!-- Project to named outlet -->
-<sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"></sb-portal-input>
+<sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"/>
 ```
 
 **Properties:**
@@ -89,10 +89,10 @@ Displays content from a named portal.
 
 ```html
 <!-- Display default portal -->
-<sb-portal-outlet></sb-portal-outlet>
+<sb-portal-outlet/>
 
 <!-- Display named portal -->
-<sb-portal-outlet name="sidebar"></sb-portal-outlet>
+<sb-portal-outlet name="sidebar"/>
 ```
 
 **Properties:**
@@ -114,7 +114,7 @@ Here's how you might use the portal system in a typical application:
       <div class="navbar-brand">My App</div>
       
       <!-- Portal outlet for page-specific navigation -->
-      <sb-portal-outlet name="navbar-actions"></sb-portal-outlet>
+      <sb-portal-outlet name="navbar-actions"/>
       
       <div class="navbar-end">
         <button>Settings</button>
@@ -151,8 +151,8 @@ export class NavbarComponent {}
     </ng-template>
 
     <!-- Project templates to portals -->
-    <sb-portal-input name="navbar-actions" [portalTemplate]="navbarActionsTemplate"></sb-portal-input>
-    <sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"></sb-portal-input>
+    <sb-portal-input name="navbar-actions" [portalTemplate]="navbarActionsTemplate"/>
+    <sb-portal-input name="sidebar" [portalTemplate]="sidebarTemplate"/>
 
     <!-- Main content -->
     <article>
@@ -174,7 +174,7 @@ export class BlogPostComponent {}
   template: `
     <aside class="sidebar">
       <!-- Display sidebar-specific content -->
-      <sb-portal-outlet name="sidebar"></sb-portal-outlet>
+      <sb-portal-outlet name="sidebar"/>
       
       <!-- Default sidebar content -->
       <div class="default-content">
@@ -200,11 +200,11 @@ Multiple outlets can share the same portal name, causing the same content to app
 </ng-template>
 
 <!-- Both outlets will show the same content -->
-<sb-portal-outlet name="shared-content"></sb-portal-outlet>
-<sb-portal-outlet name="shared-content"></sb-portal-outlet>
+<sb-portal-outlet name="shared-content"/>
+<sb-portal-outlet name="shared-content"/>
 
 <!-- Project template to both outlets -->
-<sb-portal-input name="shared-content" [portalTemplate]="sharedContentTemplate"></sb-portal-input>
+<sb-portal-input name="shared-content" [portalTemplate]="sharedContentTemplate"/>
 ```
 
 
@@ -303,7 +303,7 @@ export class ConditionalPortalComponent {
       <h4>Portal Outlet (Destination)</h4>
       <h5>Could be anywhere in your application</h5>
       <div class="outlet-container">
-        <sb-portal-outlet name="demo-portal"></sb-portal-outlet>
+        <sb-portal-outlet name="demo-portal"/>
       </div>
     </div>
   `

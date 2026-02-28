@@ -4,6 +4,7 @@ import prompts from 'prompts';
 import { LibraryData, LibraryDependency } from '../../../shared/library-data/models'; // Assuming LibraryData is here
 import { CommandUtils } from '../../../shared/utils/cmd/command-utils';
 import { BuildUtils } from '../utils/build-utils';
+import { PAT } from '../../../../secrets/npm.secrets';
 
 //= = = = = = = = = = = = = = = = = = = = = = = = = = //
 
@@ -152,7 +153,7 @@ export async function publishToNpmAsync(
     // --- Publish Step ---
     // Dry run
     console.log(chalk.cyan(`INFO: Performing npm publish dry run from ${packageDistPathAbsolute}...`));
-    const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, true);
+    const dryRun = CommandUtils.npmPublishPublic(packageDistPathAbsolute, PAT, true);
     if (dryRun.status !== 0)
         throw new Error(`npm publish dry run failed.\n${dryRun.stderr}`);
 
@@ -163,9 +164,9 @@ export async function publishToNpmAsync(
         return;
 
 
-    // Actual publish
+    // Actual publishprocess.env.npm_config_registry = "https://registry.npmjs.org/";
     console.log(chalk.cyan(`INFO: Publishing ${npmPackageSpec} to npm from ${packageDistPathAbsolute}...`));
-    const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, false, true); // access public, no dry run
+    const publishResult = CommandUtils.npmPublishPublic(packageDistPathAbsolute, PAT, false, true); // access public, no dry run
     if (publishResult.status !== 0)
         throw new Error(chalk.red(`!!! ERROR: npm publish failed !!!\n${publishResult.stderr}`));
 

@@ -1,0 +1,9 @@
+{
+  "name": "scratch-pad-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/scratch-pad/scratch-pad-e2e/src",
+  "implicitDependencies": ["scratch-pad"],
+  "// targets": "to see all targets run: nx show project scratch-pad-e2e --web",
+  "targets": {}
+}

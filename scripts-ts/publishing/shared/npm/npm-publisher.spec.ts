@@ -125,8 +125,10 @@ describe('publishToNpmAsync', () => {
     expect(mainPackageCalls.length).toBe(4); // 1 initial + 3 retries
 
     // Verify dry run was performed
-    expect(CommandUtils.npmPublishPublic).toHaveBeenCalledWith(
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      1,
       mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
       true
     );
 
@@ -134,8 +136,10 @@ describe('publishToNpmAsync', () => {
     expect(prompts).toHaveBeenCalled();
 
     // Verify actual publish
-    expect(CommandUtils.npmPublishPublic).toHaveBeenCalledWith(
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      2,
       mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
       false,
       true
     );
@@ -153,9 +157,17 @@ describe('publishToNpmAsync', () => {
     // Should not prompt
     expect(prompts).not.toHaveBeenCalled();
 
-    // Should publish
-    expect(CommandUtils.npmPublishPublic).toHaveBeenCalledWith(
+    // Should publish (dry run then actual publish)
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      1,
       mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
+      true
+    );
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      2,
+      mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
       false,
       true
     );
@@ -230,7 +242,7 @@ describe('publishToNpmAsync', () => {
 
   test('should throw an error if dry run fails', async () => {
     // Mock dry run failure
-    (CommandUtils.npmPublishPublic as jest.Mock).mockImplementation((_, isDryRun) => {
+    (CommandUtils.npmPublishPublic as jest.Mock).mockImplementation((_, __, isDryRun) => {
       if (isDryRun) {
         return { status: 1, stdout: '', stderr: 'Dry run failed' };
       }
@@ -250,6 +262,7 @@ describe('publishToNpmAsync', () => {
     expect(CommandUtils.npmPublishPublic).toHaveBeenCalledTimes(1);
     expect(CommandUtils.npmPublishPublic).not.toHaveBeenCalledWith(
       mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
       false,
       true
     );
@@ -270,6 +283,7 @@ describe('publishToNpmAsync', () => {
     expect(CommandUtils.npmPublishPublic).toHaveBeenCalledTimes(1); // Only dry run
     expect(CommandUtils.npmPublishPublic).not.toHaveBeenCalledWith(
       mockLibraryData.packageDistPathAbsolute,
+      expect.any(String),
       false,
       true
     );
@@ -277,7 +291,7 @@ describe('publishToNpmAsync', () => {
 
   test('should throw an error if actual publish fails', async () => {
     // Mock actual publish failure
-    (CommandUtils.npmPublishPublic as jest.Mock).mockImplementation((_, isDryRun) => {
+    (CommandUtils.npmPublishPublic as jest.Mock).mockImplementation((_, __, isDryRun) => {
       if (!isDryRun) {
         return { status: 1, stdout: '', stderr: 'Publish failed' };
       }
@@ -289,7 +303,6 @@ describe('publishToNpmAsync', () => {
     await jest.advanceTimersByTimeAsync(5000); // First retry delay
     await jest.advanceTimersByTimeAsync(5000); // Second retry delay
     await jest.advanceTimersByTimeAsync(5000); // Third retry delay
-
 
     await expect(publishPromise).rejects.toThrow(
       'npm publish failed'
@@ -321,12 +334,16 @@ describe('publishToNpmAsync', () => {
     expect(mainPackageViewCalls.length).toBe(4); // 1 initial + 3 retries
 
     expect(CommandUtils.npmPublishPublic).toHaveBeenCalledTimes(2);
-    expect(CommandUtils.npmPublishPublic).toHaveBeenCalledWith(
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      1,
       dataWithNoDeps.packageDistPathAbsolute,
+      expect.any(String),
       true
     );
-    expect(CommandUtils.npmPublishPublic).toHaveBeenCalledWith(
+    expect(CommandUtils.npmPublishPublic).toHaveBeenNthCalledWith(
+      2,
       dataWithNoDeps.packageDistPathAbsolute,
+      expect.any(String),
       false,
       true
     );

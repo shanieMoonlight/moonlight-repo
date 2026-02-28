@@ -1,5 +1,6 @@
 import { spawnSync } from 'child_process';
 import { CommandResult } from "./command-models";
+import chalk from 'chalk';
 
 /**
  * Utility class for running shell commands and build-related operations.
@@ -28,19 +29,25 @@ export class CommandUtils {
     //----------------------------//
 
     static npmPublishPublic(
-        packageDistPath: string,
+        packageDistToken: string,
+        token: string,
         dryRun: boolean = true,
-        verbose: boolean = true): CommandResult {
+        verbose: boolean = true,
+    ): CommandResult {
 
-        let command = `npm publish --access public`
+
+        const tokenLength = token.length;
+        console.log(chalk.blueBright(`Token Check: ${token.substring(0, 3)}***${token.substring(tokenLength - 3, tokenLength)}`));
+
+        let command = `npm publish --access public --//registry.npmjs.org/:_authToken=${token}`;
+
+        console.log(chalk.blueBright(`Publish Command: ${command.substring(0, command.length - 25)}...`));
         if (dryRun)
             command += ' --dry-run'
         if (verbose)
             command += ' --verbose'
-        return CommandUtils.run(command, { cwd: packageDistPath })
+        return CommandUtils.run(command, { cwd: packageDistToken })
 
     }
-
-    //----------------------------//
 
 }//Cls

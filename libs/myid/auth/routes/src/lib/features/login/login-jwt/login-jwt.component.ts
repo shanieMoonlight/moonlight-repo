@@ -19,9 +19,9 @@ import { LoginJwtStateService } from './login-jwt.state.service';
     LoginFormComponent,
     SbMatNotificationsModalComponent,
     ForgotPwdModalComponent,
-    SbButtonFacebookLoginComponent,
-    SbButtonAmazonLoginComponent,
-    SbButtonGoogleLoginComponent
+    // SbButtonFacebookLoginComponent,
+    // SbButtonAmazonLoginComponent,
+    // SbButtonGoogleLoginComponent
     // SbButtonMicrosoftLoginComponent
   ],
   providers: [LoginJwtStateService],
