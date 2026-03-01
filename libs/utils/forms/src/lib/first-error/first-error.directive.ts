@@ -4,9 +4,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
 import { EMPTY, filter, merge, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { CustomErrorMessageMap, FormErrors } from '../form-errors';
+import { CustomErrorMessageMap, FirstErrorMessageService } from '../form-error-message.service';
 import { FormUtility } from '../form-utility';
-import { FirstErrorControlResolutionService } from './first-error-control-resolution';
+import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-error-control-resolution';
 
 
 /**
@@ -35,7 +35,10 @@ import { FirstErrorControlResolutionService } from './first-error-control-resolu
 @Directive({
   selector: '[sbFormControlFirstError]',
   standalone: true,
-  providers: [FirstErrorControlResolutionService]
+  providers: [FirstErrorControlResolutionService],
+  host: {
+    [HOST_MARKER_ATTR]: ''
+  },
 })
 export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
@@ -44,9 +47,12 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
   private _renderer = inject(Renderer2);
   private _host: ElementRef<HTMLElement> = inject(ElementRef);
   private _controlResolution = inject(FirstErrorControlResolutionService);
+  private _formErrors = inject(FirstErrorMessageService);
 
   //- - - - - - - - - - - - - - //
 
+  //Both are selectors are NgControl so both lists are in a sense the same. but with different read tokens to get both the control and the host element
+  //There shoulld be a 1-to-1 mapping between the two lists based on the order of the controls in the template. We will use these lists to build a map of host element -> control for delegated event handling.
   @ContentChildren(NgControl, { descendants: true }) private _ngControls?: QueryList<NgControl>
   @ContentChildren(NgControl, { descendants: true, read: ElementRef }) private _ngControlElements?: QueryList<ElementRef<unknown>>
 
@@ -129,7 +135,9 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       return;
 
     this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: FocusEvent) => {
-      const resolvedControlData = this._controlResolution.resolveControlForEvent(event, this._host.nativeElement, this._controlHostMap, this._form)
+      const targetElement = event.target instanceof HTMLElement ? event.target : null;
+
+      const resolvedControlData = this._controlResolution.resolveControlForElement(targetElement, this._host.nativeElement, this._controlHostMap, this._form)
 
       if (!resolvedControlData)
         return;
@@ -142,7 +150,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       if (control.errors?.['firstError'])
         return;
 
-      FormErrors.setFirstErrorMessage(controlName, control, this.customErrorMessages)
+      this._formErrors.setFirstErrorMessage(controlName, control, this.customErrorMessages)
     })
   }
 
@@ -178,7 +186,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
 
           if (this.showUntouched || control.touched) {
-            FormErrors.setFirstErrorMessage(name, control, this.customErrorMessages);
+            this._formErrors.setFirstErrorMessage(name, control, this.customErrorMessages);
           }
         }
       })

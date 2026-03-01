@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup } from "@angular/forms";
 
 
@@ -53,10 +54,12 @@ const errorMessageMap: CustomErrorMessageMap = new Map<string, ErrorMessageFunct
  * to be reflected immediately in the UI. The directive `FirstErrorDirective`
  * intentionally leaves that decision up to the caller.
  */
-export class FormErrors {
+@Injectable({ providedIn: 'root' })
+export class FirstErrorMessageService {
 
 
-    static setFirstErrors(
+
+    setFirstErrors(
         form: FormGroup,
         customErrorMessages?: CustomErrorMessageMap): void {
 
@@ -72,15 +75,13 @@ export class FormErrors {
     //----------------------------//    
 
 
-    static setFirstErrorMessage(
+    setFirstErrorMessage(
         name: string,
         control: AbstractControl,
         customErrorMessages?: CustomErrorMessageMap): void {
 
-            console.log('control', control);
-            
         const currentErrors = control.errors
-        const firstErrorMessage = FormErrors.getFirstErrorMessage(name, control, customErrorMessages)
+        const firstErrorMessage = this.getFirstErrorMessage(name, control, customErrorMessages)
         if (firstErrorMessage)
             control.setErrors(
                 { ...currentErrors, firstError: firstErrorMessage },
@@ -89,11 +90,11 @@ export class FormErrors {
 
     }
 
-    
+
     //----------------------------//    
 
 
-    static getFirstErrorMessage(
+    getFirstErrorMessage(
         name: string,
         control: AbstractControl,
         customErrorMessages?: CustomErrorMessageMap): string | null {
@@ -104,7 +105,7 @@ export class FormErrors {
 
 
         const errorValue = control.errors?.[errorKey]
-        const fieldName = this.toTitleCase(name) 
+        const fieldName = this.toTitleCase(name)
 
         // Handle string error values (custom error messages)
         if (typeof errorValue === 'string')
@@ -125,13 +126,14 @@ export class FormErrors {
     //----------------------------//
 
 
-    private static firstErrorKey = (control: AbstractControl): string | null =>
-        Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
+    private firstErrorKey(control: AbstractControl): string | null {
+        return Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
+    }
 
 
     //----------------------------//
 
-    private static toTitleCase(s: string): string {
+    private toTitleCase(s: string): string {
         const result = s.replace(/([A-Z])/g, ' $1');
         return result.charAt(0).toUpperCase() + result.slice(1);
     }

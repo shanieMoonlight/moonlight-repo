@@ -1,0 +1,33 @@
+<div class="address-cva" (focusout)="markTouched()">
+  <form [formGroup]="_form" [sbFormControlFirstError]="_form" class="address-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Street</mat-label>
+      <input matInput formControlName="street" placeholder="Min length 3" />
+      @if(_form.controls.street.errors?.['firstError']; as err) {
+      <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+        {{err}}
+      </span>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" placeholder="Min length 2" />
+      @if(_form.controls.city.errors?.['firstError']; as err) {
+      <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+        {{err}}
+      </span>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode" placeholder="Min length 5" />
+      @if(_form.controls.postalCode.errors?.['firstError']; as err) {
+      <span class="error" [attr.aria-live]="'polite'" [attr.role]="'alert'">
+        {{err}}
+      </span>
+      }
+    </mat-form-field>
+  </form>
+</div>

@@ -58,7 +58,7 @@ export class FormUtility {
 
   public static findInvalidControlsData(form: FormGroup): ControlData[] {
     const invalid: ControlData[] = [];
-    this.collectInvalidControlsData(form, [], invalid)
+    this.collectInvalidControlsData(form, '', invalid)
     return invalid
   }
 
@@ -66,25 +66,29 @@ export class FormUtility {
 
   private static collectInvalidControlsData(
     control: AbstractControl,
-    path: string[],
+    name: string,
     invalid: ControlData[],
   ): void {
+    
+    if (control.disabled)
+      return
+
+    if (control.valid)
+      return
+
     if (control instanceof FormGroup) {
       for (const name in control.controls)
-        this.collectInvalidControlsData(control.controls[name], [...path, name], invalid)
+        this.collectInvalidControlsData(control.controls[name], name, invalid)
       return
     }
 
     if (control instanceof FormArray) {
       for (let i = 0; i < control.length; i++)
-        this.collectInvalidControlsData(control.at(i), [...path, String(i)], invalid)
+        this.collectInvalidControlsData(control.at(i), String(i), invalid)
       return
     }
 
-    if (control.invalid) {
-      const name = path.length > 0 ? path[path.length - 1] : ''
-      invalid.push({ name, control })
-    }
+    invalid.push({ name, control })
   }
 
   //----------------------------//

@@ -47,6 +47,8 @@
             </mat-form-field>
             }
 
+              <scratch-pad-address-cva formControlName="address"></scratch-pad-address-cva>
+
             <div formArrayName="aliases" class="array-section">
                  <!-- {{this._form.controls.aliases.controls | json}} -->
                 @for (aliasControl of this._form.controls.aliases.controls; track $index) {

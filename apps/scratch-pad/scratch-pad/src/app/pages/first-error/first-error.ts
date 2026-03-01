@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,13 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FirstErrorDirective } from '@spider-baby/utils-forms';
 import { MatIcon } from "@angular/material/icon";
-import { JsonPipe } from '@angular/common';
+import { AddressCvaComponent, AddressValue } from './address-cva';
 
 interface FirstErrorDemoForm {
   firstName: FormControl<string>;
   email: FormControl<string>;
   username: FormControl<string>;
   phoneNumber: FormControl<string>;
+  address: FormControl<AddressValue>;
   aliases: FormArray<FormControl<string>>;
 }
 
@@ -27,7 +28,7 @@ interface FirstErrorDemoForm {
     MatButtonModule,
     FirstErrorDirective,
     MatIcon,
-    JsonPipe
+    AddressCvaComponent,
   ],
   templateUrl: './first-error.html',
   styleUrl: './first-error.scss',
@@ -35,7 +36,6 @@ interface FirstErrorDemoForm {
 })
 export class FirstErrorPage {
   private _fb = inject(FormBuilder);
-  private _cd = inject(ChangeDetectorRef);
 
   show = signal(false);
 
@@ -44,6 +44,11 @@ export class FirstErrorPage {
     email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
     username: this._fb.nonNullable.control('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_]+$/)]),
     phoneNumber: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+    address: this._fb.nonNullable.control<AddressValue>({
+      street: '',
+      city: '',
+      postalCode: '',
+    }),
     aliases: this._fb.array<FormControl<string>>([
       this._fb.nonNullable.control('', [Validators.required, Validators.maxLength(3)]),
     ]),

@@ -1,5 +1,7 @@
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { FormErrors, CustomErrorMessageMap, ErrorMessageFunction } from './form-errors';
+import { FirstErrorMessageService as FormErrorsService, CustomErrorMessageMap, ErrorMessageFunction } from './form-error-message.service';
+
+const FormErrors = new FormErrorsService();
 
 // Custom validators for testing
 const customPatternValidator = (pattern: RegExp) => (control: AbstractControl) => {

@@ -1,5 +1,6 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, inject, Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup, NgControl } from '@angular/forms';
+import { ControlNameResolver } from './control-name-resolver';
 
 //##############################################//
 
@@ -15,13 +16,23 @@ export interface ResolvedControlData {
 
 //##############################################//
 
-@Injectable({ providedIn: 'root' })
+export const HOST_MARKER_ATTR = 'data-sb-first-error-host';
+
+//##############################################//
+
+
+@Injectable()
 export class FirstErrorControlResolutionService {
+
+    private _controlNameResolver = inject(ControlNameResolver);
+
 
     /** Cache for control -> path lookups to avoid repeated deep traversals. */
     private _pathCache = new WeakMap<AbstractControl, string[]>();
     /** Tracks roots whose control-path cache has been fully precomputed. */
     private _warmedRoots = new WeakSet<AbstractControl>();
+    /** Marker attribute applied by FirstErrorDirective to its host element. */
+    private static readonly FIRST_ERROR_HOST_ATTR = `[${HOST_MARKER_ATTR}]`;
 
 
     /**
@@ -31,7 +42,7 @@ export class FirstErrorControlResolutionService {
      * without scanning all controls on every event.
      */
     buildControlHostMap(
-        ngControls: readonly NgControl[] ,
+        ngControls: readonly NgControl[],
         ngControlElements: readonly ElementRef<unknown>[],
         formRoot: AbstractControl,
         invalidateCache: boolean = true,
@@ -63,23 +74,29 @@ export class FirstErrorControlResolutionService {
     //- - - - - - - - - - - - - - //
 
     /**
-     * Resolves the control associated with an event.
+     * Resolves the control associated with a target element.
      *
      * Resolution order:
      * 1) `NgControl` map lookup (preferred)
      * 2) DOM `formControlName` lookup fallback
      */
-    resolveControlForEvent(
-        event: Event,
+    resolveControlForElement(
+        targetElement: HTMLElement | null,
         hostElement: HTMLElement,
         controlHostMap: ReadonlyMap<HTMLElement, NgControl>,
         form: FormGroup,
     ): ResolvedControlData | null {
-        const ngControl = this.findNgControlFromEvent(event, hostElement, controlHostMap);
+        if (!targetElement)
+            return null;
+
+        if (this.shouldIgnoreNestedFirstErrorHost(targetElement, hostElement))
+            return null;
+
+        const ngControl = this.findNgControlFromElement(targetElement, hostElement, controlHostMap);
         if (ngControl?.control) {
             // Try path/name first, then DOM attribute. If none present and a root form
             // was provided, fall back to reference-based path discovery in the form tree.
-            const ngControlName = this.resolveControlName(ngControl) ?? this.resolveControlNameFromEvent(event);
+            const ngControlName = this._controlNameResolver.resolveFromNgControl(ngControl) ?? this._controlNameResolver.resolveFromElement(targetElement);
             if (ngControlName)
                 return { name: ngControlName, control: ngControl.control };
 
@@ -92,7 +109,7 @@ export class FirstErrorControlResolutionService {
             }
         }
 
-        const domControlName = this.resolveControlNameFromEvent(event);
+        const domControlName = this._controlNameResolver.resolveFromElement(targetElement);
         if (!domControlName)
             return null;
 
@@ -105,21 +122,24 @@ export class FirstErrorControlResolutionService {
 
     //- - - - - - - - - - - - - - //
 
+    private shouldIgnoreNestedFirstErrorHost(targetElement: HTMLElement, hostElement: HTMLElement): boolean {
+        const nearestFirstErrorHost = targetElement.closest(FirstErrorControlResolutionService.FIRST_ERROR_HOST_ATTR);
+        return !!nearestFirstErrorHost && nearestFirstErrorHost !== hostElement;
+    }
+
+    //- - - - - - - - - - - - - - //
+
     /**
-     * Walks up from the event target to the directive host to find a mapped `NgControl`.
+     * Walks up from the target element to the directive host to find a mapped `NgControl`.
      */
-    private findNgControlFromEvent(
-        event: Event,
+    private findNgControlFromElement(
+        targetElement: HTMLElement,
         hostElement: HTMLElement,
         controlHostMap: ReadonlyMap<HTMLElement, NgControl>,
     ): NgControl | null {
-        const eventTarget = event.target;
+        let current: HTMLElement | null = targetElement;
 
-        if (!(eventTarget instanceof HTMLElement))
-            return null;
-
-        let current: HTMLElement | null = eventTarget;
-
+        //Keep walking up (moving outwards) the DOM tree till we find a host element that we have a mapping for in our controlHostMap. 
         while (current) {
             const mappedNgControl = controlHostMap.get(current);
             if (mappedNgControl)
@@ -132,54 +152,6 @@ export class FirstErrorControlResolutionService {
         }
 
         return null;
-    }
-
-    //- - - - - - - - - - - - - - //
-
-    /**
-     * Resolves a control name from an `NgControl` using path first, then name.
-     *
-     * Rationale: prefer `ngControl.path` because it represents the full location
-     * of the control in the form tree; the last segment is the control's local
-     * key or FormArray index (e.g. `['aliases', 0]` -> `'0'`). This is more
-     * reliable than `ngControl.name` for nested groups, FormArray entries, and
-     * some CVA/wrapper scenarios where `name` may be undefined or inconsistent.
-     */
-    private resolveControlName(ngControl: NgControl | null): string | null {
-        if (!ngControl)
-            return null;
-
-
-        // Try path-based resolution first for better support of nested controls and FormArrays.
-        // ngControl.path is an array representing where the control sits in the form tree
-        // The last segment of the path is the name of this specific control (e.g. "aliases.0" -> "0").
-        const path = ngControl.path;
-        if (path && path.length > 0)
-            return String(path[path.length - 1]);
-
-        if (ngControl.name !== null && ngControl.name !== undefined)
-            return String(ngControl.name);
-
-        return null;
-    }
-
-    //- - - - - - - - - - - - - - //
-
-    /**
-     * Resolves `formControlName` from the nearest matching DOM ancestor.
-     */
-    private resolveControlNameFromEvent(event: Event): string | null {
-        const eventTarget = event.target;
-
-        if (!(eventTarget instanceof HTMLElement))
-            return null;
-
-        const controlElement = eventTarget.closest('[formControlName]');
-
-        if (!controlElement)
-            return null;
-
-        return controlElement.getAttribute('formControlName');
     }
 
     //- - - - - - - - - - - - - - //
