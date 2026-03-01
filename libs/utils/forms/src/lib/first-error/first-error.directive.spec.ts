@@ -98,6 +98,38 @@ class DynamicVisibilityHostComponent {
         }
     }
 
+@Component({
+    standalone: true,
+    imports: [ReactiveFormsModule, FirstErrorDirective],
+    template: `
+    <form [formGroup]="testForm" [sbFormControlFirstError]="testForm" data-testid="array-formcontrol-form">
+        <div formArrayName="aliases">
+            <input [formControl]="aliases.at(0)" data-testid="fc-alias-0-input">
+
+            @if(showExtra) {
+                <input [formControl]="aliases.at(1)" data-testid="fc-alias-1-input">
+            }
+        </div>
+    </form>
+    `
+})
+class FormArrayFormControlHostComponent {
+    private fb: FormBuilder = inject(FormBuilder);
+
+    showExtra = false;
+
+    testForm = this.fb.group({
+        aliases: this.fb.array([
+            this.fb.control('', [Validators.required, Validators.minLength(3)]),
+            this.fb.control('', [Validators.required, Validators.minLength(3)]),
+        ]),
+    });
+
+    get aliases(): FormArray<FormControl<string | null>> {
+        return this.testForm.controls.aliases;
+    }
+}
+
 describe('FirstErrorDirective', () => {
     let component: TestHostComponent;
     let fixture: ComponentFixture<TestHostComponent>;
@@ -127,6 +159,14 @@ describe('FirstErrorDirective', () => {
 
         it('should create the directive', () => {
             expect(directiveInstance).toBeTruthy();
+        });
+
+        it('calls initControlHostMapSync during initialization', () => {
+            const spy = jest.spyOn(FirstErrorDirective.prototype as any, 'initControlHostMapSync');
+            const localFixture = TestBed.createComponent(TestHostComponent);
+            localFixture.detectChanges();
+            expect(spy).toHaveBeenCalled();
+            spy.mockRestore();
         });
 
         it('should bind to form correctly', () => {
@@ -657,6 +697,57 @@ describe('FirstErrorDirective', () => {
 
             tick();
             formArrayFixture.detectChanges();
+
+            expect(secondAlias.errors?.['firstError']).toBeTruthy();
+        }));
+
+        it('should set firstError on touched FormArray controls during statusChanges without focusout', fakeAsync(() => {
+            const secondAlias = formArrayComponent.aliases.at(1);
+
+            formArrayComponent.showExtra = true;
+            formArrayFixture.detectChanges();
+
+            formArrayComponent.aliases.at(0).setValue('validAlias');
+            secondAlias.markAsTouched();
+            secondAlias.setValue('');
+
+            formArrayComponent.testForm.updateValueAndValidity();
+            tick();
+            formArrayFixture.detectChanges();
+
+            expect(secondAlias.errors?.['firstError']).toBeTruthy();
+        }));
+    });
+
+    //----------------------------//
+
+    describe('FormArray + [formControl] StatusChanges', () => {
+        let formArrayFormControlFixture: ComponentFixture<FormArrayFormControlHostComponent>;
+        let formArrayFormControlComponent: FormArrayFormControlHostComponent;
+
+        beforeEach(() => {
+            formArrayFormControlFixture = TestBed.createComponent(FormArrayFormControlHostComponent);
+            formArrayFormControlComponent = formArrayFormControlFixture.componentInstance;
+            formArrayFormControlFixture.detectChanges();
+        });
+
+        afterEach(() => {
+            formArrayFormControlFixture?.destroy();
+        });
+
+        it('sets firstError for touched FormArray control bound with [formControl] without requiring focusout', fakeAsync(() => {
+            const secondAlias = formArrayFormControlComponent.aliases.at(1);
+
+            formArrayFormControlComponent.showExtra = true;
+            formArrayFormControlFixture.detectChanges();
+
+            formArrayFormControlComponent.aliases.at(0).setValue('validAlias');
+            secondAlias.markAsTouched();
+            secondAlias.setValue('');
+
+            formArrayFormControlComponent.testForm.updateValueAndValidity();
+            tick();
+            formArrayFormControlFixture.detectChanges();
 
             expect(secondAlias.errors?.['firstError']).toBeTruthy();
         }));

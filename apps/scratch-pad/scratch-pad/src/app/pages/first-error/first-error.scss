@@ -37,3 +37,13 @@ mat-card {
   display: flex;
   flex-direction: column;
 }
+
+.alias-row{
+  display: flex;
+  // align-items: center;
+  gap: 0.5rem;
+  // margin-bottom: 0.5rem;
+  mat-form-field {
+    flex: 1;  
+  }
+}

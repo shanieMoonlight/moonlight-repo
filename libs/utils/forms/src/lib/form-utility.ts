@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup } from "@angular/forms";
 
 //##########################//
 
@@ -57,17 +57,34 @@ export class FormUtility {
   //----------------------------//
 
   public static findInvalidControlsData(form: FormGroup): ControlData[] {
+    const invalid: ControlData[] = [];
+    this.collectInvalidControlsData(form, [], invalid)
+    return invalid
+  }
 
-    const invalid: { name: string, control: AbstractControl }[] = [];
-    const controls = form.controls
+  //----------------------------//
 
-    for (const name in controls) {
-      const control = controls[name]
-      if (control.invalid)
-        invalid.push({ name, control })
+  private static collectInvalidControlsData(
+    control: AbstractControl,
+    path: string[],
+    invalid: ControlData[],
+  ): void {
+    if (control instanceof FormGroup) {
+      for (const name in control.controls)
+        this.collectInvalidControlsData(control.controls[name], [...path, name], invalid)
+      return
     }
 
-    return invalid
+    if (control instanceof FormArray) {
+      for (let i = 0; i < control.length; i++)
+        this.collectInvalidControlsData(control.at(i), [...path, String(i)], invalid)
+      return
+    }
+
+    if (control.invalid) {
+      const name = path.length > 0 ? path[path.length - 1] : ''
+      invalid.push({ name, control })
+    }
   }
 
   //----------------------------//

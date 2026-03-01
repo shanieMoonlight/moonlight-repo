@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ContentChildren, Directive, ElementRef, inject, Input, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ContentChildren, DestroyRef, Directive, ElementRef, inject, Input, OnDestroy, PLATFORM_ID, QueryList, Renderer2 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
-import { filter, Subscription } from 'rxjs';
+import { EMPTY, filter, merge, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CustomErrorMessageMap, FormErrors } from '../form-errors';
 import { FormUtility } from '../form-utility';
@@ -33,11 +34,13 @@ import { FirstErrorControlResolutionService } from './first-error-control-resolu
  */
 @Directive({
   selector: '[sbFormControlFirstError]',
-  standalone: true
+  standalone: true,
+  providers: [FirstErrorControlResolutionService]
 })
 export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
   private _platformId = inject(PLATFORM_ID);
+  private _destroyRef: DestroyRef = inject(DestroyRef);
   private _renderer = inject(Renderer2);
   private _host: ElementRef<HTMLElement> = inject(ElementRef);
   private _controlResolution = inject(FirstErrorControlResolutionService);
@@ -45,6 +48,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
   //- - - - - - - - - - - - - - //
 
   @ContentChildren(NgControl, { descendants: true }) private _ngControls?: QueryList<NgControl>
+  @ContentChildren(NgControl, { descendants: true, read: ElementRef }) private _ngControlElements?: QueryList<ElementRef<unknown>>
 
   //- - - - - - - - - - - - - - //
 
@@ -68,9 +72,8 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
   //- - - - - - - - - - - - - - //
 
-  private _form?: FormGroup
+  private _form!: FormGroup
   private _vcSub?: Subscription
-  private _ngControlsSub?: Subscription
   private _focusOutUnlisten?: () => void
   private _controlHostMap = new Map<HTMLElement, NgControl>()
 
@@ -78,20 +81,42 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
   //Wait for content children to be available so we can build the control host map for delegated focusout handling.
   ngAfterContentInit(): void {
-     this._controlHostMap = this._controlResolution.buildControlHostMap(this._ngControls?.toArray())
+    this.initControlHostMapSync();
+  }
 
-    this._ngControlsSub = this._ngControls?.changes.subscribe(() => {
-      this._controlHostMap = this._controlResolution.buildControlHostMap(this._ngControls?.toArray())
-    });
+  //- - - - - - - - - - - - - - //
+
+  ngOnDestroy(): void {
+    this._vcSub?.unsubscribe()
+    this._focusOutUnlisten?.();
+    this._controlHostMap.clear();
   }
 
   //----------------------------//
 
-  ngOnDestroy(): void {
-    this._vcSub?.unsubscribe()
-    this._ngControlsSub?.unsubscribe()
-    this._focusOutUnlisten?.();
-    this._controlHostMap.clear();
+  // Extracted wiring so tests can assert the initialization behavior and
+  // to keep lifecycle wiring in a single, named method.
+  private initControlHostMapSync(): void {
+    this.refreshControlHostMap();
+
+    merge(
+      this._ngControls?.changes ?? EMPTY,
+      this._ngControlElements?.changes ?? EMPTY,
+    ).pipe(
+      takeUntilDestroyed(this._destroyRef),
+    ).subscribe(() => {
+      this.refreshControlHostMap();
+    });
+  }
+
+  //- - - - - - - - - - - - - - //
+
+  private refreshControlHostMap() {
+    this._controlHostMap = this._controlResolution.buildControlHostMap(
+      this._ngControls?.toArray() ?? [],
+      this._ngControlElements?.toArray() ?? [],
+      this._form,
+    )
   }
 
   //----------------------------//
@@ -104,13 +129,13 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       return;
 
     this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: FocusEvent) => {
-      const resolved = this._controlResolution.resolveControlForEvent(event, this._host.nativeElement, this._controlHostMap, this._form)
+      const resolvedControlData = this._controlResolution.resolveControlForEvent(event, this._host.nativeElement, this._controlHostMap, this._form)
 
-      if (!resolved)
+      if (!resolvedControlData)
         return;
 
-      const controlName = resolved.name
-      const control = resolved.control
+      const controlName = resolvedControlData.name
+      const control = resolvedControlData.control
 
       // Preserve previous behavior: blur can set firstError for untouched invalid
       // controls. We only skip when control is missing or firstError is already set.

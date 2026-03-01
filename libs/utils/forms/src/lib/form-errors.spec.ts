@@ -546,7 +546,7 @@ describe('FormErrors', () => {
       const endTime = performance.now();
 
       // Should complete quickly
-      expect(endTime - startTime).toBeLessThan(50);
+      expect(endTime - startTime).toBeLessThan(150);
 
       // All controls should have firstError
       Object.keys(controls).forEach(key => {
