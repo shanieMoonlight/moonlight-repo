@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { By } from '@angular/platform-browser';
 import { FirstErrorDirective } from './first-error.directive';
 import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
-import { FormUtility } from '../form-utility';
+import { FormUtility } from '../../form-utility';
 
 // Test host component to test the directive
 @Component({

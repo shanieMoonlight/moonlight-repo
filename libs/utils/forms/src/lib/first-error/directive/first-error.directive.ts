@@ -3,9 +3,9 @@ import { AfterContentInit, ContentChildren, DestroyRef, Directive, ElementRef, i
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
 import { EMPTY, filter, merge, Subscription } from 'rxjs';
-import { auditTime, map, startWith } from 'rxjs/operators';
+import { auditTime, map, startWith, mergeMap } from 'rxjs/operators';
 import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
-import { FormUtility } from '../form-utility';
+import { FormUtility } from '../../form-utility';
 import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-error-control-resolution';
 
 
@@ -50,7 +50,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
   private _renderer = inject(Renderer2);
   private _host: ElementRef<HTMLElement> = inject(ElementRef);
   private _controlResolution = inject(FirstErrorControlResolutionService);
-  private _formErrors = inject(FirstErrorMessageService);
+  private _firstErrorMsgService = inject(FirstErrorMessageService);
 
   //- - - - - - - - - - - - - - //
 
@@ -147,7 +147,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       if (resolvedControl.errors?.['firstError'])
         return;
 
-      this._formErrors.setFirstErrorMessage(resolvedControl, this.customErrorMessages)
+      this._firstErrorMsgService.setFirstErrorMessage(resolvedControl, this.customErrorMessages)
     })
   }
 
@@ -169,7 +169,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
         startWith('PENDING'), // Start with non-Invalid so the first error will be set on blur if the user clicks input without entering any data
         filter(() => form.status === 'INVALID'),
         auditTime(0),
-        map(() => FormUtility.findInvalidControlsData(form))
+        map(() => FormUtility.findInvalidControlsData(form)),
       )
       .subscribe((invalidControlData) => {
 
@@ -181,7 +181,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
 
           if (this.showUntouched || control.touched) {
-            this._formErrors.setFirstErrorMessage(control, this.customErrorMessages);
+            this._firstErrorMsgService.setFirstErrorMessage(control, this.customErrorMessages);
           }
         }
       })
