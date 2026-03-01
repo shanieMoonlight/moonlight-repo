@@ -1,14 +1,5 @@
 import { AbstractControl, FormArray, FormGroup } from "@angular/forms";
 
-//##########################//
-
-export interface ControlData {
-  name: string;
-  control: AbstractControl;
-}
-
-//##########################//
-
 export class FormUtility {
 
   public static findInvalidControlNames(form: FormGroup): Set<string> {
@@ -56,9 +47,9 @@ export class FormUtility {
 
   //----------------------------//
 
-  public static findInvalidControlsData(form: FormGroup): ControlData[] {
-    const invalid: ControlData[] = [];
-    this.collectInvalidControlsData(form, '', invalid)
+  public static findInvalidControlsData(form: FormGroup): AbstractControl[] {
+    const invalid: AbstractControl[] = [];
+    this.collectInvalidControlsData(form, invalid)
     return invalid
   }
 
@@ -66,10 +57,9 @@ export class FormUtility {
 
   private static collectInvalidControlsData(
     control: AbstractControl,
-    name: string,
-    invalid: ControlData[],
+    invalid: AbstractControl[],
   ): void {
-    
+
     if (control.disabled)
       return
 
@@ -78,17 +68,17 @@ export class FormUtility {
 
     if (control instanceof FormGroup) {
       for (const name in control.controls)
-        this.collectInvalidControlsData(control.controls[name], name, invalid)
+        this.collectInvalidControlsData(control.controls[name], invalid)
       return
     }
 
     if (control instanceof FormArray) {
       for (let i = 0; i < control.length; i++)
-        this.collectInvalidControlsData(control.at(i), String(i), invalid)
+        this.collectInvalidControlsData(control.at(i), invalid)
       return
     }
 
-    invalid.push({ name, control })
+    invalid.push(control)
   }
 
   //----------------------------//
@@ -106,7 +96,7 @@ export class FormUtility {
   //----------------------------//
 
   static getFirstFormError(form: FormGroup): Record<string, any> | null {
-    
+
     if (form.valid)
       return null
 

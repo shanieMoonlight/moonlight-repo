@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FirstErrorDirective } from './first-error.directive';
-import { CustomErrorMessageMap, FirstErrorMessageService } from '../form-error-message.service';
+import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
 import { FormUtility } from '../form-utility';
 
 // Test host component to test the directive

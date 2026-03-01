@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup } from "@angular/forms";
 
 
 //##########################//
@@ -54,9 +54,11 @@ const errorMessageMap: CustomErrorMessageMap = new Map<string, ErrorMessageFunct
  * to be reflected immediately in the UI. The directive `FirstErrorDirective`
  * intentionally leaves that decision up to the caller.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class FirstErrorMessageService {
 
+    private _titleCaseCache = new Map<string, string>();
+    private _controlNameCache = new WeakMap<AbstractControl, string | null>();
 
 
     setFirstErrors(
@@ -67,7 +69,7 @@ export class FirstErrorMessageService {
         for (const name in controls) {
             const control = controls[name]
             if (control.invalid)
-                this.setFirstErrorMessage(name, control, customErrorMessages)
+                this.setFirstErrorMessage(control, customErrorMessages)
         }
     }
 
@@ -76,9 +78,10 @@ export class FirstErrorMessageService {
 
 
     setFirstErrorMessage(
-        name: string,
         control: AbstractControl,
-        customErrorMessages?: CustomErrorMessageMap): void {
+        customErrorMessages?: CustomErrorMessageMap,
+    ): void {
+        const name = this.resolveFromControl(control) ?? 'Field'
 
         const currentErrors = control.errors
         const firstErrorMessage = this.getFirstErrorMessage(name, control, customErrorMessages)
@@ -87,7 +90,6 @@ export class FirstErrorMessageService {
                 { ...currentErrors, firstError: firstErrorMessage },
                 { emitEvent: false }  // This prevents statusChanges emission
             )
-
     }
 
 
@@ -97,8 +99,8 @@ export class FirstErrorMessageService {
     getFirstErrorMessage(
         name: string,
         control: AbstractControl,
-        customErrorMessages?: CustomErrorMessageMap): string | null {
-
+        customErrorMessages?: CustomErrorMessageMap,
+    ): string | null {
         const errorKey = this.firstErrorKey(control)
         if (!errorKey)
             return null
@@ -125,17 +127,65 @@ export class FirstErrorMessageService {
 
     //----------------------------//
 
+    /**
+     * Resolves a control name from its parent relationship in the form tree.
+     */
+    private resolveFromControl(control: AbstractControl | null): string | null {
+        if (!control)
+            return null;
+
+        if (this._controlNameCache.has(control))
+            return this._controlNameCache.get(control) ?? null;
+
+        let resolvedName: string | null = null;
+
+        const parent = control.parent;
+        if (!parent) {
+            this._controlNameCache.set(control, null);
+            return null;
+        }
+
+        if (parent instanceof FormGroup) {
+            const controls = parent.controls;
+            for (const key of Object.keys(controls)) {
+                if (controls[key] === control) {
+                    resolvedName = key;
+                    break;
+                }
+            }
+        }
+
+        if (!resolvedName && parent instanceof FormArray) {
+            const index = parent.controls.indexOf(control);
+            if (index >= 0)
+                resolvedName = String(index);
+        }
+
+        this._controlNameCache.set(control, resolvedName);
+        return resolvedName;
+    }
+
+    //----------------------------//
+
 
     private firstErrorKey(control: AbstractControl): string | null {
-        return Object.keys(control.errors || {}).length > 0 ? Object.keys(control.errors || {})[0] : null;
+        const errorKeys = Object.keys(control.errors || {});
+        return errorKeys.length > 0 ? errorKeys[0] : null;
     }
 
 
     //----------------------------//
 
     private toTitleCase(s: string): string {
+        const cachedValue = this._titleCaseCache.get(s);
+        if (cachedValue)
+            return cachedValue;
+
         const result = s.replace(/([A-Z])/g, ' $1');
-        return result.charAt(0).toUpperCase() + result.slice(1);
+        const titleCaseValue = result.charAt(0).toUpperCase() + result.slice(1);
+
+        this._titleCaseCache.set(s, titleCaseValue);
+        return titleCaseValue;
     }
 
 }//Cls

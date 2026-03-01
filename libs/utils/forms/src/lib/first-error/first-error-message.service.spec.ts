@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { FirstErrorMessageService as FormErrorsService, CustomErrorMessageMap, ErrorMessageFunction } from './form-error-message.service';
+import { FirstErrorMessageService as FormErrorsService, CustomErrorMessageMap, ErrorMessageFunction } from './first-error-message.service';
 
 const FormErrors = new FormErrorsService();
 
@@ -155,24 +155,24 @@ describe('FormErrors', () => {
     it('should add firstError to single invalid control', () => {
       const control = new FormControl('', [Validators.required]);
 
-      FormErrors.setFirstErrorMessage('testField', control);
+      FormErrors.setFirstErrorMessage(control);
 
-      expect(control.errors?.['firstError']).toBe('Test Field is required.');
+      expect(control.errors?.['firstError']).toBe('Field is required.');
       expect(control.errors?.['required']).toBe(true);
     });
 
     it('should use custom error messages for single control', () => {
       const control = new FormControl('', [Validators.required]);
 
-      FormErrors.setFirstErrorMessage('email', control, customErrorMap);
+      FormErrors.setFirstErrorMessage(control, customErrorMap);
 
-      expect(control.errors?.['firstError']).toBe('Please provide a email.');
+      expect(control.errors?.['firstError']).toBe('Please provide a field.');
     });
 
     it('should handle control with no errors', () => {
       const validControl = new FormControl('valid', [Validators.required]);
 
-      FormErrors.setFirstErrorMessage('testField', validControl);
+      FormErrors.setFirstErrorMessage(validControl);
 
       expect(validControl.errors).toBeNull();
     });
@@ -180,9 +180,9 @@ describe('FormErrors', () => {
     it('should handle control with custom validator', () => {
       const control = new FormControl('invalid', [customPatternValidator(/^test/)]);
 
-      FormErrors.setFirstErrorMessage('customField', control, customErrorMap);
+      FormErrors.setFirstErrorMessage(control, customErrorMap);
 
-      expect(control.errors?.['firstError']).toBe('Custom Field must match pattern: ^test');
+      expect(control.errors?.['firstError']).toBe('Field must match pattern: ^test');
     });
 
     it('should not emit events', () => {
@@ -190,7 +190,7 @@ describe('FormErrors', () => {
       const statusChangeSpy = jest.fn();
       control.statusChanges.subscribe(statusChangeSpy);
 
-      FormErrors.setFirstErrorMessage('testField', control);
+      FormErrors.setFirstErrorMessage(control);
 
       expect(statusChangeSpy).not.toHaveBeenCalled();
     });

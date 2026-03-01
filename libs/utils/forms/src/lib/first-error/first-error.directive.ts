@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
 import { EMPTY, filter, merge, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { CustomErrorMessageMap, FirstErrorMessageService } from '../form-error-message.service';
+import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
 import { FormUtility } from '../form-utility';
 import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-error-control-resolution';
 
@@ -35,7 +35,10 @@ import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-er
 @Directive({
   selector: '[sbFormControlFirstError]',
   standalone: true,
-  providers: [FirstErrorControlResolutionService],
+  providers: [
+    FirstErrorControlResolutionService,
+    FirstErrorMessageService
+  ],
   host: {
     [HOST_MARKER_ATTR]: ''
   },
@@ -121,7 +124,6 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
     this._controlHostMap = this._controlResolution.buildControlHostMap(
       this._ngControls?.toArray() ?? [],
       this._ngControlElements?.toArray() ?? [],
-      this._form,
     )
   }
 
@@ -137,20 +139,15 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
     this._focusOutUnlisten = this._renderer.listen(this._host.nativeElement, 'focusout', (event: FocusEvent) => {
       const targetElement = event.target instanceof HTMLElement ? event.target : null;
 
-      const resolvedControlData = this._controlResolution.resolveControlForElement(targetElement, this._host.nativeElement, this._controlHostMap, this._form)
+      const resolvedControl = this._controlResolution.resolveControlForElement(targetElement, this._host.nativeElement, this._controlHostMap)
 
-      if (!resolvedControlData)
+      //  We only skip when control is missing or firstError is already set.
+      if (!resolvedControl)
+        return;
+      if (resolvedControl.errors?.['firstError'])
         return;
 
-      const controlName = resolvedControlData.name
-      const control = resolvedControlData.control
-
-      // Preserve previous behavior: blur can set firstError for untouched invalid
-      // controls. We only skip when control is missing or firstError is already set.
-      if (control.errors?.['firstError'])
-        return;
-
-      this._formErrors.setFirstErrorMessage(controlName, control, this.customErrorMessages)
+      this._formErrors.setFirstErrorMessage(resolvedControl, this.customErrorMessages)
     })
   }
 
@@ -175,10 +172,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       )
       .subscribe((invalidControlData) => {
 
-        for (const controlData of invalidControlData) {
-          const control = controlData.control;
-          const name = controlData.name;
-
+        for (const control of invalidControlData) {
 
           // Skip if firstError is already set
           if (control.errors?.['firstError'])
@@ -186,7 +180,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
 
 
           if (this.showUntouched || control.touched) {
-            this._formErrors.setFirstErrorMessage(name, control, this.customErrorMessages);
+            this._formErrors.setFirstErrorMessage(control, this.customErrorMessages);
           }
         }
       })
