@@ -3,7 +3,7 @@ import { AfterContentInit, ContentChildren, DestroyRef, Directive, ElementRef, i
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
 import { EMPTY, filter, merge, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { auditTime, map, startWith } from 'rxjs/operators';
 import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
 import { FormUtility } from '../form-utility';
 import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-error-control-resolution';
@@ -168,6 +168,7 @@ export class FirstErrorDirective implements OnDestroy, AfterContentInit {
       .pipe(
         startWith('PENDING'), // Start with non-Invalid so the first error will be set on blur if the user clicks input without entering any data
         filter(() => form.status === 'INVALID'),
+        auditTime(0),
         map(() => FormUtility.findInvalidControlsData(form))
       )
       .subscribe((invalidControlData) => {
