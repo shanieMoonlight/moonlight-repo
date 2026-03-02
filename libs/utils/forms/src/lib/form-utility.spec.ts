@@ -178,43 +178,32 @@ describe('FormUtility', () => {
       expect(result.length).toBe(0);
     });
 
-    it('should return ControlData objects for invalid form', () => {
+    it('should return invalid controls for invalid form', () => {
       const result = FormUtility.findInvalidControlsData(invalidForm);
       
       expect(result.length).toBe(3);
       
-      // Check structure of returned objects
-      result.forEach(item => {
-        expect(item).toHaveProperty('name');
-        expect(item).toHaveProperty('control');
-        expect(typeof item.name).toBe('string');
-        expect(item.control.invalid).toBe(true);
+      result.forEach(control => {
+        expect(control.invalid).toBe(true);
       });
 
-      // Check specific mappings
-      const emailData = result.find(item => item.name === 'email');
-      expect(emailData?.control).toBe(invalidForm.get('email'));
-      
-      const usernameData = result.find(item => item.name === 'username');
-      expect(usernameData?.control).toBe(invalidForm.get('username'));
+      expect(result).toContain(invalidForm.get('email'));
+      expect(result).toContain(invalidForm.get('username'));
     });
 
-    it('should return correct name-control pairs for mixed form', () => {
+    it('should return the invalid control for mixed form', () => {
       const result = FormUtility.findInvalidControlsData(mixedForm);
       
       expect(result.length).toBe(1);
-      expect(result[0].name).toBe('username');
-      expect(result[0].control).toBe(mixedForm.get('username'));
+      expect(result[0]).toBe(mixedForm.get('username'));
     });
 
-    it('should match the ControlData interface structure', () => {
+    it('should return only AbstractControl items', () => {
       const result = FormUtility.findInvalidControlsData(invalidForm);
       
-      result.forEach(item => {
-        // TypeScript interface validation
-        expect(typeof item.name).toBe('string');
-        expect(item.control).toBeDefined();
-        expect(item.control.invalid).toBe(true);
+      result.forEach(control => {
+        expect(control).toBeDefined();
+        expect(control.invalid).toBe(true);
       });
     });
   });
@@ -406,9 +395,10 @@ describe('FormUtility', () => {
       expect(invalidData.length).toBe(2);
       
       // Check that firstError doesn't interfere with detection
-      const emailData = invalidData.find(item => item.name === 'email');
-      expect(emailData?.control.errors).toHaveProperty('firstError');
-      expect(emailData?.control.errors).toHaveProperty('required');
+      const emailControl = form.get('email');
+      expect(invalidData).toContain(emailControl);
+      expect(emailControl?.errors).toHaveProperty('firstError');
+      expect(emailControl?.errors).toHaveProperty('required');
     });
 
     it('should handle complex form validation scenarios', () => {

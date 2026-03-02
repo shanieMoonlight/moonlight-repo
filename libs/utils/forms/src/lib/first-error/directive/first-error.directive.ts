@@ -3,7 +3,7 @@ import { AfterContentInit, ContentChildren, DestroyRef, Directive, ElementRef, i
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, NgControl } from '@angular/forms';
 import { EMPTY, filter, merge, Subscription } from 'rxjs';
-import { auditTime, map, startWith, mergeMap } from 'rxjs/operators';
+import { auditTime, map, startWith } from 'rxjs/operators';
 import { CustomErrorMessageMap, FirstErrorMessageService } from './first-error-message.service';
 import { FormUtility } from '../../form-utility';
 import { FirstErrorControlResolutionService, HOST_MARKER_ATTR } from './first-error-control-resolution';

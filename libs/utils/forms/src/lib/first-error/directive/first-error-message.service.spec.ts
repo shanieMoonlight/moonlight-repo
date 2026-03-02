@@ -153,7 +153,10 @@ describe('FormErrors', () => {
   describe('setFirstErrorMessage', () => {
 
     it('should add firstError to single invalid control', () => {
-      const control = new FormControl('', [Validators.required]);
+      const form = new FormGroup({
+        field: new FormControl('', [Validators.required])
+      });
+      const control = form.get('field') as FormControl;
 
       FormErrors.setFirstErrorMessage(control);
 
@@ -162,7 +165,10 @@ describe('FormErrors', () => {
     });
 
     it('should use custom error messages for single control', () => {
-      const control = new FormControl('', [Validators.required]);
+      const form = new FormGroup({
+        field: new FormControl('', [Validators.required])
+      });
+      const control = form.get('field') as FormControl;
 
       FormErrors.setFirstErrorMessage(control, customErrorMap);
 
@@ -178,7 +184,10 @@ describe('FormErrors', () => {
     });
 
     it('should handle control with custom validator', () => {
-      const control = new FormControl('invalid', [customPatternValidator(/^test/)]);
+      const form = new FormGroup({
+        field: new FormControl('invalid', [customPatternValidator(/^test/)])
+      });
+      const control = form.get('field') as FormControl;
 
       FormErrors.setFirstErrorMessage(control, customErrorMap);
 
